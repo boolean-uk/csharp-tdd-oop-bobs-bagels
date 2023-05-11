@@ -15,10 +15,44 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void AddBagelTest()
         {
             Basket basket = new Basket();
-            ShopItems item1 = new ShopItems();
+            ShopItem item1 = new ShopItem();
             item1.Name = "Onion";
             basket.AddItemToBasket(item1);
             Assert.AreEqual(basket.ShoppingBasket.Count, 1);
+        }
+
+        [Test]
+        public void RemoveBagelTest() 
+        {
+            Basket basket = new Basket();
+            ShopItem item1 = new ShopItem();
+            item1.Name = "Regular";
+            ShopItem item2 = new ShopItem();
+            item2.Name = "Onion";
+            basket.AddItemToBasket(item1);
+            basket.AddItemToBasket(item2);
+            int count = basket.ShoppingBasket.Count;
+            bool removeResult = basket.RemoveItemFromBasket("Onion");
+
+            Assert.IsTrue(removeResult);
+            Assert.AreEqual(count -1, basket.ShoppingBasket.Count);
+
+        }
+
+        [Test]
+        public void isBasketFullTest() 
+        {
+            Basket basket = new Basket();
+            basket.TestData();
+            ShopItem item1 = new ShopItem();
+            item1.Name = "Coffee";
+            ShopItem item2 = new ShopItem();
+            item2.Name = "Cheese";
+            basket.AddItemToBasket(item1);
+            basket.AddItemToBasket(item2);
+
+            Assert.AreEqual(basket.ShoppingBasket.Count, basket.ShoppingBasketMax);
+
         }
     }
 }

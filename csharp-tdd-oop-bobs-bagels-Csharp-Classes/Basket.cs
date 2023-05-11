@@ -14,21 +14,39 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         }
 
-        public void InventoryListData()
+        public void TestData()
         {
-            this.InventoryList.Add(new ShopItems() { Name = "Onion"});
-            this.InventoryList.Add(new ShopItems() { Name = "Plain" });
-            this.InventoryList.Add(new ShopItems() { Name = "Everything" });
-            this.InventoryList.Add(new ShopItems() { Name = "Sesame" });           
+            this.ShoppingBasket.Add(new ShopItem() { Name = "Onion"});
+            this.ShoppingBasket.Add(new ShopItem() { Name = "Plain" });
+            this.ShoppingBasket.Add(new ShopItem() { Name = "Everything" });
+            this.ShoppingBasket.Add(new ShopItem() { Name = "Sesame" });           
         }
 
-        public void AddItemToBasket(ShopItems item)
+        public void AddItemToBasket(ShopItem item)
         {
-            this.ShoppingBasket.Add(item);
+            if (this.ShoppingBasket.Count < this.ShoppingBasketMax) 
+            {
+                this.ShoppingBasket.Add(item);
+            } else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
+            {
+                Console.WriteLine("Basket is full!");
+            }
+            
         }
 
-        public List<ShopItems> InventoryList { get; set; } = new List<ShopItems>();
-        public List<ShopItems> ShoppingBasket { get; set; } = new List<ShopItems>();
+        public bool RemoveItemFromBasket(string name)
+        {
+            var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.Name == name);
+            if (itemToRemove != null) 
+            {
+                return this.ShoppingBasket.Remove(itemToRemove) ? true : false;
+            }
+            return false;
+        }
+
+        public List<ShopItem> InventoryList { get; set; } = new List<ShopItem>();
+        public List<ShopItem> ShoppingBasket { get; set; } = new List<ShopItem>();
+        public int ShoppingBasketMax { get; set; } = 5;
 
     }
 
