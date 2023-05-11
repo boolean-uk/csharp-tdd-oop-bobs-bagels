@@ -46,7 +46,15 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         public void SetBasketMax(int value)
         {
-            throw new NotImplementedException();
+            // if role is manager
+            if(this.ShoppingBasket.Count < value)
+            {
+                ShoppingBasketMax = value;
+            } else
+            {
+                Console.WriteLine("Basket size cant be smaller than current items in Basket");
+            }
+            
         }
 
         public List<ShopItem> InventoryList { get; set; } = new List<ShopItem>();

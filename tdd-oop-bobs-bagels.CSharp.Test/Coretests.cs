@@ -55,14 +55,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
         }
 
-        [TestCase(7)]
-        public void ChangeBasketMaxTest(int value)
+        [TestCase(7, true)]
+        [TestCase(4, false)]
+        public void ChangeBasketMaxTest(int value, bool expected)
         {
             Basket basket = new Basket(); 
             basket.TestData();
             basket.SetBasketMax(value);
-            Assert.AreEqual(value, basket.ShoppingBasketMax);
+            Assert.AreEqual(value == basket.ShoppingBasketMax, expected);
             
+
+        }
+
+        [Test]
+        public void CalculateTotalTest()
+        {
+            Basket basket = new Basket(); 
+            basket.TestData();
 
         }
     }
