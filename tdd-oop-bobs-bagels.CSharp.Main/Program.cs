@@ -2,5 +2,5 @@
 using csharp_tdd_oop_bobs_bagels_Csharp_Classes;
 
 Console.WriteLine("Hello, World!");
-BagelsInventory inventory = new BagelsInventory();
+ShopItems inventory = new ShopItems();
 Console.WriteLine(inventory.test);

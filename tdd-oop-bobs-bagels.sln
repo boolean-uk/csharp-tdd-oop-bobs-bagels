@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tdd-oop-bobs-bagels.CSharp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-tdd-oop-bobs-bagels-Csharp-Classes", "csharp-tdd-oop-bobs-bagels-Csharp-Classes\csharp-tdd-oop-bobs-bagels-Csharp-Classes.csproj", "{E8E0200E-6C6F-43EC-B004-EEF1DF2E9ED6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{EFA0636F-4AD9-4BF3-A26B-5993CEC221FC}"
+	ProjectSection(SolutionItems) = preProject
+		domain_model.md = domain_model.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
