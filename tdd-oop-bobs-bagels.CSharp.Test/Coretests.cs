@@ -54,5 +54,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(basket.ShoppingBasket.Count, basket.ShoppingBasketMax);
 
         }
+
+        [TestCase(7)]
+        public void ChangeBasketMaxTest(int value)
+        {
+            Basket basket = new Basket(); 
+            basket.TestData();
+            basket.SetBasketMax(value);
+            Assert.AreEqual(value, basket.ShoppingBasketMax);
+            
+
+        }
     }
 }
