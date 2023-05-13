@@ -24,20 +24,20 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         {
             _products = new List<Item>
             {
-                new Item("BGLO", 0.49M, "Bagel", "Onion"),
-                new Item("BGLP", 0.39M, "Bagel", "Plain"),
-                new Item("BGLE", 0.49M, "Bagel", "Everything"),
-                new Item("COFB", 0.49M, "Bagel", "Sesame"),
-                new Item("COFW", 0.99M, "Coffee", "Black"),
-                new Item("COFC", 1.19M, "Coffee", "White"),
-                new Item("COFL", 1.29M, "Coffee", "Capuccino"),
-                new Item("BGLS", 1.29M, "Coffee", "Latte"),
-                new Item("FILB", 0.12M, "Filling", "Bacon"),
-                new Item("FILE", 0.12M, "Filling", "Egg"),
-                new Item("FILC", 0.12M, "Filling", "Cheese"),
-                new Item("FILX", 0.12M, "Filling", "Cream Cheese"),
-                new Item("FILS", 0.12M, "Filling", "Smoked Salmon"),
-                new Item("FILH", 0.12M, "Filling", "Ham")
+                new Item("BGLO", 0.49M, "Bagel", "Onion", 2),
+                new Item("BGLP", 0.39M, "Bagel", "Plain", 2),
+                new Item("BGLE", 0.49M, "Bagel", "Everything", 2),
+                new Item("COFB", 0.49M, "Bagel", "Sesame", 2),
+                new Item("COFW", 0.99M, "Coffee", "Black", 2),
+                new Item("COFC", 1.19M, "Coffee", "White", 2),
+                new Item("COFL", 1.29M, "Coffee", "Capuccino", 2),
+                new Item("BGLS", 1.29M, "Coffee", "Latte", 2),
+                new Item("FILB", 0.12M, "Filling", "Bacon", 2),
+                new Item("FILE", 0.12M, "Filling", "Egg", 2),
+                new Item("FILC", 0.12M, "Filling", "Cheese", 2),
+                new Item("FILX", 0.12M, "Filling", "Cream Cheese", 2),
+                new Item("FILS", 0.12M, "Filling", "Smoked Salmon", 2),
+                new Item("FILH", 0.12M, "Filling", "Ham", 2)
             };
         }
 
@@ -84,20 +84,17 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             {
                 if (item.SKU == sku)
                 {
-                    if (Basket.Count < _basketMax)
+                    if (item.Stock > 0)
                     {
-                        if (Basket.Contains(item))
+                        if (Basket.Count <= _basketMax)
                         {
-                            Console.WriteLine($"{item.Name} is already in basket.");
+                            Basket.Add(item);
+                            item.Stock -= 1;
                         }
                         else
                         {
-                            Basket.Add(item);
+                            Console.WriteLine("Your basket is full.");
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Your basket is full.");
                     }
                 }
                 else
@@ -207,17 +204,14 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             {
                 if (item.SKU == sku)
                 {
-                    if (Basket.Count < _basketMax)
+                    if (item.Stock > 0)
                     {
-                        if (Basket.Contains(item))
-                        {
-                            Console.WriteLine($"{item.Name} is already in basket.");
-                        }
-                        else
+                        if (Basket.Count <= _basketMax)
                         {
                             Basket.Add(item);
+                            item.Stock -= 1;
                         }
-                    }
+                    }        
                     else
                     {
                         Console.WriteLine("Your basket is full.");

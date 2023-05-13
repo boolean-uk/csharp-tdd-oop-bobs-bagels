@@ -265,5 +265,33 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             // assert
             Assert.AreEqual(main.Products[rInt].Price, main.cost);
         }
+
+        [Test]
+        public void IsStocked()
+        {
+            // I want customers to only be able to order things that we stock in our inventory.
+
+            // arrange
+            Main main = new Main();
+            main.SeedData();
+
+            Random r = new Random();
+            int rInt = r.Next(0, main.Products.Count);
+
+            string item = "BGLO";
+
+            string role = "customer";
+            main.SelectRole(role);
+
+            int stock = main.Products[rInt].Stock;
+
+            // act
+            main.AddBagel(item);
+            main.AddBagel(item);
+            main.AddBagel(item);
+
+            // assert
+            Assert.AreEqual(stock, main.Basket.Count);
+        }
     }
 }
