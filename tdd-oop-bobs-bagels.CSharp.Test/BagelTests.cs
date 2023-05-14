@@ -41,5 +41,36 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(result);
 
         }
+
+        [TestCase(10)]
+        public void CapacityChangedTest(int newCapacity)
+        {
+            BagelsShop bagelsShop = new BagelsShop();
+          
+            int result = bagelsShop.ChangeCapacity(Roles.Manager, newCapacity);
+
+
+            Assert.AreEqual(result, newCapacity);
+           
+        }
+
+        [Test]
+        public void CanAddFillings()
+        {
+            //arrange
+            Items item = new Items("BGLO", 0.49m, "Bagel", "Onion");
+            Items item2 = new Items("FILH", 0.12m, "Filling", "Ham");
+            BagelsShop bagelsShop = new BagelsShop();
+            //act
+            bagelsShop.addBagel(item, Roles.Shopper);
+            bool result =  bagelsShop.AddFillings(item2, Roles.Shopper);
+            // some debug Console.WriteLine(bagelsShop.ProductsInBasket);
+
+
+            //assert
+            Assert.IsTrue(result); 
+
+        }
+
     }
 }

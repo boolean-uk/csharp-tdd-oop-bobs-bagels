@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tdd_oop_bobs_bagels.CSharp.Main
+﻿namespace tdd_oop_bobs_bagels.CSharp.Main
 {
-    public  class BagelsShop
+    public class BagelsShop
     {
         private List<Items> items;
         private int _capacity;
         private Dictionary<Items, int> _basket;
-        
-        public BagelsShop() {
+
+        public BagelsShop()
+        {
             _capacity = 5;
             _basket = new Dictionary<Items, int>();
             items = new List<Items>();
@@ -36,21 +30,21 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
 
         }
-
-        public int Capacity { get { return _capacity; } set {  _capacity = value; } }
+        public int ProductsInBasket {  get { return _basket.Count;  } }
+        public int Capacity { get { return _capacity; } set { _capacity = value; } }
         public List<Items> Items { get { return items; } }
 
-        private  bool ItemExists(Items item)
+        private bool ItemExists(Items item)
         {
-           foreach (var bagel in items)
+            foreach (var bagel in items)
             {
-                if(bagel.Sku.ToUpper() == item.Sku.ToUpper())
+                if (bagel.Sku.ToUpper() == item.Sku.ToUpper())
                 {
-                    
+
                     return true;
                 }
             }
-        
+
             return false;
         }
         /// <summary>
@@ -61,29 +55,65 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         /// <returns></returns>
         public bool addBagel(Items item, Roles roles)
         {
-            if(ItemExists(item) && _basket.Count < _capacity && roles == Roles.Shopper)
+            if (ItemExists(item) && _basket.Count < _capacity && roles == Roles.Shopper)
             {
-                _basket.Add(item, _basket.Count+1 );
+                _basket.Add(item, _basket.Count + 1);
                 return true;
             }
-            Console.WriteLine("Failed to add the item in the basket. Check the capacity of the SKU code");
+            Console.WriteLine("Failed to add the item in the basket. Check the capacity of your basket");
             return false;
         }
         public bool RemoveBagel(Items item, Roles roles)
         {
-            foreach(var product in _basket)
+            foreach (var product in _basket)
             {
 
                 if (ItemExists(item) && _basket.Count > 0 && roles == Roles.Shopper && product.Key.Sku == item.Sku)
                 {
                     _basket.Remove(product.Key);
-                        Console.WriteLine($"{product.Key.Sku} {product.Value}, {item.Sku}");
+                    // Console.WriteLine($"{product.Key.Sku} {product.Value}, {item.Sku}");
                     return true;
                 }
             }
             Console.WriteLine("Failed to add the item in the basket. Check the capacity of the SKU code");
             return false;
         }
+        /// <summary>
+        /// changes the capacity of the basket only if the role is manager and the new capacity is not the same 
+        /// as the previous one
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="newCapacity"></param>
+        /// <returns></returns>
+        public int ChangeCapacity(Roles role, int newCapacity)
+        {
+            if (this.Capacity != newCapacity)
+            {
+                this.Capacity = newCapacity;
+                return this.Capacity; //capacity changed here
+            }
+            else
+            {
+                Console.WriteLine("The basket has already this capacity");
+                return 0; //the default capacity
+            }
 
+        }
+
+        public bool AddFillings(Items item, Roles role)
+        {
+            // if the basket is empty then shopper cant add fillings
+
+
+            if (ItemExists(item) && _basket.Count < this.Capacity && _basket.Count != 0 && role == Roles.Shopper && item.Name.Equals("Filling"))
+            {
+
+                _basket.Add(item, _basket.Count + 1);
+                return true;
+
+            }
+
+            return false;
+        }
     }
 }
