@@ -94,7 +94,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             bagelsShop.AddFillings(item2 , Roles.Shopper);
 
             decimal result = bagelsShop.TotalCost(Roles.Shopper);
-            //some debug Console.WriteLine(result);
+            foreach(var k in bagelsShop.Products)
+            {
+                Console.WriteLine(k.Key.Sku);
+            } 
+            Console.WriteLine(result);
 
             Assert.NotZero(result);
 

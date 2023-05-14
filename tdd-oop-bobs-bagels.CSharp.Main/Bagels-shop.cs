@@ -34,6 +34,8 @@
         public int Capacity { get { return _capacity; } set { _capacity = value; } }
         public List<Items> Items { get { return items; } }
 
+        public Dictionary<Items, int> Products { get { return _basket; } }
+
         private bool ItemExists(Items item)
         {
             foreach (var bagel in items)
