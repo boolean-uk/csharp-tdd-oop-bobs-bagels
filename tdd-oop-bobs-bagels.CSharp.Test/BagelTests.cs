@@ -71,6 +71,34 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(result); 
 
         }
+        [Test]
+        public void CheckIndividualCost() {
+            Items item = new Items("BGLO", 0.49m, "Bagel", "Onion");
+            BagelsShop bagelsShop = new BagelsShop();
+
+
+            decimal result = bagelsShop.IndividualCost(item, Roles.Shopper);
+           //some debug Console.WriteLine(result);
+
+            Assert.NotZero(result);
+
+        }
+        [Test]
+        public void CheckTotalCost()
+        {
+            Items item = new Items("BGLO", 0.49m, "Bagel", "Onion");
+            Items item2 = new Items("FILH", 0.12m, "Filling", "Ham");
+
+            BagelsShop bagelsShop = new BagelsShop();
+            bagelsShop.addBagel(item, Roles.Shopper);
+            bagelsShop.AddFillings(item2 , Roles.Shopper);
+
+            decimal result = bagelsShop.TotalCost(Roles.Shopper);
+            //some debug Console.WriteLine(result);
+
+            Assert.NotZero(result);
+
+        }
 
     }
 }

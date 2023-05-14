@@ -55,7 +55,7 @@
         /// <returns></returns>
         public bool addBagel(Items item, Roles roles)
         {
-            if (ItemExists(item) && _basket.Count < _capacity && roles == Roles.Shopper)
+            if (ItemExists(item) && _basket.Count < _capacity && roles == Roles.Shopper && (item.Name == "Bagel" || item.Name == "Coffee"))
             {
                 _basket.Add(item, _basket.Count + 1);
                 return true;
@@ -99,7 +99,12 @@
             }
 
         }
-
+        /// <summary>
+        /// adding a filling only if the basket isnt empty the role is shopper and the item name is filling
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
         public bool AddFillings(Items item, Roles role)
         {
             // if the basket is empty then shopper cant add fillings
@@ -114,6 +119,27 @@
             }
 
             return false;
+        }
+        // returns the price of the given item 
+        public decimal IndividualCost(Items item, Roles role)
+        {
+            decimal cost= 0;
+           
+            if(ItemExists(item) && role == Roles.Shopper) { cost =  item.Price; }
+            
+            return cost;
+        }
+
+        public decimal TotalCost(Roles role)
+        {
+            decimal totalcost = 0;
+            
+            foreach(var item in _basket)
+            {
+                totalcost += item.Key.Price;
+
+            }
+            return totalcost;
         }
     }
 }
