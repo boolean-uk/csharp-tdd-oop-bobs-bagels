@@ -142,6 +142,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             //assert
             Assert.AreEqual(basket.totalCost(), expectedCost);
         }
+
+        //As a customer,
+        //So I know what the damage will be,
+        //I'd like to know the cost of a bagel before I add it to my basket.
+        [Test]
+        public void ItemCost()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+
+            //act
+            var item = inventory.getBySKU("COFC");
+
+            //assert
+            Assert.AreEqual(1.29f, item.Price);
+        }
+
     }
 }
 
