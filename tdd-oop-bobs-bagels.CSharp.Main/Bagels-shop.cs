@@ -112,7 +112,7 @@
             // if the basket is empty then shopper cant add fillings
 
 
-            if (ItemExists(item) && _basket.Count < this.Capacity && _basket.Count != 0 && role == Roles.Shopper && item.Name.Equals("Filling"))
+            if (ItemExists(item) && _basket.Count < this.Capacity && _basket.Count != 0 && role == Roles.Shopper && _basket.Keys.Any(item => item.Name == "Bagel") && item.Name.Equals("Filling"))
             {
 
                 _basket.Add(item, _basket.Count + 1);

@@ -59,6 +59,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         {
             //arrange
             Items item = new Items("BGLO", 0.49m, "Bagel", "Onion");
+            //Items item = new Items("COFL", 1.29m, "Coffee", "Latte");
+
             Items item2 = new Items("FILH", 0.12m, "Filling", "Ham");
             BagelsShop bagelsShop = new BagelsShop();
             //act
