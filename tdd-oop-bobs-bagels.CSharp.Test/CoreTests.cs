@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualBasic;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +158,24 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             //assert
             Assert.AreEqual(1.29f, item.Price);
+        }
+
+
+        //As a customer,
+        //So I can shake things up a bit,
+        //I'd like to be able to choose fillings for my bagel.
+        [Test]
+        public void FillingsChoise()
+        { 
+            
+            // arrange
+            Inventory inventory = new Inventory();
+
+            //act
+            var fillings = inventory.getByName("Filling");
+
+            //assert
+            Assert.AreEqual(6, fillings.Count);
         }
 
     }
