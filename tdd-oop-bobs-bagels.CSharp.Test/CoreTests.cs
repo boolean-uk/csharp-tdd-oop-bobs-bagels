@@ -166,8 +166,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         //I'd like to be able to choose fillings for my bagel.
         [Test]
         public void FillingsChoise()
-        { 
-            
+        {
+
             // arrange
             Inventory inventory = new Inventory();
 
@@ -176,6 +176,27 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             //assert
             Assert.AreEqual(6, fillings.Count);
+        }
+
+        //As a customer,
+        //So I don't over-spend,
+        //I'd like to know the cost of each filling before I add it to my bagel order.
+        [TestCase("FILC", 0.12f)]
+        [TestCase("FILH", 0.12f)]
+        [TestCase("FILB", 0.12f)]
+        [TestCase("FILE", 0.12f)]
+        [TestCase("FILX", 0.12f)]
+        [TestCase("FILS", 0.12f)]
+        public void FillingsPrice(string SKU, float expectedPrice)
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+
+            //act
+            var fillings = inventory.getBySKU(SKU);
+
+            //arrange
+            Assert.AreEqual(expectedPrice, fillings.Price);
         }
 
     }
