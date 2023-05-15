@@ -21,7 +21,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 new InventoryItem("BGLS", 0.49f, "Bagel", "Seasame", 5),
                 new InventoryItem("COFB", 0.99f, "Coffee", "Black", 10),
                 new InventoryItem("COFC", 1.29f, "Coffee", "Capuccino", 7),
-                new InventoryItem("COFW", 1.19f, "Coffee", "White", 2),
+                new InventoryItem("COFW", 1.19f, "Coffee", "White", 0),
                 new InventoryItem("COFL", 1.29f, "Coffee", "Latte", 8),
                 new InventoryItem("FILB", 0.12f, "Filling", "Bacon", 6),
                 new InventoryItem("FILE", 0.12f, "Filling", "Egg", 6),

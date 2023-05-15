@@ -199,6 +199,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(expectedPrice, fillings.Price);
         }
 
+        //As the manager,
+        //So we don't get any weird requests,
+        //I want customers to only be able to order things that we stock in our inventory.
+        [Test]
+        public void ItemAvailable()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket(inventory);
+
+            //act
+            basket.AddItem("COFW");
+
+            //assert
+            Assert.AreEqual(0, basket.Items.Count);
+        }
+
     }
 }
 
