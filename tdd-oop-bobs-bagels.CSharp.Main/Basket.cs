@@ -8,6 +8,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 {
     public class Basket
 {
+        private Inventory inventory;
     public List<string> Bagels { get; set; } = new List<string>();
     public int BagelsMax { get; set; } = 5;
     public bool FullBasket
@@ -17,8 +18,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return this.BagelsMax >= this.Bagels.Count ? true : false;
         }
     }
-
-    public void AddBagel(string bagel)
+        public Basket(Inventory inventory)
+        {
+            this.inventory = inventory;
+        }
+        public void AddBagel(string bagel)
     {
         this.Bagels.Add(bagel);
     }

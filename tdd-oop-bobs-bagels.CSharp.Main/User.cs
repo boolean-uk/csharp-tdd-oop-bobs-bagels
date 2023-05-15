@@ -11,10 +11,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public UserRole Role { get; set; }
         public Basket Basket { get; private set; }
 
-        public User(UserRole Role)
+        public User(UserRole Role, Inventory inventory)
         {
             this.Role = Role;
-            this.Basket = new Basket();
+            this.Basket = new Basket(inventory);
+            
         }
 
     }
