@@ -32,6 +32,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 
             };
         }
+        public InventoryItem getBySKU(string SKU)
+        {
+            return _items.SingleOrDefault(item => item.SKU.Equals(SKU));
+        }
 
 
         public class InventoryItem

@@ -16,7 +16,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         //I'd like to add a specific type of bagel to my basket.
 
 
-        [TestCase("Plain Bagel")]
+        [TestCase("BGLP")]
         public void AddBagelToBasket(string bagel)
         {
             //arrange
@@ -24,10 +24,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Basket basket = new Basket(inventory);
 
             // act
-            basket.AddBagel(bagel);
+            basket.AddItem(bagel);
 
             //assert
-            Assert.AreEqual(basket.Bagels.Count, 1);
+            Assert.AreEqual(basket.Items.Count, 1);
         }
 
 
@@ -35,21 +35,21 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         //As a member of the public,
         //So I can change my order,
         //I'd like to remove a bagel from my basket.
-        [TestCase("Cheese Bagel")]
+        [TestCase("BGLE")]
         public void RemoveBagelFromBasket(string bagel)
         {
 
             //arrange
             Inventory inventory = new Inventory();
             Basket basket = new Basket(inventory);
-            basket.AddBagel(bagel);
+            basket.AddItem(bagel);
 
             //act
             bool result = basket.RemoveFromBasket(bagel);
 
             //assert
             Assert.IsTrue(result);
-            Assert.AreEqual(basket.Bagels.Count, 0);
+            Assert.AreEqual(basket.Items.Count, 0);
         }
 
         //As a member of the public,
@@ -62,24 +62,24 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Inventory inventory = new Inventory();
             Basket basket = new Basket(inventory);
 
-            string bagel1 = "Plain";
-            string bagel2 = "Cheese";
-            string bagel3 = "Salmon";
-            string bagel4 = "Ham";
-            string bagel5 = "Ham and Cheese";
+            string bagel1 = "BGLP";
+            string bagel2 = "FILC";
+            string bagel3 = "FILS";
+            string bagel4 = "FILH";
+            string bagel5 = "COFC";
 
             //act
 
-            basket.AddBagel(bagel1);
-            basket.AddBagel(bagel2);
-            basket.AddBagel(bagel3);
-            basket.AddBagel(bagel4);
-            basket.AddBagel(bagel5);
+            basket.AddItem(bagel1);
+            basket.AddItem(bagel2);
+            basket.AddItem(bagel3);
+            basket.AddItem(bagel4);
+            basket.AddItem(bagel5);
 
 
             //assert
 
-            Assert.AreEqual(basket.Bagels.Count, basket.BagelsMax);
+            Assert.AreEqual(basket.Items.Count, basket.ItemsMax);
             Assert.IsTrue(basket.FullBasket);
         }
 
@@ -100,7 +100,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.ChangeBasketCapacity(newCapacity);
 
             //assert
-            Assert.AreEqual(basket.BagelsMax, newCapacity);
+            Assert.AreEqual(basket.ItemsMax, newCapacity);
 
         }
 
@@ -122,6 +122,26 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(result);
         }
 
+
+        //As a customer,
+        //So I know how much money I need,
+        //I'd like to know the total cost of items in my basket.
+        [Test]
+        public void TotalCost()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket(inventory);
+            var expectedCost = 0.49f + 1.29f;
+
+
+            //act
+            basket.AddItem("BGLE");
+            basket.AddItem("COFL");
+
+            //assert
+            Assert.AreEqual(basket.totalCost(), expectedCost);
+        }
     }
 }
 
