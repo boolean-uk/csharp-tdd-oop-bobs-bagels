@@ -9,7 +9,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     public class User
     {
         public UserRole Role { get; set; }
+        public Basket Basket { get; private set; }
+
+        public User(UserRole Role)
+        {
+            this.Role = Role;
+            this.Basket = new Basket();
+        }
+
     }
+
     public enum UserRole
     {
         MemberOfPublic,

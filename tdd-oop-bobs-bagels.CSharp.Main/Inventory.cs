@@ -41,6 +41,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             public string Name { get; set; }
             public string Variant { get; set; }
             public int InStock { get; set; }
+            public bool CanOrder  => InStock > 0;
+
+
             public InventoryItem(string SKU, float Price, string Name, string Variant, int InStock)
             {
                 this.SKU = SKU;
