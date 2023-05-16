@@ -2,4 +2,4 @@
 using csharp_tdd_oop_bobs_bagels_Csharp_Classes;
 
 Console.WriteLine("Hello, World!");
-ShopItem inventory = new ShopItem();
+

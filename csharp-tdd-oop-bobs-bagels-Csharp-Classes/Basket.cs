@@ -16,10 +16,10 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         public void TestData()
         {
-            this.ShoppingBasket.Add(new ShopItem() { Name = "Onion"});
-            this.ShoppingBasket.Add(new ShopItem() { Name = "Plain" });
-            this.ShoppingBasket.Add(new ShopItem() { Name = "Everything" });
-            this.ShoppingBasket.Add(new ShopItem() { Name = "Sesame" });           
+            ShoppingBasket.Add( new ShopItem("BGLO", "Onion", 0.49m, "Bagel"));
+            ShoppingBasket.Add( new ShopItem("BGLP", "Plain", 0.39m, "Bagel"));
+            ShoppingBasket.Add( new ShopItem("BGLE", "Everything", 0.49m, "Bagel"));
+            ShoppingBasket.Add(new ShopItem("BGLS", "Sesame", 0.49m, "Bagel"));
         }
 
         public void AddItemToBasket(ShopItem item)
@@ -34,9 +34,9 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             
         }
 
-        public bool RemoveItemFromBasket(string name)
+        public bool RemoveItemFromBasket(string SKU)
         {
-            var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.Name == name);
+            var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.SKU == SKU);
             if (itemToRemove != null) 
             {
                 return this.ShoppingBasket.Remove(itemToRemove) ? true : false;
@@ -55,6 +55,17 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
                 Console.WriteLine("Basket size cant be smaller than current items in Basket");
             }
             
+        }
+
+        public decimal CalculateTotal()
+        {
+            decimal total = 0;
+            foreach (var item in this.ShoppingBasket)
+            {
+                total += item.Price;
+            }
+            return total;
+
         }
 
         public List<ShopItem> InventoryList { get; set; } = new List<ShopItem>();

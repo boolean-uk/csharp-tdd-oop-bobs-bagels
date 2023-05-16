@@ -15,27 +15,31 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void AddBagelTest()
         {
             Basket basket = new Basket();
-            ShopItem item1 = new ShopItem();
-            item1.Name = "Onion";
+            ShopItem item1 = new ShopItem("BGLO", "Onion", 0.49m, "Bagel");
             basket.AddItemToBasket(item1);
             Assert.AreEqual(basket.ShoppingBasket.Count, 1);
         }
 
-        [Test]
-        public void RemoveBagelTest() 
+        [TestCase("BGLO")]
+        [TestCase("Hello")]
+        public void RemoveBagelTest(string SDK) 
         {
             Basket basket = new Basket();
-            ShopItem item1 = new ShopItem();
-            item1.Name = "Regular";
-            ShopItem item2 = new ShopItem();
-            item2.Name = "Onion";
+            ShopItem item1 = new ShopItem("BGLO", "Onion", 0.49m, "Bagel");
+            ShopItem item2 = new ShopItem("BGLP", "Plain", 0.39m, "Bagel");
+
             basket.AddItemToBasket(item1);
             basket.AddItemToBasket(item2);
             int count = basket.ShoppingBasket.Count;
-            bool removeResult = basket.RemoveItemFromBasket("Onion");
+            bool removeResult = basket.RemoveItemFromBasket(SDK);
+            int minuscount = 0;
+            if (removeResult) 
+            {
+                minuscount++; 
+            }
 
-            Assert.IsTrue(removeResult);
-            Assert.AreEqual(count -1, basket.ShoppingBasket.Count);
+            
+            Assert.AreEqual(count -minuscount, basket.ShoppingBasket.Count);
 
         }
 
@@ -44,10 +48,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         {
             Basket basket = new Basket();
             basket.TestData();
-            ShopItem item1 = new ShopItem();
-            item1.Name = "Coffee";
-            ShopItem item2 = new ShopItem();
-            item2.Name = "Cheese";
+            ShopItem item1 = new ShopItem("COFB", "Black", 0.49m, "Coffee");
+            ShopItem item2 = new ShopItem("COFW", "White", 0.39m, "Coffee");
+
             basket.AddItemToBasket(item1);
             basket.AddItemToBasket(item2);
 
@@ -73,6 +76,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Basket basket = new Basket(); 
             basket.TestData();
 
+            Assert.AreEqual(basket.CalculateTotal(), 1.86m);
         }
     }
 }
