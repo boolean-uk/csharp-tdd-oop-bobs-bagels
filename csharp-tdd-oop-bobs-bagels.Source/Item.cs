@@ -14,6 +14,21 @@
         public string Variant { get { return variant; } set { variant = value; } }
         public int Stock { get { return stock; } set { stock = value; } }
 
+        public List<Item> Extras = new List<Item>();
+
+        public bool AddExtras(Item item)
+        {
+            if (this.Name == "Bagel")
+            {
+                if (item.Name == "Filling")
+                {
+                    Extras.Add(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public Item(string Sku, decimal Price, string Name, string Variant, int Stock)
         {
             this.SKU = Sku;

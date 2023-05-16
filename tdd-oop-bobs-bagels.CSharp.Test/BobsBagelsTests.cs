@@ -29,7 +29,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         }
 
         [Test]
-        public void AddBagelToBasket()
+        public void AddItemToBasket()
         {
             // I'd like to add a specific type of bagel to my basket.
 
@@ -46,14 +46,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.SelectRole(role);
 
             // act
-            main.AddBagel(bagel);
+            main.AddItem(bagel);
 
             // assert
             Assert.AreEqual(main.Basket.First().SKU, main.Products[rInt].SKU);
         }
 
         [Test]
-        public void RemoveBagelFromBasket()
+        public void RemoveItemFromBasket()
         {
             // I'd like to remove a bagel from my basket.
 
@@ -69,14 +69,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string role = "member";
             main.SelectRole(role);
 
-            main.AddBagel(bagel);
+            main.AddItem(bagel);
 
             Assert.AreEqual(bagel, main.Products[rInt].SKU);
 
             int length = main.Basket.Count;
 
             // act
-            main.RemoveBagel(bagel);
+            main.RemoveItem(bagel);
 
             // assert
             Assert.AreEqual(main.Basket.Count, length - 1);
@@ -100,10 +100,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string bagel3 = main.Products[3].Name;
 
             // act
-            main.AddBagel(bagel);
-            main.AddBagel(bagel1);
-            main.AddBagel(bagel2);
-            main.AddBagel(bagel3);
+            main.AddItem(bagel);
+            main.AddItem(bagel1);
+            main.AddItem(bagel2);
+            main.AddItem(bagel3);
 
             // assert
             Assert.LessOrEqual(main.Basket.Count, 3);
@@ -132,10 +132,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             // act
             main.ChangeBasketMax(max);
 
-            main.AddBagel(bagel);
-            main.AddBagel(bagel1);
-            main.AddBagel(bagel2);
-            main.AddBagel(bagel3);
+            main.AddItem(bagel);
+            main.AddItem(bagel1);
+            main.AddItem(bagel2);
+            main.AddItem(bagel3);
 
             // assert
             Assert.LessOrEqual(main.Basket.Count, max);
@@ -159,7 +159,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             int length = main.Basket.Count;
 
             // act
-            main.RemoveBagel(item);
+            main.RemoveItem(item);
 
             // assert
             Assert.AreEqual(main.Basket.Count, length);
@@ -184,8 +184,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string role = "customer";
             main.SelectRole(role);
 
-            main.AddBagel(item);
-            main.AddBagel(item1);
+            main.AddItem(item);
+            main.AddItem(item1);
 
             // act
             main.TotalCostBasket();
@@ -219,7 +219,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         }
 
         [Test]
-        public void AddFillingToBasket()
+        public void AddFillingToBagel()
         {
             // I'd like to be able to choose fillings for my bagel.
 
@@ -228,43 +228,66 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.SeedData();
 
             Random r = new Random();
-            int rInt = r.Next(9, 14);
+            int rInt = r.Next(0, 3);
+            int rIntF = r.Next(8, 13);
 
-            string filling = main.Products[rInt].SKU;
-
-            string role = "member";
-            main.SelectRole(role);
-
-            // act
-            main.AddFilling(filling);
-
-            // assert
-            Assert.AreEqual(main.Basket.First().SKU, main.Products[rInt].SKU);
-        }
-
-        [Test]
-        public void FillingCost()
-        {
-            // I'd like to know the cost of each filling before I add it to my bagel order.
-
-            // arrange
-            Main main = new Main();
-            main.SeedData();
-
-            Random r = new Random();
-            int rInt = r.Next(9, 14);
-
-            string filling = main.Products[rInt].SKU;
-
-            string role = "customer";
-            main.SelectRole(role);
+            Item bagel = main.Products[rInt];
+            Item filling = main.Products[rIntF];
 
             // act
-            main.ItemCost(filling);
+            bagel.AddExtras(filling);
 
             // assert
-            Assert.AreEqual(main.Products[rInt].Price, main.cost);
+            Assert.AreEqual(bagel.Extras.First().Variant, main.Products[rIntF].Variant);
         }
+
+        /*[Test]
+         public void AddFillingToBasket()
+         {
+             // I'd like to be able to choose fillings for my bagel.
+
+             // arrange
+             Main main = new Main();
+             main.SeedData();
+
+             Random r = new Random();
+             int rInt = r.Next(9, 14);
+
+             string filling = main.Products[rInt].SKU;
+
+             string role = "member";
+             main.SelectRole(role);
+
+             // act
+             main.AddFilling(filling);
+
+             // assert
+             Assert.AreEqual(main.Basket.First().SKU, main.Products[rInt].SKU);
+         }
+
+         [Test]
+         public void FillingCost()
+         {
+             // I'd like to know the cost of each filling before I add it to my bagel order.
+
+             // arrange
+             Main main = new Main();
+             main.SeedData();
+
+             Random r = new Random();
+             int rInt = r.Next(9, 14);
+
+             string filling = main.Products[rInt].SKU;
+
+             string role = "customer";
+             main.SelectRole(role);
+
+             // act
+             main.ItemCost(filling);
+
+             // assert
+             Assert.AreEqual(main.Products[rInt].Price, main.cost);
+         }*/
 
         [Test]
         public void IsStocked()
@@ -286,9 +309,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             int stock = main.Products[rInt].Stock;
 
             // act
-            main.AddBagel(item);
-            main.AddBagel(item);
-            main.AddBagel(item);
+            main.AddItem(item);
+            main.AddItem(item);
+            main.AddItem(item);
 
             // assert
             Assert.AreEqual(stock, main.Basket.Count);

@@ -27,11 +27,11 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                 new Item("BGLO", 0.49M, "Bagel", "Onion", 2),
                 new Item("BGLP", 0.39M, "Bagel", "Plain", 2),
                 new Item("BGLE", 0.49M, "Bagel", "Everything", 2),
-                new Item("COFB", 0.49M, "Bagel", "Sesame", 2),
-                new Item("COFW", 0.99M, "Coffee", "Black", 2),
-                new Item("COFC", 1.19M, "Coffee", "White", 2),
-                new Item("COFL", 1.29M, "Coffee", "Capuccino", 2),
-                new Item("BGLS", 1.29M, "Coffee", "Latte", 2),
+                new Item("BGLS", 0.49M, "Bagel", "Sesame", 2),
+                new Item("COFB", 0.99M, "Coffee", "Black", 2),
+                new Item("COFW", 1.19M, "Coffee", "White", 2),
+                new Item("COFC", 1.29M, "Coffee", "Capuccino", 2),
+                new Item("COFL", 1.29M, "Coffee", "Latte", 2),
                 new Item("FILB", 0.12M, "Filling", "Bacon", 2),
                 new Item("FILE", 0.12M, "Filling", "Egg", 2),
                 new Item("FILC", 0.12M, "Filling", "Cheese", 2),
@@ -70,15 +70,15 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         #endregion
 
         #region AddBagel
-        public void AddBagel(string sku)
+        public void AddItem(string sku)
         {
             if (_member || _customer || _manager)
             {
-                addBagel(sku);
+                addItem(sku);
             }
         }
 
-        private void addBagel(string sku)
+        private void addItem(string sku)
         {
             foreach (Item item in Products)
             {
@@ -96,24 +96,28 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                             Console.WriteLine("Your basket is full.");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("Item is out of stock");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("This product does not exist.");
+                    Console.WriteLine("This item does not exist.");
                 }
             }
         }
         #endregion
 
         #region RemoveBagel
-        public void RemoveBagel(string sku)
+        public void RemoveItem(string sku)
         {
             if (_member || _customer || _manager)
             {
-                removeBagel(sku);
+                removeItem(sku);
             }
         }
-        private void removeBagel(string sku)
+        private void removeItem(string sku)
         {
             foreach (Item item in Products)
             {
@@ -189,44 +193,8 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         }
         #endregion
 
-        #region AddFilling
-        public void AddFilling(string sku)
-        {
-            if (_member || _customer || _manager)
-            {
-                addFilling(sku);
-            }
-        }
-
-        private void addFilling(string sku)
-        {
-            foreach (Item item in Products)
-            {
-                if (item.SKU == sku)
-                {
-                    if (item.Stock > 0)
-                    {
-                        if (Basket.Count <= _basketMax)
-                        {
-                            Basket.Add(item);
-                            item.Stock -= 1;
-                        }
-                    }        
-                    else
-                    {
-                        Console.WriteLine("Your basket is full.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("This product does not exist.");
-                }
-            }
-        }
-        #endregion
-
         public List<Item> Products { get { return _products; } set { _products = value; } }
-
         public List<Item> Basket { get { return _basket; } set { _basket = value; } }
+
     }
 }
