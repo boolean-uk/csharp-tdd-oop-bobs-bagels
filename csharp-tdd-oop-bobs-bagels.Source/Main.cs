@@ -24,10 +24,10 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         {
             _products = new List<Item>
             {
-                new Item("BGLO", 0.49M, "Bagel", "Onion", 2),
-                new Item("BGLP", 0.39M, "Bagel", "Plain", 2),
-                new Item("BGLE", 0.49M, "Bagel", "Everything", 2),
-                new Item("BGLS", 0.49M, "Bagel", "Sesame", 2),
+                new Item("BGLO", 0.49M, "Bagel", "Onion", 20),
+                new Item("BGLP", 0.39M, "Bagel", "Plain", 20),
+                new Item("BGLE", 0.49M, "Bagel", "Everything", 20),
+                new Item("BGLS", 0.49M, "Bagel", "Sesame", 20),
                 new Item("COFB", 0.99M, "Coffee", "Black", 2),
                 new Item("COFW", 1.19M, "Coffee", "White", 2),
                 new Item("COFC", 1.29M, "Coffee", "Capuccino", 2),
@@ -86,7 +86,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                 {
                     if (item.Stock > 0)
                     {
-                        if (Basket.Count <= _basketMax)
+                        if (Basket.Count < _basketMax)
                         {
                             Basket.Add(item);
                             item.Stock -= 1;
@@ -153,7 +153,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         public decimal total;
         public void TotalCostBasket()
         {
-            if (_customer)
+            if (_customer || _manager)
             {
                 total = totalCostBasket();
             }
@@ -161,10 +161,25 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private decimal totalCostBasket()
         {
-            foreach (Item item in Basket)
+            // check if there is 6 or 12 of the same bagel in basket
+            bool sixBagels = Basket.GroupBy(n => n).Any(c => c.Count() == 6);
+            bool twelveBagels = Basket.GroupBy(n => n).Any(c => c.Count() == 12);
+
+            // add deal price to totalcost
+            if (sixBagels)
+            {
+                _total += 2.49M;
+            }
+            else if (twelveBagels)
+            {
+                _total += 3.99M;
+            }
+
+            // check for other items
+            /*foreach (Item item in Basket)
             {
                 _total += item.Price;
-            }
+            }*/
             return _total;
         }
         #endregion

@@ -94,10 +94,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string role = "member";
             main.SelectRole(role);
 
-            string bagel = main.Products[0].Name;
-            string bagel1 = main.Products[1].Name;
-            string bagel2 = main.Products[2].Name;
-            string bagel3 = main.Products[3].Name;
+            string bagel = main.Products[0].SKU;
+            string bagel1 = main.Products[1].SKU;
+            string bagel2 = main.Products[2].SKU;
+            string bagel3 = main.Products[3].SKU;
 
             // act
             main.AddItem(bagel);
@@ -106,7 +106,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.AddItem(bagel3);
 
             // assert
-            Assert.LessOrEqual(main.Basket.Count, 3);
+            Assert.AreEqual(3, main.Basket.Count);
             /*Assert.IsTrue(main.Bagels.Contains(item2));*/
         }
 
@@ -124,10 +124,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             int max = 2;
 
-            string bagel = main.Products[0].Name;
-            string bagel1 = main.Products[1].Name;
-            string bagel2 = main.Products[2].Name;
-            string bagel3 = main.Products[3].Name;
+            string bagel = main.Products[0].SKU;
+            string bagel1 = main.Products[1].SKU;
+            string bagel2 = main.Products[2].SKU;
+            string bagel3 = main.Products[3].SKU;
 
             // act
             main.ChangeBasketMax(max);
@@ -139,7 +139,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             // assert
             Assert.LessOrEqual(main.Basket.Count, max);
-            /*Assert.IsTrue(main.Basket.Contains(item1));*/
+            Assert.IsTrue(main.Basket.Contains(main.Products[1]));
         }
 
         [Test]
@@ -154,9 +154,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Random r = new Random();
             int rInt = r.Next(0, main.Products.Count);
 
-            string item = main.Products[rInt].Name;
+            string item = main.Products[rInt].SKU;
 
-            int length = main.Basket.Count;
+            int length = 0;
 
             // act
             main.RemoveItem(item);
@@ -241,54 +241,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(bagel.Extras.First().Variant, main.Products[rIntF].Variant);
         }
 
-        /*[Test]
-         public void AddFillingToBasket()
-         {
-             // I'd like to be able to choose fillings for my bagel.
-
-             // arrange
-             Main main = new Main();
-             main.SeedData();
-
-             Random r = new Random();
-             int rInt = r.Next(9, 14);
-
-             string filling = main.Products[rInt].SKU;
-
-             string role = "member";
-             main.SelectRole(role);
-
-             // act
-             main.AddFilling(filling);
-
-             // assert
-             Assert.AreEqual(main.Basket.First().SKU, main.Products[rInt].SKU);
-         }
-
-         [Test]
-         public void FillingCost()
-         {
-             // I'd like to know the cost of each filling before I add it to my bagel order.
-
-             // arrange
-             Main main = new Main();
-             main.SeedData();
-
-             Random r = new Random();
-             int rInt = r.Next(9, 14);
-
-             string filling = main.Products[rInt].SKU;
-
-             string role = "customer";
-             main.SelectRole(role);
-
-             // act
-             main.ItemCost(filling);
-
-             // assert
-             Assert.AreEqual(main.Products[rInt].Price, main.cost);
-         }*/
-
         [Test]
         public void IsStocked()
         {
@@ -315,6 +267,41 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             // assert
             Assert.AreEqual(stock, main.Basket.Count);
+        }
+
+        [Test]
+        public void OfferDeal()
+        {
+            // I want to offer my customers the deal 6 for 2,49 or 12 for 3,99.
+
+            // arrange
+            Main main = new Main();
+            main.SeedData();
+
+            string role = "manager";
+            main.SelectRole(role);
+
+            main.ChangeBasketMax(12);
+
+            Random r = new Random();
+            int rInt = r.Next(0, 3);
+            int rInt1 = r.Next(3, main.Products.Count);
+
+            string bagel = main.Products[rInt].SKU;
+            string item = main.Products[rInt1].SKU;
+
+            /*main.AddItem(item);*/
+
+            // act
+            for (int i = 0; i < 6; i++)
+            {
+                main.AddItem(bagel);
+            }
+
+            main.TotalCostBasket();
+
+            // assert
+            Assert.AreEqual(2.49M, main.total);
         }
     }
 }
