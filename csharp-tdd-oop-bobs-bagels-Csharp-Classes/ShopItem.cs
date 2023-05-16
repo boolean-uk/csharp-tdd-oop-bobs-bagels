@@ -19,7 +19,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         public string Variant { get => _variant; set { _variant = value;} }
         public string SKU { get => _SKU; set { _SKU = value; } }
 
-        public ShopItem(string SKU, string Name, decimal Price, string Variant)
+        public ShopItem(string SKU, string Variant, decimal Price, string Name)
         {
             this.SKU = SKU;
             this.Price = Price;

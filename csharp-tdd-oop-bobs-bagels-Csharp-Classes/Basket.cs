@@ -68,6 +68,11 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         }
 
+        public void AddFilling(string v, ShopItem item1)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ShopItem> InventoryList { get; set; } = new List<ShopItem>();
         public List<ShopItem> ShoppingBasket { get; set; } = new List<ShopItem>();
         public int ShoppingBasketMax { get; set; } = 5;

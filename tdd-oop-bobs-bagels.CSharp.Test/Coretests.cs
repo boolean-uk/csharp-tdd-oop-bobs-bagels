@@ -78,5 +78,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             Assert.AreEqual(basket.CalculateTotal(), 1.86m);
         }
+
+        [Test]
+        public void IsFillingAdded() 
+        {
+            Basket basket = new Basket();
+            basket.TestData();
+            ShopItem item1 = new ShopItem("FILB", "Bacon", 0.12m, "Filling");
+            basket.AddFilling("Plain", item1);
+            Assert.AreEqual(item1, "dasdsa");
+
+        }
     }
 }
