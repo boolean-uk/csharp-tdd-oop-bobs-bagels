@@ -197,7 +197,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void ItemCost()
         {
-            // I'd like to know the total cost of items in my basket.
+            // I'd like to know the cost of a single item in my basket.
 
             // arrange
             Main main = new Main();
@@ -211,11 +211,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string role = "customer";
             main.SelectRole(role);
 
+            main.AddItem(item);
+            main.AddItem(item);
+
             // act
             main.ItemCost(item);
 
             // assert
-            Assert.AreEqual(main.Products[rInt].Price, main.cost);
+            Assert.AreEqual(main.Products[rInt].Price * 2, main.Basket.First().Cost);
         }
 
         /*[Test]
@@ -266,7 +269,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.AddItem(item);
 
             // assert
-            Assert.AreEqual(stock, main.Basket.Count);
+            Assert.AreEqual(stock, main.Basket.First().Amount);
         }
 
         [Test]
@@ -291,6 +294,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string item = main.Products[rInt1].SKU;
 
             main.AddItem(item);
+            main.AddItem(item);
 
             int bagels = 6;
             decimal bagelOfferPrice = 2.49M;
@@ -304,7 +308,32 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.TotalCostBasket();
 
             // assert
-            Assert.AreEqual(bagelOfferPrice + main.Products[rInt1].Price, main.total);
+            Assert.AreEqual(bagelOfferPrice + main.Products[rInt1].Price + main.Products[rInt1].Price, main.total);
+        }
+
+        [Test]
+        public void AmountInBasket()
+        {
+            // I want to know how many of the same item I have in my basket.
+
+            // arrange
+            Main main = new Main();
+            main.SeedData();
+
+            string role = "manager";
+            main.SelectRole(role);
+
+            Random r = new Random();
+            int rInt = r.Next(0, main.Products.Count);
+
+            string item = main.Products[rInt].SKU;
+
+            // act
+            main.AddItem(item);
+            main.AddItem(item);
+
+            // assert
+            Assert.AreEqual(2, main.Basket.First().Amount);
         }
     }
 }

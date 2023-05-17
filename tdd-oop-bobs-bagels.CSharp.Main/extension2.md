@@ -45,3 +45,13 @@ Total                  £5.55
         Thank you
       for your order!
 ```
+
+```
+Extension 1.
+As the customer,
+So that I can see what I bought,
+I want to be able to print my receipt
+```
+| Classes         | Methods          | Scenario                                      | Outputs                |
+|-----------------|------------------|-----------------------------------------------|------------------------|
+| `Main`		  | `PrintReceipt()` | Collect all items, amounts and prices         | Return printed receipt |
