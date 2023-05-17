@@ -11,5 +11,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Main.Products
         string sku { get; set; }
         float price { get; set; }
         string variant { get; set; }
+        //List<string> fillings { get; set; }
     }
 }

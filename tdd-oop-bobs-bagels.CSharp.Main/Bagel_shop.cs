@@ -146,13 +146,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 {
                     if (item.sku.Equals(code))
                     {
-                        foreach (Items product in products)
+                        if (item is Bagel)
                         {
-                            if (product.variant.Equals(filling))
+                            foreach (Items product in products)
                             {
-                                item.price += product.price;
+
+                                if (product.variant.Equals(filling))
+                                {
+                                    if (product is Filling)
+                                    {
+                                        item.price += product.price;
+                                        ((Bagel)item).fillings.Add(filling);
+                                    }
+                                }
+
                             }
                         }
+
                     }
                 }
             }
