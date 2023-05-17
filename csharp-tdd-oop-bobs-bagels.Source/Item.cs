@@ -1,4 +1,4 @@
-﻿namespace csharp_tdd_oop_bobs_bagels.Source
+﻿/*namespace csharp_tdd_oop_bobs_bagels.Source
 {
     public class Item
     {
@@ -38,4 +38,4 @@
             this.Stock = Stock;
         }
     }
-}
+}*/

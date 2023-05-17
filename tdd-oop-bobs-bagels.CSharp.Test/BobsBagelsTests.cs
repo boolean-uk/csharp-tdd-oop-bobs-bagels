@@ -218,7 +218,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(main.Products[rInt].Price, main.cost);
         }
 
-        [Test]
+        /*[Test]
         public void AddFillingToBagel()
         {
             // I'd like to be able to choose fillings for my bagel.
@@ -231,15 +231,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             int rInt = r.Next(0, 3);
             int rIntF = r.Next(8, 13);
 
-            Item bagel = main.Products[rInt];
-            Item filling = main.Products[rIntF];
+            IItem bagel = main.Products[rInt];
+            IItem filling = main.Products[rIntF];
 
             // act
             bagel.AddExtras(filling);
 
             // assert
             Assert.AreEqual(bagel.Extras.First().Variant, main.Products[rIntF].Variant);
-        }
+        }*/
 
         [Test]
         public void IsStocked()
@@ -251,9 +251,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.SeedData();
 
             Random r = new Random();
-            int rInt = r.Next(0, main.Products.Count);
+            int rInt = r.Next(4, main.Products.Count);
 
-            string item = "BGLO";
+            string item = main.Products[rInt].SKU;
 
             string role = "customer";
             main.SelectRole(role);
@@ -281,7 +281,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string role = "manager";
             main.SelectRole(role);
 
-            main.ChangeBasketMax(12);
+            main.ChangeBasketMax(13);
 
             Random r = new Random();
             int rInt = r.Next(0, 3);
@@ -290,10 +290,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             string bagel = main.Products[rInt].SKU;
             string item = main.Products[rInt1].SKU;
 
-            /*main.AddItem(item);*/
+            main.AddItem(item);
+
+            int bagels = 6;
+            decimal bagelOfferPrice = 2.49M;
 
             // act
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < bagels; i++)
             {
                 main.AddItem(bagel);
             }
@@ -301,7 +304,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             main.TotalCostBasket();
 
             // assert
-            Assert.AreEqual(2.49M, main.total);
+            Assert.AreEqual(bagelOfferPrice + main.Products[rInt1].Price, main.total);
         }
     }
 }

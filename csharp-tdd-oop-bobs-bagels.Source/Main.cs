@@ -13,8 +13,8 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         private bool _customer;
         private bool _manager;
         
-        private List<Item> _products = new List<Item>();
-        private List<Item> _basket = new List<Item>();
+        private List<IItem> _products = new List<IItem>();
+        private List<IItem> _basket = new List<IItem>();
 
         private int _basketMax = 3;
         private decimal _total = 0m;
@@ -22,22 +22,22 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         public void SeedData()
         {
-            _products = new List<Item>
+            _products = new List<IItem>
             {
-                new Item("BGLO", 0.49M, "Bagel", "Onion", 20),
-                new Item("BGLP", 0.39M, "Bagel", "Plain", 20),
-                new Item("BGLE", 0.49M, "Bagel", "Everything", 20),
-                new Item("BGLS", 0.49M, "Bagel", "Sesame", 20),
-                new Item("COFB", 0.99M, "Coffee", "Black", 2),
-                new Item("COFW", 1.19M, "Coffee", "White", 2),
-                new Item("COFC", 1.29M, "Coffee", "Capuccino", 2),
-                new Item("COFL", 1.29M, "Coffee", "Latte", 2),
-                new Item("FILB", 0.12M, "Filling", "Bacon", 2),
-                new Item("FILE", 0.12M, "Filling", "Egg", 2),
-                new Item("FILC", 0.12M, "Filling", "Cheese", 2),
-                new Item("FILX", 0.12M, "Filling", "Cream Cheese", 2),
-                new Item("FILS", 0.12M, "Filling", "Smoked Salmon", 2),
-                new Item("FILH", 0.12M, "Filling", "Ham", 2)
+                new Bagel("BGLO", 0.49M, "Bagel", "Onion", 20),
+                new Bagel("BGLP", 0.39M, "Bagel", "Plain", 20),
+                new Bagel("BGLE", 0.49M, "Bagel", "Everything", 20),
+                new Bagel("BGLS", 0.49M, "Bagel", "Sesame", 20),
+                new Coffee("COFB", 0.99M, "Coffee", "Black", 2),
+                new Coffee("COFW", 1.19M, "Coffee", "White", 2),
+                new Coffee("COFC", 1.29M, "Coffee", "Capuccino", 2),
+                new Coffee("COFL", 1.29M, "Coffee", "Latte", 2),
+                new Filling("FILB", 0.12M, "Filling", "Bacon", 2),
+                new Filling("FILE", 0.12M, "Filling", "Egg", 2),
+                new Filling("FILC", 0.12M, "Filling", "Cheese", 2),
+                new Filling("FILX", 0.12M, "Filling", "Cream Cheese", 2),
+                new Filling("FILS", 0.12M, "Filling", "Smoked Salmon", 2),
+                new Filling("FILH", 0.12M, "Filling", "Ham", 2)
             };
         }
 
@@ -80,7 +80,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private void addItem(string sku)
         {
-            foreach (Item item in Products)
+            foreach (IItem item in Products)
             {
                 if (item.SKU == sku)
                 {
@@ -109,7 +109,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         }
         #endregion
 
-        #region RemoveBagel
+        #region RemoveItem
         public void RemoveItem(string sku)
         {
             if (_member || _customer || _manager)
@@ -119,7 +119,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         }
         private void removeItem(string sku)
         {
-            foreach (Item item in Products)
+            foreach (IItem item in Products)
             {
                 if (item.SKU == sku)
                 {
@@ -161,9 +161,12 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private decimal totalCostBasket()
         {
-            // check if there is 6 or 12 of the same bagel in basket
-            bool sixBagels = Basket.GroupBy(n => n).Any(c => c.Count() == 6);
-            bool twelveBagels = Basket.GroupBy(n => n).Any(c => c.Count() == 12);
+            // check if there are 6 or 12 bagels in basket
+            List<Bagel> dealBagels = Basket.OfType<Bagel>().ToList();
+            bool sixBagels = dealBagels.Count() == 6;
+            bool twelveBagels = dealBagels.Count() == 12;
+
+            var result = Basket.Except(dealBagels);
 
             // add deal price to totalcost
             if (sixBagels)
@@ -176,10 +179,10 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             }
 
             // check for other items
-            /*foreach (Item item in Basket)
+            foreach (IItem item in result)
             {
                 _total += item.Price;
-            }*/
+            }
             return _total;
         }
         #endregion
@@ -197,7 +200,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private decimal itemCost(string sku)
         {
-            foreach (Item item in Products)
+            foreach (IItem item in Products)
             {
                 if (item.SKU == sku)
                 {
@@ -208,8 +211,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         }
         #endregion
 
-        public List<Item> Products { get { return _products; } set { _products = value; } }
-        public List<Item> Basket { get { return _basket; } set { _basket = value; } }
-
+        public List<IItem> Products { get { return _products; } set { _products = value; } }
+        public List<IItem> Basket { get { return _basket; } set { _basket = value; } }
     }
 }
