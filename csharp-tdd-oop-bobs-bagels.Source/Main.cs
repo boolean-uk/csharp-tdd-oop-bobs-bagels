@@ -19,9 +19,6 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private int _basketMax = 3;
         private decimal _total = 0m;
-        private decimal _cost = 0m;
-        private bool _sixBagels = false;
-        private bool _twelveBagels = false;
 
         public void SeedData()
         {
@@ -95,11 +92,13 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                             {
                                 item.Amount += 1;
                                 item.Stock -= 1;
+                                ItemCost(item.SKU);
                             } 
                             else
                             {
                                 Basket.Add(item);
                                 item.Stock -= 1;
+                                ItemCost(item.SKU);
                             }
                         }
                     }
@@ -160,46 +159,9 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private decimal totalCostBasket()
         {
-            // could be simplified even more by adding all item.Cost together
-            // current method doesnt recognize 6 + 1 of the same bagel
-            // check if there are 6 or 12 bagels in basket
             foreach (IItem item in Basket)
             {
-                if (item is Bagel)
-                {
-                    if (item.Amount == 6)
-                    {
-                        _sixBagels = true;
-                    }
-                    else if (item.Amount == 12)
-                    {
-                        _twelveBagels = true;
-                    }
-                    else
-                    {
-                        otherItems.Add(item);
-                    }
-                }
-                else
-                {
-                    otherItems.Add(item);
-                }
-            }
-
-            // add deal price to totalcost
-            if (_sixBagels)
-            {
-                _total += 2.49M;
-            }
-            else if (_twelveBagels)
-            {
-                _total += 3.99M;
-            }
-
-            // check for other items
-            foreach (IItem item in otherItems)
-            {
-                _total += (item.Amount * item.Price);
+                _total += item.Cost;
             }
             return _total;
         }
@@ -225,11 +187,11 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                 {
                     if (item is Bagel)
                     {
-                        if (item.Amount == 6)
+                        if (item.Amount >= 6 && item.Amount < 12)
                         {
                             sixBagels = true;
                         }
-                        else if (item.Amount == 12)
+                        else if (item.Amount >= 12)
                         {
                             twelveBagels = true;
                         }
@@ -242,13 +204,17 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             {
                 if (item.SKU == sku)
                 {
-                    if (sixBagels)
+                    if (item is Bagel && sixBagels)
                     {
-                        item.Cost = 2.49M;
+                        var extra = item.Amount - 6;
+                        var extraCost = extra * item.Price;
+                        item.Cost = 2.49M + extraCost;
                     }
-                    else if (twelveBagels)
+                    else if (item is Bagel && twelveBagels)
                     {
-                        item.Cost = 3.99M;
+                        var extra = item.Amount - 12;
+                        var extraCost = extra * item.Price;
+                        item.Cost = 3.99M + extraCost;
                     }
                     // if no deal price
                     else
