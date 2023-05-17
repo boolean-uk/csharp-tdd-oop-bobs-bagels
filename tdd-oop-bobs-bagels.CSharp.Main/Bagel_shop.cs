@@ -6,52 +6,54 @@ using System.Net.Http.Headers;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using tdd_oop_bobs_bagels.CSharp.Main.Products;
+using Users;
 
 namespace tdd_oop_bobs_bagels.CSharp.Main
 {
     public class Bagel_shop
     {
         private int capacity;
-        private List<Item> products;
+        private List<Items> products;
 
 
         public int Capacity { get { return capacity; } set { capacity = value; } }
-        public List<Item> Products { get { return products; } set { products = value; } } 
+        public List<Items> Products { get { return products; } set { products = value; } }
 
         public Bagel_shop()
         {
             Capacity = 5;
-            Products = new List<Item>();
-            Products.Add(new Item("BGLO", 0.49f, "Bagel", "Onion"));
-            Products.Add(new Item("BGLP", 0.39f, "Bagel", "Plain"));
-            Products.Add(new Item("BGLE", 0.49f, "Bagel", "Everything"));
-            Products.Add(new Item("BGLS", 0.49f, "Bagel", "Sesame"));
-            Products.Add(new Item("COFB", 0.99f, "Coffee", "Black"));
-            Products.Add(new Item("COFW", 1.19f, "Coffee", "White"));
-            Products.Add(new Item("COFC", 1.29f, "Coffee", "Cappucino"));
-            Products.Add(new Item("COFL", 1.29f, "Coffee", "Latte"));
-            Products.Add(new Item("FILB", 0.12f, "Filling", "Bacon"));
-            Products.Add(new Item("FILE", 0.12f, "Filling", "Egg"));
-            Products.Add(new Item("FILC", 0.12f, "Filling", "Cheese"));
-            Products.Add(new Item("FILX", 0.12f, "Filling", "Cream Cheese"));
-            Products.Add(new Item("FILS", 0.12f, "Filling", "Smoked Salmon"));
-            Products.Add(new Item("FILH", 0.12f, "Filling", "Ham"));
+            Products = new List<Items>();
+            Products.Add(new Bagel("BGLO", 0.49f, "Onion")); ;
+            Products.Add(new Bagel("BGLP", 0.39f, "Plain"));
+            Products.Add(new Bagel("BGLE", 0.49f, "Everything"));
+            Products.Add(new Bagel("BGLS", 0.49f, "Sesame"));
+            Products.Add(new Coffee("COFB", 0.99f, "Black"));
+            Products.Add(new Coffee("COFW", 1.19f, "White"));
+            Products.Add(new Coffee("COFC", 1.29f, "Cappucino"));
+            Products.Add(new Coffee("COFL", 1.29f, "Latte"));
+            Products.Add(new Filling("FILB", 0.12f, "Bacon"));
+            Products.Add(new Filling("FILE", 0.12f, "Egg"));
+            Products.Add(new Filling("FILC", 0.12f, "Cheese"));
+            Products.Add(new Filling("FILX", 0.12f, "Cream Cheese"));
+            Products.Add(new Filling("FILS", 0.12f, "Smoked Salmon"));
+            Products.Add(new Filling("FILH", 0.12f, "Ham"));
 
         }
 
 
 
-        public bool addItems(User user, Item item)
+        public bool addItems(Userr user, Items item)
         {
-            if (user.Role.Equals("Member of the public"))
+            if (user is Member)
             {
                 if (checkCapacity(user))
                 {
-                    foreach(Item product in products)
+                    foreach (Items product in products)
                     {
-                        if (product.Sku.Equals(item.Sku))
+                        if (product.sku.Equals(item.sku))
                         {
-                            user.Items.Add(item);
+                            user.items.Add(item);
                             return true;
                         }
                     }
@@ -60,17 +62,17 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return false;
         }
 
-        public bool removeItems(User user, Item item)
+        public bool removeItems(Userr user, Items item)
         {
-            if (user.Role.Equals("Member of the public"))
+            if (user is Member)
             {
                 if (checkIfItemExist(user, item))
                 {
-                    foreach (Item item1 in user.Items)
+                    foreach (Items item1 in user.items)
                     {
-                        if (item1.Sku.Equals(item.Sku))
+                        if (item1.sku.Equals(item.sku))
                         {
-                            user.Items.Remove(item1);
+                            user.items.Remove(item1);
                             return true;
                         }
                     }
@@ -79,20 +81,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return false;
         }
 
-        public bool checkCapacity(User user)
+        public bool checkCapacity(Userr user)
         {
-            if (user.Items.Count < Capacity)
+            if (user.items.Count < Capacity)
             {
                 return true;
             }
             return false;
         }
 
-        public bool checkIfItemExist(User user, Item item)
+        public bool checkIfItemExist(Userr user, Items item)
         {
-            foreach (Item item1 in user.Items)
+            foreach (Items item1 in user.items)
             {
-                if (item1.Sku.Equals(item.Sku))
+                if (item1.sku.Equals(item.sku))
                 {
                     return true;
                 }
@@ -100,55 +102,55 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return false;
         }
 
-        public void changeCapacity(User user, int newvalue)
+        public void changeCapacity(Userr user, int newvalue)
         {
-            if (user.Role.Equals("Manager"))
+            if (user is Manager)
             {
                 Capacity = newvalue;
             }
         }
 
-        public float totalCost(User user)
+        public float totalCost(Userr user)
         {
             float total = 0.00f;
-            if (user.Role.Equals("Customer"))
+            if (user is Customer)
             {
-                foreach (Item item in user.Items)
+                foreach (Items item in user.items)
                 {
-                    total += item.Price;
+                    total += item.price;
                 }
             }
             return total;
         }
 
-        public float itemCost(User user, string code)
+        public float itemCost(Userr user, string code)
         {
-            if (user.Role.Equals("Customer"))
+            if (user is Customer)
             {
-                foreach (Item product in products)
+                foreach (Items product in products)
                 {
-                    if (product.Sku.Equals(code))
+                    if (product.sku.Equals(code))
                     {
-                        return product.Price;
+                        return product.price;
                     }
                 }
             }
             return 0f;
         }
 
-        public void addFilling(User user, string code, string filling)
+        public void addFilling(Userr user, string code, string filling)
         {
-            if (user.Role.Equals("Customer"))
+            if (user is Customer)
             {
-                foreach (Item item in user.Items)
+                foreach (Items item in user.items)
                 {
-                    if (item.Sku.Equals(code))
+                    if (item.sku.Equals(code))
                     {
-                        foreach (Item product in products)
+                        foreach (Items product in products)
                         {
-                            if (product.Variant.Equals(filling))
+                            if (product.variant.Equals(filling))
                             {
-                                item.Price += product.Price;
+                                item.price += product.price;
                             }
                         }
                     }
@@ -156,15 +158,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             }
         }
 
-        public float costOfFilling(User user, string filling)
+        public float costOfFilling(Userr user, string filling)
         {
-           if (user.Role.Equals("Customer"))
+            if (user is Customer)
             {
-                foreach(Item product in products)
+                foreach (Items product in products)
                 {
-                    if (product.Variant.Equals(filling))
+                    if (product.variant.Equals(filling))
                     {
-                        return product.Price;
+                        return product.price;
                     }
                 }
             }
