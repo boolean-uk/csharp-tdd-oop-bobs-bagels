@@ -47,7 +47,7 @@ Total                  £5.55
 ```
 
 ```
-Extension 1.
+Extension 2.
 As the customer,
 So that I can see what I bought,
 I want to be able to print my receipt

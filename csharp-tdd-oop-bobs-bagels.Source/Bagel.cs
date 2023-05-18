@@ -15,8 +15,9 @@ namespace csharp_tdd_oop_bobs_bagels.Source
         public int Stock { get; set; }
         public int Amount { get; set; }
         public decimal Cost { get; set; }
+        public decimal Savings { get; set; }
 
-        public Bagel(string Sku, decimal Price, string Name, string Variant, int Stock, int Amount, decimal Cost)
+        public Bagel(string Sku, decimal Price, string Name, string Variant, int Stock, int Amount, decimal Cost, decimal Savings)
         {
             this.SKU = Sku;
             this.Price = Price;
@@ -25,6 +26,7 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             this.Stock = Stock;
             this.Amount = Amount;
             this.Cost = Cost;
+            this.Savings = Savings;
         }
     }
 }

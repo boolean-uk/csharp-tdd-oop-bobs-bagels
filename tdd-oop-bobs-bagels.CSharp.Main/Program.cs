@@ -43,39 +43,8 @@ main.ItemCost(item2);
 
 main.TotalCostBasket();
 
-/*
-    ~~~Bob's Bagels ~~~
+// turns out you pay more buying the 6 or 12 deal for the plain bagel than without the deal.
+// coffee deal has not been implemented yet.
+main.PrintReceipt();
 
-    2021 - 03 - 16 21:38:44
-
-----------------------------
-
-Onion Bagel        2   £0.98
-Plain Bagel        12  £3.99
-Everything Bagel   6   £2.49
-Coffee             3   £2.97
-
-----------------------------
-Total                 £10.43
-
-        Thank you
-      for your order!
-*/
-
-// receipt
-Console.WriteLine("~~~Bob's Bagels~~~");
-Console.WriteLine("");
-Console.WriteLine($"{DateTime.Now}");
-Console.WriteLine("");
-Console.WriteLine("----------------------------");
-Console.WriteLine("");
-foreach (IItem item in main.Basket)
-{
-    Console.WriteLine($"{item.Name} {item.Variant}   {item.Amount}   £{item.Cost}");
-}
-Console.WriteLine("");
-Console.WriteLine("----------------------------");
-Console.WriteLine($"Total   £{main.total}");
-Console.WriteLine("");
-Console.WriteLine("Thank you for your order!");
 

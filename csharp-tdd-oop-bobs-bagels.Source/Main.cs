@@ -19,25 +19,27 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private int _basketMax = 3;
         private decimal _total = 0m;
+        private bool _sixBagels = false;
+        private bool _twelveBagels = false;
 
         public void SeedData()
         {
             _products = new List<IItem>
             {
-                new Bagel("BGLO", 0.49M, "Bagel", "Onion", 20, 1, 0),
-                new Bagel("BGLP", 0.39M, "Bagel", "Plain", 20, 1, 0),
-                new Bagel("BGLE", 0.49M, "Bagel", "Everything", 20, 1, 0),
-                new Bagel("BGLS", 0.49M, "Bagel", "Sesame", 20, 1, 0),
-                new Coffee("COFB", 0.99M, "Coffee", "Black", 2, 1, 0),
-                new Coffee("COFW", 1.19M, "Coffee", "White", 2, 1, 0),
-                new Coffee("COFC", 1.29M, "Coffee", "Capuccino", 2, 1, 0),
-                new Coffee("COFL", 1.29M, "Coffee", "Latte", 2, 1, 0),
-                new Filling("FILB", 0.12M, "Filling", "Bacon", 2, 1, 0),
-                new Filling("FILE", 0.12M, "Filling", "Egg", 2, 1, 0),
-                new Filling("FILC", 0.12M, "Filling", "Cheese", 2, 1, 0),
-                new Filling("FILX", 0.12M, "Filling", "Cream Cheese", 2, 1, 0),
-                new Filling("FILS", 0.12M, "Filling", "Smoked Salmon", 2, 1, 0),
-                new Filling("FILH", 0.12M, "Filling", "Ham", 2, 1, 0)
+                new Bagel("BGLO", 0.49M, "Bagel", "Onion", 20, 1, 0, 0),
+                new Bagel("BGLP", 0.39M, "Bagel", "Plain", 20, 1, 0, 0),
+                new Bagel("BGLE", 0.49M, "Bagel", "Everything", 20, 1, 0, 0),
+                new Bagel("BGLS", 0.49M, "Bagel", "Sesame", 20, 1, 0, 0),
+                new Coffee("COFB", 0.99M, "Coffee", "Black", 2, 1, 0, 0),
+                new Coffee("COFW", 1.19M, "Coffee", "White", 2, 1, 0, 0),
+                new Coffee("COFC", 1.29M, "Coffee", "Capuccino", 2, 1, 0, 0),
+                new Coffee("COFL", 1.29M, "Coffee", "Latte", 2, 1, 0, 0),
+                new Filling("FILB", 0.12M, "Filling", "Bacon", 2, 1, 0, 0),
+                new Filling("FILE", 0.12M, "Filling", "Egg", 2, 1, 0, 0),
+                new Filling("FILC", 0.12M, "Filling", "Cheese", 2, 1, 0, 0),
+                new Filling("FILX", 0.12M, "Filling", "Cream Cheese", 2, 1, 0, 0),
+                new Filling("FILS", 0.12M, "Filling", "Smoked Salmon", 2, 1, 0, 0),
+                new Filling("FILH", 0.12M, "Filling", "Ham", 2, 1, 0, 0)
             };
         }
 
@@ -178,8 +180,8 @@ namespace csharp_tdd_oop_bobs_bagels.Source
 
         private void itemCost(string sku)
         {
-            bool sixBagels = false;
-            bool twelveBagels = false;
+            _sixBagels = false;
+            _twelveBagels = false;
             // check if there are 6 or 12 bagels in item
             foreach (IItem item in Basket)
             {
@@ -189,11 +191,11 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                     {
                         if (item.Amount >= 6 && item.Amount < 12)
                         {
-                            sixBagels = true;
+                            _sixBagels = true;
                         }
                         else if (item.Amount >= 12)
                         {
-                            twelveBagels = true;
+                            _twelveBagels = true;
                         }
                     }
                 }
@@ -204,17 +206,19 @@ namespace csharp_tdd_oop_bobs_bagels.Source
             {
                 if (item.SKU == sku)
                 {
-                    if (item is Bagel && sixBagels)
+                    if (item is Bagel && _sixBagels)
                     {
                         var extra = item.Amount - 6;
                         var extraCost = extra * item.Price;
                         item.Cost = 2.49M + extraCost;
+                        item.Savings = 6 * item.Price - 2.49M;
                     }
-                    else if (item is Bagel && twelveBagels)
+                    else if (item is Bagel && _twelveBagels)
                     {
                         var extra = item.Amount - 12;
                         var extraCost = extra * item.Price;
                         item.Cost = 3.99M + extraCost;
+                        item.Savings = 12 * item.Price - 3.99M;
                     }
                     // if no deal price
                     else
@@ -223,6 +227,34 @@ namespace csharp_tdd_oop_bobs_bagels.Source
                     }
                 }
             }
+        }
+        #endregion
+
+        #region PrintReceipt
+        public void PrintReceipt()
+        {
+            Console.WriteLine("~~~Bob's Bagels~~~");
+            Console.WriteLine("");
+            Console.WriteLine($"{DateTime.Now}");
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("");
+            foreach (IItem item in Basket)
+            {
+                Console.WriteLine($"{item.Name} {item.Variant}   {item.Amount}   £{item.Cost}");
+                if (item is Bagel)
+                {
+                    if (item.Savings != 0M)
+                    {
+                        Console.WriteLine($"(-£{item.Savings})");
+                    }
+                }
+            }
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine($"Total   £{total}");
+            Console.WriteLine("");
+            Console.WriteLine("Thank you for your order!");
         }
         #endregion
 

@@ -8,6 +8,16 @@ Update and extend your program to handle showing savings to the customer.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
 
+```
+Extension 3.
+As the customer,
+So that I can see how much money I am saving,
+I want to be able to my savings on the receipt
+```
+| Classes         | Methods          | Scenario                                             | Outputs                             |
+|-----------------|------------------|------------------------------------------------------|-------------------------------------|
+| `Main`		  | `ShowSavings()`  | When I buy discounted items I want to see my savings | Return printed receipt with savings |
+
 #### Example Receipt
 ```
     ~~~ Bob's Bagels ~~~

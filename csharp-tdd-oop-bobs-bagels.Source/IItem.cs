@@ -9,5 +9,6 @@
         public int Stock { get; set; }
         public int Amount { get; set; }
         public decimal Cost { get; set; }
+        public decimal Savings { get; set; }
     }
 }
