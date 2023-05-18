@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tdd-oop-bobs-bagels.CSharp.Main\tdd-oop-bobs-bagels.CSharp.Main.csproj" />
+    <ProjectReference Include="..\tdd-oop-bobs-bagels.CSharp.Source\tdd-oop-bobs-bagels.CSharp.Source.csproj" />
   </ItemGroup>
 
 </Project>
