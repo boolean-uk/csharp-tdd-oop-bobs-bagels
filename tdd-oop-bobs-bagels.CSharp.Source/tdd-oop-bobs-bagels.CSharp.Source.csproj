@@ -1,14 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>tdd_oop_bobs_bagels.CSharp.Source</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\tdd-oop-bobs-bagels.CSharp.Source\tdd-oop-bobs-bagels.CSharp.Source.csproj" />
-  </ItemGroup>
 
 </Project>
