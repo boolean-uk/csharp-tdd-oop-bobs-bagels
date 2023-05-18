@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\tdd-oop-bobs-bagels.CSharp.Source\tdd-oop-bobs-bagels.CSharp.Source.csproj" />
+  </ItemGroup>
+
 </Project>

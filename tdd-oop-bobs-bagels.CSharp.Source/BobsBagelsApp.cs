@@ -11,7 +11,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Source
     public class BobsBagelsApp
     {
 
+        public List<InventoryItem> stock = new List<InventoryItem>();
 
+        public List<InventoryItem> basket = new List<InventoryItem>();
+        public int MaxCapacityBasket = 3;
         public BobsBagelsApp()
         {
             InventoryItem item1 = new InventoryItem() { SKU ="BGLO", Price = 0.49M, Name = "Bagel", Variant = "Onion"};
@@ -44,22 +47,35 @@ namespace tdd_oop_bobs_bagels.CSharp.Source
             this.stock.Add(item13);
             this.stock.Add(item14);
         }
+        public decimal TotalCostBasket()
+        {
+            return basket.Sum(i => i.Price);
+        }
 
-
-
-        public List<string> basket = new List<string>();
-        public int MaxCapacityBasket = 3;
-        public void AddProduct(string item)
+        public void AddInventoryItemToBasket(InventoryItem item)
+        {
+            basket.Add(item);
+        }
+        public bool AddProduct (string sku)
         {
             if (this.basket.Count < this.MaxCapacityBasket)
             {
-                basket.Add(item);
+                if (stock.Any(s => s.SKU == sku) == true)
+                {
+                    var item = stock.Where(s => s.SKU == sku).FirstOrDefault();
+                    if (item  != null)
+                    {
+                        this.AddInventoryItemToBasket(item);
+                    }
+                    return true;
+                }
             }
-        }
+            return false; 
 
+        }
+    
         public string ChangeBasketCapacity(int count)
         {
-            // if basket.count < count
             if (basket.Count < count)
             {
                 MaxCapacityBasket = count;
@@ -72,12 +88,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Source
             //else basket.count > count either remove items from existing basket or give back message
         }
 
-        public string RemoveProduct(string item)
+        public string RemoveProduct(string sku)
         {
-            if (basket.Contains(item))
+            if (basket.Any(s => s.SKU == sku))
             {
-                basket.Remove(item);
-                return $"{item} removed";
+                var found = basket.Find(x => x.SKU == sku);
+                if (found != null) basket.Remove(found);
+                //basket.RemoveAll(s => s.SKU == sku);
+                return $"{sku} removed";
             }
             else
             {
@@ -85,6 +103,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Source
             }
         }
 
-        private List <InventoryItem> stock = new List<InventoryItem>();
+        public void RemoveProductByNumber(int index)
+        {
+            basket.RemoveAt(index);
+        }
+
     }
 }
