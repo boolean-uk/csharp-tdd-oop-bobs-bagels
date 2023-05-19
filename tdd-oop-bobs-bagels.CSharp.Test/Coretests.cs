@@ -88,7 +88,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             ShopItem filling = new ShopItem("FILB", "Bacon", 0.12m, "Filling");
             ShopItem bagel = new ShopItem("BGLP", "Plain", 0.39m, "Bagel");
             basket.AddFilling(bagel, filling);
-            Assert.AreEqual(filling, basket.ShoppingBasket.FirstOrDefault(i => i.SKU == bagel.SKU).Extras.FirstOrDefault(i => i.SKU == filling.SKU));
+            Assert.AreEqual(filling, basket.ShoppingBasket.FirstOrDefault(bagel).Extras.FirstOrDefault(filling));
 
         }
 

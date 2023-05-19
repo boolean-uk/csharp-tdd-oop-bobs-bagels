@@ -32,7 +32,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
                     if (this.ShoppingBasket.Count < this.ShoppingBasketMax)
                     {
                         this.ShoppingBasket.Add(item);
-                        this.ShoppingBasket.LastOrDefault(i => i.Variant == item.Variant).Amount = amount;
+                        this.ShoppingBasket.LastOrDefault(item).Amount = amount;
                     }
                     else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
                     {
@@ -71,34 +71,57 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         public decimal CalculateTotal()
         {
             
-            decimal test = 0;
+            decimal total = 0;
             foreach (var item in this.ShoppingBasket)
             {
                 if (item.SKU == "BGLO" && item.Amount >= 6 || item.SKU == "BGLE" && item.Amount >= 6)
                 {
                     int modulo = item.Amount % 6;
                     int amountOfDiscounts = (item.Amount - modulo) / 6;
-                    decimal PriceNormal = modulo * item.Price;
-                    decimal PriceDiscount = amountOfDiscounts * 2.49m;
-                    test += PriceDiscount + PriceNormal;
+                    ShoppingBasketDiscountLeftOver.Add(item);
+                    this.ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = modulo;
+                    total += amountOfDiscounts * 2.49m;
                     
                 } else if (item.SKU == "BGLP" && item.Amount >= 12)
                 {
                     int modulo = item.Amount % 12;
                     int amountOfDiscounts = (item.Amount - modulo) / 12;
-                    decimal PriceNormal = modulo * item.Price;
-                    decimal PriceDiscount = amountOfDiscounts * 3.99m;
-                    test += PriceDiscount + PriceNormal;
-                } else
-                
+                    ShoppingBasketDiscountLeftOver.Add(item);
+                    this.ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = modulo;
+
+                    total += amountOfDiscounts * 3.99m;
+                } else if (item.SKU != "COFB")
                 {
-                    test += item.Amount * item.Price;
+                    ShoppingBasketDiscountLeftOver.Add(item);
+                    ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = item.Amount;
+                }  else if (item.SKU == "COFB")
+                {
+                    int Coffeeamount = item.Amount;
+                    foreach (var p in this.ShoppingBasketDiscountLeftOver)
+                    {
+                        
+                        if (p.Amount < Coffeeamount)
+                        {
+                            total += p.Amount * 1.25m;
+                            p.Amount -= p.Amount;
+                            Coffeeamount -= p.Amount;
+                            
+                        } if (p.Amount >= Coffeeamount)
+                        {
+                            total += Coffeeamount * 1.25m;
+                            p.Amount -= Coffeeamount;
+                            Coffeeamount -= Coffeeamount;
+                            
+                        }
+                    }
                 }
 
-                
-
             }
-            return test;
+            foreach (var item in ShoppingBasketDiscountLeftOver)
+            {
+                total += item.Amount * item.Price;
+            }
+            return total;
 
 /*
             decimal total = 0;
@@ -114,12 +137,14 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         {
             if (Bagel.Name == "Bagel")
             {
-                ShoppingBasket.FirstOrDefault(i => i.SKU == Bagel.SKU).Extras.Add(Filling);
+                ShoppingBasket.FirstOrDefault(Bagel).Extras.Add(Filling);
             }
         }
 
         
         public List<ShopItem> ShoppingBasket { get; set; } = new List<ShopItem>();
+        public List<ShopItem> ShoppingBasketDiscountLeftOver { get; set; } = new List<ShopItem>();
+
         public int ShoppingBasketMax { get; set; } = 4;
 
     }
