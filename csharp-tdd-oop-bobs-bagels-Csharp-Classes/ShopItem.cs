@@ -12,12 +12,16 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         private string _name;
         private decimal _price;
         private string _variant;
-        private string _SKU;
+        private string _sku;
+        private int _amount;
+        
 
         public string Name { get =>  _name; set { _name = value;} }
         public decimal Price { get => _price; set { _price = value;} }
         public string Variant { get => _variant; set { _variant = value;} }
-        public string SKU { get => _SKU; set { _SKU = value; } }
+        public string SKU { get => _sku; set { _sku = value; } }
+        public int Amount { get => _amount; set { _amount = value;} }
+        public List<ShopItem> Extras = new List<ShopItem>();
 
         public ShopItem(string SKU, string Variant, decimal Price, string Name)
         {
@@ -25,6 +29,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             this.Price = Price;
             this.Name = Name;
             this.Variant = Variant;
+            
         }
 
     }

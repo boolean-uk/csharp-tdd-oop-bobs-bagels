@@ -9,6 +9,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 {
     public class Basket
     {
+        Inventory inventory = new Inventory();
         public Basket() 
         {
 
@@ -22,15 +23,25 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             ShoppingBasket.Add(new ShopItem("BGLS", "Sesame", 0.49m, "Bagel"));
         }
 
-        public void AddItemToBasket(ShopItem item)
+        public void AddItemToBasket(ShopItem item, int amount)
         {
-            if (this.ShoppingBasket.Count < this.ShoppingBasketMax) 
+            foreach(ShopItem i in inventory.InventoryList)
             {
-                this.ShoppingBasket.Add(item);
-            } else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
-            {
-                Console.WriteLine("Basket is full!");
+                if (i.Variant == item.Variant) 
+                {
+                    if (this.ShoppingBasket.Count < this.ShoppingBasketMax)
+                    {
+                        this.ShoppingBasket.Add(item);
+                        this.ShoppingBasket.LastOrDefault(i => i.Variant == item.Variant).Amount = amount;
+                    }
+                    else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
+                    {
+                        Console.WriteLine("Basket is full!");
+                    }
+                }
             }
+
+            
             
         }
 
@@ -59,23 +70,57 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         public decimal CalculateTotal()
         {
+            
+            decimal test = 0;
+            foreach (var item in this.ShoppingBasket)
+            {
+                if (item.SKU == "BGLO" && item.Amount >= 6 || item.SKU == "BGLE" && item.Amount >= 6)
+                {
+                    int modulo = item.Amount % 6;
+                    int amountOfDiscounts = (item.Amount - modulo) / 6;
+                    decimal PriceNormal = modulo * item.Price;
+                    decimal PriceDiscount = amountOfDiscounts * 2.49m;
+                    test += PriceDiscount + PriceNormal;
+                    
+                } else if (item.SKU == "BGLP" && item.Amount >= 12)
+                {
+                    int modulo = item.Amount % 12;
+                    int amountOfDiscounts = (item.Amount - modulo) / 12;
+                    decimal PriceNormal = modulo * item.Price;
+                    decimal PriceDiscount = amountOfDiscounts * 3.99m;
+                    test += PriceDiscount + PriceNormal;
+                } else
+                
+                {
+                    test += item.Amount * item.Price;
+                }
+
+                
+
+            }
+            return test;
+
+/*
             decimal total = 0;
             foreach (var item in this.ShoppingBasket)
             {
-                total += item.Price;
+                total += item.Price * item.Amount;
             }
-            return total;
+            return total;*/
 
         }
 
-        public void AddFilling(string v, ShopItem item1)
+        public void AddFilling(ShopItem Bagel, ShopItem Filling)
         {
-            throw new NotImplementedException();
+            if (Bagel.Name == "Bagel")
+            {
+                ShoppingBasket.FirstOrDefault(i => i.SKU == Bagel.SKU).Extras.Add(Filling);
+            }
         }
 
-        public List<ShopItem> InventoryList { get; set; } = new List<ShopItem>();
+        
         public List<ShopItem> ShoppingBasket { get; set; } = new List<ShopItem>();
-        public int ShoppingBasketMax { get; set; } = 5;
+        public int ShoppingBasketMax { get; set; } = 4;
 
     }
 

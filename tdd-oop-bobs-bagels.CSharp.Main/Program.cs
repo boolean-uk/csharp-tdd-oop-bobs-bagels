@@ -11,7 +11,7 @@ foreach (var item in inventory.InventoryList)
 {
     
     
-        Console.WriteLine($"{item.Variant} {item.Name}: €{item.Price}");
+        Console.WriteLine($"{item.Variant} {item.Name}: {item.Price}");
     
     
 

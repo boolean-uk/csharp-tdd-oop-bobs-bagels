@@ -28,7 +28,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         };
 
         public List<ShopItem> InventoryList { get { return inventoryList; } set { inventoryList = value; } }
-        public List<ShopItem> InventoryListNoChange { get { return inventoryList; } }
+       
 
     }
 

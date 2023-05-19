@@ -72,4 +72,7 @@ FillingInventory	| FillingPriceList				| opening app							| shows a list of Fil
 
 
 --------------------|-------------------------------|---------------------------------------|------------
-					|								|									|
+					|								|										|
+
+
+					coffe if there is an bagel -- find first instance of bagel and reduce amount by 1
