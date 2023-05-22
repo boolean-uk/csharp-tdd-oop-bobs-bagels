@@ -80,15 +80,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(basket.CalculateTotal(), 1.86m);
         }
 
-        [Test]
-        public void IsFillingAdded()
+        [TestCase("FILB")]
+        public void IsFillingAdded(string filling)
         {
             Basket basket = new Basket();
             basket.TestData();
-            ShopItem filling = new ShopItem("FILB", "Bacon", 0.12m, "Filling");
+            
             ShopItem bagel = new ShopItem("BGLP", "Plain", 0.39m, "Bagel");
             basket.AddFilling(bagel, filling);
-            Assert.AreEqual(filling, basket.ShoppingBasket.FirstOrDefault(bagel).Extras.FirstOrDefault(filling));
+            Assert.AreEqual(1, basket.ShoppingBasket.FirstOrDefault(bagel).Extras.Count);
 
         }
 

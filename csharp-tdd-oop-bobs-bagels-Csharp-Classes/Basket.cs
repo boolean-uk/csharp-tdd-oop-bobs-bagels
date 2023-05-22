@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using csharp_tdd_oop_bobs_bagels_Csharp_Classes;
@@ -27,7 +28,7 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             }
         }
         public int itemId = 1;
-        public void AddItemToBasket(ShopItem item, int amount)
+        public bool AddItemToBasket(ShopItem item, int amount)
         {
             
             foreach(ShopItem i in inventory.InventoryList)
@@ -36,20 +37,22 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
                 {
                     if (this.ShoppingBasket.Count < this.ShoppingBasketMax)
                     {
-                        this.ShoppingBasket.Add(item);
-                        this.ShoppingBasket.LastOrDefault(item).Amount = amount;
-                        this.ShoppingBasket.LastOrDefault(item).Id = itemId;
+
+                        ShoppingBasket.Add(new ShopItem(item.SKU, item.Variant, item.Price, item.Name) { Amount = amount, Id = itemId });
+
                         itemId++;
+                        return true;
                     }
                     else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
                     {
-                        Console.WriteLine("");
+                        return false;
                     }
                 }
+                
             }
 
-            
-            
+            return false;
+
         }
 
         public ShopItem SkuToShopItem(string Sku)
@@ -91,31 +94,37 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         }
 
         public decimal CalculateTotal()
+
         {
             
             decimal total = 0;
-            foreach (var item in this.ShoppingBasket)
+            foreach (var item in ShoppingBasket)
             {
                 if (item.SKU == "BGLO" && item.Amount >= 6 || item.SKU == "BGLE" && item.Amount >= 6)
+
                 {
+                    
                     int modulo = item.Amount % 6;
                     int amountOfDiscounts = (item.Amount - modulo) / 6;
-                    ShoppingBasketDiscountLeftOver.Add(item);
-                    this.ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = modulo;
+                    ShoppingBasketDiscountLeftOver.Add(new ShopItem(item.SKU, item.Variant, item.Price, item.Name) { Amount = modulo});
+                    item.Costs += modulo * item.Price;
+                    item.Costs += amountOfDiscounts * 2.49m;
+                    item.Discount = item.Amount * item.Price - item.Costs;
                     total += amountOfDiscounts * 2.49m;
                     
                 } else if (item.SKU == "BGLP" && item.Amount >= 12)
                 {
                     int modulo = item.Amount % 12;
                     int amountOfDiscounts = (item.Amount - modulo) / 12;
-                    ShoppingBasketDiscountLeftOver.Add(item);
-                    this.ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = modulo;
-
+                    ShoppingBasketDiscountLeftOver.Add(new ShopItem(item.SKU, item.Variant, item.Price, item.Name) { Amount = modulo });
+                    item.Costs += modulo * item.Price;
+                    item.Costs += amountOfDiscounts * 3.99m;
+                    item.Discount = item.Amount * item.Price - item.Costs;
                     total += amountOfDiscounts * 3.99m;
                 } else if (item.SKU != "COFB")
                 {
-                    ShoppingBasketDiscountLeftOver.Add(item);
-                    ShoppingBasketDiscountLeftOver.LastOrDefault(item).Amount = item.Amount;
+                    ShoppingBasketDiscountLeftOver.Add(new ShopItem(item.SKU, item.Variant, item.Price, item.Name) { Amount = item.Amount });
+                    item.Costs += item.Price * item.Amount;
                 }  else if (item.SKU == "COFB")
                 {
                     int Coffeeamount = item.Amount;
@@ -155,12 +164,17 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
 
         }
 
-        public void AddFilling(ShopItem Bagel, ShopItem Filling)
+        public void AddFilling(ShopItem Bagel, string Filling)
         {
-            if (Bagel.Name == "Bagel")
+            
+            foreach(ShopItem item in inventory.InventoryList)
             {
-                ShoppingBasket.FirstOrDefault(Bagel).Extras.Add(Filling);
+                if (item.SKU == Filling && Bagel.Name == "Bagel")
+                {
+                    ShoppingBasket.FirstOrDefault(Bagel).Extras.Add(item);
+                }
             }
+
         }
 
       

@@ -15,6 +15,8 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         private string _sku;
         private int _amount;
         private int _id;
+        private decimal _costs;
+        private decimal _discount;
         
 
         public string Name { get =>  _name; set { _name = value;} }
@@ -23,6 +25,10 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
         public string SKU { get => _sku; set { _sku = value; } }
         public int Amount { get => _amount; set { _amount = value;} }
         public int Id { get => _id; set { _id = value;} }
+        public decimal Costs { get => _costs; set { _costs = value; } }
+        public decimal Discount { get => _discount; set { _discount= value; } }
+
+
 
         public List<ShopItem> Extras = new List<ShopItem>();
 

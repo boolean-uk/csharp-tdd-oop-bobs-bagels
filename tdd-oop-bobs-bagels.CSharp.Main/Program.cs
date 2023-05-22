@@ -14,12 +14,7 @@ while (running)
     Console.WriteLine(new string('~', 40));
     foreach (var item in inventory.InventoryList)
     {
-
-
         Console.WriteLine($"{item.SKU} {item.Variant} {item.Name}: {item.Price}");
-
-
-
     }
     Console.WriteLine(" ");
     Console.WriteLine("Current Discounts:");
@@ -36,18 +31,21 @@ while (running)
     foreach (var item in basket.ShoppingBasket)
     {
         Console.WriteLine($"{item.Id}.  {item.Variant} {item.Name}: {item.Price}  ({item.Amount})" );
+        foreach(var filling in item.Extras) { Console.WriteLine($"      {filling.Variant}"); }
     }
     
     
     Console.WriteLine(new string('-', 40));
 
-    Console.WriteLine($"Total :{basket.CalculateTotal()}");
+    decimal total = basket.CalculateTotal();
+    Console.WriteLine($"Total :{total}");
     Console.WriteLine(new string('-', 40));
 
     Console.WriteLine("Options:");
     Console.WriteLine("1. Enter an SKU to add to The basket");
     Console.WriteLine("2. Enter remove to remove an item from the basket");
     Console.WriteLine("3. Enter q to Quit");
+    Console.WriteLine("3. Enter Pay to get an reciept");
     string input = Console.ReadLine();
     switch(input.ToUpper())
     {
@@ -56,6 +54,9 @@ while (running)
         case "REMOVE":
             RemoveProduct() ; 
             break;
+        case "PAY":
+            PrintReceipt(total) ; 
+            break; 
         default:
             AddProduct(input)
                 ; break;
@@ -64,7 +65,9 @@ while (running)
 }
 
 void AddProduct(string input)
+
     {
+    Console.Clear();
     ShopItem inputToShopitem = basket.SkuToShopItem(input);
     if (inputToShopitem.SKU == "") 
     {
@@ -77,13 +80,42 @@ void AddProduct(string input)
         Console.WriteLine("How many would you like?");
         int amount = int.Parse(Console.ReadLine());
         ;
-        basket.AddItemToBasket(inputToShopitem, amount);
+        if (basket.AddItemToBasket(inputToShopitem, amount))
+        {
+            Console.WriteLine("Would you like to add a filling?");
+            foreach (var item in inventory.InventoryList)
+            {
+                if (item.Name == "Filling")
+                {
+                    Console.WriteLine($"{item.SKU} {item.Variant} {item.Name}: {item.Price}");
+                }
+            }
+            Console.WriteLine("Enter the SKU to add an filling");
+            Console.WriteLine("Else press (N) to return to main menu");
+            string yesno = Console.ReadLine();
+            switch (input.ToUpper())
+            {
+               case "N":
+                    break;
+                default:
+                    basket.AddFilling(inputToShopitem, yesno)
+                        ; break;
+            }
+        }
+        else 
+        {
+            Console.WriteLine("Basket is Full!");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+        }
 
     }
     
     
     
 }
+
+
 
 void RemoveProduct()
 {
@@ -100,3 +132,29 @@ void RemoveProduct()
 }
 
 
+void PrintReceipt(decimal total)
+{
+    
+    Console.Clear();
+    Console.WriteLine("~~~Bob's Bagels~~~");
+    Console.WriteLine("");
+    Console.WriteLine($"{DateTime.Now}");
+    Console.WriteLine("");
+    Console.WriteLine("----------------------------");
+    Console.WriteLine("");
+    foreach(var item in basket.ShoppingBasket)
+    { 
+        Console.WriteLine($"{item.Variant} {item.Name} {item.Amount} £{item.Costs} ");
+        if (item.Discount != 0) 
+        { 
+            Console.WriteLine($"(£{item.Discount})"); 
+        }
+    }
+
+    Console.WriteLine("");
+    Console.WriteLine("----------------------------");
+    Console.WriteLine($"Total   £{total}");
+    Console.WriteLine("");
+    Console.WriteLine("Thank you for your order!");
+    Console.ReadKey();
+}
