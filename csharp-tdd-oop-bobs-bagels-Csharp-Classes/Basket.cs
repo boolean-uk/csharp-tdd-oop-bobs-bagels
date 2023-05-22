@@ -68,8 +68,6 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             return empty;
         }
 
-
-
         public bool RemoveItemFromBasket(int id)
         {
             var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.Id == id);

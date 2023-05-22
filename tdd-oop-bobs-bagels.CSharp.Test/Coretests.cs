@@ -39,7 +39,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
                 minuscount++;
             }
 
-
             Assert.AreEqual(count - minuscount, basket.ShoppingBasket.Count);
 
         }
@@ -56,7 +55,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.AddItemToBasket(item2, 1);
 
             Assert.AreEqual(basket.ShoppingBasket.Count, basket.ShoppingBasketMax);
-
         }
 
         [TestCase(7, true)]
@@ -67,8 +65,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.TestData();
             basket.SetBasketMax(value);
             Assert.AreEqual(value == basket.ShoppingBasketMax, expected);
-
-
         }
 
         [Test]
@@ -89,7 +85,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             ShopItem bagel = new ShopItem("BGLP", "Plain", 0.39m, "Bagel");
             basket.AddFilling(bagel, filling);
             Assert.AreEqual(1, basket.ShoppingBasket.FirstOrDefault(bagel).Extras.Count);
-
         }
 
         [TestCase(6, 2.49)]
@@ -120,10 +115,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.AddItemToBasket(item3, 6);
             ShopItem item4 = new ShopItem("COFB", "Black", 0.99m, "Coffee");
             basket.AddItemToBasket(item4, 3);
-
-
             Assert.AreEqual(8.98m, basket.CalculateTotal());
-
 
         }
 

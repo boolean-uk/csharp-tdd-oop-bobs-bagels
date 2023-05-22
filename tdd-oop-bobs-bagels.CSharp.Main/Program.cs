@@ -147,7 +147,7 @@ void PrintReceipt(decimal total)
         Console.WriteLine($"{item.Variant} {item.Name} {item.Amount} £{item.Costs} ");
         if (item.Discount != 0) 
         { 
-            Console.WriteLine($"(£{item.Discount})"); 
+            Console.WriteLine($"(-£{item.Discount})"); 
         }
     }
 
