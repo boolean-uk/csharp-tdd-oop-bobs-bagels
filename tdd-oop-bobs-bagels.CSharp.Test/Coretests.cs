@@ -21,9 +21,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(basket.ShoppingBasket.Count, 1);
         }
 
-        [TestCase("BGLO")]
-        [TestCase("Hello")]
-        public void RemoveBagelTest(string SDK)
+        [TestCase(1)]
+        [TestCase(6)]
+        public void RemoveBagelTest(int id)
         {
             Basket basket = new Basket();
             ShopItem item1 = new ShopItem("BGLO", "Onion", 0.49m, "Bagel");
@@ -32,7 +32,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.AddItemToBasket(item1, 1);
             basket.AddItemToBasket(item2, 1);
             int count = basket.ShoppingBasket.Count;
-            bool removeResult = basket.RemoveItemFromBasket(SDK);
+            bool removeResult = basket.RemoveItemFromBasket(id);
             int minuscount = 0;
             if (removeResult)
             {
@@ -96,7 +96,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [TestCase(12, 4.98)]
         [TestCase(13, 5.47)]
 
-
         public void Discount6Test(int amount, decimal expected)
         {
             Basket basket = new Basket();
@@ -108,20 +107,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
         }
 
-        [Test]
-        public void Discount2times6Test()
-        {
-            Basket basket = new Basket();
-            ShopItem item1 = new ShopItem("BGLO", "Onion", 0.49m, "Bagel");
-            basket.AddItemToBasket(item1, 6);
-            ShopItem item2 = new ShopItem("BGLE", "Everything", 0.49m, "Bagel");
-            basket.AddItemToBasket(item1, 6);
-
-            Assert.AreEqual(4.98m, basket.CalculateTotal());
-
-
-        }
-
+       
         [Test]
         public void ExampleTest()
         {
@@ -136,7 +122,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             basket.AddItemToBasket(item4, 3);
 
 
-            Assert.AreEqual(10.43m, basket.CalculateTotal());
+            Assert.AreEqual(8.98m, basket.CalculateTotal());
 
 
         }

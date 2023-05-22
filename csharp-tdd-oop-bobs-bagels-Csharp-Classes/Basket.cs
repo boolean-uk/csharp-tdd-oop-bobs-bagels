@@ -21,10 +21,15 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             ShoppingBasket.Add( new ShopItem("BGLP", "Plain", 0.39m, "Bagel"));
             ShoppingBasket.Add( new ShopItem("BGLE", "Everything", 0.49m, "Bagel"));
             ShoppingBasket.Add(new ShopItem("BGLS", "Sesame", 0.49m, "Bagel"));
+            foreach (ShopItem item in ShoppingBasket)
+            {
+                item.Amount = 1;
+            }
         }
-
+        public int itemId = 1;
         public void AddItemToBasket(ShopItem item, int amount)
         {
+            
             foreach(ShopItem i in inventory.InventoryList)
             {
                 if (i.Variant == item.Variant) 
@@ -33,10 +38,12 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
                     {
                         this.ShoppingBasket.Add(item);
                         this.ShoppingBasket.LastOrDefault(item).Amount = amount;
+                        this.ShoppingBasket.LastOrDefault(item).Id = itemId;
+                        itemId++;
                     }
                     else if (this.ShoppingBasket.Count >= this.ShoppingBasketMax)
                     {
-                        Console.WriteLine("Basket is full!");
+                        Console.WriteLine("");
                     }
                 }
             }
@@ -45,9 +52,24 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             
         }
 
-        public bool RemoveItemFromBasket(string SKU)
+        public ShopItem SkuToShopItem(string Sku)
         {
-            var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.SKU == SKU);
+            ShopItem empty = new ShopItem("","",0,"");
+            foreach (ShopItem item in inventory.InventoryList)
+            {
+                if(item.SKU== Sku)
+                {
+                    return item;
+                }
+            }
+            return empty;
+        }
+
+
+
+        public bool RemoveItemFromBasket(int id)
+        {
+            var itemToRemove = this.ShoppingBasket.FirstOrDefault(x => x.Id == id);
             if (itemToRemove != null) 
             {
                 return this.ShoppingBasket.Remove(itemToRemove) ? true : false;
@@ -141,7 +163,8 @@ namespace csharp_tdd_oop_bobs_bagels_Csharp_Classes
             }
         }
 
-        
+      
+
         public List<ShopItem> ShoppingBasket { get; set; } = new List<ShopItem>();
         public List<ShopItem> ShoppingBasketDiscountLeftOver { get; set; } = new List<ShopItem>();
 
