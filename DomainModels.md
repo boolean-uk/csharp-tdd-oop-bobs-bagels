@@ -66,7 +66,9 @@ I will change all bagels from strings to objects everywhere.
 
 |			  |	`Sum(List<Object> basket)`						  | The total cost of the basket	   | sum				 |
 |			  | `Add(List<Object> basket, bagel)`				  | Show cost and confirm before adding| cost and confirm	 |
-|		      |	`AddFillings(List<Object> basket, bagel, filling)`| Add fillings to a bagel		       | check price and add |
+|		      |	`AddFillings(bool filling)`						  | Add fillings to a list of bool	   | check price and add |
+																  | showing true if the fillings is    |
+																  | chosen for the begel		       |
 
 
 

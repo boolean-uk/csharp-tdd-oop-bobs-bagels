@@ -12,14 +12,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     [TestFixture]
     public class CoreTests
     {
-        public List<bool> Fillings = new List<bool>();
+
         bool bacon = false;
-        bool egg = false;
+        /*bool egg = false;
         bool cheese = false;
         bool cream_cheese = false;
         bool smoked_salmon = false;
-        bool ham = false;
-
+        bool ham = false;*/
 
         Bagel OnionBagel = new Bagel("BGLO", 0.49f, "Bagel", "Onion");
         Bagel PlainBagel = new Bagel("BGLP", 0.39f, "Bagel", "Plain");
@@ -64,6 +63,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(core.capacity == newcap);
         }
 
+        [Test]
         public void SumOfBasket()
         {
             //arrange
@@ -75,9 +75,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             core.Sum(core.Basket);
 
             //assert
-            Assert.IsTrue(core.Sum(core.Basket)==(0.49+0.39));
+            // this is manually set here.
+            Assert.IsTrue(core.Sum(core.Basket)==(0.49f+0.39f));
         }
 
+        [Test]
         public void AddFillingsTest()
         {
             //arrange
@@ -89,7 +91,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             core.AddBagel(core.Basket, PlainBagel);
 
             //assert
-            Assert.IsTrue(Fillings.Contains(bacon));
+            Assert.IsTrue(core.Fillings.Contains(bacon));
         }
 
         /* public void UpdateCap()
