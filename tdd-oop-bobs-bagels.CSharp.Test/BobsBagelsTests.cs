@@ -11,6 +11,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     [TestFixture]
     public class BobsBagelsTests
     {
+        private BobsBagelsApp arrange()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            Assert.IsTrue(basket.AddBagel("plain"));
+            Assert.IsTrue(basket.AddBagel("everything"));
+            Assert.IsTrue(basket.AddBagel("onion"));
+            return basket;
+        }
+
         // 1. add a specific type of bagel to my basket
         [Test]
         public void AddABagelToBasketTest()
@@ -31,10 +40,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void RemoveABagelFromBasketTest()
         {
-            BobsBagelsApp basket = new BobsBagelsApp();
-            Assert.IsTrue(basket.AddBagel("plain"));
-            Assert.IsTrue(basket.AddBagel("onion"));
-            Assert.IsTrue(basket.AddBagel("everything"));
+            BobsBagelsApp basket = arrange();
 
             Assert.IsTrue(basket.RemoveBagel("onion"));
 
@@ -45,10 +51,32 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void Add4BagelsToBasketTest()
         {
-            BobsBagelsApp basket = new BobsBagelsApp();
-            Assert.IsTrue(basket.AddBagel("plain"));
-            Assert.IsTrue(basket.AddBagel("everything"));
-            Assert.IsTrue(basket.AddBagel("onion"));
+            BobsBagelsApp basket = arrange();
+
+            Assert.IsFalse(basket.AddBagel("sesame"));
+        }
+
+        // 4. change the capacity of baskets (As a Bob's Bagels manager)
+        [Test]
+        public void ChangeCapacityOfBasketTest()
+        {
+            BobsBagelsApp basket = arrange();
+            
+            Assert.IsTrue(basket.ChangeCapacity(4, true));
+
+            Assert.IsTrue(basket.BasketCapacity == 4);
+            Assert.IsTrue(basket.AddBagel("sesame"));
+        }
+
+        // 4. change the capacity of baskets (As a Bob's Bagels manager)
+        [Test]
+        public void DontChangeCapacityOfBasketTest()
+        {
+            BobsBagelsApp basket = arrange();
+            
+            Assert.IsFalse(basket.ChangeCapacity(12, false));
+
+            Assert.IsTrue(basket.BasketCapacity == 3);
             Assert.IsFalse(basket.AddBagel("sesame"));
         }
 

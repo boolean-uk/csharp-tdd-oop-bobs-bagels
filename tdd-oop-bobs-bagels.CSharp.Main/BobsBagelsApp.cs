@@ -80,7 +80,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public int BagelsNum { get => _basket.Count; }
 
-        public int Capacity { get => _basketCapacity; }
+        public int BasketCapacity { get => _basketCapacity; }
     }
 
     public class Bagel
