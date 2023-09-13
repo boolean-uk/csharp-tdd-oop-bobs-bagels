@@ -121,5 +121,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(basket.AddBagel(bagelType));
         }
 
+        // 10. only be able to order things that we stock in our inventory
+        [TestCase("salt")]
+        [TestCase("chocolate chip")]
+        public void GetCostOfNonExistingBagelTypeTest(string bagelType)
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+
+            Assert.IsTrue(basket.GetBagelCost(bagelType) > 0);
+        }
     }
 }
