@@ -2,7 +2,7 @@
 
 | Classes         | Methods                                                         | User Story (Scenario)      | Outputs |
 |-----------------|-----------------------------------------------------------------|----------------------------|---------|
-| `BobsBagelsApp` | `AddBagel(string bagelType)`                                    | #3                         | `false` |
+| `BobsBagelsApp` | `AddBagel(string bagelType)`                                    | #3, #10                    | `false` |
 |                 |                                                                 | #1                         | `true`  |
 | `BobsBagelsApp` | `RemoveBagel(string bagelType)`                                 | #2                         | `true`  |
 |                 |                                                                 | #5                         | `false` |

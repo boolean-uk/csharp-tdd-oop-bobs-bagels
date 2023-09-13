@@ -40,7 +40,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public bool AddBagel(string bagelType)
         {
-            throw new NotImplementedException();
+            if (!_bagelsInventory.ContainsKey(bagelType))
+                return false;
+            _basket.Add(new Bagel(bagelType));
+            return true;           
         }
 
         public bool RemoveBagel(string bagelType)

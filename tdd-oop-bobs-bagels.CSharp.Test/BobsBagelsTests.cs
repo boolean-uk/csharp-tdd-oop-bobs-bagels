@@ -18,5 +18,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             BobsBagelsApp basket = new BobsBagelsApp();
             Assert.IsTrue(basket.AddBagel("plain"));
         }
+        
+        // 10. only be able to order things that we stock in our inventory
+        [Test]
+        public void AddANonExistingBagelTypeToBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            Assert.IsFalse(basket.AddBagel("chocolate chip"));
+        }
     }
 }
