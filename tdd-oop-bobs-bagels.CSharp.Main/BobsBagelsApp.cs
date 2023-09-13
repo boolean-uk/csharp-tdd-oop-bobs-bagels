@@ -40,10 +40,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public bool AddBagel(string bagelType)
         {
+            if (_basket.Count == _basketCapacity)
+                return false;
             if (!_bagelsInventory.ContainsKey(bagelType))
                 return false;
             _basket.Add(new Bagel(bagelType));
-            return true;           
+            return true;
         }
 
         public bool RemoveBagel(string bagelType)
