@@ -136,7 +136,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void AddABagelWithFillingsToBasketTest()
         {
             BobsBagelsApp basket = new BobsBagelsApp();
-            string[] fillingTypes = {"cream cheese", "cheese", "ham"};
+            List<string> fillingTypes = new List<string> {"cream cheese", "cheese", "ham"};
 
             Assert.IsTrue(basket.AddBagelWithFillings("plain", fillingTypes));
         }
@@ -146,11 +146,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void DontAddABagelWithNonExistingFillingsToBasketTest()
         {
             BobsBagelsApp basket = new BobsBagelsApp();
-            string[] fillingTypes1 = {"strawberry", "nutella"};
-            string[] fillingTypes2 = {"ham", "cheese", "tomato"};
+            List<string> fillingTypes1 = new List<string> {"strawberry", "nutella"};
+            List<string> fillingTypes2 = new List<string> {"ham", "cheese", "tomato"};
 
             Assert.IsFalse(basket.AddBagelWithFillings("plain", fillingTypes1));
             Assert.IsFalse(basket.AddBagelWithFillings("plain", fillingTypes2));
         }
+
+
     }
 }

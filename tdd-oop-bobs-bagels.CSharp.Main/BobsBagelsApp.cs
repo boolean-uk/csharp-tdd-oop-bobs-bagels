@@ -83,19 +83,18 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return _bagelsInventory[bagelType];
         }
 
-        public bool AddBagelWithFillings(string bagelType, string[] fillingTypes)
+        public bool AddBagelWithFillings(string bagelType, List<string> fillingTypes)
         {
-            foreach (string fillingType in fillingTypes)
-            {
-                if (!_fillingsInventory.ContainsKey(fillingType))
-                    return false;
-            }
+            if (fillingTypes.Exists(t => !_fillingsInventory.ContainsKey(t)))
+                return false;
             return AddBagel(new Bagel(bagelType, fillingTypes));
         }
 
         public double GetFillingCost(string fillingType)
         {
-            throw new NotImplementedException();
+            if (!_fillingsInventory.ContainsKey(fillingType))
+                return Double.NaN;
+            return _fillingsInventory[fillingType];
         }
 
         public int BagelsNum { get => _basket.Count; }
@@ -113,17 +112,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             _type = bagelType;
         }
 
-        public Bagel(string bagelType, string[] fillingTypes)
+        public Bagel(string bagelType, List<string> fillingTypes)
         {
             _type = bagelType;
-
-            foreach (string fillingType in fillingTypes)
-            {
-                _fillings.Add(new Filling(fillingType));
-            }
+            fillingTypes.ForEach(t => _fillings.Add(new Filling(t)));
         }
 
-        public string Type { get { return _type; } }
+        public string Type { get => _type; }
+
+        public List<Filling> Fillings { get => _fillings; }
     }
 
     public class Filling
@@ -135,6 +132,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             _type = type;
         }
 
-        public string Type { get { return _type; } }
+        public string Type { get => _type; }
     }
 }
