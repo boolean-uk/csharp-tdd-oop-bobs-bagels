@@ -38,14 +38,19 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         private List<Bagel> _basket = new List<Bagel>();
 
-        public bool AddBagel(string bagelType)
+        private bool AddBagel(Bagel bagel)
         {
             if (_basket.Count == _basketCapacity)
                 return false;
-            if (!_bagelsInventory.ContainsKey(bagelType))
+            if (!_bagelsInventory.ContainsKey(bagel.Type))
                 return false;
-            _basket.Add(new Bagel(bagelType));
+            _basket.Add(bagel);
             return true;
+        }
+
+        public bool AddBagel(string bagelType)
+        {
+            return AddBagel(new Bagel(bagelType));
         }
 
         public bool RemoveBagel(string bagelType)
@@ -80,7 +85,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public bool AddBagelWithFillings(string bagelType, string[] fillingTypes)
         {
-            throw new NotImplementedException();
+            foreach (string fillingType in fillingTypes)
+            {
+                if (!_fillingsInventory.ContainsKey(fillingType))
+                    return false;
+            }
+            return AddBagel(new Bagel(bagelType, fillingTypes));
         }
 
         public double GetFillingCost(string fillingType)
