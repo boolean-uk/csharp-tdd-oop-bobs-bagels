@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainModel", "DomainModel", "{7F5BDBBA-49A1-4D7B-8061-4A95A2F83A1C}"
 	ProjectSection(SolutionItems) = preProject
 		DomainModel.md = DomainModel.md
+		Extensions1UserStories.md = Extensions1UserStories.md
 	EndProjectSection
 EndProject
 Global
