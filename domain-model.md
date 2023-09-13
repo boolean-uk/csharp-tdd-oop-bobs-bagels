@@ -1,17 +1,17 @@
 # Domain Models
 
-| Classes   | Methods                                        | User Story | Scenario              | Outputs |
-|-----------|------------------------------------------------|------------|-----------------------|---------|
-| `Basket`  | `Add(Bagel bagel)`                             | #3         | if basket is full     | `false` |
-|           |                                                | #1         | if basket is not full | `true`  |
-| `Basket`  | `Remove(Bagel bagel)`                          | #2         | if item in basket     | `true`  |
-|           |                                                | #5         | if item not in basket | `false` |
-| `Basket`  | `ChangeCapacity(int capacity, bool isManager)` | #4         | if isManager is true  | `true`  |
-|           |                                                | #4         | if isManager is false | `false` |
-| `Basket`  | `Cost()`                                       | #6         |                       | `int`   |
-| `Bagel`   | `Cost()`                                       | #7         |                       | `int`   |
-| `Bagel`   | `Add(Filling filling)`                         | #8         |                       |         |
-| `Filling` | `Cost()`                                       | #9         |                       | `int`   |
+| Classes         | Methods                                                         | User Story (Scenario)      | Outputs |
+|-----------------|-----------------------------------------------------------------|----------------------------|---------|
+| `BobsBagelsApp` | `AddBagel(string bagelType)`                                    | #3                         | `false` |
+|                 |                                                                 | #1                         | `true`  |
+| `BobsBagelsApp` | `RemoveBagel(string bagelType)`                                 | #2                         | `true`  |
+|                 |                                                                 | #5                         | `false` |
+| `BobsBagelsApp` | `ChangeCapacity(int capacity, bool isManager)`                  | #4 (if isManager is true)  | `true`  |
+|                 |                                                                 | #4 (if isManager is false) | `false` |
+| `BobsBagelsApp` | `GetTotalCost()`                                                | #6                         | `int`   |
+| `BobsBagelsApp` | `GetBagelCost(string bagelType)`                                | #7                         | `int`   |
+| `BobsBagelsApp` | `AddBagelWithFillings(string bagelType, string[] fillingTypes)` | #8                         |         |
+| `BobsBagelsApp` | `GetFillingCost(string fillingType)`                            | #9                         | `int`   |
 
 ## Requirements from User Stories
 1. add a specific type of bagel to my basket.
