@@ -128,7 +128,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         {
             BobsBagelsApp basket = new BobsBagelsApp();
 
-            Assert.IsTrue(basket.GetBagelCost(bagelType) > 0);
+            Assert.IsTrue(Double.IsNaN(basket.GetBagelCost(bagelType)));
         }
     }
 }

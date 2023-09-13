@@ -73,6 +73,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public double GetBagelCost(string bagelType)
         {
+            if (!_bagelsInventory.ContainsKey(bagelType))
+                return Double.NaN;
             return _bagelsInventory[bagelType];
         }
 
