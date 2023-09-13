@@ -153,6 +153,43 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(basket.AddBagelWithFillings("plain", fillingTypes2));
         }
 
+        // 9. know the cost of each filling before I add it to my bagel order
+        [TestCase("bacon", 0.12)]
+        [TestCase("egg", 0.12)]
+        [TestCase("cheese", 0.12)]
+        [TestCase("cream cheese", 0.12)]
+        [TestCase("smoked salmon", 0.12)]
+        [TestCase("ham", 0.12)]
+        public void GetFillingCostTest(string fillingType, double cost)
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+
+            Assert.IsTrue(basket.GetFillingCost(fillingType) == cost);
+            Assert.IsTrue(basket.AddBagelWithFillings("everything", new List<string> {fillingType}));
+        }
+
+        // 10. only be able to order things that we stock in our inventory
+        [TestCase("salt")]
+        [TestCase("chocolate chip")]
+        public void GetCostOfNonExistingFillingTypeTest(string fillingType)
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+
+            Assert.IsTrue(Double.IsNaN(basket.GetFillingCost(fillingType)));
+        }
+
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostOfBasketWithBagelsWithFillingsTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            basket.AddBagel("everything");
+            basket.AddBagelWithFillings("plain", new List<string> {"cream cheese", "ham", "cheese"});
+            basket.AddBagelWithFillings("onion", new List<string> {"cream egg", "bacon", "cheese"});
+            double expectedCost = 2.09;
+
+            Assert.IsTrue(basket.GetTotalCost() == expectedCost);
+        }
 
     }
 }
