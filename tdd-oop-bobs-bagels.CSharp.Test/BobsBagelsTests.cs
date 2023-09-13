@@ -41,5 +41,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(basket.BagelsNum == 2);
         }
 
+        // 3. know when my basket is full when I try adding an item beyond my basket capacity
+        [Test]
+        public void Add4BagelsToBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            Assert.IsTrue(basket.AddBagel("plain"));
+            Assert.IsTrue(basket.AddBagel("everything"));
+            Assert.IsTrue(basket.AddBagel("onion"));
+            Assert.IsFalse(basket.AddBagel("sesame"));
+        }
+
     }
 }
