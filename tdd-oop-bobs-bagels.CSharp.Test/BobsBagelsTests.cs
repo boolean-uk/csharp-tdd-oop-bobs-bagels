@@ -108,5 +108,18 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(basket.GetTotalCost() == 0.0);
         }
 
+        // 7. know the cost of a bagel before I add it to my basket
+        [TestCase("onion", 0.49)]
+        [TestCase("plain", 0.39)]
+        [TestCase("everything", 0.49)]
+        [TestCase("sesame", 0.49)]
+        public void GetBagelCostTest(string bagelType, double cost)
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+
+            Assert.IsTrue(basket.GetBagelCost(bagelType) == cost);
+            Assert.IsTrue(basket.AddBagel(bagelType));
+        }
+
     }
 }
