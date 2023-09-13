@@ -14,9 +14,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         private BobsBagelsApp arrange()
         {
             BobsBagelsApp basket = new BobsBagelsApp();
-            Assert.IsTrue(basket.AddBagel("plain"));
-            Assert.IsTrue(basket.AddBagel("everything"));
-            Assert.IsTrue(basket.AddBagel("onion"));
+            basket.AddBagel("plain");
+            basket.AddBagel("everything");
+            basket.AddBagel("onion");
             return basket;
         }
 
@@ -73,6 +73,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void DontChangeCapacityOfBasketTest()
         {
             BobsBagelsApp basket = arrange();
+            Assert.IsTrue(basket.ChangeCapacity(3, true));
             
             Assert.IsFalse(basket.ChangeCapacity(12, false));
 

@@ -55,7 +55,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public bool ChangeCapacity(int capacity, bool isManager)
         {
-            throw new NotImplementedException();
+            if (!isManager)
+                return false;
+            _basketCapacity = capacity;
+            return true;
         }
 
         public int GetTotalCost()
