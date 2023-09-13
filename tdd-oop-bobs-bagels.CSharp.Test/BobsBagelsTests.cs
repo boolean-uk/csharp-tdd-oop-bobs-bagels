@@ -137,8 +137,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         {
             BobsBagelsApp basket = new BobsBagelsApp();
             string[] fillingTypes = {"cream cheese", "cheese", "ham"};
-            
+
             Assert.IsTrue(basket.AddBagelWithFillings("plain", fillingTypes));
+        }
+
+        // 10. only be able to order things that we stock in our inventory
+        [Test]
+        public void DontAddABagelWithNonExistingFillingsToBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            string[] fillingTypes1 = {"strawberry", "nutella"};
+            string[] fillingTypes2 = {"ham", "cheese", "tomato"};
+
+            Assert.IsFalse(basket.AddBagelWithFillings("plain", fillingTypes1));
+            Assert.IsFalse(basket.AddBagelWithFillings("plain", fillingTypes2));
         }
     }
 }
