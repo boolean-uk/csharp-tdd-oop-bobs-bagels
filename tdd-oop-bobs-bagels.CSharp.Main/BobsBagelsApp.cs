@@ -8,27 +8,30 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 {
     public class BobsBagelsApp
     {
-        private static Dictionary<string, float> _bagelsInventory = {
-            "onion": 0.49,
-            "plain": 0.39,
-            "everything": 0.49,
-            "sesame": 0.49
+        private static Dictionary<string, double> _bagelsInventory = new Dictionary<string, double>
+        {
+            {"onion", 0.49},
+            {"plain", 0.39},
+            {"everything", 0.49},
+            {"sesame", 0.49}
         };
 
-        private static Dictionary<string, float> _coffeeInventory = {
-            "black": 0.99,
-            "white": 1.19,
-            "capuccino": 1.29,
-            "latte": 1.29
+        private static Dictionary<string, double> _coffeeInventory = new Dictionary<string, double>
+        {
+            {"black", 0.99},
+            {"white", 1.19},
+            {"capuccino", 1.29},
+            {"latte", 1.29}
         };
 
-        private static Dictionary<string, float> _fillingsInventory = {
-            "bacon": 0.12,
-            "egg": 0.12,
-            "cheese": 0.12,
-            "cream cheese": 0.12,
-            "smoked salmon": 0.12,
-            "ham": 0.12
+        private static Dictionary<string, double> _fillingsInventory = new Dictionary<string, double>
+        {
+            {"bacon", 0.12},
+            {"egg", 0.12},
+            {"cheese", 0.12},
+            {"cream cheese", 0.12},
+            {"smoked salmon", 0.12},
+            {"ham", 0.12}
         };
 
         private static int _basketCapacity = 3;
@@ -74,18 +77,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     public class Bagel
     {
         private string _type;
-        private List<Filling> _fillings;
+        private List<Filling> _fillings = new List<Filling>();
 
         public Bagel(string bagelType)
         {
             _type = bagelType;
-            _fillings = null;
         }
 
         public Bagel(string bagelType, string[] fillingTypes)
         {
-            _type = type;
-            _fillings = new List<Filling>();
+            _type = bagelType;
 
             foreach (string fillingType in fillingTypes)
             {

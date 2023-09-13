@@ -11,10 +11,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     [TestFixture]
     public class BobsBagelsTests
     {
+        // 1. add a specific type of bagel to my basket
         [Test]
-        public void FirstTest()
+        public void AddABagelToBasketTest()
         {
-            Assert.Pass();
+            BobsBagelsApp basket = new BobsBagelsApp();
+            Assert.IsTrue(basket.AddBagel("plain"));
         }
     }
 }
