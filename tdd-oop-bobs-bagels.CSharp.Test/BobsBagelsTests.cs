@@ -96,6 +96,29 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         }
     }
 
+    [TestFixture]
+    public class TestsForInventory
+    {
+        private Inventory _inventory;
+        [SetUp]
+        public void Setup ()
+        {
+            _inventory = new Inventory();
+            _inventory.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+        }
+        [Test]
+        public void CanWeCheckIfTheItemExists()
+        {
+            bool exists = _inventory.DoesTheItemExist("BGLO");
+            Assert.IsTrue(exists);
+        }
+        [Test]
+        public void CanWeGetThePriceOfAnItemInInventory()
+        {
+            double price = _inventory.GetPriceOfItem("BGLO");
+            Assert.AreEqual(0.49, price);
+        }
+    }
 
 
 }
