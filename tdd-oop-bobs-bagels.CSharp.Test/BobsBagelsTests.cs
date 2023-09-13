@@ -130,5 +130,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             Assert.IsTrue(Double.IsNaN(basket.GetBagelCost(bagelType)));
         }
+
+        // 8. choose fillings for my bagel
+        [Test]
+        public void AddABagelWithFillingsToBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+            string[] fillingTypes = {"cream cheese", "cheese", "ham"};
+            
+            Assert.IsTrue(basket.AddBagelWithFillings("plain", fillingTypes));
+        }
     }
 }
