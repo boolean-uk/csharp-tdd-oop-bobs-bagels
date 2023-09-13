@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using tdd_oop_bobs_bagels.CSharp.Main;
 
 namespace tdd_oop_bobs_bagels.CSharp.Test
@@ -77,6 +78,24 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.AreEqual(0.12, price);
         }
     }
+
+    [TestFixture]
+    public class TestsForCoffee
+    {
+        private Coffee _coffee;
+        [SetUp]
+        public void Setup()
+        {
+            _coffee = new Coffee("COFB", 0.99, "Black");
+        }
+        [Test]
+        public void CanWeGetTheCoffeePrice()
+        {
+            double price = _coffee.GetPrice();
+            Assert.AreEqual(0.99, price);
+        }
+    }
+
 
 
 }
