@@ -71,9 +71,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return total;
         }
 
-        public int GetBagelCost(string bagelType)
+        public double GetBagelCost(string bagelType)
         {
-            throw new NotImplementedException();
+            return _bagelsInventory[bagelType];
         }
 
         public bool AddBagelWithFillings(string bagelType, string[] fillingTypes)
@@ -81,7 +81,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             throw new NotImplementedException();
         }
 
-        public int GetFillingCost(string fillingType)
+        public double GetFillingCost(string fillingType)
         {
             throw new NotImplementedException();
         }
