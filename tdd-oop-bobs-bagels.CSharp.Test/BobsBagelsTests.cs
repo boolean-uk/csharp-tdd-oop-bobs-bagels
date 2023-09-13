@@ -13,30 +13,17 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     public class CoreTests
     {
 
-        bool bacon = false;
-        /*bool egg = false;
-        bool cheese = false;
-        bool cream_cheese = false;
-        bool smoked_salmon = false;
-        bool ham = false;*/
-
-        Bagel OnionBagel = new Bagel("BGLO", 0.49f, "Bagel", "Onion");
-        Bagel PlainBagel = new Bagel("BGLP", 0.39f, "Bagel", "Plain");
-        Bagel EverythingBagel = new Bagel("BGLE", 0.49f, "Bagel", "Everything");
-        Bagel SesameBagel = new Bagel("BGLS", 0.49f, "Bagel", "Sesame");
-
-
         [Test]
         public void AddBagel()
         {
             //arrange
             Core core = new Core();
             //act
-            core.AddBagel(core.Basket, OnionBagel);
-            core.AddBagel(core.Basket, PlainBagel);
-            core.AddBagel(core.Basket, EverythingBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.PlainBagel);
+            core.AddBagel(core.Basket, core.EverythingBagel);
             //assert
-            Assert.IsTrue(core.Basket.Contains(OnionBagel));
+            Assert.IsTrue(core.Basket.Contains(core.OnionBagel));
         }
         [Test]
         public void RemoveBagel()
@@ -44,10 +31,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             //arrange
             Core core = new Core();
             //act
-            core.RemoveBagel(core.Basket, EverythingBagel);
+            core.RemoveBagel(core.Basket, core.EverythingBagel);
 
             //assert
-            Assert.IsFalse(core.Basket.Contains(EverythingBagel));
+            Assert.IsFalse(core.Basket.Contains(core.EverythingBagel));
         }
 
         [Test]
@@ -70,12 +57,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Core core = new Core();
 
             //act
-            core.AddBagel(core.Basket, OnionBagel);
-            core.AddBagel(core.Basket, PlainBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.PlainBagel);
             core.Sum(core.Basket);
 
             //assert
-            // this is manually set here.
             Assert.IsTrue(core.Sum(core.Basket)==(0.49f+0.39f));
         }
 
@@ -86,24 +72,33 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Core core = new Core();
 
             //act
-            core.AddFillings(bacon);
-            core.AddBagel(core.Basket, OnionBagel);
-            core.AddBagel(core.Basket, PlainBagel);
+            core.AddFillings("bacon");
+            // core.AddFillings(core.bacon); you can do this too
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.PlainBagel);
 
             //assert
-            Assert.IsTrue(core.Fillings.Contains(bacon));
+            // Assert.IsTrue(core.Fillings.Contains(core.bacon));
+            Assert.IsTrue(core.hasbacon== true);
+            Assert.IsTrue(core.hasham == false);
         }
 
-        /* public void UpdateCap()
-         {
-             //arrange
-             Core core = new Core();
+        [Test]
+        public void SumWithFeellings() // </3 :')
+        {
+            //arrange
+            Core core = new Core();
 
-             //act
-             core.UpdateCapacity(core.Basket, newcap);
+            //act
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.PlainBagel);
+            core.AddFillings("bacon");
+            core.AddFillings("ham");
+            core.Sum(core.Basket);
 
-             //assert
-             Assert.IsTrue(core.Basket.Contains(bagel1));
-         }*/
+            //assert
+            Assert.IsTrue(core.Sum(core.Basket) == (0.49f + 0.39f + 0.12f + 0.12f));
+        }
+
     }
 }

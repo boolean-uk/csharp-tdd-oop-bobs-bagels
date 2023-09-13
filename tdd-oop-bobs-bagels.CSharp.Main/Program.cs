@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using NUnit.Framework.Constraints;
+using System.Linq.Expressions;
 using System.Reflection;
 using tdd_oop_bobs_bagels.CSharp.Main;
 
@@ -12,31 +13,52 @@ namespace tdd_bobs_bagels.CSharp.Main
         public int capacity = 5;
         private bool _isManager = false;
 
-        public List<bool> Fillings = new List<bool>();
-        bool bacon = false;
-        bool egg = false;
-        bool cheese = false;
-        bool cream_cheese = false;
-        bool smoked_salmon = false;
-        bool ham = false;
+        public List<string> Fillings = new List<string>();
+        
+        /*public string bacon= "bacon";
+        public string egg = "egg";
+        public string cheese = "cheese";
+        public string cream_cheese = "cream_cheese";
+        public string smoked_salmon = "smoked_salmon";
+        public string ham = "ham";*/
+
+        public bool hasbacon = false;
+        public bool hasegg = false;
+        public bool hascheese = false;
+        public bool hascream_cheese = false;
+        public bool hassmoked_salmon = false;
+        public bool hasham = false;
+
+        int fillingscounter = 0;
+
+        public Bagel OnionBagel = new Bagel("BGLO", 0.49f, "Bagel", "Onion");
+        public Bagel PlainBagel = new Bagel("BGLP", 0.39f, "Bagel", "Plain");
+        public Bagel EverythingBagel = new Bagel("BGLE", 0.49f, "Bagel", "Everything");
+        public Bagel SesameBagel = new Bagel("BGLS", 0.49f, "Bagel", "Sesame");
 
 
-        Bagel OnionBagel = new Bagel("BGLO", 0.49f, "Bagel", "Onion");
-        Bagel PlainBagel = new Bagel("BGLP", 0.39f, "Bagel", "Plain");
-        Bagel EverythingBagel = new Bagel("BGLE", 0.49f, "Bagel", "Everything");
-        Bagel SesameBagel = new Bagel("BGLS", 0.49f, "Bagel", "Sesame");
-
-
-        public void AddFillings(bool filling)
+        public void FillingsCounter()
         {
-            Fillings.Add(bacon);
-            Fillings.Add(egg);
-            Fillings.Add(cheese);
-            Fillings.Add(cream_cheese);
-            Fillings.Add(smoked_salmon);
-            Fillings.Add(ham);
+            if (hasbacon == true) { fillingscounter++; hasbacon = false; }
+            if (hasegg == true) { fillingscounter++; hasegg = false; }
+            if (hascheese == true) { fillingscounter++; hascheese = false; }
+            if (hascream_cheese == true) { fillingscounter++; hascream_cheese = false; }
+            if (hassmoked_salmon == true) { fillingscounter++; hassmoked_salmon = false; }
+            if (hasham == true) { fillingscounter++; hasham = false; }
+
         }
 
+        public void AddFillings(string filling)
+        {
+            if (filling == "bacon") { hasbacon = true; } else { hasbacon = false; }
+            if (filling == "egg") { hasegg = true; } else { hasegg = false; }
+            if (filling == "cheese") { hascheese = true; } else { hascheese = false; }
+            if (filling == "cream_cheese") { hascream_cheese = true; } else { hascream_cheese = false; }
+            if (filling == "smoked_salmon") { hassmoked_salmon = true; } else { hassmoked_salmon = false; }
+            if (filling == "ham") { hasham = true; } else { hasham = false; }
+            FillingsCounter();
+        }
+        
 
         public string AddBagel(List<Object> Basket, object Bagel)
         {
@@ -78,18 +100,14 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public float Sum(List<object> Basket)
         {
-            // RetrieveProperties(OnionBagel); if I do this
-            // I can then use item.Price and add it to the sum, but because 
-            // its not yet inside I cannot use Price.
-            // I cannot populate the Sum() here because its not called here
-            // I want some help in this.
-            
-            float sum = 0.49f + 0.39f;
-            foreach (Object item in Basket)
+            float sum = 0;
+            foreach (Bagel bagel in Basket)
             {
-                RetrieveProperties(item);
-                // item.Price
+                RetrieveProperties(bagel);
+                sum = sum + bagel.Price;
+
             }
+            sum = sum + (fillingscounter * 0.12f );
             return sum;
         }
     }
