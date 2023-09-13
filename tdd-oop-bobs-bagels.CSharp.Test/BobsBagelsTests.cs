@@ -81,5 +81,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(basket.AddBagel("sesame"));
         }
 
+        // 5. know if I try to remove an item that doesn't exist in my basket
+        [Test]
+        public void RemoveANonExistingBagelFromBasketTest()
+        {
+            BobsBagelsApp basket = arrange();
+
+            Assert.IsFalse(basket.RemoveBagel("salt"));
+        }
+
     }
 }
