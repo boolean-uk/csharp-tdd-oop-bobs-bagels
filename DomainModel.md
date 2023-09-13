@@ -5,7 +5,7 @@ Class      |            Attribute                        | Method               
 -------------------------------------------------------------------------------------------------------------------
 Basket     | Item list Bagel, Coffee                     | AddItem              | Boolean Success or fail
            | Capacity                                    | RemoveItem           | Boolean Success or fail
-           |                                             | IsBasketFull         | Boolean is full or not
+           | Inventory                                   | IsBasketFull         | Boolean is full or not
            |                                             | SetCapacity          | Update the capacity
            |                                             | GetCapacity          | Int returns current capacity
            |                                             | ContainsItem         | Boolean if item exists
@@ -18,7 +18,8 @@ Bagel      | SKU number, the price, the name and variant | GetPrice             
 ====================================================================================================================
 Filling    | SKU number, the price, the name             | GetPrice             | Price of the filling
 ====================================================================================================================
-Coffee     | SKU number, the price, the name and variant | GetPrice             | Price of the coffee
+Coffee     | SKU number, the price and variant           | GetPrice             | Price of the coffee
 ====================================================================================================================
 Inventory  | Item list Bagel, coffee and fillings        | DoesTheItemExist     | Boolean does the item exist or not 
            |                                             | GetPriceOfItem       | Price of an item
+           |                                             | StockInventory       | The original stock

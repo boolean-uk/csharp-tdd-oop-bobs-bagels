@@ -10,16 +10,18 @@ using tdd_oop_bobs_bagels.CSharp.Main;
 
 namespace tdd_oop_bobs_bagels.CSharp.Test
 {
+    [TestFixture]
     public class TestsForBasket
     { // deleted a lot of tests from previous bobs bagel
-        
-        [TestFixture]
         private Basket _basket;
+        private Inventory _inventory;
 
         [SetUp]
         public void Setup()
         {
-            _basket = new Basket();
+            _inventory = new Inventory();
+            _basket = new Basket(_inventory);
+
         }
 
         [Test]
@@ -104,7 +106,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void Setup ()
         {
             _inventory = new Inventory();
-            _inventory.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
         }
         [Test]
         public void CanWeCheckIfTheItemExists()

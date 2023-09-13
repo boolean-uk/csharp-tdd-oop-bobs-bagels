@@ -7,49 +7,168 @@ using System.Threading.Tasks;
 namespace tdd_oop_bobs_bagels.CSharp.Main
 {
     public class Basket
-{
-    private List<string> items; // private for encap
-    private int capacity; // private for encap
+    {
+        private List<object> items;
+        private int capacity;
+        private readonly Inventory _inventory;
 
-    public Core(int initialCapacity = 5) // added constructor for capacity and item list
-    {
-        capacity = Math.Max(initialCapacity, 0); // used https://learn.microsoft.com/en-us/dotnet/api/system.math.max?view=net-7.0 to prevent negative capacity
-        items = new List<string>();
-    }
-    public bool AddBagel(string bagelType)
-    {
-        if (string.IsNullOrEmpty(bagelType))
+        public Basket(Inventory inventory, int initialCapacity = 5)
         {
+            items = new List<object>();
+            capacity = initialCapacity;
+            _inventory = inventory;
+        }
+        public bool AddItem(object item)
+        {
+            if (!_inventory.DoesTheItemExist(((dynamic)item).SKU)) return false;
+            if (items.Count < capacity)
+            {
+                items.Add(item);
+                return true;
+            }
             return false;
         }
-        if (items.Contains(bagelType))    // preventing adding duplicates
+        public bool RemoveItem(object item)
         {
+            if (items.Contains(item))
+            {
+                items.Remove(item);
+                return true;
+            }
             return false;
         }
-        if (items.Count < capacity)
+        public bool IsBasketFull() => items.Count == capacity;
+        public void SetCapacity(int newCapacity)
         {
-            items.Add(bagelType);
-            return true;
+            capacity = newCapacity;
         }
-        return false;
+        public int GetCapacity() => capacity;
+        public bool ContainsItem(object item) => items.Contains(item);
+        public double GetTotalCost()
+        {
+            double total = 0;
+            foreach (var item in items)
+            {
+                if (item is Bagel bagel)
+                {
+                    total += bagel.TotalCostWithFilling();
+                }
+                else if (item is Coffee coffee)
+                {
+                    total += coffee.GetPrice();
+                }
+                else if (item is Filling filling)
+                {
+                    total += filling.GetPrice();
+                }
+            }
+            return total;
+        }
     }
 
-    public bool RemoveBagel(string bagelType)
+    public class Bagel
     {
-        return items.Contains(bagelType) && items.Remove(bagelType);
+        public string SKU { get; }
+        public double Price { get; }
+        public string Name { get; }
+        public string Variant { get; }
+        private List<Filling> fillings;
+        public Bagel(string sku, double price, string name, string variant)
+        {
+            SKU = sku;
+            Price = price;
+            Name = name;
+            Variant = variant;
+            fillings = new List<Filling>();
+        }
+        public double GetPrice() => Price;
+        public bool AddFilling(Filling filling)
+        {
+            if (!fillings.Contains(filling))
+            {
+                fillings.Add(filling);
+                return true;
+            }
+            return false;
+        }
+        public bool RemoveFilling(Filling filling) => fillings.Remove(filling);
+        public double TotalCostWithFilling() => Price + fillings.Sum(f => f.GetPrice());
     }
 
-    public bool IsFull()
+    public class Filling
     {
-        return items.Count == capacity;
+        public string SKU { get; }
+        public double Price { get; }
+        public string Name { get; }
+        public Filling(string sku, double price, string name)
+        {
+            SKU = sku;
+            Price = price;
+            Name = name;
+        }
+        public double GetPrice() => Price;
     }
 
-    public void SetCapacity(int newCapacity)
+    public class Coffee
     {
-        capacity = Math.Max(newCapacity, 0);
-
-        // example for Enumerable.Max instead of Math.Max method
-        // capacity = (new[] { newCapacity, 0}).Max();
+        public string SKU { get; }
+        public double Price { get; }
+        public string Variant { get; }
+        public Coffee(string sku, double price, string variant)
+        {
+            SKU = sku;
+            Price = price;
+            Variant = variant;
+        }
+        public double GetPrice() => Price;
     }
-}
+
+    public class Inventory
+    {
+        private List<object> items;
+        public Inventory()
+        {
+            items = new List<object>();
+            StockInventory();
+        }
+        private void StockInventory()
+        {
+            items.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+            items.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
+            items.Add(new Bagel("BGLE", 0.49, "Bagel", "Everything"));
+            items.Add(new Bagel("BGLS", 0.49, "Bagel", "Sesame"));
+            items.Add(new Coffee("COFB", 0.99, "Black"));
+            items.Add(new Coffee("COFW", 1.19, "White"));
+            items.Add(new Coffee("COFC", 1.29, "Capuccino"));
+            items.Add(new Coffee("COFL", 1.29, "Latte"));
+            items.Add(new Filling("FILB", 0.12, "Bacon"));
+            items.Add(new Filling("FILE", 0.12, "Egg"));
+            items.Add(new Filling("FILC", 0.12, "Cheese"));
+            items.Add(new Filling("FILX", 0.12, "Cream Cheese"));
+            items.Add(new Filling("FILS", 0.12, "Smoked Salmon"));
+            items.Add(new Filling("FILH", 0.12, "Ham"));
+        }
+        public bool DoesTheItemExist(string sku)
+        {
+            return items.Any(item =>
+                   (item is Bagel && ((Bagel)item).SKU == sku) ||
+                   (item is Filling && ((Filling)item).SKU == sku) ||
+                   (item is Coffee && ((Coffee)item).SKU == sku));
+        }
+        public double GetPriceOfItem(string sku)
+        {
+            var item = items.FirstOrDefault(i =>
+                       (i is Bagel && ((Bagel)i).SKU == sku) ||
+                       (i is Filling && ((Filling)i).SKU == sku) ||
+                       (i is Coffee && ((Coffee)i).SKU == sku));
+
+            if (item is Bagel)
+                return ((Bagel)item).GetPrice();
+            if (item is Filling)
+                return ((Filling)item).GetPrice();
+            if (item is Coffee)
+                return ((Coffee)item).GetPrice();
+            return 0;
+        }
+    }
 }
