@@ -90,5 +90,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(basket.RemoveBagel("salt"));
         }
 
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostTest()
+        {
+            BobsBagelsApp basket = arrange();
+
+            Assert.IsTrue(basket.GetTotalCost() == 1.37);
+        }
+
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostOfEmptyBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
+
+            Assert.IsTrue(basket.GetTotalCost() == 0.0);
+        }
+
     }
 }
