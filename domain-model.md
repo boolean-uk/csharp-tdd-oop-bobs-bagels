@@ -8,10 +8,10 @@
 |                 |                                                                 | #5                         | `false` |
 | `BobsBagelsApp` | `ChangeCapacity(int capacity, bool isManager)`                  | #4 (if isManager is true)  | `true`  |
 |                 |                                                                 | #4 (if isManager is false) | `false` |
-| `BobsBagelsApp` | `GetTotalCost()`                                                | #6                         | `int`   |
-| `BobsBagelsApp` | `GetBagelCost(string bagelType)`                                | #7                         | `int`   |
+| `BobsBagelsApp` | `GetTotalCost()`                                                | #6                         | `double`|
+| `BobsBagelsApp` | `GetBagelCost(string bagelType)`                                | #7                         | `double`|
 | `BobsBagelsApp` | `AddBagelWithFillings(string bagelType, string[] fillingTypes)` | #8                         |         |
-| `BobsBagelsApp` | `GetFillingCost(string fillingType)`                            | #9                         | `int`   |
+| `BobsBagelsApp` | `GetFillingCost(string fillingType)`                            | #9                         | `double`|
 
 ## Requirements from User Stories
 1. add a specific type of bagel to my basket.

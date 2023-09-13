@@ -61,9 +61,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return true;
         }
 
-        public int GetTotalCost()
+        public double GetTotalCost()
         {
-            throw new NotImplementedException();
+            double total = 0.0;
+            foreach (Bagel bagel in _basket)
+            {
+                total += _bagelsInventory[bagel.Type];
+            }
+            return total;
         }
 
         public int GetBagelCost(string bagelType)
