@@ -1,4 +1,4 @@
-﻿Domain Models
+Domain Models
 
 
 Class      |    Attribute           | Method              |   Output        
