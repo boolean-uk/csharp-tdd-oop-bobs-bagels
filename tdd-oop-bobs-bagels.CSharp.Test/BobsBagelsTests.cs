@@ -121,5 +121,38 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         }
     }
 
+    [TestFixture]
+    public class TestsForDiscounts
+    {
+        private Inventory _inventory;
+        private Basket _basket;
+        [SetUp]
+        public void Setup()
+        {
+            _inventory = new Inventory();
+            _basket = new Basket(_inventory);
+        }
+        [Test]
+        public void IsTheBulkDiscountApplied() // 6 for..
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                _basket.AddItem(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+            }
+            double priceExpected = 2.49;
+            double totalPriceExpected = _basket.GetTotalCost();
+            Assert.AreEqual(priceExpected, totalPriceExpected);
+        }
+        [Test]
+        public void TestForComboCoffeeAndBagel() // combo coffee with a bagel discount
+        {
+            _basket.AddItem(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+            _basket.AddItem(new Coffee("COFB", 0.99, "Black"));
+            double priceExpected = 1.25;
+            double totalPriceExpected = _basket.GetTotalCost(); 
+            Assert.AreEqual(priceExpected, totalPriceExpected);
+        }
+    }
+
 
 }
