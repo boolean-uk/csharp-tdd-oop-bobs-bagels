@@ -19,7 +19,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [SetUp]
         public void Setup()
         {
-            _basket = new Basket;
+            _basket = new Basket();
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void CanWeRemoveItemFromBasket()
         {
-            var bagel = new Bagel(("BGLO", 0.49, "Bagel", "Onion");
+            var bagel = new Bagel("BGLO", 0.49, "Bagel", "Onion");
             _basket.AddItem(bagel);
             bool removed = _basket.RemoveItem(bagel);
             Assert.IsTrue(removed);
@@ -51,7 +51,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void CanWeGetTheBagelPrice()
         {
-            double price = -_bagel.GetPrice();
+            double price = _bagel.GetPrice();
             Assert.AreEqual(0.49, price);
         }
         [Test]
@@ -74,7 +74,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void CanWeGetTheFillingPrice()
         {
-            double price _filling.GetPrice();
+            double price = _filling.GetPrice();
             Assert.AreEqual(0.12, price);
         }
     }

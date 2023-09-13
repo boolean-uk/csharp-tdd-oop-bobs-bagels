@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tdd_oop_bobs_bagels.CSharp.Main
 {
-    public class Core
+    public class Basket
 {
     private List<string> items; // private for encap
     private int capacity; // private for encap
