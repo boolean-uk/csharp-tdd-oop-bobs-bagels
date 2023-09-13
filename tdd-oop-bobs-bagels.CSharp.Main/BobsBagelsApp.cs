@@ -48,7 +48,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public bool RemoveBagel(string bagelType)
         {
-            throw new NotImplementedException();
+            return _basket.Remove(_basket.Find(b => b.Type == bagelType));
         }
 
         public bool ChangeCapacity(int capacity, bool isManager)
