@@ -8,6 +8,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 {
     public class BobsBagelsApp
     {
+        private static BobsInventory _inventory = new BobsInventory();
+
         private static Dictionary<string, double> _bagelsInventory = new Dictionary<string, double>
         {
             {"onion", 0.49},
@@ -34,28 +36,62 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             {"ham", 0.12}
         };
 
-        private static int _basketCapacity = 3;
+        private static int _basketCapacity = 6;
 
-        private List<Bagel> _basket = new List<Bagel>();
+        private List<Bagel> _bagelsBasket = new List<Bagel>();
+
+        private Dictionary<SKUEnum, int> _basket = new Dictionary<SKUEnum, int>();
+        private int _itemsInBasket = 0;
+
+        public bool IsFull { get => _itemsInBasket == _basketCapacity; }
 
         private bool AddBagel(Bagel bagel)
         {
-            if (_basket.Count == _basketCapacity)
+            if (_bagelsBasket.Count == _basketCapacity)
                 return false;
             if (!_bagelsInventory.ContainsKey(bagel.Type))
                 return false;
-            _basket.Add(bagel);
+            _bagelsBasket.Add(bagel);
             return true;
         }
 
         public bool AddBagel(string bagelType)
         {
-            return AddBagel(new Bagel(bagelType));
+            if (IsFull)
+                return false;
+            // retrieve stock item with this variant property
+            StockItem item = _inventory.GetStockItem(bagelType);
+
+            // bagelType must exist as a Bagel variant in Inventory
+            if ((item == null) || (item.Name != "Bagel"))
+                return false;
+            
+            // add or update this item in basket
+            _basket[item.SKU] = _basket.ContainsKey(item.SKU) ? _basket[item.SKU] + 1 : 1;
+            
+            // update items in bakset
+            ++_itemsInBasket;
+            return true;
         }
 
         public bool RemoveBagel(string bagelType)
         {
-            return _basket.Remove(_basket.Find(b => b.Type == bagelType));
+            SKUEnum sku = _inventory.VariantToSKU(bagelType);
+            if (sku == SKUEnum.NONE)    // TODO: delete this statement
+                return false;
+            if (!_basket.ContainsKey(sku))
+                return false;
+            // update items in bakset
+            --_itemsInBasket;
+            if (_basket[sku] == 1)
+            {
+                return _basket.Remove(sku);
+            }
+            else
+            {
+                _basket[sku]--;
+                return true;
+            }
         }
 
         public bool ChangeCapacity(int capacity, bool isManager)
@@ -69,7 +105,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public double GetTotalCost()
         {
             double total = 0.0;
-            foreach (Bagel bagel in _basket)
+            foreach (Bagel bagel in _bagelsBasket)
             {
                 total += _bagelsInventory[bagel.Type];
                 bagel.Fillings.ForEach(f => total += _fillingsInventory[f.Type]);
@@ -99,7 +135,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return _fillingsInventory[fillingType];
         }
 
-        public int BagelsNum { get => _basket.Count; }
+        public int BagelsNum { get => _bagelsBasket.Count; }
 
         public int BasketCapacity { get => _basketCapacity; }
     }
