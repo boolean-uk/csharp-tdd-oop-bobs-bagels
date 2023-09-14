@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainModel", "DomainModel"
 	ProjectSection(SolutionItems) = preProject
 		DomainModel.md = DomainModel.md
 		Extensions1UserStories.md = Extensions1UserStories.md
+		Extensions2UserStories.md = Extensions2UserStories.md
 	EndProjectSection
 EndProject
 Global

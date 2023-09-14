@@ -10,6 +10,7 @@ Basket     | Item list Bagel, Coffee                     | AddItem              
            |                                             | GetCapacity          | Int returns current capacity
            |                                             | ContainsItem         | Boolean if item exists
            |                                             | GetTotalCost         | Total cost of basket
+           |                                             | GenerateReceipt      | Generate the receipt for basket
 ================================================================================================================================
 Bagel      | SKU number, the price, the name and variant | GetPrice             | Price of bagel
            | List of fillings                            | AdFilling            | Boolean Success or fail
@@ -28,3 +29,10 @@ Inventory  | Item list Bagel, coffee and fillings        | DoesTheItemExist     
 ================================================================================================================================
 Discount   | Type of discount, bulk or combo             | DiscountOrNot        | Boolean discount or not
            | Amount of discount                          | CalculateTheDiscount | New total after applying discount
+================================================================================================================================
+Receipt    | Time of purshase                            | GeneratePrint        | String Time to print
+           | List of all items in order                  | ToString             | String of receipt to print
+           | Total price of the purhased basket          |                      |
+================================================================================================================================
+OrderItem  | The actual items                            | TotalPrice           | Total price for the quantity of item
+           | The amount of items                         |
