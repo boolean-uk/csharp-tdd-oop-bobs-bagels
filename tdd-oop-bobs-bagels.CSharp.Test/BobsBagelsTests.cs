@@ -76,30 +76,30 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(result);
         }
 
-        // // 4. change the capacity of baskets (As a Bob's Bagels manager)
-        // [Test]
-        // public void ChangeCapacityOfBasketTest()
-        // {
-        //     BobsBagelsApp basket = arrange();
-            
-        //     Assert.IsTrue(basket.ChangeCapacity(4, true));
+        // 4. change the capacity of baskets (As a Bob's Bagels manager)
+        [Test]
+        public void ChangeCapacityOfBasketTest()
+        {
+            // arrange
+            BobsBagelsApp basket = arrange();
+            // act
+            Assert.IsTrue(basket.ChangeCapacity(8, true));
+            // assert
+            Assert.IsTrue(basket.BasketCapacity == 8);
+        }
 
-        //     Assert.IsTrue(basket.BasketCapacity == 4);
-        //     Assert.IsTrue(basket.AddBagel("sesame"));
-        // }
-
-        // // 4. change the capacity of baskets (As a Bob's Bagels manager)
-        // [Test]
-        // public void DontChangeCapacityOfBasketTest()
-        // {
-        //     BobsBagelsApp basket = arrange();
-        //     Assert.IsTrue(basket.ChangeCapacity(3, true));
-            
-        //     Assert.IsFalse(basket.ChangeCapacity(12, false));
-
-        //     Assert.IsTrue(basket.BasketCapacity == 3);
-        //     Assert.IsFalse(basket.AddBagel("sesame"));
-        // }
+        // 4. change the capacity of baskets (As a Bob's Bagels manager)
+        [Test]
+        public void DontChangeCapacityOfBasketTest()
+        {
+            // arrange
+            BobsBagelsApp basket = arrange();
+            Assert.IsTrue(basket.ChangeCapacity(6, true));
+            // act
+            Assert.IsFalse(basket.ChangeCapacity(12, false));
+            // assert
+            Assert.IsTrue(basket.BasketCapacity == 6);
+        }
 
         // 5. know if I try to remove an item that doesn't exist in my basket
         [Test]
