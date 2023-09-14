@@ -72,7 +72,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             foreach (Bagel bagel in _basket)
             {
                 total += _bagelsInventory[bagel.Type];
+                bagel.Fillings.ForEach(f => total += _fillingsInventory[f.Type]);
             }
+
             return total;
         }
 
@@ -102,5 +104,4 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public int BasketCapacity { get => _basketCapacity; }
     }
 
-    
 }

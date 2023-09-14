@@ -182,13 +182,18 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void GetTotalCostOfBasketWithBagelsWithFillingsTest()
         {
+            // arrange
             BobsBagelsApp basket = new BobsBagelsApp();
             basket.AddBagel("everything");
             basket.AddBagelWithFillings("plain", new List<string> {"cream cheese", "ham", "cheese"});
-            basket.AddBagelWithFillings("onion", new List<string> {"cream egg", "bacon", "cheese"});
-            double expectedCost = 2.09;
+            basket.AddBagelWithFillings("onion", new List<string> {"egg", "bacon", "cheese"});
+            double expectedCost = 0.49 + 0.39 + 0.12 + 0.12 + 0.12 + 0.49 + 0.12 + 0.12 + 0.12;
 
-            Assert.IsTrue(basket.GetTotalCost() == expectedCost);
+            // act
+            double result = basket.GetTotalCost();
+
+            // assert
+            Assert.IsTrue(result == expectedCost);
         }
 
     }
