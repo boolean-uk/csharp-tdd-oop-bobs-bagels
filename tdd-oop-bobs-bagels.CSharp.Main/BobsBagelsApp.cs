@@ -11,7 +11,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         private static BobsInventory _inventory = new BobsInventory();
 
         private static Dictionary<string, double> _bagelsInventory = new Dictionary<string, double>
-        {
+        {   // TODO: delete this property
             {"onion", 0.49},
             {"plain", 0.39},
             {"everything", 0.49},
@@ -19,7 +19,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         };
 
         private static Dictionary<string, double> _coffeeInventory = new Dictionary<string, double>
-        {
+        {   // TODO: delete this property
             {"black", 0.99},
             {"white", 1.19},
             {"capuccino", 1.29},
@@ -27,7 +27,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         };
 
         private static Dictionary<string, double> _fillingsInventory = new Dictionary<string, double>
-        {
+        {   // TODO: delete this property
             {"bacon", 0.12},
             {"egg", 0.12},
             {"cheese", 0.12},
@@ -38,7 +38,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         private static int _basketCapacity = 6;
 
-        private List<Bagel> _bagelsBasket = new List<Bagel>();
+        private List<Bagel> _bagelsBasket = new List<Bagel>();   // TODO: delete this property
 
         private Dictionary<SKUEnum, int> _basket = new Dictionary<SKUEnum, int>();
         private int _itemsInBasket = 0;
@@ -46,7 +46,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public bool IsFull { get => _itemsInBasket == _basketCapacity; }
 
         private bool AddBagel(Bagel bagel)
-        {
+        {   // TODO: delete this method
             if (_bagelsBasket.Count == _basketCapacity)
                 return false;
             if (!_bagelsInventory.ContainsKey(bagel.Type))
@@ -55,30 +55,44 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return true;
         }
 
-        public bool AddBagel(string bagelType)
+        private bool AddItemWithType(string variant, string name)
         {
             if (IsFull)
                 return false;
-            // retrieve stock item with this variant property
-            StockItem item = _inventory.GetStockItem(bagelType);
-
-            // bagelType must exist as a Bagel variant in Inventory
-            if ((item == null) || (item.Name != "Bagel"))
-                return false;
             
+            // retrieve stock item with this variant property
+            StockItem item = _inventory.GetStockItem(variant);
+            // variant must exist in inventory
+            if ((item == null) || (item.Name != name))
+                return false;
+
             // add or update this item in basket
             _basket[item.SKU] = _basket.ContainsKey(item.SKU) ? _basket[item.SKU] + 1 : 1;
-            
-            // update items in bakset
-            ++_itemsInBasket;
+
+            // update items in bakset, if item is not a filling
+            if (item.Name != "Filling")
+                ++_itemsInBasket;
             return true;
+        }
+
+        public bool AddBagel(string bagelType)
+        {
+            return AddItemWithType(bagelType, "Bagel");
+        }
+
+        public bool AddCoffee(string coffeeType)
+        {
+            return AddItemWithType(coffeeType, "Coffee");
+        }
+
+        public bool AddFilling(string fillingType)
+        {
+            return AddItemWithType(fillingType, "Filling");
         }
 
         public bool RemoveBagel(string bagelType)
         {
             SKUEnum sku = _inventory.VariantToSKU(bagelType);
-            if (sku == SKUEnum.NONE)    // TODO: delete this statement
-                return false;
             if (!_basket.ContainsKey(sku))
                 return false;
             // update items in bakset
@@ -135,7 +149,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return _fillingsInventory[fillingType];
         }
 
-        public int BagelsNum { get => _bagelsBasket.Count; }
+        public int ItemsInBasket { get => _itemsInBasket; }
 
         public int BasketCapacity { get => _basketCapacity; }
     }

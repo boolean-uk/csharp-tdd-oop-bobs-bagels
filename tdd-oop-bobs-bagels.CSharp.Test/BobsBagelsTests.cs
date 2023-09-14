@@ -47,24 +47,27 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(result);
         }
 
-        // // 2. remove a bagel from my basket
-        // [Test]
-        // public void RemoveABagelFromBasketTest()
-        // {
-        //     BobsBagelsApp basket = arrange();
-
-        //     Assert.IsTrue(basket.RemoveBagel("onion"));
-
-        //     Assert.IsTrue(basket.BagelsNum == 2);
-        // }
+        // 2. remove a bagel from my basket
+        [Test]
+        public void RemoveABagelFromBasketTest()
+        {
+            // arrange
+            BobsBagelsApp basket = arrange();
+            // act
+            bool result = basket.RemoveBagel("Onion");
+            // assert
+            Assert.IsTrue(result);
+            Assert.IsTrue(basket.ItemsInBasket == 2);
+        }
 
         // // 3. know when my basket is full when I try adding an item beyond my basket capacity
         // [Test]
         // public void Add4BagelsToBasketTest()
         // {
+        //     // arrange
         //     BobsBagelsApp basket = arrange();
 
-        //     Assert.IsFalse(basket.AddBagel("sesame"));
+        //     Assert.IsFalse(basket.AddBagel("Sesame"));
         // }
 
         // // 4. change the capacity of baskets (As a Bob's Bagels manager)
