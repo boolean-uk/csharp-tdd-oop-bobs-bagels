@@ -73,14 +73,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
             //act
             core.AddFillings("bacon");
+            core.AddFillings("ham");
+            core.AddFillings("bacon");
             // core.AddFillings(core.bacon); you can do this too
             core.AddBagel(core.Basket, core.OnionBagel);
             core.AddBagel(core.Basket, core.PlainBagel);
 
             //assert
             // Assert.IsTrue(core.Fillings.Contains(core.bacon));
-            Assert.IsTrue(core.hasbacon== true);
-            Assert.IsTrue(core.hasham == false);
+            Assert.IsTrue(core.fillingscounter == 3);
+            Assert.IsTrue(core.hasbacon == false);
         }
 
         [Test]
@@ -95,9 +97,27 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             core.AddFillings("bacon");
             core.AddFillings("ham");
             core.Sum(core.Basket);
-
+            
             //assert
             Assert.IsTrue(core.Sum(core.Basket) == (0.49f + 0.39f + 0.12f + 0.12f));
+        }
+
+        [Test]
+        public void CustomerBudget() // </3 :')
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.PlainBagel);
+            core.AddFillings("bacon");
+            core.AddFillings("ham");
+            core.Sum(core.Basket);
+
+            //assert
+            // check if after adding items the budget changes
+            Assert.IsTrue(core.customerbudget == 10 - (0.49f + 0.39f + 0.12f + 0.12f));
         }
 
     }
