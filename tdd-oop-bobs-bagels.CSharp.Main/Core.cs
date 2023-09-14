@@ -12,7 +12,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         private int capacity;
         private readonly Inventory _inventory;
 
-        public Basket(Inventory inventory, int initialCapacity = 5)
+        public Basket(Inventory inventory, int initialCapacity = 12)      // LOST SO MUCH TIME BECAUSE I COPIED THE PREVIOUS EXERCISE AND DID NOT CHANGED TO CAPACITY FOR EXTENSION TESTING
         {
             items = new List<object>();
             capacity = initialCapacity;
@@ -44,37 +44,26 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         }
         public int GetCapacity() => capacity;
         public bool ContainsItem(object item) => items.Contains(item);
-        public double GetTotalCost()
+        public decimal GetTotalCost()
         {
-            double total = 0;
+            Console.WriteLine($"Starting calculation for GetTotalCost. Current items count: {items.Count}");
+
+            decimal total = 0M;
             int bagelCount = 0;
+            decimal bagelsTotalPrice = 0M;  // Dynamically calculate the total price of all bagels
+            decimal fillingsTotal = 0M;
             bool hasCoffee = false;
+            Console.WriteLine($"Items in the Basket: {string.Join(", ", items.Select(i => i.GetType().Name))}");
 
             foreach (var item in items)
             {
                 if (item is Bagel bagel)
                 {
                     bagelCount++;
-                }
-            }
+                    fillingsTotal += bagel.TotalFillingsCost();
+                    bagelsTotalPrice += bagel.GetPrice();
+                    Console.WriteLine($"Bagel Price: {bagel.GetPrice()}, Accumulating Total: {bagelsTotalPrice}");
 
-            // Adjusting the price per bagel based on bulk discounts
-            double adjustedBagelPrice = 0.49; // Default bagel price
-            if (bagelCount >= 12)
-            {
-                adjustedBagelPrice = 3.99 / 12; // Discounted price per bagel
-            }
-            else if (bagelCount >= 6)
-            {
-                adjustedBagelPrice = 2.49 / 6; // Discounted price per bagel
-            }
-
-            // Calculate the total cost
-            foreach (var item in items)
-            {
-                if (item is Bagel bagel)
-                {
-                    total += adjustedBagelPrice + bagel.TotalCostWithFilling() - bagel.Price; // Bagel price + Fillings
                 }
                 else if (item is Coffee coffee)
                 {
@@ -82,15 +71,19 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                     total += coffee.GetPrice();
                 }
             }
-            // adjust for the discounts
+            Console.WriteLine($"Total before applying any discounts: {total}");
+            // applying all the discounts 
             Discount discountCalculator = new Discount();
-            total -= discountCalculator.GetDiscountForBulk(bagelCount);
-            // Discount for coffee and bagel combo
+            decimal bulkDiscount = discountCalculator.GetDiscountForBulk(bagelCount, bagelsTotalPrice);
+            total += (bagelsTotalPrice - bulkDiscount + fillingsTotal); // Apply the discount
             if (hasCoffee && bagelCount > 0)
             {
-                total -= discountCalculator.GetDiscountForCombo(hasCoffee, bagelCount > 0);
-            }
+                string coffeeSku = items.OfType<Coffee>().FirstOrDefault()?.SKU;
+                string bagelSku = items.OfType<Bagel>().FirstOrDefault()?.SKU;
 
+                if (coffeeSku != null && bagelSku != null)
+                    total -= discountCalculator.GetDiscountForCombo(coffeeSku, bagelSku);
+            }
             return total;
         }
     }
@@ -98,11 +91,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     public class Bagel
     {
         public string SKU { get; }
-        public double Price { get; }
+        public decimal Price { get; }
         public string Name { get; }
         public string Variant { get; }
         private List<Filling> fillings;
-        public Bagel(string sku, double price, string name, string variant)
+        public Bagel(string sku, decimal price, string name, string variant)
         {
             SKU = sku;
             Price = price;
@@ -110,7 +103,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             Variant = variant;
             fillings = new List<Filling>();
         }
-        public double GetPrice() => Price;
+        public decimal GetPrice() => Price;
         public bool AddFilling(Filling filling)
         {
             if (!fillings.Contains(filling))
@@ -121,36 +114,40 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return false;
         }
         public bool RemoveFilling(Filling filling) => fillings.Remove(filling);
-        public double TotalCostWithFilling() => Price + fillings.Sum(f => f.GetPrice());
+        public decimal TotalCostWithFilling() => Price + fillings.Sum(f => f.GetPrice());
+        public decimal TotalFillingsCost()
+        {
+            return fillings.Sum(f => f.GetPrice());
+        }
 
     }
 
     public class Filling
     {
         public string SKU { get; }
-        public double Price { get; }
+        public decimal Price { get; }
         public string Name { get; }
-        public Filling(string sku, double price, string name)
+        public Filling(string sku, decimal price, string name)
         {
             SKU = sku;
             Price = price;
             Name = name;
         }
-        public double GetPrice() => Price;
+        public decimal GetPrice() => Price;
     }
 
     public class Coffee
     {
         public string SKU { get; }
-        public double Price { get; }
+        public decimal Price { get; }
         public string Variant { get; }
-        public Coffee(string sku, double price, string variant)
+        public Coffee(string sku, decimal price, string variant)
         {
             SKU = sku;
             Price = price;
             Variant = variant;
         }
-        public double GetPrice() => Price;
+        public decimal GetPrice() => Price;
     }
 
     public class Inventory
@@ -163,20 +160,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         }
         private void StockInventory()
         {
-            items.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
-            items.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
-            items.Add(new Bagel("BGLE", 0.49, "Bagel", "Everything"));
-            items.Add(new Bagel("BGLS", 0.49, "Bagel", "Sesame"));
-            items.Add(new Coffee("COFB", 0.99, "Black"));
-            items.Add(new Coffee("COFW", 1.19, "White"));
-            items.Add(new Coffee("COFC", 1.29, "Capuccino"));
-            items.Add(new Coffee("COFL", 1.29, "Latte"));
-            items.Add(new Filling("FILB", 0.12, "Bacon"));
-            items.Add(new Filling("FILE", 0.12, "Egg"));
-            items.Add(new Filling("FILC", 0.12, "Cheese"));
-            items.Add(new Filling("FILX", 0.12, "Cream Cheese"));
-            items.Add(new Filling("FILS", 0.12, "Smoked Salmon"));
-            items.Add(new Filling("FILH", 0.12, "Ham"));
+            items.Add(new Bagel("BGLO", 0.49M, "Bagel", "Onion"));
+            items.Add(new Bagel("BGLP", 0.39M, "Bagel", "Plain"));
+            items.Add(new Bagel("BGLE", 0.49M, "Bagel", "Everything"));
+            items.Add(new Bagel("BGLS", 0.49M, "Bagel", "Sesame"));
+            items.Add(new Coffee("COFB", 0.99M, "Black"));
+            items.Add(new Coffee("COFW", 1.19M, "White"));
+            items.Add(new Coffee("COFC", 1.29M, "Capuccino"));
+            items.Add(new Coffee("COFL", 1.29M, "Latte"));
+            items.Add(new Filling("FILB", 0.12M, "Bacon"));
+            items.Add(new Filling("FILE", 0.12M, "Egg"));
+            items.Add(new Filling("FILC", 0.12M, "Cheese"));
+            items.Add(new Filling("FILX", 0.12M, "Cream Cheese"));
+            items.Add(new Filling("FILS", 0.12M, "Smoked Salmon"));
+            items.Add(new Filling("FILH", 0.12M, "Ham"));
         }
         public bool DoesTheItemExist(string sku)
         {
@@ -185,7 +182,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                    (item is Filling && ((Filling)item).SKU == sku) ||
                    (item is Coffee && ((Coffee)item).SKU == sku));
         }
-        public double GetPriceOfItem(string sku)
+        public decimal GetPriceOfItem(string sku)
         {
             var item = items.FirstOrDefault(i =>
                        (i is Bagel && ((Bagel)i).SKU == sku) ||
@@ -198,32 +195,42 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 return ((Filling)item).GetPrice();
             if (item is Coffee)
                 return ((Coffee)item).GetPrice();
-            return 0;
+            return 0M;
         }
     }
 
     public class Discount
     {
-
-        public double GetDiscountForBulk(int itemCount)
+        public decimal GetDiscountForBulk(int itemCount, decimal totalBagelPrice)
         {
+            Console.WriteLine($"Calculating bulk discount for {itemCount} items.");
+
             if (itemCount >= 12)
             {
-                return 3.99 - (12 * 0.49); // 12 for 3.99 discount
+                return totalBagelPrice - 3.99M;
             }
             else if (itemCount >= 6)
             {
-                return 2.49 - (6 * 0.49); // 6 for 2.49 discount
+                return totalBagelPrice - 2.49M;
             }
-            return 0;
-        }
-        public double GetDiscountForCombo(bool hasCoffee, bool hasBagel)
-        {
-            if (hasCoffee && hasBagel)
+            else
             {
-                return 0.49 + 0.99 - 1.25; // coffee with Bagel for 1.25 discount
+                return 0M;
             }
-            return 0;
+        }
+
+        public decimal GetDiscountForCombo(string coffeeSku, string bagelSku)
+        {
+            Console.WriteLine($"Calculating combo discount for coffee SKU: {coffeeSku} and bagel SKU: {bagelSku}");
+
+            Inventory inventory = new Inventory();
+            decimal bagelPrice = inventory.GetPriceOfItem(bagelSku);
+            decimal coffeePrice = inventory.GetPriceOfItem(coffeeSku);
+
+            decimal comboDiscountAmount = (bagelPrice + coffeePrice) - 1.25M;
+
+            Console.WriteLine($"Applying coffee with Bagel discount. Discount value: {comboDiscountAmount}");
+            return comboDiscountAmount;
         }
     }
 }
