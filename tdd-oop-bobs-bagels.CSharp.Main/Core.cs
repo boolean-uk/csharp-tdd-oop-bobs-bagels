@@ -47,21 +47,50 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public double GetTotalCost()
         {
             double total = 0;
+            int bagelCount = 0;
+            bool hasCoffee = false;
+
             foreach (var item in items)
             {
                 if (item is Bagel bagel)
                 {
-                    total += bagel.TotalCostWithFilling();
+                    bagelCount++;
+                }
+            }
+
+            // Adjusting the price per bagel based on bulk discounts
+            double adjustedBagelPrice = 0.49; // Default bagel price
+            if (bagelCount >= 12)
+            {
+                adjustedBagelPrice = 3.99 / 12; // Discounted price per bagel
+            }
+            else if (bagelCount >= 6)
+            {
+                adjustedBagelPrice = 2.49 / 6; // Discounted price per bagel
+            }
+
+            // Calculate the total cost
+            foreach (var item in items)
+            {
+                if (item is Bagel bagel)
+                {
+                    total += adjustedBagelPrice + bagel.TotalCostWithFilling() - bagel.Price; // Bagel price + Fillings
                 }
                 else if (item is Coffee coffee)
                 {
+                    hasCoffee = true;
                     total += coffee.GetPrice();
                 }
-                else if (item is Filling filling)
-                {
-                    total += filling.GetPrice();
-                }
             }
+            // adjust for the discounts
+            Discount discountCalculator = new Discount();
+            total -= discountCalculator.GetDiscountForBulk(bagelCount);
+            // Discount for coffee and bagel combo
+            if (hasCoffee && bagelCount > 0)
+            {
+                total -= discountCalculator.GetDiscountForCombo(hasCoffee, bagelCount > 0);
+            }
+
             return total;
         }
     }
@@ -93,6 +122,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         }
         public bool RemoveFilling(Filling filling) => fillings.Remove(filling);
         public double TotalCostWithFilling() => Price + fillings.Sum(f => f.GetPrice());
+
     }
 
     public class Filling
@@ -168,6 +198,31 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 return ((Filling)item).GetPrice();
             if (item is Coffee)
                 return ((Coffee)item).GetPrice();
+            return 0;
+        }
+    }
+
+    public class Discount
+    {
+
+        public double GetDiscountForBulk(int itemCount)
+        {
+            if (itemCount >= 12)
+            {
+                return 3.99 - (12 * 0.49); // 12 for 3.99 discount
+            }
+            else if (itemCount >= 6)
+            {
+                return 2.49 - (6 * 0.49); // 6 for 2.49 discount
+            }
+            return 0;
+        }
+        public double GetDiscountForCombo(bool hasCoffee, bool hasBagel)
+        {
+            if (hasCoffee && hasBagel)
+            {
+                return 0.49 + 0.99 - 1.25; // coffee with Bagel for 1.25 discount
+            }
             return 0;
         }
     }
