@@ -102,36 +102,5 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public int BasketCapacity { get => _basketCapacity; }
     }
 
-    public class Bagel
-    {
-        private string _type;
-        private List<Filling> _fillings = new List<Filling>();
-
-        public Bagel(string bagelType)
-        {
-            _type = bagelType;
-        }
-
-        public Bagel(string bagelType, List<string> fillingTypes)
-        {
-            _type = bagelType;
-            fillingTypes.ForEach(t => _fillings.Add(new Filling(t)));
-        }
-
-        public string Type { get => _type; }
-
-        public List<Filling> Fillings { get => _fillings; }
-    }
-
-    public class Filling
-    {
-        private string _type;
-
-        public Filling(string type)
-        {
-            _type = type;
-        }
-
-        public string Type { get => _type; }
-    }
+    
 }
