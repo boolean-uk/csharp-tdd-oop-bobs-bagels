@@ -28,7 +28,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
         // 10. only be able to order things that we stock in our inventory
         [Test]
-        public void AddANonExistingCoffeeTypeToBasketTest()
+        public void DontAddANonExistingCoffeeTypeToBasketTest()
         {
             // arrange
             BobsBagelsApp basket = new BobsBagelsApp();
@@ -57,12 +57,43 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
         // 10. only be able to order things that we stock in our inventory
         [Test]
-        public void AddANonExistingFillingTypeToBasketTest()
+        public void DontAddANonExistingFillingTypeToBasketTest()
         {
             // arrange
             BobsBagelsApp basket = new BobsBagelsApp();
             // act
             bool result = basket.AddFilling("Tomato");
+            // assert
+            Assert.IsFalse(result);
+        }
+
+        // remove a coffee from my basket
+        [Test]
+        public void RemoveACoffeeFromBasketTest()
+        {
+            // arrange
+            BobsBagelsApp basket = new BobsBagelsApp();
+            basket.AddBagel("Plain");
+            basket.AddCoffee("Capuccino");
+            basket.AddBagel("Everything");
+            // act
+            bool result = basket.RemoveCoffee("Capuccino");
+            // assert
+            Assert.IsTrue(result);
+            Assert.IsTrue(basket.ItemsInBasket == 2);
+        }
+
+        // 10. only be able to order things that we stock in our inventory
+        [Test]
+        public void DontRemoveANonExistingCoffeeTypeFromBasketTest()
+        {
+            // arrange
+            BobsBagelsApp basket = new BobsBagelsApp();
+            basket.AddBagel("Plain");
+            basket.AddCoffee("Capuccino");
+            basket.AddBagel("Everything");
+            // act
+            bool result = basket.RemoveCoffee("Black");
             // assert
             Assert.IsFalse(result);
         }

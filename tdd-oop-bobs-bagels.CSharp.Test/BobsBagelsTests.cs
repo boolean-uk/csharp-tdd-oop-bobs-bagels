@@ -37,7 +37,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
 
         // 10. only be able to order things that we stock in our inventory
         [Test]
-        public void AddANonExistingBagelTypeToBasketTest()
+        public void DontAddANonExistingBagelTypeToBasketTest()
         {
             // arrange
             BobsBagelsApp basket = new BobsBagelsApp();
@@ -95,14 +95,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         //     Assert.IsFalse(basket.AddBagel("sesame"));
         // }
 
-        // // 5. know if I try to remove an item that doesn't exist in my basket
-        // [Test]
-        // public void RemoveANonExistingBagelFromBasketTest()
-        // {
-        //     BobsBagelsApp basket = arrange();
+        // 5. know if I try to remove an item that doesn't exist in my basket
+        [Test]
+        public void DontRemoveANonExistingBagelFromBasketTest()
+        {
+            BobsBagelsApp basket = arrange();
 
-        //     Assert.IsFalse(basket.RemoveBagel("salt"));
-        // }
+            Assert.IsFalse(basket.RemoveBagel("Salt"));
+        }
 
         // // 6. know the total cost of items in my basket
         // [Test]

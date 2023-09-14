@@ -55,7 +55,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return true;
         }
 
-        private bool AddItemWithType(string variant, string name)
+        private bool AddItem(string variant, string name)
         {
             if (IsFull)
                 return false;
@@ -75,38 +75,58 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return true;
         }
 
+        private bool RemoveItem(string variant, string name)
+        {
+            // retrieve stock item with this variant property
+            StockItem item = _inventory.GetStockItem(variant);
+            // variant must exist in inventory
+            if ((item == null) || (item.Name != name))
+                return false;
+            
+            if (!_basket.ContainsKey(item.SKU))
+                return false;
+            // update items in bakset
+            --_itemsInBasket;
+            if (_basket[item.SKU] == 1)
+            {
+                return _basket.Remove(item.SKU);
+            }
+            else
+            {
+                _basket[item.SKU]--;
+                return true;
+            }
+        }
+
         public bool AddBagel(string bagelType)
         {
-            return AddItemWithType(bagelType, "Bagel");
+            return AddItem(bagelType, "Bagel");
         }
 
         public bool AddCoffee(string coffeeType)
         {
-            return AddItemWithType(coffeeType, "Coffee");
+            return AddItem(coffeeType, "Coffee");
         }
 
         public bool AddFilling(string fillingType)
         {
-            return AddItemWithType(fillingType, "Filling");
+            return AddItem(fillingType, "Filling");
         }
 
         public bool RemoveBagel(string bagelType)
         {
-            SKUEnum sku = _inventory.VariantToSKU(bagelType);
-            if (!_basket.ContainsKey(sku))
-                return false;
-            // update items in bakset
-            --_itemsInBasket;
-            if (_basket[sku] == 1)
-            {
-                return _basket.Remove(sku);
-            }
-            else
-            {
-                _basket[sku]--;
-                return true;
-            }
+            return RemoveItem(bagelType, "Bagel");
         }
+
+        public bool RemoveCoffee(string coffeeType)
+        {
+            return RemoveItem(coffeeType, "Coffee");
+        }
+
+        // public bool RemoveFilling(string fillingType)
+        // {
+        //     return RemoveItem(fillingType, "Filling");
+        // }
 
         public bool ChangeCapacity(int capacity, bool isManager)
         {
