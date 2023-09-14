@@ -25,6 +25,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             //assert
             Assert.IsTrue(core.Basket.Contains(core.OnionBagel));
         }
+
         [Test]
         public void RemoveBagel()
         {
@@ -118,6 +119,77 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             //assert
             // check if after adding items the budget changes
             Assert.IsTrue(core.customerbudget == 10 - (0.49f + 0.39f + 0.12f + 0.12f));
+        }
+
+        [Test]
+        public void AddCoffee()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddCoffee(core.Basket, core.BlackCoffee);
+            core.AddCoffee(core.Basket, core.WhiteCoffee);
+            core.AddCoffee(core.Basket, core.Capuccino);
+
+            //assert
+            Assert.IsTrue(core.Basket.Contains(core.WhiteCoffee));
+        }
+
+        [Test]
+        public void SumOfCoffee()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddCoffee(core.Basket, core.BlackCoffee);
+            core.AddCoffee(core.Basket, core.WhiteCoffee);
+            core.SumCoffee(core.Basket);
+
+            //assert
+            Assert.IsTrue(core.SumCoffee(core.Basket) == (0.99f + 1.19f));
+        }
+
+        [Test]
+        public void Add_Coffee_and_Bagel()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddCoffee(core.Basket, core.BlackCoffee);
+            core.AddCoffee(core.Basket, core.WhiteCoffee);
+
+            //assert
+            Assert.IsTrue(core.Basket.Contains(core.OnionBagel));
+            Assert.IsTrue(core.Basket.Contains(core.WhiteCoffee));
+        }
+
+
+
+        // Below Here I get System.InvalidCastException:
+        // Unable to cast object of
+        // type 'tdd_oop_bobs_bagels.CSharp.Main.Coffee' to
+        // type 'tdd_oop_bobs_bagels.CSharp.Main.Bagel'.
+        // But Above I can add coffee and bagel at the same basket
+        // so why cant I get the sumofall?
+
+        [Test]
+        public void SumOfAll()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddCoffee(core.Basket, core.BlackCoffee);
+            core.AddCoffee(core.Basket, core.WhiteCoffee);
+            core.SumAll(core.Basket);
+
+            //assert
+            Assert.IsTrue(core.SumAll(core.Basket) == (0.99f + 1.19f + 0.49f));
         }
 
     }
