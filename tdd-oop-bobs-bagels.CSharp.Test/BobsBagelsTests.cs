@@ -110,23 +110,23 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsFalse(basket.RemoveBagel("Salt"));
         }
 
-        // // 6. know the total cost of items in my basket
-        // [Test]
-        // public void GetTotalCostTest()
-        // {
-        //     BobsBagelsApp basket = arrange();
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostTest()
+        {
+            BobsBagelsApp basket = arrange();
 
-        //     Assert.IsTrue(basket.GetTotalCost() == 1.37);
-        // }
+            Assert.IsTrue(basket.GetTotalCost() == 1.37);
+        }
 
-        // // 6. know the total cost of items in my basket
-        // [Test]
-        // public void GetTotalCostOfEmptyBasketTest()
-        // {
-        //     BobsBagelsApp basket = new BobsBagelsApp();
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostOfEmptyBasketTest()
+        {
+            BobsBagelsApp basket = new BobsBagelsApp();
 
-        //     Assert.IsTrue(basket.GetTotalCost() == 0.0);
-        // }
+            Assert.IsTrue(basket.GetTotalCost() == 0.0);
+        }
 
         // // 7. know the cost of a bagel before I add it to my basket
         // [TestCase("onion", 0.49)]

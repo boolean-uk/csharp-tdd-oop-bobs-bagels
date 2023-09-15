@@ -83,7 +83,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(basket.ItemsInBasket == 2);
         }
 
-        // 10. only be able to order things that we stock in our inventory
+        // 5. know if I try to remove an item that doesn't exist in my basket
         [Test]
         public void DontRemoveANonExistingCoffeeTypeFromBasketTest()
         {
@@ -110,9 +110,30 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
                 basket.AddCoffee("Capuccino");
             }
             // act
-            bool result = basket.AddBagel("Everything");
+            bool result = basket.AddCoffee("Black");
             // assert
             Assert.IsFalse(result);
         }
+
+        // 6. know the total cost of items in my basket
+        [Test]
+        public void GetTotalCostTest()
+        {
+            // arrange
+            BobsBagelsApp basket = new BobsBagelsApp();
+            basket.AddBagel("Sesame");
+            basket.AddCoffee("Capuccino");
+            basket.AddCoffee("Latte");
+            basket.AddBagel("Sesame");
+            basket.AddCoffee("Capuccino");
+            basket.AddCoffee("Capuccino");
+            double expected = 2*0.49 + 3*1.29 + 1.29;
+            // act =
+            double result = basket.GetTotalCost();
+            // assert
+            Assert.IsTrue(result == expected);
+        }
+
+
     }
 }

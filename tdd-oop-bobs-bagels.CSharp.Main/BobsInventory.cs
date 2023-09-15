@@ -56,6 +56,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return _inventory.Values.FirstOrDefault(i => i.Variant == variant);
         }
 
+        public double GetCostOfSKU(SKUEnum sku)
+        {
+            return _inventory[sku].Price;
+        }
+
         public Dictionary<SKUEnum, StockItem> Inventory { get => _inventory; }
     }
 }

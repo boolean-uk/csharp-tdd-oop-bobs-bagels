@@ -85,8 +85,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             
             if (!_basket.ContainsKey(item.SKU))
                 return false;
-            // update items in bakset
-            --_itemsInBasket;
+            // update items in bakset, if item is not a filling
+            if (name != "Filling")
+                --_itemsInBasket;
             if (_basket[item.SKU] == 1)
             {
                 return _basket.Remove(item.SKU);
@@ -123,10 +124,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return RemoveItem(coffeeType, "Coffee");
         }
 
-        // public bool RemoveFilling(string fillingType)
-        // {
-        //     return RemoveItem(fillingType, "Filling");
-        // }
+        public bool RemoveFilling(string fillingType)
+        {
+            return RemoveItem(fillingType, "Filling");
+        }
 
         public bool ChangeCapacity(int capacity, bool isManager)
         {
@@ -139,12 +140,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         public double GetTotalCost()
         {
             double total = 0.0;
-            foreach (Bagel bagel in _bagelsBasket)
+            foreach (var item in _basket)
             {
-                total += _bagelsInventory[bagel.Type];
-                bagel.Fillings.ForEach(f => total += _fillingsInventory[f.Type]);
+                total += _inventory.GetCostOfSKU(item.Key) * item.Value;
             }
-
             return total;
         }
 
@@ -173,5 +172,4 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public int BasketCapacity { get => _basketCapacity; }
     }
-
 }
