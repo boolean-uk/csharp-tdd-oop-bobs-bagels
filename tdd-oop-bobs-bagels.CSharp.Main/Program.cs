@@ -293,13 +293,29 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         // this does not work I dont know why.
         // I tried making one some for bagel and coffee together above but it throws the same error
-        public float SumAll(List<object> Basket)
+        /*public float SumAll(List<object> Basket)
         {
-            float sumall = 0;
+            float sumall = 0f;
             sumall = Sum(Basket) + SumCoffee(Basket);
             return sumall;
+        }*/
+
+        public float SumAll(List<object> Basket)
+        {
+            float sum = 0f;
+            foreach (var item in Basket)
+            {
+                if (item.GetType() == typeof(Bagel))
+                {
+                    sum += ((Bagel)item).Price;
+                }
+                if (item.GetType() == typeof(Coffee))
+                {
+                    sum += ((Coffee)item).Price;
+                }
+
+            }
+            return sum;
         }
-
-
     }
 }

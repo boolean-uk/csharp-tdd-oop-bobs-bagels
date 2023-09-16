@@ -167,15 +167,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(core.Basket.Contains(core.WhiteCoffee));
         }
 
-
-
-        // Below Here I get System.InvalidCastException:
-        // Unable to cast object of
-        // type 'tdd_oop_bobs_bagels.CSharp.Main.Coffee' to
-        // type 'tdd_oop_bobs_bagels.CSharp.Main.Bagel'.
-        // But Above I can add coffee and bagel at the same basket
-        // so why cant I get the sumofall?
-
         [Test]
         public void SumOfAll()
         {
