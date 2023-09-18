@@ -12,7 +12,7 @@ namespace tdd_bobs_bagels.CSharp.Main
     {
         // The Basket where all items are added
         public List<Object> Basket = new List<Object>();
-        public int capacity = 10;
+        public int capacity = 20;
 
         private bool _isManager = false;
 
@@ -315,7 +315,48 @@ namespace tdd_bobs_bagels.CSharp.Main
                 }
 
             }
+            int baggelcount = DiscountBagel(Basket);
+            int coffeecount = DiscountCoffee(Basket);
+            if (baggelcount >= 12)
+            {
+                sum = sum - 1.89f;
+            }else if (baggelcount >= 6)
+            {
+                sum = sum - 0.45f;
+            }
+            if (coffeecount >= 1 && baggelcount >= 1)
+            {
+                sum = sum - 0.53f;
+            }
+
             return sum;
         }
+
+        public int DiscountBagel(List<object> Basket)
+        {
+            int bagelcount = 0;
+            foreach (var item in Basket)
+            {
+                if (item.GetType() == typeof(Bagel))
+                {
+                    bagelcount += 1;
+                }
+            }
+            return bagelcount;
+        }
+        public int DiscountCoffee(List<object> Basket)
+        {
+            int coffeecount = 0;
+            foreach (var item in Basket)
+            {
+                if (item.GetType() == typeof(Coffee))
+                {
+                    coffeecount += 1;
+                }
+            }
+            return coffeecount;
+        }
+
+
     }
 }

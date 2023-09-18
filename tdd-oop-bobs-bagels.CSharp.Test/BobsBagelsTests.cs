@@ -183,5 +183,39 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
             Assert.IsTrue(core.SumAll(core.Basket) == (0.99f + 1.19f + 0.49f));
         }
 
+        [Test]
+        public void Discount6Bagel()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.SumAll(core.Basket);
+
+            //assert
+            Assert.IsTrue(core.SumAll(core.Basket) == (2.49f));
+        }
+
+        [Test]
+        public void DiscountCoffeeandBagel()
+        {
+            //arrange
+            Core core = new Core();
+
+            //act
+            core.AddCoffee(core.Basket, core.Latte);
+            core.AddBagel(core.Basket, core.OnionBagel);
+            core.SumAll(core.Basket);
+
+            //assert
+            Assert.IsTrue(core.SumAll(core.Basket) == (1.25f));
+        }
+
     }
 }
