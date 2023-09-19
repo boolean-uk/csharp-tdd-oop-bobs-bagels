@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace tdd_oop_bobs_bagels.CSharp.Main
 {
-    internal class IProduct
-{
-}
+    public interface IProduct
+    {
+        string SKU { get; }
+        string Name { get; }
+        decimal GetPrice();
+    }
 }

@@ -5,6 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>tdd_oop_bobs_bagels.CSharp.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

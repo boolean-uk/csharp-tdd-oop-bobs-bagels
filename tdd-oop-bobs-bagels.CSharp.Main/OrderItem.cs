@@ -1,12 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace tdd_oop_bobs_bagels.CSharp.Main
+{
+    public class OrderItem
+    {
+        public IProduct Product { get; }
+        public int Quantity { get; private set; }
+        public decimal OriginalPrice { get; }
+        public decimal DiscountedPrice { get; private set; }
 
-namespace tdd_oop_bobs_bagels.CSharp.Main
-{
-    internal class OrderItem
-{
-}
+        public void AdjustQuantity(int adjustment)
+        {
+            Quantity += adjustment;
+        }
+        public OrderItem(IProduct product, int quantity)
+        {
+            Product = product ?? throw new ArgumentNullException(nameof(product));
+            Quantity = quantity;
+            OriginalPrice = product.GetPrice() * quantity;
+            DiscountedPrice = OriginalPrice;
+        }
+
+        public decimal TotalPrice()
+        {
+            return DiscountedPrice * Quantity;
+        }
+
+        public decimal GetSavings()
+        {
+            return (OriginalPrice - DiscountedPrice) * Quantity;
+        }
+
+        public void AdjustDiscountedPrice(decimal newPrice)
+        {
+            DiscountedPrice = newPrice;
+        }
+    }
 }

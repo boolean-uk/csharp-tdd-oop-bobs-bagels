@@ -8,12 +8,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     { // deleted a lot of tests from previous bobs bagel
         private Basket _basket;
         private Inventory _inventory;
+        private List<Discount> _discounts;
 
         [SetUp]
         public void Setup()
         {
             _inventory = new Inventory();
-            _basket = new Basket(_inventory);
+            _discounts = new List<Discount>();
+            _basket = new Basket(_inventory, _discounts);
 
         }
 
@@ -151,13 +153,17 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
     [TestFixture]
     public class TestsForDiscounts
     {
-        private Inventory _inventory;
         private Basket _basket;
+        private Inventory _inventory;
+        private List<Discount> _discounts;
+
+
         [SetUp]
         public void Setup()
         {
             _inventory = new Inventory();
-            _basket = new Basket(_inventory);
+            _discounts = new List<Discount>();
+            _basket = new Basket(_inventory, _discounts);
         }
         [Test]
         public void IsTheBulkDiscountAppliedForSixBagels()
