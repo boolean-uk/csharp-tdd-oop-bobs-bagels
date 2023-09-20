@@ -11,12 +11,13 @@
         {
             Quantity += adjustment;
         }
+
         public OrderItem(IProduct product, int quantity)
         {
             Product = product ?? throw new ArgumentNullException(nameof(product));
             Quantity = quantity;
-            OriginalPrice = product.GetPrice() * quantity;
-            DiscountedPrice = OriginalPrice;
+            OriginalPrice = (product as IProduct)?.Price ?? 0M * quantity;
+            DiscountedPrice = OriginalPrice; // Set the initial discounted price to original price
         }
 
         public decimal TotalPrice()

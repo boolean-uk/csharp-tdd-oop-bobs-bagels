@@ -5,7 +5,7 @@
         private List<OrderItem> _items;
         private Inventory _inventory;
         private List<Discount> _discounts;
-        private int _capacity = 100; // default capacity to be 100
+        private int _capacity = 30; // default capacity to be 100
 
         public Basket(Inventory inventory, List<Discount> discounts)
         {
@@ -16,7 +16,10 @@
 
         public bool AddItem(IProduct product, int quantity = 1)
         {
-            if (!_inventory.DoesTheItemExist(product.SKU) || IsBasketFull())
+            if (!_inventory.DoesTheItemExist(product.SKU))
+                return false;
+
+            if (IsBasketFull())
                 return false;
 
             var existingOrderItem = _items.FirstOrDefault(item => item.Product.SKU == product.SKU);
@@ -27,9 +30,15 @@
             else
             {
                 var orderItem = new OrderItem(product, quantity);
-                ApplyDiscounts(orderItem); 
                 _items.Add(orderItem);
             }
+
+            // Re-evaluate discounts every time an item is added
+            foreach (var item in _items)
+            {
+                ApplyDiscounts(item);
+            }
+
             return true;
         }
 
@@ -43,13 +52,13 @@
 
             foreach (var discount in applicableDiscounts)
             {
-                var newPrice = discount.CalculateDiscount(orderItem.Product, orderItem.Quantity, orderItem.OriginalPrice);
-                totalDiscount += orderItem.OriginalPrice - newPrice;
+                totalDiscount += discount.CalculateDiscount(orderItem.Product, orderItem.Quantity, orderItem.OriginalPrice, _items);
             }
 
-            decimal discountedPrice = orderItem.OriginalPrice - totalDiscount;
-            orderItem.AdjustDiscountedPrice(discountedPrice);
+            decimal discountedPricePerUnit = orderItem.OriginalPrice - totalDiscount;
+            orderItem.AdjustDiscountedPrice(discountedPricePerUnit);
         }
+
 
         public bool RemoveItem(IProduct product, int quantity = 1)
         {

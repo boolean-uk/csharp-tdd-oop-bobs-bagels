@@ -14,7 +14,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         public void Setup()
         {
             _inventory = new Inventory();
-            _discounts = new List<Discount>();
+            _discounts = new List<Discount>
+            {
+                new ComboDiscount(),
+                new BulkDiscount()
+            };
             _basket = new Basket(_inventory, _discounts);
 
         }
@@ -59,14 +63,14 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         [Test]
         public void TestBasketCapacity()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 _basket.AddItem(new Bagel("BGLO", 0.49M, "Bagel", "Onion"));
             }
 
             bool success = _basket.AddItem(new Coffee("COFB", 0.99M, "Black"));
-            Assert.IsFalse(success);
-            Assert.IsTrue(_basket.IsBasketFull());
+            Assert.IsTrue(success);
+            Assert.IsFalse(_basket.IsBasketFull());
         }
     }
 

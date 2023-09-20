@@ -36,7 +36,7 @@
         public decimal GetPriceOfItem(string sku)
         {
             var item = items.FirstOrDefault(i => i.SKU == sku);
-            return item?.GetPrice() ?? 0M;
+            return item?.Price ?? 0M;
         }
         public IEnumerable<T> GetProductsOfType<T>() where T : IProduct //https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1?view=net-7.0
         {
