@@ -61,25 +61,34 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             foreach (var item in OrderItems)
             {
                 string productName = item.Product.Name;
+                string productVariant = "";
+
                 if (item.Product is Bagel bagel)
                 {
                     productName = $"{bagel.Name} ({bagel.Variant})";
+                    receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity}   £{item.DiscountedPrice * item.Quantity:0.00}"); // Adjust this line
                 }
                 else if (item.Product is Coffee coffee)
                 {
                     productName = $"{coffee.Name} Coffee";
+                    receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity}   £{item.DiscountedPrice:0.00}");
                 }
 
-                receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity} x £{item.OriginalPrice:0.00}");
                 if (item.GetSavings() > 0)
                 {
-                    receiptBuilder.AppendLine($"Discount (-£{item.GetSavings():0.00})");
+                    receiptBuilder.AppendLine($"                     (-£{item.GetSavings():0.00})");
                 }
             }
 
             receiptBuilder.AppendLine("\n----------------------------\n");
             receiptBuilder.AppendLine($"Total                 £{Total:0.00}");
-            receiptBuilder.AppendLine($"\nYou saved a total of £{GetTotalSavings():0.00}\non this shop");
+
+            decimal totalSavings = GetTotalSavings();
+            if (totalSavings > 0)
+            {
+                receiptBuilder.AppendLine($"\nYou saved a total of £{totalSavings:0.00}\non this shop");
+            }
+
             receiptBuilder.AppendLine("\nThank you\nfor your order!");
 
             return receiptBuilder.ToString();

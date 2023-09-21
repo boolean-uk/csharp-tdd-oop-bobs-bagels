@@ -57,6 +57,9 @@
 
         private void ApplyDiscounts()
         {
+            // Reset the comboApplied flag before applying discounts
+            comboApplied = false;
+
             // Apply the combo discount first
             ApplyComboDiscount();
 
@@ -92,31 +95,38 @@
                 var comboDiscount = _discounts.OfType<ComboDiscount>().FirstOrDefault();
                 if (comboDiscount != null)
                 {
-                    decimal totalBeforeDiscount = coffeeItem.OriginalPrice + bagelItem.OriginalPrice;
-                    decimal totalDiscount = totalBeforeDiscount - ComboDiscount.comboPrice;
+                    // Calculate total discount for the combo
+                    decimal totalDiscount = coffeeItem.OriginalPrice + bagelItem.OriginalPrice - ComboDiscount.comboPrice;
 
-                    decimal coffeeDiscount = totalDiscount / 2;
-                    decimal bagelDiscount = totalDiscount / 2;
+                    // Calculate coffee and bagel discounts separately
+                    decimal coffeeDiscount = coffeeItem.OriginalPrice - (totalDiscount / 2);
+                    decimal bagelDiscount = bagelItem.OriginalPrice - (totalDiscount / 2);
 
-                    coffeeItem.AdjustDiscountedPrice(coffeeItem.OriginalPrice - coffeeDiscount);
-                    bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - bagelDiscount);
+                    coffeeItem.AdjustDiscountedPrice(coffeeDiscount);
+                    bagelItem.AdjustDiscountedPrice(bagelDiscount);
+
                     Console.WriteLine($"Applied combo discount to Coffee. New Discounted Price for Bagel: {bagelItem.DiscountedPrice}");
-
                 }
             }
         }
         private void ApplyBulkDiscount()
         {
             var bagelItems = _items.Where(item => item.Product is Bagel).ToList();
+            var totalBagelQuantity = bagelItems.Sum(item => item.Quantity);
 
-            foreach (var bagelItem in bagelItems)
+            if (totalBagelQuantity >= 6)
             {
                 var bulkDiscount = _discounts.OfType<BulkDiscount>().FirstOrDefault();
                 if (bulkDiscount != null)
                 {
-                    decimal discount = bulkDiscount.CalculateDiscount(bagelItem.Product, bagelItem.Quantity, bagelItem.OriginalPrice, _items);
-                    bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - discount);
-                    Console.WriteLine($"Applied bulk discount to {bagelItem.Product.Name}. New Discounted Price: {bagelItem.DiscountedPrice}");
+                    decimal totalDiscount = bulkDiscount.CalculateDiscount(null, totalBagelQuantity, 0M, _items);
+                    decimal discountPerBagel = totalDiscount / totalBagelQuantity;
+
+                    foreach (var bagelItem in bagelItems)
+                    {
+                        bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - discountPerBagel);
+                        Console.WriteLine($"Applied bulk discount to {bagelItem.Product.Name}. New Discounted Price: {bagelItem.DiscountedPrice}");
+                    }
                 }
             }
         }
