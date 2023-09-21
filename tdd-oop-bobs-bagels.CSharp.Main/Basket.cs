@@ -6,6 +6,7 @@
         private Inventory _inventory;
         private List<Discount> _discounts;
         private int _capacity = 30; // default capacity to be 100
+        private bool comboApplied = false;
 
         public Basket(Inventory inventory, List<Discount> discounts)
         {
@@ -21,6 +22,7 @@
 
             if (IsBasketFull())
                 return false;
+            Console.WriteLine($"Added {quantity} of {product.Name} to the basket. Current total: £{GetTotalCost():0.00}");
 
             var existingOrderItem = _items.FirstOrDefault(item => item.Product.SKU == product.SKU);
             if (existingOrderItem != null)
@@ -33,33 +35,64 @@
                 _items.Add(orderItem);
             }
 
-            // Re-evaluate discounts every time an item is added
-            foreach (var item in _items)
-            {
-                ApplyDiscounts(item);
-            }
+            // Reset the comboApplied flag before applying discounts
+            comboApplied = false;
+
+            // Apply discounts only once after all items have been added
+            ApplyDiscounts();
 
             return true;
         }
 
-        private void ApplyDiscounts(OrderItem orderItem)
+
+        private void ApplyDiscounts()
         {
-            var applicableDiscounts = _discounts
-                .Where(discount => discount.IsDiscounted(orderItem.Product))
-                .ToList();
+            // Apply the combo discount first
+            ApplyComboDiscount();
 
-            decimal totalDiscount = 0M;
-
-            foreach (var discount in applicableDiscounts)
+            foreach (var orderItem in _items)
             {
-                totalDiscount += discount.CalculateDiscount(orderItem.Product, orderItem.Quantity, orderItem.OriginalPrice, _items);
+                decimal totalDiscount = 0M;
+
+                var applicableDiscounts = _discounts
+                    .Where(discount => discount.IsDiscounted(orderItem.Product) && !(discount is ComboDiscount)) // Exclude ComboDiscount
+                    .ToList();
+
+                foreach (var discount in applicableDiscounts)
+                {
+                    totalDiscount += discount.CalculateDiscount(orderItem.Product, orderItem.Quantity, orderItem.OriginalPrice, _items);
+                }
+
+                // Only adjust the discounted price if a new discount is applied
+                if (totalDiscount > 0)
+                {
+                    decimal discountedPricePerUnit = orderItem.OriginalPrice - (totalDiscount / orderItem.Quantity);
+                    orderItem.AdjustDiscountedPrice(discountedPricePerUnit);
+                    Console.WriteLine($"Discount applied to {orderItem.Product.Name}. Original Price: {orderItem.OriginalPrice}, Discounted Price: {orderItem.DiscountedPrice}");
+                }
             }
-
-            decimal discountedPricePerUnit = orderItem.OriginalPrice - totalDiscount;
-            orderItem.AdjustDiscountedPrice(discountedPricePerUnit);
         }
+        private void ApplyComboDiscount()
+        {
+            var coffeeItem = _items.FirstOrDefault(item => item.Product is Coffee);
+            var bagelItem = _items.FirstOrDefault(item => item.Product is Bagel);
 
+            if (coffeeItem != null && bagelItem != null)
+            {
+                var comboDiscount = _discounts.OfType<ComboDiscount>().FirstOrDefault();
+                if (comboDiscount != null)
+                {
+                    decimal totalBeforeDiscount = coffeeItem.OriginalPrice + bagelItem.OriginalPrice;
+                    decimal totalDiscount = totalBeforeDiscount - ComboDiscount.comboPrice;
 
+                    decimal coffeeDiscount = totalDiscount / 2;
+                    decimal bagelDiscount = totalDiscount / 2;
+
+                    coffeeItem.AdjustDiscountedPrice(coffeeItem.OriginalPrice - coffeeDiscount);
+                    bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - bagelDiscount);
+                }
+            }
+        }
         public bool RemoveItem(IProduct product, int quantity = 1)
         {
             var existingOrderItem = _items.FirstOrDefault(item => item.Product.SKU == product.SKU);

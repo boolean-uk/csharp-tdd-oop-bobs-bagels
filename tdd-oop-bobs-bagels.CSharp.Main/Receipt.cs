@@ -33,7 +33,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         public decimal GetTotalSavings()
         {
-            return OrderItems.Sum(item => item.GetSavings());
+            return OrderItems.Sum(item => item.OriginalPrice * item.Quantity) - Total;
         }
 
         public string DisplayItemSavings()
@@ -41,7 +41,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             StringBuilder savingsBuilder = new StringBuilder();
             foreach (var item in OrderItems)
             {
-                savingsBuilder.AppendLine($"{item.Product.SKU}: £{item.GetSavings()}");
+                savingsBuilder.AppendLine($"{item.Product.SKU}: £{item.GetSavings():0.00}");
             }
             return savingsBuilder.ToString();
         }
@@ -73,7 +73,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity} £{item.TotalPrice():0.00}");
                 if (item.GetSavings() > 0)
                 {
-                    receiptBuilder.AppendLine($"                     (-£{item.GetSavings():-0.00})");
+                    receiptBuilder.AppendLine($"                     (-£{item.GetSavings():0.00})");
                 }
             }
 

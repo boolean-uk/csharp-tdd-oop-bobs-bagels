@@ -161,12 +161,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         private Inventory _inventory;
         private List<Discount> _discounts;
 
-
         [SetUp]
         public void Setup()
         {
             _inventory = new Inventory();
-            _discounts = new List<Discount>();
+            _discounts = new List<Discount>
+    {
+        new ComboDiscount(),
+        new BulkDiscount()
+    };
             _basket = new Basket(_inventory, _discounts);
         }
         [Test]

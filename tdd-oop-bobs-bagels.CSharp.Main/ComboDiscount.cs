@@ -2,7 +2,7 @@
 {
     public class ComboDiscount : Discount
     {
-        private decimal comboPrice = 1.25M;
+        public static decimal comboPrice = 1.25M;
 
         public override bool IsDiscounted(IProduct product)
         {
@@ -13,11 +13,31 @@
         {
             if (product is Coffee && BasketContainsProduct(typeof(Bagel), basketItems))
             {
-                return (product.Price + GetProductPriceFromBasket(typeof(Bagel), basketItems)) - comboPrice;
+                var bagelItem = basketItems.FirstOrDefault(item => item.Product is Bagel);
+                if (bagelItem != null)
+                {
+                    decimal totalBeforeDiscount = product.Price + bagelItem.OriginalPrice;
+                    decimal totalDiscount = totalBeforeDiscount - comboPrice;
+                    decimal coffeeDiscount = totalDiscount / 2;
+                    decimal bagelDiscount = totalDiscount / 2;
+                    bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - bagelDiscount);
+                    Console.WriteLine($"Applied combo discount to Coffee. New Discounted Price for Bagel: {bagelItem.DiscountedPrice}");
+                    return coffeeDiscount;
+                }
             }
             else if (product is Bagel && BasketContainsProduct(typeof(Coffee), basketItems))
             {
-                return 0M; // Return 0 because the discount is already applied when adding the coffee
+                var coffeeItem = basketItems.FirstOrDefault(item => item.Product is Coffee);
+                if (coffeeItem != null && coffeeItem.DiscountedPrice == coffeeItem.OriginalPrice) // Check if the coffee hasn't received the combo discount
+                {
+                    decimal totalBeforeDiscount = product.Price + coffeeItem.OriginalPrice;
+                    decimal totalDiscount = totalBeforeDiscount - comboPrice;
+                    decimal coffeeDiscount = totalDiscount / 2;
+                    decimal bagelDiscount = totalDiscount / 2;
+                    coffeeItem.AdjustDiscountedPrice(coffeeItem.OriginalPrice - coffeeDiscount);
+                    Console.WriteLine($"Applied combo discount to Bagel. New Discounted Price for Coffee: {coffeeItem.DiscountedPrice}");
+                    return bagelDiscount;
+                }
             }
             return 0M;
         }
