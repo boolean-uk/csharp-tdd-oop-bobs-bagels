@@ -18,10 +18,20 @@
         public bool AddItem(IProduct product, int quantity = 1)
         {
             if (!_inventory.DoesTheItemExist(product.SKU))
+            {
+                Console.WriteLine($"Product {product.Name} with SKU {product.SKU} does not exist in the inventory.");
+
                 return false;
+            }
+
 
             if (IsBasketFull())
+            {
+                Console.WriteLine("Basket is full. Cannot add more items.");
+
                 return false;
+
+            }
             Console.WriteLine($"Added {quantity} of {product.Name} to the basket. Current total: £{GetTotalCost():0.00}");
 
             var existingOrderItem = _items.FirstOrDefault(item => item.Product.SKU == product.SKU);
@@ -90,6 +100,23 @@
 
                     coffeeItem.AdjustDiscountedPrice(coffeeItem.OriginalPrice - coffeeDiscount);
                     bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - bagelDiscount);
+                    Console.WriteLine($"Applied combo discount to Coffee. New Discounted Price for Bagel: {bagelItem.DiscountedPrice}");
+
+                }
+            }
+        }
+        private void ApplyBulkDiscount()
+        {
+            var bagelItems = _items.Where(item => item.Product is Bagel).ToList();
+
+            foreach (var bagelItem in bagelItems)
+            {
+                var bulkDiscount = _discounts.OfType<BulkDiscount>().FirstOrDefault();
+                if (bulkDiscount != null)
+                {
+                    decimal discount = bulkDiscount.CalculateDiscount(bagelItem.Product, bagelItem.Quantity, bagelItem.OriginalPrice, _items);
+                    bagelItem.AdjustDiscountedPrice(bagelItem.OriginalPrice - discount);
+                    Console.WriteLine($"Applied bulk discount to {bagelItem.Product.Name}. New Discounted Price: {bagelItem.DiscountedPrice}");
                 }
             }
         }

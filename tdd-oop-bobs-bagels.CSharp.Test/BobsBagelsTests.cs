@@ -188,7 +188,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         {
             for (int i = 0; i < 12; i++)
             {
-                _basket.AddItem(new Bagel("BGLP", 0.39M, "Bagel", "Plain"));
+                _basket.AddItem(new Bagel("BGLO", 0.49M, "Bagel", "Onion"));
             }
             decimal priceExpected = 3.99M;
             decimal totalPrice = _basket.GetTotalCost();
