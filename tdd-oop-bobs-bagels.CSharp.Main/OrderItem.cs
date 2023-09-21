@@ -17,7 +17,7 @@
             Product = product ?? throw new ArgumentNullException(nameof(product));
             Quantity = quantity;
             OriginalPrice = product.Price;
-            DiscountedPrice = OriginalPrice; // Set the initial discounted price to original price
+            DiscountedPrice = OriginalPrice;
         }
 
         public decimal TotalPrice()

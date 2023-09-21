@@ -35,7 +35,6 @@
                 int bagelItemCount = bagelItems.Sum(item => item.Quantity);
                 decimal totalBagelPrice = bagelItemCount * originalPrice;
 
-                // Use the GetDiscountForBulk method to calculate the bulk discount
                 decimal bulkDiscount = GetDiscountForBulk(bagelItemCount, totalBagelPrice);
 
                 Console.WriteLine($"Bulk discount applied to {product.Name} (Quantity: {quantity}). Original Price: {originalPrice}, Discounted Price: {originalPrice - bulkDiscount}");

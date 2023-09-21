@@ -44,23 +44,14 @@
                 var orderItem = new OrderItem(product, quantity);
                 _items.Add(orderItem);
             }
-
-            // Reset the comboApplied flag before applying discounts
             comboApplied = false;
-
-            // Apply discounts only once after all items have been added
             ApplyDiscounts();
-
             return true;
         }
 
 
         private void ApplyDiscounts()
         {
-            // Reset the comboApplied flag before applying discounts
-            comboApplied = false;
-
-            // Apply the combo discount first
             ApplyComboDiscount();
 
             foreach (var orderItem in _items)
@@ -68,7 +59,7 @@
                 decimal totalDiscount = 0M;
 
                 var applicableDiscounts = _discounts
-                    .Where(discount => discount.IsDiscounted(orderItem.Product) && !(discount is ComboDiscount)) // Exclude ComboDiscount
+                    .Where(discount => discount.IsDiscounted(orderItem.Product) && !(discount is ComboDiscount))
                     .ToList();
 
                 foreach (var discount in applicableDiscounts)
@@ -76,7 +67,6 @@
                     totalDiscount += discount.CalculateDiscount(orderItem.Product, orderItem.Quantity, orderItem.OriginalPrice, _items);
                 }
 
-                // Only adjust the discounted price if a new discount is applied
                 if (totalDiscount > 0)
                 {
                     decimal discountedPricePerUnit = orderItem.OriginalPrice - (totalDiscount / orderItem.Quantity);
@@ -95,10 +85,8 @@
                 var comboDiscount = _discounts.OfType<ComboDiscount>().FirstOrDefault();
                 if (comboDiscount != null)
                 {
-                    // Calculate total discount for the combo
                     decimal totalDiscount = coffeeItem.OriginalPrice + bagelItem.OriginalPrice - ComboDiscount.comboPrice;
 
-                    // Calculate coffee and bagel discounts separately
                     decimal coffeeDiscount = coffeeItem.OriginalPrice - (totalDiscount / 2);
                     decimal bagelDiscount = bagelItem.OriginalPrice - (totalDiscount / 2);
 

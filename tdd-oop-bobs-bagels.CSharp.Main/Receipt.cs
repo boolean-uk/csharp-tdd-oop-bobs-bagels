@@ -61,12 +61,16 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             foreach (var item in OrderItems)
             {
                 string productName = item.Product.Name;
-                string productVariant = "";
 
                 if (item.Product is Bagel bagel)
                 {
-                    productName = $"{bagel.Name} ({bagel.Variant})";
-                    receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity}   £{item.DiscountedPrice * item.Quantity:0.00}"); // Adjust this line
+                    productName = $"{bagel.Name}";
+                    if (!string.IsNullOrEmpty(bagel.Variant))
+                    {
+                        productName += $" ({bagel.Variant})";
+                    }
+
+                    receiptBuilder.AppendLine($"{productName.PadRight(20)} {item.Quantity}   £{item.DiscountedPrice * item.Quantity:0.00}");
                 }
                 else if (item.Product is Coffee coffee)
                 {

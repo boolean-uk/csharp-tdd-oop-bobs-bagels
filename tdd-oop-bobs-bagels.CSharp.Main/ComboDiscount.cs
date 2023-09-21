@@ -28,7 +28,7 @@
             else if (product is Bagel && BasketContainsProduct(typeof(Coffee), basketItems))
             {
                 var coffeeItem = basketItems.FirstOrDefault(item => item.Product is Coffee);
-                if (coffeeItem != null && coffeeItem.DiscountedPrice == coffeeItem.OriginalPrice) // Check if the coffee hasn't received the combo discount
+                if (coffeeItem != null && coffeeItem.DiscountedPrice == coffeeItem.OriginalPrice)
                 {
                     decimal totalBeforeDiscount = product.Price + coffeeItem.OriginalPrice;
                     decimal totalDiscount = totalBeforeDiscount - comboPrice;

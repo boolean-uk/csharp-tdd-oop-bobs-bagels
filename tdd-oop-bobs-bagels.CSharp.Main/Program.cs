@@ -6,7 +6,6 @@ namespace tdd_oop_bobs_bagels.CSharp
     {
         static void Main(string[] args)
         {
-            // Initialize inventory and discounts
             Inventory inventory = new Inventory();
             var discounts = new List<Discount>
             {
@@ -14,15 +13,12 @@ namespace tdd_oop_bobs_bagels.CSharp
                 new BulkDiscount()
             };
 
-            // Create a basket
             Basket basket = new Basket(inventory, discounts);
 
-            // Add items to the basket
-            // basket.AddItem(new Bagel("BGLO", 0.49M, "Bagel", "Onion"));
-            // basket.AddItem(new Coffee("COFB", 0.99M, "Black"));
+            //basket.AddItem(new Bagel("BGLO", 0.49M, "Bagel", "Onion"));
+            //basket.AddItem(new Coffee("COFB", 0.99M, "Black"));
             basket.AddItem(new Bagel("BGLS", 0.49M, "Bagel", "Sesame"), 12); // Adding 12 plain bagels
 
-            // Generate and print receipt
             Receipt receipt = basket.GenerateReceipt();
             PrintReceipt(receipt);
         }
