@@ -74,16 +74,22 @@ I want customers to only be able to order things that we stock in our inventory.
 
 Req. | Classes	  | Methods / Properties				   | Scenario											| Outputs	      |
 -----|------------|----------------------------------------|----------------------------------------------------|-----------------|
-1	 |Inventory.cs|Object `Item`: SKU/Price/Name/Variant   |The items that can be ordered						| Item			  |
-1	 |Basket.cs	  |List<Item> Basket					   |Store items											| List			  |
-1,3,8|Core.cs	  |`AddItem(string SKU)`				   |Add item to basket OR return "basket full"			| List			  |
-2,5  |Core.cs	  |`RemoveItem(string SKU)`				   |Remove item from basket OR return "doesn't exist"	| List			  |
-3	 |Core.cs	  |`MaxCapacity(int maximum)`			   |Set a max to the basket								|				  |
-4    |Core.cs	  |`EditMaximum(identity, int)`			   |Manager (only) can change the maximum				| Int ?			  |
-5	 |			  |Covered in `RemoveItem`				   |Notify when trying to remove item that doesnt exist | String		  |
-6	 |			  |`SumCost()`		list.sum			   |Get the total cost of items in basket				| Int			  |
-7,9	 |			  |`SeeMenu()` = display menu in console   |Show menu on console								| String		  |
-8	 |			  |Covered in `AddItem()`				   |Add fillings										| ?				  |
-9	 |			  |Covered in `SeeMenu()`				   |See price of fillings								| String		  |
-10	 |			  |`CheckInventory()` Run before AddItem() |Only things in inventory can be added				| Bool ?		  |
-App  |BagelApp.cs |`MainMenu()`
+1	 |Item.cs	  |Object `Item`: ID/SKU/Price/Name/Variant|Item with properties								| Item			  |
+1	 |Inventory.cs|List<Item> Stock						   |The items that can be ordered						| List			  |
+1	 |Basket.cs	  |List<Item> orderBasket				   |Store items	that customer adds to basket			| List			  |
+1,3,8|Basket.cs	  |`AddItem(string itemID)`				   |Add item to basket OR return "basket full"			| List, message   |
+2,5  |Basket.cs	  |`RemoveItem(string itemID)`			   |Remove item from basket OR return "not in basket"	| List, message	  |			  |
+3	 |Basket.cs	  |`MaxCapacity(int maximum)`			   |Set a max to the basket								|				  |
+4    |Basket.cs	  |`EditMaximum(identity, int)`	 		   |Manager (only) can change the maximum				| Int			  |
+6	 |Basket.cs	  |`SumBasket()`						   |Get the total cost of items in basket				| Int			  |
+6	 |Basket.cs   |`ViewBasket()`						   |Show basket, incl nr of items and cost				| String		  |
+7,9	 |BagelApp.cs |`SeeMenu()` = display menu in console   |Show menu on console, incl prices					| String		  |
+10	 |BagelApp.cs |Switch only allows IDs of existing items|Only things in inventory can be added				| ?				  |
+App  |BagelApp.cs |`Welcome()`							   |First entry to order system
+App  |BagelApp.cs |`SeeMenu()`							   |Customer goes here to view menu and place order
+App  |BagelApp.cs |`DisplayMenu()`						   |Get the menu on screen
+App  |BagelApp.cs |`Stop()`								   |Quit running the app
+
+
+
+
