@@ -83,6 +83,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Test
         }
 
         [Test]
+        public void Basket_Max() //Manager changes max capacity
+        {
+            //arrange
+            Basket basket = new Basket();
+      
+            //act
+            basket.EditMaximum("007", 20); //change capacity to 20
+            int result = basket.MaxCapacity;
+
+            //assert
+            Assert.That(result, Is.EqualTo(20));
+        }
+
+        [Test]
         public void Get_Receipt()
         {
             //arrange

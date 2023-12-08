@@ -33,8 +33,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             }
             else
             {
-                Console.WriteLine("Basket is full!");
-                Thread.Sleep(1500);
+                Console.WriteLine("\nBasket is full!");
+                Console.WriteLine("Remove Something or Call a Manager for Assistance");
+                Thread.Sleep(2500);
             }
         }
 
@@ -67,8 +68,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 }
                 inBasket.AppendLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 inBasket.AppendLine($"Total Items: {orderBasket.Count}");
-                inBasket.AppendLine($"Total Cost: {SumBasket()}");
-                
+                inBasket.AppendLine($"Total Cost: {Math.Round(SumBasket(),2)}");
             }
             else
             {
@@ -81,6 +81,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         {
             float sum = orderBasket.Sum(Item => Item.Price);
             return sum;
+        }
+
+        public float Discounts()
+        {
+            //if basket has 12 bagels
+            float discounts = 0;
+            return discounts;
         }
 
         public string GetReceipt()
@@ -110,6 +117,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             getReceipt.AppendLine($"                  Total:      $ {Math.Round(SumBasket(), 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)}\n");
             getReceipt.AppendLine("       Thank you for your order!");
             return getReceipt.ToString();
+
         }
 
         private string secretCode { get; } = "007";
@@ -117,9 +125,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         {
             if (managerCode == secretCode)
             {
-                MaxCapacity = newCapacity;
+                _maxcapacity = newCapacity;
             }
-            return MaxCapacity;
+            return _maxcapacity;
         }
     }
 }

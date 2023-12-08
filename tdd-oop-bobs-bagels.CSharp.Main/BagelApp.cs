@@ -43,22 +43,22 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 }
             }
         }
-
         
         private void SeeMenu()
         {
-            Console.Clear();
-            //Basket basket = new Basket();
             while (running)
             {
+                Console.Clear();
+                Console.WriteLine("             Bob's Bagels Menu             ");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                Console.WriteLine(" ID | Price | Item      ");
                 DisplayMenu();
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine("To add an item, type its ID and press Enter");
-                //Console.WriteLine("V: View basket");
                 Console.WriteLine("To remove B1, type B1R and press Enter");
                 Console.WriteLine("P: Place completed order");
                 Console.WriteLine("Q: Quit");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
                 Console.WriteLine(basket.ViewBasket());
                 Console.WriteLine("Your choice:");
                 string input = Console.ReadLine();
@@ -105,13 +105,15 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                         basket.RemoveItem(input);
                         Console.Clear();
                         break;
-                    //case "V":
-                    //view basket method
                     case "P":
+                        Console.Clear();
                         Console.WriteLine("Processing payment");
                         Thread.Sleep(1500);
                         Console.Clear();
-                        //Ask receipt?
+                        Console.WriteLine(basket.GetReceipt());
+                        Console.WriteLine("\nPress Enter to Exit");
+                        string exit = Console.ReadLine();
+                        switch (exit) { default: Stop(); break; }
                         break;
                     case "007":
                         Console.Clear();
@@ -145,18 +147,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
         private void DisplayMenu()
         {
-            Console.WriteLine("             Bob's Bagels Menu             ");
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             Inventory BobsInventory = new Inventory();
             BobsInventory.SetInventory();
-            Console.WriteLine(" ID | Price | Item      ");
             StringBuilder menu = new StringBuilder();
+
+            //Console.Clear();
+            //Console.WriteLine("             Bob's Bagels Menu             ");
+            //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            //Console.WriteLine(" ID | Price | Item      ");
             foreach (Item i in BobsInventory.Stock)
             {
                 menu.AppendLine($" {i.ID} |  {i.Price} | {i.Variant} {i.Name}");
             }
             Console.WriteLine(menu.ToString());
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
 
         private void ManagerAccess(string managerCode)

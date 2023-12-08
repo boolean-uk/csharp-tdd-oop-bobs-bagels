@@ -78,7 +78,7 @@ Req. | Classes	  | Methods / Properties				   | Scenario											| Outputs	   
 1	 |Inventory.cs|List<Item> Stock						   |The items that can be ordered						| List			  |
 1	 |Basket.cs	  |List<Item> orderBasket				   |Store items	that customer adds to basket			| List			  |
 1,3,8|Basket.cs	  |`AddItem(string itemID)`				   |Add item to basket OR return "basket full"			| List, message   |
-2,5  |Basket.cs	  |`RemoveItem(string itemID)`			   |Remove item from basket OR return "not in basket"	| List, message	  |			  |
+2,5  |Basket.cs	  |`RemoveItem(string itemID)`			   |Remove item from basket OR return "not in basket"	| List, message	  |
 3	 |Basket.cs	  |`MaxCapacity(int maximum)`			   |Set a max to the basket								|				  |
 4    |Basket.cs	  |`EditMaximum(identity, int)`	 		   |Manager (only) can change the maximum				| Int			  |
 6	 |Basket.cs	  |`SumBasket()`						   |Get the total cost of items in basket				| Int			  |
