@@ -95,22 +95,24 @@ I want customers to only be able to order things that we stock in our inventory.
 
 ## Bob's Inventory
 
-| SKU  | Price | Name    | Variant       |
-|------|-------|---------|---------------|
-| BGLO | 0.49  | Bagel   | Onion         |
-| BGLP | 0.39  | Bagel   | Plain         |
-| BGLE | 0.49  | Bagel   | Everything    |
-| BGLS | 0.49  | Bagel   | Sesame        |
-| COFB | 0.99  | Coffee  | Black         |
-| COFW | 1.19  | Coffee  | White         |
-| COFC | 1.29  | Coffee  | Capuccino     |
-| COFL | 1.29  | Coffee  | Latte         |
-| FILB | 0.12  | Filling | Bacon         |
-| FILE | 0.12  | Filling | Egg           |
-| FILC | 0.12  | Filling | Cheese        |
-| FILX | 0.12  | Filling | Cream Cheese  |
-| FILS | 0.12  | Filling | Smoked Salmon |
-| FILH | 0.12  | Filling | Ham           |
+| ID | SKU  | Price | Name    | Variant       |
+|----|------|-------|---------|---------------|
+| B1 | BGLO |  0.49 | Bagel   | Onion         |
+| B2 | BGLP |  0.39 | Bagel   | Plain         |
+| B3 | BGLE |  0.49 | Bagel   | Everything    |
+| B4 | BGLS |  0.49 | Bagel   | Sesame        |
+
+| C1 | COFB |  0.99 | Coffee  | Black         |
+| C2 | COFW |  1.19 | Coffee  | White         |
+| C3 | COFC |  1.29 | Coffee  | Capuccino     |
+| C4 | COFL |  1.29 | Coffee  | Latte         |
+
+| F1 | FILB |  0.12 | Filling | Bacon         |
+| F2 | FILE |  0.12 | Filling | Egg           |
+| F3 | FILC |  0.12 | Filling | Cheese        |
+| F4 | FILX |  0.12 | Filling | Cream Cheese  |
+| F5 | FILS |  0.12 | Filling | Smoked Salmon |
+| F6 | FILH |  0.12 | Filling | Ham           |
 
 ## Extensions
 

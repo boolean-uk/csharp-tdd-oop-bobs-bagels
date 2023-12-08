@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace tdd_oop_bobs_bagels.CSharp.Main
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            BagelApp app = new BagelApp();
+
+        }
+    }
+}
