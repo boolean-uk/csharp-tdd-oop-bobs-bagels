@@ -153,13 +153,21 @@ public class BasketTests
     {
 
         Item it1 = testBasket.AddItem("BGLE");
+        Item it2 = testBasket.AddItem("BGLE");
 
         Assert.That(it1.data.SKU, Is.EqualTo("BGLE"));
+        Assert.That(it2.data.SKU, Is.EqualTo("BGLE"));
 
         testBasket.AddFilling(it1.ID, "FILE");
+        testBasket.AddFilling(it2.ID, "FILH");
+        testBasket.AddFilling(it2.ID, "FILB");
 
         List<Item> fillings = it1.ListFillings();
         Assert.That(fillings[0].data.SKU, Is.EqualTo("FILE"));
+
+        List<Item> fillings2 = it2.ListFillings();
+        Assert.That(fillings2[0].data.SKU, Is.EqualTo("FILH"));
+        Assert.That(fillings2[1].data.SKU, Is.EqualTo("FILB"));
 
     }
 
