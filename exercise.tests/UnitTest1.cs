@@ -1,4 +1,5 @@
 using System.Reflection.Emit;
+using exercise.main;
 using Newtonsoft.Json;
 
 namespace exercise.tests;
@@ -38,5 +39,10 @@ public class Tests
         basket.removeItem("BGLE");
         string itemJson = JsonConvert.SerializeObject(testItem);
         Assert.IsFalse(basket.content.Contains(testItem));
+    }
+    [Test]
+    public void changeCapacitytest()
+    {
+        Assert.That(basket.changeCapacity(), Is.EqualTo(7));
     }
 }
