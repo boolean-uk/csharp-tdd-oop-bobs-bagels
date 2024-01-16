@@ -29,4 +29,14 @@ public class Tests
         Assert.That(bagel.SKU, Is.EqualTo("BGLO"));
         Assert.That(bagel.Filling, Is.EqualTo(null));
     }
+
+    [Test]
+    public void TestBagelSetFilling()
+    {
+        Bagel bagel = new Bagel("Onion");
+        bagel.SetFilling("Bacon");
+
+        Assert.That(bagel.Filling, Is.Not.Null);
+        Assert.That(bagel.Filling.Variant, Is.EqualTo("Bacon"));
+    }
 }
