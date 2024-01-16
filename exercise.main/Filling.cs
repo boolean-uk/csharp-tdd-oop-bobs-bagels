@@ -19,6 +19,11 @@ namespace exercise.main
 
         public Filling(string name)
         {
+            if (!_SKUDict.ContainsKey(name))
+            {
+                throw new Exception("Filling not in stock");
+            }
+
             _SKU = _SKUDict[name];
             _variant = name;
             _price = 0.12;

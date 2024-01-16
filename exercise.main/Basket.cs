@@ -11,21 +11,18 @@ namespace exercise.main
         private List<Coffee> _coffee;
         private int _capacity;
         private int _nrItems;
-        private double _totalPrice;
 
         public Basket()
         {
             _bagels = new List<Bagel>();
             _coffee = new List<Coffee>();
             _capacity = 10;
-            _totalPrice = 0;
             _nrItems = 0;
         }
 
         public List<Bagel> Bagels { get =>  _bagels; }
         public List<Coffee> Coffees { get => _coffee; }
         public int Capacity { get => _capacity; set => _capacity = value; }
-        public double Total { get => _totalPrice; set => _totalPrice = value; }
         public int NrItems { get => _nrItems; set => _nrItems = value; }
 
         public void Add(Bagel bagel)
@@ -36,7 +33,6 @@ namespace exercise.main
             }
 
             Bagels.Add(bagel);
-            Total += bagel.Price;
             NrItems++;
         }
 
@@ -59,8 +55,8 @@ namespace exercise.main
             {
                 throw new Exception("Basket is full");
             }
+            
             Coffees.Add(coffee);
-            Total += coffee.Price;
             NrItems++;
         }
 
@@ -75,6 +71,13 @@ namespace exercise.main
             {
                 throw new Exception("Coffee does not exist in basket");
             }
+        }
+
+        public double GetTotal()
+        {
+            double sum = Coffees.Sum(coffee => coffee.Price);
+            sum += Bagels.Sum(bagel => bagel.Price);
+            return sum;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace exercise.main
 
     public Bagel(string name)
         {
+            if (!_SKUDict.ContainsKey(name))
+            {
+                throw new Exception("Bagel is not in stock");
+            }
+
             _SKU = _SKUDict[name];
             _price = _priceDict[name];
             _variant = name;
@@ -38,6 +43,7 @@ namespace exercise.main
         public void SetFilling(string filling)
         {
             _filling = new Filling(filling);
+            _price = _priceDict[Variant] + _filling.Price;
         }
     }
 }

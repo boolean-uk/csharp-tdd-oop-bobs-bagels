@@ -21,6 +21,10 @@ namespace exercise.main
 
         public Coffee(string name)
         {
+            if (!_SKUDict.ContainsKey(name))
+            {
+                throw new Exception("Coffee is not in stock");
+            }
             _variant = name;
             _SKU = _SKUDict[name];
             _price = _priceDict[name];
