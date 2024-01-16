@@ -27,6 +27,10 @@ Methods
   
 : `public float GetItemPrice(string SKU)`
     * returns the Item price from _basket list
+  
+: `float void addFilling(string SKU)`
+    * adds filling to Contents list if filling exists
+    * adds filling cost to Price
 
 : `public string ListPrices(string type)`
     * returns a List of Items in the inventory with their prices. Type can be All, Bagel, Coffee or Filling
@@ -51,10 +55,6 @@ Methods
 
 : `float TotalPrice(string SKU)`
     * returns the price of the product
-
-: `float void addFilling(string SKU)`
-    * adds filling to Contents list if filling exists
-    * adds filling cost to Price
   
 : : `float List<Item> ListFillings()`
     * returns Contents list

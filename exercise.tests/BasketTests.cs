@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using exercise.main;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
+using NuGet.Frameworks;
 
 namespace exercise.tests;
 
@@ -21,12 +22,13 @@ public class BasketTests
         string realSKU = "BGLO";
         Item res = testBasket.AddItem(realSKU);
 
-        Assert.That(res.SKU, Is.EqualTo("BGLO"));
+        Assert.That(res.data.SKU, Is.EqualTo("BGLO"));
+        // Assert.IsTrue(res);
 
         string fakeSKU = "AAAAA";
         Item res2 = testBasket.AddItem(fakeSKU);
 
-        Assert.IsNull(res2);
+        Assert.That(res2.data.SKU, Is.EqualTo("none"));
 
     }
 
@@ -61,7 +63,7 @@ public class BasketTests
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.IsNull(res);
+        Assert.That(res.data.SKU, Is.EqualTo("none"));
 
     }
 
@@ -82,7 +84,7 @@ public class BasketTests
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.IsNull(res);
+        Assert.That(res.data.SKU, Is.EqualTo("none"));
 
     }
 
@@ -92,8 +94,8 @@ public class BasketTests
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
-        testBasket.AddItem("BGLO");
-        testBasket.AddItem("BGLO");
+        Item t1 = testBasket.AddItem("BGLO");
+        Item t2 = testBasket.AddItem("BGLO");
 
         bool res = testBasket.RemoveItem("BGLE");
 
@@ -111,8 +113,8 @@ public class BasketTests
 
         Assert.That(totalInit, Is.EqualTo(0F));
 
-        testBasket.AddItem("BGLO");
-        testBasket.AddItem("BGLE");
+        Item t1 = testBasket.AddItem("BGLO");
+        Item t2 = testBasket.AddItem("BGLE");
 
         float total = testBasket.TotalCost();
 
@@ -139,16 +141,13 @@ public class BasketTests
     {
 
         Item it1 = testBasket.AddItem("BGLE");
-        Item it2 = testBasket.AddItem("BGLE");
 
-        it1.AddFilling("FILE");
-        it2.AddFilling("FILS");
+        Assert.That(it1.data.SKU, Is.EqualTo("BGLE"));
 
-        List<Item> fillings1 = it1.ListFillings();
-        Assert.That(fillings1[0].Name, Is.EqualTo("FILE"));
+        testBasket.AddFilling(it1.ID, "FILE");
 
-        List<Item> fillings2= it2.ListFillings();
-        Assert.That(fillings2[0].Name, Is.EqualTo("FILS"));
+        List<Item> fillings = it1.ListFillings();
+        Assert.That(fillings[0].data.Name, Is.EqualTo("FILE"));
 
     }
 
