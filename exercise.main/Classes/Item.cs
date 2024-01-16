@@ -21,7 +21,5 @@ namespace exercise.main.Classes
             Name = name;
             Variant = variant;
         }
-
-
     }
 }

@@ -8,6 +8,7 @@ namespace exercise.main.Classes
 {
     public class Store
     {
+        public List<Basket> baskets { get; set; } = new List<Basket>();
         public Store() 
         { 
             Stock stock = new Stock();
