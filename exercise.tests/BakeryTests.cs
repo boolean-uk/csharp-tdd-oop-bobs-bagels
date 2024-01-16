@@ -111,5 +111,20 @@ namespace exercise.tests
             //  Assert - check the results
             Assert.That(_bakery.AddFilling(skuB, skuF), Is.EqualTo(expected));
         }
+
+        [Test]
+        [TestCase("FILB", 0.12d)]
+        [TestCase("FILC", 0.12d)]
+        [TestCase("FILE", 0.12d)]
+        public void Test6(string sku, double expected)
+        {
+            //  Arrange - set up test values
+
+
+            //  Act - use the fucntion we want to test
+
+            //  Assert - check the results
+            Assert.That(_bakery.FillingCost(sku), Is.EqualTo(expected));
+        }
     }
 }
