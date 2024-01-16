@@ -12,7 +12,7 @@ namespace exercise.main
         List<Filling> fillings = new List<Filling>();
         public Bagel(string type)
         {
-            SKU = type;
+            _SKU = type;
             name = "Bagel";
             switch (type)
             {

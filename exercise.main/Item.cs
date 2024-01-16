@@ -11,11 +11,13 @@ namespace exercise.main
         protected float price;
         protected string name;
         protected string variant;
-        protected string SKU;
+        protected string _SKU;
         protected int id;
         public int ID { get { return id; } }
         public float Price { get { return price; } }
         public string Name { get { return name; } }
+        public string Variant { get { return Variant; } }
+        public string SKU { get { return _SKU; } }
 
 
         public Item()

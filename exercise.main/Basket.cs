@@ -54,12 +54,42 @@ namespace exercise.main
         public float TotalCost()
         {
             float result = 0;
-            foreach (Item item in _inventory)
+
+            foreach (string item in _existingItems)
             {
-                result += item.TotalPrice();
+                if (item.Substring(0, 3).ToUpper() != "BGL") continue;
+                int num = _inventory.Count(x => x.SKU == item);
+                while (num >= 12)
+                {
+                    Console.WriteLine(item + num);
+                    result += 3.99f;
+                    num -= 12;
+                }
+                if (num >= 6 && item != "BGLP")
+                {    
+                    result += 2.49f;
+                    num -= 6;
+                }
+                for (int i = 0; i < num; i++)
+                {
+                    result += GetPrice(item);
+                }
+
             }
+
             return result;
         }
+
+        /*            
+         *            
+         *            IEnumerable<char> values = hand.SelectMany(x => x.Value).Distinct();
+            if (values.Count() > 2) return 0;
+            foreach (char card in values)
+            {
+                if (hand.Count(x => x.Value == card.ToString()) == 3) return 600 + core.GetValueOfCard(card.ToString());
+            }*/
+
+
 
         public bool AddFilling(int id, string SKU)
         {

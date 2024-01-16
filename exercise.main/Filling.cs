@@ -10,7 +10,7 @@ namespace exercise.main
     {
         public Filling(string type)
         {
-            SKU = type;
+            _SKU = type;
             name = "Filling";
             price = 0.12f;
             switch (type)
