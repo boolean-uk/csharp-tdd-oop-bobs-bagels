@@ -10,10 +10,10 @@ namespace exercise.main.Objects
     {
         public List<Product> basket { get; } = new List<Product>();
         public Inventory inventory = new Inventory();
-        int limit = 0;
-        public Basket(int limit)
+        public static int limit = 3;
+        
+        public Basket()
         {
-            this.limit = limit;
 
         }
         public bool Add(string SKU)
@@ -39,6 +39,14 @@ namespace exercise.main.Objects
             }
             return false;
         }
-        
+        protected internal bool BasketSize(int newSize)
+        {
+            if (newSize < 0)
+                return false;
+
+            limit = newSize;
+            return true;
+        }
+
     }
 }

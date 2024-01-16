@@ -11,11 +11,10 @@ namespace exercise.tests
     {
     
         private Basket _basket;
-        private int _limit = 3;
         [SetUp]
         public void SetUp()
         {
-            _basket = new Basket(_limit);
+            _basket = new Basket();
         }
 
         [Test]
@@ -43,6 +42,13 @@ namespace exercise.tests
             Assert.IsTrue(resultTrue);
             Assert.IsFalse(resultFalse);
             Assert.IsFalse(_basket.basket.Any(item => item.SKU == "BGLO"));
+        }
+        [Test]
+        public void TestEditSize()
+        {
+            Manager manager = new Manager();
+            Assert.IsTrue(manager.AlterSize(_basket,4));
+            
         }
     }
 }
