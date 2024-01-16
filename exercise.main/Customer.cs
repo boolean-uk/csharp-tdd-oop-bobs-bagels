@@ -20,5 +20,27 @@ namespace exercise.main
         {
             _basket.Add(food);
         }
+
+        public bool Order(IFood food, List<string> availableSkus)
+        {
+            if(food is Bagel)
+            {
+                Bagel bagel = (Bagel)food;
+                if (availableSkus.Contains(bagel.Filling.Sku) && availableSkus.Contains(bagel.Sku))
+                {
+                    _basket.Add(food);
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            }
+            if (availableSkus.Contains(food.Sku))
+            {
+                _basket.Add(food);
+                return true;
+            }
+            return false;
+        }
     }
 }

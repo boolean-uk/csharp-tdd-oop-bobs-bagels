@@ -28,7 +28,7 @@ namespace exercise.main.Foods
             {"BGLS", 0.49f},
         };
 
-        public Filling Filling { get; set; }
+        public Filling? Filling { get; set; }
 
         public Bagel(BagelVariant variant) : base(variant) { }
 

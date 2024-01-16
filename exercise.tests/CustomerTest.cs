@@ -1,11 +1,6 @@
 ﻿using exercise.main;
 using exercise.main.Foods;
 using exercise.main.Variants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace exercise.tests
 {
@@ -33,14 +28,37 @@ namespace exercise.tests
         [Test]
         public void CanOnlyOrderItemsInInventory()
         {
-            List<string> availableItemsSku = new()
-            {
-                "BGLO", "BGLP", "COFB", "FILE", "FILC", "FILX"
-            };
+            List<string> availableItemsSku =
+            [
+                "BGLO",
+                "BGLP",
+                "COFB",
+                "FILE",
+                "FILC",
+                "FILX"
+            ];
             Bagel bagel = new(BagelVariant.Onion);
             Filling filling = new(FillingVariant.Ham);
             bagel.Filling = filling;
-            Assert.Throws<Exception>(() => _customer.Order(bagel, availableItemsSku));
+            Assert.That(_customer.Order(bagel, availableItemsSku), Is.False);
+            availableItemsSku.Add("FILH");
+            Assert.That(_customer.Order(bagel, availableItemsSku), Is.True);
+        }
+
+        [Test]
+        public void CanOnlyOrderItemsInInventoryNoFilling()
+        {
+            List<string> availableItemsSku =
+            [
+                "BGLO",
+                "BGLP",
+                "COFB",
+                "FILE",
+                "FILC",
+                "FILX"
+            ];
+            Bagel bagel = new(BagelVariant.Onion);
+            Assert.That(_customer.Order(bagel, availableItemsSku), Is.True);
         }
     }
 }
