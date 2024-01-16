@@ -7,9 +7,20 @@ namespace exercise.main
 {
     public class Basket
     {
-        private System.Collections.Generic.List<Bagel> _bagels;
+        private List<Bagel> _bagels;
         private int _capacity;
         private int _totalPrice;
+
+        public Basket()
+        {
+            _bagels = new List<Bagel>();
+            _capacity = 10;
+            _totalPrice = 0;
+        }
+
+        public List<Bagel> Bagels { get =>  _bagels; }
+        public int Capacity { get => _capacity; set => _capacity = value; }
+        public int Total { get => _totalPrice; }
 
         public void AddBagel(string Bagel)
         {
