@@ -28,4 +28,18 @@ public class BasketTests
         Assert.IsFalse(res2);
 
     }
+
+    [Test]
+    public void RemoveItem()
+    {
+        testBasket.AddItem("BGLO");
+        testBasket.AddItem("BGLP");
+
+        bool res1 = testBasket.RemoveItem("BGLO");
+        Assert.IsTrue(res1);
+
+        bool res2 = testBasket.RemoveItem("AAAA");
+        Assert.IsFalse(res2);
+
+    }
 }
