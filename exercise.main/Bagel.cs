@@ -8,6 +8,6 @@ namespace exercise.main
 {
     public class Bagel : IFood
     {
-        public string Name => throw new NotImplementedException();
+        public string Name => "Bagel";
     }
 }

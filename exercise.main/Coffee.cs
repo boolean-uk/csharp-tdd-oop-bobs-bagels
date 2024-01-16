@@ -4,6 +4,6 @@ namespace exercise.tests
 {
     public class Coffee : IFood
     {
-        public string Name => throw new NotImplementedException();
+        public string Name => "Coffee";
     }
 }
