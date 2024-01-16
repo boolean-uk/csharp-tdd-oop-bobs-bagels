@@ -7,17 +7,17 @@ namespace exercise.main
 {
     public class Item {
         public string Sku;
-        public float Price;
+        public decimal Price;
         public string Name;
         public string Variant;
-        public List<string> Fillings;
+        public List<Tuple<string, decimal>> Fillings;
 
-        public Item(string sku, float price, string name, string variant) {
+        public Item(string sku, decimal price, string name, string variant) {
             Sku = sku;
             Price = price;
             Name = name;
             Variant = variant;
-            Fillings = new List<string>();;
+            Fillings = new List<Tuple<string, decimal>>();;
         }
     }
 

@@ -10,7 +10,8 @@ namespace exercise.main
 
         private Inventory inventory { get; }
         private int Capacity { get; set; }
-        private List<Item> items = new List<Item>();
+
+        private List<Item> basket = new List<Item>();
 
         public Basket(Inventory inventory)
         {
@@ -19,12 +20,55 @@ namespace exercise.main
 
        
 
-        public bool AddToBasket(string sku)
+        public bool AddToBasket(string sku, string extraFillings = "")
         {
-            throw new NotImplementedException();
+            if (!IsFull())
+            {
+                
+                    Item bagel = inventory.GetBagel(sku);
+                    if (!string.IsNullOrEmpty(extraFillings))
+                    {
+                        List<Tuple<string, decimal>> additionalFillings = new List<Tuple<string, decimal>>();
+
+                        foreach (string filling in extraFillings.Split(" "))
+                        {
+                            if (inventory.IsItemInStock(filling))
+                            {
+                                Item fillingItem = inventory.GetFilling(filling);
+                                additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, inventory.GetFillingCost(filling)));
+                            }
+                            else
+                            {
+                                throw new Exception("Invalid filling SKU!");
+                            }
+
+                        }
+
+                        bagel.Fillings.AddRange(additionalFillings);
+
+                    }
+                    basket.Add(bagel);
+                    return true;
+                
+                
+            }
+            throw new Exception("The basket is full!");
         }
 
+        //! float totalPrice = bagel.Price + additionalFillings.Count * GetFillingCost("FIL");
+
         public bool RemoveFromBasket(string sku) {
+            if (ContainsInBasket(sku))
+            {
+                foreach (Item item in basket)
+                {
+                    if (item.Sku.Equals(sku))
+                    {
+                        basket.Remove(item);
+                        return true;
+                    }
+                }
+            }
 
             return false;
         }
@@ -35,7 +79,11 @@ namespace exercise.main
 
         public float TotalCostOfBasket()
         {
-
+            float totalCost = 0f;
+            foreach (Item item in basket)
+            {
+                
+            }
             return 0f;
         }
 
@@ -43,18 +91,26 @@ namespace exercise.main
 
         private bool IsFull()
         {
-            return items.Count > Capacity;
+            return basket.Count > Capacity;
         }
 
         private bool ContainsInBasket(string sku)
         {
-            foreach (Item item in items) { 
+            foreach (Item item in basket) { 
                 if (item.Sku.Equals(sku)) return true;
             }
             return false;
         }
         
+        public int GetListCount()
+        {
+            return basket.Count;
+        }
 
+        public int GetCapacity()
+        {
+            return Capacity;
+        }
         
     }
 }
