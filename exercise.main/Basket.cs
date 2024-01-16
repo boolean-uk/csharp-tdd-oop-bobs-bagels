@@ -5,7 +5,7 @@ namespace exercise.main
     public class Basket
     {
         private List<IFood> _contents = new();
-        private int _capacity = 10;
+        private int _capacity = 25;
         public Basket() {}
         public Basket(int capacity)
         {
