@@ -121,4 +121,16 @@ public class Tests
         Assert.That(store.Baskets.Count, Is.EqualTo(0));
         Assert.Throws<Exception>(() => store.RemoveBasket(basket));
     }
+
+    [Test]
+    public void IncreaseCapacity() 
+    {
+        BobsBagels store = new BobsBagels(); 
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(10);
+
+        Assert.That(store.Capacity, Is.EqualTo(20));
+        Assert.That(basket.Capacity, Is.EqualTo(20));
+    }
 }
