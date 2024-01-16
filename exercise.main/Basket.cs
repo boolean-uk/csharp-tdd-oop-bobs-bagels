@@ -33,9 +33,16 @@ namespace exercise.main
             Total += bagel.Price;
         }
 
-        public void RemoveBagel()
+        public void RemoveBagel(Bagel bagel)
         {
-            throw new System.NotImplementedException();
+            if (Bagels.Contains(bagel))
+            {
+                Bagels.Remove(bagel);
+            }
+            else
+            {
+                throw new Exception("Bagel does not exist in basket");
+            }
         }
     }
 }
