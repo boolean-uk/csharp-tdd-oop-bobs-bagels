@@ -39,4 +39,14 @@ public class Tests
         Assert.That(bagel.Filling, Is.Not.Null);
         Assert.That(bagel.Filling.Variant, Is.EqualTo("Bacon"));
     }
+
+    [Test]
+    public void TestBasketConstructor()
+    {
+        Basket basket = new Basket();
+
+        Assert.That(basket.Bagels.Count, Is.EqualTo(0));
+        Assert.That(basket.Capacity, Is.EqualTo(10));
+        Assert.That(basket.Total, Is.EqualTo(0));
+    }
 }
