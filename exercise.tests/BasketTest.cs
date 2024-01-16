@@ -58,7 +58,16 @@ namespace exercise.tests
             _basket.Add("BGLO");
             _basket.Add("COFB");
 
-            Assert.AreEqual(_basket.sum(), 0.49d + 0.99d);
+            Assert.AreEqual(_basket.Sum(), 0.49d + 0.99d);
+        }
+        [Test]
+        public void addFilling()
+        {
+            _basket.Add("BGLO");
+            var test = _basket.basket.FirstOrDefault(item => item.SKU == "BGLO");
+            Assert.IsTrue(test.AddFilling("FILB"));
+            Assert.IsFalse(test.AddFilling("COFB"));
+            Assert.IsTrue(test.Filling.Any(t => t.SKU == "FILB"));
         }
     }
 }

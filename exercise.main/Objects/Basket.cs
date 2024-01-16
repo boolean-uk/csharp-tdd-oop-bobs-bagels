@@ -49,7 +49,7 @@ namespace exercise.main.Objects
             return true;
         }
 
-        public double sum()
+        public double Sum()
         {
             double sum = 0;
             foreach (Product product in basket.Where(item=>item.Type == Product.pType.Bagel))

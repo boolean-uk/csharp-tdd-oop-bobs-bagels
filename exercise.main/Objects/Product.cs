@@ -31,6 +31,11 @@ namespace exercise.main.Objects
             _price = price;
             _variant = variant;
         }
+
+        public bool AddFilling(string SKU)
+        {
+            return false;
+        }
         
     }
 }
