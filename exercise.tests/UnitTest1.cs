@@ -148,15 +148,10 @@ public class Tests
         // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
 
 
-
         //Act
         basket.Add(product1);
         basket.Add(product2);
        
-        basket.Remove(product1);
-        basket.Remove(product4);
-
-
 
         //Assert
         Assert.IsTrue(basket.Remove(product1));    // This item in the basket -> true
