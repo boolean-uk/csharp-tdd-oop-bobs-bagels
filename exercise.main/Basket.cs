@@ -13,6 +13,7 @@ namespace exercise.main
         private double _total = 0;
         // Define properties
         public List<Product> _basket = new List<Product>();
+        Dictionary<Product, List<Product>> _sandWiches = new Dictionary<Product, List<Product>>();
 
         public bool Add(Product product)
         {
@@ -55,6 +56,37 @@ namespace exercise.main
         public List<Product> getBasket()
         {
             return _basket;
+        }
+
+        public void MakeSandwich(Product product1, Product product5)
+        {
+            if (_basket.Contains(product1) && product1.name == "Bagel")
+            {
+                if (_sandWiches.ContainsKey(product1))
+                {
+                    if (Add(product5))
+                    {
+                        _sandWiches[product1].Add(product5);
+                    }
+                    else {
+                        throw new Exception("Check the basket capacity");
+                    }
+                }
+                else
+                {
+                    _sandWiches.Add(product1, new List<Product>() { product5 });
+                }
+
+            }
+            else
+            {
+                throw new Exception("Need to by a bagel and add it to your basket first");
+            }
+        }
+
+        public Dictionary<Product, List<Product>> getSandwich()
+        {
+            return _sandWiches;
         }
 
         public int capacity { get { return _capacity; } }

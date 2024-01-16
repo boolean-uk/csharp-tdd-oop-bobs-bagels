@@ -239,7 +239,7 @@ public class Tests
 
 
         //Act
-
+        basket.Add(product1);
         basket.MakeSandwich(product1, product5);
         basket.MakeSandwich(product1, product6);
         Dictionary<Product,List<Product>> testResult = new Dictionary<Product, List<Product>>() {
@@ -250,7 +250,7 @@ public class Tests
 
 
         //Assert
-        Assert.AreEqual(testResult[product1], Result[product1]);    // Onion = 0.49, Black = 0.99, Ham = 0.12
+        Assert.AreEqual(testResult[product1], Result[product1]);    // Checking if result have same filling as testResult
     }
 
 }

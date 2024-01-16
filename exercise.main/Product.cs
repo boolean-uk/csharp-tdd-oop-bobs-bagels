@@ -45,6 +45,8 @@ namespace exercise.main
         {
             return _price;
         }
+        public string name { get { return _name; } }
+        public string variant { get { return _variant; } }
 
 
     }
