@@ -10,12 +10,12 @@ namespace exercise.tests
         public void TestGetItemsInInventory()
         {
             //setup
-            Store inventory = new();
+            Store store = new();
             Bagel bagel = new(BagelType.Everything);
-            inventory.AddItemToInventory(bagel);
+            store.AddItemToInventory(bagel);
 
             //execute
-            List<Item> items = inventory.GetItemsInInventory();
+            List<Item> items = store.GetItemsInInventory();
 
             //verify
             Assert.That(items, Is.Not.Null);

@@ -25,6 +25,15 @@ namespace exercise.main
             Items.Add(item);
         }
 
+        public void AddItems(List<Item> item)
+        {
+            if (IsFull())
+            {
+                return;
+            }
+            Items.AddRange(item);
+        }
+
         public List<Item> GetBagels()
         {
             return Items;

@@ -14,5 +14,10 @@ namespace exercise.main
         {
             return inventory;
         }
+
+        public void GetDiscounts()
+        {
+            Console.WriteLine("6 Bagels without filling for 2.49 | 12 Bagels without filling for 3.99 | Coffee and Bagel (without filling) for 1.25");
+        }
     }
 }
