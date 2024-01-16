@@ -51,7 +51,9 @@ namespace exercise.main.Class_Items
 
         public int ChangeCapacity(int amount)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (amount < 0)
+                return _basketCapacity;
             _basketCapacity = amount;
             foreach (var item in _customers)
             {
