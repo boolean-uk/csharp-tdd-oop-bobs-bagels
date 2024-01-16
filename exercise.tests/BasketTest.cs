@@ -46,5 +46,12 @@ namespace exercise.tests
             Assert.DoesNotThrow(() => basket.Add(new Coffee(CoffeeVariant.Black)));
             Assert.Throws<Exception>(() => basket.Add(new Bagel(BagelVariant.Onion)));
         }
+
+        [Test]
+        public void ThrowsExceptionWhenRemovingNonExistingItem()
+        {
+            Basket basket = new();
+            Assert.Throws<Exception>(() => basket.Remove(new Bagel(BagelVariant.Plain)));
+        }
     }
 }

@@ -22,7 +22,14 @@ namespace exercise.main
             }
             _contents.Add(food); 
         }
-        public void Remove(IFood food) { _contents.Remove(food); }
+        public void Remove(IFood food) 
+        {
+            bool exists = _contents.Remove(food);
+            if (!exists)
+            {
+                throw new Exception("That food item does not exist!");
+            }
+        }
         public int Count { get { return _contents.Count; } }
         public void Clear() {  _contents.Clear(); }
 
