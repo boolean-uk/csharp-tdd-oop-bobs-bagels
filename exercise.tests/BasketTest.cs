@@ -18,7 +18,7 @@ namespace exercise.tests
         }
 
         [Test]
-        public void TestAdd()
+        public void Add()
         {
             bool resultTrue = _basket.Add("BGLO");
             bool resultFalse = _basket.Add("wrong");
@@ -33,7 +33,7 @@ namespace exercise.tests
             Assert.IsTrue(_basket.basket.Any(item => item.SKU == "BGLO"));
         }
         [Test]
-        public void TestRemove()
+        public void Remove()
         {
             _basket.Add("BGLO");
             bool resultTrue = _basket.Remove("BGLO");
@@ -44,11 +44,13 @@ namespace exercise.tests
             Assert.IsFalse(_basket.basket.Any(item => item.SKU == "BGLO"));
         }
         [Test]
-        public void TestEditSize()
+        public void EditSize()
         {
             Manager manager = new Manager();
             Assert.IsTrue(manager.AlterSize(_basket,4));
             
         }
+        [Test]
+        public void Calculate() { }
     }
 }
