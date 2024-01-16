@@ -26,15 +26,16 @@ namespace exercise.main
             _price = item._price;
             _itemName = item._itemName;
             _variant = item._variant;
-            _fillings = item._fillings;
-
+            _fillings = new List<Item>(item._fillings.Select(filling => new Item(filling)));
         }
 
-        public void AddFilling(string sku)
+        public Item AddFilling(Item filling)
         {
-            Inventory inventory = new Inventory();
-            _fillings.Add(inventory.getItem(sku));
+            Item newBagel = new Item(this);
+            newBagel._fillings.Add(filling);
+            return newBagel;
         }
+
         public float TotalPrice() 
         { 
             float totalPrice = _price;
@@ -48,36 +49,29 @@ namespace exercise.main
 
     public class Inventory
     {
-        private Dictionary<string, Item> _items = new Dictionary<string, Item>();
+        private Dictionary<string, Item> _items;
 
         public Inventory() {
-            _items.Add("BGLO", new Item("BGLO", 0.49f, "Bagel", "Onion"));
-            _items.Add("BGLP", new Item("BGLP", 0.39f, "Bagel", "Plain"));
-            _items.Add("BGLE", new Item("BGLE", 0.49f, "Bagel", "Everything"));
-            _items.Add("BGLS", new Item("BGLS", 0.49f, "Bagel", "Sesame"));
-            _items.Add("COFB", new Item("COFB", 0.99f, "Coffee", "Black"));
-            _items.Add("COFW", new Item("COFW", 1.19f, "Coffee", "White"));
-            _items.Add("COFC", new Item("COFC", 1.29f, "Coffee", "Cappuccino"));
-            _items.Add("COFL", new Item("COFL", 1.29f, "Coffee", "Latte"));
-            _items.Add("FILB", new Item("FILB", 0.12f, "Filling", "Bacon"));
-            _items.Add("FILE", new Item("FILE", 0.12f, "Filling", "Egg"));
-            _items.Add("FILC", new Item("FILC", 0.12f, "Filling", "Cheese"));
-            _items.Add("FILX", new Item("FILX", 0.12f, "Filling", "Cream Cheese"));
-            _items.Add("FILS", new Item("FILS", 0.12f, "Filling", "Smoked Salmon"));
-            _items.Add("FILH", new Item("FILH", 0.12f, "Filling", "Ham"));
+            _items = new Dictionary<string, Item>
+            {
+                { "BGLO", new Item("BGLO", 0.49f, "Bagel", "Onion") },
+                { "BGLP", new Item("BGLP", 0.39f, "Bagel", "Plain") },
+                { "BGLE", new Item("BGLE", 0.49f, "Bagel", "Everything") },
+                { "BGLS", new Item("BGLS", 0.49f, "Bagel", "Sesame") },
+                { "COFB", new Item("COFB", 0.99f, "Coffee", "Black") },
+                { "COFW", new Item("COFW", 1.19f, "Coffee", "White") },
+                { "COFC", new Item("COFC", 1.29f, "Coffee", "Cappuccino") },
+                { "COFL", new Item("COFL", 1.29f, "Coffee", "Latte") },
+                { "FILB", new Item("FILB", 0.12f, "Filling", "Bacon") },
+                { "FILE", new Item("FILE", 0.12f, "Filling", "Egg") },
+                { "FILC", new Item("FILC", 0.12f, "Filling", "Cheese") },
+                { "FILX", new Item("FILX", 0.12f, "Filling", "Cream Cheese") },
+                { "FILS", new Item("FILS", 0.12f, "Filling", "Smoked Salmon") },
+                { "FILH", new Item("FILH", 0.12f, "Filling", "Ham") }
+            };
 
         }
 
-        /*
-        public bool AddItem(string sku, float price, string itemName, string variant)
-        {
-            int inventorySize = _items.Count;
-            Item item = new Item(sku, price, itemName, variant);
-            _items.Add(sku, item);
-            if ((_items.Count -1 ) == inventorySize) return true;
-            else return false;
-        }
-        */
         public bool ItemExists(string sku)
         {
             return _items.ContainsKey(sku);
@@ -94,11 +88,12 @@ namespace exercise.main
             }
             
         }
-        public Item? getItem(string sku)
+
+        public Item GetItem(string sku)
         {
             if (this.ItemExists(sku))
             {
-                return new Item(_items[sku]);
+                return _items[sku];
             }
             else return null;
         }
@@ -109,14 +104,14 @@ namespace exercise.main
     {
         private int _maxCapacity = 4;
         public readonly List<Item> _basketList = new List<Item>();
-        //private Inventory _inventory = new Inventory();
+        private Inventory _inventory = new Inventory();
 
         public bool AddBagel(string sku)
         {
-            Inventory _inventory = new Inventory();
             if (sku.Substring(0, 3) == "BGL" && _inventory.ItemExists(sku) && _basketList.Count < _maxCapacity)
             {
-                _basketList.Add(_inventory.getItem(sku));
+                Item bagel = new Item(_inventory.GetItem(sku));
+                _basketList.Add(bagel);
                 return true;
             }
             else return false;
@@ -125,12 +120,12 @@ namespace exercise.main
 
         public bool AddFilling(int index, string fillingSku)
         {
-            Inventory _inventory = new Inventory();
-            if (index >= 0  && index < _basketList.Count)
+            if(index >= 0  && index < _basketList.Count)
             {
                 if (_inventory.ItemExists(fillingSku) && fillingSku.Substring(0, 3) != "BGL")
                 {
-                    _basketList[index].AddFilling(fillingSku);
+                    Item fillingToAdd = new Item(_inventory.GetItem(fillingSku));
+                    _basketList[index] = _basketList[index].AddFilling(fillingToAdd);
                     return true;
                 }
             }
@@ -138,7 +133,7 @@ namespace exercise.main
 
         }
 
-        public bool RemoveBagle(int index)
+        public bool RemoveBagel(int index)
         {
             if (_basketList.Count > index && index>= 0)
             {
@@ -151,6 +146,7 @@ namespace exercise.main
 
         public float TotalCost()
         {
+            
             float totalCost = 0;
             foreach (var item in _basketList)
             {

@@ -83,9 +83,8 @@ class Item
 	private List<Item> fillings
 
 	METHODS
-	public bool AddFilling(string sku)
-		return true if item is a bagle and add filling
-		return false if item is not a bagle
+	public Item AddFilling(Item filling)
+		return an item with the added filling
 	
 	public float totalPrice()
 		return total price of item + fillings
@@ -98,21 +97,20 @@ class Inventory
 		
 
 	METHODS:
-	public void AddItem(SKU, item)
-		Add the item to the invetory
 	public bool ItemExists(string sku)
 		return true if item exists
 		return false if not
 	public float GetPrice(string sku)
 		return price
-	public Item getItem(sting sku)
-		check if item exits and return item if it does
-		return null if it dosen't exist
+	public Item GetItem(string sku)
+		return the item if it exists
+		If it dosen't return null
+
 
 class Basket
 	PROPERTIES:
-	public readonly List<Item> _basketList
 	private float _maxCapacity = 4
+	public readonly List<Item> _basketList
 	private Inventory _inventory
 	
 
