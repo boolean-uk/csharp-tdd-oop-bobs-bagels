@@ -63,4 +63,20 @@ public class BasketTests
         Assert.IsFalse(res);
 
     }
+
+    [Test]
+    public void ChangeCapacity()
+    {
+
+        testBasket.ChangeCapacity(3);
+
+        testBasket.AddItem("BGLO");
+        testBasket.AddItem("BGLP");
+        testBasket.AddItem("COFB");
+
+        bool res = testBasket.AddItem("BGLE");
+
+        Assert.IsFalse(res);
+
+    }
 }

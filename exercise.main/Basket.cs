@@ -51,5 +51,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public void ChangeCapacity(int newCapacity)
+        {
+            
+        }
     }
 }
