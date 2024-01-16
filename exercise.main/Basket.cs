@@ -32,7 +32,7 @@ namespace exercise.main
 
         public double TotalCost()
         {
-            throw new NotImplementedException();
+            return products.Sum(x => x.GetPrice());
         }
     }
 }

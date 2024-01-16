@@ -8,8 +8,10 @@ namespace exercise.main
 {
     public abstract class Product
     {
-        public double price { get; set; }
+        internal double price { get; set; }
         public string SKU { get; set; }
+
+        public abstract double GetPrice();
     }
 
 }

@@ -17,17 +17,24 @@ namespace exercise.main
             { BagelType.Sesame, (0.49d, "BGLS") }
         };
 
-        private List<Filling> filling = new List<Filling>();
+        public List<Filling> filling { get;  } = new List<Filling>();
         BagelType _bagelType;
 
         public Bagel(BagelType bagel)
         {
             _bagelType = bagel;
+            price = bagelToInfo[bagel].price;
+            SKU = bagelToInfo[bagel].SKU;
+        }
+
+        public override double GetPrice()
+        {
+            return price + filling.Sum(x => x.price);
+        }
+
+        public void Add(Filling filling)
+        {
+            throw new NotImplementedException();
         }
     }
-    /*
-    public class Onion : Bagel { public Onion() { SKU = "BGLO"; price = 0.49d; } }
-    public class Plain : Bagel { public Plain() { SKU = "BGLP"; price = 0.39d; } }
-    public class Everything : Bagel { public Everything() { SKU = "BGLE"; price = 0.49d; } }
-    public class Sesame : Bagel { public Sesame() { SKU = "BGLS"; price = 0.49d; } } */
 }

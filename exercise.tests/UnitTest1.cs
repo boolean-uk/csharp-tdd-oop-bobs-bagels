@@ -72,6 +72,32 @@ public class Tests
     [Test]
     public void totalCostsTest()
     {
-        Assert.AreEqual(basket.TotalCost(), 0.98);
+        string something;
+        Assert.AreEqual(basket.TotalCost(), 0.98d);
+    }
+
+    [Test]
+    public void addTopping()
+    {
+        Filling filling = new Filling(FillingType.Bacon);
+        onion.Add(filling);
+        Assert.AreEqual(onion.filling, new List<Filling>{filling});
+    }
+
+    [Test]
+    public void totalCostsFillingTest() 
+    {
+        Filling filling = new Filling(FillingType.Bacon);
+        onion.Add(filling);
+        Filling cheese = new Filling(FillingType.Cheese);
+        onion.Add(cheese);
+        Assert.AreEqual(basket.TotalCost(), 0.98 + 0.24);
+    }
+
+    [Test]
+    public void totalCostCoffee()
+    {
+        Coffee coffee = new Coffee(CoffeType.Capuccino);
+        Assert.AreEqual(basket.TotalCost(), 0.98 + 1.29);
     }
 }

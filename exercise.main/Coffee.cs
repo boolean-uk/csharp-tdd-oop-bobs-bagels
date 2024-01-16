@@ -25,6 +25,8 @@ namespace exercise.main
             price = coffeToInfo[coffee].price;
             SKU = coffeToInfo[coffee].SKU;
         }
+
+        public override double GetPrice() { return price; }
     }
 
     /*
