@@ -86,7 +86,7 @@ So we don't get any weird requests,
 | `abstract Product : Object` | `public virtual double GetPrice()`                   |                         | `value` |
 | `abstract Ware : Product`|                                                 |                         |      |
 | `Bagel : Ware`      | `public Bagel(Filling filling = null)`               | Constructs a bagel with or without filling |   |
-| `Bagel : Ware`      | `public double GetPrice() override`               | Constructs a bagel with or without filling |   |
+| `Bagel : Ware`      | `public double GetPrice() override`                  | Returns the cost of the bagel + filling |   |
 | `Coffee : Ware`     |                                                      |                        |   |
 | `Filling : Product` |                                                      |                        |   |
 | `Store`             | `public double GetPrice(Product product)`                   |    | `` |
