@@ -74,6 +74,7 @@ namespace exercise.main
             {
                 Item fill = fillings.Single(x => x.data.SKU == SKU);
                 it.Contents.Add(fill);
+                totalCost = totalCost + fill.data.Price;
             }
         }
         public float TotalCost()
