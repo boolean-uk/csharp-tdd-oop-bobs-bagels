@@ -6,6 +6,9 @@
         public abstract double Price { get; set; }
         public abstract string Sku { get; set; }
 
-
+        public double GetPrice()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

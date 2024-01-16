@@ -1,4 +1,5 @@
-﻿namespace exercise.main
+﻿
+namespace exercise.main
 {
     public enum BagelType
     {
@@ -33,5 +34,15 @@
         public override string Name { get { return _name; } set { _name = value; } }
         public override double Price { get { return _price; } set { _price = value; } }
         public override string Sku { get { return _sku; } set { _sku = value; } }
+
+        public void AddFilling(Filling filling)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Filling> GetFillings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

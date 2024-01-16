@@ -72,7 +72,7 @@ I'd like to be able to choose fillings for my bagel.
 
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Bagel`         | `setFilling(Filling filling)`               | any                       | void                                  |
+| `Bagel`         | `addFilling(Filling filling)`               | any                       | void                                  |
 
 
 9.
