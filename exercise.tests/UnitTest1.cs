@@ -49,4 +49,18 @@ public class Tests
         Assert.That(basket.Capacity, Is.EqualTo(10));
         Assert.That(basket.Total, Is.EqualTo(0));
     }
+
+    [Test]
+    public void TestBasketAdd()
+    {
+        Basket basket = new Basket();
+        Bagel bagel = new Bagel("Onion");
+
+        basket.AddBagel(bagel);
+
+        Assert.That(basket.Bagels.Count, Is.EqualTo(1));
+        Assert.That(basket.Total, Is.EqualTo(0.49));
+        Assert.That(basket.Bagels[0], Is.EqualTo(bagel));
+
+    }
 }
