@@ -27,10 +27,10 @@ namespace exercise.tests
         public void GetTotalPriceOfItemsInBasket()
         {
             Basket basket = new();
-            Bagel bagel = new(BagelVariant.Onion);
-            Coffee coffee = new(CoffeeVariant.Black);
             Filling filling = new(FillingVariant.Ham);
-            bagel.Filling = filling;
+            Bagel bagel = new(BagelVariant.Onion, filling);
+            Coffee coffee = new(CoffeeVariant.Black);
+
 
             basket.Add(bagel);
             basket.Add(coffee);

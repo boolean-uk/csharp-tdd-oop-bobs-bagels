@@ -18,7 +18,7 @@ namespace exercise.main.Foods
             }
         }
 
-        public override float Price => _priceTable[Sku] + Filling.Price;
+        public override float Price => _priceTable[Sku] + Fillings.Sum(f => f.Price);
 
         private Dictionary<string, float> _priceTable = new()
         {
@@ -28,13 +28,13 @@ namespace exercise.main.Foods
             {"BGLS", 0.49f},
         };
 
-        public Filling? Filling { get; set; }
+        public List<Filling> Fillings { get; set; } = new();
 
         public Bagel(BagelVariant variant) : base(variant) { }
 
         public Bagel(BagelVariant variant, Filling filling) : base(variant) 
         {
-            Filling = filling;
+            Fillings.Add(filling);
         }
 
     }

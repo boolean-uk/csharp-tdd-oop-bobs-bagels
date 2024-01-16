@@ -52,6 +52,6 @@ public class FoodTest
     {
         Filling filling = new(FillingVariant.Cheese);
         Bagel bagel = new(BagelVariant.Sesame, filling);
-        Assert.That(bagel.Filling, Is.EqualTo(filling));
+        Assert.That(bagel.Fillings.Contains(filling), Is.True);
     }
 }

@@ -26,16 +26,14 @@ namespace exercise.main
             if(food is Bagel)
             {
                 Bagel bagel = (Bagel)food;
-                if (availableSkus.Contains(bagel.Filling.Sku) && availableSkus.Contains(bagel.Sku))
+                if(bagel.Fillings.All(f => availableSkus.Contains(f.Sku)))
                 {
                     _basket.Add(food);
                     return true;
-                } else
-                {
-                    return false;
                 }
+                return false;
             }
-            if (availableSkus.Contains(food.Sku))
+            else if (availableSkus.Contains(food.Sku))
             {
                 _basket.Add(food);
                 return true;
