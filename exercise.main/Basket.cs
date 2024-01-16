@@ -9,13 +9,13 @@ namespace exercise.main
     public class Basket
     {
         private int _capacity;
-        private List<string> _contents = new List<string>();
-        public Basket(int capacity, List<string> contents)
+        public List<string> content;
+        public Basket(int capacity)
         {
             _capacity = capacity;
-            _contents = contents;
+            content =  new List<string>();
         }
-        public bool addItem()
+        public bool addItem(string SKU)
         {
             return false;
         }

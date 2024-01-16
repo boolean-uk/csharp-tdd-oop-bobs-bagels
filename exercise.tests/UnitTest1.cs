@@ -5,17 +5,20 @@ namespace exercise.tests;
 public class Tests
 {
     private int capacity = 6;
-    private List<string> contents = new List<string>();
-    Basket _basket;
+    public List<string> content;
+    Basket basket;
     [SetUp]
     public void Setup()
     {
-        _basket = new Basket(capacity, contents);
+        content = new List<string>();
+        basket = new Basket(capacity);
     }
 
     [Test]
     public void addBagelTest()
     {
-        Assert.IsTrue(_basket.addItem());
+        basket.addItem("BGLE");
+        Assert.IsTrue(basket.content.Contains("BLGE"));
+        Assert.IsTrue(basket.addItem("BGLE"));
     }
 }
