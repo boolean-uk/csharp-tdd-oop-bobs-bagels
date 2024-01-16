@@ -213,4 +213,44 @@ public class Tests
         //Assert
         Assert.IsTrue(price == 0.49);    // Onion = 0.49
     }
+
+    [Test]
+    public void testMakebagel()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+        Filling filling2 = new Filling("Bacon");
+        Filling filling3 = new Filling("Ham");
+
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product4 = new Product(filling1);
+        Product product5 = new Product(filling2);
+        Product product6 = new Product(filling3);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+
+        basket.MakeSandwich(product1, product5);
+        basket.MakeSandwich(product1, product6);
+        Dictionary<Product,List<Product>> testResult = new Dictionary<Product, List<Product>>() {
+            { product1, new List<Product>() { product5,product6} }
+        };
+
+        Dictionary<Product, List<Product>> Result = basket.getSandwich();
+
+
+        //Assert
+        Assert.AreEqual(testResult[product1], Result[product1]);    // Onion = 0.49, Black = 0.99, Ham = 0.12
+    }
+
 }
