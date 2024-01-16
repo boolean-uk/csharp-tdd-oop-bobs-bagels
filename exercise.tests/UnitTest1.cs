@@ -1,4 +1,5 @@
 using System.Reflection.Emit;
+using Newtonsoft.Json;
 
 namespace exercise.tests;
 
@@ -19,8 +20,22 @@ public class Tests
     {
         Item expected = new Item(0.49f, "Bagel", "Everything");
         Item result = basket.addItem("BGLE");
-        Assert.That(result._price == expected._price);
-        Assert.That(result._type == expected._type);
-        Assert.That(result._variant == expected._variant);
+        string expectedJson = JsonConvert.SerializeObject(expected);
+        string resultJson = JsonConvert.SerializeObject(result);
+        Assert.That(resultJson, Is.EqualTo(expectedJson));
+    }
+    [Test]
+    public void addCoffeeTest()
+    {
+        Item expected = new Item(0.99f, "Coffee", "Black");
+        Item result = basket.addItem("COFB");
+        string expectedJson = JsonConvert.SerializeObject(expected);
+        string resultJson = JsonConvert.SerializeObject(result);
+        Assert.That(resultJson, Is.EqualTo(expectedJson));
+    }
+    [Test]
+    public void removeBagelTest()
+    {
+
     }
 }

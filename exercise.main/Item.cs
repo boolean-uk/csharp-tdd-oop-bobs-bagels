@@ -11,10 +11,10 @@ namespace exercise.main
 {
     public class Item
     {
-        public float _price;
-        public string _type;
-        public string _variant;
-        //private List<Item> subItems;
+        private float _price;
+        private string _type;
+        private string _variant;
+        private List<Item> subItems;
         
         public Item(float price, string type, string variant)
         {
