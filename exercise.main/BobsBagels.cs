@@ -9,6 +9,7 @@ namespace exercise.main
     {
         private Dictionary<string, int> _stock;
         private int _capacity;
+        private List<Basket> _baskets;
 
         public BobsBagels()
         {
@@ -18,9 +19,16 @@ namespace exercise.main
             };
 
             _capacity = 10;
+            _baskets = new List<Basket>();
         }
 
         public Dictionary<string, int> Stock { get => _stock; }
         public int Capacity { get => _capacity; set => _capacity = value; }
+        public List<Basket> Baskets { get => _baskets; }
+
+        public void AddBasket(Basket basket)
+        {
+            Baskets.Add(basket);
+        }
     }
 }
