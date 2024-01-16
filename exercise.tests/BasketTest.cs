@@ -19,8 +19,7 @@ namespace exercise.tests
 
             //act
             basket.AddBagel(sku);
-
-
+            
             //assert
             Assert.IsTrue(basket.BasketItems.Count > 0);
 
@@ -41,18 +40,20 @@ namespace exercise.tests
             Assert.IsTrue(basket.BasketItems.Count == 0);
         }
 
-        [Test]
-        public void IsBasketFullTest()
+        [TestCase(3)]
+        public void IsBasketFullTest(int cap)
         {
             //arrange
-            Basket basket = new Basket();
-            
+            Basket basket = new Basket(cap);
+            basket.AddBagel("BGLO");
+            basket.AddBagel("BGLP");
+            basket.AddBagel("BGLE");
 
             //act
             bool result = basket.IsBasketFull();
 
             //assert
-            Assert.Fail();
+            Assert.IsTrue(result);
 
         }
 

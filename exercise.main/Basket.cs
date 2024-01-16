@@ -9,12 +9,17 @@ namespace exercise.main
     public class Basket
     {
         private List<Item> _basketItems = new List<Item>();
-        private int _capasity;
+        private int _capacity;
 
-        public Basket(List<Item> basketItems, int capasity)
+        public Basket(List<Item> basketItems, int capacity)
         {
             _basketItems = basketItems;
-            _capasity = capasity;
+            _capacity = capacity;
+        }
+
+        public Basket(int capacity)
+        {
+            _capacity = capacity;
         }
 
         public Basket()
@@ -24,8 +29,8 @@ namespace exercise.main
 
 
 
-        public List<Item> BasketItems { get { return _basketItems; }set { _basketItems = value; } }
-        public int Capacity { get { return _capasity; } set { _capasity = value; } }
+        public List<Item> BasketItems { get { return _basketItems; }set { _basketItems = value; } } 
+        public int Capacity { get { return _capacity; } set { _capacity = value; } }
 
 
         Inventory inventory = new Inventory();
@@ -39,16 +44,34 @@ namespace exercise.main
                     BasketItems.Add(itemInv);
                 }
             }
+
         }
 
         public bool RemoveBagel(string Sku)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            foreach (var item in BasketItems)
+            {
+                if (item.Sku == Sku)
+                {
+                    BasketItems.Remove(item);
+                }
+            }
+
+
+            return result;
         }
 
         public bool IsBasketFull()
         {
-            throw new NotImplementedException();
+            if(BasketItems.Count >= Capacity)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         public void ChangeBasketCapacity(int newCapacity)
@@ -75,7 +98,6 @@ namespace exercise.main
         {
             throw new NotImplementedException();
         }
-
 
 
 
