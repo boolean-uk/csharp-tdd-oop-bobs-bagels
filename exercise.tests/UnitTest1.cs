@@ -18,7 +18,7 @@ public class Tests
     {
         Basket basket = new Basket();
         basket.addItem("BGLO");
-        bool remTest = basket.removeItem("BGLO");
+        bool remTest = basket.removeItem(0);
         Assert.IsTrue(remTest);
     }
     [Test]
@@ -28,13 +28,14 @@ public class Tests
         basket.addItem("BGLO");
         basket.changeMaxCap(1);
         bool addTest = basket.addItem("BGLP");
+        
         Assert.IsFalse(addTest);
     }
     [Test]
     public void Test4()
     {
         Basket basket = new Basket();
-        bool remTest = basket.removeItem("BGLO");
+        bool remTest = basket.removeItem(0);
         Assert.IsFalse (remTest);
     }
     [Test]
@@ -42,7 +43,7 @@ public class Tests
     {
         Basket basket = new Basket();
         basket.addItem("BGLO");
-        Assert.IsTrue(basket.totalCost == 0.49f);
+        Assert.IsTrue(basket.totalCost() == 0.49f);
     }
     [Test]
     public void Test6()
@@ -57,7 +58,7 @@ public class Tests
         Basket basket = new Basket();
         basket.addItem("BGLO");
         basket.addItem("BGLP");
-        Assert.IsTrue(basket.totalCost == 0.88f);
+        Assert.IsTrue(basket.totalCost() == 0.88f);
     }
     [Test]
     public void Test8()
@@ -82,11 +83,11 @@ public class Tests
         List<string> listTest = basket.listFillings();
 
         Assert.IsTrue(listTest[0] == "Bacon,0.12");
-        Assert.IsTrue(listTest[0] == "Egg,0.12");
-        Assert.IsTrue(listTest[0] == "Cheese,0.12");
-        Assert.IsTrue(listTest[0] == "Cream Cheese,0.12");
-        Assert.IsTrue(listTest[0] == "Smoked Salmon,0.12");
-        Assert.IsTrue(listTest[0] == "Ham,0.12");
+        Assert.IsTrue(listTest[1] == "Egg,0.12");
+        Assert.IsTrue(listTest[2] == "Cheese,0.12");
+        Assert.IsTrue(listTest[3] == "Cream Cheese,0.12");
+        Assert.IsTrue(listTest[4] == "Smoked Salmon,0.12");
+        Assert.IsTrue(listTest[5] == "Ham,0.12");
 
     }
 
