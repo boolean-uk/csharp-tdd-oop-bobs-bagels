@@ -5,7 +5,7 @@ I'd like to add a specific type of bagel to my basket.
 
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Basket`	        | `addBagel(Bagel bagel)`                   | any			            | void			            |
+| `Basket`	        | `addItem(Item item)`                      | any			            | void			            |
 
 2.
 As a member of the public,
@@ -14,7 +14,7 @@ I'd like to remove a bagel from my basket.
 
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Basket`	        | `removeBagel(Bagel bagel)`                | bagel exist			    | true			            |
+| `Basket`	        | `removeItem(Item item)`                | bagel exist			    | true			            |
 |                 |                                             | no such bagel			    | false			            |
 
 3.
@@ -51,10 +51,10 @@ As a customer,
 So I know how much money I need,
 I'd like to know the total cost of items in my basket.
 
-| Classes         | Methods                                     | Scenario                  | Outputs                               |
-|-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Basket`	      | `getBasketCost()`                           | has content               | total price of content in basket      |
-|                 |                                             | empty basket			    | 0                         		    |
+| Classes         | Methods                                     | Scenario                  | Outputs                                     |
+|-----------------|---------------------------------------------|---------------------------|---------------------------------------------|
+| `Basket`	      | `getBasketCost()`                           | has content               | total price of content in basket as double  |
+|                 |                                             | empty basket			    | 0                         		          |
 
 7.
 As a customer,
@@ -63,7 +63,7 @@ I'd like to know the cost of a bagel before I add it to my basket.
 
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Bagel`	      | `getPrice()`                                | any                       | int price of bagel                    |
+| `Bagel`	      | `getPrice()`                                | any                       | price of bagel as double              |
 
 8.
 As a customer,
@@ -72,7 +72,7 @@ I'd like to be able to choose fillings for my bagel.
 
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Bagel`         | `setFilling(Filling filling)`          | any                       | void                                  |
+| `Bagel`         | `setFilling(Filling filling)`               | any                       | void                                  |
 
 
 9.
