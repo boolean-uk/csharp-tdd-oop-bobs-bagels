@@ -64,4 +64,19 @@ public class Tests
         Assert.DoesNotThrow(() => basket.Add(bagel));
         Assert.DoesNotThrow(() => basket.Add(coffe));
     }
+
+    [Test]
+    public void GetTotalPriceOfItemsInBasket()
+    {
+        Basket basket = new();
+        Bagel bagel = new(BagelVariant.Onion);
+        Coffee coffee = new(CoffeeVariant.Black);
+        Filling filling = new(FillingVariant.Ham);
+        bagel.Filling = filling;
+
+        basket.Add(bagel);
+        basket.Add(coffee);
+
+        Assert.That(basket.GetTotalPrice(), Is.EqualTo(0.12f + 0.99f + 0.49f));
+    }
 }
