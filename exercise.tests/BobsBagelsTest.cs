@@ -71,6 +71,7 @@ public class BobsBagelsTest
     [Test]
     public void AddToBasket_WhenBasketIsFull_ShouldThrowException()
     {
+        basket.ChangeBasketCapacity(4);
         // Arrange
         string bagelSku = "BGLP";
         
@@ -79,6 +80,9 @@ public class BobsBagelsTest
         {
             basket.AddToBasket(bagelSku);
         }
+
+        // Try adding on extra
+        basket.AddToBasket(bagelSku);
 
         // Act & Assert
         Assert.Throws<Exception>(() => basket.AddToBasket(bagelSku));

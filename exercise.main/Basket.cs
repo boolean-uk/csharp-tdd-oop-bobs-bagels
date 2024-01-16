@@ -24,33 +24,22 @@ namespace exercise.main
         {
             if (!IsFull())
             {
-                
-                    Item bagel = inventory.GetBagel(sku);
-                    if (!string.IsNullOrEmpty(extraFillings))
+                Item bagel = inventory.GetBagel(sku);
+                if (!string.IsNullOrEmpty(extraFillings))
+                {
+                    List<Tuple<string, decimal>> additionalFillings = new List<Tuple<string, decimal>>();
+
+                    foreach (string filling in extraFillings.Split(" "))
                     {
-                        List<Tuple<string, decimal>> additionalFillings = new List<Tuple<string, decimal>>();
-
-                        foreach (string filling in extraFillings.Split(" "))
-                        {
-                            if (inventory.IsItemInStock(filling))
-                            {
-                                Item fillingItem = inventory.GetFilling(filling);
-                                additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, inventory.GetFillingCost(filling)));
-                            }
-                            else
-                            {
-                                throw new Exception("Invalid filling SKU!");
-                            }
-
-                        }
-
-                        bagel.Fillings.AddRange(additionalFillings);
-
+                        Item fillingItem = inventory.GetFilling(filling);
+                        additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, inventory.GetFillingCost(filling)));
                     }
-                    basket.Add(bagel);
-                    return true;
-                
-                
+
+                    bagel.Fillings.AddRange(additionalFillings);
+
+                }
+                basket.Add(bagel);
+                return true;
             }
             throw new Exception("The basket is full!");
         }
@@ -77,17 +66,25 @@ namespace exercise.main
             Capacity = newCapacity;
         }
 
-        public float TotalCostOfBasket()
+        public decimal TotalCostOfBasket()
         {
-            float totalCost = 0f;
+            decimal totalCost = 0m;
             foreach (Item item in basket)
             {
-                
+                totalCost += CalculateCost(item);
             }
-            return 0f;
+            return totalCost;
         }
 
-
+        private decimal CalculateCost(Item item)
+        {
+            decimal cost = item.Price;
+            foreach (Tuple<string, decimal> filling in item.Fillings)
+            {
+                cost += filling.Item2;
+            }
+            return cost;
+        }
 
         private bool IsFull()
         {
