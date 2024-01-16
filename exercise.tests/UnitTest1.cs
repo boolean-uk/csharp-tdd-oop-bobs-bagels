@@ -172,7 +172,7 @@ public class Tests
     public void TestRemoveCoffee()
     {
         Basket basket = new Basket();
-        Coffee coffee = new Coffee();
+        Coffee coffee = new Coffee("Black");
 
         basket.AddCoffee(coffee);
         basket.RemoveCoffee(coffee);

@@ -26,7 +26,7 @@ namespace exercise.main
         public List<Coffee> Coffees { get => _coffee; }
         public int Capacity { get => _capacity; set => _capacity = value; }
         public double Total { get => _totalPrice; set => _totalPrice = value; }
-        public int NrItems { get => _nrItems; }
+        public int NrItems { get => _nrItems; set => _nrItems = value; }
 
         public void AddBagel(Bagel bagel)
         {
@@ -37,7 +37,7 @@ namespace exercise.main
 
             Bagels.Add(bagel);
             Total += bagel.Price;
-            _nrItems++;
+            NrItems++;
         }
 
         public void RemoveBagel(Bagel bagel)
@@ -45,7 +45,7 @@ namespace exercise.main
             if (Bagels.Contains(bagel))
             {
                 Bagels.Remove(bagel);
-                _nrItems--;
+                NrItems--;
             }
             else
             {
@@ -61,7 +61,20 @@ namespace exercise.main
             }
             Coffees.Add(coffee);
             Total += coffee.Price;
-            _nrItems++;
+            NrItems++;
+        }
+
+        public void RemoveCoffee(Coffee coffee)
+        {
+            if(Coffees.Contains(coffee))
+            {
+                Coffees.Remove(coffee);
+                NrItems--;
+            }
+            else
+            {
+                throw new Exception("Coffee does not exist in basket");
+            }
         }
     }
 }
