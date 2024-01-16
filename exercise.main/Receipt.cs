@@ -10,16 +10,25 @@ namespace exercise.main
     {
         private float total;
         private Basket basket;
+     
 
         public Receipt(Basket basket)
         {
-            basket = basket;
+            this.basket = basket;
             
         }
 
         public float totalPrice()
         {
-            return 0.0f;
+
+            float total = 0;  // Initialize total outside the loop
+
+            foreach (Item item in basket.GetBasketContent())
+            {
+                total += item.getPrice();
+            }
+
+            return total;
         }
 
 

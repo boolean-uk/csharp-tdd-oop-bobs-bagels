@@ -12,16 +12,29 @@ namespace exercise.main
         {
             //set basket capacity, i.e list length
             private List<Item> basket = new List<Item>();
+            private List<Item> basketItems;
             private int basketCapacity = 2;
 
-            public Basket()
-            {
-                basket = new List<Item>();
-            }
+        public Basket()
+        {
+            basket = new List<Item>();
+            basketItems = new List<Item>();
+        }
+
+        public void AddItem(Item item)
+        {
+            basketItems.Add(item);
+        }
+
+        public List<Item> GetBasketItems()
+        {
+            return basketItems;
+        }
 
 
-            public bool addBagel(Item bagel, out string message)
+        public bool addBagel(Item bagel, out string message)
             {
+
                 if (basket.Count < basketCapacity)
                 {
                     basket.Add(bagel);
@@ -67,7 +80,35 @@ namespace exercise.main
                 basketCapacity = newCapacity;
                 return basketCapacity;
             }
+
+        public bool addFillingToBagel(Item bagel, Item filling, out string message)
+        {
+            // Check if bagel is in the basket
+            if (basket.Contains(bagel))
+            {
+                // Check if filling starts with 'F'
+                if (filling.getNameVariant().StartsWith("F"))
+                {
+                    // Add the filling to the bagel's subItems
+                    bagel.addSubItems(filling);
+
+                    message = string.Empty;
+                    return true;
+                }
+                else
+                {
+                    message = "Invalid filling type";
+                    return false;
+                }
+            }
+            else
+            {
+                message = "Bagel not in basket";
+                return false;
+            }
         }
+    
+}
     
 
 

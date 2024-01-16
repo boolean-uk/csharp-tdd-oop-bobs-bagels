@@ -9,24 +9,24 @@ namespace exercise.main
     public class Inventory
     {
 
-        private Dictionary<Item, string> items = new Dictionary<Item, string>();
+        private Dictionary<string, Item> items = new Dictionary<string, Item>();
 
         public Inventory()
         {
-            items.Add(new Item(0.49f, "BagelOnion", "BGLO"), "BGLO");
-            items.Add(new Item(0.39f, "BagelPlain", "BGLP"), "BGLP");
-            items.Add(new Item(0.49f, "BagelEverything", "BGLE"), "BGLE");
-            items.Add(new Item(0.49f, "BagelSesame", "BGLS"), "BGLS");
-            items.Add(new Item(0.99f, "CoffeeBlack", "COFB"), "COFB");
-            items.Add(new Item(1.19f, "CoffeeWhite", "COFW"), "COFW");
-            items.Add(new Item(1.29f, "CoffeeCapuccino", "COFC"), "COFC");
-            items.Add(new Item(1.29f, "CoffeLatte", "COFL"), "COFL");
-            items.Add(new Item(0.12f, "FillingBacon", "FILB"), "FILB");
-            items.Add(new Item(0.12f, "FillingEgg", "FILE"), "FILE");
-            items.Add(new Item(0.12f, "FillingCheese", "FILC"), "FILC");
-            items.Add(new Item(0.12f, "FillingCreamCheese", "FILX"), "FILX");
-            items.Add(new Item(0.12f, "FillingSmokedSalmon", "FILS"), "FILS");
-            items.Add(new Item(0.12f, "FillingHam", "FILH"), "FILH");
+            items.Add("BGLO", new Item(0.49f, "BagelOnion", "BGLO"));
+            items.Add("BGLP", new Item(0.39f, "BagelPlain", "BGLP"));
+            items.Add("BGLE", new Item(0.49f, "BagelEverything", "BLE"));
+            items.Add("BGLS", new Item(0.49f, "BagelSesame", "BGLS"));
+            items.Add("COFB", new Item(0.99f, "CoffeeBlack", "COFB"));
+            items.Add("COFW", new Item(1.19f, "CoffeeWhite", "COFW"));
+            items.Add("COFC", new Item(1.29f, "CoffeeCapuccino", "COFC"));
+            items.Add("COFL", new Item(1.29f, "CoffeLatte", "COFL"));
+            items.Add("FILB", new Item(0.12f, "FillingBacon", "FILB"));
+            items.Add("FILE", new Item(0.12f, "FillingEgg", "FILE"));
+            items.Add("FILC", new Item(0.12f, "FillingCheese", "FILC"));
+            items.Add("FILX", new Item(0.12f, "FillingCreamCheese", "FILX"));
+            items.Add("FILS", new Item(0.12f, "FillingSmokedSalmon", "FILS"));
+            items.Add("FILH", new Item(0.12f, "FillingHam", "FILH"));
         }
 
 

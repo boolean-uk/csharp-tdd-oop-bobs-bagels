@@ -11,11 +11,14 @@ namespace exercise.main
         private float price;
         private string nameVariant;
         private string SKU;
+        private List<Item> subItems;
 
         public Item(float price, string nameVariant, string SKU) {
             this.price = price;
             this.nameVariant = nameVariant;
             this.SKU = SKU;
+
+            subItems = new List<Item>();
         }
 
 
@@ -42,6 +45,15 @@ namespace exercise.main
         public float getPrice()
         {
             return price;
+        }
+
+        public void addSubItems(Item subItem)
+        {
+            subItems.Add(subItem);        
+        }
+        public List<Item> GetSubItems()
+        {
+            return subItems;
         }
 
 
