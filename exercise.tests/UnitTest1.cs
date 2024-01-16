@@ -19,6 +19,7 @@ public class Tests
         Assert.That(filling.SKU, Is.EqualTo("FILB"));
     }
 
+    [Test]
     public void TestBagelConstructor()
     {
         Bagel bagel = new Bagel("Onion");
