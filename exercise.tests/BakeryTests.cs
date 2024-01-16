@@ -51,8 +51,6 @@ namespace exercise.tests
         public void Test2(string sku, string sku2, int expected)
         {
             //  Arrange - set up test values
-
-            //Bagle bagle = new Bagle("bagle");
             _bakery.AddToBasket(sku);
             int result = _bakery.RemoveFromBasket(sku2);
 
@@ -60,6 +58,31 @@ namespace exercise.tests
 
             //  Assert - check the results
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(14)]
+        [TestCase(2)]
+        [TestCase(22)]
+        [TestCase(-10)]
+        public void Test3(int cap)
+        {
+            //  Arrange - set up test values
+
+
+            //  Act - use the fucntion we want to test
+
+            //  Assert - check the results
+            if (cap > 0)
+            {
+                Assert.That(_bakery.ChangeCapacity(cap), Is.EqualTo(cap));
+            }
+            else
+            {
+                Assert.That(_bakery.ChangeCapacity(cap), Is.GreaterThan(cap));
+            }
+            
+
         }
     }
 }

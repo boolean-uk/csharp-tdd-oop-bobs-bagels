@@ -57,6 +57,7 @@ namespace exercise.main.Class_Items
             {
                 item.ChangeCapacity(_basketCapacity);
             }
+            return _basketCapacity;
         }
 
     }
