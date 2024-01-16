@@ -17,11 +17,7 @@ public class BobsBagelsTest
     [Test]
     public void TestAddToBasket_WhenSpaceExists_ShouldReturnTrue()
     {
-        // Arrange
-        Inventory inventory = new Inventory();
-        basket = new Basket(inventory);
-
-        // Act
+         // Act
         bool result = basket.AddToBasket("BGLO");
 
         // Assert
