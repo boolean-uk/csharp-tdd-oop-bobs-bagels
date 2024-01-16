@@ -16,11 +16,6 @@ namespace exercise.main.Products
             throw new NotImplementedException();
         }
 
-        public bool AddProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         public float GetPrice()
         {
             throw new NotImplementedException();

@@ -13,12 +13,8 @@ namespace exercise.main.Products
         float _basePrice;
         public Bagel(string SKU, float price)
         {
-            throw new NotImplementedException(); 
-        }
-
-        public bool AddProduct(Product product)
-        {
-            throw new NotImplementedException();
+            _SKUName = SKU;
+            _basePrice = price;
         }
 
         public float GetPrice()

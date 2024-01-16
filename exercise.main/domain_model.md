@@ -25,17 +25,14 @@
 | | `IsFull()` | Ensure the basket is not full (3) | false |
 | | | The basket is already full (3) | true | 
 | `Product` (interface) | `GetPrice()` | Retrieve the price of the product | float |
-| | `AddProduct(Product product)` | Add item to product (1) | true|
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Bagel` | `AddFilling(Filling fill)` | Add filling to bagel (1,8) | true |
 | | | Failed to add filling (1, 8, 10) | false | 
 | | `GetPrice()` | Retrieve price of the complete bagel including filling (7) | float |
-| | `AddProduct(Product product)` | Add item to product (1) | true|
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Coffee` | `GetPrice()` | Retrieve price of the coffee | float |
-| | `AddProduct(Product product)` | Add item to product (1) | true|
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Filling` | `GetPrice()` | Retrieve filling cost (9) | float | 
