@@ -67,6 +67,8 @@ public class BasketTests
     [Test]
     public void ChangeCapacity()
     {
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
 
         testBasket.ChangeCapacity(3);
 
@@ -75,6 +77,9 @@ public class BasketTests
         testBasket.AddItem("COFB");
 
         bool res = testBasket.AddItem("BGLE");
+
+        var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
         Assert.IsFalse(res);
 
