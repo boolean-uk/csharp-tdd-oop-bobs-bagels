@@ -83,9 +83,10 @@ So we don't get any weird requests,
 | `Customer : Person` |                                            |                        | `` |
 | `Manager : Customer`| `public bool AlterSize(Basket basket, int newSize)`  | Update the size of the basket | `true` |
 |                     |                                                      | Cannot update basket size due to newSize variable is invalid, or basket doesn't exist | `false` |
-| `abstract Product : Object` | `public double GetPrice()`                   |                         | `value` |
+| `abstract Product : Object` | `public virtual double GetPrice()`                   |                         | `value` |
 | `abstract Ware : Product`|                                                 |                         |      |
-| `Bagel : Ware`      | `public Bagel(Filling filling = null)`               |                        |   |
+| `Bagel : Ware`      | `public Bagel(Filling filling = null)`               | Constructs a bagel with or without filling |   |
+| `Bagel : Ware`      | `public double GetPrice() override`               | Constructs a bagel with or without filling |   |
 | `Coffee : Ware`     |                                                      |                        |   |
 | `Filling : Product` |                                                      |                        |   |
 | `Store`             | `public double GetPrice(Product product)`                   |    | `` |
