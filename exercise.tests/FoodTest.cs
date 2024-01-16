@@ -1,3 +1,4 @@
+using exercise.main;
 using exercise.main.Foods;
 using exercise.main.Variants;
 
@@ -52,5 +53,15 @@ public class Tests
         Filling filling = new(FillingVariant.Cheese);
         Bagel bagel = new(BagelVariant.Sesame, filling);
         Assert.That(bagel.Filling, Is.EqualTo(filling));
+    }
+
+    [Test]
+    public void AddFoodItemsToBasket()
+    {
+        Basket basket = new();
+        Bagel bagel = new(BagelVariant.Onion);
+        Coffee coffe = new(CoffeeVariant.Black);
+        Assert.DoesNotThrow(() => basket.Add(bagel));
+        Assert.DoesNotThrow(() => basket.Add(coffe));
     }
 }
