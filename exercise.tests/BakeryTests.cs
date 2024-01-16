@@ -40,5 +40,24 @@ namespace exercise.tests
             //  Assert - check the results
             Assert.That(result == expected);
         }
+
+        [Test]
+        [TestCase("BGLO", "BGLO", true)]
+        [TestCase("BGLP", "BGLO", false)]
+        [TestCase("BGLE", "BGLE", true)]
+        [TestCase("BGLD", "BGLE", false)]
+        public void Test2(string sku, string sku2, bool expected)
+        {
+            //  Arrange - set up test values
+
+            //Bagle bagle = new Bagle("bagle");
+            _bakery.AddToBasket(sku);
+            bool result = _bakery.RemoveFromBasket(sku);
+
+            //  Act - use the fucntion we want to test
+
+            //  Assert - check the results
+            Assert.That(result == expected);
+        }
     }
 }
