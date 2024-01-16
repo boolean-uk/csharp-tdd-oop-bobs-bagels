@@ -3,7 +3,7 @@ using static exercise.main.Core;
 
 namespace exercise.tests;
 
-public class Tests
+public class CoreTests
 {
     [SetUp]
     public void Setup()

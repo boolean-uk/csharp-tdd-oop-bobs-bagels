@@ -10,6 +10,7 @@
 9. I'd like to know the cost of each filling before I add it to my bagel order.
 10. I want customers to only be able to order things that we stock in our inventory.
  
+## Core Class
 | Class | properties |
 |---|---|
 | BagelVariant | `string Name`, `double Price` |
@@ -22,12 +23,12 @@
 
 | User story | Class| Method | Scenario | Output |
 |---|---|---|---|---|
-| 1 | Basket | `Add(Bagel bagel)`, `Add(Coffee coffee)` | Basket is not full | Adds `product` to `Basket.Bagels`|
-| 3 | Basket |                    | Basket is full     | Displays `"Basket is full"`|
-| 2 | Basket | `Remove(string product)` | `product` exists in `Basket.Bagels`         | Removes `product` from `Basket.Product`|
-| 5 | Basket |                      | `product` does not exist in `Basket.Product` | Displays `$"{product} was not found in basket"`|
+| 1 | Basket | `Add(Bagel bagel)`, `Add(Coffee coffee)` | `Basket` is not full | Adds product to `Basket.Bagels`|
+| 3 | Basket |                    | `Basket` is full    | Displays `"Basket is full"`|
+| 2 | Basket | `Remove(Bagel bagel)`, `Remove(Coffee coffee)` | Product exists in `Basket`       | Removes|
+| 5 | Basket |                      | Product does not exist in `Basket` | Displays `$"{product} was not found in basket"`|
 | 4 | Basket | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
-| 6 | Basket | `double Cost()` |  | Returns total cost of products in basket |
+| 6 | Basket | `double Cost()` |  | Returns total cost of products in `Basket` |
 | 7 | Bagel | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
 | 8 | Bagel | `AddFilling(BagelFilling filling)` |  | Adds `filling` to `Fillings`|
 | 9 | BagelFilling | `IEnumerable<BagelFilling> GetAll()` |  | Returns all the `Filling`s |
@@ -51,8 +52,11 @@
 | FILS | 0.12  | Filling| Smoked Salmon |
 | FILH | 0.12  | Filling| Ham           |
 
-# Extention 1
+# Extension 1
 1. Products are identified using Stock Keeping Units, or SKUs.
+
+To acheive this I will create a new class `BobsBagels` that will abstract the current class `Core`. 
+
 2. Some items are multi-priced.
 
 | SKU  | Name    | Variant     | Price | Special Offers    |
@@ -61,3 +65,17 @@
 | BGLP | Bagel   | Plain       | 0.39  | 12 for 3.99       |
 | BGLE | Bagel   | Everything  | 0.49  | 6 for 2.49        |
 | COFB | Coffee  | Black       | 0.99  | Coffee & Bagel for 1.25 |
+
+
+## BobsBagels class
+| User story | Method | Scenario | Output |
+|---|---|---|---|
+| 1 | `Add(string sku)` | `Basket` is not full | Adds product to `Basket.Bagels`|
+| 3 |                   | `Basket` is full     | Displays `"Basket is full"`|
+| 2 | `Remove(string sku)` | product exists in `Basket`         | Removes product from `Basket.Product`|
+| 5 |                      | product does not exist in `Basket` | Displays `$"{product} was not found in basket"`|
+| 4 | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
+| 6 | `double Cost()` |  | Returns total cost of products in basket |
+| 7 | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
+| 8 | `AddFilling(BagelFilling filling)` |  | Adds `filling` to `Fillings`|
+| 9 | `IEnumerable<BagelFilling> GetAll()` |  | Returns all the `Filling`s |
