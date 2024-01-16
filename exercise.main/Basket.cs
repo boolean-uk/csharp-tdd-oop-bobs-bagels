@@ -11,6 +11,7 @@ namespace exercise.main
     {
         private List<Item> _basket = new List<Item>();
         private Inventory _inventory = new Inventory();
+        private int _capacity = 5;
         public Basket() 
         {
             
@@ -24,11 +25,17 @@ namespace exercise.main
 
             List<Item> AllProducts = bagels.Concat(coffees).Concat(fillings).ToList();
 
-            if (AllProducts.Exists(x => x.SKU == SKU))
+            if (AllProducts.Exists(x => x.SKU == SKU) && _basket.Count < _capacity)
             {
                 Item addedItem = AllProducts.Single(x => x.SKU == SKU);
                 _basket.Add(addedItem);
                 return true;
+            }
+
+            if (_basket.Count >= _capacity)
+            {
+                Console.WriteLine("Basket size exceeded!");
+                return false;
             }
 
             return false;
