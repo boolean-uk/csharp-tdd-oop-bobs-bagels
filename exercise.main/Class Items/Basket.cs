@@ -44,7 +44,13 @@ namespace exercise.main.Class_Items
 
         public double TotalCost()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            double total = 0;
+            foreach (Product product in _items)
+            {
+                total += product.Price;
+            }
+            return total;
         }
     }
 }
