@@ -35,7 +35,7 @@ namespace exercise.tests
             basket.Add(bagel);
             basket.Add(coffee);
 
-            Assert.That(basket.GetTotalPrice(), Is.EqualTo(0.12f + 0.99f + 0.49f));
+            Assert.That(basket.GetTotalPrice(), Is.EqualTo(0.12f + 1.25f));
         }
 
         [Test]
