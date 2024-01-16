@@ -12,14 +12,16 @@
 
 | Classes | Methods | Scenario (user_story_#) | Outputs |
 |-|-|-|-|
-| `Basket` | `AddItemToBasket(Product item)` | Add item to basket (1) | true |
+| `Basket` | `AddItemToBasket(string[] SKUs)` | Add item to basket (1) | true |
+| | | Failed to add item to basket (1, 2, 10) | false |
+| | `AddItemToBasket(Product item)` | Add item to basket (1) | true |
 | | | Failed to add item to basket (1, 2, 10) | false |
 | | `SetBasketSize(int newSize)` | Change maximum basket capacity (4) | int |
 | | `GetBasketPrice()` | Show total price of basket (6) | float | 
+| | `RemoveProductFromBasket(string[] SKUs)` | Remove a item from the basket (2, 5) | true |
+| | | Failed to remove item from basket (5) | false | 
 | | `RemoveProductFromBasket(Product item)` | Remove a item from the basket (2, 5) | true |
 | | | Failed to remove item from basket (5) | false | 
-| | `GetItemInBasket(string SKUName)` | Retrieve an item in the basket, so it can be removed | Product |
-| | | Could not find the correct item |  |
 | | `IsFull()` | Ensure the basket is not full (3) | true |
 | | | The basket is already full (3) | false | 
 | interface `Product` | `GetPrice()` | Retrieve the price of the product | float |

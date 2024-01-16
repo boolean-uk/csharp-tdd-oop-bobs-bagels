@@ -17,6 +17,11 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
+        public bool AddItemToBasket(string[] SKUs)
+        {
+            throw new NotImplementedException();
+        }
+
         public int SetBasketSize(int newSize) 
         {
             throw new NotImplementedException();
@@ -32,10 +37,11 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
-        public Product GetItemInBasket(string SKUName) 
+        public bool RemoveProductFromBasket(string[] SKUs)
         {
             throw new NotImplementedException();
         }
+
 
         public bool IsFull() 
         {
