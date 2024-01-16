@@ -13,16 +13,41 @@ namespace exercise.main
         public Filling() 
         {
             fillings = new Dictionary<string, int>();
+            fillings.Add("Cola", 20);
+            fillings.Add("Mayonaise", 30);
+            fillings.Add("Jelly", 15);
         }
 
         public string AllFillings()
         {
-            return "";
+            string fillingList = "";
+
+            for (int i = 0; i < fillings.Count(); i++)
+            {
+                if (i > 0)
+                    fillingList += ", ";
+
+                fillingList += fillings.ElementAt(i).Key;
+            }
+
+            return fillingList;
         }
 
         public string FillingCosts()
         {
-            return "";
+            string fillingList = "";
+
+            for (int i = 0; i < fillings.Count(); i++)
+            {
+                if (i > 0)
+                    fillingList += ", ";
+
+                fillingList += fillings.ElementAt(i).Key;
+                fillingList += ":";
+                fillingList += fillings.ElementAt(i).Value.ToString();
+            }
+
+            return fillingList;
         }
 
     }

@@ -13,9 +13,17 @@ namespace exercise.main
         
         private string fillingName;
         private int fillingCost;
+        private Dictionary<string, int> prices = new Dictionary<string, int>();
 
         public Bagel(string bagelType, int cost, string fillingName = "", int fillingCost = 0) 
-        {
+        {            
+            for (int i = 0; i < prices.Count(); i++)
+            {
+                if (prices.ContainsKey(bagelType))
+                    return;
+            }
+            prices.Add(bagelType, cost);
+
             this.bagelType = bagelType;
             this.bagelCost = cost;
 
@@ -25,7 +33,7 @@ namespace exercise.main
 
         public int CostOfBagel(string bagelType)
         {
-            return 0;
+            return prices[bagelType];
         }
 
         public string GetBagelType()

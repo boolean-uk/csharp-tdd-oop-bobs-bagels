@@ -13,12 +13,23 @@ namespace exercise.main
         public Inventory() 
         {
             inventory = new List<string>();
+            inventory.Add("Bagels");
+            inventory.Add("Fillings");
         }
 
         public string PrintInventory()
         {
-            return "";
-        }
+            string printed = "";
 
+            for (int i = 0; i < inventory.Count(); i++)
+            {
+                if (i > 0)
+                    printed += ", ";
+
+                printed += inventory[i];
+            }
+
+            return printed;
+        }
     }
 }
