@@ -21,5 +21,9 @@ namespace exercise.main.Classes
             Name = name;
             Variant = variant;
         }
+
+        public virtual void AddFilling(Filling filling) { }
+        public virtual List<Filling> GetFilling() { return null; }
+        public virtual void RemoveFilling(string sku) { }
     }
 }

@@ -8,22 +8,26 @@ namespace exercise.main.Classes
 {
     public class Basket
     {
-        public List<Item> items { get; set; } = new List<Item>();
-        public int Capacity { get; } = 15;
+        public List<Item> Items { get; set; } = new();
+        public int Capacity { get; set; }
 
-        public Basket() { }
+        public Basket(int capacity) 
+        { 
+            Capacity = capacity;
+            //Items.Add(new Item("", 0, 0, ""));
+        }
 
-        public string Add(Item item)
+        public string Add(Item item) //code is "decoded" in store class
         {
             throw new NotImplementedException();
         }
 
-        public string Remove(string variant) 
+        public string Remove(string sku) 
         { 
             throw new NotImplementedException(); 
         }
 
-        public void SetCapacity(int capacity)
+        public double Cost()
         {
             throw new NotImplementedException();
         }

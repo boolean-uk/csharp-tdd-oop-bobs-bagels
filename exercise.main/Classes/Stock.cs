@@ -9,7 +9,7 @@ namespace exercise.main.Classes
     public class Stock
     {
 
-        public static List<(string SKU, double price, Name name, string variant)> Items { get; } = new List<(string, double, Name, string)>
+        public static List<(string SKU, double price, Name name, string variant)> Items { get; } = new()
         {
             ("BGLO", 0.49, Name.Bagel, "Onion"),
             ("BGLP", 0.39, Name.Bagel, "Plain"),

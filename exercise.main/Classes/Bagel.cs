@@ -8,7 +8,7 @@ namespace exercise.main.Classes
 {
     public class Bagel : Item
     {
-        public List<Filling> Fillings { get; set; } = new List<Filling>();
+        public List<Filling> Fillings { get; set; } = new();
         public Bagel(string sku, double price, Name name, string variant) : base(sku, price, name, variant){
             SKU = sku;
             Price = price;
@@ -16,7 +16,17 @@ namespace exercise.main.Classes
             Variant = variant;
         }
 
-        public void AddFilling(Filling filling)
+        public override void AddFilling(Filling filling)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<Filling> GetFilling()
+        {
+            return Fillings;
+        }
+
+        public override void RemoveFilling(string sku)
         {
             throw new NotImplementedException();
         }
