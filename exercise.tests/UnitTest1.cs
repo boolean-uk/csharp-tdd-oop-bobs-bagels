@@ -157,4 +157,33 @@ public class Tests
         Assert.IsTrue(basket.Remove(product1));    // This item in the basket -> true
         Assert.IsTrue(!basket.Remove(product4));    // This item not in the basket -> should returns false
     }
+
+    [Test]
+    public void testGetTotalPrice()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product4 = new Product(filling1);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+        basket.Add(product1);
+        basket.Add(product2);
+        basket.Add(product4);
+
+
+        //Assert
+        Assert.IsTrue(basket.getTotalPrice() == 1.6);    // Onion = 0.49, Black = 0.99, Ham = 0.12
+    }
 }
