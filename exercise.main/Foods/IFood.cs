@@ -10,5 +10,6 @@ namespace exercise.main.Foods
     {
         string Name { get; }
         E Variant { get; }
+        string Sku { get; }
     }
 }

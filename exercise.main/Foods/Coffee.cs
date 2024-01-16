@@ -2,18 +2,15 @@
 
 namespace exercise.main.Foods
 {
-    public class Coffee : Food<CoffeeVariant>
+    public class Coffee(CoffeeVariant variant) : Food<CoffeeVariant>(variant)
     {
-        public string Name => "Coffee";
-
-        public Coffee()
+        public override string Name => "Coffee";
+        public override string Sku
         {
-            
-        }
-
-        public Coffee(CoffeeVariant variant) : base(variant)
-        {
-            
+            get
+            {
+                return "COF" + Variant.ToString().ToUpper()[..1];
+            }
         }
     }
 }

@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Foods
 {
-    public class Bagel : Food<BagelVariant>
+    public class Bagel(BagelVariant variant) : Food<BagelVariant>(variant)
     {
-        public Bagel()
+        public override string Name => "Bagel";
+        public override string Sku
         {
+            get
+            {
+                return "BGL" + Variant.ToString().ToUpper()[..1];
+            }
         }
-
-        public Bagel(BagelVariant variant) : base(variant)
-        {
-        }
-
-        public string Name => "Bagel";
     }
 }

@@ -13,9 +13,9 @@ public class Tests
     [Test]
     public void GetNameOfFoodItemsTest()
     {
-        Bagel bagel = new();
-        Coffee coffee = new();
-        Filling filling = new();
+        Bagel bagel = new(BagelVariant.Everything);
+        Coffee coffee = new(CoffeeVariant.Black);
+        Filling filling = new(FillingVariant.Bacon);
 
         Assert.That(bagel.Name, Is.EqualTo("Bagel"));
         Assert.That(coffee.Name, Is.EqualTo("Coffee"));
@@ -39,10 +39,10 @@ public class Tests
     {
         Bagel bagel = new(BagelVariant.Onion);
         Coffee coffee = new(CoffeeVariant.Capuccino);
-        Filling filling = new(FillingVariant.Cheese);
+        Filling filling = new(FillingVariant.Cream_Cheese);
 
-        Assert.That(bagel.SKU, Is.EqualTo("BGLO"));
-        Assert.That(coffee.SKU, Is.EqualTo("COFC"));
-        Assert.That(filling.SKU, Is.EqualTo("FILC"));
+        Assert.That(bagel.Sku, Is.EqualTo("BGLO"));
+        Assert.That(coffee.Sku, Is.EqualTo("COFC"));
+        Assert.That(filling.Sku, Is.EqualTo("FILX"));
     }
 }
