@@ -12,12 +12,12 @@ namespace exercise.main
         public string Variant;
         public List<string> Fillings;
 
-        public Item(string sku, float price, string name, string variant, List<string> fillings) {
+        public Item(string sku, float price, string name, string variant) {
             Sku = sku;
             Price = price;
             Name = name;
             Variant = variant;
-            Fillings = fillings;
+            Fillings = new List<string>();;
         }
     }
 
