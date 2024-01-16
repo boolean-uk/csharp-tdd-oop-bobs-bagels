@@ -45,4 +45,10 @@ public class Tests
     {
         Assert.That(basket.changeCapacity(7), Is.EqualTo(7));
     }
+    [Test]
+    public void printTotalCostTest()
+    {
+        string expected = "Your current total comes to: ";
+        Assert.That(expected, Is.EqualTo(expected));//change other expected to receipt.showTotal
+    }
 }

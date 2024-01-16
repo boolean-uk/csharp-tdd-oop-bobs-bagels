@@ -8,6 +8,12 @@ namespace exercise.main
 {
     public class Receipt
     {
+        private float totalCost;
+        public Receipt() { }
 
+        public string printTotal(float totalCost)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace exercise.main
             else
             {
                 Console.WriteLine("Your basket is full! No new items added!");
-                return null;
+                return priceList[SKU];
             }
         }
         public bool removeItem(string SKU)
