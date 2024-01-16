@@ -45,4 +45,12 @@ public class Tests
         Assert.That(coffee.Sku, Is.EqualTo("COFC"));
         Assert.That(filling.Sku, Is.EqualTo("FILX"));
     }
+
+    [Test]
+    public void GetAndSetBagelFillingTest()
+    {
+        Filling filling = new(FillingVariant.Cheese);
+        Bagel bagel = new(BagelVariant.Sesame, filling);
+        Assert.That(bagel.Filling, Is.EqualTo(filling));
+    }
 }
