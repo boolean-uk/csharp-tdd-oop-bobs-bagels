@@ -32,7 +32,13 @@ namespace exercise.main
 
         public void AddBagel(string Sku)
         {
-            throw new NotImplementedException();
+            foreach (var itemInv in inventory.InventoryItems)
+            {
+                if (itemInv.Sku == Sku)
+                {
+                    BasketItems.Add(itemInv);
+                }
+            }
         }
 
         public bool RemoveBagel(string Sku)
