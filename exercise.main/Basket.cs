@@ -8,21 +8,21 @@ namespace exercise.main
 
         public Basket()
         {
-            Items = new();
+            Items = [];
             _capacity = 39; //Arbitrarily chosen default capacity
         }
         public Basket(int capacity)
         {
-            Items = new();
+            Items = [];
             _capacity = capacity;
         }
-        public void AddBagel(Bagel bagel)
+        public void AddItem(Item item)
         {
-            if (Items.Count >= _capacity)
+            if (IsFull())
             {
                 return;
             }
-            Items.Add(bagel);
+            Items.Add(item);
         }
 
         public List<Item> GetBagels()
@@ -54,14 +54,14 @@ namespace exercise.main
             _capacity = v;
         }
 
-        public bool DoesItemExist(Item bagel)
+        public bool DoesItemExist(Item item)
         {
-            throw new NotImplementedException();
+            return (Items.Contains(item));
         }
 
         public double GetBasketCost()
         {
-            throw new NotImplementedException();
+            return Items.Sum(x => x.Price);
         }
     }
 }

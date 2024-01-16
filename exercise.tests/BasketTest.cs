@@ -14,7 +14,7 @@ public class BasketTest
         Bagel bagel = new(BagelType.Sesame);
 
         //execute
-        basket.AddBagel(bagel);
+        basket.AddItem(bagel);
 
         //verify
         Assert.That(basket.GetBagels().Count, Is.EqualTo(1));
@@ -27,7 +27,7 @@ public class BasketTest
         //setup
         Basket basket = new();
         Bagel bagel = new(BagelType.Sesame);
-        basket.AddBagel(bagel);
+        basket.AddItem(bagel);
 
         //execute
         bool wasRemoved = basket.RemoveItem(bagel);
@@ -43,12 +43,12 @@ public class BasketTest
         //setup
         Basket basket = new(2);
         Bagel bagel = new(BagelType.Sesame);
-        basket.AddBagel(bagel);
+        basket.AddItem(bagel);
 
         //execute
         bool shouldNotBeFull = basket.IsFull();
         Bagel bagel2 = new(BagelType.Onion);
-        basket.AddBagel(bagel2);
+        basket.AddItem(bagel2);
         bool shouldBeFull = basket.IsFull();
 
         //verify
@@ -65,6 +65,7 @@ public class BasketTest
         //setup
         Basket basket = new(1);
         Bagel bagel = new(BagelType.Sesame);
+        basket.AddItem(bagel);
 
         //execute
         bool shouldBeFull = basket.IsFull();
@@ -85,7 +86,7 @@ public class BasketTest
         //setup
         Basket basket = new(5);
         Bagel bagel = new(BagelType.Sesame);
-        basket.AddBagel(bagel);
+        basket.AddItem(bagel);
 
         //execute
         Bagel bagel2 = new(BagelType.Plain);
@@ -106,7 +107,7 @@ public class BasketTest
         //setup
         Basket basket = new(5);
         Bagel bagel = new(BagelType.Sesame);
-        basket.AddBagel(bagel);
+        basket.AddItem(bagel);
 
         //execute
         double totalPrice = basket.GetBasketCost();

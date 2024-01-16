@@ -7,15 +7,31 @@
         Everything,
         Sesame
     }
-    public class Bagel : Item
+
+    public class Bagel(BagelType type) : Item
     {
-        public override string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override double Price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override string Sku { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Bagel(BagelType type)
+        public static readonly Dictionary<BagelType, double> BagelPrice = new()
         {
+            {BagelType.Onion, 0.49},
+            {BagelType.Plain, 0.39},
+            {BagelType.Everything, 0.49},
+            {BagelType.Sesame, 0.49}
+        };
 
-        }
+        public static readonly Dictionary<BagelType, string> BagelSku = new()
+        {
+            {BagelType.Onion, "BGLO"},
+            {BagelType.Plain, "BGLP"},
+            {BagelType.Everything, "BGLE"},
+            {BagelType.Sesame, "BGLS"}
+        };
+
+        private string _name = type.ToString();
+        private double _price = BagelPrice[type];
+        private string _sku = BagelSku[type];
+
+        public override string Name { get { return _name; } set { _name = value; } }
+        public override double Price { get { return _price; } set { _price = value; } }
+        public override string Sku { get { return _sku; } set { _sku = value; } }
     }
 }
