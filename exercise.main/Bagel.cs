@@ -10,7 +10,7 @@ namespace exercise.main
         private string _SKU;
         private int _price;
         private string _variant;
-        private int _filling;
+        private Filling _filling;
 
         public void SetFilling()
         {

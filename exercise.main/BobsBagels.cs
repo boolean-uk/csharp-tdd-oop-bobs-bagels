@@ -8,7 +8,7 @@ namespace exercise.main
     public class BobsBagels
     {
         private Dictionary<Bagel, int> _stock;
-        private int _baskets;
+        private System.Collections.Generic.List<Basket> _baskets;
 
         public void IncreaseCapacity()
         {
