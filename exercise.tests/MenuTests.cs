@@ -10,7 +10,7 @@ public class MenuTests
     }
 
     [Test]
-    public void Test1()
+    public void getItemTest()
     {
         Menu menu = new Menu();
 
