@@ -10,7 +10,7 @@ namespace exercise.main
     {
         // Define field
         private int _capacity = 3; //Default = 3
-        private int _total = 0;
+        private double _total = 0;
         // Define properties
         public List<Product> _basket = new List<Product>();
 
@@ -40,9 +40,10 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
-        public int getTotalPrice()
+        public double getTotalPrice()
         {
-            throw new NotImplementedException();
+            _total = _basket.Sum(product => product.getPrice());
+            return _total;
         }
 
         public bool setNewCapacity(int newCapacity)
