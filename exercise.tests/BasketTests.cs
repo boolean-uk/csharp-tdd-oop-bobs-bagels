@@ -127,6 +127,6 @@ public class BasketTests
         float itemPrice2 = testBasket.GetItemPrice("GGLP");
 
         Assert.That(itemPrice1, Is.EqualTo(0.49F));
-        Assert.That(itemPrice1, Is.EqualTo(0.39F));
+        Assert.That(itemPrice2, Is.EqualTo(0.39F));
     }
 }
