@@ -187,4 +187,43 @@ public class BasketTests
 
     }
 
+    [Test]
+    public void DiscountBagelBundle()
+    {
+        testBasket.ChangeCapacity(15);
+
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+
+        float totalInit = testBasket.TotalCost();
+        Assert.That(totalInit, Is.EqualTo(2.49F));
+
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+
+        float totalInit2 = testBasket.TotalCost();
+        Assert.That(totalInit2, Is.EqualTo(3.99F));
+
+    }
+
+    [Test]
+    public void DiscountCoffeeAndBagel()
+    {
+        
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("COFB");
+
+        float totalInit2 = testBasket.TotalCost();
+        Assert.That(totalInit2, Is.EqualTo(1.25F));
+
+    }
+
 }
