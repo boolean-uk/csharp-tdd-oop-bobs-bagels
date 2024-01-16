@@ -18,7 +18,6 @@ namespace exercise.tests
         {
             basket = new Basket();
             basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
             basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
             //basket.AddBagel("COFB", 0.99f);
         }
@@ -51,8 +50,8 @@ namespace exercise.tests
         [Test]
         public void IncreasedCapacity()
         {
-            int oldCapacity = basket.IncreaseCapacity(7);
-            int newCapacity = basket.IncreaseCapacity(8);
+            int oldCapacity = basket.IncreaseCapacity(12);
+            int newCapacity = basket.IncreaseCapacity(14);
             Assert.That(oldCapacity, Is.LessThan(newCapacity));
         }
 
@@ -137,9 +136,26 @@ namespace exercise.tests
         [Test]
         public void GetReceipt()
         {
-            Receipt receipt = new Receipt();
+            basket.AddBagel("BGLO", 0.49f);
 
+            Receipt receipt = new Receipt();
             bool result = receipt.PrintReceipt(basket);
+
+            Assert.That(true, Is.EqualTo(result));
+        }
+
+        [Test]
+        public void GetProperReceipt()
+        {
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
+
+            Receipt receipt = new Receipt();
+            bool result = receipt.DiscountedReceipt(basket);
 
             Assert.That(true, Is.EqualTo(result));
         }

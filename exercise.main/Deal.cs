@@ -93,5 +93,34 @@ namespace exercise.main
 
             return totalPrice;
         }
+
+        public Dictionary<Bagel, float> SavedMoney(Dictionary<Bagel, float> nrBagels)
+        {
+            Dictionary<Bagel, float> discBagels = new Dictionary<Bagel, float>();
+
+            for (int i = 0; i < nrBagels.Count(); i++)
+            {
+                for (int j = 0; j < discounts.Count(); j++)
+                {
+                    if (nrBagels.ElementAt(i).Key.GetBagelType() == discounts[j].SKU && nrBagels.ElementAt(i).Value == discounts[j].nrItems)
+                        discBagels.Add(nrBagels.ElementAt(i).Key, discounts[j].price - nrBagels.ElementAt(i).Key.GetBagelCost());
+                }
+            }
+
+            return discBagels;
+        }
+
+        public float DiscountedPrice(string SKU)
+        {
+            float cost = 1;
+
+            for (int i = 0; i < discounts.Count(); i++)
+            {
+                if (discounts[i].SKU == SKU)
+                    cost = discounts[i].price;
+            }
+
+            return cost;
+        }
     }
 }
