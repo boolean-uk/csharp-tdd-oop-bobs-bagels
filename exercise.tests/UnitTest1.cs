@@ -32,7 +32,7 @@ public class Tests
         basket.Add(product2);
         string testProduct1 = "Onion";
         string testProduct2 = "Black";
-        
+
         List<Product> testResult = new List<Product>() {
             product1, product2
         };
@@ -94,6 +94,7 @@ public class Tests
         Product product2 = new Product(coffe1);
         Product product3 = new Product(bagel2);
         Product product4 = new Product(filling1);
+        
 
         //"Onion","Plain","Everything","Sesame"
         //"Black","White","Capuccino","Latte"
@@ -102,7 +103,7 @@ public class Tests
 
 
         //Act
-              
+
         //Assert
         Assert.IsTrue(basket.Add(product1));
         Assert.IsTrue(basket.Add(product2));
@@ -115,7 +116,7 @@ public class Tests
     public void testSetNewCapacity()
     {
         //Arrange
-        
+
         Basket basket = new Basket();
         int newCapacity = 10;
 
@@ -125,7 +126,40 @@ public class Tests
 
         //Assert
         Assert.IsTrue(newCapacity == basket.capacity);
-        
 
+    }
+
+    [Test]
+    public void testRemove2()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product4 = new Product(filling1);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+
+        //Act
+        basket.Add(product1);
+        basket.Add(product2);
+       
+        basket.Remove(product1);
+        basket.Remove(product4);
+
+
+
+        //Assert
+        Assert.IsTrue(basket.Remove(product1));    // This item in the basket -> true
+        Assert.IsTrue(!basket.Remove(product4));    // This item not in the basket -> should returns false
     }
 }
