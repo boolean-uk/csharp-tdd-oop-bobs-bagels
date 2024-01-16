@@ -10,23 +10,26 @@ namespace exercise.main
     {
         private static List<Product> _stock = new List<Product>
         {
-        new Product("BGLP", 0.39f, ProductType.bagel, "Plain"),
-        new Product("BGLO", 0.49f, ProductType.bagel, "Onion"),
-        new Product("BGLE", 0.49f, ProductType.bagel, "Everything"),
-        new Product("BGLS", 0.49f, ProductType.bagel, "Sesame"),
-        new Product("COFB", 0.99f, ProductType.coffee, "Black"),
-        new Product("COFW", 1.19f, ProductType.coffee, "White"),
-        new Product("COFC", 1.29f, ProductType.coffee, "Capuccino"),
-        new Product("COFL", 1.29f, ProductType.coffee, "Latte"),
-        new Product("FILB", 0.12f, ProductType.filling, "Bacon"),
-        new Product("FILE", 0.12f, ProductType.filling, "Egg"),
-        new Product("FILC", 0.12f, ProductType.filling, "Cheese"),
-        new Product("FILX", 0.12f, ProductType.filling, "Cream Cheese"),
-        new Product("FILS", 0.12f, ProductType.filling, "Smoked Salmon"),
-        new Product("FILH", 0.12f, ProductType.filling, "Ham"),
+        new Product("BGLP", 0.39d, ProductType.bagel, "Plain"),
+        new Product("BGLO", 0.49d, ProductType.bagel, "Onion"),
+        new Product("BGLE", 0.49d, ProductType.bagel, "Everything"),
+        new Product("BGLS", 0.49d, ProductType.bagel, "Sesame"),
+        new Product("COFB", 0.99d, ProductType.coffee, "Black"),
+        new Product("COFW", 1.19d, ProductType.coffee, "White"),
+        new Product("COFC", 1.29d, ProductType.coffee, "Capuccino"),
+        new Product("COFL", 1.29d, ProductType.coffee, "Latte"),
+        new Product("FILB", 0.12d, ProductType.filling, "Bacon"),
+        new Product("FILE", 0.12d, ProductType.filling, "Egg"),
+        new Product("FILC", 0.12d, ProductType.filling, "Cheese"),
+        new Product("FILX", 0.12d, ProductType.filling, "Cream Cheese"),
+        new Product("FILS", 0.12d, ProductType.filling, "Smoked Salmon"),
+        new Product("FILH", 0.12d, ProductType.filling, "Ham"),
     } ;
 
-
+        public bool FindItemWithSKU(string sku)
+        {
+            return Stock.Exists(i => i.SKU == sku);
+        }
         public List<Product> Stock { get {  return _stock; } set { _stock = value; } }   
     }
 }
