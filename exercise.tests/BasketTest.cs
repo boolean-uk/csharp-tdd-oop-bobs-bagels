@@ -30,10 +30,15 @@ namespace exercise.tests
         [TestCase("BGLO")]
         public void RemoveBagelTest(string sku)
         {
-            
+            //arrange
+            Basket basket = new Basket();
+            basket.AddBagel(sku);
 
+            //act
+            basket.RemoveBagel(sku);
 
-
+            //assert
+            Assert.IsTrue(basket.BasketItems.Count == 0);
         }
 
         [Test]
@@ -65,6 +70,50 @@ namespace exercise.tests
             //assert
             Assert.Fail();
 
+        }
+
+        [Test]
+        public void TotalCostBasket()
+        {
+            //arrange
+
+            //act
+
+            //assert
+            Assert.Fail();
+        }
+
+        [Test]
+        public void AddFilling()
+        {
+            //arrange
+
+            //act
+
+            //assert
+            Assert.Fail();
+        }
+
+        [Test]
+        public void CostOfFilling()
+        {
+            //arrange
+
+            //act
+
+            //assert
+            Assert.Fail();
+        }
+
+        [Test]
+        public void CostOfBagel()
+        {
+            //arrange
+
+            //act
+
+            //assert
+            Assert.Fail();
         }
     }
 }

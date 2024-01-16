@@ -8,8 +8,8 @@ namespace exercise.main
 {
     public class Basket
     {
-        public List<Item> _basketItems = new List<Item>();
-        public int _capasity;
+        private List<Item> _basketItems = new List<Item>();
+        private int _capasity;
 
         public Basket(List<Item> basketItems, int capasity)
         {
