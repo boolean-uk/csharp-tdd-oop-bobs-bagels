@@ -33,5 +33,16 @@ namespace exercise.main
 
             return false;
         }
+
+        public bool RemoveItem(string SKU)
+        {
+            if (_basket.Exists(x => x.SKU == SKU))
+            {
+                Item removedItem = _basket.Single(x => x.SKU == SKU);
+                _basket.Remove(removedItem);
+                return true;
+            }
+            return false;
+        }
     }
 }
