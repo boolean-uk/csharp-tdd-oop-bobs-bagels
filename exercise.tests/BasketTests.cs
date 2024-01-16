@@ -137,6 +137,18 @@ public class BasketTests
     }
 
     [Test]
+    public void FillingPriceRetreivable()
+    {
+
+        float itemPrice1 = testBasket.GetItemPrice("FILX");
+        float itemPrice2 = testBasket.GetItemPrice("FILS");
+
+        Assert.That(itemPrice1, Is.EqualTo(0.12F));
+        Assert.That(itemPrice2, Is.EqualTo(0.12F));
+
+    }
+
+    [Test]
     public void AddFillings()
     {
 
