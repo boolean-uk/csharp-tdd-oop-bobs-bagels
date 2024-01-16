@@ -30,5 +30,17 @@ namespace exercise.main
         {
             Baskets.Add(basket);
         }
+
+        public void RemoveBasket(Basket basket)
+        {
+            if (Baskets.Contains(basket))
+            {
+                Baskets.Remove(basket);
+            }
+            else
+            {
+                throw new Exception("Basket does not exist");
+            }
+        }
     }
 }
