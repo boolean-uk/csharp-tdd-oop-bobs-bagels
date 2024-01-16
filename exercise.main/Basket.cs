@@ -24,6 +24,11 @@ namespace exercise.main
 
         public void AddBagel(Bagel bagel)
         {
+            if (Bagels.Count == Capacity)
+            {
+                throw new Exception("Basket is full");
+            }
+
             Bagels.Add(bagel);
             Total += bagel.Price;
         }
