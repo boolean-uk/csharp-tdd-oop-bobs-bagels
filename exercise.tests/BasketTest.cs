@@ -166,9 +166,10 @@ public class BasketTest
         Bagel bagel5 = new(BagelType.Sesame);
         Bagel bagel6 = new(BagelType.Plain);
         Bagel bagelWithFilling = new(BagelType.Plain);
+        Coffee coffee = new(CoffeeType.Capuccino);
         Filling filling = new(FillingType.CreamCheese);
         bagelWithFilling.AddFilling(filling);
-        basket.AddItems([bagel, bagel2, bagel3, bagel4, bagel5, bagel6, bagelWithFilling]);
+        basket.AddItems([bagel, bagel2, bagel3, bagel4, bagel5, bagel6, bagelWithFilling, coffee]);
 
         basket.CreateReceipt();
 

@@ -28,8 +28,10 @@
         private string _name = type.ToString();
         private double _price = CoffeePrice[type];
         private string _sku = CoffeeSku[type];
+        private string _type = "Coffee";
         public override string Name { get { return _name; } set { _name = value; } }
         public override double Price { get { return _price; } set { _price = value; } }
         public override string Sku { get { return _sku; } set { _sku = value; } }
+        public override string Type { get { return _type; } set { _type = value; } }
     }
 }

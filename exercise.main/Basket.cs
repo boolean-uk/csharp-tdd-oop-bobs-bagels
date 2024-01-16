@@ -103,19 +103,20 @@
 
         public void CreateReceipt()
         {
-            Console.WriteLine("       Bob's Bagels ");
-            Console.WriteLine($"   {DateTime.Now}");
-            var x = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
-            Console.WriteLine("-------------------------");
+            Console.WriteLine("         Bob's Bagels ");
+            Console.WriteLine($"     {DateTime.Now}");
+            Dictionary<string, int> x = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
+            Console.WriteLine("-----------------------------");
             foreach (var item in x)
             {
-                string spacing = new string(' ', 15 - item.Key.Length);
-                Console.WriteLine($"{item.Key}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
+                string spacing = new string(' ', 12 - item.Key.Length);
+                Console.WriteLine($"{item.Key} {Items.Where(x => x.Name == item.Key).Select(x => x.Type).First()}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
             }
-            Console.WriteLine("-------------------------");
-            Console.WriteLine($"Discount         -£ ${Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
-            Console.WriteLine($"Total             £ ${Math.Round(GetDiscountBasketCost(), 2)}");
-            Console.WriteLine($"        Thank you\n     for your order!     ");
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine($"Sum                    £{Math.Round(GetBasketCost(), 2)}");
+            Console.WriteLine($"Discount              -£{Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"Total                  £{Math.Round(GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"          Thank you\n       for your order!     ");
         }
     }
 }
