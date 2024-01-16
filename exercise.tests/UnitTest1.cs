@@ -139,8 +139,8 @@ public class Tests
     {
         Coffee coffee = new Coffee("White");
 
-        Assert.That(coffee.Variant, Is.EqualTo("White");
+        Assert.That(coffee.Variant, Is.EqualTo("White"));
         Assert.That(coffee.SKU, Is.EqualTo("COFW"));
-        Assert.That(coffee.Price, Is.EqualTo("1.19"));
+        Assert.That(coffee.Price, Is.EqualTo(1.19));
     }
 }

@@ -1,31 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="exercise.main.Bagel">
-    <Position X="5.25" Y="3" Width="1.5" />
+    <Position X="6" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AhAAAAEAAAAAAAAAAAAAIAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AhAAAAEAQQAAAAAAAAAAIAAAAAiAAAAAAAAAEAAAAEA=</HashCode>
       <FileName>Bagel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Filling">
-    <Position X="7.25" Y="3" Width="1.5" />
+    <Position X="8.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AhAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Filling.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Basket">
-    <Position X="3.25" Y="3" Width="1.5" />
+    <Position X="3" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAgAABAUAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAgQABAUCAAAAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.BobsBagels">
-    <Position X="1.25" Y="3" Width="1.5" />
+    <Position X="1" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAEAAAAAAQAAAAAAAAAAAAQCgBAAAAAAAAAAAEAIAAA=</HashCode>
       <FileName>BobsBagels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Coffee">
+    <Position X="6" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAEA=</HashCode>
+      <FileName>Coffee.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

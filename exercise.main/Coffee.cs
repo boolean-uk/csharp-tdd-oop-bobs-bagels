@@ -7,39 +7,31 @@ namespace exercise.main
 {
     public class Coffee
     {
+        private Dictionary<string, double> _priceDict = new Dictionary<string, double>()
+        {
+            {"Black", 0.99}, {"White", 1.19}, {"Capuccino", 1.29}, {"Latte", 1.29}
+        };
+        private Dictionary<string, string> _SKUDict = new Dictionary<string, string>()
+        {
+            {"Black", "COFB"}, {"White", "COFW"}, {"Capuccino", "COFC"}, {"Latte", "COFL"}
+        };
         private string _SKU;
-        private System.Collections.Generic.Dictionary<string, string> _SKUDict;
-        private int _price;
-        private int _variant;
-        private int _priceDict;
+        private double _price;
+        private string _variant;
 
-        public Coffee()
+        public Coffee(string name)
         {
-            throw new System.NotImplementedException();
+            _variant = name;
+            _SKU = _SKUDict[name];
+            _price = _priceDict[name];
+
+
         }
 
-        public int Price
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public double Price { get => _price; set => _price = value; }
 
-        public int SKU
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string SKU { get => _SKU; set => _SKU = value; }
 
-        public int Variant
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Variant { get => _variant; set => _variant = value; }
     }
 }
