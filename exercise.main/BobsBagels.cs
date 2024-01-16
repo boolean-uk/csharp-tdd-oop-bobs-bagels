@@ -42,5 +42,14 @@ namespace exercise.main
                 throw new Exception("Basket does not exist");
             }
         }
+
+        public void IncreaseCapacity(int capacity)
+        {
+            Capacity += capacity;
+            foreach (Basket basket in Baskets)
+            {
+                basket.Capacity = Capacity;
+            }
+        }
     }
 }
