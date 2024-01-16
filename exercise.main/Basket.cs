@@ -24,27 +24,32 @@ namespace exercise.main
         {
             if (!IsFull())
             {
-                Item bagel = inventory.GetBagel(sku);
-                if (!string.IsNullOrEmpty(extraFillings))
+                Item item = inventory.GetBagel(sku);
+                if (!string.IsNullOrEmpty(extraFillings) && item.Variant.Equals("Bagel"))
                 {
                     List<Tuple<string, decimal>> additionalFillings = new List<Tuple<string, decimal>>();
 
                     foreach (string filling in extraFillings.Split(" "))
                     {
                         Item fillingItem = inventory.GetFilling(filling);
-                        additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, inventory.GetFillingCost(filling)));
+                        if (fillingItem.Name.Equals("Filling"))
+                        {
+                            additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, inventory.GetFillingCost(filling)));
+                        } else
+                        {
+                            throw new Exception("Invalid filling added!");
+                        }
+                        
                     }
 
-                    bagel.Fillings.AddRange(additionalFillings);
+                    item.Fillings.AddRange(additionalFillings);
 
                 }
-                basket.Add(bagel);
+                basket.Add(item);
                 return true;
             }
             throw new Exception("The basket is full!");
         }
-
-        //! float totalPrice = bagel.Price + additionalFillings.Count * GetFillingCost("FIL");
 
         public bool RemoveFromBasket(string sku) {
             if (ContainsInBasket(sku))
@@ -63,7 +68,16 @@ namespace exercise.main
         }
 
         public void ChangeBasketCapacity(int newCapacity) {
-            Capacity = newCapacity;
+            if (newCapacity > 0)
+            {
+                Capacity = newCapacity;
+            } else
+            {
+                throw new Exception($"{newCapacity} is not a valid basket size");
+            }
+
+            
+            
         }
 
         public decimal TotalCostOfBasket()

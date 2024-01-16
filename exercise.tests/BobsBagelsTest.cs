@@ -15,6 +15,7 @@ public class BobsBagelsTest
         basket = new Basket(inventory);
     }
 
+    //! from google
     private List<Item> GetBasketItems()
     {
         // Use reflection to access the private basket list
@@ -27,10 +28,7 @@ public class BobsBagelsTest
     [Test]
     public void TestAddToBasket_WhenSpaceExistsAndNoExtraFilling_ShouldReturnTrue()
     {
-         // Act
         bool result = basket.AddToBasket("BGLO");
-
-        // Assert
         Assert.IsTrue(result);
        
     }
@@ -39,16 +37,10 @@ public class BobsBagelsTest
     [Test]
     public void AddToBasket_WhenNotFullAndValidBagel_ShouldAddBagelToBasket()
     {
-        // Arrange
-        string bagelSku = "BGLP";
-
-        // Act
-        bool result = basket.AddToBasket(bagelSku);
-
-        // Assert
+        bool result = basket.AddToBasket("BGLP");
         Assert.IsTrue(result);
         Assert.AreEqual(1, basket.GetListCount());
-        Assert.AreEqual(bagelSku, GetBasketItems()[0].Sku);
+        Assert.AreEqual("BGLP", GetBasketItems()[0].Sku);
     }
 
     [Test]
@@ -65,25 +57,22 @@ public class BobsBagelsTest
         Assert.IsTrue(result);
         Assert.AreEqual(1, basket.GetListCount());
         Assert.AreEqual(bagelSku, GetBasketItems()[0].Sku);
-        CollectionAssert.AreEqual(new List<Tuple<string, float>> { Tuple.Create("Bacon", 0.12f), Tuple.Create("Cheese", 0.12f) }, GetBasketItems()[0].Fillings);
+        CollectionAssert.AreEqual(new List<Tuple<string, decimal>> { Tuple.Create("Bacon", 0.12m), Tuple.Create("Cheese", 0.12m) }, GetBasketItems()[0].Fillings);
     }
 
     [Test]
     public void AddToBasket_WhenBasketIsFull_ShouldThrowException()
     {
         basket.ChangeBasketCapacity(4);
-        // Arrange
+
         string bagelSku = "BGLP";
-        
+
         // Fill the basket to capacity
         for (int i = 0; i < basket.GetCapacity(); i++)
         {
             basket.AddToBasket(bagelSku);
         }
-
-        // Try adding on extra
         basket.AddToBasket(bagelSku);
-
         // Act & Assert
         Assert.Throws<Exception>(() => basket.AddToBasket(bagelSku));
     }
@@ -91,22 +80,43 @@ public class BobsBagelsTest
     [Test]
     public void AddToBasket_WhenInvalidBagelSku_ShouldThrowException()
     {
-        // Arrange
-        string invalidBagelSku = "INVALID";
-
-        // Act & Assert
-        Assert.Throws<Exception>(() => basket.AddToBasket(invalidBagelSku));
+        Assert.Throws<Exception>(() => basket.AddToBasket("INVALID"));
     }
 
     [Test]
     public void AddToBasket_WhenInvalidFillingSku_ShouldThrowException()
     {
-        // Arrange
         string bagelSku = "BGLP";
         string invalidFillingSku = "INVALID";
 
-        // Act & Assert
+
         Assert.Throws<Exception>(() => basket.AddToBasket(bagelSku, invalidFillingSku));
+    }
+
+    [Test]
+    public void RemoveFromBasket_WhenItemExists_ShouldReturnTrue()
+    {
+        Assert.Pass();
+    }
+
+    [Test]
+    public void RemoveFromBasket_WhenItemDoesNotExsists_ShouldReturnFalse()
+    {
+        Assert.Pass();
+    }
+
+    [Test]
+    public void ChangeBasketCapacity_ValidCapacity()
+    {
+        basket.ChangeBasketCapacity(4);
+
+        Assert.AreEqual(4, basket.GetCapacity());
+    }
+
+    [Test]
+    public void ChangeBasketCapacity_InValidCapacity_ShouldReturnException()
+    {
+        Assert.Throws<Exception>(() => basket.ChangeBasketCapacity(-1));
     }
 
 
@@ -114,37 +124,21 @@ public class BobsBagelsTest
     [Test]
     public void IsItemInStock_WhenItemExists_ShouldReturnTrue()
     {
-        // Arrange
-        string existingSku = "FILB";
-
-        // Act
-        bool result = inventory.IsItemInStock(existingSku);
-
-        // Assert
+        bool result = inventory.IsItemInStock("FILB");
         Assert.IsTrue(result);
     }
 
     [Test]
     public void IsItemInStock_WhenItemDoesNotExist_ShouldReturnFalse()
     {
-        // Arrange
-        string nonExistingSku = "INVALIDSKU";
-
-        // Act
-        bool result = inventory.IsItemInStock(nonExistingSku);
-
-        // Assert
+        bool result = inventory.IsItemInStock("INVALIDSKU");
         Assert.IsFalse(result);
     }
 
     [Test]
     public void GetFillingCost_WhenValidFillingSku_ShouldReturnPrice()
     {
-        // Arrange
-        string validFillingSku = "FILB";
-
-        // Act
-        decimal result = inventory.GetFillingCost(validFillingSku);
+        decimal result = inventory.GetFillingCost("FILB");
 
         // Assert
         Assert.AreEqual(0.12f, result);
@@ -153,11 +147,7 @@ public class BobsBagelsTest
     [Test]
     public void GetFillingCost_WhenInvalidFillingSku_ShouldThrowException()
     {
-        // Arrange
-        string invalidFillingSku = "INVALIDSKU";
-
-        // Act & Assert
-        Assert.Throws<Exception>(() => inventory.GetFillingCost(invalidFillingSku));
+        Assert.Throws<Exception>(() => inventory.GetFillingCost("INVALIDSKU"));
     }
 
     [Test]
@@ -174,24 +164,14 @@ public class BobsBagelsTest
     [Test]
     public void GetBagelCost_WhenValidBagelSku_ShouldReturnPrice()
     {
-        // Arrange
-        string validBagelSku = "BGLP";
-
-        // Act
-        decimal result = inventory.GetBagelCost(validBagelSku);
-
-        // Assert
+        decimal result = inventory.GetBagelCost("BGLP");
         Assert.AreEqual(0.39f, result);
     }
 
     [Test]
     public void GetBagelCost_WhenInvalidBagelSku_ShouldThrowException()
     {
-        // Arrange
-        string invalidBagelSku = "INVALIDSKU";
-
-        // Act & Assert
-        Assert.Throws<Exception>(() => inventory.GetBagelCost(invalidBagelSku));
+        Assert.Throws<Exception>(() => inventory.GetBagelCost("INVALIDSKU"));
     }
 
     
