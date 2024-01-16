@@ -11,14 +11,14 @@ namespace exercise.tests
     public class BasketTest
     {
         [TestCase("BGLO")]
-        public void AddBagelTest(string sku)
+        public void AddItemTest(string sku)
         {
 
             //arrange
             Basket basket = new Basket();
 
             //act
-            basket.AddBagel(sku);
+            basket.AddItem(sku);
             
             //assert
             Assert.IsTrue(basket.BasketItems.Count > 0);
@@ -31,7 +31,7 @@ namespace exercise.tests
         {
             //arrange
             Basket basket = new Basket();
-            basket.AddBagel(sku);
+            basket.AddItem(sku);
 
             //act
             basket.RemoveBagel(sku);
@@ -45,9 +45,9 @@ namespace exercise.tests
         {
             //arrange
             Basket basket = new Basket(cap);
-            basket.AddBagel("BGLO");
-            basket.AddBagel("BGLP");
-            basket.AddBagel("BGLE");
+            basket.AddItem("BGLO");
+            basket.AddItem("BGLP");
+            basket.AddItem("BGLE");
 
             //act
             bool result = basket.IsBasketFull();
@@ -58,7 +58,7 @@ namespace exercise.tests
         }
 
         [TestCase(5)]
-        public void ChangeBasketCapacity(int newCapacity)
+        public void ChangeBasketCapacityTest(int newCapacity)
         {
             //arrange
             Basket basket = new Basket();
@@ -74,40 +74,40 @@ namespace exercise.tests
         }
 
         [Test]
-        public void TotalCostBasket()
+        public void TotalCostBasketTest()
         {
             //arrange
+            Basket basket = new Basket();
+            basket.AddItem("BGLO");
+            basket.AddItem("COFW");
+            basket.AddItem("FILE");
 
             //act
+            double result = basket.TotalCostBasket();
 
             //assert
-            Assert.Fail();
+            Assert.AreEqual(result, 1.8d);
         }
 
         [Test]
-        public void AddFilling()
+        public void CostOfFillingTest()
         {
             //arrange
+            Basket basket = new Basket();
+            basket.AddItem("BGLO");
+            basket.AddItem("COFB");
+            basket.AddItem("FILB");
+            basket.AddItem("FILE");
 
             //act
+            double result = basket.CostOfFilling();
 
             //assert
-            Assert.Fail();
+            Assert.AreEqual(result, 0.24d);
         }
 
         [Test]
-        public void CostOfFilling()
-        {
-            //arrange
-
-            //act
-
-            //assert
-            Assert.Fail();
-        }
-
-        [Test]
-        public void CostOfBagel()
+        public void CostOfBagelTest()
         {
             //arrange
 

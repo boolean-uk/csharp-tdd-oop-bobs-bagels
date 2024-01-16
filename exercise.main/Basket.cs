@@ -35,7 +35,7 @@ namespace exercise.main
 
         Inventory inventory = new Inventory();
 
-        public void AddBagel(string Sku)
+        public void AddItem(string Sku)
         {
             foreach (var itemInv in inventory.InventoryItems)
             {
@@ -83,22 +83,22 @@ namespace exercise.main
 
         }
 
-        public int TotalCostBasket()
+        public double TotalCostBasket()
+        {
+            double result = 0d;
+            foreach(var item in BasketItems)
+            {
+                result += item.Price;
+            }
+            return Math.Round(result, 2);
+        }
+
+        public double CostOfFilling()
         {
             throw new NotImplementedException();
         }
 
-        public void AddFilling(string Sku)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CostOfFilling()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CostOfBagel()
+        public double CostOfBagel()
         {
             throw new NotImplementedException();
         }
