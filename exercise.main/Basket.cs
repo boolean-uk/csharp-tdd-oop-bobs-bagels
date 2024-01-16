@@ -10,14 +10,18 @@ namespace exercise.main
     {
         // Define field
         private int _capacity = 3; //Default = 3
-        private int _total = 0; 
+        private int _total = 0;
         // Define properties
         public List<Product> _basket = new List<Product>();
 
         public bool Add(Product product)
         {
-            _basket.Add(product);
-            return true;
+            if (_basket.Count < _capacity)
+            {
+                _basket.Add(product);
+                return true;
+            }
+            return false;
         }
 
         public bool Remove(Product product)
@@ -27,18 +31,20 @@ namespace exercise.main
 
         }
 
-        public int getPrice(Product product) { 
-            throw new NotImplementedException();    
+        public int getPrice(Product product)
+        {
+            throw new NotImplementedException();
         }
 
-        public int getTotalPrice() { 
-            throw new NotImplementedException();    
+        public int getTotalPrice()
+        {
+            throw new NotImplementedException();
         }
 
         public bool setNewCapacity(int newCapacity)
         {
 
-            throw new NotImplementedException();    
+            throw new NotImplementedException();
         }
 
         public List<Product> getBasket()

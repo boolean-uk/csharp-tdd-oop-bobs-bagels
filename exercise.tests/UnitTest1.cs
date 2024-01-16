@@ -105,7 +105,6 @@ public class Tests
               
 
 
-
         //Assert
         Assert.IsTrue(basket.Add(product1));
         Assert.IsTrue(basket.Add(product2));
