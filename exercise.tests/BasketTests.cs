@@ -163,4 +163,20 @@ public class BasketTests
 
     }
 
+    [Test]
+    public void OnlyValidOrders()
+    {
+
+        Item it1 = testBasket.AddItem("AAAA");
+        Assert.That(it1.data.SKU, Is.EqualTo("none"));
+
+        Item it2 = testBasket.AddItem("BGLE");
+        testBasket.AddFilling(it2.ID, "AAAA");
+
+        List<Item> fillings = it2.ListFillings();
+        Assert.AreEqual(fillings.Count, 0);
+
+
+    }
+
 }
