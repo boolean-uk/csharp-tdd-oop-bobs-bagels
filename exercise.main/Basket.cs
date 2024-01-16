@@ -42,7 +42,8 @@ namespace exercise.main
             }
             else
             {
-                throw new Exception("Your basket is full! No new items added!");
+                Console.WriteLine("Your basket is full! No new items added!");
+                return null;
             }
         }
         public bool removeItem(string SKU)
