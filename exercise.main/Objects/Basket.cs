@@ -22,7 +22,7 @@ namespace exercise.main.Objects
 
             int bagelAmount = basket.Count(t => t.Type == Product.pType.Bagel);
             //check if basket is full, if string is empty and if item exists in inventory
-            if (foundItem != null && (bagelAmount <= limit))
+            if (foundItem != null && (bagelAmount <= limit) && foundItem.Type != Product.pType.Filling)
             {
                 basket.Add(foundItem);
                 return true;

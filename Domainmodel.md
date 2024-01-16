@@ -11,5 +11,5 @@
 |         |                        |                        | input is less than 1                                     | FALSE          |
 |         |                        | CalcPrice()            | Basket has items with a price value                      | Double (price) |
 |         |                        |                        | Basket has no items                                      | Double (price) |
-| Product | List <Product> Filling | AddFilling(string SKU) | Called in a Bagel product, SKU is tied to a Filling enum | TRUE           |
+| Product | List <Product> Filling | AddFilling(Product filling) | Called in a Bagel product, filling is a Filling enum | TRUE           |
 |         |                        |                        | One of the conditions above is untrue                    | FALSE          |

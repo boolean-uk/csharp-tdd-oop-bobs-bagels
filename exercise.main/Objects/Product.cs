@@ -32,10 +32,12 @@ namespace exercise.main.Objects
             _variant = variant;
         }
 
-        public bool AddFilling(string SKU)
+        public bool AddFilling(Product filling)
         {
-            return false;
+            if (filling == null || filling._type != pType.Filling || _type == pType.Bagel) return false;
+            Filling.Add(filling);
+            return true;
         }
-        
+
     }
 }
