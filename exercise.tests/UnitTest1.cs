@@ -123,7 +123,7 @@ public class Tests
     }
 
     [Test]
-    public void IncreaseCapacity() 
+    public void TestIncreaseCapacity() 
     {
         BobsBagels store = new BobsBagels(); 
         Basket basket = new Basket();
@@ -132,5 +132,15 @@ public class Tests
 
         Assert.That(store.Capacity, Is.EqualTo(20));
         Assert.That(basket.Capacity, Is.EqualTo(20));
+    }
+
+    [Test]
+    public void TestCoffeeConstructor()
+    {
+        Coffee coffee = new Coffee("White");
+
+        Assert.That(coffee.Variant, Is.EqualTo("White");
+        Assert.That(coffee.SKU, Is.EqualTo("COFW"));
+        Assert.That(coffee.Price, Is.EqualTo("1.19"));
     }
 }
