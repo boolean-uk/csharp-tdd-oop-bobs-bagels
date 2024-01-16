@@ -54,4 +54,29 @@ public class Basket
             return _products.Remove(toDelete);
         return false;
     }
+
+    public double getItemPrice(string sku)
+    {
+        return _menu.getItem(sku.Trim()).Item1;
+    }
+
+    public double getBasketPrice()
+    {
+        double price = 0.00;
+        var bagels = _products.OfType<Bagel>().ToList();
+        var coffees = _products.OfType<Product>().ToList();
+        foreach (var item in coffees)
+        {
+            price += _menu.getItem(item.Sku()).Item1;
+        }
+        foreach (var item in bagels)
+        {
+            price += _menu.getItem(item.Sku()).Item1;
+            if (item.Filling != null)
+            {
+                price += _menu.getItem(item.Filling.Sku()).Item1;
+            }
+        }
+        return price;
+    }
 }
