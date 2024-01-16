@@ -7,23 +7,37 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Item
+    public struct ItemData
     {
-        public int ID = 0;  // does this work..?
         public string SKU;
-        public string Name;
-        public float Price;
+        public string Name; 
         public string Variant;
-        public List<Item> Contents;
-        public Item(string sku, string name, float price, string variant, List<Item> ? contents) 
+        public float Price;
+    }
+    public class Item
+    {
+        public string ID = Guid.NewGuid().ToString(); // does this work..?
+        public ItemData data;
+        public List<Item> Contents = new List<Item>();
+
+        public Item(string sku, string name, float price, string variant) 
         {
-            ID = ID + 1;
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
-            Contents = contents;
+            data.SKU = sku;
+            data.Name = name;
+            data.Price = price;
+            data.Variant = variant;
         }
 
+        public Item()
+        {
+            data.SKU = "none";
+            data.Name = "none";
+            data.Variant = "none";
+        }
+
+        public List<Item> ListFillings()
+        {
+            return Contents;
+        }
     }
 }
