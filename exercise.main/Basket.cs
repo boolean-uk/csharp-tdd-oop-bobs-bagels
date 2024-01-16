@@ -54,7 +54,7 @@ namespace exercise.main
         public float TotalCost()
         {
             float result = 0;
-
+            int blackCoffee = _inventory.Count(x => x.SKU == "COFB");
             foreach (string item in _existingItems)
             {
                 if (item.Substring(0, 3).ToUpper() != "BGL") continue;
@@ -70,25 +70,20 @@ namespace exercise.main
                     result += 2.49f;
                     num -= 6;
                 }
+                while (blackCoffee > 0 && num > 0)
+                {
+                    result += 1.25f;
+                    blackCoffee--;
+                    num--;
+                }
                 for (int i = 0; i < num; i++)
                 {
                     result += GetPrice(item);
                 }
 
             }
-
             return result;
         }
-
-        /*            
-         *            
-         *            IEnumerable<char> values = hand.SelectMany(x => x.Value).Distinct();
-            if (values.Count() > 2) return 0;
-            foreach (char card in values)
-            {
-                if (hand.Count(x => x.Value == card.ToString()) == 3) return 600 + core.GetValueOfCard(card.ToString());
-            }*/
-
 
 
         public bool AddFilling(int id, string SKU)

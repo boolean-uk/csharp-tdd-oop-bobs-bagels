@@ -89,7 +89,7 @@ public class Tests
         _basket.AddItem("BGLO");
         _basket.AddItem("COFB");
         float result = _basket.TotalCost();
-        Assert.That(result, Is.EqualTo(1.48f));
+        Assert.That(result, Is.EqualTo(1.25f));
     }
 
     [Test]
