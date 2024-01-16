@@ -20,7 +20,7 @@ namespace exercise.tests
         public void SetUp()
         {
             _basket = new Basket(4);
-            _bagle = new Product("test", 0.99d, Product.ProdType.Bagle, "bagle");
+            _bagle = new Product("test", 1.0d, Product.ProdType.Bagle, "bagle");
         }
 
         [Test]
@@ -100,6 +100,23 @@ namespace exercise.tests
 
             //  Assert - check the results
             Assert.That(result == 4);
+        }
+
+        [Test]
+        public void Test6()
+        {
+            //  Arrange - set up test values
+            Bagle bagle = new Bagle("bagle");
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+
+
+
+            //  Act - use the fucntion we want to test
+
+            //  Assert - check the results
+            Assert.That(_basket.TotalCost(), Is.EqualTo(3.0d));
         }
     }
 }

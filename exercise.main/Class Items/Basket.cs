@@ -41,5 +41,10 @@ namespace exercise.main.Class_Items
             _capacity = amount;
             return _capacity;
         }
+
+        public double TotalCost()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
