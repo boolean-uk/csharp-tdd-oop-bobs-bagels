@@ -14,38 +14,80 @@ namespace exercise.main
 
         public bool AddItemToBasket(Product item) 
         {
-            throw new NotImplementedException();
+            int res1 = _basket.Count;
+            _basket.Add(item);
+            int res2 = _basket.Count;
+            return (res2 > res1);
         }
 
         public bool AddItemToBasket(string[] SKUs)
         {
-            throw new NotImplementedException();
+            ProductFactory factory = new ProductFactory();
+            Product prod = factory.GenerateProduct(SKUs);
+            int res1 = _basket.Count;
+            _basket.Add(prod);
+            int res2 = _basket.Count;
+            return (res2 > res1);
         }
 
         public int SetBasketSize(int newSize) 
         {
-            throw new NotImplementedException();
+            _maxBasketSize = newSize;
+            return _maxBasketSize;
         }
 
         public float GetBasketPrice() 
-        { 
-            throw new NotImplementedException();
+        {
+            return _basket.Sum(prod => prod.GetPrice());
         }
 
         public bool RemoveProductFromBasket(Product item) 
         {
-            throw new NotImplementedException();
+            List<Product> tempList = new List<Product>(_basket);
+            int res1 = tempList.Count;
+            tempList.Remove(item);
+            int res2 = tempList.Count;
+
+            if (res1 > res2)
+            {
+                _basket = tempList;
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
+
 
         public bool RemoveProductFromBasket(string[] SKUs)
         {
-            throw new NotImplementedException();
+            // TODO: REFACTOR, this is hideous
+            ProductFactory factory = new ProductFactory();
+            IEnumerable<Product> toRemove = _basket.Where(p => p.GetSKUName() == SKUs[0]);
+            // More complex if Bagel due to sub-objects...
+            foreach (Product item in toRemove)
+            {
+                Bagel bagel = (Bagel)item;
+                for (int i = 1; i < SKUs.Length; i++) 
+                {
+                    if (bagel.GetFilling().Exists(fill => fill.SKUName == SKUs[i])) 
+                    {
+                        if (i == SKUs.Length-1) 
+                        {
+                            return RemoveProductFromBasket(item);
+                        }
+                    }
+                }
+            }
+            return false;
+
         }
 
 
         public bool IsFull() 
         {
-            throw new NotImplementedException();
+            return _maxBasketSize <= _basket.Count;
         }
     }
 }

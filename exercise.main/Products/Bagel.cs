@@ -27,6 +27,11 @@ namespace exercise.main.Products
             return _SKUName;
         }
 
+        public List<Filling> GetFilling() 
+        {
+            return filling;
+        }
+
         public bool AddFilling(Filling fill)
         {
             if (fill.GetPrice() > 0f)
