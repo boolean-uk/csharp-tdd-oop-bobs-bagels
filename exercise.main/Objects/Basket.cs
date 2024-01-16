@@ -48,5 +48,10 @@ namespace exercise.main.Objects
             return true;
         }
 
+        public double sum()
+        {
+            return double.NaN;
+        }
+
     }
 }

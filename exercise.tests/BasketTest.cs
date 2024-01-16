@@ -51,6 +51,12 @@ namespace exercise.tests
             
         }
         [Test]
-        public void Calculate() { }
+        public void Calculate()
+        {
+            _basket.Add("BGLO");
+            _basket.Add("COFB");
+
+            Assert.AreEqual(_basket.sum(), 0.49d + 0.99d);
+        }
     }
 }
