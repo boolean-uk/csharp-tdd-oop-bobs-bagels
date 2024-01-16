@@ -54,5 +54,10 @@ namespace exercise.main
         {
             return base.GetPrice() + _fillings.Sum(x => x.GetPrice());
         }
+
+        public double GetFillingPrice()
+        {
+            return _fillings.Sum(x => x.GetPrice());
+        }
     }
 }

@@ -136,15 +136,14 @@ public class BasketTest
         Coffee coffee = new(CoffeeType.Capuccino);
         basket2.AddItems([coffee, bagel]);
 
-
         //execute
-        double price = basket.GetBasketCost();
+        double price = basket.GetDiscountBasketCost();
         basket.RemoveItem(bagel);
         basket.AddItem(bagelWithFilling);
-        double priceFilling = basket.GetBasketCost();
+        double priceFilling = basket.GetDiscountBasketCost();
         basket.RemoveItem(bagelWithFilling);
-        double pricingNoDiscount = basket.GetBasketCost();
-        double coffeeCombo = basket2.GetBasketCost();
+        double pricingNoDiscount = basket.GetDiscountBasketCost();
+        double coffeeCombo = basket2.GetDiscountBasketCost();
 
         //verify
         Assert.That(price, Is.EqualTo(2.49));
