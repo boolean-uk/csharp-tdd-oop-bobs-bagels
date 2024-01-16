@@ -12,5 +12,15 @@ namespace exercise.main.Foods
                 return "COF" + Variant.ToString().ToUpper()[..1];
             }
         }
+
+        public override float Price => priceTable[Sku];
+
+        private Dictionary<string, float> priceTable = new()
+        {
+            {"COFB", 0.99f},
+            {"COFW", 1.19f},
+            {"COFC", 1.29f},
+            {"COFL", 1.29f},
+        };
     }
 }

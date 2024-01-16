@@ -17,6 +17,17 @@ namespace exercise.main.Foods
                 return "BGL" + Variant.ToString().ToUpper()[..1];
             }
         }
+
+        public override float Price => _priceTable[Sku] + Filling.Price;
+
+        private Dictionary<string, float> _priceTable = new()
+        {
+            {"BGLO", 0.49f},
+            {"BGLP", 0.39f},
+            {"BGLE", 0.49f},
+            {"BGLS", 0.49f},
+        };
+
         public Filling Filling { get; set; }
 
         public Bagel(BagelVariant variant) : base(variant) { }

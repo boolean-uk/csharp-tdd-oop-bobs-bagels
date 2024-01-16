@@ -25,5 +25,6 @@ namespace exercise.main.Foods
         public abstract string Sku { get; }
 
         public abstract string Name { get; }
+        public abstract float Price { get; }
     }
 }

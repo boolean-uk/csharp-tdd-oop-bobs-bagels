@@ -16,5 +16,6 @@ namespace exercise.main.Foods
                 return "FIL" + Variant.ToString().ToUpper()[..1];
             }
         }
+        public override float Price => 0.12f;
     }
 }
