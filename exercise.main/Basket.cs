@@ -77,6 +77,7 @@ namespace exercise.main
         public void ChangeBasketCapacity(int newCapacity)
         {
             throw new NotImplementedException();
+
         }
 
         public int TotalCostBasket()

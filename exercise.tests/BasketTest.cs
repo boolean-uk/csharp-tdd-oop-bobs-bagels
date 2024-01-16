@@ -69,7 +69,7 @@ namespace exercise.tests
 
 
             //assert
-            Assert.Fail();
+            Assert.IsTrue(basket.Capacity == newCapacity);
 
         }
 
