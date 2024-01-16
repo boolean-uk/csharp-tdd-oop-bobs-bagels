@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using exercise.main;
@@ -16,23 +17,23 @@ namespace exercise.tests
         public void SetUp()
         {
             basket = new Basket();
-            basket.AddBagel("Cream", 20);
-            basket.AddBagel("Cream", 30, "Cola");
-            basket.AddBagel("Cheese", 15);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
+            //basket.AddBagel("COFB", 0.99f);
         }
 
-        [TestCase("Peanut", 20, true)]
-        [TestCase("", 30, false)]
-        [TestCase("Cream", 37, true)]
-        public void AddedBagel(string bagelType, int cost, bool expected)
+        [TestCase("BGLP", 0.39f, true)]
+        [TestCase("", 0.55f, false)]
+        [TestCase("COFL", 1.29f, true)]
+        public void AddedBagel(string bagelType, float cost, bool expected)
         {
             bool haveAdded = basket.AddBagel(bagelType, cost);
             Assert.That(expected, Is.EqualTo(haveAdded));
         }
 
-        [TestCase("Cream", "Cola", true)]
-        [TestCase("", "Sweets", false)]
-        [TestCase("Cheese", "", true)]
+        [TestCase("BGLO", "", true)]
+        [TestCase("", "FILC", false)]
+        [TestCase("BGLS", "", false)]
         public void RemovedBagel(string bagelType, string fillingName, bool expected)
         {
             bool haveAdded = basket.RemoveBagel(bagelType, fillingName);
@@ -62,22 +63,20 @@ namespace exercise.tests
             Assert.That(oldCapacity, Is.EqualTo(newCapacity));
         }
 
-        [TestCase("Cream", true)]
-        [TestCase("Jam", false)]
-        [TestCase("Dressing", false)]
-        public void ItemDoesExist(string bagelType, bool expected)
+        [TestCase("BGLO", "", true)]
+        [TestCase("KBLO", "FILE", false)]
+        public void ItemDoesExist(string bagelType, string fillingName, bool expected)
         {
-            bool removed = basket.RemoveBagel(bagelType, "");
-            Assert.That(expected, Is.EqualTo(removed));
+            bool exists = basket.ItemExists(bagelType, fillingName);
+            Assert.That(expected, Is.EqualTo(exists));
         }
 
-        [TestCase("Cream", 40)]
-        [TestCase("Jam", 30)]
-        [TestCase("Dressing", 5)]
-        public void CostOfBagelType(string bagelType, int cost)
+        [TestCase("BGLO", 0.49f)]
+        [TestCase("COFB", 0.99f)]
+        public void CostOfBagelType(string bagelType, float cost)
         {
             Bagel bagel = new Bagel(bagelType, cost);
-            int result = bagel.CostOfBagel(bagelType);
+            float result = bagel.CostOfBagel(bagelType);
             Assert.That(cost, Is.EqualTo(result));
         }
 
@@ -87,7 +86,7 @@ namespace exercise.tests
             Filling filling = new Filling();
             string allFillings = filling.AllFillings();
 
-            Assert.That("Cola, Mayonaise, Jelly", Is.EqualTo(allFillings));
+            Assert.That("Bacon, Egg, Cheese, Cream Cheese, Smoked Salmon, Ham", Is.EqualTo(allFillings));
         }
 
         [Test]
@@ -96,7 +95,7 @@ namespace exercise.tests
             Filling filling = new Filling();
             string allFillings = filling.FillingCosts();
 
-            Assert.That("Cola:20, Mayonaise:30, Jelly:15", Is.EqualTo(allFillings));
+            Assert.That("Bacon:0,12, Egg:0,12, Cheese:0,12, Cream Cheese:0,12, Smoked Salmon:0,12, Ham:0,12", Is.EqualTo(allFillings));
         }
 
         [Test]
@@ -105,7 +104,33 @@ namespace exercise.tests
             Inventory inventory = new Inventory();
             string items = inventory.PrintInventory();
 
-            Assert.That("Bagels, Fillings", Is.EqualTo(items));
+            Assert.That("Bagels, Coffee, Fillings", Is.EqualTo(items));
+        }
+
+        [TestCase("BGO", false)]
+        [TestCase("BGLP", true)]
+        public void CheckDiscounts(string SKU, bool expected)
+        {
+            Deal deal = new Deal();
+            bool result = deal.CheckDeal(SKU);
+
+            Assert.That(expected, Is.EqualTo(result));
+        }
+
+        [Test]
+        public void GetDiscount()
+        {
+            Deal deal = new Deal();
+
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
+
+            float price = deal.DiscountPrice(basket);
+            Assert.That(3.7099998f, Is.EqualTo(price));
         }
     }
 }

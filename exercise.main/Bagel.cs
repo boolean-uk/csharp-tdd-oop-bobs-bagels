@@ -3,45 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace exercise.main
 {
     public class Bagel
     {
-        private string bagelType;
-        private int bagelCost;
+        private string SKU;
+        private float bagelCost;
         
         private string fillingName;
-        private int fillingCost;
-        private Dictionary<string, int> prices = new Dictionary<string, int>();
+        private float fillingCost;
+        private Dictionary<string, float> prices = new Dictionary<string, float>();
 
-        public Bagel(string bagelType, int cost, string fillingName = "", int fillingCost = 0) 
-        {            
-            for (int i = 0; i < prices.Count(); i++)
+        public Bagel(string SKU, float cost, string fillingName = "", float fillingCost = 0) 
+        {
+            if (prices.ContainsKey(SKU))
             {
-                if (prices.ContainsKey(bagelType))
-                    return;
+                for (int i = 0; i < prices.Count(); i++)
+                {
+                    if (prices.ElementAt(i).Key == SKU)
+                        this.bagelCost = prices.ElementAt(i).Value;
+                }
             }
-            prices.Add(bagelType, cost);
+            else
+            {
+                prices.Add(SKU, cost);
+                this.bagelCost = cost;
+            }
 
-            this.bagelType = bagelType;
-            this.bagelCost = cost;
-
+            this.SKU = SKU;
             this.fillingName = fillingName;
             this.fillingCost = fillingCost;
         }
 
-        public int CostOfBagel(string bagelType)
+        public float CostOfBagel(string bagelType)
         {
             return prices[bagelType];
         }
         
         public string GetBagelType()
         {
-            return bagelType;
+            return SKU;
         }
 
-        public int GetBagelCost()
+        public float GetBagelCost()
         {
             return bagelCost;
         }
@@ -51,7 +57,7 @@ namespace exercise.main
             return fillingName;
         }
 
-        public int GetFillingCost()
+        public float GetFillingCost()
         {
             return fillingCost;
         }

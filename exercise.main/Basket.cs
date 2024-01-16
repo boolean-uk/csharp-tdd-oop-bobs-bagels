@@ -14,37 +14,37 @@ namespace exercise.main
 
         public Basket()
         {
-            capacity = 6;
+            capacity = 10;
             basket = new List<Bagel>();
         }
 
-        public bool AddBagel(string bagelType, int cost, string fillingName = "", int fillingCost = 0)
+        public bool AddBagel(string SKU, float cost, string fillingName = "", float fillingCost = 0)
         {
             if (BasketFull())
                 return false;
 
-            if (bagelType == "")
+            if (SKU == "")
                 return false;
 
             if (cost < 0 || fillingCost < 0)
                 return false;
 
-            Bagel bagel = new Bagel(bagelType, cost, fillingName, fillingCost);
+            Bagel bagel = new Bagel(SKU, cost, fillingName, fillingCost);
             basket.Add(bagel);
             return true;
         }
 
-        public bool RemoveBagel(string bagelType, string fillingName)
+        public bool RemoveBagel(string SKU, string fillingName)
         {
-            if (bagelType == "")
+            if (SKU == "")
                 return false;
 
-            if (!ItemExists(bagelType, fillingName))
+            if (!ItemExists(SKU, fillingName))
                 return false;
 
             for (int i = 0; i < basket.Count(); i++)
             {
-                if (basket[i].GetBagelType() == bagelType && basket[i].GetFillingName() == fillingName)
+                if (basket[i].GetBagelType() == SKU && basket[i].GetFillingName() == fillingName)
                     basket.RemoveAt(i);
             }
 
@@ -67,25 +67,30 @@ namespace exercise.main
             return capacity;
         }
 
-        public bool ItemExists(string bagelType, string fillingName)
+        public bool ItemExists(string SKU, string fillingName)
         {
             for (int i = 0; i < basket.Count(); i++)
             {
-                if (basket[i].GetBagelType() == bagelType && basket[i].GetFillingName() == fillingName)
+                if (basket[i].GetBagelType() == SKU && basket[i].GetFillingName() == fillingName)
                     return true;
             }
 
             return false;
         }
 
-        public int TotalCost()
+        public float TotalCost()
         {
-            int total = 0;
+            float total = 0;
 
             for (int i = 0; i < basket.Count(); i++)
                 total += basket[i].GetBagelCost();
 
             return total;
+        }
+
+        public List<Bagel> GetBagels()
+        {
+            return basket;
         }
     }
 }

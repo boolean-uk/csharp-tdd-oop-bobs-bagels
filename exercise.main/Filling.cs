@@ -8,14 +8,17 @@ namespace exercise.main
 {
     public class Filling
     {
-        Dictionary<string, int> fillings;
+        Dictionary<string, float> fillings;
 
         public Filling() 
         {
-            fillings = new Dictionary<string, int>();
-            fillings.Add("Cola", 20);
-            fillings.Add("Mayonaise", 30);
-            fillings.Add("Jelly", 15);
+            fillings = new Dictionary<string, float>();
+            fillings.Add("Bacon", 0.12f);
+            fillings.Add("Egg", 0.12f);
+            fillings.Add("Cheese", 0.12f);
+            fillings.Add("Cream Cheese", 0.12f);
+            fillings.Add("Smoked Salmon", 0.12f);
+            fillings.Add("Ham", 0.12f);
         }
 
         public string AllFillings()

@@ -14,6 +14,7 @@ namespace exercise.main
         {
             inventory = new List<string>();
             inventory.Add("Bagels");
+            inventory.Add("Coffee");
             inventory.Add("Fillings");
         }
 
