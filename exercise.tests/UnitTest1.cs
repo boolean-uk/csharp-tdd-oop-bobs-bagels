@@ -1,3 +1,5 @@
+using exercise.main;
+
 namespace exercise.tests;
 
 public class Tests
@@ -8,8 +10,12 @@ public class Tests
     }
 
     [Test]
-    public void Test1()
+    public void TestFilling()
     {
-        Assert.Pass();
+        Filling filling = new Filling("Bacon");
+
+        Assert.That(filling.Variant, Is.EqualTo("Bacon"));
+        Assert.That(filling.Price, Is.EqualTo(0.12));
+        Assert.That(filling.SKU, Is.EqualTo("FILB"));
     }
 }
