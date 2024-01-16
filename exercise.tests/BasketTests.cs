@@ -72,6 +72,25 @@ namespace exercise.tests
         }
 
         [Test]
+        [TestCase(0,2, (0.49f+ 1.19f))]
+        [TestCase(1,2, (0.39f+ 1.19f))]
+        public void GetBasketPrizeTest(int add, int add2, float expectValue) 
+        {
+            // Arrange
+            Basket basket = new Basket();
+            Product[] set = new Product[] { (new Bagel("BGLE", 0.49f)), new Bagel("BGLP", 0.39f), new Coffee("COFW", 1.19f)  };
+            basket.AddItemToBasket(set[add]);
+            basket.AddItemToBasket(set[add2]);
+
+
+            // Act
+            float res = basket.GetBasketPrice();
+
+            // Assert
+            Assert.That(res, Is.EqualTo(expectValue));
+        }
+
+        [Test]
         public void RemoveProductFromBasketTest() 
         {
             // Arrange
