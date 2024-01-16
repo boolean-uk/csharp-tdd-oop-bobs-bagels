@@ -9,62 +9,6 @@ using tdd_bobs_bagels.CSharp.Main;
 
 namespace tdd_bobs_bagels.CSharp.Main
 {
-    public class Item
-    {
-        public string Name, SKU, Variant;
-        public float Price;
-
-        public Item(string sku, string name, string variant, float price)
-        {
-            this.SKU = sku;
-            this.Name = name;
-            this.Variant = variant;
-            this.Price = price;
-        }
-    }
-    public class Inventory
-    {
-        private Dictionary<string, Item> bageles = new Dictionary<string, Item>{
-            {"1", new Item("BGLP", "Bagel", "plain", 1.00f)},
-            {"2", new Item("BGLS", "Bagel", "Sesame", 1.10f)},
-            {"3", new Item("BGLC", "Bagel", "Cinnamon", 1.20f)}
-        };
-        private Dictionary<string, Item> fillings = new Dictionary<string, Item>{
-            {"1", new Item("FILC", "Filling", "Cheese", 0.50f)},
-            {"2", new Item("FILJ", "Filling", "Jam", 0.50f)},
-            {"3", new Item("FILS", "Filling", "Salmon", 1.00f)}
-        };
-        private Dictionary<string, Item> coffees = new Dictionary<string, Item>{
-            {"1", new Item("COFB", "Coffee", "Black", 1.00f)},
-            {"2", new Item("COFW", "Coffee", "White", 2.00f)},
-            {"3", new Item("COFL", "Coffee", "Latte", 3.00f)}
-        };
-
-        public List<Item> ListBagels()
-        {
-            return bageles.Values.ToList();
-        }
-        public List<Item> ListFillings(){
-            return fillings.Values.ToList();
-        }
-        public List<Item> ListCoffees(){
-            return coffees.Values.ToList();
-        }
-
-        public Item ItemDetails(string sku){
-            if(bageles.ContainsKey(sku)){
-                return bageles[sku];
-            }
-            if(fillings.ContainsKey(sku)){
-                return fillings[sku];
-            }
-            if(coffees.ContainsKey(sku)){
-                return coffees[sku];
-            }
-            return null;
-        }
-        }
-
     public class Basket
     {
         private Inventory inventory = new Inventory();
@@ -128,17 +72,6 @@ namespace tdd_bobs_bagels.CSharp.Main
             item = inventory.ItemDetails(sku);
             return item.Price;
         }
-       /*
-        public string GetVariantList(string variant)
-        {
-            if(inventory.ItemDetails(variant) == null)
-            {
-                return null;
-            }
-            item = inventory.ItemDetails(variant);
-            return item.Variant;
-        }
-        */
     }
 }
 
