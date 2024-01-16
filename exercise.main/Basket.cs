@@ -70,6 +70,18 @@ namespace exercise.main
 
         public float GetItemPrice(string SKU)
         {
+            List<Item> bagels = _inventory.listBagels();
+            List<Item> coffees = _inventory.listCoffees();
+            List<Item> fillings = _inventory.listFillings();
+
+            List<Item> AllProducts = bagels.Concat(coffees).Concat(fillings).ToList();
+
+            if (AllProducts.Exists(x => x.SKU == SKU))
+            {
+                Item resultItem = AllProducts.FirstOrDefault(x => x.SKU == SKU);
+                return resultItem.Price;
+            }
+
             return 0F;
         }
     }
