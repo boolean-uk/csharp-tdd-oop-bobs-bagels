@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Objects
 {
-    public class Manager
+    public class Manager : BasketOperator
     {
         public bool AlterSize(Basket basket, int newSize)
         {

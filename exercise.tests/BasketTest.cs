@@ -46,6 +46,7 @@ namespace exercise.tests
         [Test]
         public void EditSize()
         {
+            
             Manager manager = new Manager();
             Assert.IsTrue(manager.AlterSize(_basket,4));
             
