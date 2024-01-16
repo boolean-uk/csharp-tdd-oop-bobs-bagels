@@ -95,7 +95,15 @@ namespace exercise.main
 
         public double CostOfFilling()
         {
-            throw new NotImplementedException();
+            double result = 0d;
+            foreach(var item in BasketItems)
+            {
+                if (item.Name.Equals("Filling"))
+                {
+                    result += item.Price;
+                }
+            }
+            return Math.Round(result, 2);
         }
 
         public double CostOfBagel()
