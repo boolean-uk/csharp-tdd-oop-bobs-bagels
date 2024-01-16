@@ -11,20 +11,20 @@ namespace exercise.main
         public class Basket
         {
             //set basket capacity, i.e list length
-            List<string> basket = new List<string>();
-            public int basketCapacity = 2;
+            private List<Item> basket = new List<Item>();
+            private int basketCapacity = 2;
 
             public Basket()
             {
-                basket = new List<string>();
+                basket = new List<Item>();
             }
 
 
-            public bool addBagel(string bagelType, out string message)
+            public bool addBagel(Item bagel, out string message)
             {
                 if (basket.Count < basketCapacity)
                 {
-                    basket.Add(bagelType);
+                    basket.Add(bagel);
                     message = string.Empty;
                     return true;
                 }
@@ -35,19 +35,21 @@ namespace exercise.main
                 }
             }
 
-            public List<string> GetBasketContent()
+            //add filling method
+
+            public List<Item> GetBasketContent()
             {
-                return new List<string>(basket); // Return a copy of the basket to prevent modification from outside
+                return new List<Item>(basket); // Return a copy of the basket to prevent modification from outside
             }
 
 
 
-            public bool removeBagel(string bagelType, out string message)
+            public bool removeBagel(Item bagel, out string message)
             {
                 Console.WriteLine(basket.Count);
-                if (basket.Contains(bagelType))
+                if (basket.Contains(bagel))
                 {
-                    basket.Remove(bagelType);
+                    basket.Remove(bagel);
                     message = string.Empty;
                     //
                     return true;

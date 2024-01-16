@@ -27,7 +27,6 @@ namespace exercise.main
             items.Add(new Item(0.12f, "FillingCreamCheese", "FILX"), "FILX");
             items.Add(new Item(0.12f, "FillingSmokedSalmon", "FILS"), "FILS");
             items.Add(new Item(0.12f, "FillingHam", "FILH"), "FILH");
-
         }
 
 

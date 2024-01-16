@@ -23,15 +23,14 @@ namespace exercise.main
        private Inventory inventory;
        private List<Items> basket
 
-       method bool add(inventory obj, out message)
+       method bool add(item, out message)
                    if the capcity is not filled up, then the item is added, output true
                    if the capacity is filled up, output is false and a "Basket is full" message
-       method bool remove(inventory obj, out message)  
-                   if the inventory obj is in the basket it will be remove, output true,
-                   if the inventory obj is not in the basket, output false and a message "Item does not exist"
+       method bool remove(item, out message)  
+                   if the item is in the basket it will be remove, output true,
+                   if the item is not in the basket, output false and a message "Item does not exist"
        method int changeCapacity()
                    changes the capacity, output new capacity
-
 
 
 

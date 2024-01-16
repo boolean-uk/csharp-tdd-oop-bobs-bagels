@@ -9,12 +9,12 @@ namespace exercise.main
     public class Receipt
     {
         private float total;
+        private Basket basket;
 
-
-        public Receipt()
+        public Receipt(Basket basket)
         {
-            Receipt receipt = new Receipt();
-            Basket basket = new Basket();
+            basket = basket;
+            
         }
 
         public float totalPrice()
