@@ -20,7 +20,7 @@ namespace exercise.tests
         public void SetUp()
         {
             _basket = new Basket(4);
-            _bagle = new Product("test", 1.0d, Product.ProdType.Bagle, "bagle");
+            _bagle = new Bagle("test", 1.0d, Product.ProdType.Bagle, "bagle");
         }
 
         [Test]
@@ -88,7 +88,6 @@ namespace exercise.tests
         public void Test5()
         {
             //  Arrange - set up test values
-            Bagle bagle = new Bagle("bagle");
             _basket.AddProduct(_bagle);
             _basket.AddProduct(_bagle);
             _basket.AddProduct(_bagle);
@@ -106,7 +105,6 @@ namespace exercise.tests
         public void Test6()
         {
             //  Arrange - set up test values
-            Bagle bagle = new Bagle("bagle");
             _basket.AddProduct(_bagle);
             _basket.AddProduct(_bagle);
             _basket.AddProduct(_bagle);

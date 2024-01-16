@@ -27,5 +27,10 @@ namespace exercise.main.Class_Items
         {
             _fillings = new List<Filling>();
         }
+
+        public override void AddFilling(Filling fill)
+        {
+            _fillings.Add(fill);
+        }
     }
 }

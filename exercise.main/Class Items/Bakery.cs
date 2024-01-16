@@ -39,7 +39,7 @@ namespace exercise.main.Class_Items
             if (_products.Exists(x => x.SKU == sku))
             {
                 int index = _products.IndexOf(_products.Find(x => x.SKU == sku));
-                return _customers[customer].AddProduct(new Product(_products[index].SKU, _products[index].Price, _products[index].Type, _products[index].Variant));
+                return _customers[customer].AddProduct(new Bagle(_products[index].SKU, _products[index].Price, _products[index].Type, _products[index].Variant));
             }
             return false;
         }
@@ -71,9 +71,15 @@ namespace exercise.main.Class_Items
             return -1d;
         }
         
-        public double AddFilling(string sku)
+        public double AddFilling(string skuB, string skuF, int customer = 0)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (_products.Exists(x => x.SKU == skuF))
+            {
+                int index = _products.IndexOf(_products.Find(x => x.SKU == skuF));
+                return _customers[customer].AddFilling(skuB, new Filling(_products[index].SKU, _products[index].Price, _products[index].Type, _products[index].Variant));
+            }
+            return -1d;
         }
 
         public double FillingCost(string sku)

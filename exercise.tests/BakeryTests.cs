@@ -100,7 +100,7 @@ namespace exercise.tests
 
         [Test]
         [TestCase("BGLO", "FILB", 0.61d)]
-        [TestCase("BGLP", "FILC", 0.61d)]
+        [TestCase("BGLP", "FILC", 0.51d)]
         public void Test5(string skuB, string skuF, double expected)
         {
             //  Arrange - set up test values
@@ -109,7 +109,7 @@ namespace exercise.tests
             //  Act - use the fucntion we want to test
             _bakery.AddToBasket(skuB);
             //  Assert - check the results
-            Assert.That(_bakery.AddFilling(skuF), Is.EqualTo(expected));
+            Assert.That(_bakery.AddFilling(skuB, skuF), Is.EqualTo(expected));
         }
     }
 }

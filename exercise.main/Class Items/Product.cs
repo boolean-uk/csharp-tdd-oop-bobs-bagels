@@ -32,5 +32,7 @@ namespace exercise.main.Class_Items
             _type = type;
             _varaiant = varaiant;
         }
+
+        virtual public void AddFilling(Filling fill) { }
     }
 }

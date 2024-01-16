@@ -54,5 +54,15 @@ namespace exercise.main.Class_Items
             }
             return total;
         }
+
+        public double AddFilling(string sku, Filling fill) 
+        {
+            if (_items.Exists(x => x.SKU == sku))
+            {
+                _items[_items.IndexOf(_items.Find(x => x.SKU == sku))].AddFilling(fill);
+                return _items[_items.IndexOf(_items.Find(x => x.SKU == sku))].Price;
+            }
+            return -1d;
+        }
     }
 }
