@@ -33,5 +33,50 @@ namespace exercise.main
             }
             return false;
         }
+
+        public float GetFillingCost(string sku)
+        { 
+            if (sku.Contains("FIL", StringComparison.OrdinalIgnoreCase)) //! We only want to check fillings in this function
+            {
+                foreach (Item item in _inventory)
+                {
+                    if (item.Sku.Equals(sku))
+                    {
+                        return item.Price;                    
+                    }
+                }
+            } 
+            throw new Exception("Invalid filling SKU!");
+        }
+
+        public List<Tuple<string, float>> DisplayAllFillings()
+        {
+            List<Tuple<string, float>> allFillings = new List<Tuple<string, float>>();
+
+            foreach (Item item in _inventory)
+            {
+                if (item.Name.Equals("Filling"))
+                {
+                    allFillings.Add(new Tuple<string, float> ( item.Variant, item.Price ));
+                }
+            }
+
+            return allFillings;
+        }
+
+        public float GetBagelCost(string sku)
+        {
+            if (sku.Contains("BGL", StringComparison.OrdinalIgnoreCase)) //! We only want to check bagels in this funciton
+            {
+                foreach (Item item in _inventory)
+                {
+                    if (item.Sku.Equals(sku))
+                    {
+                        return item.Price;
+                    }
+                }
+            }
+            throw new Exception("Invalid Bagel SKU!");
+        }
     }
 }
