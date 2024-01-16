@@ -50,9 +50,9 @@ namespace exercise.main
             }
             return false;
         }
-        public int changeCapacity()
+        public int changeCapacity(int newSize)
         {
-            return 0;
+            return newSize;
         }
     }
 }

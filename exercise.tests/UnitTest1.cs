@@ -43,6 +43,6 @@ public class Tests
     [Test]
     public void changeCapacitytest()
     {
-        Assert.That(basket.changeCapacity(), Is.EqualTo(7));
+        Assert.That(basket.changeCapacity(7), Is.EqualTo(7));
     }
 }
