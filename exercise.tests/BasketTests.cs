@@ -18,6 +18,7 @@ namespace exercise.tests
         {
             basket = new Basket();
             basket.AddBagel("BGLO", 0.49f);
+            basket.AddBagel("BGLO", 0.49f);
             basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
             //basket.AddBagel("COFB", 0.99f);
         }
@@ -131,6 +132,16 @@ namespace exercise.tests
 
             float price = deal.DiscountPrice(basket);
             Assert.That(3.7099998f, Is.EqualTo(price));
+        }
+
+        [Test]
+        public void GetReceipt()
+        {
+            Receipt receipt = new Receipt();
+
+            bool result = receipt.PrintReceipt(basket);
+
+            Assert.That(true, Is.EqualTo(result));
         }
     }
 }
