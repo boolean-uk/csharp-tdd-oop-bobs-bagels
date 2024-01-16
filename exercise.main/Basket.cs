@@ -43,8 +43,8 @@ namespace exercise.main
 
         public bool setNewCapacity(int newCapacity)
         {
-
-            throw new NotImplementedException();
+            _capacity = newCapacity;
+            return true;
         }
 
         public List<Product> getBasket()
