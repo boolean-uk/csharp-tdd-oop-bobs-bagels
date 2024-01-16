@@ -30,6 +30,7 @@ namespace exercise.main
         private string _name = type.ToString();
         private double _price = BagelPrice[type];
         private string _sku = BagelSku[type];
+        private List<Filling> _fillings = [];
 
         public override string Name { get { return _name; } set { _name = value; } }
         public override double Price { get { return _price; } set { _price = value; } }
@@ -37,12 +38,12 @@ namespace exercise.main
 
         public void AddFilling(Filling filling)
         {
-            throw new NotImplementedException();
+            _fillings.Add(filling);
         }
 
         public List<Filling> GetFillings()
         {
-            throw new NotImplementedException();
+            return _fillings;
         }
     }
 }

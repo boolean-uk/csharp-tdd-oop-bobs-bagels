@@ -8,7 +8,7 @@
 
         public double GetPrice()
         {
-            throw new NotImplementedException();
+            return Price;
         }
     }
 }
