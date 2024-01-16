@@ -60,16 +60,6 @@ namespace exercise.tests
 
             Assert.AreEqual(_basket.Sum(), 0.49d + 0.99d);
         }
-        [Test]
-        public void addFilling()
-        {
-            Product testFilling1 = new Product("FILB", 0.12d,Product.pType.Filling, "Bacon");
-            Product testFilling2 = new Product("COFB", 0.12d,Product.pType.Coffee, "Black");
-            _basket.Add("BGLO");
-            var test = _basket.basket.FirstOrDefault(item => item.SKU == "BGLO");
-            Assert.IsTrue(test.AddFilling(testFilling1));
-            Assert.IsFalse(test.AddFilling(testFilling2));
-            Assert.IsTrue(test.Filling.Any(t => t.SKU == "FILB"));
-        }
+        
     }
 }

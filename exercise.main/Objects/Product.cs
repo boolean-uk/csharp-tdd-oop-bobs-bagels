@@ -39,5 +39,10 @@ namespace exercise.main.Objects
             return true;
         }
 
+        public bool RemoveFilling(Product filling)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
