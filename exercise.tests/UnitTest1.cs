@@ -75,7 +75,7 @@ public class BobsBagelsTests
     }
 
     [Test]
-    public void UpCapacity()
+    public void IncreaseCapacity()
     {
         Core core = new Core();
 
@@ -96,5 +96,62 @@ public class BobsBagelsTests
         {
             Console.WriteLine(bagel);
         }
+    }
+    [Test]
+    public void ChangeBasketCapacity()
+    {
+        Core core = new Core();
+        OrderManager orderManager = new OrderManager();
+
+        int newCapacity = 10;
+        orderManager.ChangeBasketCapacity(core.Basket, newCapacity);
+
+        Assert.AreEqual(newCapacity, core.Basket.Capacity);
+    }
+
+
+    [Test]
+    public void IsItemInInventory()
+    {
+        Core core = new Core();
+        BagelInventory inventory = new BagelInventory();
+
+        core.Add("Plain");
+
+        Assert.IsTrue(inventory.IsItemInInventory("BGLP"));
+        Assert.IsTrue(inventory.IsItemInInventory("Cheddar"));
+    }
+
+    [Test]
+    public void GetBagelCost()
+    {
+        BagelInventory inventory = new BagelInventory();
+        double cost = inventory.GetCost("Plain");
+        Assert.AreEqual(0.39, cost);
+    }
+
+    [Test]
+    public void GetTotalCost()
+    {
+        Core core = new Core();
+        BagelInventory inventory = new BagelInventory();
+        OrderManager orderManager = new OrderManager();
+
+        core.Add("Plain");
+        core.Add("Bacon");
+        core.Add("Cheese");
+
+        double expectedTotalCost = inventory.GetCost("Plain") + inventory.GetCost("Bacon") + inventory.GetCost("Cheese");
+        double actualTotalCost = orderManager.GetTotalCost(core.Basket);
+
+        Assert.AreEqual(expectedTotalCost, actualTotalCost);
+    }
+
+
+    [Test]
+    public void GetFillingsCost() 
+    {
+        BagelInventory inventory = new BagelInventory();
+        double cost = inventory.GetFillingsCost(new string[] { "Bacon", "Cream Cheese" });
     }
 }
