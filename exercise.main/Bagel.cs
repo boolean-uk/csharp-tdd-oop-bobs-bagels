@@ -35,7 +35,7 @@ namespace exercise.main
         {
             return prices[bagelType];
         }
-
+        
         public string GetBagelType()
         {
             return bagelType;
