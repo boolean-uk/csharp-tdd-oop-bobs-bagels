@@ -98,7 +98,7 @@ class Inventory
 		
 
 	METHODS:
-	public bool AddItem(SKU, item)
+	public void AddItem(SKU, item)
 		Add the item to the invetory
 	public bool ItemExists(string sku)
 		return true if item exists
@@ -106,7 +106,8 @@ class Inventory
 	public float GetPrice(string sku)
 		return price
 	public Item getItem(sting sku)
-		return check if item exits and return item if it does
+		check if item exits and return item if it does
+		return null if it dosen't exist
 
 class Basket
 	PROPERTIES:

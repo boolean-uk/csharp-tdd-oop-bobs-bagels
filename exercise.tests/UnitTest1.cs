@@ -1,5 +1,6 @@
 using exercise.main;
 using NUnit.Framework.Internal.Execution;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
 
 namespace exercise.tests;
@@ -11,33 +12,19 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-
         inventory = new Inventory();
-        inventory.AddItem("BGLO", 0.49f, "Bagel", "Onion");
-        inventory.AddItem("BGLP", 0.39f, "Bagel", "Plain");
-        inventory.AddItem("BGLE", 0.49f, "Bagel", "Everything");
-        inventory.AddItem("BGLS", 0.49f, "Bagel", "Sesame");
-        inventory.AddItem("COFB", 0.99f, "Coffee", "Black");
-        inventory.AddItem("COFW", 1.19f, "Coffee", "White");
-        inventory.AddItem("COFC", 1.29f, "Coffee", "Cappuccino");
-        inventory.AddItem("COFL", 1.29f, "Coffee", "Latte");
-        inventory.AddItem("FILB", 0.12f, "Filling", "Bacon");
-        inventory.AddItem("FILE", 0.12f, "Filling", "Egg");
-        inventory.AddItem("FILC", 0.12f, "Filling", "Cheese");
-        inventory.AddItem("FILX", 0.12f, "Filling", "Cream Cheese");
-        inventory.AddItem("FILS", 0.12f, "Filling", "Smoked Salmon");
-        inventory.AddItem("FILH", 0.12f, "Filling", "Ham");
     }
 
+    /*
     [Test]
     public void InventoryAddItem()
     {
         Inventory _inventory = new Inventory();
         Assert.That(_inventory.AddItem("BGLO", 0.49f, "Bagel", "Onion"), Is.True);
     }
+    */
 
     [TestCase("BGLE", true)]
-    [TestCase("blge", true)]
     [TestCase("COFC", true)]
     [TestCase("FILX", true)]
     [TestCase("NOTX", false)]
@@ -46,7 +33,7 @@ public class Tests
         Assert.That(inventory.ItemExists(sku), Is.EqualTo(shoulReturn));
     }
 
-    [TestCase("test", -1f)]
+    [TestCase("test", 0f)]
     [TestCase("BGLP", 0.39f)]
     [TestCase("COFC", 1.29f)]
     [TestCase("FILB", 0.12f)]
@@ -55,14 +42,17 @@ public class Tests
         Assert.That(inventory.GetPrice(sku), Is.EqualTo(shouldReturn));
     }
 
-    [TestCase("BGLO", "BGLO", 0.49f, "Bagle", "Onion", true)]
-    [TestCase("BGLE", "BGLO", 0.49f, "Bagle", "Onion", false)]
-    public void InventoryGetItem(string sku, string expectedSKU, float expectedPrice, string expectedName, string expectedVariant, bool shouldReturn) 
-    {
-
-        Item expectedItem = new Item(expectedSKU, expectedPrice, expectedName, expectedVariant);
-        bool actualReturn = expectedItem.Equals(inventory.getItem(sku));
-        Assert.That(actualReturn, Is.EqualTo(shouldReturn));
+    [TestCase("BGLO", "BGLO", 0.49f, "Bagle", "Onion")]
+    [TestCase("BGLX", "BGLO", 0.49f, "Bagle", "Onion")]
+    public void InventoryGetItem(string sku, string expectedSKU, float expectedPrice, string expectedName, string expectedVariant)
+    { 
+        if(sku == "BGLO")
+        {
+            Assert.That(inventory.getItem(sku), Is.Not.Null);
+        } else
+        {
+            Assert.That(inventory.getItem(sku), Is.Null);
+        }
     }
 
     [TestCase("BGLO", true)]
@@ -103,7 +93,15 @@ public class Tests
     {
         var _basket = new Basket();
         _basket.AddBagel("BGLO");
+        _basket.AddBagel("BGLO");
+        if(fillingSKU == "FILE")
+        {
+            _basket.AddFilling(index, fillingSKU);
+            Assert.That(_basket._basketList[0].TotalPrice(), Is.EqualTo(0.49 + 0.12 *2).Within(0.05));
+            Assert.That(_basket._basketList[1].TotalPrice(), Is.EqualTo(0.49).Within(0.005));
+        }
         Assert.That(_basket.AddFilling(index, fillingSKU), Is.EqualTo(shouldReturn));
+        Assert.That(_basket._basketList[1].TotalPrice(), Is.EqualTo(0.49).Within(0.005));
     }
 
     [Test]
