@@ -109,4 +109,16 @@ public class Tests
         Assert.That(store.Baskets.Count, Is.EqualTo(1));
         Assert.That(store.Baskets[0], Is.EqualTo(basket));
     }
+
+    [Test]
+    public void TestRemoveBasket()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.RemoveBasket(basket);
+
+        Assert.That(store.Baskets.Count, Is.EqualTo(0));
+        Assert.Throws<Exception>(() => store.RemoveBasket(basket));
+    }
 }
