@@ -75,4 +75,18 @@ public class Tests
         Assert.Throws<Exception>(() => basket.AddBagel(bagel));
 
     }
+
+    [Test]
+    public void TestBasketRemove()
+    {
+        Basket basket = new Basket();
+        Bagel bagel = new Bagel("Onion");
+
+        basket.AddBagel(bagel);
+        basket.RemoveBagel(bagel);
+
+        Assert.That(basket.Bagels.Count, Is.EqualTo(0));
+
+        Assert.Throws<Exception>(() => basket.RemoveBagel(bagel));
+    }
 }
