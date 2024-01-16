@@ -21,5 +21,11 @@
 |              |                      | `Item is not in stock`   | `Returns a message that the bagel is not in stock` |
 |              | `Remove(Bagel)`      | `Bagel is in basket`     | `Bagel is removed from basket`                     |
 |              |                      | `Bagel is not in basket` | `Returns a message stating bagel is not in basket` |
+|              | `Add(Coffee)`        | `Basket is not full`     | `Coffee added to basket`                           |
+|              |                      | `Basket is full`         | `Returns a message that basket is full`            |
+|              |                      | `Item is in stock`       | `Coffee is added to basket`                        |
+|              |                      | `Item is not in stock`   | `Returns a message that it is out of stock`        |
+|              | `Remove(Coffee)`     | `Coffee is in basket`    | `Coffee is removed from basket`                    |
+|              |                      | `Coffee is not in basket`| `Returns a message that coffee is out of stock`    |
 | `BobsBagels` | `Stock`              |                          | `Dictionary of the bagels in stock`                |
 |              | `IncreaseCapacity`   |                          | `Increases the capacity of the baskets`            |

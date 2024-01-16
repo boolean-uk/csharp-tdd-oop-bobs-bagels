@@ -45,7 +45,7 @@ public class Tests
     {
         Basket basket = new Basket();
 
-        Assert.That(basket.Bagels.Count, Is.EqualTo(0));
+        Assert.That(basket.NrItems, Is.EqualTo(0));
         Assert.That(basket.Capacity, Is.EqualTo(10));
         Assert.That(basket.Total, Is.EqualTo(0));
     }
@@ -58,7 +58,7 @@ public class Tests
 
         basket.AddBagel(bagel);
 
-        Assert.That(basket.Bagels.Count, Is.EqualTo(1));
+        Assert.That(basket.NrItems, Is.EqualTo(1));
         Assert.That(basket.Total, Is.EqualTo(0.49));
         Assert.That(basket.Bagels[0], Is.EqualTo(bagel));
 
@@ -142,5 +142,29 @@ public class Tests
         Assert.That(coffee.Variant, Is.EqualTo("White"));
         Assert.That(coffee.SKU, Is.EqualTo("COFW"));
         Assert.That(coffee.Price, Is.EqualTo(1.19));
+    }
+
+    [Test]
+    public void TestAddCoffee()
+    {
+        Basket basket = new Basket();
+        Coffee coffee = new Coffee("Black");
+
+        basket.AddCoffee(coffee);
+
+        Assert.That(basket.NrItems, Is.EqualTo(1));
+
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+        basket.AddCoffee(coffee);
+
+        Assert.Throws<Exception>(() => basket.AddCoffee(coffee));
+
     }
 }
