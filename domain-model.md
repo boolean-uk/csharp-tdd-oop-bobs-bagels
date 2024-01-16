@@ -74,4 +74,5 @@ I want customers to only be able to order things that we stock in our inventory.
 |        | Remove(Product product)      | Removes a specific product(not item) from basket            | bool   |
 |        | ChangeCapacity(int capacity) | Change the capacity of bagels in the basket                 | void   |
 |        | TotalCost()                  | Returns the cost of all items in basket                     | double |
+|        | Prices()                     | Returns prices of all products in stock                     | string |
 | Bagel  | AddFilling(Filling filling)  | Adds filling to the bagel, and updates price of bagel       | bool   |

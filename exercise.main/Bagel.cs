@@ -9,7 +9,7 @@ namespace exercise.main
     public enum BagelType { Onion, Plain, Everything, Sesame };
     public class Bagel : Product
     {
-        Dictionary<BagelType, (double price, string SKU)> bagelToInfo = new Dictionary<BagelType, (double price, string SKU)>() 
+        public Dictionary<BagelType, (double price, string SKU)> bagelToInfo { get; } = new Dictionary<BagelType, (double price, string SKU)>()
         {
             { BagelType.Onion, ( 0.49d, "BGLO") },
             { BagelType.Plain, ( 0.39d, "BGLP") },

@@ -55,7 +55,16 @@ public class Tests
     {
         basket.ChangeCapacity(5);
         basket.Add(new Bagel(BagelType.Onion));
-        basket.Add(new Bagel(BagelType.Onion)); basket.Add(new Bagel(BagelType.Onion));
+        basket.Add(new Bagel(BagelType.Onion)); 
+        basket.Add(new Bagel(BagelType.Onion));
+        Assert.IsFalse(basket.Add(new Bagel(BagelType.Onion)));
+    }
+
+    [Test]
+    public void invalidChangeCapacity()
+    {
+        basket.Add(new Bagel(BagelType.Onion)); 
+        basket.ChangeCapacity(-1);
         Assert.IsFalse(basket.Add(new Bagel(BagelType.Onion)));
     }
 
@@ -97,8 +106,21 @@ public class Tests
     [Test]
     public void totalCostCoffee()
     {
-        Coffee coffee = new Coffee(CoffeType.Capuccino);
+        Coffee coffee = new Coffee(CoffeeType.Capuccino);
         basket.Add(coffee);
         Assert.AreEqual(basket.TotalCost(), 0.98d + 1.29d);
+    }
+
+    [Test]
+    public void PricesTest()
+    {
+        Coffee coffee = new Coffee(CoffeeType.Capuccino);
+        basket.Add(coffee);
+        Filling filling = new Filling(FillingType.Bacon);
+        onion.Add(filling);
+        Filling cheese = new Filling(FillingType.Cheese);
+        onion.Add(cheese);
+        string end = basket.Prices();
+        Assert.Pass();
     }
 }

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public enum CoffeType { Black, White, Capuccino, Latte };
+    public enum CoffeeType { Black, White, Capuccino, Latte };
     public class Coffee : Product
     {
-        public CoffeType _coffee;
+        public CoffeeType _coffee;
 
-        Dictionary<CoffeType, (double price, string SKU)> coffeToInfo = new Dictionary<CoffeType, (double price, string SKU)>() 
+        public Dictionary<CoffeeType, (double price, string SKU)> coffeToInfo { get; } = new Dictionary<CoffeeType, (double price, string SKU)>()
         {
-            { CoffeType.Black, (0.99d, "COFB") },
-            { CoffeType.White, (1.19d, "COFW") },
-            { CoffeType.Capuccino, (1.29d, "COFC") },
-            { CoffeType.Latte, (1.29d, "COFL") }
+            { CoffeeType.Black, (0.99d, "COFB") },
+            { CoffeeType.White, (1.19d, "COFW") },
+            { CoffeeType.Capuccino, (1.29d, "COFC") },
+            { CoffeeType.Latte, (1.29d, "COFL") }
         };
 
-        public Coffee(CoffeType coffee) 
+        public Coffee(CoffeeType coffee) 
         {
             _coffee = coffee;
             price = coffeToInfo[coffee].price;
