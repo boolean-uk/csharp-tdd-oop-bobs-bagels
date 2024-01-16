@@ -38,11 +38,9 @@ namespace exercise.main
             int bgloCount = items.Count(x => x.Sku.Equals("BGLO"));
             int bglpCount = items.Count(x => x.Sku.Equals("BGLP"));
             int bgleCount = items.Count(x => x.Sku.Equals("BGLE"));
-            bool hasCoffeeAndBagle = items.Any(x => x.Sku.Equals("COFB")) && items.Any(x => x is Bagel);
             total += MathF.Floor(bgloCount / 6) * 0.45f;
             total += MathF.Floor(bglpCount / 12) * 0.69f;
             total += MathF.Floor(bgleCount / 6) * 0.45f;
-            total += hasCoffeeAndBagle ? 0.23f : 0f;
             return total;
         }
         public float GetTotalPrice()

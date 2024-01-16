@@ -44,11 +44,48 @@ namespace exercise.tests
         }
 
         [Test]
-        public void CoffeeAndBagelDiscountTest()
+        public void TwelveBGLPDiscountTest2()
         {
-            _customer.Order(new Bagel(BagelVariant.Sesame));
+            for (int i = 0; i < 12; i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Plain));
+            }
+            _customer.Order(new Coffee(CoffeeVariant.Latte));
             _customer.Order(new Coffee(CoffeeVariant.Black));
-            Assert.That(_customer.Basket.GetTotalPrice(), Is.EqualTo(1.25f));
+            _customer.Order(new Coffee(CoffeeVariant.Black));
+            Assert.That(_customer.Basket.GetTotalPrice(), Is.EqualTo(3.99f + 1.29f + .99f * 2));
+        }
+
+        [Test]
+        public void ExampleOrdersTest()
+        {
+            _customer.Order(new Bagel(BagelVariant.Onion));
+            _customer.Order(new Bagel(BagelVariant.Onion));
+            for (int i = 0;i < 12;i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Plain));
+            }
+            for (int i = 0;i<6;i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Everything));
+            }
+            for (int i = 0;i<3;i++)
+            {
+                _customer.Order(new Coffee(CoffeeVariant.Black));
+            }
+            float totalPrice = _customer.Basket.GetTotalPrice();
+            Assert.That(Math.Abs(totalPrice - 10.43f), Is.LessThanOrEqualTo(1e-2f));
+        }
+
+        [Test]
+        public void ExampleOrderTest2()
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Plain));
+            }
+            float totalPrice = _customer.Basket.GetTotalPrice();
+            Assert.That(Math.Abs(totalPrice - 5.55), Is.LessThanOrEqualTo(1e-2f));
         }
     }
 }
