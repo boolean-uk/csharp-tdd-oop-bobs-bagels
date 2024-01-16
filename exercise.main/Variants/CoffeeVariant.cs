@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace exercise.main
+namespace exercise.main.Variants
 {
-    public interface IFood
+    public enum CoffeeVariant
     {
-        string Name { get; }
+        Black,
+        White,
+        Capuccino,
+        Latte,
     }
 }

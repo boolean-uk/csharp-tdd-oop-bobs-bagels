@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace exercise.main
+namespace exercise.main.Variants
 {
-    public class Bagel : IFood
+    public enum BagelVariant
     {
-        public string Name => "Bagel";
+        Onion,
+        Plain,
+        Everything,
+        Sesame,
     }
 }
