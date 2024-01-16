@@ -76,7 +76,7 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 | `remove(Product product)`                   |If bagel exists		 |void		|
 |                 | 											|If bagel does not exist |Exeption	|
 |                 | `expand(int amount)`						|					     |string	|
-|                 | `total()`									|					     |int		|
+|                 | `displayTotal()`							|					     |int		|
 |                 | `showPrice(Product product)`				|					     |int		|
 | `Product`       | `Product()`									|						 |Product	|
 | `Coffee`        | `Coffee() : Product()`						|						 |Coffee	|

@@ -11,6 +11,7 @@ namespace exercise.main
     {
         private List<Product> _products = [];
         private int _basketSize;
+        private float _total;
 
         public Basket(int basketSize)
         {
@@ -19,12 +20,17 @@ namespace exercise.main
 
         public void AddToBasket(Product product)
         {
-            if (BasketSize == 0)
+            if(ConfirmAdd(product))
             {
-                throw new ArgumentException("No more room in basket");
+                if (BasketSize == 0)
+                {
+                    throw new ArgumentException("No more room in basket");
+                }
+                Products.Add(product);
+                BasketSize -= 1;
+                Total += product.Price;
             }
-            Products.Add(product);
-            BasketSize -= 1;
+            
         }
 
         public void RemoveFromBasket(Product product)
@@ -35,6 +41,7 @@ namespace exercise.main
             }
             Products.Remove(product);
             BasketSize += 1;
+            Total -= product.Price;
         }
 
         public void ExpandBasket(int expansion)
@@ -42,7 +49,27 @@ namespace exercise.main
             BasketSize += expansion;
         }
 
+        public string DisplayTotal()
+        {
+            return $"The total of your basket is {Total}";
+        }
+
+        public bool ConfirmAdd(Product product)
+        {
+            Console.WriteLine($"The price of the product is {product.Price}, would you like to add to basket? y/n");
+            string answer = Console.ReadLine();
+            if (answer == "y")
+            {
+                return true;
+            }
+            Console.WriteLine("Hope you find something else you'd like");
+            return false;
+        }
+
+
         public List<Product> Products { get { return _products; } set { _products = value; } }
         public int BasketSize { get { return _basketSize; } set { _basketSize = value; } }
+
+        public float Total { get { return _total; } set { _total = value; } }
     }
 }
