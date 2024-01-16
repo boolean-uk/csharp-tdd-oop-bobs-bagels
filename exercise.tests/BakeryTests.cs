@@ -85,7 +85,7 @@ namespace exercise.tests
 
         [Test]
         [TestCase("BGLO", 0.49d)]
-        [TestCase("BGLP", 0.49d)]
+        [TestCase("BGLP", 0.39d)]
         [TestCase("BGLE", 0.49d)]
         public void Test4(string sku, double expected)
         {
