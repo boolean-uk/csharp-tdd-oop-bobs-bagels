@@ -13,9 +13,9 @@ namespace exercise.main.Foods
             }
         }
 
-        public override float Price => priceTable[Sku];
+        public override float Price => _priceTable[Sku];
 
-        private Dictionary<string, float> priceTable = new()
+        private Dictionary<string, float> _priceTable = new()
         {
             {"COFB", 0.99f},
             {"COFW", 1.19f},
