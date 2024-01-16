@@ -60,6 +60,6 @@ namespace exercise.main.Objects
 
             return sum;
         }
-
+        
     }
 }

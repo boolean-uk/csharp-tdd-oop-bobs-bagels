@@ -50,6 +50,7 @@ namespace exercise.tests
             Manager manager = new Manager();
             Assert.IsTrue(manager.AlterSize(_basket,4));
             
+            
         }
         [Test]
         public void Calculate()
