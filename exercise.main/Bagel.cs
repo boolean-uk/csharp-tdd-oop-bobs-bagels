@@ -46,6 +46,10 @@ namespace exercise.main
             return _fillings;
         }
 
+        public double GetBasePrice()
+        {
+            return base.GetPrice();
+        }
         public new double GetPrice()
         {
             return base.GetPrice() + _fillings.Sum(x => x.GetPrice());

@@ -3,14 +3,14 @@
 namespace exercise.tests
 {
     [TestFixture]
-    public class InventoryTest
+    public class StoreTest
     {
 
         [Test]
         public void TestGetItemsInInventory()
         {
             //setup
-            Inventory inventory = new();
+            Store inventory = new();
             Bagel bagel = new(BagelType.Everything);
             inventory.AddItemToInventory(bagel);
 

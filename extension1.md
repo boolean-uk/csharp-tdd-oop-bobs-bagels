@@ -38,3 +38,19 @@ Every Bagel is available for the `6 for 2.49` and `12 for 3.99` offer, but filli
 Update and extend your program to handle these orders at Bob's Bagels.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
+
+# User stories and domain model
+
+As a customer I want to be able to get a list of valid discounts in the store.
+| Classes         | Methods                                     | Scenario                  | Outputs                               |
+|-----------------|---------------------------------------------|---------------------------|---------------------------------------|
+| `Store`	      | `getDiscounts()`                            | any			            | List<Discount> discounts              |
+
+
+As a customer I want to be able to get discounts when adding discounted items to my Basket.
+| Classes         | Methods                                     | Scenario                  | Outputs                               |
+|-----------------|---------------------------------------------|---------------------------|---------------------------------------|
+| `Basket`	        | `getBasketCost()`                         | discount exists           | discounted price                      |
+|                |                                              | no valid discount         | full price of items                   |
+
+
