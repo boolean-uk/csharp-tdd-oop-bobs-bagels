@@ -28,7 +28,7 @@ namespace exercise.main
         public double Total { get => _totalPrice; set => _totalPrice = value; }
         public int NrItems { get => _nrItems; set => _nrItems = value; }
 
-        public void AddBagel(Bagel bagel)
+        public void Add(Bagel bagel)
         {
             if (Bagels.Count + Coffees.Count == Capacity)
             {
@@ -40,7 +40,7 @@ namespace exercise.main
             NrItems++;
         }
 
-        public void RemoveBagel(Bagel bagel)
+        public void Remove(Bagel bagel)
         {
             if (Bagels.Contains(bagel))
             {
@@ -53,7 +53,7 @@ namespace exercise.main
             }
         }
 
-        public void AddCoffee(Coffee coffee)
+        public void Add(Coffee coffee)
         {
             if (Coffees.Count + Bagels.Count == Capacity)
             {
@@ -64,7 +64,7 @@ namespace exercise.main
             NrItems++;
         }
 
-        public void RemoveCoffee(Coffee coffee)
+        public void Remove(Coffee coffee)
         {
             if(Coffees.Contains(coffee))
             {

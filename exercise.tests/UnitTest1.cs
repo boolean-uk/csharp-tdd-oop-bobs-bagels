@@ -1,4 +1,5 @@
 using exercise.main;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace exercise.tests;
 
@@ -56,23 +57,23 @@ public class Tests
         Basket basket = new Basket();
         Bagel bagel = new Bagel("Onion");
 
-        basket.AddBagel(bagel);
+        basket.Add(bagel);
 
         Assert.That(basket.NrItems, Is.EqualTo(1));
         Assert.That(basket.Total, Is.EqualTo(0.49));
         Assert.That(basket.Bagels[0], Is.EqualTo(bagel));
 
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
-        basket.AddBagel(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
+        basket.Add(bagel);
 
-        Assert.Throws<Exception>(() => basket.AddBagel(bagel));
+        Assert.Throws<Exception>(() => basket.Add(bagel));
 
     }
 
@@ -82,12 +83,12 @@ public class Tests
         Basket basket = new Basket();
         Bagel bagel = new Bagel("Onion");
 
-        basket.AddBagel(bagel);
-        basket.RemoveBagel(bagel);
+        basket.Add(bagel);
+        basket.Remove(bagel);
 
         Assert.That(basket.Bagels.Count, Is.EqualTo(0));
 
-        Assert.Throws<Exception>(() => basket.RemoveBagel(bagel));
+        Assert.Throws<Exception>(() => basket.Remove(bagel));
     }
 
     [Test]
@@ -95,8 +96,8 @@ public class Tests
     {
         BobsBagels store = new BobsBagels();
 
-        Assert.That(store.Stock["Onion"], Is.EqualTo(100));
         Assert.That(store.Capacity, Is.EqualTo(10));
+        Assert.That(store.Baskets.Count, Is.EqualTo(0));
     }
 
     [Test]
@@ -150,21 +151,21 @@ public class Tests
         Basket basket = new Basket();
         Coffee coffee = new Coffee("Black");
 
-        basket.AddCoffee(coffee);
+        basket.Add(coffee);
 
         Assert.That(basket.NrItems, Is.EqualTo(1));
 
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
-        basket.AddCoffee(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
+        basket.Add(coffee);
 
-        Assert.Throws<Exception>(() => basket.AddCoffee(coffee));
+        Assert.Throws<Exception>(() => basket.Add(coffee));
 
     }
 
@@ -174,11 +175,20 @@ public class Tests
         Basket basket = new Basket();
         Coffee coffee = new Coffee("Black");
 
-        basket.AddCoffee(coffee);
-        basket.RemoveCoffee(coffee);
+        basket.Add(coffee);
+        basket.Remove(coffee);
 
         Assert.That(basket.NrItems, Is.EqualTo(0));
 
-        Assert.Throws<Exception>(() => basket.RemoveCoffee(coffee));
+        Assert.Throws<Exception>(() => basket.Remove(coffee));
+    }
+
+    [Test]
+    public void TestAddNonExistantBagel()
+    {
+        Basket basket = new Basket();
+        Bagel bagel = new Bagel("Chicken");
+
+        Assert.Throws<Exception>(() => basket.Add(bagel));
     }
 }
