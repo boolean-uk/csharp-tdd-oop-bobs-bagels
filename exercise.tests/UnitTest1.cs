@@ -68,4 +68,10 @@ public class Tests
         Bagel bagel = new Bagel(BagelType.Everything);
         Assert.False(basket.Remove(bagel));
     }
+
+    [Test]
+    public void totalCostsTest()
+    {
+        Assert.AreEqual(basket.TotalCost(), 0.98);
+    }
 }

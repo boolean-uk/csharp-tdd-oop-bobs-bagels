@@ -29,5 +29,10 @@ namespace exercise.main
         {
             capacity = v;
         }
+
+        public double TotalCost()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
