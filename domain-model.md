@@ -9,5 +9,7 @@
 |			|                                                                    | `ChangeCapacity(int)`            |																| int		|
 |			|                                                                    | `TotalCost()`					|																| double	|
 |			|                                                                    | `BagleCost(string)`				|																| double	|
+|			|                                                                    | `AddFilling()`					|																| true		|
 |			|                                                                    | `FillingCost(string)`			|																| double	|
+|			|                                                                    |									|																|			|
 |			|                                                                    |									|																|			|

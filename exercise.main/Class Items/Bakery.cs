@@ -15,25 +15,26 @@ namespace exercise.main.Class_Items
         {
             _products = new List<(string, double, Product.ProdType, string)>
             {
-                ("BGLO", 0.49, Product.ProdType.Bagle, "Onion"),
-                ("BGLP", 0.39, Product.ProdType.Bagle, "Plain"),
-                ("BGLE", 0.49, Product.ProdType.Bagle, "Everything"),
-                ("BGLS", 0.49, Product.ProdType.Bagle, "Sesame"),
-                ("COFB", 0.99, Product.ProdType.Coffee, "Black"),
-                ("COFW", 1.19, Product.ProdType.Coffee, "White"),
-                ("COFC", 1.29, Product.ProdType.Coffee, "Cappuccino"),
-                ("COFL", 1.29, Product.ProdType.Coffee, "Latte"),
-                ("FILB", 0.12, Product.ProdType.Filling, "Bacon"),
-                ("FILE", 0.12, Product.ProdType.Filling, "Egg"),
-                ("FILC", 0.12, Product.ProdType.Filling, "Cheese"),
-                ("FILX", 0.12, Product.ProdType.Filling, "Cream Cheese"),
-                ("FILS", 0.12, Product.ProdType.Filling, "Smoked Salmon"),
-                ("FILH", 0.12, Product.ProdType.Filling, "Ham")
+                ("BGLO", 0.49d, Product.ProdType.Bagle, "Onion"),
+                ("BGLP", 0.39d, Product.ProdType.Bagle, "Plain"),
+                ("BGLE", 0.49d, Product.ProdType.Bagle, "Everything"),
+                ("BGLS", 0.49d, Product.ProdType.Bagle, "Sesame"),
+                ("COFB", 0.99d, Product.ProdType.Coffee, "Black"),
+                ("COFW", 1.19d, Product.ProdType.Coffee, "White"),
+                ("COFC", 1.29d, Product.ProdType.Coffee, "Cappuccino"),
+                ("COFL", 1.29d, Product.ProdType.Coffee, "Latte"),
+                ("FILB", 0.12d, Product.ProdType.Filling, "Bacon"),
+                ("FILE", 0.12d, Product.ProdType.Filling, "Egg"),
+                ("FILC", 0.12d, Product.ProdType.Filling, "Cheese"),
+                ("FILX", 0.12d, Product.ProdType.Filling, "Cream Cheese"),
+                ("FILS", 0.12d, Product.ProdType.Filling, "Smoked Salmon"),
+                ("FILH", 0.12d, Product.ProdType.Filling, "Ham")
             };
+
             _customers.Add(new Basket(_basketCapacity));
         }
 
-        public bool AddToBasket(string sku, int customer)
+        public bool AddToBasket(string sku, int customer = 0)
         {
             if (_products.Exists(x => x.SKU == sku))
             {
@@ -44,7 +45,7 @@ namespace exercise.main.Class_Items
             return false;
         }
 
-        public bool RemoveFromBasket(string sku, int customer)
+        public bool RemoveFromBasket(string sku, int customer = 0)
         {
             throw new NotImplementedException();
 
