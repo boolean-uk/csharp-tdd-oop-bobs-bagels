@@ -46,5 +46,9 @@ namespace exercise.main
             return _fillings;
         }
 
+        public new double GetPrice()
+        {
+            return base.GetPrice() + _fillings.Sum(x => x.GetPrice());
+        }
     }
 }
