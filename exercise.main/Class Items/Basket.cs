@@ -8,18 +8,19 @@ namespace exercise.main.Class_Items
 {
     public class Basket
     {
-        private List<Bagle> _bagles;
-        private int _capacity = 4;
-        public Basket()
+        private List<Product> _items;
+        private int _capacity;
+        public Basket(int c)
         {
-            _bagles = new List<Bagle>();
+            _capacity = c;
+            _items = new List<Product>();
         }
 
-        public bool Add(Bagle bagle)
+        public bool Add(Product product)
         {
-            if (_bagles.Count < _capacity)
+            if (_items.Count < _capacity)
             {
-                _bagles.Add(bagle);
+                _items.Add(product);
                 return true;
             }
             Console.WriteLine("Your basket is full!");
@@ -28,11 +29,11 @@ namespace exercise.main.Class_Items
 
         public int Remove(string type)
         {
-            if (_bagles.Exists(x => x.Name == type))
+            if (_items.Exists(x => x.SKU == type))
             {
-                _bagles.RemoveAt(_bagles.IndexOf(_bagles.Find(x => x.Name == type)));
+                _items.RemoveAt(_items.IndexOf(_items.Find(x => x.SKU == type)));
             }
-            return _bagles.Count;
+            return _items.Count;
         }
 
         public int ChangeCapacity(int amount)

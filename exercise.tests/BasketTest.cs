@@ -1,5 +1,4 @@
-﻿using exercise.main;
-using exercise.main.Class_Items;
+﻿using exercise.main.Class_Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +10,26 @@ namespace exercise.tests
     internal class BasketTest
     {
         private Basket _basket;
+        private Product _bagle;
         public BasketTest()
         {
-            _basket = new Basket();
+           
         }
 
+        [SetUp] 
+        public void SetUp()
+        {
+            _basket = new Basket(4);
+            _bagle = new Product("test", 0.99d, Product.ProdType.Bagle, "bagle");
+        }
 
         [Test]
         public void Test1()
         {
             //  Arrange - set up test values
-            Bagle bagle = new Bagle("bagle");
-            bool result = _basket.Add(bagle);
+
+            //Bagle bagle = new Bagle("bagle");
+            bool result = _basket.Add(_bagle);
 
             //  Act - use the fucntion we want to test
 
@@ -34,12 +41,11 @@ namespace exercise.tests
         public void Test2()
         {
             //  Arrange - set up test values
-            Bagle bagle = new Bagle("bagle");
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            bool result = _basket.Add(bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            bool result = _basket.Add(_bagle);
 
             //  Act - use the fucntion we want to test
 
@@ -51,13 +57,12 @@ namespace exercise.tests
         public void Test3()
         {
             //  Arrange - set up test values
-            Bagle bagle = new Bagle("bagle");
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
 
-            int result = _basket.Remove("bagle");
+            int result = _basket.Remove("test");
 
             //  Act - use the fucntion we want to test
 
@@ -84,10 +89,10 @@ namespace exercise.tests
         {
             //  Arrange - set up test values
             Bagle bagle = new Bagle("bagle");
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
-            _basket.Add(bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
+            _basket.Add(_bagle);
 
             int result = _basket.Remove("doughnut");
 
