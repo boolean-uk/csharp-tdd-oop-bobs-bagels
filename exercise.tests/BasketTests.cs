@@ -147,7 +147,7 @@ public class BasketTests
         testBasket.AddFilling(it1.ID, "FILE");
 
         List<Item> fillings = it1.ListFillings();
-        Assert.That(fillings[0].data.Name, Is.EqualTo("FILE"));
+        Assert.That(fillings[0].data.SKU, Is.EqualTo("FILE"));
 
     }
 
