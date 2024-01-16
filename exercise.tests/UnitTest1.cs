@@ -14,16 +14,16 @@ public class Tests
     [Test]
     public void AddItemTest()
     {
-        Item result = _basket.AddItem("BGLO");
-        Assert.IsNotNull(result);
+        bool result = _basket.AddItem("BGLO");
+        Assert.IsTrue(result);
         Assert.That(_basket.Inventory.First(), Is.InstanceOf(typeof(Bagel)));
     }
 
     [Test]
     public void AddInvalidItemTest()
     {
-        Item result = _basket.AddItem("MEW");
-        Assert.IsNull(result);
+        bool result = _basket.AddItem("MEW");
+        Assert.IsFalse(result);
         Assert.IsEmpty(_basket.Inventory);
     }
     [Test]
@@ -32,8 +32,8 @@ public class Tests
         _basket.ChangeCapacity(2);
         _basket.AddItem("BGLE");
         _basket.AddItem("COFB");
-        Item result = _basket.AddItem("BGLO");
-        Assert.IsNull(result);
+        bool result = _basket.AddItem("BGLO");
+        Assert.IsFalse(result);
         Assert.That(_basket.Inventory.Count, Is.EqualTo(2));
     }
 
@@ -53,7 +53,7 @@ public class Tests
     {
         _basket.AddItem("COFB");
         Assert.That(_basket.Inventory.Count, Is.EqualTo(1));
-        bool result = _basket.RemoveItem("COFB");
+        bool result = _basket.RemoveItem(_basket.Inventory[0].ID);
         Assert.IsTrue(result);
         Assert.That(_basket.Inventory.Count, Is.EqualTo(0));
     }
@@ -62,7 +62,7 @@ public class Tests
     {
         _basket.AddItem("COFB");
         Assert.That(_basket.Inventory.Count, Is.EqualTo(1));
-        bool result = _basket.RemoveItem("COFL");
+        bool result = _basket.RemoveItem(777777);
         Assert.IsFalse(result);
         Assert.That(_basket.Inventory.Count, Is.EqualTo(1));
     }
@@ -71,7 +71,7 @@ public class Tests
     {
         _basket.AddItem("COFB");
         Assert.That(_basket.Inventory.Count, Is.EqualTo(1));
-        bool result = _basket.RemoveItem("BLABLABLA");
+        bool result = _basket.RemoveItem(-10);
         Assert.IsFalse(result);
         Assert.That(_basket.Inventory.Count, Is.EqualTo(1));
     }
@@ -117,18 +117,18 @@ public class Tests
     [Test]
     public void AddFillingTest()
     {
-        Item item = _basket.AddItem("BGLO");
-        bool result = item.AddFilling("FILE");
+        _basket.AddItem("BGLO");
+        bool result = _basket.AddFilling(_basket.Inventory[0].ID, "FILE");
         Assert.IsTrue(result);
-        Assert.That(item.TotalPrice(), Is.EqualTo(0.61f));
+        Assert.That(_basket.Inventory[0].TotalPrice(), Is.EqualTo(0.61f));
     }
     [Test]
     public void AddFillingCoffeeTest()
     {
-        Item item = _basket.AddItem("COFB");
-        bool result = item.AddFilling("FILE");
+        _basket.AddItem("COFB");
+        bool result = _basket.AddFilling(_basket.Inventory[0].ID, "FILE");
         Assert.IsFalse(result);
-        Assert.That(item.TotalPrice(), Is.EqualTo(0.99f));
+        Assert.That(_basket.Inventory[0].TotalPrice(), Is.EqualTo(0.99f));
     }
 
 }

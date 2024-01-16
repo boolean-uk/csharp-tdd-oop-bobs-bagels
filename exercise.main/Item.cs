@@ -8,13 +8,26 @@ namespace exercise.main
 {
     public abstract class Item
     {
-        public virtual bool AddFilling(string SKU)
+        protected float price;
+        protected string name;
+        protected string variant;
+        protected string SKU;
+        protected int id;
+        public int ID { get { return id; } }
+        public float Price { get { return price; } }
+        public string Name { get { return name; } }
+
+
+        public Item()
         {
-            throw new NotImplementedException();
+            id = IDGenerator.GetID();
         }
+        public virtual void AddFilling(string SKU)
+        { }
+
         public virtual float TotalPrice()
         {
-            throw new NotImplementedException();
+            return price;
         }
     }
 }
