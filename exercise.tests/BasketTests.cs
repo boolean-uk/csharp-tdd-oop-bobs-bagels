@@ -42,4 +42,25 @@ public class BasketTests
         Assert.IsFalse(res2);
 
     }
+
+    [Test]
+    public void CapacityExceededMessage()
+    {
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+        testBasket.AddItem("BGLO");
+        testBasket.AddItem("BGLP");
+        testBasket.AddItem("COFB");
+        testBasket.AddItem("BGLS");
+        testBasket.AddItem("COFW");
+
+        bool res = testBasket.AddItem("BGLE");
+
+        var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
+
+        Assert.IsFalse(res);
+
+    }
 }
