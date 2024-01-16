@@ -12,6 +12,7 @@ namespace exercise.main
         public List<IFood> GetContents() { return _contents; }
         public void Add(IFood food) { _contents.Add(food); }
         public void Remove(IFood food) { _contents.Remove(food); }
+        public int Count { get { return _contents.Count; } }
         public void Clear() {  _contents.Clear(); }
 
         public float GetTotalPrice()
