@@ -14,17 +14,24 @@ namespace exercise.main.Products
         public Filling(string SKU)
         {
             if (IsValid(SKU))
+            {
+                _price = Inventory.GetFillingPrice(SKU);
+
+            } else 
+            {
+                _price = Inventory.GetFillingPrice(SKU);
+            }
             SKUName = SKU;
         }
 
         public bool IsValid(string SKU) 
         {
-            throw new NotImplementedException();
+            return Inventory.GetFillingPrice(SKU) > 0f;
         }
 
         public float GetPrice() 
-        { 
-            throw new NotImplementedException();
+        {
+            return _price;
         }
     }
 }
