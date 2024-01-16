@@ -167,4 +167,18 @@ public class Tests
         Assert.Throws<Exception>(() => basket.AddCoffee(coffee));
 
     }
+
+    [Test]
+    public void TestRemoveCoffee()
+    {
+        Basket basket = new Basket();
+        Coffee coffee = new Coffee();
+
+        basket.AddCoffee(coffee);
+        basket.RemoveCoffee(coffee);
+
+        Assert.That(basket.NrItems, Is.EqualTo(0));
+
+        Assert.Throws<Exception>(() => basket.RemoveCoffee(coffee));
+    }
 }
