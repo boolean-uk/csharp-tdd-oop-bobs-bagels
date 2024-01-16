@@ -20,7 +20,7 @@ public class Tests
     [Test]
     public void addTest()
     {
-        Assert.AreEqual(basket.products, new List<Product>() { new Bagel(BagelType.Onion), new Bagel(BagelType.Sesame) });
+        Assert.AreEqual(basket.products, new List<Product>() { onion, sesame });
     }
 
     [Test]

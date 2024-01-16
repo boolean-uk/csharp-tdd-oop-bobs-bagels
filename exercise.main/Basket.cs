@@ -18,14 +18,16 @@ namespace exercise.main
             return true;
         }
 
-        public bool Remove(Product onion)
+        public bool Remove(Product product)
         {
-            throw new NotImplementedException();
+            if ( !products.Contains(product) ) return false;
+            products.Remove(product);
+            return true;
         }
 
         public void ChangeCapacity(int v)
         {
-            throw new NotImplementedException();
+            capacity = v;
         }
     }
 }
