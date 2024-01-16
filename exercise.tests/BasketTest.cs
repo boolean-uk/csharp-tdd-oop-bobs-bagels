@@ -29,7 +29,7 @@ namespace exercise.tests
             //  Arrange - set up test values
 
             //Bagle bagle = new Bagle("bagle");
-            bool result = _basket.Add(_bagle);
+            bool result = _basket.AddProduct(_bagle);
 
             //  Act - use the fucntion we want to test
 
@@ -41,11 +41,11 @@ namespace exercise.tests
         public void Test2()
         {
             //  Arrange - set up test values
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            bool result = _basket.Add(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            bool result = _basket.AddProduct(_bagle);
 
             //  Act - use the fucntion we want to test
 
@@ -57,10 +57,10 @@ namespace exercise.tests
         public void Test3()
         {
             //  Arrange - set up test values
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
 
             int result = _basket.Remove("test");
 
@@ -89,10 +89,10 @@ namespace exercise.tests
         {
             //  Arrange - set up test values
             Bagle bagle = new Bagle("bagle");
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
 
             int result = _basket.Remove("doughnut");
 
@@ -107,9 +107,9 @@ namespace exercise.tests
         {
             //  Arrange - set up test values
             Bagle bagle = new Bagle("bagle");
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
-            _basket.Add(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
 
 
 

@@ -10,13 +10,15 @@ namespace exercise.main.Class_Items
     {
         private List<Product> _items;
         private int _capacity;
+
+        public int Size {  get { return _items.Count; } }
         public Basket(int c)
         {
             _capacity = c;
             _items = new List<Product>();
         }
 
-        public bool Add(Product product)
+        public bool AddProduct(Product product)
         {
             if (_items.Count < _capacity)
             {

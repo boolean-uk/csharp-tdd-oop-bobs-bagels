@@ -28,6 +28,7 @@ namespace exercise.tests
         [TestCase("BGLE", true)]
         [TestCase("BGLD", false)]
         [TestCase("Test", false)]
+        [TestCase("beep", false)]
         public void Test1(string sku, bool expected)
         {
             //  Arrange - set up test values
@@ -42,22 +43,23 @@ namespace exercise.tests
         }
 
         [Test]
-        [TestCase("BGLO", "BGLO", true)]
-        [TestCase("BGLP", "BGLO", false)]
-        [TestCase("BGLE", "BGLE", true)]
-        [TestCase("BGLD", "BGLE", false)]
-        public void Test2(string sku, string sku2, bool expected)
+        [TestCase("BGLO", "BGLO", 0)]
+        [TestCase("BGLP", "test", 1)]
+        [TestCase("BGLE", "BGLE", 0)]
+        [TestCase("BGLS", "test", 1)]
+        [TestCase("BGLD", "test", 0)]
+        public void Test2(string sku, string sku2, int expected)
         {
             //  Arrange - set up test values
 
             //Bagle bagle = new Bagle("bagle");
             _bakery.AddToBasket(sku);
-            bool result = _bakery.RemoveFromBasket(sku);
+            int result = _bakery.RemoveFromBasket(sku2);
 
             //  Act - use the fucntion we want to test
 
             //  Assert - check the results
-            Assert.That(result == expected);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

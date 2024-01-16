@@ -9,7 +9,7 @@ namespace exercise.main.Class_Items
     public class Bakery
     {
         private List<(string SKU, double Price, Product.ProdType Type, string Variant)> _products;
-        private int _basketCapacity;
+        private int _basketCapacity = 12;
         private List<Basket> _customers = new List<Basket>();
         public Bakery() 
         {
@@ -39,16 +39,14 @@ namespace exercise.main.Class_Items
             if (_products.Exists(x => x.SKU == sku))
             {
                 int index = _products.IndexOf(_products.Find(x => x.SKU == sku));
-                _customers[customer].Add(new Product(_products[index].SKU, _products[index].Price, _products[index].Type, _products[index].Variant));
-                return true;
+                return _customers[customer].AddProduct(new Product(_products[index].SKU, _products[index].Price, _products[index].Type, _products[index].Variant));
             }
             return false;
         }
 
-        public bool RemoveFromBasket(string sku, int customer = 0)
+        public int RemoveFromBasket(string sku, int customer = 0)
         {
-            throw new NotImplementedException();
-
+            return _customers[customer].Remove(sku);
         }
 
         public int ChangeCapacity(int amount)
