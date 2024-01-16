@@ -31,6 +31,12 @@ namespace exercise.main.Objects
         }
         public bool Remove(string SKU)
         {
+            Product foundItem = basket.FirstOrDefault(item => item.SKU == SKU);
+            if (foundItem != null)
+            {
+                basket.Remove(foundItem);
+                return true;
+            }
             return false;
         }
         

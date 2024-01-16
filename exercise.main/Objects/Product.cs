@@ -22,6 +22,8 @@ namespace exercise.main.Objects
         public pType Type { get { return _type; } }
         public string Variant { get { return _variant; } }
 
+        public List<Product> Filling = new();
+
         public Product(string sku, double price, pType name, string variant)
         {
             _type = name;

@@ -31,6 +31,7 @@ namespace exercise.tests
             Assert.IsTrue(resultTrue);
             Assert.IsFalse(resultFalse);
             Assert.IsFalse(resultOverLimit);
+            Assert.IsTrue(_basket.basket.Any(item => item.SKU == "BGLO"));
         }
         [Test]
         public void TestRemove()
@@ -41,6 +42,7 @@ namespace exercise.tests
 
             Assert.IsTrue(resultTrue);
             Assert.IsFalse(resultFalse);
+            Assert.IsFalse(_basket.basket.Any(item => item.SKU == "BGLO"));
         }
     }
 }
