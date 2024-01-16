@@ -76,7 +76,10 @@ namespace exercise.main
 
         public void ChangeBasketCapacity(int newCapacity)
         {
-            throw new NotImplementedException();
+            if (BasketItems.Count <= Capacity)
+            {
+                Capacity = newCapacity;
+            }
 
         }
 
