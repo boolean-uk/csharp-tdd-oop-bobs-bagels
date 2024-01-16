@@ -71,7 +71,7 @@ namespace exercise.main
         {
             for (int i = 0; i < basket.Count(); i++)
             {
-                if (basket[i].GetBagelType() == bagelType/* && basket[i].GetFillingName() == fillingName*/)
+                if (basket[i].GetBagelType() == bagelType && basket[i].GetFillingName() == fillingName)
                     return true;
             }
 

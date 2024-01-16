@@ -71,6 +71,41 @@ namespace exercise.tests
             Assert.That(expected, Is.EqualTo(removed));
         }
 
+        [TestCase("Cream", 40)]
+        [TestCase("Jam", 30)]
+        [TestCase("Dressing", 5)]
+        public void CostOfBagelType(string bagelType, int cost)
+        {
+            Bagel bagel = new Bagel(bagelType, cost);
+            int result = bagel.CostOfBagel(bagelType);
+            Assert.That(cost, Is.EqualTo(result));
+        }
 
+        [Test]
+        public void GetAllFillings()
+        {
+            Filling filling = new Filling();
+            string allFillings = filling.AllFillings();
+
+            Assert.That("Cola, Mayonaise, Jelly", Is.EqualTo(allFillings));
+        }
+
+        [Test]
+        public void GetAllFillingCosts()
+        {
+            Filling filling = new Filling();
+            string allFillings = filling.FillingCosts();
+
+            Assert.That("Cola:20, Mayonaise:30, Jelly:15", Is.EqualTo(allFillings));
+        }
+
+        [Test]
+        public void GetAllItems()
+        {
+            Inventory inventory = new Inventory();
+            string items = inventory.PrintInventory();
+
+            Assert.That("Bagels, Fillings", Is.EqualTo(items));
+        }
     }
 }
