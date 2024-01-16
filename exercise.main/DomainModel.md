@@ -25,7 +25,7 @@
 | 1 | Basket | `Add(Bagel bagel)`, `Add(Coffee coffee)` | Basket is not full | Adds `product` to `Basket.Bagels`|
 | 3 | Basket |                    | Basket is full     | Displays `"Basket is full"`|
 | 2 | Basket | `Remove(string product)` | `product` exists in `Basket.Bagels`         | Removes `product` from `Basket.Product`|
-| 5 |  Basket |                      | `product` does not exist in `Basket.Product` | Displays `$"{product} was not found in basket"`|
+| 5 | Basket |                      | `product` does not exist in `Basket.Product` | Displays `$"{product} was not found in basket"`|
 | 4 | Basket | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
 | 6 | Basket | `double Cost()` |  | Returns total cost of products in basket |
 | 7 | Bagel | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
@@ -51,3 +51,13 @@
 | FILS | 0.12  | Filling| Smoked Salmon |
 | FILH | 0.12  | Filling| Ham           |
 
+# Extention 1
+1. Products are identified using Stock Keeping Units, or SKUs.
+2. Some items are multi-priced.
+
+| SKU  | Name    | Variant     | Price | Special Offers    |
+|------|---------|-------------|-------|-------------------|
+| BGLO | Bagel   | Onion       | 0.49  | 6 for 2.49        |
+| BGLP | Bagel   | Plain       | 0.39  | 12 for 3.99       |
+| BGLE | Bagel   | Everything  | 0.49  | 6 for 2.49        |
+| COFB | Coffee  | Black       | 0.99  | Coffee & Bagel for 1.25 |

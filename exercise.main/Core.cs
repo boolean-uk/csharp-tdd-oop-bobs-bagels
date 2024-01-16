@@ -12,38 +12,42 @@ namespace exercise.main
     {
         public class BagelVariant
         {
+            public string SKU { get; private set; }
             public string Name { get; private set; }
             public double Price { get; private set; }
 
-            public BagelVariant(string name, double price)
+            public BagelVariant(string sku, string name, double price)
             {
+                SKU = sku;
                 Name = name;
                 Price = price;
             }
 
-            public static BagelVariant Onion => new BagelVariant("Onion", 0.49);
-            public static BagelVariant Plain => new BagelVariant("Plain", 0.39);
-            public static BagelVariant Everything => new BagelVariant("Everything", 0.49);
-            public static BagelVariant Sesame => new BagelVariant("Sesame", 0.49);
+            public static BagelVariant Onion => new BagelVariant("BGLO", "Onion", 0.49);
+            public static BagelVariant Plain => new BagelVariant("BGLP", "Plain", 0.39);
+            public static BagelVariant Everything => new BagelVariant("BGLE", "Everything", 0.49);
+            public static BagelVariant Sesame => new BagelVariant("BGLS", "Sesame", 0.49);
         }
 
         public class BagelFilling
         {
+            public string SKU { get; private set; }
             public string Name { get; private set; }
             public double Price { get; private set; }
 
-            public BagelFilling(string name, double price)
+            public BagelFilling(string sku, string name, double price)
             {
+                SKU = sku;
                 Name = name;
                 Price = price;
             }
 
-            public static BagelFilling Bacon => new BagelFilling("Bacon", 0.12);
-            public static BagelFilling Egg => new BagelFilling("Egg", 0.12);
-            public static BagelFilling Cheese => new BagelFilling("Cheese", 0.12);
-            public static BagelFilling CreamCheese => new BagelFilling("Cream Cheese", 0.12);
-            public static BagelFilling SmokedSalmon => new BagelFilling("Smoked Salmon", 0.12);
-            public static BagelFilling Ham => new BagelFilling("Ham", 0.12);
+            public static BagelFilling Bacon => new BagelFilling("FILB", "Bacon", 0.12);
+            public static BagelFilling Egg => new BagelFilling("FILE", "Egg", 0.12);
+            public static BagelFilling Cheese => new BagelFilling("FILC", "Cheese", 0.12);
+            public static BagelFilling CreamCheese => new BagelFilling("FILX", "Cream Cheese", 0.12);
+            public static BagelFilling SmokedSalmon => new BagelFilling("FILS", "Smoked Salmon", 0.12);
+            public static BagelFilling Ham => new BagelFilling("FILH", "Ham", 0.12);
 
             public static IEnumerable<BagelFilling> GetAll()
             {
@@ -56,19 +60,21 @@ namespace exercise.main
 
         public class CoffeeVariant
         {
+            public string SKU { get; private set; }
             public string Name { get; private set; }
             public double Price { get; private set; }
 
-            public CoffeeVariant(string name, double price)
+            public CoffeeVariant(string sku, string name, double price)
             {
+                SKU = sku;
                 Name = name;
                 Price = price;
             }
 
-            public static CoffeeVariant Black => new CoffeeVariant("Black", 0.99);
-            public static CoffeeVariant White => new CoffeeVariant("White", 1.19);
-            public static CoffeeVariant Cappuccino => new CoffeeVariant("Cappuccino", 1.29);
-            public static CoffeeVariant Latte => new CoffeeVariant("Latte", 1.29);
+            public static CoffeeVariant Black => new CoffeeVariant("COFB", "Black", 0.99);
+            public static CoffeeVariant White => new CoffeeVariant("COFW", "White", 1.19);
+            public static CoffeeVariant Cappuccino => new CoffeeVariant("COFC", "Cappuccino", 1.29);
+            public static CoffeeVariant Latte => new CoffeeVariant("COFL", "Latte", 1.29);
         }
 
         public class Bagel
@@ -122,6 +128,7 @@ namespace exercise.main
 
             public void Add(Bagel bagel)
             {
+
                 Bagels.Add(bagel);
             }
             public void Add(Coffee coffee)
