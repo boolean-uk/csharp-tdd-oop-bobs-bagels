@@ -144,3 +144,35 @@ I want customers to only be able to order things that we stock in our inventory.
 		<td>bool</td>
 	</tbody>
 </table>
+
+```
+11.
+As a customer,
+So I can view my items,
+I want to see all the items in my basket that I have bought, as well as their price and total
+
+12.
+As a customer,
+So I know what date it is,
+I want to have a date printed on the receipt so I know when I last shopped
+```
+<table>
+	<thead>
+		<td>Class</td>
+		<td>Method</td>
+		<td>Scenario</td>
+		<td>Output</td>
+	</thead>
+	<tbody>
+		<td><code>Receipt</code></td>
+		<td><code>Print</code></td>
+		<td>Print the basket data in a format</td>
+		<td>void</td>
+	</tbody>
+	<tbody>
+		<td></td>
+		<td><code>Basket</code></td>
+		<td>Get and set the basket which the receipt will gather data from</td>
+		<td>Basket || void</td>
+	</tbody>
+</table>
