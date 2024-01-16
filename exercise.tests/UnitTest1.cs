@@ -1,3 +1,5 @@
+using exercise.main;
+
 namespace exercise.tests;
 
 public class Tests
@@ -7,9 +9,33 @@ public class Tests
     {
     }
 
-    [Test]
-    public void Test1()
+    public void testAdd()
     {
-        Assert.Pass();
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Product product1 = new Product("Onion");
+        Product product2 = new Product("Black");
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+
+        //Act
+        basket.Add(product1);
+        basket.Add(product2);
+        string testProduct1 = "Onion";
+        string testProduct2 = "Black";
+        
+        List<string> testResult = new List<string>() {
+            testProduct1, testProduct2
+        };
+
+
+        //Assert
+        Assert.AreEqual(testResult, basket.getBasket());
+
     }
 }
