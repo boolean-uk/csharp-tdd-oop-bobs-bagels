@@ -3,7 +3,7 @@ Class
 
 Properties
 : `private List<Item> _basket`
-: `private float totalCost`
+: `private float totalCost = 0F`
 : `private int _capacity = 5`
 : `private Inventory inventory`
 
@@ -22,8 +22,11 @@ Methods
 : `public float TotalCost()`
     * returns the total costs of ordered items
 
-: `public float GetItem(string SKU)`
-    * returns an Item from _basket list
+: `public Item GetItem(string SKU)`
+    * returns the Item from _basket list
+  
+: `public float GetItemPrice(string SKU)`
+    * returns the Item price from _basket list
 
 : `public string ListPrices(string type)`
     * returns a List of Items in the inventory with their prices. Type can be All, Bagel, Coffee or Filling
@@ -75,5 +78,5 @@ Methods
 : `public Item GetItem(string SKU)`
     * returns item by id
 
-: `public Item GetItemCost(string SKU)`
+: `public float GetItemCost(string SKU)`
     * returns cost of a given item

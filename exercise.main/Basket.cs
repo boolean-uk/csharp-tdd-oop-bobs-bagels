@@ -67,5 +67,10 @@ namespace exercise.main
         {
             return totalCost;
         }
+
+        public float GetItemPrice(string SKU)
+        {
+            return 0F;
+        }
     }
 }

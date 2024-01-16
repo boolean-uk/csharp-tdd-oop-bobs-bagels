@@ -118,4 +118,15 @@ public class BasketTests
         Assert.That(total, Is.EqualTo(0.98F));
 
     }
+
+    [Test]
+    public void ItemPriceRetreivable()
+    {
+
+        float itemPrice1 = testBasket.GetItemPrice("BGLO");
+        float itemPrice2 = testBasket.GetItemPrice("GGLP");
+
+        Assert.That(itemPrice1, Is.EqualTo(0.49F));
+        Assert.That(itemPrice1, Is.EqualTo(0.39F));
+    }
 }
