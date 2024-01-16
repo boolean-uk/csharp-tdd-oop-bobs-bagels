@@ -8,5 +8,8 @@ namespace exercise.main.Core
 {
     public abstract class PObject
     {
+        protected PObject() { 
+        
+        }
     }
 }

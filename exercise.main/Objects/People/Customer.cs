@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Objects.People
 {
-    internal class Customer
+    public class Customer : Person
     {
+        public Customer() { 
+        
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace exercise.main.Objects.Containers
         List<Ware> _contentsInBasket = new List<Ware>();
         private static int _basketSizeLimit = 50;
 
-        public static int BasketSizeMax { get => _basketSizeLimit; }
+        public int BasketSizeMax { get => _basketSizeLimit; }
         public int BasketSize { get => _contentsInBasket.Capacity; }
 
         public List<Ware> ContentsInBasket { get => _contentsInBasket; }
@@ -24,7 +24,12 @@ namespace exercise.main.Objects.Containers
 
         public double GetPriceTotal()
         {
-            throw new NotImplementedException();
+            double sum = 0;
+            foreach (var item in _contentsInBasket)
+            {
+                sum += item.GetPrice();
+            }
+            return sum;
         }
 
         public bool RemoveProduct(Product bagel)
@@ -34,7 +39,11 @@ namespace exercise.main.Objects.Containers
 
         protected internal bool AlterSize(int newSize)
         {
-            throw new NotImplementedException();
+            if (newSize < 0 || newSize > _basketSizeLimit)
+                return false;
+
+            _basketSizeLimit = newSize;
+            return true;
         }
     }
 }

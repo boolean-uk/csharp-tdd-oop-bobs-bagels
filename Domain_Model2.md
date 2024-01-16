@@ -65,7 +65,7 @@ So we don't get any weird requests,
 
 | Classes             | Methods                                                      | Scenario               | Outputs |
 |---------------------|--------------------------------------------------------------|------------------------|---------|
-| `abstract Object`   |                                                      |                         | `` |
+| `abstract Object`   |                                                      |                         |  |
 | `Basket : Object`   | `protected internal bool AlterSize(int newSize)`     | Update the size of the basket to newSize if newSize is valid | `true` |
 |                     |                                                      | Cannot update the size of the basket to newSize because newSize is invalid (negative number or past max limit) | `false` |
 |                     | `public bool AddProduct(Product product)`            | Add product to basket    | `true` |
@@ -80,7 +80,7 @@ So we don't get any weird requests,
 |                     |                                                      | Cannot add product to basket due to product being invalid | `false` |
 |                     | `public bool RemoveProduct(Product product)`         | Remove product from basket | `true` |
 |                     |                                                      | Cannot remove product from basket due to product not existing in basket, or is invalid | `false` |
-| `Customer : Person` |                                            |                        | `` |
+| `Customer : Person` |                                            |                        |  |
 | `Manager : Customer`| `public bool AlterSize(Basket basket, int newSize)`  | Update the size of the basket | `true` |
 |                     |                                                      | Cannot update basket size due to newSize variable is invalid, or basket doesn't exist | `false` |
 | `abstract Product : Object` | `public virtual double GetPrice()`                   |                         | `value` |
@@ -89,5 +89,5 @@ So we don't get any weird requests,
 | `Bagel : Ware`      | `public double GetPrice() override`                  | Returns the cost of the bagel + filling |   |
 | `Coffee : Ware`     |                                                      |                        |   |
 | `Filling : Product` |                                                      |                        |   |
-| `Store`             | `public double GetPrice(Product product)`                   |    | `` |
-|                     |                                                      |    | `` |
+| `Store`             | `public double GetPrice(Product product)`                   |    |  |
+|                     |                                                      |    |  |
