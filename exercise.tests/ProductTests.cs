@@ -10,7 +10,8 @@ public class ProductTests
     }
 
     [Test] 
-    [TestCase(new string[] { "COFL" }, 1.19f)] // Coffee - Latte
+    [TestCase(new string[] { "COFL" }, 1.29f)] // Coffee - Latte
+    [TestCase(new string[] { "COFW" }, 1.19f)] // Coffee - Latte
     [TestCase(new string[] { "BGLO", "FILE" }, 0.61f)] // Bagel with onion, egg filling
     [TestCase(new string[] { "BGLO", "FILE", "FILS" }, 0.73f)] // Bagel with onion, egg and salmon filling
     [TestCase(new string[] { "ABCD" }, 0)] // Should be false
@@ -55,22 +56,22 @@ public class ProductTests
     }
 
     [Test]
-    [TestCase(new string[] { "FILC" }, 0.51f, true)]
-    [TestCase(new string[] { "FILS" }, 0.51f, true)]
-    [TestCase(new string[] { "FILH" }, 0.51f, true)]
-    [TestCase(new string[] { "FILX" }, 0f, false)]
+    [TestCase(new string[] { "BGLP", "FILC" }, 0.51f, true)]
+    [TestCase(new string[] { "BGLP", "FILS" }, 0.51f, true)]
+    [TestCase(new string[] { "BGLP", "FILH" }, 0.51f, true)]
+    [TestCase(new string[] { "BGLP", "FILZ" }, 0.39f, false)]
     public void AddFillingTest(string[] SKU, float expectedPrice, bool expectedResult) 
     {
         // Arrange
         ProductFactory factory = new ProductFactory();
-        Bagel bagel = (Bagel) factory.GenerateProduct(new string[] { "BGLP" });
-
+        Bagel bagel1 = (Bagel) factory.GenerateProduct(SKU);
+        Bagel bagel2 = (Bagel)factory.GenerateProduct(SKU);
 
         // Act
-        bool res = bagel.AddFilling(new Filling(SKU[0]));
+        bool res = bagel1.AddFilling(new Filling(SKU[1]));
 
         // Assert
-        Assert.That(bagel.GetPrice(), Is.EqualTo(expectedPrice));
+        Assert.That(bagel2.GetPrice(), Is.EqualTo(expectedPrice));
         Assert.That(res, Is.EqualTo(expectedResult));
 
     }
