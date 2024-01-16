@@ -20,8 +20,9 @@ namespace exercise.main.Objects
         {
             Product foundItem = inventory.items.FirstOrDefault(item => item.SKU == SKU);
 
+            int bagelAmount = basket.Count(t => t.Type == Product.pType.Bagel);
             //check if basket is full, if string is empty and if item exists in inventory
-            if (foundItem != null && (basket.Count <= limit))
+            if (foundItem != null && (bagelAmount <= limit))
             {
                 basket.Add(foundItem);
                 return true;
@@ -50,7 +51,14 @@ namespace exercise.main.Objects
 
         public double sum()
         {
-            return double.NaN;
+            double sum = 0;
+            foreach (Product product in basket.Where(item=>item.Type == Product.pType.Bagel))
+            {
+                if (product.Filling.Count > 0) sum += product.Price;
+            }
+            sum += basket.Sum(item => item.Price);
+
+            return sum;
         }
 
     }
