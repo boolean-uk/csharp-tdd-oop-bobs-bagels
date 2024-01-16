@@ -22,7 +22,8 @@ namespace exercise.main
 
         public bool Remove(Product product)
         {
-            throw new NotImplementedException();
+            _basket.Remove(product);
+            return true;
 
         }
 
