@@ -186,4 +186,31 @@ public class Tests
         //Assert
         Assert.IsTrue(basket.getTotalPrice() == 1.6);    // Onion = 0.49, Black = 0.99, Ham = 0.12
     }
+
+    [Test]
+    public void testGetPrice()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product4 = new Product(filling1);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+       double price = product1.getPrice();
+
+
+        //Assert
+        Assert.IsTrue(price == 0.49);    // Onion = 0.49
+    }
 }
