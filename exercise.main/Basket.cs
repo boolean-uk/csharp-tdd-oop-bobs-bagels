@@ -109,13 +109,14 @@
             Console.WriteLine("-----------------------------");
             foreach (var item in x)
             {
-                string spacing = new string(' ', 12 - item.Key.Length);
-                Console.WriteLine($"{item.Key} {Items.Where(x => x.Name == item.Key).Select(x => x.Type).First()}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
+                string type = Items.Where(x => x.Name == item.Key).Select(x => x.Type).First();
+                string spacing = new(' ', 18 - (item.Key.Length + type.Length));
+                Console.WriteLine($"{item.Key} {type}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
             }
             Console.WriteLine("-----------------------------");
-            Console.WriteLine($"Sum                    £{Math.Round(GetBasketCost(), 2)}");
-            Console.WriteLine($"Discount              -£{Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
-            Console.WriteLine($"Total                  £{Math.Round(GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"Sum                     £{Math.Round(GetBasketCost(), 2)}");
+            Console.WriteLine($"Discount               -£{Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"Total                   £{Math.Round(GetDiscountBasketCost(), 2)}");
             Console.WriteLine($"          Thank you\n       for your order!     ");
         }
     }
