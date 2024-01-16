@@ -34,14 +34,19 @@ namespace exercise.main.Objects
 
         public bool AddFilling(Product filling)
         {
-            if (filling == null || filling._type != pType.Filling || _type == pType.Bagel) return false;
+            if (filling == null || filling._type != pType.Filling || _type != pType.Bagel) return false;
             Filling.Add(filling);
             return true;
         }
 
         public bool RemoveFilling(Product filling)
         {
-            throw new NotImplementedException();
+            if (filling == null || !Filling.Any(t => t.SKU == filling.SKU))
+            {
+                return false;
+            }
+            Filling.Remove(filling);
+            return true;
         }
 
     }
