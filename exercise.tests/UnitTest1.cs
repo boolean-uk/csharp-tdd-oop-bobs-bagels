@@ -103,13 +103,29 @@ public class Tests
 
         //Act
               
-
-
         //Assert
         Assert.IsTrue(basket.Add(product1));
         Assert.IsTrue(basket.Add(product2));
         Assert.IsTrue(basket.Add(product3));
         Assert.IsTrue(!basket.Add(product4));
+
+    }
+
+    [Test]
+    public void testSetNewCapacity()
+    {
+        //Arrange
+        
+        Basket basket = new Basket();
+        int newCapacity = 10;
+
+
+        //Act
+        basket.setNewCapacity(newCapacity);
+
+        //Assert
+        Assert.IsTrue(newCapacity == basket.capacity);
+        
 
     }
 }
