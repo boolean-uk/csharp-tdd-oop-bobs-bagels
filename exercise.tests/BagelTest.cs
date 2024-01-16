@@ -32,5 +32,20 @@ public class BagelTest
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(1));
         Assert.That(bagel.GetFillings()[0], Is.EqualTo(filling));
     }
+
+    [Test]
+    public void TestGetsFullPriceWithFillings()
+    {
+        //setup
+        Bagel bagel = new(BagelType.Onion);
+        Filling filling = new(FillingType.CreamCheese);
+        bagel.AddFilling(filling);
+
+        //execute
+        double price = bagel.GetPrice();
+
+        //verify
+        Assert.That(price, Is.EqualTo(0.49 + 0.12));
+    }
 }
 
