@@ -43,6 +43,11 @@ namespace exercise.main
         }
         public bool removeItem(string SKU)
         {
+            if (content.Contains(priceList[SKU]))
+            {
+                content.Remove(priceList[SKU]);
+                return true;
+            }
             return false;
         }
         private int changeCapacity()

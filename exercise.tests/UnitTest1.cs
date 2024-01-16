@@ -32,7 +32,7 @@ public class Tests
         Assert.That(resultJson, Is.EqualTo(expectedJson));
     }
     [Test]
-    public void removeBagelTest()
+    public void removeItemTest()
     {
         Item testItem = basket.addItem("BGLE");
         basket.removeItem("BGLE");
