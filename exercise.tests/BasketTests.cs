@@ -19,14 +19,14 @@ public class BasketTests
     public void AddItem()
     {
         string realSKU = "BGLO";
-        bool res = testBasket.AddItem(realSKU);
+        Item res = testBasket.AddItem(realSKU);
 
-        Assert.IsTrue(res);
+        Assert.That(res.SKU, Is.EqualTo("BGLO"));
 
         string fakeSKU = "AAAAA";
-        bool res2 = testBasket.AddItem(fakeSKU);
+        Item res2 = testBasket.AddItem(fakeSKU);
 
-        Assert.IsFalse(res2);
+        Assert.IsNull(res2);
 
     }
 
@@ -56,12 +56,12 @@ public class BasketTests
         testBasket.AddItem("BGLS");
         testBasket.AddItem("COFW");
 
-        bool res = testBasket.AddItem("BGLE");
+        Item res = testBasket.AddItem("BGLE");
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.IsFalse(res);
+        Assert.IsNull(res);
 
     }
 
@@ -77,12 +77,12 @@ public class BasketTests
         testBasket.AddItem("BGLP");
         testBasket.AddItem("COFB");
 
-        bool res = testBasket.AddItem("BGLE");
+        Item res = testBasket.AddItem("BGLE");
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.IsFalse(res);
+        Assert.IsNull(res);
 
     }
 
@@ -138,19 +138,18 @@ public class BasketTests
     public void AddFillings()
     {
 
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-
-        Item it1 = testBasket.GetItem(1);
-        Item it2 = testBasket.GetItem(2);
+        Item it1 = testBasket.AddItem("BGLE");
+        Item it2 = testBasket.AddItem("BGLE");
 
         it1.AddFilling("FILE");
+        it2.AddFilling("FILS");
 
-        List<Item> fillings = it1.ListFillings();
+        List<Item> fillings1 = it1.ListFillings();
+        Assert.That(fillings1[0].Name, Is.EqualTo("FILE"));
 
-        Assert.That(fillings[0].Name, Is.EqualTo("FILE"));
+        List<Item> fillings2= it2.ListFillings();
+        Assert.That(fillings2[0].Name, Is.EqualTo("FILS"));
 
     }
-
 
 }
