@@ -8,13 +8,18 @@ namespace exercise.main.Products
 {
     public class Filling
     {
-        string _SKUName { get; }
+        public string SKUName { get; }
         float _price;
 
-        public Filling(string SKU, float price) 
+        public Filling(string SKU)
         {
-            _SKUName = SKU;
-            _price = price;
+            if (IsValid(SKU))
+            SKUName = SKU;
+        }
+
+        public bool IsValid(string SKU) 
+        {
+            throw new NotImplementedException();
         }
 
         public float GetPrice() 

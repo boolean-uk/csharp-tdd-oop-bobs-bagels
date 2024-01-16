@@ -11,7 +11,7 @@ namespace exercise.main.Products
         List<Filling> filling = new List<Filling>();
         string _SKUName;
         float _basePrice;
-        public Bagel(string SKU, string price)
+        public Bagel(string SKU, float price)
         {
             throw new NotImplementedException(); 
         }

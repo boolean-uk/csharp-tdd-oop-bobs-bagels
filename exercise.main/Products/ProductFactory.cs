@@ -8,13 +8,13 @@ namespace exercise.main.Products
 {
     public class ProductFactory
     {
-        public Product GenerateProduct(string SKU) 
+        public Product GenerateProduct(string[] SKU) 
         {
-            ValidateProductSKU(SKU);
+            ValidateProductSKU(SKU[0]);
             throw new NotImplementedException();
         }
 
-        public bool ValidateProductSKU(string SKU) 
+        private bool ValidateProductSKU(string SKU) 
         {
             throw new NotImplementedException();
         }
