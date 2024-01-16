@@ -27,7 +27,7 @@ namespace exercise.main
 
             if (AllProducts.Exists(x => x.SKU == SKU) && _basket.Count < _capacity)
             {
-                Item addedItem = AllProducts.Single(x => x.SKU == SKU);
+                Item addedItem = AllProducts.FirstOrDefault(x => x.SKU == SKU);
                 _basket.Add(addedItem);
                 return true;
             }
@@ -45,9 +45,13 @@ namespace exercise.main
         {
             if (_basket.Exists(x => x.SKU == SKU))
             {
-                Item removedItem = _basket.Single(x => x.SKU == SKU);
+                Item removedItem = _basket.FirstOrDefault(x => x.SKU == SKU);
                 _basket.Remove(removedItem);
                 return true;
+            }
+            else
+            {
+                Console.WriteLine("Item not in basket!");
             }
             return false;
         }
