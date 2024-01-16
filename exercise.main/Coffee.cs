@@ -14,9 +14,9 @@ namespace exercise.main
         Dictionary<CoffeType, (double price, string SKU)> coffeToInfo = new Dictionary<CoffeType, (double price, string SKU)>() 
         {
             { CoffeType.Black, (0.99d, "COFB") },
-            { CoffeType.Black, (1.19d, "COFW") },
-            { CoffeType.Black, (1.29d, "COFC") },
-            { CoffeType.Black, (1.29d, "COFL") }
+            { CoffeType.White, (1.19d, "COFW") },
+            { CoffeType.Capuccino, (1.29d, "COFC") },
+            { CoffeType.Latte, (1.29d, "COFL") }
         };
 
         public Coffee(CoffeType coffee) 

@@ -17,7 +17,7 @@ namespace exercise.main
             { BagelType.Sesame, (0.49d, "BGLS") }
         };
 
-        public List<Filling> filling { get;  } = new List<Filling>();
+        public List<Filling> _filling { get;  } = new List<Filling>();
         BagelType _bagelType;
 
         public Bagel(BagelType bagel)
@@ -29,12 +29,12 @@ namespace exercise.main
 
         public override double GetPrice()
         {
-            return price + filling.Sum(x => x.price);
+            return price + _filling.Sum(x => x.price);
         }
 
         public void Add(Filling filling)
         {
-            throw new NotImplementedException();
+            _filling.Add(filling);
         }
     }
 }

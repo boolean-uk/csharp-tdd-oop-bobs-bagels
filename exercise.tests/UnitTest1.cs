@@ -81,7 +81,7 @@ public class Tests
     {
         Filling filling = new Filling(FillingType.Bacon);
         onion.Add(filling);
-        Assert.AreEqual(onion.filling, new List<Filling>{filling});
+        Assert.AreEqual(onion._filling, new List<Filling>{filling});
     }
 
     [Test]
@@ -91,13 +91,14 @@ public class Tests
         onion.Add(filling);
         Filling cheese = new Filling(FillingType.Cheese);
         onion.Add(cheese);
-        Assert.AreEqual(basket.TotalCost(), 0.98 + 0.24);
+        Assert.AreEqual(basket.TotalCost(), 0.98d + 0.24d);
     }
 
     [Test]
     public void totalCostCoffee()
     {
         Coffee coffee = new Coffee(CoffeType.Capuccino);
-        Assert.AreEqual(basket.TotalCost(), 0.98 + 1.29);
+        basket.Add(coffee);
+        Assert.AreEqual(basket.TotalCost(), 0.98d + 1.29d);
     }
 }
