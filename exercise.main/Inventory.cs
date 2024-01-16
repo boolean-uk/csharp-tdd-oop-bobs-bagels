@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace exercise.main
+{
+    public static class Inventory
+    {
+        public static List<(string SKU, double Price, string Name, string Variant)> items = new List<(string, double, string, string)>
+        {
+            ("BGLO", 0.49, "Bagel", "Onion"),
+            ("BGLP", 0.39, "Bagel", "Plain"),
+            ("BGLE", 0.49, "Bagel", "Everything"),
+            ("BGLS", 0.49, "Bagel", "Sesame"),
+            ("COFB", 0.99, "Coffee", "Black"),
+            ("COFW", 1.19, "Coffee", "White"),
+            ("COFC", 1.29, "Coffee", "Cappuccino"),
+            ("COFL", 1.29, "Coffee", "Latte"),
+            ("FILB", 0.12, "Filling", "Bacon"),
+            ("FILE", 0.12, "Filling", "Egg"),
+            ("FILC", 0.12, "Filling", "Cheese"),
+            ("FILX", 0.12, "Filling", "Cream Cheese"),
+            ("FILS", 0.12, "Filling", "Smoked Salmon"),
+            ("FILH", 0.12, "Filling", "Ham")
+        };
+
+        public static double CheckBagelPrice(Bagel bagel)
+        {
+            double sum = 0;
+
+            sum += items.Where(x => x.Variant == bagel.BagelType).ToList()[0].Price;
+            if (bagel.BagelFilling != "")
+                sum += items.Where(x => x.Variant == bagel.BagelFilling).ToList()[0].Price;
+
+            return sum;
+        }
+
+        public static double CheckFillingPrice(string filling)
+        {
+            if (items.Any(x => x.Variant == filling))
+                return items.Where(x => x.Variant == filling).ToList()[0].Price;
+            return -1;
+        }
+
+        public static bool IsInInventory(string item)
+        {
+            return (items.Any(x => x.Variant == item));
+        }
+    }
+}
