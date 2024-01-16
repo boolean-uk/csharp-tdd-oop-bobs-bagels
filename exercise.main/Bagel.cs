@@ -14,24 +14,24 @@ namespace exercise.main
 
         private Dictionary<string, string> _SKUDict = new Dictionary<string, string>()
         {
-            {"Onion", "BGLO"}, {"Plain", "BGLP"}, {"Everything", "BGLE"}, {"Sesame", "BGLS"}
+            {"BGLO", "Onion"}, {"BGLP", "Plain"}, {"BGLE", "Everything"}, {"BGLS" , "Sesame"}
         };
 
         private Dictionary<string, double> _priceDict = new Dictionary<string, double>()
         {
-            {"Onion", 0.49}, {"Plain", 0.39}, {"Everything", 0.49}, {"Sesame", 0.49}
+            {"BGLO", 0.49}, {"BGLP", 0.39}, {"BGLE", 0.49}, {"BGLS", 0.49}
         };
 
-    public Bagel(string name)
+    public Bagel(string SKU)
         {
-            if (!_SKUDict.ContainsKey(name))
+            if (!_SKUDict.ContainsKey(SKU))
             {
                 throw new Exception("Bagel is not in stock");
             }
 
-            _SKU = _SKUDict[name];
-            _price = _priceDict[name];
-            _variant = name;
+            _SKU = SKU;
+            _price = _priceDict[SKU];
+            _variant = _SKUDict[SKU];
             _filling = null;
         }
 
@@ -43,7 +43,7 @@ namespace exercise.main
         public void SetFilling(string filling)
         {
             _filling = new Filling(filling);
-            _price = _priceDict[Variant] + _filling.Price;
+            _price = _priceDict[SKU] + _filling.Price;
         }
     }
 }

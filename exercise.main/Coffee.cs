@@ -9,27 +9,25 @@ namespace exercise.main
     {
         private Dictionary<string, double> _priceDict = new Dictionary<string, double>()
         {
-            {"Black", 0.99}, {"White", 1.19}, {"Capuccino", 1.29}, {"Latte", 1.29}
+            {"COFB", 0.99}, {"COFW", 1.19}, {"COFC", 1.29}, {"COFL", 1.29}
         };
         private Dictionary<string, string> _SKUDict = new Dictionary<string, string>()
         {
-            {"Black", "COFB"}, {"White", "COFW"}, {"Capuccino", "COFC"}, {"Latte", "COFL"}
+            {"COFB", "Black"}, {"COFW", "White"}, {"COFC" , "Capuccino"}, {"COFL" , "Latte"}
         };
         private string _SKU;
         private double _price;
         private string _variant;
 
-        public Coffee(string name)
+        public Coffee(string SKU)
         {
-            if (!_SKUDict.ContainsKey(name))
+            if (!_SKUDict.ContainsKey(SKU))
             {
                 throw new Exception("Coffee is not in stock");
             }
-            _variant = name;
-            _SKU = _SKUDict[name];
-            _price = _priceDict[name];
-
-
+            _variant = _SKUDict[SKU];
+            _SKU = SKU;
+            _price = _priceDict[SKU];
         }
 
         public double Price { get => _price; set => _price = value; }

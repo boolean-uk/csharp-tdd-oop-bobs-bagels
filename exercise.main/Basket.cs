@@ -75,8 +75,31 @@ namespace exercise.main
 
         public double GetTotal()
         {
-            double sum = Coffees.Sum(coffee => coffee.Price);
-            sum += Bagels.Sum(bagel => bagel.Price);
+            Dictionary<string, int> bagelCount = new Dictionary<string, int>();
+            foreach(Bagel bagel in  Bagels)
+            {
+                if (!bagelCount.ContainsKey(bagel.SKU))
+                {
+                    bagelCount.Add(bagel.SKU, 1);
+                }
+                else
+                {
+                    bagelCount[bagel.SKU]++;
+                }
+
+            }
+
+            double sum = 0;
+            foreach ((string SKU, int count) in bagelCount)
+            {
+                if (count == 6) sum += 2.49;
+                else if (count == 12) sum += 3.99;
+                else sum += new Bagel(SKU).Price;
+            }
+
+            sum += Bagels.Sum(bagel => bagel.Filling is not null ? bagel.Filling.Price : 0);
+            sum += Coffees.Sum(coffee => coffee.Price);
+
             return sum;
         }
     }

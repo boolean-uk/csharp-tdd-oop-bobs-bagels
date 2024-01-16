@@ -13,19 +13,19 @@ namespace exercise.main
 
         private Dictionary<string, string> _SKUDict = new Dictionary<string, string>() 
         {
-            {"Bacon", "FILB"}, {"Egg", "FILE"}, {"Cheese", "FILC"}, {"Cream Cheese", "FILX"},
-            {"Smoked Salmon", "FILS"}, {"Ham", "FILH"}
+            {"FILB" , "Bacon"}, {"FILE" , "Egg"}, {"FILC" , "Cheese"}, {"FILX" , "Cream Cheese"},
+            {"FILS" , "Smoked Salmon"}, {"FILH" , "Ham"}
         };
 
-        public Filling(string name)
+        public Filling(string SKU)
         {
-            if (!_SKUDict.ContainsKey(name))
+            if (!_SKUDict.ContainsKey(SKU))
             {
                 throw new Exception("Filling not in stock");
             }
 
-            _SKU = _SKUDict[name];
-            _variant = name;
+            _variant = _SKUDict[SKU];
+            _SKU = SKU;
             _price = 0.12;
         }
 
