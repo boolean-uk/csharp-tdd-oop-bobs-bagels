@@ -29,6 +29,7 @@ namespace exercise.main
             if (AllProducts.Exists(x => x.SKU == SKU) && _basket.Count < _capacity)
             {
                 Item addedItem = AllProducts.FirstOrDefault(x => x.SKU == SKU);
+                totalCost = totalCost + addedItem.Price;
                 _basket.Add(addedItem);
                 return true;
             }
@@ -64,7 +65,7 @@ namespace exercise.main
 
         public float TotalCost()
         {
-            return 1.2F;
+            return totalCost;
         }
     }
 }
