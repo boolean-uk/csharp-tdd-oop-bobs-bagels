@@ -35,6 +35,11 @@ namespace exercise.main
             _price = filling.price;
             _name = filling.name;
         }
+        public Product(object product) {
+            throw new ArgumentException($"Unsupported product");
+        }
+
+       
 
         public double getPrice()
         {

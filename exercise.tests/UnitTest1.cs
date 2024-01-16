@@ -1,4 +1,5 @@
 using exercise.main;
+using exercise.main.Items;
 
 namespace exercise.tests;
 
@@ -9,13 +10,16 @@ public class Tests
     {
     }
 
+    [Test]
     public void testAdd()
     {
         //Arrange
         Inventory inventory = new Inventory();
         Basket basket = new Basket();
-        Product product1 = new Product("Onion");
-        Product product2 = new Product("Black");
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
 
         //"Onion","Plain","Everything","Sesame"
         //"Black","White","Capuccino","Latte"
@@ -29,8 +33,8 @@ public class Tests
         string testProduct1 = "Onion";
         string testProduct2 = "Black";
         
-        List<string> testResult = new List<string>() {
-            testProduct1, testProduct2
+        List<Product> testResult = new List<Product>() {
+            product1, product2
         };
 
 

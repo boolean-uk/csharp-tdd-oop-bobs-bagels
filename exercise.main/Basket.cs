@@ -12,11 +12,12 @@ namespace exercise.main
         private int _capacity = 3; //Default = 3
         private int _total = 0; 
         // Define properties
-        public List<Product> _basket;
+        public List<Product> _basket = new List<Product>();
 
         public bool Add(Product product)
         {
-            throw new NotImplementedException();
+            _basket.Add(product);
+            return true;
         }
 
         public bool Remove(Product product)
@@ -37,6 +38,11 @@ namespace exercise.main
         {
 
             throw new NotImplementedException();    
+        }
+
+        public List<Product> getBasket()
+        {
+            return _basket;
         }
 
         public int capacity { get { return _capacity; } }
