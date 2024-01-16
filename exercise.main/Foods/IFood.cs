@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Foods
 {
-    public interface IFood<E>
+    public interface IFood
     {
         string Name { get; }
-        E Variant { get; }
         string Sku { get; }
     }
 }

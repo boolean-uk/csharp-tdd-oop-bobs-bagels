@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Foods
 {
-    public abstract class Food<E> : IFood<E>
+    public abstract class Food<E> : IFood
     {
         private readonly E? _variant;
 
