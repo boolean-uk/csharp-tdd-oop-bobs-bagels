@@ -102,4 +102,20 @@ public class BasketTests
         Assert.IsFalse(res);
 
     }
+
+    [Test]
+    public void TotalCostReceived()
+    {
+        float totalInit = testBasket.TotalCost();
+
+        Assert.That(totalInit, Is.EqualTo(0F));
+
+        testBasket.AddItem("BGLO");
+        testBasket.AddItem("BGLE");
+
+        float total = testBasket.TotalCost();
+
+        Assert.That(total, Is.EqualTo(0.98F));
+
+    }
 }

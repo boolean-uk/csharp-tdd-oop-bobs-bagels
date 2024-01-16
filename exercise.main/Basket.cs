@@ -12,6 +12,7 @@ namespace exercise.main
         private List<Item> _basket = new List<Item>();
         private Inventory _inventory = new Inventory();
         private int _capacity = 5;
+        private float totalCost = 0F;
         public Basket() 
         {
             
@@ -59,6 +60,11 @@ namespace exercise.main
         public void ChangeCapacity(int newCapacity)
         {
             this._capacity = newCapacity;
+        }
+
+        public float TotalCost()
+        {
+            return 1.2F;
         }
     }
 }
