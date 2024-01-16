@@ -1,0 +1,45 @@
+
+Class				Properties				Methods				Return Type 						
+Basket 			 Basket: List<Item>				addItem(string SKU)		bool 
+			 maxCapacity(int)				removeItem(string SKU)		bool
+			 Inventory					changeMaxCap(int)		bool
+			 						listItems()			List<string itemName>												 
+									totalCost()			float
+									itemPrice(string SKU)		float
+									addFilling(int listNumber, SKU) bool
+
+
+
+Class				Properties				Methods				Return Type
+Inventory		Items: Dictionary<string SKU, Item>		getItem(string SKU)		Item
+									isFilling(string SKU)		bool
+
+
+Class				Properties				Methods				Return Type
+Item			SKU(string)					getProperty()			property
+			Price(float)					setProperty()			void				
+			Name(string)
+			Variant(string)
+			filling(Item)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Class				Properties				Methods				Return Type
+Receipt			float Total					totalCost()			float
+									listPrices()			List<string(itemName+Price)>
+
+
+
+
+
