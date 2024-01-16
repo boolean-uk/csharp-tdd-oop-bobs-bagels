@@ -54,7 +54,7 @@ namespace exercise.main
 
         public void ChangeCapacity(int newCapacity)
         {
-            
+            this._capacity = newCapacity;
         }
     }
 }
