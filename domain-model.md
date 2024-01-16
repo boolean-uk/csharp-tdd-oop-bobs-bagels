@@ -49,33 +49,27 @@ I'd like to know the cost of each filling before I add it to my bagel order.
 	</thead>
 	<tbody>
 		<td><code>Customer</code></td>
-		<td><code>Order(Bagel bagel)</code></td>
-		<td>Add a specific type of bagel to the basket</td>
+		<td><code>Order(IFood food)</code></td>
+		<td>Add a specific type of food to the basket</td>
 		<td>void</td>
 	</tbody>
 	<tbody>
 		<td></td>
-		<td><code>Order(Bagel bagel)</code></td>
+		<td><code>Order(IFood food)</code></td>
 		<td>Throw an exception when about to overfill the basket</td>
 		<td>Exception</td>
 	</tbody>
 	<tbody>
 		<td></td>
-		<td><code>Remove(Bagel bagel)</code></td>
-		<td>Remove a bagel from the basket</td>
+		<td><code>Remove(IFood food)</code></td>
+		<td>Remove a food from the basket</td>
 		<td>bool</td>
 	</tbody>
 	<tbody>
 		<td></td>
-		<td><code>Remove(Bagel bagel)</code></td>
-		<td>Throw an exception when about to remove a non-existing bagel</td>
+		<td><code>Remove(IFood food)</code></td>
+		<td>Throw an exception when about to remove a non-existing food</td>
 		<td>Exception</td>
-	</tbody>
-	<tbody>
-		<td></td>
-		<td><code>Money</code></td>
-		<td>Get the amount of money a customer has</td>
-		<td>float</td>
 	</tbody>
 </table>
 
@@ -122,12 +116,6 @@ I'd like to know the cost of each filling before I add it to my bagel order.
 		<td></td>
 		<td></td>
 	</tbody>
-	<tbody>
-		<td><code>Basket</code></td>
-		<td><code>Capacity</code></td>
-		<td>Get and set the capacity of the basket</td>
-		<td>int || void</td>
-	</tbody>
 </table>
 
 
@@ -143,16 +131,16 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 ```
 <table>
-	<thead>
-		<td>Class</td>
-		<td>Method</td>
-		<td>Scenario</td>
-		<td>Output</td>
-	</thead>
 	<tbody>
-		<td><code>Manager</code></td>
+		<td><code>Basket</code></td>
 		<td><code>Capacity</code></td>
-		<td>Set the capacity of the basket</td>
-		<td>void</td>
+		<td>Get and set the capacity of the basket</td>
+		<td>int || void</td>
+	</tbody>
+	<tbody>
+		<td><code>Customer</code></td>
+		<td><code>Order(IFood food, List&ltstring> availableSkus)</code></td>
+		<td>Only let the customer order what is in the available SKUs list.</td>
+		<td>bool</td>
 	</tbody>
 </table>
