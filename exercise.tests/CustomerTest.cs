@@ -29,5 +29,18 @@ namespace exercise.tests
             _customer.Order(bagel);
             Assert.That(_customer.Basket.Count == 1, Is.True);
         }
+
+        [Test]
+        public void CanOnlyOrderItemsInInventory()
+        {
+            List<string> availableItemsSku = new()
+            {
+                "BGLO", "BGLP", "COFB", "FILE", "FILC", "FILX"
+            };
+            Bagel bagel = new(BagelVariant.Onion);
+            Filling filling = new(FillingVariant.Ham);
+            bagel.Filling = filling;
+            Assert.Throws<Exception>(() => _customer.Order(bagel, availableItemsSku));
+        }
     }
 }
