@@ -33,4 +33,16 @@ public class Tests
         Assert.That(coffee.Variant, Is.EqualTo(CoffeeVariant.White));
         Assert.That(filling.Variant, Is.EqualTo(FillingVariant.Egg));
     }
+
+    [Test]
+    public void SkuForFoodItemIsCorrect()
+    {
+        Bagel bagel = new(BagelVariant.Onion);
+        Coffee coffee = new(CoffeeVariant.Capuccino);
+        Filling filling = new(FillingVariant.Cheese);
+
+        Assert.That(bagel.SKU, Is.EqualTo("BGLO"));
+        Assert.That(coffee.SKU, Is.EqualTo("COFC"));
+        Assert.That(filling.SKU, Is.EqualTo("FILC"));
+    }
 }
