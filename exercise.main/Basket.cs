@@ -32,10 +32,20 @@ namespace exercise.main
         }
         public int Count { get { return _contents.Count; } }
         public void Clear() {  _contents.Clear(); }
-
+        public float CalculateDiscounts(List<IFood> items)
+        {
+            float total = 0f;
+            int bgloCount = items.Count(x => x.Sku.Equals("BGLO"));
+            int bglpCount = items.Count(x => x.Sku.Equals("BGLP"));
+            int bgleCount = items.Count(x => x.Sku.Equals("BGLE"));
+            total += MathF.Floor(bgloCount / 6) * 0.45f;
+            total += MathF.Floor(bglpCount / 12) * 0.69f;
+            total += MathF.Floor(bgleCount / 6) * 0.45f;
+            return total;
+        }
         public float GetTotalPrice()
         {
-            return _contents.Sum(x => x.Price);
+            return _contents.Sum(x => x.Price) - CalculateDiscounts(_contents);
         }
     }
 }
