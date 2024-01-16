@@ -1,12 +1,12 @@
 | Classes         | Methods                         |  Returns  | Scenario               | Outputs					   | 
 |-----------------|---------------------------------|-----------|-------------------------|----------------------------|
-| `Basket`	| `Add(Bagel bagel)`					| string	| Basket isn't full								| Bagel is added to basket list and retuns empty string | 
+| `Store`	| `Price(Name name)`					| string	|												| Returns string of prices of all items of given name by variant|
+| `Basket`	| `Add(Item item)`						| string	| Basket isn't full								| Item is added to basket list and returns empty string | 
 |			| 										| 			| Basket is full								| Returns error that basket is full  | 
-|			| `Remove(string type)`					| string	| Basket contains bagel	of given type			| Bagel is removed from basket list  | 
+|			| `Remove(string variant)`				| string	| Basket contains bagel	of given type			| Bagel is removed from basket list and returns empty string  | 
 |			|										|			| Basket doesn't contain bagel of given type	| Returns error that bagel wasn't found | 
-|			| `SetCapacity(int newCapacity)`		| void		| Every time									| Basket capacity has been changed for everyone|
-|			| `Cost()`								| double	| Every time									| Return total cost of all items in basket|
-| `Bagel`	| `get`									| double	|												| Public value which includes cost of filling|
-|			| `AddFilling(Filling filling)`			| void		|												| Adds filling to the bagel object|
-| `Filling`	| `get`									| double	|												| Public value|
+|			| `SetCapacity(int newCapacity)`		| void		|												| Basket capacity has been changed|
+|			| `Cost()`								| double	|												| Return total cost of all items in basket|
+| `Item`	| `get`									| double	|												| Public value of price|
+| `Bagel`	| `AddFilling(Filling filling)`			| void		|												| Adds filling to a bagel object|
 | `Stock`	|										|			|												| Contains every item in the inventory|
