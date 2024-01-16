@@ -62,5 +62,17 @@ public class Tests
         Assert.That(basket.Total, Is.EqualTo(0.49));
         Assert.That(basket.Bagels[0], Is.EqualTo(bagel));
 
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+
+        Assert.Throws<Exception>(() => basket.AddBagel(bagel));
+
     }
 }
