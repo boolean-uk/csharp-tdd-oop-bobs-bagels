@@ -78,4 +78,39 @@ public class Tests
         Assert.AreEqual(testResult, basket.getBasket());
 
     }
+
+    [Test]
+    public void testAdd2()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Bagel bagel2 = new Bagel("Plain");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product3 = new Product(bagel2);
+        Product product4 = new Product(filling1);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+
+        //Act
+              
+
+
+
+        //Assert
+        Assert.IsTrue(basket.Add(product1));
+        Assert.IsTrue(basket.Add(product2));
+        Assert.IsTrue(basket.Add(product3));
+        Assert.IsTrue(!basket.Add(product4));
+
+    }
 }
