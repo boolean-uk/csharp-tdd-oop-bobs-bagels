@@ -81,8 +81,21 @@ namespace exercise.tests
             {
                 Assert.That(_bakery.ChangeCapacity(cap), Is.GreaterThan(cap));
             }
-            
+        }
 
+        [Test]
+        [TestCase("BGLO", 0.49d)]
+        [TestCase("BGLP", 0.49d)]
+        [TestCase("BGLE", 0.49d)]
+        public void Test4(string sku, double expected)
+        {
+            //  Arrange - set up test values
+
+
+            //  Act - use the fucntion we want to test
+
+            //  Assert - check the results
+            Assert.That(_bakery.BagleCost(sku), Is.EqualTo(expected));
         }
     }
 }

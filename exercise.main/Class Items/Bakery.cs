@@ -51,7 +51,6 @@ namespace exercise.main.Class_Items
 
         public int ChangeCapacity(int amount)
         {
-            //throw new NotImplementedException();
             if (amount < 0)
                 return _basketCapacity;
             _basketCapacity = amount;
@@ -60,6 +59,12 @@ namespace exercise.main.Class_Items
                 item.ChangeCapacity(_basketCapacity);
             }
             return _basketCapacity;
+        }
+
+        public double BagleCost(string sku)
+        {
+            throw new NotImplementedException();
+
         }
 
     }
