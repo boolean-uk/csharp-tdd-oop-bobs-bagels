@@ -11,31 +11,35 @@ namespace exercise.main
     {
         private int _capacity;
         public List<Item> content;
-        private Dictionary<string, float> priceList;
+        private Dictionary<string, Item> priceList;
         public Basket(int capacity)
         {
             _capacity = capacity;
             content =  new List<Item>();
-            priceList = new Dictionary<string, float>();
+            priceList = new Dictionary<string, Item>();
             priceList.Clear();
-            priceList.Add("BGLO", 0.49f);
-            priceList.Add("BGLP", 0.39f);
-            priceList.Add("BGLE", 0.49f);
-            priceList.Add("BGLS", 0.49f);
-            priceList.Add("COFB", 0.99f);
-            priceList.Add("COFW", 1.19f);
-            priceList.Add("COFC", 1.29f);
-            priceList.Add("COFL", 0.29f);
-            priceList.Add("FILB", 0.12f);
-            priceList.Add("FILE", 0.12f);
-            priceList.Add("FILC", 0.12f);
-            priceList.Add("FILX", 0.12f);
-            priceList.Add("FILS", 0.12f);
-            priceList.Add("FILH", 0.12f);
+            priceList.Add("BGLO", new Item(0.49f, "Bagel", "Onion"));
+            priceList.Add("BGLP", new Item(0.39f, "Bagel", "Plain"));
+            priceList.Add("BGLE", new Item(0.49f, "Bagel", "Everything"));
+            priceList.Add("BGLS", new Item(0.49f, "Bagel", "Sesame"));
+            priceList.Add("COFB", new Item(0.99f, "Coffee", "Black"));
+            priceList.Add("COFW", new Item(1.19f, "Coffee", "White"));
+            priceList.Add("COFC", new Item(1.29f, "Coffee", "Capuccino"));
+            priceList.Add("COFL", new Item(0.29f, "Coffee", "Latte"));
+            priceList.Add("FILB", new Item(0.12f, "Filling", "Bacon"));
+            priceList.Add("FILE", new Item(0.12f, "Filling", "Egg"));
+            priceList.Add("FILC", new Item(0.12f, "Filling", "Cheese"));
+            priceList.Add("FILX", new Item(0.12f, "Filling", "Cream Cheese"));
+            priceList.Add("FILS", new Item(0.12f, "Filling", "Smoked Salmon"));
+            priceList.Add("FILH", new Item(0.12f, "Filling", "Ham"));
         }
-        public bool addItem(string SKU)
+        public Item addItem(string SKU)
         {
-            return false;
+            if (content.Count < _capacity)
+            {
+                content.Add(priceList[SKU]);
+            }
+            return priceList[SKU];
         }
         public bool removeItem()
         {

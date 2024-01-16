@@ -3,10 +3,10 @@ CLASS: Basket
 Properties: 
 private int capacity
 private List<Item> contents
-Dictionary <string, float> (name, price) priceList
+Dictionary <string, float> (SKU, Item) priceList
 
 Methods:
-bool addItem (SKU)
+Item addItem (SKU)
 returns: true/false (Could add item/exceeds capacity)
 
 bool removeItem (SKU)
@@ -37,7 +37,6 @@ string SKU
 string type (name in datastructure)
 sring variant
 Private List<Item> subItems
-Dictionary<string, float> (SKU, price) priceList
 
 Methods:
 bool addFilling (Item item) 
