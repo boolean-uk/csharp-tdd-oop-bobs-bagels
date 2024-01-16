@@ -84,7 +84,12 @@ namespace exercise.main.Class_Items
 
         public double FillingCost(string sku)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (_products.Exists(x => x.SKU == sku))
+            {
+                return _products.Find(x => x.SKU == sku).Price;
+            }
+            return -1d;
 
         }
 
