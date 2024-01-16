@@ -38,8 +38,12 @@ namespace exercise.main
             if (content.Count < _capacity)
             {
                 content.Add(priceList[SKU]);
+                return priceList[SKU];
             }
-            return priceList[SKU];
+            else
+            {
+                throw new Exception("Your basket is full! No new items added!");
+            }
         }
         public bool removeItem(string SKU)
         {
@@ -48,11 +52,12 @@ namespace exercise.main
                 content.Remove(priceList[SKU]);
                 return true;
             }
+            Console.WriteLine("It is already not in your basket, great!");
             return false;
         }
-        public int changeCapacity(int newSize)
+        public int changeCapacity(int newCapacity)
         {
-            return newSize;
+            return newCapacity;
         }
     }
 }
