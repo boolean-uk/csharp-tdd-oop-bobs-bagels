@@ -15,14 +15,10 @@ namespace exercise.tests
         [SetUp]
         public void SetUp()
         {
-            Bagel bagel = new Bagel("Cream", 20);
-            Bagel bagel2 = new Bagel("Cheese", 30);
-            Bagel bagel3 = new Bagel("Jelly", 15);
-
             basket = new Basket();
-            basket.AddBagel(bagel);
-            basket.AddBagel(bagel2);
-            basket.AddBagel(bagel3);
+            basket.AddBagel("Cream", 20);
+            basket.AddBagel("Cream", 30, "Cola");
+            basket.AddBagel("Cheese", 15);
         }
 
         [TestCase("Peanut", 20, true)]
@@ -30,17 +26,16 @@ namespace exercise.tests
         [TestCase("Cream", 37, true)]
         public void AddedBagel(string bagelType, int cost, bool expected)
         {
-            Bagel bagel = new Bagel(bagelType, cost);
-            bool haveAdded = basket.AddBagel(bagel);
+            bool haveAdded = basket.AddBagel(bagelType, cost);
             Assert.That(expected, Is.EqualTo(haveAdded));
         }
 
-        [TestCase("Cream", true)]
-        [TestCase("", false)]
-        [TestCase("Cheese", true)]
-        public void RemovedBagel(string bagelType, bool expected)
+        [TestCase("Cream", "Cola", true)]
+        [TestCase("", "Sweets", false)]
+        [TestCase("Cheese", "", true)]
+        public void RemovedBagel(string bagelType, string fillingName, bool expected)
         {
-            bool haveAdded = basket.RemoveBagel(bagelType);
+            bool haveAdded = basket.RemoveBagel(bagelType, fillingName);
             Assert.That(expected, Is.EqualTo(haveAdded));
         }
 
@@ -72,8 +67,10 @@ namespace exercise.tests
         [TestCase("Dressing", false)]
         public void ItemDoesExist(string bagelType, bool expected)
         {
-            bool removed = basket.RemoveBagel(bagelType);
+            bool removed = basket.RemoveBagel(bagelType, "");
             Assert.That(expected, Is.EqualTo(removed));
         }
+
+
     }
 }

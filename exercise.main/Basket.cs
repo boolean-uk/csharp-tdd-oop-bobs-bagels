@@ -14,38 +14,78 @@ namespace exercise.main
 
         public Basket()
         {
+            capacity = 6;
             basket = new List<Bagel>();
         }
 
-        public bool AddBagel(Bagel bagel)
+        public bool AddBagel(string bagelType, int cost, string fillingName = "", int fillingCost = 0)
         {
-            return false;
+            if (BasketFull())
+                return false;
+
+            if (bagelType == "")
+                return false;
+
+            if (cost < 0 || fillingCost < 0)
+                return false;
+
+            Bagel bagel = new Bagel(bagelType, cost, fillingName, fillingCost);
+            basket.Add(bagel);
+            return true;
         }
 
-        public bool RemoveBagel(string bagelType)
+        public bool RemoveBagel(string bagelType, string fillingName)
         {
-            return false;
+            if (bagelType == "")
+                return false;
+
+            if (!ItemExists(bagelType, fillingName))
+                return false;
+
+            for (int i = 0; i < basket.Count(); i++)
+            {
+                if (basket[i].GetBagelType() == bagelType && basket[i].GetFillingName() == fillingName)
+                    basket.RemoveAt(i);
+            }
+
+            return true;
         }
 
         public bool BasketFull()
         {
+            if (basket.Count() == capacity)
+                return true;
+
             return false;
         }
 
         public int IncreaseCapacity(int newCapacity)
         {
-            return 0;
+            if (capacity < newCapacity)
+                capacity = newCapacity;
+
+            return capacity;
         }
 
-        public bool ItemExists(string bagelType)
+        public bool ItemExists(string bagelType, string fillingName)
         {
+            for (int i = 0; i < basket.Count(); i++)
+            {
+                if (basket[i].GetBagelType() == bagelType/* && basket[i].GetFillingName() == fillingName*/)
+                    return true;
+            }
+
             return false;
         }
 
         public int TotalCost()
         {
-            return 0;
-        }
+            int total = 0;
 
+            for (int i = 0; i < basket.Count(); i++)
+                total += basket[i].GetBagelCost();
+
+            return total;
+        }
     }
 }

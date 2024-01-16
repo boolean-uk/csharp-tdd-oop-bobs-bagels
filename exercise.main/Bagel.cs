@@ -27,5 +27,25 @@ namespace exercise.main
         {
             return 0;
         }
+
+        public string GetBagelType()
+        {
+            return bagelType;
+        }
+
+        public int GetBagelCost()
+        {
+            return bagelCost;
+        }
+
+        public string GetFillingName()
+        {
+            return fillingName;
+        }
+
+        public int GetFillingCost()
+        {
+            return fillingCost;
+        }
     }
 }
