@@ -95,7 +95,7 @@ public class Tests
     {
         BobsBagels store = new BobsBagels();
 
-        Assert.That(store.Stock["Onion"].Count, Is.EqualTo(100));
-        Assert.That(store.Baskets.Count, Is.EqualTo(100));
+        Assert.That(store.Stock["Onion"], Is.EqualTo(100));
+        Assert.That(store.Capacity, Is.EqualTo(10));
     }
 }

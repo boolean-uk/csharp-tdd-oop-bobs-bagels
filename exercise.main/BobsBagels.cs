@@ -7,12 +7,20 @@ namespace exercise.main
 {
     public class BobsBagels
     {
-        private Dictionary<Bagel, int> _stock;
-        private System.Collections.Generic.List<Basket> _baskets;
+        private Dictionary<string, int> _stock;
+        private int _capacity;
 
-        public void IncreaseCapacity()
+        public BobsBagels()
         {
-            throw new System.NotImplementedException();
+            _stock = new Dictionary<string, int>() 
+            {
+                {"Onion", 100}, {"Plain", 100}, {"Everything", 100}, {"Sesame", 100}
+            };
+
+            _capacity = 10;
         }
+
+        public Dictionary<string, int> Stock { get => _stock; }
+        public int Capacity { get => _capacity; set => _capacity = value; }
     }
 }
