@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using exercise.main;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 
 namespace exercise.tests;
 
@@ -132,4 +133,24 @@ public class BasketTests
         float itemPrice3 = testBasket.GetItemPrice("AAAA");
         Assert.That(itemPrice3, Is.EqualTo(0F));
     }
+
+    [Test]
+    public void AddFillings()
+    {
+
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+
+        Item it1 = testBasket.GetItem(1);
+        Item it2 = testBasket.GetItem(2);
+
+        it1.AddFilling("FILE");
+
+        List<Item> fillings = it1.ListFillings();
+
+        Assert.That(fillings[0].Name, Is.EqualTo("FILE"));
+
+    }
+
+
 }

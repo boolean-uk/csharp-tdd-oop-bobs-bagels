@@ -22,7 +22,7 @@ Methods
 : `public float TotalCost()`
     * returns the total costs of ordered items
 
-: `public Item GetItem(string SKU)`
+: `public Item GetItem(int ID)`
     * returns the Item from _basket list
   
 : `public float GetItemPrice(string SKU)`
@@ -43,6 +43,7 @@ Properties
 : `float Price`
 : `string Variant`
 : `List Contents<Item>`
+: `private Inventory`
 
 Methods
 :  `public Item(String SKU ... List Contents<Item>)`
@@ -54,6 +55,9 @@ Methods
 : `float void addFilling(string SKU)`
     * adds filling to Contents list if filling exists
     * adds filling cost to Price
+  
+: : `float List<Item> ListFillings()`
+    * returns Contents list
 
 
 
