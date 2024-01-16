@@ -84,4 +84,22 @@ public class BasketTests
         Assert.IsFalse(res);
 
     }
+
+    [Test]
+    public void NotRemovable()
+    {
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+        testBasket.AddItem("BGLO");
+        testBasket.AddItem("BGLO");
+
+        bool res = testBasket.RemoveItem("BGLE");
+
+        var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        Assert.That("Item not in basket!", Is.EqualTo(outputLines[0]));
+
+        Assert.IsFalse(res);
+
+    }
 }
