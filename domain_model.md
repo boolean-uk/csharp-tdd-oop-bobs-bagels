@@ -3,6 +3,7 @@ CLASS: Basket
 Properties: 
 private int capacity
 private List<Item> contents
+Dictionary <string, float> (name, price) priceList
 
 Methods:
 bool addItem (SKU)
@@ -17,7 +18,6 @@ returns: newCapacity
 CLASS: Receipt
 
 Properties:
-Dictionary <string, float> (name, price) priceList
 private float totalCost
 
 Methods:
