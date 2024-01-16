@@ -31,9 +31,10 @@ namespace exercise.main
             if (AllProducts.Exists(x => x.data.SKU == SKU) && _basket.Count < _capacity)
             {
                 Item addedItem = AllProducts.FirstOrDefault(x => x.data.SKU == SKU);
+                Item newItem = new Item(addedItem.data.SKU, addedItem.data.Name, addedItem.data.Price, addedItem.data.Variant);
                 totalCost = totalCost + addedItem.data.Price;
-                _basket.Add(addedItem);
-                return addedItem;
+                _basket.Add(newItem);
+                return newItem;
             }
 
             if (_basket.Count >= _capacity)
