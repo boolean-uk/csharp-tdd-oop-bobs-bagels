@@ -89,4 +89,13 @@ public class Tests
 
         Assert.Throws<Exception>(() => basket.RemoveBagel(bagel));
     }
+
+    [Test]
+    public void TestBobsBagelConstructor()
+    {
+        BobsBagels store = new BobsBagels();
+
+        Assert.That(store.Stock["Onion"].Count, Is.EqualTo(100));
+        Assert.That(store.Baskets.Count, Is.EqualTo(100));
+    }
 }
