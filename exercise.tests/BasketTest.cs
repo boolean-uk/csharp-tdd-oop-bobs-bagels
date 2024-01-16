@@ -37,5 +37,14 @@ namespace exercise.tests
 
             Assert.That(basket.GetTotalPrice(), Is.EqualTo(0.12f + 0.99f + 0.49f));
         }
+
+        [Test]
+        public void CanChangeBasketCapacity()
+        {
+            Basket basket = new();
+            basket.Capacity = 1;
+            Assert.DoesNotThrow(() => basket.Add(new Coffee(CoffeeVariant.Black)));
+            Assert.Throws<Exception>(() => basket.Add(new Bagel(BagelVariant.Onion)));
+        }
     }
 }

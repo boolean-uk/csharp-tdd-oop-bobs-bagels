@@ -11,15 +11,14 @@ namespace exercise.main
     {
         private readonly Basket _basket;
 
-        public Basket Basket { get { return _basket; } }
-        public Basket GetBasketContent()
+        public Customer()
         {
-            throw new NotImplementedException();
+            _basket = new Basket();
         }
-
-        public void Order(Bagel bagel)
+        public Basket Basket { get { return _basket; } }
+        public void Order(IFood food)
         {
-            throw new NotImplementedException();
+            _basket.Add(food);
         }
     }
 }
