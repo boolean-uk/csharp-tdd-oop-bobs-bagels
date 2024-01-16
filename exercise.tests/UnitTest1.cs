@@ -98,4 +98,15 @@ public class Tests
         Assert.That(store.Stock["Onion"], Is.EqualTo(100));
         Assert.That(store.Capacity, Is.EqualTo(10));
     }
+
+    [Test]
+    public void TestAddBasket()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.Add(basket);
+
+        Assert.That(store.Baskets.Count, Is.EqualTo(1));
+        Assert.That(store.Baskets[0], Is.EqualTo(basket));
+    }
 }
