@@ -153,4 +153,25 @@ public class BasketTest
 
         Assert.That(coffeeCombo, Is.EqualTo(1.25));
     }
+
+    [Test]
+    public void TestReceipt()
+    {
+        //setup
+        Basket basket = new(10);
+        Bagel bagel = new(BagelType.Sesame);
+        Bagel bagel2 = new(BagelType.Plain);
+        Bagel bagel3 = new(BagelType.Onion);
+        Bagel bagel4 = new(BagelType.Everything);
+        Bagel bagel5 = new(BagelType.Sesame);
+        Bagel bagel6 = new(BagelType.Plain);
+        Bagel bagelWithFilling = new(BagelType.Plain);
+        Filling filling = new(FillingType.CreamCheese);
+        bagelWithFilling.AddFilling(filling);
+        basket.AddItems([bagel, bagel2, bagel3, bagel4, bagel5, bagel6, bagelWithFilling]);
+
+        basket.CreateReceipt();
+
+        Assert.True(true);
+    }
 }

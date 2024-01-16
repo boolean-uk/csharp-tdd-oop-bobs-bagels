@@ -1,5 +1,4 @@
-﻿
-namespace exercise.main
+﻿namespace exercise.main
 {
     public class Basket
     {
@@ -100,6 +99,23 @@ namespace exercise.main
             bagels.ForEach(x => { total += x.GetPrice(); });
             coffee.ForEach(x => { total += x.GetPrice(); });
             return total;
+        }
+
+        public void CreateReceipt()
+        {
+            Console.WriteLine("       Bob's Bagels ");
+            Console.WriteLine($"   {DateTime.Now}");
+            var x = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
+            Console.WriteLine("-------------------------");
+            foreach (var item in x)
+            {
+                string spacing = new string(' ', 15 - item.Key.Length);
+                Console.WriteLine($"{item.Key}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
+            }
+            Console.WriteLine("-------------------------");
+            Console.WriteLine($"Discount         -£ ${Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"Total             £ ${Math.Round(GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"        Thank you\n     for your order!     ");
         }
     }
 }
