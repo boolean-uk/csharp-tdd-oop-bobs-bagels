@@ -188,7 +188,7 @@ public class BasketTests
     }
 
     [Test]
-    public void DiscountBagelBundle()
+    public void DiscountBagelBundle6()
     {
         testBasket.ChangeCapacity(15);
 
@@ -199,8 +199,17 @@ public class BasketTests
         testBasket.AddItem("BGLE");
         testBasket.AddItem("BGLE");
 
+        testBasket.BundleOrder("b6", "BGLE", "");
+
         float totalInit = testBasket.TotalCost();
         Assert.That(totalInit, Is.EqualTo(2.49F));
+
+    }
+
+    [Test]
+    public void DiscountBagelBundle12()
+    {
+        testBasket.ChangeCapacity(15);
 
         testBasket.AddItem("BGLE");
         testBasket.AddItem("BGLE");
@@ -208,6 +217,14 @@ public class BasketTests
         testBasket.AddItem("BGLE");
         testBasket.AddItem("BGLE");
         testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+        testBasket.AddItem("BGLE");
+
+        testBasket.BundleOrder("b12", "BGLE", "");
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(3.99F));
@@ -220,6 +237,8 @@ public class BasketTests
         
         testBasket.AddItem("BGLE");
         testBasket.AddItem("COFB");
+
+        testBasket.BundleOrder("bac", "BGLE", "COFB");
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(1.25F));
