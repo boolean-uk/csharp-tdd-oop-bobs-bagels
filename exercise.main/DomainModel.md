@@ -30,7 +30,7 @@
 | 6 | Basket | `double Cost()` |  | Returns total cost of products in basket |
 | 7 | Bagel | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
 | 8 | Bagel | `AddFilling(BagelFilling filling)` |  | Adds `filling` to `Fillings`|
-| 9 | Bagel | `DisplayFillings()` |  | Displays all `BagelFilling`s |
+| 9 | BagelFilling | `IEnumerable<BagelFilling> GetAll()` |  | Returns all the `Filling`s |
 
 
 ## Bob's Inventory

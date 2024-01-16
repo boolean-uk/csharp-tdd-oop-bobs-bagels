@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static exercise.main.Core;
@@ -29,7 +30,7 @@ namespace exercise.main
         public class BagelFilling
         {
             public string Name { get; private set; }
-            public double Price { set; private get; }
+            public double Price { get; private set; }
 
             public BagelFilling(string name, double price)
             {
@@ -43,6 +44,14 @@ namespace exercise.main
             public static BagelFilling CreamCheese => new BagelFilling("Cream Cheese", 0.12);
             public static BagelFilling SmokedSalmon => new BagelFilling("Smoked Salmon", 0.12);
             public static BagelFilling Ham => new BagelFilling("Ham", 0.12);
+
+            public static IEnumerable<BagelFilling> GetAll()
+            {
+                return typeof(BagelFilling)
+                    .GetProperties(BindingFlags.Public | BindingFlags.Static)
+                    .Where(p => p.PropertyType == typeof(BagelFilling))
+                    .Select(p => (BagelFilling)p.GetValue(null));
+            }
         }
 
         public class CoffeeVariant
@@ -75,17 +84,12 @@ namespace exercise.main
 
             public double Cost()
             {
-                throw new NotImplementedException();
+                return Variant.Price + Fillings.Sum(x => x.Price);
             }
 
             public void AddFilling(BagelFilling filling)
             { 
                 Fillings.Add(filling); 
-            }
-
-            public void DisplayFillings()
-            {
-                throw new NotImplementedException();
             }
         }
 
@@ -136,7 +140,7 @@ namespace exercise.main
 
             public double Cost()
             {
-                throw new NotImplementedException();
+                return Bagels.Sum(bagel => bagel.Cost()) + Coffees.Sum(coffee => coffee.Variant.Price);
             }
         }
     }

@@ -21,7 +21,7 @@ public class Tests
         double expected = 0.49;
         double actualCost = basket.Cost();
 
-        Assert.Equals(expected, actualCost);
+        Assert.That(actualCost, Is.EqualTo(expected));
     }
 
     [Test]
@@ -31,7 +31,9 @@ public class Tests
 
         bagel.AddFilling(BagelFilling.Ham);
 
-        Assert.Contains(BagelFilling.Ham, bagel.Fillings);
+        bool hasHamFilling = bagel.Fillings.Any(f => f.Name == BagelFilling.Ham.Name && f.Price == BagelFilling.Ham.Price);
+
+        Assert.IsTrue(hasHamFilling);
     }
 
     [Test]
@@ -43,31 +45,14 @@ public class Tests
         double expected = 0.49 + 0.12;
         double actualCost = bagel.Cost();
 
-        Assert.Equals(expected, actualCost);
+        Assert.That(actualCost, Is.EqualTo(expected));
     }
 
     [Test]
-    public void DisplayBagelFillings()
+    public void GetBagelFillings()
     {
-        Bagel bagel = new Bagel(BagelVariant.Everything);
+        IEnumerable<BagelFilling> fillings = BagelFilling.GetAll();
 
-        string expectedOutput = "Bacon: 0.12\r\n" +
-                                "Egg: 0.12\r\n" +
-                                "Cheese: 0.12\r\n" +
-                                "Cream Cheese: 0.12\r\n" +
-                                "Smoked Salmon: 0.12\r\n" +
-                                "Ham: 0.12\r\n";
-
-        using (StringWriter sw = new StringWriter())
-        {
-            Console.SetOut(sw);
-
-            bagel.DisplayFillings();
-
-            string actualOutput = sw.ToString();
-            Assert.That(actualOutput, Is.EqualTo(expectedOutput));
-
-            Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
-        }
+        Assert.IsNotEmpty(fillings);
     }
 }
