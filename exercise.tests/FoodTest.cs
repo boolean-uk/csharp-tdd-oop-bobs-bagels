@@ -4,7 +4,7 @@ using exercise.main.Variants;
 
 namespace exercise.tests;
 
-public class Tests
+public class FoodTest
 {
     [SetUp]
     public void Setup()
@@ -53,30 +53,5 @@ public class Tests
         Filling filling = new(FillingVariant.Cheese);
         Bagel bagel = new(BagelVariant.Sesame, filling);
         Assert.That(bagel.Filling, Is.EqualTo(filling));
-    }
-
-    [Test]
-    public void AddFoodItemsToBasket()
-    {
-        Basket basket = new();
-        Bagel bagel = new(BagelVariant.Onion);
-        Coffee coffe = new(CoffeeVariant.Black);
-        Assert.DoesNotThrow(() => basket.Add(bagel));
-        Assert.DoesNotThrow(() => basket.Add(coffe));
-    }
-
-    [Test]
-    public void GetTotalPriceOfItemsInBasket()
-    {
-        Basket basket = new();
-        Bagel bagel = new(BagelVariant.Onion);
-        Coffee coffee = new(CoffeeVariant.Black);
-        Filling filling = new(FillingVariant.Ham);
-        bagel.Filling = filling;
-
-        basket.Add(bagel);
-        basket.Add(coffee);
-
-        Assert.That(basket.GetTotalPrice(), Is.EqualTo(0.12f + 0.99f + 0.49f));
     }
 }
