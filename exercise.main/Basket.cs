@@ -9,7 +9,7 @@ namespace exercise.main
     {
         private List<Bagel> _bagels;
         private int _capacity;
-        private int _totalPrice;
+        private double _totalPrice;
 
         public Basket()
         {
@@ -20,11 +20,12 @@ namespace exercise.main
 
         public List<Bagel> Bagels { get =>  _bagels; }
         public int Capacity { get => _capacity; set => _capacity = value; }
-        public int Total { get => _totalPrice; }
+        public double Total { get => _totalPrice; set => _totalPrice = value; }
 
-        public void AddBagel(string Bagel)
+        public void AddBagel(Bagel bagel)
         {
-            throw new System.NotImplementedException();
+            Bagels.Add(bagel);
+            Total += bagel.Price;
         }
 
         public void RemoveBagel()
