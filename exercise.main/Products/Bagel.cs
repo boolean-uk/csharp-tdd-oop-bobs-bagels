@@ -19,17 +19,29 @@ namespace exercise.main.Products
 
         public float GetPrice()
         {
-            throw new NotImplementedException();
+            return _basePrice + filling.Sum(fill => fill.GetPrice());
         }
 
         public string GetSKUName()
         {
-            throw new NotImplementedException();
+            return _SKUName;
         }
 
-        public bool AddFilling(Filling fill) 
+        public bool AddFilling(Filling fill)
         {
-            throw new NotImplementedException();
+            if (fill.GetPrice() > 0f)
+            {
+                int count1 = filling.Count;
+                filling.Add(fill);
+                int count2 = filling.Count;
+
+
+                return count2 > count1;
+            }
+            else 
+            {
+                return false;
+            }
         }
     }
 }

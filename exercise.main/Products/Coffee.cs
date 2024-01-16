@@ -13,17 +13,18 @@ namespace exercise.main.Products
 
         public Coffee(string SKU, float price)
         {
-            throw new NotImplementedException();
+            _SKUName = SKU;
+            _price = price;
         }
 
         public float GetPrice()
         {
-            throw new NotImplementedException();
+            return _price;
         }
 
         public string GetSKUName()
         {
-            throw new NotImplementedException();
+            return _SKUName;
         }
     }
 }
