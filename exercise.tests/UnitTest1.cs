@@ -6,12 +6,10 @@ namespace exercise.tests;
 public class Tests
 {
     private int capacity = 6;
-    public List<Item> content;
     Basket basket;
     [SetUp]
     public void Setup()
     {
-        content = new List<Item>();
         basket = new Basket(capacity);
     }
 
@@ -36,6 +34,9 @@ public class Tests
     [Test]
     public void removeBagelTest()
     {
-
+        Item testItem = basket.addItem("BGLE");
+        basket.removeItem("BGLE");
+        string itemJson = JsonConvert.SerializeObject(testItem);
+        Assert.IsFalse(basket.content.Contains(testItem));
     }
 }

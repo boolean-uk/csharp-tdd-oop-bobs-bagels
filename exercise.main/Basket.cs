@@ -41,7 +41,7 @@ namespace exercise.main
             }
             return priceList[SKU];
         }
-        public bool removeItem()
+        public bool removeItem(string SKU)
         {
             return false;
         }
