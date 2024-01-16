@@ -97,5 +97,19 @@ namespace exercise.tests
             //  Assert - check the results
             Assert.That(_bakery.BagleCost(sku), Is.EqualTo(expected));
         }
+
+        [Test]
+        [TestCase("BGLO", "FILB", 0.61d)]
+        [TestCase("BGLP", "FILC", 0.61d)]
+        public void Test5(string skuB, string skuF, double expected)
+        {
+            //  Arrange - set up test values
+
+
+            //  Act - use the fucntion we want to test
+            _bakery.AddToBasket(skuB);
+            //  Assert - check the results
+            Assert.That(_bakery.AddFilling(skuF), Is.EqualTo(expected));
+        }
     }
 }

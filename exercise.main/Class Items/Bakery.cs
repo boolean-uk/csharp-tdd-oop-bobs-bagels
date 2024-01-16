@@ -69,6 +69,16 @@ namespace exercise.main.Class_Items
                 return _products.Find(x => x.SKU == sku).Price;
             }
             return -1d;
+        }
+        
+        public double AddFilling(string sku)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double FillingCost(string sku)
+        {
+            throw new NotImplementedException();
 
         }
 

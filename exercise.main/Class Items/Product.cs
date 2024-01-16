@@ -10,7 +10,7 @@ namespace exercise.main.Class_Items
     public class Product
     {
         private string _sku;
-        private double _price;
+        protected double _price;
         public enum ProdType
         {
             Bagle,
@@ -21,7 +21,7 @@ namespace exercise.main.Class_Items
         private string _varaiant;
 
         public string SKU { get { return _sku; } }
-        public double Price { get { return _price; } }
+        virtual public double Price { get { return _price; } }
         public ProdType Type { get { return _type; } }
         public string Varaiant {  get { return _varaiant; } }
 
