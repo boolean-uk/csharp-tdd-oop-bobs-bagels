@@ -22,9 +22,9 @@
 | | | Failed to remove item from basket (5) | false | 
 | | `RemoveProductFromBasket(Product item)` | Remove a item from the basket (2, 5) | true |
 | | | Failed to remove item from basket (5) | false | 
-| | `IsFull()` | Ensure the basket is not full (3) | true |
-| | | The basket is already full (3) | false | 
-| interface `Product` | `GetPrice()` | Retrieve the price of the product | float |
+| | `IsFull()` | Ensure the basket is not full (3) | false |
+| | | The basket is already full (3) | true | 
+| `Product` (interface) | `GetPrice()` | Retrieve the price of the product | float |
 | | `AddProduct(Product product)` | Add item to product (1) | true|
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
@@ -39,13 +39,15 @@
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Filling` | `GetPrice()` | Retrieve filling cost (9) | float | 
+|| `IsValid(string SKU)` | Ensure valid filling SKU (10) | true |
+| | | Filling SKU was invalid (10) | false |
 | `Inventory` | `GetCoffePrice(string SKU)` | Retrieve cost of the specified coffee | float | 
 | | | Could not find the specified coffee | 0 |
 | | `GetBagelPrice(string SKU)` | Retrieve cost of the specified bagel | float | 
 | | | Could not find the specified bagel | 0 |
 | | `GetFillingPrice(string SKU)` | Retrieve cost of the specified filling | float | 
 | | | Could not find the specified filling | 0 | 
-| `ProductFactory` | `GenerateProduct(string SKU)`| Generate the product object | Product |
+| `ProductFactory` | `GenerateProduct(string[] SKU)`| Generate the product object | Product |
 | | `ValidateProductSKU(string SKU)` | SKU provided was valid | true |
 | | | SKU provided was invalid | false | 
 
