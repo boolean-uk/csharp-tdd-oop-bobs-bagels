@@ -18,7 +18,8 @@ public class Tests
     public void addBagelTest()
     {
         basket.addItem("BGLE");
-        Assert.IsTrue(basket.content.ElementAt(0).Equals("BGLE"));
+        Item expected = new Item("BGLE",0.49f,"Bagel","Everything");
+        Assert.IsTrue(basket.content.ElementAt(0).Equals(expected));
         Assert.IsTrue(basket.addItem("BGLE"));
     }
 }
