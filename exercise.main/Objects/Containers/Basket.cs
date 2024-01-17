@@ -15,7 +15,7 @@ namespace exercise.main.Objects.Containers
         public int BasketSizeMax { get => _basketSizeLimit; }
         public int BasketSize { get => _contentsInBasket.Capacity; }
 
-        public List<Ware> ContentsInBasket { get => _contentsInBasket; }
+        public List<Ware> Contents { get => _contentsInBasket; }
 
         public Basket()
         {
@@ -48,6 +48,7 @@ namespace exercise.main.Objects.Containers
         public double GetPriceTotal()
         {
             double sum = 0;
+
             foreach (var item in _contentsInBasket)
                 sum += item.GetPrice();
 

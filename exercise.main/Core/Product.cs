@@ -12,6 +12,7 @@ namespace exercise.main.Core
         protected double _price = -1;
         protected string _SKU = "";
         protected string _variant = "";
+        public abstract string Name { get; }
 
         public string SKU { get => _SKU; }
         public string Variant { get => _variant; }
@@ -24,6 +25,11 @@ namespace exercise.main.Core
         }
 
         public virtual double GetPrice()
+        {
+            return _price;
+        }
+
+        public double GetPriceSingle()
         {
             return _price;
         }

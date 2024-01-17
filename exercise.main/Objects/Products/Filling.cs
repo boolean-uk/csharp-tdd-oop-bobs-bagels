@@ -9,6 +9,8 @@ namespace exercise.main.Objects.Products
 {
     public class Filling : Product
     {
+        public override string Name { get => "Filling"; }
+
         public Filling(string sku, double price, string variant) : base(sku, price, variant)
         {
 

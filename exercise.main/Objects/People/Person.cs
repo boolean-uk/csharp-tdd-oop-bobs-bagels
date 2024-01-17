@@ -10,15 +10,26 @@ namespace exercise.main.Objects.People
 {
     public class Person : PObject
     {
-        protected Basket _basket = new Basket();
+        public Basket Basket = new Basket();
+        protected List<Ware> _inventory = new List<Ware>();
 
-        public bool AddProduct(Ware ware)
+        public double money = 200;
+
+        
+
+        public bool AddToInventory(Ware ware)
         {
-            return _basket.AddProduct(ware);
+            if (ware == null) return false;
+
+            _inventory.Add(ware);
+            return true;
         }
-        public bool RemoveProduct(Ware ware)
+        public bool RemoveFromInventory(Ware ware)
         {
-            return _basket.RemoveProduct(ware);
+            if (ware == null) 
+                return false;
+
+            return _inventory.Remove(ware);
         }
     }
 }
