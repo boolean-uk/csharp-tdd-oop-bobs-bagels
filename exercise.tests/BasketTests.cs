@@ -182,9 +182,9 @@ public class BasketTests
         Assert.That(it2.SKU, Is.EqualTo("BGLE"));
 
 
-        testBasket.AddFilling(it1, f1);
-        testBasket.AddFilling(it2, f2);
-        testBasket.AddFilling(it2, f3);
+        testBasket.AddFilling(it1.ID, f1);
+        testBasket.AddFilling(it2.ID, f2);
+        testBasket.AddFilling(it2.ID, f3);
 
         List<Item> fillings = it1.ListFillings();
         Assert.That(fillings[0].SKU, Is.EqualTo("FILE"));

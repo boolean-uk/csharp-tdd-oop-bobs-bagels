@@ -33,7 +33,7 @@ Methods
 : `public float GetItemPrice(Item item)`
     * returns the Item price from _basket list
   
-: `float void addFilling(Item bagel, Item filling)`
+: `float void addFilling(string ID, Item filling)`
     * adds filling to Contents list if filling exists
     * adds filling cost to Price
 
