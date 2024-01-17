@@ -13,22 +13,26 @@ namespace exercise.main.Objects.Containers
     public class Store
     {   
         private List<Product> _stock = new List<Product>();
+        /// <summary>
+        /// Tuple contains SKU of an item and the amount 
+        /// </summary>
+        private List<Tuple<string, int, double>> _discounts = new List<Tuple<string, int, double>>();
         public Store()
         {
-            _stock.Add(new Bagel("BGLO",0.49d,"Onion"));
-            _stock.Add(new Bagel("BGLP",0.49d,"Plain"));
-            _stock.Add(new Bagel("BGLE",0.49d,"Everything"));
-            _stock.Add(new Bagel("BGLS",0.49d,"Sesame"));
-            _stock.Add(new Coffee("COFB",0.49d,"Black"));
-            _stock.Add(new Coffee("COFW",0.49d,"White"));
-            _stock.Add(new Coffee("COFC",0.49d,"Capuccino"));
-            _stock.Add(new Coffee("COFL",0.49d,"Latte"));
-            _stock.Add(new Filling("FLIB",0.49d,"Bacon"));
-            _stock.Add(new Filling("FILE",0.49d,"Egg"));
-            _stock.Add(new Filling("FILC",0.49d,"Cheese"));
-            _stock.Add(new Filling("FILX",0.49d,"Cream Cheese"));
-            _stock.Add(new Filling("FILS",0.49d,"Smoked Salmon"));
-            _stock.Add(new Filling("FILH",0.49d,"Ham"));
+            _stock.Add(new Bagel(   "BGLO", 0.49d, "Onion"));
+            _stock.Add(new Bagel(   "BGLP", 0.39d, "Plain"));
+            _stock.Add(new Bagel(   "BGLE", 0.49d, "Everything"));
+            _stock.Add(new Bagel(   "BGLS", 0.49d, "Sesame"));
+            _stock.Add(new Coffee(  "COFB", 0.99d, "Black"));
+            _stock.Add(new Coffee(  "COFW", 1.19d, "White"));
+            _stock.Add(new Coffee(  "COFC", 1.29d, "Capuccino"));
+            _stock.Add(new Coffee(  "COFL", 1.29d, "Latte"));
+            _stock.Add(new Filling( "FLIB", 0.12d, "Bacon"));
+            _stock.Add(new Filling( "FILE", 0.12d, "Egg"));
+            _stock.Add(new Filling( "FILC", 0.12d, "Cheese"));
+            _stock.Add(new Filling( "FILX", 0.12d, "Cream Cheese"));
+            _stock.Add(new Filling( "FILS", 0.12d, "Smoked Salmon"));
+            _stock.Add(new Filling( "FILH", 0.12d, "Ham"));
         }
 
         public Product GetProduct(string productSKU)
