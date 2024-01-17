@@ -45,3 +45,10 @@ Total                  £5.55
         Thank you
       for your order!
 ```
+
+# User stories and domain model
+
+As a customer I want to be able to see an organized view of products, quanitites and prices of what I bought.
+| Classes         | Methods                                     | Scenario                  | Outputs                               |
+|-----------------|---------------------------------------------|---------------------------|---------------------------------------|
+| `Basket`	      | `createReceipt()`                           | any			            | void, prints receipt                  |

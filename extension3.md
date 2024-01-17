@@ -52,3 +52,8 @@ You saved a total of £0.69
         Thank you
       for your order!
 ```
+
+As a customer I want to be able to see the discounts on my receipt.
+| Classes         | Methods                                     | Scenario                  | Outputs                               |
+|-----------------|---------------------------------------------|---------------------------|---------------------------------------|
+| `Basket`	      | `createReceipt()`                           | any			            | void, prints receipt with discount    |
