@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -7,22 +8,22 @@ namespace exercise.main
 {
     public class Basket
     {
-        private List<Product> _items;
+        private List<IProduct> _items;
         private int _capacity;
         private int _nrItems;
 
         public Basket()
         {
-            _items = new List<Product>();
+            _items = new List<IProduct>();
             _capacity = 10;
             _nrItems = 0;
         }
 
-        public List<Product> Items { get =>  _items; }
+        public List<IProduct> Items { get =>  _items; }
         public int Capacity { get => _capacity; set => _capacity = value; }
         public int NrItems { get => _nrItems; set => _nrItems = value; }
 
-        public void Add(Product product)
+        public void Add(IProduct product)
         {
             if (Items.Count == Capacity)
             {
@@ -33,7 +34,7 @@ namespace exercise.main
             NrItems++;
         }
 
-        public void Remove(Product product)
+        public void Remove(IProduct product)
         {
             if (Items.Contains(product))
             {
@@ -46,55 +47,45 @@ namespace exercise.main
             }
         }
 
-/*        public void Add(Coffee coffee)
+        public double GetPrice(int count, double price, bool discount)
         {
-            if (Items.Count == Capacity)
-            {
-                throw new Exception("Basket is full");
-            }
-            
-            Coffees.Add(coffee);
-            NrItems++;
+            double total = 0;
+            if (!discount) { return price * count; }
+            if ((count / 12) >= 1) total = 3.99 + (price * (count % 12));
+            else if ((count / 6) >= 1) total = 2.49 + (price * (count % 6));
+            else total = price * count;
+            return total;
         }
 
-        public void Remove(Coffee coffee)
+        public Dictionary<string, int> getCount(IEnumerable<IProduct> items)
         {
-            if(Coffees.Contains(coffee))
+            Dictionary<string, int> countDict = new Dictionary<string, int>();
+            foreach(var item in items)
             {
-                Coffees.Remove(coffee);
-                NrItems--;
-            }
-            else
-            {
-                throw new Exception("Coffee does not exist in basket");
-            }
-        }*/
-
-        public double GetTotal()
-        {
-            Dictionary<string, int> bagelCount = new Dictionary<string, int>();
-            foreach(Bagel bagel in Items.Where(item => item is Bagel))
-            {
-                if (!bagelCount.ContainsKey(bagel.SKU))
+                if (!countDict.ContainsKey(item.SKU))
                 {
-                    bagelCount.Add(bagel.SKU, 1);
-                }
+                    countDict.Add(item.SKU, 1);
+                } 
                 else
                 {
-                    bagelCount[bagel.SKU]++;
+                    countDict[item.SKU]++;
                 }
-
             }
+            return countDict;
+        }
+
+        // Find simpler way?
+        public double GetTotal()
+        {
+            Dictionary<string, int> bagelCount = getCount(Items.Where(item => item is Bagel));
 
             double sum = 0;
             foreach ((string SKU, int count) in bagelCount)
             {
-                if ((count / 12) >= 1) sum += 3.99 + (new Bagel(SKU).Price * (count % 12));
-                else if ((count / 6) >= 1) sum += 2.49 + (new Bagel(SKU).Price * (count % 6));
-                else sum += new Bagel(SKU).Price * count;
+                sum += GetPrice(count, new Bagel(SKU).Price, true);
             }
 
-            sum += Items.Where(bagel => bagel is Bagel).Sum(bagel => bagel.Filling is not null ? bagel.Filling.Price : 0);
+            sum += Items.Where(filling => filling is Filling).Sum(filling => filling.Price);
             sum += Items.Where(coffee => coffee is Coffee).Sum(coffee => coffee.Price);
 
             return sum;

@@ -11,7 +11,7 @@
   <Class Name="exercise.main.Filling">
     <Position X="8.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAEAAAAEAAAAAA=</HashCode>
       <FileName>Filling.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace exercise.main
 {
-    public class Coffee : Product
+    public class Coffee : IProduct
     {
         private Dictionary<string, double> _priceDict = new Dictionary<string, double>()
         {

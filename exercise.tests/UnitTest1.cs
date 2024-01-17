@@ -28,17 +28,14 @@ public class Tests
         Assert.That(bagel.Variant, Is.EqualTo("Onion"));
         Assert.That(bagel.Price, Is.EqualTo(0.49));
         Assert.That(bagel.SKU, Is.EqualTo("BGLO"));
-        Assert.That(bagel.Filling, Is.EqualTo(null));
     }
 
     [Test]
     public void TestBagelSetFilling()
     {
-        Bagel bagel = new Bagel("BGLO");
-        bagel.SetFilling("FILB");
+        Filling filling = new Filling("FILB");
 
-        Assert.That(bagel.Filling, Is.Not.Null);
-        Assert.That(bagel.Filling.Variant, Is.EqualTo("Bacon"));
+        Assert.That(filling.Variant, Is.EqualTo("Bacon"));
     }
 
     [Test]
@@ -222,7 +219,7 @@ public class Tests
         basket.Remove(coffee);
         Assert.That(basket.GetTotal(), Is.EqualTo(0.49));
 
-        bagel.SetFilling("FILE");
+        basket.Add(new Filling("FILE"));
         Assert.That(basket.GetTotal(), Is.EqualTo(0.49 + 0.12));
     }
 
@@ -316,5 +313,6 @@ public class Tests
         Assert.That(receipt.Time.Year, Is.EqualTo(DateTime.Now.Year));
 
         Assert.That(receipt.Items.Count, Is.EqualTo(1));
+        Assert.That(receipt.Total, Is.EqualTo(0.49));
     }
 }

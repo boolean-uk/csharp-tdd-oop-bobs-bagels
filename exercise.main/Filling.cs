@@ -5,7 +5,7 @@ using System.Text;
 
 namespace exercise.main
 {
-    public class Filling : Product
+    public class Filling : IProduct
     {
         private string _SKU;
         private double _price;
@@ -32,6 +32,5 @@ namespace exercise.main
         public string SKU { get => _SKU; set => _SKU = value; }
         public double Price { get => _price; set => _price = value; }
         public string Variant { get => _variant; set => _variant = value; }
-        Filling Product.Filling => throw new NotImplementedException();
     }
 }

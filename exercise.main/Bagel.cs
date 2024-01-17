@@ -5,12 +5,11 @@ using System.Text;
 
 namespace exercise.main
 {
-    public class Bagel : Product
+    public class Bagel : IProduct
     {
         private string _SKU;
         private double _price;
         private string _variant;
-        private Filling? _filling;
 
         private Dictionary<string, string> _SKUDict = new Dictionary<string, string>()
         {
@@ -32,19 +31,10 @@ namespace exercise.main
             _SKU = SKU;
             _price = _priceDict[SKU];
             _variant = _SKUDict[SKU];
-            _filling = null;
         }
 
         public string SKU { get => _SKU; set => _SKU = value; }
         public double Price { get => _price; set => _price = value; }
         public string Variant { get => _variant; set => _variant = value; }
-        public Filling Filling { get => _filling; }
-
-
-        public void SetFilling(string filling)
-        {
-            _filling = new Filling(filling);
-            _price = _priceDict[SKU] + _filling.Price;
-        }
     }
 }

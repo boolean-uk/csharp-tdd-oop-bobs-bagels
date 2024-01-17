@@ -11,7 +11,6 @@
 | `Bagel`      | `Price`              |                          | `Returns the price of the bagel`                   |
 |              | `Variant`            |                          | `Returns the type of the bagel`                    |
 |              | `ID`                 |                          | `Returns the ID of the bagel`                      |
-|              | `SetFilling(Filling)`|                          | `Filling is added to bagel`                        |
 | `Basket`     | `Bagels`             |                          | `Returns a list of bagels in the basket`           |
 |              | `Capacity`           |                          | `Returns the capacity of the basket`               |
 |              | `GetTotal`           |                          | `Returns the total cost of items in the basket`    |
