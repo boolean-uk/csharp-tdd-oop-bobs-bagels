@@ -20,7 +20,12 @@ namespace exercise.main.Classes
 
         public string Price(Name name)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in Stock.Items.Where(n => n.name == name))
+            {
+                sb.Append($"{item.SKU} {item.variant} {item.price}\n");
+            }
+            return sb.ToString();
         }
 
         public void SetCapacity(int capacity) 

@@ -74,7 +74,19 @@ namespace exercise.main.Classes
 
         public double Cost()
         {
-            throw new NotImplementedException();
+            double cost = 0;
+            foreach(Item item in Items)
+            {
+                if (item.Name == Name.Bagel)
+                {
+                    foreach (Filling filling in item.GetFilling())
+                    {
+                        cost += filling.Price;
+                    }
+                }
+                cost += item.Price;
+            }
+            return cost;
         }
 
     }

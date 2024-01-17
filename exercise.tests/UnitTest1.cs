@@ -102,7 +102,7 @@ public class Tests
     [Test]
     public void PriceCheck()
     {
-        Assert.That(_store.Price(Name.Coffee), Is.EqualTo("COFB Black 0.99\nCOFW White 1.19\nCOFC Cappuccino 1.29\nCOFL Latte 1.29\n"));
+        Assert.That(_store.Price(Name.Coffee), Is.EqualTo("COFB Black 0,99\nCOFW White 1,19\nCOFC Cappuccino 1,29\nCOFL Latte 1,29\n"));
     }
 
     
