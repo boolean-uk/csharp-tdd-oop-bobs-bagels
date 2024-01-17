@@ -5,7 +5,7 @@ using System.Text;
 
 namespace exercise.main
 {
-    public class Coffee
+    public class Coffee : Product
     {
         private Dictionary<string, double> _priceDict = new Dictionary<string, double>()
         {
@@ -18,6 +18,7 @@ namespace exercise.main
         private string _SKU;
         private double _price;
         private string _variant;
+        private Filling? _filling;
 
         public Coffee(string SKU)
         {
@@ -28,6 +29,7 @@ namespace exercise.main
             _variant = _SKUDict[SKU];
             _SKU = SKU;
             _price = _priceDict[SKU];
+            _filling = null;
         }
 
         public double Price { get => _price; set => _price = value; }
@@ -35,5 +37,6 @@ namespace exercise.main
         public string SKU { get => _SKU; set => _SKU = value; }
 
         public string Variant { get => _variant; set => _variant = value; }
+        public Filling Filling { get => _filling; }
     }
 }

@@ -39,10 +39,12 @@ Update and extend your program to handle these orders at Bob's Bagels.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
 
+```
 1.
 As a member of the public,
 So I can order bagels at a discount,
 I'd like my discounts to be applied to the total of my basket,
+```
 
 | `Classes` | `Methods`    | `Scenarios`                        | `Outputs`                          |
 |-----------|--------------|------------------------------------|------------------------------------|

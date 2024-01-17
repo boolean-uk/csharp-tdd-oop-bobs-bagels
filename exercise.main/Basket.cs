@@ -7,51 +7,48 @@ namespace exercise.main
 {
     public class Basket
     {
-        private List<Bagel> _bagels;
-        private List<Coffee> _coffee;
+        private List<Product> _items;
         private int _capacity;
         private int _nrItems;
 
         public Basket()
         {
-            _bagels = new List<Bagel>();
-            _coffee = new List<Coffee>();
+            _items = new List<Product>();
             _capacity = 10;
             _nrItems = 0;
         }
 
-        public List<Bagel> Bagels { get =>  _bagels; }
-        public List<Coffee> Coffees { get => _coffee; }
+        public List<Product> Items { get =>  _items; }
         public int Capacity { get => _capacity; set => _capacity = value; }
         public int NrItems { get => _nrItems; set => _nrItems = value; }
 
-        public void Add(Bagel bagel)
+        public void Add(Product product)
         {
-            if (Bagels.Count + Coffees.Count == Capacity)
+            if (Items.Count == Capacity)
             {
                 throw new Exception("Basket is full");
             }
 
-            Bagels.Add(bagel);
+            Items.Add(product);
             NrItems++;
         }
 
-        public void Remove(Bagel bagel)
+        public void Remove(Product product)
         {
-            if (Bagels.Contains(bagel))
+            if (Items.Contains(product))
             {
-                Bagels.Remove(bagel);
+                Items.Remove(product);
                 NrItems--;
             }
             else
             {
-                throw new Exception("Bagel does not exist in basket");
+                throw new Exception("Product does not exist in basket");
             }
         }
 
-        public void Add(Coffee coffee)
+/*        public void Add(Coffee coffee)
         {
-            if (Coffees.Count + Bagels.Count == Capacity)
+            if (Items.Count == Capacity)
             {
                 throw new Exception("Basket is full");
             }
@@ -71,12 +68,12 @@ namespace exercise.main
             {
                 throw new Exception("Coffee does not exist in basket");
             }
-        }
+        }*/
 
         public double GetTotal()
         {
             Dictionary<string, int> bagelCount = new Dictionary<string, int>();
-            foreach(Bagel bagel in  Bagels)
+            foreach(Bagel bagel in Items.Where(item => item is Bagel))
             {
                 if (!bagelCount.ContainsKey(bagel.SKU))
                 {
@@ -97,8 +94,8 @@ namespace exercise.main
                 else sum += new Bagel(SKU).Price * count;
             }
 
-            sum += Bagels.Sum(bagel => bagel.Filling is not null ? bagel.Filling.Price : 0);
-            sum += Coffees.Sum(coffee => coffee.Price);
+            sum += Items.Where(bagel => bagel is Bagel).Sum(bagel => bagel.Filling is not null ? bagel.Filling.Price : 0);
+            sum += Items.Where(coffee => coffee is Coffee).Sum(coffee => coffee.Price);
 
             return sum;
         }

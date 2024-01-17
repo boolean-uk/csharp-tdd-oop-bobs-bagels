@@ -5,7 +5,7 @@ using System.Text;
 
 namespace exercise.main
 {
-    public class Bagel
+    public class Bagel : Product
     {
         private string _SKU;
         private double _price;
@@ -22,7 +22,7 @@ namespace exercise.main
             {"BGLO", 0.49}, {"BGLP", 0.39}, {"BGLE", 0.49}, {"BGLS", 0.49}
         };
 
-    public Bagel(string SKU)
+        public Bagel(string SKU)
         {
             if (!_SKUDict.ContainsKey(SKU))
             {

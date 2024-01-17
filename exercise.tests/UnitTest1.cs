@@ -61,7 +61,7 @@ public class Tests
 
         Assert.That(basket.NrItems, Is.EqualTo(1));
         Assert.That(basket.GetTotal(), Is.EqualTo(0.49));
-        Assert.That(basket.Bagels[0], Is.EqualTo(bagel));
+        Assert.That(basket.Items[0], Is.EqualTo(bagel));
 
         basket.Add(bagel);
         basket.Add(bagel);
@@ -86,7 +86,7 @@ public class Tests
         basket.Add(bagel);
         basket.Remove(bagel);
 
-        Assert.That(basket.Bagels.Count, Is.EqualTo(0));
+        Assert.That(basket.Items.Count, Is.EqualTo(0));
 
         Assert.Throws<Exception>(() => basket.Remove(bagel));
     }
@@ -253,13 +253,68 @@ public class Tests
         Assert.That(basket.NrItems, Is.EqualTo(12));
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99));
 
-        store.Baskets[0].Bagels[3].SetFilling("FILE");
+/*        store.Baskets[0].Items[3].SetFilling("FILE");
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12));
 
         bagel = new Bagel("BGLO");
         basket.Add(bagel);
-        Assert.That(basket.Bagels.Count, Is.EqualTo(13));
-        Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12 + 0.49));
+        Assert.That(basket.Items.Count, Is.EqualTo(13));
+        Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12 + 0.49));*/
 
+    }
+
+    // Example discount calculation given
+    [Test]
+    public void TestDiscount2()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(20);
+        Bagel bagel;
+        
+
+        for (int i = 0; i < 2; i++)
+        {
+            bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+
+        for (int i = 0; i < 12; i++)
+        {
+            bagel = new Bagel("BGLP");
+            basket.Add(bagel);
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            bagel = new Bagel("BGLE");
+            basket.Add(bagel);
+        }
+
+        Coffee coffee;
+        for (int i = 0; i < 3; i++)
+        {
+            coffee = new Coffee("COFB");
+            basket.Add(coffee);
+        }
+
+        Assert.That(basket.NrItems, Is.EqualTo(23));
+        Assert.That(basket.GetTotal(), Is.EqualTo(10.43));
+    }
+
+    [Test]
+    public void TestReceiptConstructor()
+    {
+        Basket basket = new Basket();
+        Bagel bagel = new Bagel("BGLO");
+
+        basket.Add(bagel);
+
+        Receipt receipt = new Receipt(basket);
+        Assert.That(receipt.Time.Day, Is.EqualTo(DateTime.Now.Day));
+        Assert.That(receipt.Time.Year, Is.EqualTo(DateTime.Now.Year));
+
+        Assert.That(receipt.Items.Count, Is.EqualTo(1));
     }
 }

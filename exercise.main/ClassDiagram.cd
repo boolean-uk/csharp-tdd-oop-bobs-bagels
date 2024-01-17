@@ -6,6 +6,7 @@
       <HashCode>AhAAAAEAQQAAAAAAAAAAIAAAAAiAAAAAAAAAEAAAAEA=</HashCode>
       <FileName>Bagel.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="exercise.main.Filling">
     <Position X="8.5" Y="3.25" Width="1.5" />
@@ -13,11 +14,12 @@
       <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Filling.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="exercise.main.Basket">
     <Position X="3.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIABwAAAAAAAAAAAAQARAQCAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIABAAAAAAACAAAAAAABAQCABAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,9 +33,10 @@
   <Class Name="exercise.main.Coffee">
     <Position X="6" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAEA=</HashCode>
+      <HashCode>AhAAAAEAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAEA=</HashCode>
       <FileName>Coffee.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

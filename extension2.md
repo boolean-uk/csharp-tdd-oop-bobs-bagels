@@ -47,17 +47,18 @@ Total                  £5.55
 ```
 
 ## Stories
-
+```
 1.
 As an organised individual,
 So I can organise my receipts,
 I'd like to see the date and time of my purchase,
-
+```
+```
 2.
 As an organised individual
 So I can keep track of my finances,
 I'd like to see the name and price of the products, with quantity and total cost, as well as discounts on my receipt,
-
+```
 | `Classes` | `Methods`       | `Scenarios` | `Outputs`                                                   |
 |-----------|-----------------|-------------|-------------------------------------------------------------|
 | `Receipt` | `PrintHeadline` |             | `Prints the headline of the receipt`                        |
