@@ -8,9 +8,11 @@ public class Tests
 {
     private int capacity = 6;
     Basket basket;
+    Receipt receipt;
     [SetUp]
     public void Setup()
     {
+        receipt = new Receipt();
         basket = new Basket(capacity);
     }
 
@@ -45,10 +47,13 @@ public class Tests
     {
         Assert.That(basket.changeCapacity(7), Is.EqualTo(7));
     }
+
     [Test]
     public void printTotalCostTest()
     {
-        string expected = "Your current total comes to: ";
-        Assert.That(expected, Is.EqualTo(expected));//change other expected to receipt.showTotal
+        basket.addItem("BGLE");
+        basket.addItem("COFB");
+        string expected = "Your current total comes to: 1.48";
+        Assert.That(expected, Is.EqualTo(receipt.printTotal()));
     }
 }

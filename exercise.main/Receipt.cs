@@ -9,9 +9,15 @@ namespace exercise.main
     public class Receipt
     {
         private float totalCost;
-        public Receipt() { }
+        public Receipt() 
+        { 
 
-        public string printTotal(float totalCost)
+        }
+        public void addCost(float cost)
+        {
+            throw new NotImplementedException();
+        }
+        public string printTotal()
         {
             throw new NotImplementedException();
         }

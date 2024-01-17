@@ -12,10 +12,12 @@ namespace exercise.main
         private int _capacity;
         public List<Item> content;
         private Dictionary<string, Item> priceList;
+        public Receipt receipt;
         public Basket(int capacity)
         {
             _capacity = capacity;
-            content =  new List<Item>();
+            content = new List<Item>();
+            receipt = new Receipt();
             priceList = new Dictionary<string, Item>();
             priceList.Clear();
             priceList.Add("BGLO", new Item(0.49f, "Bagel", "Onion"));
@@ -38,6 +40,7 @@ namespace exercise.main
             if (content.Count < _capacity)
             {
                 content.Add(priceList[SKU]);
+                //ADD COST
                 return priceList[SKU];
             }
             else
