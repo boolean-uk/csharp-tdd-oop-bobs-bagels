@@ -52,9 +52,13 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
-        public int changeCapacity(string adminLevel, int v)
+        public int changeCapacity(Person person, int newCapacity)
         {
-            throw new NotImplementedException();
+            if (person.AdminLevel=="admin")
+            {
+                _capacity = newCapacity;
+            }
+            return _capacity;
         }
 
         public int Capacity { get => _capacity; }
