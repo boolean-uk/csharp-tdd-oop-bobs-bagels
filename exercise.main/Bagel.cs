@@ -40,6 +40,7 @@ namespace exercise.main
         public string Variant { get => _variant; set => _variant = value; }
         public Filling Filling { get => _filling; }
 
+
         public void SetFilling(string filling)
         {
             _filling = new Filling(filling);

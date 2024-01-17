@@ -255,5 +255,11 @@ public class Tests
 
         store.Baskets[0].Bagels[3].SetFilling("FILE");
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12));
+
+        bagel = new Bagel("BGLO");
+        basket.Add(bagel);
+        Assert.That(basket.Bagels.Count, Is.EqualTo(13));
+        Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12 + 0.49));
+
     }
 }

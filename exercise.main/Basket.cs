@@ -92,8 +92,8 @@ namespace exercise.main
             double sum = 0;
             foreach ((string SKU, int count) in bagelCount)
             {
-                if (count == 6) sum += 2.49;
-                else if (count == 12) sum += 3.99;
+                if ((count / 12) >= 1) sum += 3.99 + (new Bagel(SKU).Price * (count % 12));
+                else if ((count / 6) >= 1) sum += 2.49 + (new Bagel(SKU).Price * (count % 6));
                 else sum += new Bagel(SKU).Price;
             }
 
