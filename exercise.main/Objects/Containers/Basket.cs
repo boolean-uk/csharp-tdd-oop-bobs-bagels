@@ -17,9 +17,20 @@ namespace exercise.main.Objects.Containers
 
         public List<Ware> ContentsInBasket { get => _contentsInBasket; }
 
-        public bool AddProduct(Product bagel)
+        public Basket()
         {
-            throw new NotImplementedException();
+            _contentsInBasket.Capacity = _basketSizeLimit;
+        }
+
+        public bool AddProduct(Ware ware)
+        {
+            if (ware == null)
+                return false;
+            if (_contentsInBasket.Count() + 1 > _basketSizeLimit)
+                return false;
+
+            _contentsInBasket.Add(ware);
+            return true;
         }
 
         public double GetPriceTotal()
@@ -32,9 +43,12 @@ namespace exercise.main.Objects.Containers
             return sum;
         }
 
-        public bool RemoveProduct(Product bagel)
+        public bool RemoveProduct(Ware ware)
         {
-            throw new NotImplementedException();
+            if(ware == null || !_contentsInBasket.Contains(ware)) return false;
+            
+            _contentsInBasket.Remove(ware);
+            return true;
         }
 
         protected internal bool AlterSize(int newSize)

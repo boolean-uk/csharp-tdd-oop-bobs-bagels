@@ -39,11 +39,11 @@ public class Tests
     public void AddProductTest()
     {
         Basket basket = new Basket();
-        Product bagel = new Bagel("", 5, "");
+        Ware bagel = new Bagel("", 5, "");
         Filling bagelFilling = new Filling("", 5, "");
-        Product bagel1 = new Bagel("", 5, "",bagelFilling);
-        Product bagel2 = null;
-        Product coffee = new Coffee("", 5, "");
+        Ware bagel1 = new Bagel("", 5, "",bagelFilling);
+        Ware bagel2 = null;
+        Ware coffee = new Coffee("", 5, "");
 
 
         Assert.IsTrue(basket.AddProduct(bagel));
@@ -56,11 +56,11 @@ public class Tests
     public void RemoveProudctTest()
     {
         Basket basket = new Basket();
-        Product bagel = new Bagel("", 5, "");
+        Ware bagel = new Bagel("", 5, "");
         Filling bagelFilling = new Filling("", 5, "");
-        Product bagel1 = new Bagel("", 5, "",bagelFilling);
-        Product bagel2 = null;
-        Product coffee = new Coffee("", 5, "");
+        Ware bagel1 = new Bagel("", 5, "",bagelFilling);
+        Ware bagel2 = null;
+        Ware coffee = new Coffee("", 5, "");
 
         basket.AddProduct(bagel);
         basket.AddProduct(bagel1);
@@ -74,7 +74,7 @@ public class Tests
     [Test]
     public void GetPriceTest()
     {
-        Product bagel = new Bagel("", 10, "");
+        Ware bagel = new Bagel("", 10, "");
         Bagel bagel1 = new Bagel("", 10, "", new Filling("", 5, ""));
         Basket basket = new Basket();
 
@@ -84,6 +84,6 @@ public class Tests
 
         Assert.IsTrue(basket.AddProduct(bagel));
         Assert.IsTrue(basket.AddProduct(bagel1));
-        Assert.AreEqual(basket.GetPriceTotal(), 10);
+        Assert.AreEqual(basket.GetPriceTotal(), 25.0d);
     }
 }

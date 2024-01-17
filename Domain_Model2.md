@@ -65,29 +65,29 @@ So we don't get any weird requests,
 
 | Classes             | Methods                                                      | Scenario               | Outputs |
 |---------------------|--------------------------------------------------------------|------------------------|---------|
-| `abstract Object`   |                                                      |                         |  |
+| `abstract Object`   |                                                              |                        |         |
 | `Basket : Object`   | `protected internal bool AlterSize(int newSize)`     | Update the size of the basket to newSize if newSize is valid | `true` |
 |                     |                                                      | Cannot update the size of the basket to newSize because newSize is invalid (negative number or past max limit) | `false` |
-|                     | `public bool AddProduct(Product product)`            | Add product to basket    | `true` |
-|                     |                                                      | Cannot add product to basket due to basket size limit     | `false` |
-|                     |                                                      | Cannot add product to basket due to product being invalid | `false` |
-|                     | `public bool RemoveProduct(Product product)`         | Remove product from basket | `true` |
-|                     |                                                      | Cannot remove product from basket due to product not existing in basket, or is invalid | `false` |
+|                     | `public bool AddProduct(Ware ware)`                  | Add product to basket    | `true` |
+|                     |                                                      | Cannot add ware to basket due to basket size limit     | `false` |
+|                     |                                                      | Cannot add ware to basket due to product being invalid | `false` |
+|                     | `public bool RemoveProduct(Ware ware)`               | Remove ware from basket | `true` |
+|                     |                                                      | Cannot remove ware from basket due to product not existing in basket, or is invalid | `false` |
 |                     | `public double GetPriceTotal()`                      | If there are items in the basket | `value` |
 |                     |                                                      | If there are no items in the basket | `0` |
-| `Person : Object`   | `public bool AddProduct(Product product)`            | Add product to basket    | `true` |
-|                     |                                                      | Cannot add product to basket due to basket size limit     | `false` |
-|                     |                                                      | Cannot add product to basket due to product being invalid | `false` |
-|                     | `public bool RemoveProduct(Product product)`         | Remove product from basket | `true` |
+| `Person : Object`   | `public bool AddProduct(Ware ware)`                  | Add ware to basket    | `true` |
+|                     |                                                      | Cannot add ware to basket due to basket size limit     | `false` |
+|                     |                                                      | Cannot add ware to basket due to product being invalid | `false` |
+|                     | `public bool RemoveProduct(Ware ware)`               | Remove product from basket | `true` |
 |                     |                                                      | Cannot remove product from basket due to product not existing in basket, or is invalid | `false` |
-| `Customer : Person` |                                            |                        |  |
+| `Customer : Person` |                                                      |                        |  |
 | `Manager : Customer`| `public bool AlterSize(Basket basket, int newSize)`  | Update the size of the basket | `true` |
 |                     |                                                      | Cannot update basket size due to newSize variable is invalid, or basket doesn't exist | `false` |
-| `abstract Product : Object` | `public virtual double GetPrice()`                   |                         | `value` |
+| `abstract Product : Object` | `public virtual double GetPrice()`           | Returns the price of the product        | `value` |
 | `abstract Ware : Product`|                                                 |                         |      |
 | `Bagel : Ware`      | `public Bagel(Filling filling = null)`               | Constructs a bagel with or without filling |   |
 | `Bagel : Ware`      | `public double GetPrice() override`                  | Returns the cost of the bagel + filling |   |
 | `Coffee : Ware`     |                                                      |                        |   |
 | `Filling : Product` |                                                      |                        |   |
-| `Store`             | `public double GetPrice(Product product)`                   |    |  |
-|                     |                                                      |    |  |
+| `Store`             | `public double GetPrice(Product product)`            |                        |   |
+|                     |                                                      |                        |   |
