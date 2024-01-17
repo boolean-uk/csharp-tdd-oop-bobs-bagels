@@ -275,33 +275,41 @@ public class BasketTests
 
     [Test]
     public void ReceitPrinted()
-    {
-        Assert.Pass();
-        /*
+    {        
+        testBasket.ChangeCapacity(20);
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
         
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("COFB");
-        testBasket.AddItem("BGLO");
-        testBasket.AddItem("BGLO");
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["COFB"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
 
-        testBasket.PrintReceit();
+        testBasket.PrintReceipt();
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        Assert.That("    ~~~ Bob's Bagels ~~~", Is.EqualTo(outputLines[0]));
-        Assert.That("", Is.EqualTo(outputLines[1]));
-        Assert.That("", Is.EqualTo(outputLines[2]));  // DateTime
-        Assert.That("----------------------------", Is.EqualTo(outputLines[4])); 
+        
+        Assert.That("     ~~~ Bob's Bagels ~~~", Is.EqualTo(outputLines[0]));
 
+        DateTime enteredDate = DateTime.Parse(outputLines[1]);
+        DateTime now = DateTime.Now;
 
-        Assert.That("----------------------------", Is.EqualTo(outputLines[11]));
-        Assert.That("        Thank you", Is.EqualTo(outputLines[14]));
-        Assert.That("      for your order!", Is.EqualTo(outputLines[14]));
-        */
+        Assert.That(enteredDate, Is.InstanceOf(now.GetType()));  // DateTime
+        Assert.That("------------------------------", Is.EqualTo(outputLines[2]));
+        Assert.That("Everything Bagel      1  £0,49", Is.EqualTo(outputLines[3]));
+        Assert.That("Black Coffee          1  £0,99", Is.EqualTo(outputLines[4]));
+        Assert.That("Onion Bagel           6  £2,49", Is.EqualTo(outputLines[5]));
 
-
+        Assert.That("------------------------------", Is.EqualTo(outputLines[6]));
+        Assert.That("Total                    £4,42", Is.EqualTo(outputLines[7]));
+        Assert.That("           Thank you", Is.EqualTo(outputLines[8]));
+        Assert.That("        for your order!", Is.EqualTo(outputLines[9]));
+        
     }
 
 }
