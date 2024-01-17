@@ -39,7 +39,7 @@ namespace exercise.main
             {
                 if (itemInv.Sku == Sku)
                 {
-                    Console.WriteLine($"Item: {itemInv.Name} {itemInv.Variant} has been added to basket");
+                    Console.WriteLine($"Item: {itemInv.Variant} {itemInv.Name} has been added to basket");
                     BasketItems.Add(itemInv);                
                 }
             }
@@ -90,6 +90,31 @@ namespace exercise.main
             }
             Console.WriteLine("The total cost of basket is: " + Math.Round(result, 2));
             return Math.Round(result, 2);
+        }
+
+        public void CostOfBagel()
+        {
+            Console.WriteLine("Price of all Bagels");
+            foreach (var item in inventory.InventoryItems)
+            {
+                if (item.Variant.Equals("Bagel"))
+                {
+                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
+                }
+            }
+        }
+
+        public void CostOfFilling()
+        {
+            Console.WriteLine("Price of all Filling");
+            foreach (var item in inventory.InventoryItems)
+            {
+                if (item.Variant.Equals("Filling"))
+                {
+                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
+                }
+            }
+
         }
     }
 }

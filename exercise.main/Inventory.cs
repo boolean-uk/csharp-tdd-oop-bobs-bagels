@@ -31,18 +31,25 @@ namespace exercise.main
         public void CostOfBagel()
         {
             Console.WriteLine("Price of all Bagels");
-            foreach (var item in InventoryItems)
+            foreach (var item in this.InventoryItems)
             {
-                if (item.Variant == "Bagel")
+                if (item.Name == "Bagel")
                 {
-                    Console.WriteLine("Price of all Bagels");
-                    Console.WriteLine($"Name: {item.Name} Price: {item.Price}");
+                    Console.WriteLine($"Variant: {item.Variant}, Price: {item.Price}");
                 }
             }
         }
 
-        public double CostOfFilling()
+        public void CostOfFilling()
         {
+            Console.WriteLine("Price of all Filling");
+            foreach(var item in this.InventoryItems)
+            {
+                if(item.Name == "Filling")
+                {
+                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
+                }
+            }
 
         }
 
