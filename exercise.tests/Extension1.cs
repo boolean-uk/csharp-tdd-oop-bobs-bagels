@@ -74,5 +74,11 @@ namespace exercise.tests
             double sum = basket.TotalCost();
             Assert.That(Math.Round(basket.TotalCost(), 2), Is.EqualTo(Math.Round(3.99d + 2.49d + 4*1.25d, 2)));
         }
+
+        [Test]
+        public void addFillingToPrint()
+        {
+            Assert.Fail();
+        }
     }
 }

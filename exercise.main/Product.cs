@@ -14,6 +14,8 @@ namespace exercise.main
         public abstract int itemNr { get; }
 
         public abstract double GetPrice();
+
+        public abstract string name();
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,31 +40,35 @@ namespace exercise.main
             products = products.OrderBy(x => x.itemNr).ToList();
 
             // check if bagels should be discounted
-            if ( bagels >= 6)
-            {
-                deals = (bagels / 6) * 6;
-                for ( int i = 0; i < deals; i++ )
-                {
-                    products[i].price = 0;
-                }
-                total += (bagels / 12) * 3.99d + ((bagels % 12) / 6) * 2.49d;
-            }
+            if ( bagels >= 6) total += bagelDeals(bagels, out deals);
 
 
             int coffeeDeals = Math.Min(bagels - deals, products.Count - bagels);
             // check if there are non discounted bagels and coffees in the order
-            if ( coffeeDeals > 0)
-            {
-                for ( int i = 0; i < coffeeDeals; i++ )
-                {
-                    products[deals + i].price = 0;
-                    products[bagels + i].price = 0;
-                }
-
-                total += coffeeDeals * 1.25d;
-            }
+            if ( coffeeDeals > 0) total += CoffeeDeals(bagels, coffeeDeals, deals);
 
             return total + products.Sum(x => x.GetPrice());
+        }
+
+        private double bagelDeals(int bagels, out int deals)
+        {
+            deals = (bagels / 6) * 6;
+            for (int i = 0; i < deals; i++)
+            {
+                products[i].price = 0;
+            }
+            return( (bagels / 12) * 3.99d + ((bagels % 12) / 6) * 2.49d);
+        }
+
+        private double CoffeeDeals(int bagels, int coffeeDeals, int deals = 0)
+        {
+            for (int i = 0; i < coffeeDeals; i++)
+            {
+                products[deals + i].price = 0;
+                products[bagels + i].price = 0;
+            }
+
+            return coffeeDeals * 1.25d;
         }
 
         public string Prices()
@@ -95,9 +100,76 @@ namespace exercise.main
         public void WriteReceipt()
         {
 
-            Console.WriteLine( "    ~~~ Bob's Bagels ~~~\n");
-            Console.WriteLine($"    {DateTime.Now.ToString("ja-JA")}\n");
-            Console.WriteLine("----------------------------\n");
+
+            Console.WriteLine( "       ~~~ Bob's Bagels ~~~\n");
+            Console.WriteLine($"       {DateTime.Now.ToString(new CultureInfo("ja-JA"))}\n");
+            Console.WriteLine($"{new ('-', 36)}\n");
+
+            int deals = 0, bagels = (products.OfType<Bagel>().Count());
+            products = products.OrderBy(x => x.itemNr).ToList();
+
+            StringBuilder sb;
+            int elements;
+
+            List<Filling> fillings = new List<Filling>();
+            foreach ( Bagel fillingHolders in products.OfType<Bagel>())
+            {
+                if (fillingHolders._filling.Count > 0) fillings.AddRange(fillingHolders._filling);
+            }
+
+            foreach ( var elm in products.DistinctBy(x => x.itemNr))
+            {
+                sb = new StringBuilder();
+
+                sb.Append($"{elm.GetType().Name} {elm.name()}");
+                sb.Append($"{new (' ', 24 - sb.Length)}");
+
+                int count = products.Count(x => x.SKU == elm.SKU);
+                elements = (int) Math.Ceiling(Math.Log10(count + 1));
+                sb.Append($"{new string(' ', 4 - elements )}{count}");
+
+                double price = count * elm.price;
+                elements = (int)Math.Ceiling(Double.Max(Math.Log10(price + 1), 0.0));
+
+                sb.Append($"{new string(' ', 4 - elements)}£");
+                sb.Append(String.Format("{0:F2}", Math.Round(price, 2)));
+                Console.WriteLine(sb.ToString());
+            }
+
+            Console.WriteLine();
+
+            foreach( var elm in fillings.DistinctBy(x => x.SKU))
+            {
+                sb = new StringBuilder();
+                sb.Append($"{elm.GetType().Name} {elm.name()}");
+                sb.Append($"{new (' ', 24 - sb.Length)}");
+
+                int count = fillings.Count(x => x.SKU == elm.SKU);
+                elements = (int)Math.Ceiling(Math.Log10(count + 1));
+                sb.Append($"{new (' ', 4 - elements)}{count}");
+
+                double price = count * elm.price;
+                elements = (int)Math.Ceiling(Double.Max(Math.Log10(price + 1), 0.0));
+                sb.Append($"{new (' ', 4 - elements)}");
+                sb.Append(String.Format("£{0:F2}", Math.Round(price, 2)));
+
+                Console.WriteLine(sb.ToString());
+            }
+
+            double cost = bagelDeals(bagels, out deals);
+
+            Console.WriteLine($"\n{new string('-', 36)}\n");
+            sb = new StringBuilder();
+            sb.Append($"Total{new (' ', 23)}");
+            double totalCost = TotalCost();
+            elements = (int)Math.Ceiling(Math.Log10(totalCost + 1));
+            sb.Append($"{new (' ', 4 - elements)}£{Math.Round(totalCost, 2)}");
+
+            Console.WriteLine(sb.ToString());
+
+
+            Console.WriteLine("           Thank you");
+            Console.WriteLine("         for your order!");
         }
     }
 }

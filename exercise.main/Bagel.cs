@@ -38,5 +38,7 @@ namespace exercise.main
         }
 
         public override int itemNr => (int) bagelType;
+
+        public override string name() => bagelType.ToString();
     }
 }

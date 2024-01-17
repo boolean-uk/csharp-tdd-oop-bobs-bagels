@@ -30,5 +30,7 @@ namespace exercise.main
         public override double GetPrice() { return price; }
 
         public override int itemNr { get => (int) coffeeType; }
+
+        public override string name() => coffeeType.ToString();
     }
 }

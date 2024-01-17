@@ -10,7 +10,8 @@ namespace exercise.main
 
     public class Filling
     {
-        private FillingType _filling;
+        private FillingType fillingType;
+        public string SKU { get; }
         public double price { get; } = 0.12;
         Dictionary<FillingType, string> fillingToSKU = new Dictionary<FillingType, string>()
         {
@@ -24,8 +25,11 @@ namespace exercise.main
 
         public Filling(FillingType filling)
         {
-            _filling = filling;
+            fillingType = filling;
+            SKU = fillingToSKU[filling];
         }
+
+        public string name() => fillingType.ToString();
     }
 
 }
