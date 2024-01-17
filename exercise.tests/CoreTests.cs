@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 
 namespace exercise.tests;
 
-public class Tests
+public class Core
 {
 
     //---------------------------------------------------------------------------------

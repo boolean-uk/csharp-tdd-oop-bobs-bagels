@@ -68,11 +68,33 @@ I want customers to only be able to order things that we stock in our inventory.
 verbs/actions: know what's in inventory
 method: bool isItInInventory(string item)
 
+---------------------------------------------------------------------------------------------------------------------
+`Extension user stories`
+---------------------------------------------------------------------------------------------------------------------
+11. 
+As a customer,
+So I am encouraged to buy more,
+I'd like to get discounts on bagels.
+
+12. 
+As a customer,
+So I can get a quick breakfast and get my dose of caffeine,
+I'd like to get discounts when I buy a combo of bagel and coffee.
+
+13.
+As a customer,
+So I can keep track of my spendings and personal finance,
+I'd like to get a receipt printed out.
+
+14.
+As a customer,
+So I can see how much money I've saved,
+I'd like the receipt to also state how much money I've saved if I bought a discount.
 
 
 | Classes             | Members                             | Methods                                                | Scenario                                           | Outputs   |
 |---------------------|-------------------------------------|--------------------------------------------------------|----------------------------------------------------|-----------|
-| `Basket`	          | List<Product> basket                | bool AddProduct(string productName, int amount)        | If Product was added						          | true      |
+| `Basket`	          | List<Product> products              | bool AddProduct(string productName, int amount)        | If Product was added						          | true      |
 |        	          |                                     |                                          			     | If Product was NOT added						      | false     |
 | 	                  |                                     | bool RemoveProduct(string productName, int amount)	 | If Product was removed						      | true      |
 |        	          |                                     |                                          			     | If Product was NOT removed						  | false     |
@@ -88,9 +110,11 @@ method: bool isItInInventory(string item)
 |       	          |                                     |                                                        | Overload to calculate with NO filling              | double    |
 | `Coffee (subclass)` |                                     |                                                        |                              					  |           |
 | `Filling (subclass)`|                                     |                                                        |                              					  |           |
-| `Store`          	  | Dictionary<Product, int> inventory  | bool IsProductInInventory(Product productName)         | If Product is in inventory                         | true      |
-|        	          |                                     |                                                        | If Product is NOT in inventory 		              | false     |
+| `Store`          	  | List<Tuple> skuList                 | bool IsProductInInventory(Product productName)         | If Product is in inventory                         | true      |
+|        	          | List<Tuple> discountCombos          |                                                        | If Product is NOT in inventory 		              | false     |
 |                     |                                     | bool ChangeBasketSize(int newSize)			         | If basketSize was changed (isManager)			  | true      |
 |        	          |                                     |                                          			     | If basketSize was NOT changed (!isManager)	      | false     |
 | `Person`            |  Basket personalBasket              |                                   			         | 			                                          |           |
-|                     |                                     | `can call on the store methods`			             | 			                                          |           |
+|                     |                                     | can call on the store methods			                 | 			                                          |           |
+| `Receipt`           |                                     | double CheckTotalCost()		                         | 						                              | double    |
+|                     |                                     | string printReceipt()        			                 | 			                                          | string    |

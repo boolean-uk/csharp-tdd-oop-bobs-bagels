@@ -22,10 +22,11 @@ namespace exercise.main
     public class Store
     {
         private static List<Tuple<string, double, string, string>> _skuList;
-        public static List<Tuple<string, double, string, string>> SkuList { get { return _skuList; } set { _skuList = value;  }  }
+        public static List<Tuple<string, double, string, string>> SkuList { get { return _skuList; } set { _skuList = value; } }
 
         static Store()
         {
+            //Weakness: no quantity and not mutable. But I decided I won't implement that unless I have to.
             SkuList = new List<Tuple<string, double, string, string>>
             {
                 new Tuple<string, double, string, string>("BGLO", 0.49,  "Bagel",   "Onion"         ),
@@ -85,31 +86,57 @@ namespace exercise.main
         }
     }
 
-    public class Person
+    //Finne discount = modulo?
+    public static class CashRegister
     {
-        private Basket _basket;
-        public Basket Basket { get { return _basket; } set { _basket = value; } }
 
-        private bool _isManager;
-        public bool IsManager { get { return _isManager; } set { _isManager = value; } }
-
-        public Person(Basket basket = null, bool isManager = false)
+        public static double CalculateReceipt(List<Product> products)
         {
-            Basket = basket;
-            IsManager = isManager;
+            Dictionary<string, int> discountTracker = PopulateTracker();
+            double total = 0;
+            if (!products.Any())
+            {
+                return total;
+            }
+
+            foreach (Product product in products)
+            {
+                discountTracker.Add(product.SKU, +1); //fINNE KODEN, ADDERE OPP VALUE ISTEDEN. DENNE ER FEIL
+            }
+            total = products.Sum(product => product.Price);
+            return total;
+
+
         }
 
-        public bool IsProductInInventory(string sKU)
+        public static Dictionary<string, int> PopulateTracker()
         {
-            return Store.IsProductInInventory(sKU);
+            Dictionary<string, int> discountTracker = new Dictionary<string, int>
+            {
+                {"BGLO", 0},
+                {"BGLP", 0},
+                {"BGLE", 0},
+                {"BGLS", 0},
+                {"COFB", 0},
+                {"COFW", 0},
+                {"COFC", 0},
+                {"COFL", 0},
+                {"FILB", 0},
+                {"FILE", 0},
+                {"FILC", 0},
+                {"FILX", 0},
+                {"FILS", 0},
+                {"FILH", 0}
+            };
+
+            return discountTracker;
         }
 
-        public bool ChangeBasketSize(bool isManager, int newCapacity)
+        public static string PrintReceipt()
         {
-            return Store.ChangeBasketSize(isManager, newCapacity);
+            return "receipt";
         }
     }
-
 
     public class Basket
     {
@@ -117,7 +144,7 @@ namespace exercise.main
         List<Product> Products { get { return _products; } set { _products = value; } }
 
         private static int _basketCapacity = 12;
-        public static int BasketCapacity { get { return _basketCapacity; } set {  _basketCapacity = value; } }
+        public static int BasketCapacity { get { return _basketCapacity; } set { _basketCapacity = value; } }
 
         public Basket()
         {
@@ -125,7 +152,7 @@ namespace exercise.main
         }
         public bool AddProduct(Product product)
         {
-            if(Products.Count < BasketCapacity)
+            if (Products.Count < BasketCapacity)
             {
                 Products.Add(product);
                 return Products.Contains(product);
@@ -159,12 +186,35 @@ namespace exercise.main
 
         public double CheckTotalCost()
         {
-            return Products.Any() ? Products.Sum(product => product.Price) : 0.0d;
+            return CashRegister.CalculateReceipt(Products);
         }
 
     }
 
+    public class Person
+    {
+        private Basket _basket;
+        public Basket Basket { get { return _basket; } set { _basket = value; } }
 
+        private bool _isManager;
+        public bool IsManager { get { return _isManager; } set { _isManager = value; } }
+
+        public Person(Basket basket = null, bool isManager = false)
+        {
+            Basket = basket;
+            IsManager = isManager;
+        }
+
+        public bool IsProductInInventory(string sKU)
+        {
+            return Store.IsProductInInventory(sKU);
+        }
+
+        public bool ChangeBasketSize(bool isManager, int newCapacity)
+        {
+            return Store.ChangeBasketSize(isManager, newCapacity);
+        }
+    }
 
 
     public abstract class Product
@@ -229,7 +279,7 @@ namespace exercise.main
 
         public virtual double CheckPriceOfProduct()
         {
-            return Filling != null ? (Price+Filling.Price) : Price;
+            return Filling != null ? (Price + Filling.Price) : Price;
         }
     }
 
