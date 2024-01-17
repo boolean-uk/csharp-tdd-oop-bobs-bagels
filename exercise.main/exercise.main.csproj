@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Twilio" Version="6.16.1" />
+    <PackageReference Include="Twilio.AspNet.Common" Version="8.0.2" />
+    <PackageReference Include="Twilio.AspNet.Core" Version="8.0.2" />
+  </ItemGroup>
+
 </Project>

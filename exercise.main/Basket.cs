@@ -1,4 +1,6 @@
-﻿namespace exercise.main
+﻿using System.Text;
+
+namespace exercise.main
 {
     public class Basket
     {
@@ -10,6 +12,7 @@
         {
             Items = [];
             _capacity = 39; //Arbitrarily chosen default capacity
+            Discounts = new Discount();
         }
         public Basket(int capacity)
         {
@@ -100,29 +103,35 @@
 
         public void CreateReceipt()
         {
-            Console.WriteLine("           Bob's Bagels ");
-            Console.WriteLine($"        {DateTime.Now}");
+            Console.WriteLine(ReturnReceipt());
+        }
+
+        public string ReturnReceipt()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("           Bob's Bagels ");
+            sb.AppendLine($"        {DateTime.Now}");
             Dictionary<string, int> countItems = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
             List<Filling> fillings = Items.Where(x => x.Sku.StartsWith("BGL")).Select(x => (Bagel)x).SelectMany(x => x.GetFillings()).ToList();
             Dictionary<string, int> countFillings = fillings.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
 
-            Console.WriteLine("===================================");
-            Console.WriteLine("Item                 Count    Price");
-            Console.WriteLine("-----------------------------------");
+            sb.AppendLine("===================================");
+            sb.AppendLine("Item                 Count    Price");
+            sb.AppendLine("-----------------------------------");
             foreach (KeyValuePair<string, int> elem in countItems)
             {
                 string type = Items.Where(x => x.Name == elem.Key).Select(x => x.Type).First();
                 string spacing = new(' ', 24 - (elem.Key.Length + type.Length));
-                Console.WriteLine($"{elem.Key} {type}{spacing}{elem.Value}    £{Items.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice())}");
+                sb.AppendLine($"{elem.Key} {type}{spacing}{elem.Value}    £{Math.Round(Items.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice()), 2)}");
             }
             foreach (KeyValuePair<string, int> elem in countFillings)
             {
                 string type = fillings.Where(x => x.Name == elem.Key).Select(x => x.Type).First();
                 string spacing = new(' ', 24 - (elem.Key.Length + type.Length));
-                Console.WriteLine($"{elem.Key} {type}{spacing}{elem.Value}    £{fillings.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice())}");
+                sb.AppendLine($"{elem.Key} {type}{spacing}{elem.Value}    £{Math.Round(fillings.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice()))}");
             }
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Discount:");
+            sb.AppendLine("-----------------------------------");
+            sb.AppendLine("Discount:");
             var counts = GetDiscountCounts();
             var amounts = GetDiscountAmounts();
             foreach (DiscountTypes item in Enum.GetValues(typeof(DiscountTypes)).Cast<DiscountTypes>())
@@ -132,14 +141,15 @@
                 double amount = amounts[item];
                 string discountTypeString = Discounts.EnumToString(item);
                 string spacing = new(' ', 25 - (discountTypeString.Length));
-                Console.WriteLine($"{discountTypeString}{spacing}{count}   -£{Math.Round(amount, 2)}");
+                sb.AppendLine($"{discountTypeString}{spacing}{count}   -£{Math.Round(amount, 2)}");
             }
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine($"Sum                           £{Math.Round(GetBasketCost(), 2)}");
-            Console.WriteLine($"Total Discount               -£{Math.Round(GetTotalDiscount(), 2)}");
-            Console.WriteLine($"Total                         £{Math.Round(GetDiscountBasketCost(), 2)}");
-            Console.WriteLine("===================================");
-            Console.WriteLine($"            Thank you\n         for your order!     ");
+            sb.AppendLine("-----------------------------------");
+            sb.AppendLine($"Sum                           £{Math.Round(GetBasketCost(), 2)}");
+            sb.AppendLine($"Total Discount               -£{Math.Round(GetTotalDiscount(), 2)}");
+            sb.AppendLine($"Total                         £{Math.Round(GetDiscountBasketCost(), 2)}");
+            sb.AppendLine("===================================");
+            sb.AppendLine($"            Thank you\n         for your order!     ");
+            return sb.ToString();
         }
     }
 }
