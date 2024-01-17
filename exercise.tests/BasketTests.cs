@@ -30,9 +30,8 @@ public class BasketTests
         Item res = testBasket.AddItem(item);
 
         Assert.That(res.SKU, Is.EqualTo("BGLO"));
-        // Assert.IsTrue(res);
 
-        Item item2 = inv["AAAA"];
+        Bagel item2 = new Bagel("AAAA", "Fake", 0.0F, "B");
 
         Item res2 = testBasket.AddItem(item2);
 
@@ -45,7 +44,7 @@ public class BasketTests
     {
         Item item = inv["BGLO"];
         Item item2 = inv["BGLP"];
-        Item itemFake = inv["AAAA"];
+        Bagel itemFake = new Bagel("AAAA", "Fake", 0.0F, "B");
 
         testBasket.AddItem(item);
         testBasket.AddItem(item2);
