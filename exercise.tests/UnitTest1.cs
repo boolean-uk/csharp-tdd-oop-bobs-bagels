@@ -43,7 +43,7 @@ public class Tests
     {
         Basket basket = new Basket();
 
-        Assert.That(basket.NrItems, Is.EqualTo(0));
+        Assert.That(basket.Items.Count, Is.EqualTo(0));
         Assert.That(basket.Capacity, Is.EqualTo(10));
         Assert.That(basket.GetTotal(), Is.EqualTo(0));
     }
@@ -56,7 +56,7 @@ public class Tests
 
         basket.Add(bagel);
 
-        Assert.That(basket.NrItems, Is.EqualTo(1));
+        Assert.That(basket.Items.Count, Is.EqualTo(1));
         Assert.That(basket.GetTotal(), Is.EqualTo(0.49));
         Assert.That(basket.Items[0], Is.EqualTo(bagel));
 
@@ -150,7 +150,7 @@ public class Tests
 
         basket.Add(coffee);
 
-        Assert.That(basket.NrItems, Is.EqualTo(1));
+        Assert.That(basket.Items.Count, Is.EqualTo(1));
 
         basket.Add(coffee);
         basket.Add(coffee);
@@ -175,7 +175,7 @@ public class Tests
         basket.Add(coffee);
         basket.Remove(coffee);
 
-        Assert.That(basket.NrItems, Is.EqualTo(0));
+        Assert.That(basket.Items.Count, Is.EqualTo(0));
 
         Assert.Throws<Exception>(() => basket.Remove(coffee));
     }
@@ -237,7 +237,7 @@ public class Tests
             basket.Add(bagel);
         }
 
-        Assert.That(basket.NrItems, Is.EqualTo(6));
+        Assert.That(basket.Items.Count, Is.EqualTo(6));
         Assert.That(basket.GetTotal(), Is.EqualTo(2.49));
 
         store.IncreaseCapacity(10);
@@ -247,7 +247,7 @@ public class Tests
             basket.Add(bagel);
         }
 
-        Assert.That(basket.NrItems, Is.EqualTo(12));
+        Assert.That(basket.Items.Count, Is.EqualTo(12));
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99));
 
 /*        store.Baskets[0].Items[3].SetFilling("FILE");
@@ -296,7 +296,7 @@ public class Tests
             basket.Add(coffee);
         }
 
-        Assert.That(basket.NrItems, Is.EqualTo(23));
+        Assert.That(basket.Items.Count, Is.EqualTo(23));
         Assert.That(basket.GetTotal(), Is.EqualTo(10.43));
     }
 

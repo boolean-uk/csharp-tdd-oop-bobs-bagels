@@ -15,21 +15,18 @@ namespace exercise.main
         {
             {"COFB", "Black"}, {"COFW", "White"}, {"COFC" , "Capuccino"}, {"COFL" , "Latte"}
         };
+
         private string _SKU;
         private double _price;
         private string _variant;
-        private Filling? _filling;
 
         public Coffee(string SKU)
         {
-            if (!_SKUDict.ContainsKey(SKU))
-            {
-                throw new Exception("Coffee is not in stock");
-            }
+            if (!_SKUDict.ContainsKey(SKU)) { throw new Exception("Coffee is not in stock"); }
+
             _variant = _SKUDict[SKU];
             _SKU = SKU;
             _price = _priceDict[SKU];
-            _filling = null;
         }
 
         public double Price { get => _price; set => _price = value; }
@@ -37,6 +34,5 @@ namespace exercise.main
         public string SKU { get => _SKU; set => _SKU = value; }
 
         public string Variant { get => _variant; set => _variant = value; }
-        public Filling Filling { get => _filling; }
     }
 }

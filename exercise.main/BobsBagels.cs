@@ -26,19 +26,15 @@ namespace exercise.main
 
         public void RemoveBasket(Basket basket)
         {
-            if (Baskets.Contains(basket))
-            {
-                Baskets.Remove(basket);
-            }
-            else
-            {
-                throw new Exception("Basket does not exist");
-            }
+            if (!Baskets.Contains(basket)) { throw new Exception("Basket does not exist"); }
+
+            Baskets.Remove(basket);
         }
 
         public void IncreaseCapacity(int capacity)
         {
             Capacity += capacity;
+
             foreach (Basket basket in Baskets)
             {
                 basket.Capacity = Capacity;

@@ -19,10 +19,7 @@ namespace exercise.main
 
         public Filling(string SKU)
         {
-            if (!_SKUDict.ContainsKey(SKU))
-            {
-                throw new Exception("Filling not in stock");
-            }
+            if (!_SKUDict.ContainsKey(SKU)) { throw new Exception("Filling not in stock"); }
 
             _variant = _SKUDict[SKU];
             _SKU = SKU;
