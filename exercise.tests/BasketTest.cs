@@ -16,7 +16,7 @@ public class Tests
     public void TestAdd()
     {
         Basket basket = new Basket(4);
-        Product product1 = new Product("BGLO", 0.154d, ProductType.bagel, "Onion");
+        Product product1 = new Product("BGLO", 0.154m, ProductType.bagel, "Onion");
         basket.AddToBasket(product1);
         Assert.That(basket.Products.Count != 0);
     }
@@ -25,11 +25,11 @@ public class Tests
     public void TestAddIfBasketIsFull()
     {
         Basket basket = new Basket(4);
-        Product product1 = new Product("BGLO", 0.154d, ProductType.bagel, "Onion");
-        Product product2 = new Product("BGLP", 0.124d, ProductType.bagel, "Plain");
-        Product product3 = new Product("BGLE", 0.134d, ProductType.bagel, "Everything");
-        Product product4 = new Product("BGLO", 0.14d, ProductType.bagel, "Onion");
-        Product product5 = new Product("BGLO", 0.14d, ProductType.coffee, "Black");
+        Product product1 = new Product("BGLO", 0.154m, ProductType.bagel, "Onion");
+        Product product2 = new Product("BGLP", 0.124m, ProductType.bagel, "Plain");
+        Product product3 = new Product("BGLE", 0.134m, ProductType.bagel, "Everything");
+        Product product4 = new Product("BGLO", 0.14m, ProductType.bagel, "Onion");
+        Product product5 = new Product("BGLO", 0.14m, ProductType.coffee, "Black");
 
         basket.AddToBasket(product1);
         basket.AddToBasket(product2);
@@ -46,7 +46,7 @@ public class Tests
     public void TestAddIfItemDoesNotExist()
     {
         Basket basket = new Basket(4);
-        Product newProduct = new Product("ABCD", 1.5, ProductType.bagel, "Onion");
+        Product newProduct = new Product("ABCD", 1.5m, ProductType.bagel, "Onion");
 
         var ex = Assert.Throws<ArgumentException>(() => basket.AddToBasket(newProduct));
         Assert.That(ex.Message == "Product does not exist in inventory");
@@ -58,9 +58,9 @@ public class Tests
     {
         Basket basket = new Basket(4);
 
-        Product product1 = new Product("BGLO", 0.154d, ProductType.bagel, "Onion");
-        Product product2 = new Product("BGLP", 0.124d, ProductType.bagel, "Plain");
-        Product product3 = new Product("BGLE", 0.134d, ProductType.bagel, "Everything");
+        Product product1 = new Product("BGLO", 0.154m, ProductType.bagel, "Onion");
+        Product product2 = new Product("BGLP", 0.124m, ProductType.bagel, "Plain");
+        Product product3 = new Product("BGLE", 0.134m, ProductType.bagel, "Everything");
 
         basket.AddToBasket(product1);
         basket.AddToBasket(product2);
@@ -75,9 +75,9 @@ public class Tests
     {
         Basket basket = new Basket(4);
 
-        Product product1 = new Product("BGLO", 0.154d, ProductType.bagel, "Onion");
-        Product product2 = new Product("BGLP", 0.124d, ProductType.bagel, "Plain");
-        Product product3 = new Product("BGLE", 0.134d, ProductType.bagel, "Everything");
+        Product product1 = new Product("BGLO", 0.154m, ProductType.bagel, "Onion");
+        Product product2 = new Product("BGLP", 0.124m, ProductType.bagel, "Plain");
+        Product product3 = new Product("BGLE", 0.134m, ProductType.bagel, "Everything");
 
         basket.AddToBasket(product1);
         basket.AddToBasket(product2);
@@ -101,15 +101,17 @@ public class Tests
     {
         Basket basket = new Basket(4);
 
-        Product product1 = new Product("BGLO", 0.154d, ProductType.bagel, "Onion");
-        Product product2 = new Product("BGLP", 0.124d, ProductType.bagel, "Plain");
-        Product product3 = new Product("BGLE", 0.134d, ProductType.bagel, "Everything");
+        Product product1 = new Product("BGLO", 0.154m, ProductType.bagel, "Onion");
+        Product product2 = new Product("BGLP", 0.124m, ProductType.bagel, "Plain");
+        Product product3 = new Product("BGLE", 0.134m, ProductType.bagel, "Everything");
 
         basket.AddToBasket(product1);
         basket.AddToBasket(product2);
         basket.AddToBasket(product3);
 
-        Assert.That(basket.DisplayTotal() == product1.Price + product2.Price + product3.Price);
+        basket.CalculateTotal();
+
+        Assert.That(basket.Total == product1.Price + product2.Price + product3.Price);
 
     }
 
@@ -118,9 +120,9 @@ public class Tests
     {
         Basket basket = new Basket(4);
 
-        Bagel bagel = new Bagel("BGLO", 0.154d, ProductType.bagel, "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.154m, ProductType.bagel, "Onion");
 
-        Filling filling1 = new Filling("FILS", 0.12d, ProductType.filling, "Smoked Salmon");
+        Filling filling1 = new Filling("FILS", 0.12m, ProductType.filling, "Smoked Salmon");
 
         basket.AddToBasket(bagel);
         basket.AddFilling(bagel, filling1);
@@ -133,12 +135,13 @@ public class Tests
     {
         Basket basket = new Basket(10);
 
-        Bagel bagel = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel2 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel3 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel4 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel5 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel6 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel2 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel3 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel4 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel5 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel6 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel7 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
 
         basket.AddToBasket(bagel);
         basket.AddToBasket(bagel2);
@@ -146,8 +149,11 @@ public class Tests
         basket.AddToBasket(bagel4);
         basket.AddToBasket(bagel5);
         basket.AddToBasket(bagel6);
-
-        Assert.That(basket.DisplayTotal() == 2.49d);
+        basket.AddToBasket(bagel7);
+        
+        basket.CalculateTotal();
+        
+        Assert.That(basket.Total == 2.49m + 0.49m);
     }
 
     [Test]
@@ -155,18 +161,20 @@ public class Tests
     {
         Basket basket = new Basket(20);
 
-        Bagel bagel = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel2 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel3 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel4 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel5 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel6 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel7 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel8 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel9 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel10 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel11 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel12 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel2 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel3 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel4 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel5 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel6 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel7 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel8 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel9 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel10 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel11 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel12 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel13 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel14 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
 
         basket.AddToBasket(bagel);
         basket.AddToBasket(bagel2);
@@ -174,35 +182,36 @@ public class Tests
         basket.AddToBasket(bagel4);
         basket.AddToBasket(bagel5);
         basket.AddToBasket(bagel6);
-        basket.AddToBasket(bagel6);
         basket.AddToBasket(bagel7);
         basket.AddToBasket(bagel8);
         basket.AddToBasket(bagel9);
         basket.AddToBasket(bagel10);
         basket.AddToBasket(bagel11);
         basket.AddToBasket(bagel12);
+        basket.AddToBasket(bagel13);
+        basket.AddToBasket(bagel14);
 
-        Assert.That(basket.DisplayTotal() == 3.99d);
+
+
+        basket.CalculateTotal();
+
+
+        Assert.That(Math.Round(3.99m + bagel13.Price + bagel14.Price), Is.EqualTo(Math.Round(basket.Total)));
     }
     [Test]
     public void TestDiscountWithOtherItems()
     {
         Basket basket = new Basket(20);
 
-        Bagel bagel = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel2 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel3 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel4 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel5 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel6 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel7 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel8 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel9 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel10 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel11 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel12 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel2 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel3 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel4 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel5 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel6 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
 
-        Coffee coffee = new Coffee("COFB", 0.99d, ProductType.coffee, "Black");
+
+        Coffee coffee = new Coffee("COFB", 0.99m, ProductType.coffee, "Black");
 
         basket.AddToBasket(bagel);
         basket.AddToBasket(bagel2);
@@ -210,34 +219,24 @@ public class Tests
         basket.AddToBasket(bagel4);
         basket.AddToBasket(bagel5);
         basket.AddToBasket(bagel6);
-        basket.AddToBasket(bagel6);
-        basket.AddToBasket(bagel7);
-        basket.AddToBasket(bagel8);
-        basket.AddToBasket(bagel9);
-        basket.AddToBasket(bagel10);
-        basket.AddToBasket(bagel11);
-        basket.AddToBasket(bagel12);
         basket.AddToBasket(coffee);
 
-        Assert.That(basket.DisplayTotal() == (3.99d + 0.99d));
+        basket.CalculateTotal();
+
+        Assert.That(basket.Total == (2.49m + 0.99m));
     }
     [Test]
     public void TestDiscountWithFillings()
     {
         Basket basket = new Basket(20);
 
-        Bagel bagel = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel2 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel3 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel4 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel5 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel6 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel7 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel8 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel9 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel10 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel11 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Bagel bagel12 = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel2 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel3 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel4 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel5 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Bagel bagel6 = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+
 
         basket.AddToBasket(bagel);
         basket.AddToBasket(bagel2);
@@ -245,32 +244,29 @@ public class Tests
         basket.AddToBasket(bagel4);
         basket.AddToBasket(bagel5);
         basket.AddToBasket(bagel6);
-        basket.AddToBasket(bagel6);
-        basket.AddToBasket(bagel7);
-        basket.AddToBasket(bagel8);
-        basket.AddToBasket(bagel9);
-        basket.AddToBasket(bagel10);
-        basket.AddToBasket(bagel11);
-        basket.AddToBasket(bagel12);
-
-        basket.AddFilling(bagel, new Filling("FILX", 0.12d, ProductType.filling, "Cream Cheese"));
-        basket.AddFilling(bagel, new Filling("FILH", 0.12d, ProductType.filling, "Ham"));
 
 
-        Assert.That(basket.DisplayTotal() == (3.99d + 0.24d));
+        basket.AddFilling(bagel, new Filling("FILX", 0.12m, ProductType.filling, "Cream Cheese"));
+        basket.AddFilling(bagel, new Filling("FILH", 0.12m, ProductType.filling, "Ham"));
+
+        basket.CalculateTotal();
+
+        Assert.That(basket.Total == (2.49m + 0.24m));
     }
 
     [Test]
     public void TestCoffeeDiscount()
     {
         Basket basket = new Basket(10);
-        Bagel bagel = new Bagel("BGLO", 0.49d, ProductType.bagel, "Onion");
-        Coffee coffee = new Coffee("COFB", 0.99, ProductType.coffee, "Black");
+        Bagel bagel = new Bagel("BGLO", 0.49m, ProductType.bagel, "Onion");
+        Coffee coffee = new Coffee("COFB", 0.99m, ProductType.coffee, "Black");
 
         basket.AddToBasket(bagel);
         basket.AddToBasket(coffee);
 
-        Assert.That(basket.DisplayTotal() == 1.25d);
+        basket.CalculateTotal();
+
+        Assert.That(basket.Total == 1.25m);
 
     }
 

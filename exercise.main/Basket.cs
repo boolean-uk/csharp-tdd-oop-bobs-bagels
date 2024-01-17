@@ -12,7 +12,7 @@ namespace exercise.main
         private List<Product> _products = [];
         private int _basketSize;
         private Inventory _inventory = new Inventory();
-        private double _total;
+        private decimal _total;
 
         public Basket(int basketSize)
         {
@@ -54,17 +54,18 @@ namespace exercise.main
         }
         
 
-        public double DisplayTotal()
+        public void CalculateTotal()
         {
             var bagels = Products.FindAll(p => p.SKU.StartsWith("BGL"));
+            var blackCoffees = Products.FindAll(p => p.SKU == "COFB");
 
-            if (bagels.Count >0 && bagels.Count >= 12)
+            if (bagels.Count > 0 && bagels.Count >= 12)
             {
-                for(int i = 0; i <= 12; i++)
+                for(int i = 0; i < 11; i++)
                 {
                     Total = Total - bagels[i].Price;
                 }
-                return Total += 3.99d;
+                Total += 3.99m;
             }
             if (bagels.Count > 0 && bagels.Count >= 6)
             {
@@ -72,22 +73,21 @@ namespace exercise.main
                 {
                     Total = Total - bagels[i].Price;
                 }
-                return Total += 2.49d;
+                Total += 2.49m;
             }
-            if (Products.Exists(p => p.SKU == "COFB"))
+            if (blackCoffees.Count > 0)
             {
                 
                 if(bagels.Count < 6)
                 {
                     Total = Total - bagels[0].Price;
-                    Total = Total - 0.99d;
-                    return Total += 1.25d;
+                    Total = Total - 0.99m;
+                    Total += 1.25m;
 
                 }
 
             }
 
-            return Total;
         }
 
         public void AddFilling(Bagel bagel, Filling filling)
@@ -95,7 +95,8 @@ namespace exercise.main
             if (Products.Contains(bagel))
             {
                 bagel.AddFilling(filling);
-                AddToBasket(filling);
+                Products.Add(filling);
+                Total += filling.Price;
             }
         }
 
@@ -106,6 +107,6 @@ namespace exercise.main
 
         public Inventory Inventory { get { return _inventory; } }
 
-        public double Total { get { return _total; } set { _total = value; } }
+        public decimal Total { get { return _total; } set { _total = value; } }
     }
 }

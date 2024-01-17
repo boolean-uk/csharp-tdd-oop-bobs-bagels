@@ -16,11 +16,11 @@ namespace exercise.main
             Fillings.Add(filling);
         }
 
-        public double ShowPrice()
+        public decimal ShowPrice()
         {
             return Price;
         }
-        public Bagel(string sku, double price, ProductType type, string variant) : base(sku, price, type, variant)
+        public Bagel(string sku, decimal price, ProductType type, string variant) : base(sku, price, type, variant)
         {
         }
 

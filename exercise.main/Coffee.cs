@@ -8,7 +8,7 @@ namespace exercise.main
 {
     public class Coffee : Product
     {
-        public Coffee(string sku, double price, ProductType type, string variant) : base(sku, price, type, variant)
+        public Coffee(string sku, decimal price, ProductType type, string variant) : base(sku, price, type, variant)
         {
         }
     }
