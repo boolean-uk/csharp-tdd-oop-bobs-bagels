@@ -111,4 +111,88 @@ public class Tests
         Assert.That(result, Is.EqualTo("Warning: The product is not available."));
     }
 
+    [Test]
+    public void CalculateDozenDiscountTest()
+    {
+        //arrange
+        for(int i = 0; i < 12; i++) 
+        {
+            _basket.AddProduct("Onion");
+            Product onionBacon = _basket.GetItems().Last();
+            onionBacon.AddSubProduct("Bacon");
+        }
+
+        _basket.AddProduct("Plain");
+        Product plainSalmon2 = _basket.GetItems().Last();
+        plainSalmon2.AddSubProduct("Smoked Salmon");
+
+        //act
+        double expectedDiscount = (12 * 0.49d) - 3.99d;
+        double actualDicount = _basket.CalculateDiscount();
+        double tolerance = 0.01; // This is for two decimal places
+
+
+        Assert.That(actualDicount, Is.EqualTo(expectedDiscount).Within(tolerance));
+    }
+    [Test]
+    public void CalculateHalfDozenDiscountTest()
+    {
+        //arrange
+        for(int i = 0; i < 12; i++) 
+        {
+            _basket.AddProduct("Onion");
+            Product onionBacon = _basket.GetItems().Last();
+            onionBacon.AddSubProduct("Bacon");
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            _basket.AddProduct("Plain");
+            Product plainSalmon = _basket.GetItems().Last();
+            plainSalmon.AddSubProduct("Smoked Salmon");
+        }
+
+        _basket.AddProduct("Plain");
+        Product plainSalmon2 = _basket.GetItems().Last();
+        plainSalmon2.AddSubProduct("Smoked Salmon");
+
+        //act
+        double expectedDiscount = ((12 * 0.49d) - 3.99d)+((6*0.39)-2.49);
+        double actualDicount = _basket.CalculateDiscount();
+        double tolerance = 0.01; // This is for two decimal places
+
+
+        Assert.That(actualDicount, Is.EqualTo(expectedDiscount).Within(tolerance));
+    }
+
+    [Test]
+    public void CalculateCoffeeDiscountTest()
+    {
+        //arrange
+
+        _basket.AddProduct("Plain");
+        Product plainSalmon2 = _basket.GetItems().Last();
+        plainSalmon2.AddSubProduct("Smoked Salmon");
+
+        _basket.AddProduct("Onion");
+        Product onionBacon = _basket.GetItems().Last();
+        onionBacon.AddSubProduct("Bacon");
+
+        _basket.AddProduct("Black");
+        _basket.AddProduct("White");
+        _basket.AddProduct("Cappuccino");
+
+        
+
+        //act
+        double expectedDiscount = (0.99d + 1.19d) + (0.49d + 0.39d) - (1.25d*2);
+        double actualDicount = _basket.CalculateDiscount();
+        double tolerance = 0.01; // This is for two decimal places
+
+
+        Assert.That(actualDicount, Is.EqualTo(expectedDiscount).Within(tolerance));
+    }
+
+
+
 }

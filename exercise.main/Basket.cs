@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace exercise.main
         public Basket()
         {
             _items = new List<Product>();
-            _capacity = 10;
+            _capacity = 100;
         }
 
         public string AddProduct(string product)
@@ -34,6 +35,35 @@ namespace exercise.main
                 return "Product added to basket";
             }
 
+        }
+
+        public double CalculateDiscount()
+        {
+            List<Product> bagels = _items.Where(item => item.Name == "Bagel").ToList();
+            List<Product> coffees = _items.Where(item => item.Name == "Coffee").ToList();
+
+
+            //calculate bagel discounts
+            int numberOfDozens = bagels.Count / 12;
+            double discountedBagelPrice = numberOfDozens * 3.99d;
+            int numberOfHalfDozens = (bagels.Count - (numberOfDozens*12))/6;
+            discountedBagelPrice += numberOfHalfDozens * 2.49d;
+            int discountedBagels = (numberOfDozens * 12) + (numberOfHalfDozens * 6);
+            double originalBagelPrice = bagels.Take(discountedBagels).Sum(product => product.BasePrice);
+            double bagelDiscount = originalBagelPrice - discountedBagelPrice;
+            
+
+            // calculate coffe discounts on the remainding bagels that are paired with coffees
+            int coffeeNumber = coffees.Count;
+            int unDiscountedBagelsNumber = bagels.Count - (discountedBagels);
+            int coffeBagelCombos = Math.Min(unDiscountedBagelsNumber, coffeeNumber);
+            double coffeeBagelDiscountedPrice = coffeBagelCombos * 1.25d;
+            double originalCoffeePrice = coffees.Take(coffeBagelCombos).Sum(product => product.BasePrice);
+            double originalLeftOverBagelPrice = bagels.Take(coffeBagelCombos).Sum(product => product.BasePrice);
+            double coffeBagelDiscount = originalCoffeePrice + originalLeftOverBagelPrice - coffeeBagelDiscountedPrice;
+            
+
+            return bagelDiscount + coffeBagelDiscount;
         }
 
         public void ChangeCapacity(int v)
@@ -64,7 +94,7 @@ namespace exercise.main
 
         public double TotalPrice()
         {
-            return _items.Sum(product => product.Price);
+            return _items.Sum(product => product.Price)-CalculateDiscount();
         }
 
         

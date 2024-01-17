@@ -1,3 +1,5 @@
+
+
 Class: Basket		Method: AddProduct(product)				void: add product to list				case: As a member of the public, So I can order a bagel before work, I'd like to add a specific type of bagel to my basket.
 Class: Basket		Method: RemoveProduct(product)			void: remove product from list			case: As a member of the public, So I can change my order, I'd like to remove a bagel from my basket.
 Class: Basket		Method: AddProduct(product)				out: "You are overencumbered"			case: As a member of the public,So that I can not overfill my small bagel basketI'd like to know when my basket is full when I try adding an item beyond my basket capacity.
@@ -11,6 +13,12 @@ Class: Basket		Method: TotalPrice()					return: the sum of the prices in basket 
 Class: Basket		Method: AddProduct()					Use: Enum								case:As the manager,So we don't get any weird requests,I want customers to only be able to order things that we stock in our inventory.
 
 
+
+
+Class: Basket		Method: CalculateDiscount()		return: the discounts		case:	All bagels 6 for 2.49
+																				case:	All bagels 12 for 3.99
+																				case:	Coffe + bagel for 1.25
+																				case:	Fillings not included
 
 
 

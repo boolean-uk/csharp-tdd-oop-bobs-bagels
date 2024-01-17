@@ -13,12 +13,14 @@ namespace exercise.main
         public Product(string name, double price, string variant)
         {
             Price = price;
+            BasePrice = price;
             Name = name;
             Variant = variant;
             _subProducts = new List<Product>();
         }
 
         public double Price { get; private set; }
+        public double BasePrice { get; private set; }
         public string Name { get; private set; }
         public string Variant { get; private set; }
 
