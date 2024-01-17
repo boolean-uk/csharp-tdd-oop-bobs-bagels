@@ -131,7 +131,6 @@ namespace exercise.main
                     //Check if the sum of the first 12 cheapest is acutally higher than discount price:
                     if (3.99 - first12Items < 0)
                     {
-
                         discount += (0.49 * 12) - 3.99;
                     }
                     else
