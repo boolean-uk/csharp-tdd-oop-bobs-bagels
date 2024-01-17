@@ -10,11 +10,13 @@ namespace exercise.main
     {
         private DateTime _timeInfo = DateTime.Now;
         private double _totalPrice;
+        private double _totalPrice1;
         private double _totalDiscount;
         private string _title = $"{"",4}~~~ Bob's Bagels ~~~";
         private string _footer = $"{"",7}Thank you \n{"",4}for you order!";
         private string _enter = "\n";
         private string _line = "----------------------------";
+       
 
         // Diction of <variant,(qty,double)>
         private Dictionary<string, (int qty,double price)> _cashier = new Dictionary<string, (int,double)>();
@@ -56,16 +58,19 @@ namespace exercise.main
                 double _price = product.Value.price;
                 Console.WriteLine("{0}      {1}     {2}", _variant,_qty,_price);
                 //Console.WriteLine($"{_qty},{_variant},{_price}");
+                _totalPrice1 += _price * _qty;
             }
             Console.WriteLine(_enter);
             
         
 
             Console.WriteLine(_line);
-            Console.WriteLine($"Price               £{_totalPrice}");
+            Console.WriteLine($"Price               £{_totalPrice1}");
             Console.WriteLine($"Discount           -£{_totalDiscount}");
             Console.WriteLine(_line);
             Console.WriteLine($"Total               £{_totalPrice}");
+            Console.WriteLine(_enter);
+            Console.WriteLine($"You saved a total of {_totalDiscount} \n    on this shop");
             Console.WriteLine(_enter);
             Console.WriteLine(_footer);
             Console.WriteLine(_enter);
