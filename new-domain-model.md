@@ -3,16 +3,18 @@ Class
 
 Properties
 : `private List<Item> _basket`
-: `private float totalCost = 0F`
+: `private List<float> totalCost`
 : `private int _capacity = 5`
-: `private Inventory inventory`
+: `private IInventory inventory`
+: `private enum Bundles { b6, b12, bac }`
+
 
 Methods
-: `public bool AddItem(string SKU)`
+: `public bool AddItem(Item item)`
     * adds a new product order to _bagelBasket. Must be a string included in the _types list. Adds the cost of the item to the totalCost;
     * Outputs an error message (Console.WriteLine) if _capacity is exceeded. True if success, false if error
 
-: `public bool RemoveItem(string SKU)`
+: `public bool RemoveItem(Item item)`
     * removes (the first found) item from _bagelBasket if the item exists. Removes the cost of the item from totalCost
     * Outputs an error message (Console.WriteLine) if the item is not in the basket. True if success, false if error
 
@@ -24,63 +26,145 @@ Methods
 
 : `public Item GetItem(int ID)`
     * returns the Item from _basket list
+
+: `public void BundleOrder(string type, string SKU, string SKU2)`
+    * corrects the bundle price according to type instruction (b6, b12, bac)
   
-: `public float GetItemPrice(string SKU)`
+: `public float GetItemPrice(Item item)`
     * returns the Item price from _basket list
   
-: `float void addFilling(string SKU)`
+: `float void addFilling(Item bagel, Item filling)`
     * adds filling to Contents list if filling exists
     * adds filling cost to Price
 
-: `public string ListPrices(string type)`
-    * returns a List of Items in the inventory with their prices. Type can be All, Bagel, Coffee or Filling
 
 
-
-Class
+Abstract Class
  `Item()`
 
 Properties
-: `int ID`
+: `string ID`
+: `string SKU`
+: `string Name`
+: `float Price`
+: `string Variant`
+
+Methods
+:  `public Item(String SKU ... )`
+    * defines item
+
+
+Class
+ `Bagel() : Item`
+
+Properties
 : `string SKU`
 : `string Name`
 : `float Price`
 : `string Variant`
 : `List Contents<Item>`
-: `private Inventory`
 
 Methods
 :  `public Item(String SKU ... List Contents<Item>)`
     * defines item
-
-: `float TotalPrice(string SKU)`
-    * returns the price of the product
   
-: : `float List<Item> ListFillings()`
+: `float List<Item> ListFillings()`
     * returns Contents list
+
+
+Class
+ `Coffee() : Item`
+
+Properties
+: `string SKU`
+: `string Name`
+: `float Price`
+: `string Variant`
+
+Methods
+:  `public Item(String SKU ... )`
+    * defines item
+  
+
+Class
+ `Fillings() : Item`
+
+Properties
+: `string SKU`
+: `string Name`
+: `float Price`
+: `string Variant`
+
+Methods
+:  `public Item(String SKU ... )`
+    * defines item
+
+
+
+
+
+Interface
+  `Inventory()`
+
+Methods:
+ `getInventory();`
+  * outputs the Item dictionary
+ `listContents();`
+ * outputs the Item list
+
+
+Class
+ `WholeInventory() : Inventory `
+
+Properties
+: `private Dictionary <string, Item> _all`
+
+Methods
+: `public List<Item> listContents()`
+    * returns all Items list
+
+: `public List<Item> getInventory()`
+    * returns _all dictionary
 
 
 
 Class
- `Inventory()`
+ `BagelInventory() : Inventory `
 
 Properties
 : `private Dictionary <string, Item> bagels`
+
+Methods
+: `public List<Item> listContents()`
+    * returns bagels Item list
+
+: `public List<Item> getInventory()`
+    * returns bagels dictionary
+
+
+Class
+ `CoffeeInventory() : Inventory `
+
+Properties
 : `private Dictionary <string, Item> coffees`
+
+Methods
+: `public List<Item> listContents()`
+    * returns coffee Item list
+
+: `public List<Item> getInventory()`
+    * returns coffees dictionary
+
+
+Class
+ `FillingsInventory() : Inventory `
+
+Properties
 : `private Dictionary <string, Item> fillings`
 
 Methods
-: `public List<Item> listBagels()`
-    * returns bagels list
+: `public List<Item> listContents()`
+    * returns fillings Item list
 
-: `public List<Item> listCoffees()`
-    * returns coffees list
-
-: `public List<Item> listFillings()`
-    * returns fillings list
-
-: `public Item GetItem(string SKU)`
-    * returns item by id
-
-: `public float GetItemCost(string SKU)`
-    * returns cost of a given item
+: `public List<Item> getInventory()`
+    * returns fillings dictionary

@@ -11,16 +11,17 @@ namespace exercise.main
     public class Basket
     {
         private List<Item> _basket = new List<Item>();
-        private Inventory _inventory = new Inventory();
+        private IInventory _inventory;
         private int _capacity = 5;
         private List<float> totalCost = new List<float>();
         private enum Bundles { b6, b12, bac };
-        public Basket() 
+
+        public Basket(IInventory inventory) 
         {
-            
+            this._inventory = inventory;
         }
 
-        // helper
+        // helper for handling discounts
         public void priceRemover(float price, int iter)
         {
             for (int i = 0;  i < iter; i++)
@@ -29,21 +30,17 @@ namespace exercise.main
             }
         } 
 
-        public Item AddItem(string SKU)
+        public Item AddItem(Item item)
         {
-            Item noneItem = new Item();
+            Item noneItem = new Bagel();
 
-            List<Item> bagels = _inventory.listBagels();
-            List<Item> coffees = _inventory.listCoffees();
-            List<Item> fillings = _inventory.listFillings();
+            List<Item> AllProducts = _inventory.listContents();
 
-            List<Item> AllProducts = bagels.Concat(coffees).Concat(fillings).ToList();
-
-            if (AllProducts.Exists(x => x.data.SKU == SKU) && _basket.Count < _capacity)
+            if (AllProducts.Exists(x => x.SKU == item.SKU) && _basket.Count < _capacity)
             {
-                Item addedItem = AllProducts.FirstOrDefault(x => x.data.SKU == SKU);
-                Item newItem = new Item(addedItem.data.SKU, addedItem.data.Name, addedItem.data.Price, addedItem.data.Variant);
-                totalCost.Add(addedItem.data.Price);
+                Item addedItem = AllProducts.FirstOrDefault(x => x.SKU == item.SKU);
+                Item newItem = new Bagel(addedItem.SKU, addedItem.Name, addedItem.Price, addedItem.Variant);
+                totalCost.Add(addedItem.Price);
                 _basket.Add(newItem);
 
                 return newItem;
@@ -61,12 +58,12 @@ namespace exercise.main
 
         public void BundleOrder(string descr, string SKU, string SKU2)
         {
-            float extract = _basket.FirstOrDefault(x => x.data.SKU == SKU).data.Price;
+            float extract = _basket.FirstOrDefault(x => x.SKU == SKU).Price;
             Console.WriteLine(Bundles.b12.ToString());
 
             if (Bundles.b6.ToString() == descr)
             {
-                int res = _basket.Count(x => x.data.SKU.Contains(SKU));
+                int res = _basket.Count(x => x.SKU.Contains(SKU));
                 if (res >= 6)
                 {
                     priceRemover(extract, 6);
@@ -76,10 +73,10 @@ namespace exercise.main
 
             if (Bundles.bac.ToString() == descr)
             {
-                int resb = _basket.Count(x => x.data.SKU.Contains(SKU));
-                int resc = _basket.Count(x => x.data.SKU.Contains(SKU2));
+                int resb = _basket.Count(x => x.SKU.Contains(SKU));
+                int resc = _basket.Count(x => x.SKU.Contains(SKU2));
 
-                float extract2 = _basket.FirstOrDefault(x => x.data.SKU == SKU2).data.Price;
+                float extract2 = _basket.FirstOrDefault(x => x.SKU == SKU2).Price;
 
                 if (resb >= 1 && resc >= 1)
                 {
@@ -92,7 +89,7 @@ namespace exercise.main
             if (Bundles.b12.ToString() == descr)
             {
                   
-                int res2 = _basket.Count(x => x.data.SKU.Contains(SKU));
+                int res2 = _basket.Count(x => x.SKU.Contains(SKU));
 
                 if (res2 >= 12)
                 {
@@ -103,11 +100,11 @@ namespace exercise.main
             }
         }
 
-        public bool RemoveItem(string SKU)
+        public bool RemoveItem(Item item)
         {
-            if (_basket.Exists(x => x.data.SKU == SKU))
+            if (_basket.Exists(x => x.SKU == item.SKU))
             {
-                Item removedItem = _basket.FirstOrDefault(x => x.data.SKU == SKU);
+                Item removedItem = _basket.FirstOrDefault(x => x.SKU == item.SKU);
                 _basket.Remove(removedItem);
                 return true;
             }
@@ -125,14 +122,14 @@ namespace exercise.main
 
         public void AddFilling(string ID, string SKU)
         {
-            Item it = _basket.Single(x => x.ID == ID);
-            List<Item> fillings = _inventory.listFillings();
+            Bagel it = (Bagel)_basket.Single(x => x.ID == ID);
+            List<Item> fillings = _inventory.listContents();
 
-            if (fillings.Exists(x => x.data.SKU  == SKU) )
+            if (fillings.Exists(x => x.SKU  == SKU) )
             {
-                Item fill = fillings.Single(x => x.data.SKU == SKU);
-                it.Contents.Add(fill);
-                totalCost.Add(fill.data.Price);
+                Item fill = fillings.Single(x => x.SKU == SKU);
+                it.AddFilling(fill);
+                totalCost.Add(fill.Price);
             }
         }
         public float TotalCost()
@@ -148,19 +145,21 @@ namespace exercise.main
 
         public float GetItemPrice(string SKU)
         {
-            List<Item> bagels = _inventory.listBagels();
-            List<Item> coffees = _inventory.listCoffees();
-            List<Item> fillings = _inventory.listFillings();
+            List<Item> AllProducts = _inventory.listContents();
 
-            List<Item> AllProducts = bagels.Concat(coffees).Concat(fillings).ToList();
-
-            if (AllProducts.Exists(x => x.data.SKU == SKU))
+            if (AllProducts.Exists(x => x.SKU == SKU))
             {
-                Item resultItem = AllProducts.FirstOrDefault(x => x.data.SKU == SKU);
-                return resultItem.data.Price;
+                Item resultItem = AllProducts.FirstOrDefault(x => x.SKU == SKU);
+                return resultItem.Price;
             }
 
+            Console.WriteLine("Product not found!");
             return 0F;
+        }
+
+        public void PrintReceit()
+        {
+
         }
     }
 }

@@ -7,37 +7,79 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public struct ItemData
+    public abstract class Item
     {
+        public string ID = Guid.NewGuid().ToString();
         public string SKU;
-        public string Name; 
+        public string Name;
         public string Variant;
         public float Price;
-    }
-    public class Item
-    {
-        public string ID = Guid.NewGuid().ToString(); // does this work..?
-        public ItemData data;
-        public List<Item> Contents = new List<Item>();
 
         public Item(string sku, string name, float price, string variant) 
         {
-            data.SKU = sku;
-            data.Name = name;
-            data.Price = price;
-            data.Variant = variant;
+            SKU = sku;
+            Name = name;
+            Price = price;
+            Variant = variant;
         }
 
-        public Item()
+        public Item() { }
+
+    }
+
+    public class Bagel : Item
+    {
+        private List<Item> Contents = new List<Item>();
+
+        public Bagel(string sku, string name, float price, string variant) : base(sku, name, price, variant) 
         {
-            data.SKU = "none";
-            data.Name = "none";
-            data.Variant = "none";
+            SKU = sku;
+            Name = name;
+            Price = price;
+            Variant = variant;
+        }
+
+
+        public Bagel()
+        {
+            SKU = "none";
+            Name = "none";
+            Variant = "none";
+        }
+
+        public void AddFilling(Item item)
+        {
+            Contents.Add(item);
         }
 
         public List<Item> ListFillings()
         {
             return Contents;
         }
+    }
+
+    public class Coffee : Item
+    {
+
+        public Coffee(string sku, string name, float price, string variant) : base(sku, name, price, variant)
+        {
+            SKU = sku;
+            Name = name;
+            Price = price;
+            Variant = variant;
+        }
+
+    }
+
+    public class Filling : Item
+    {
+        public Filling(string sku, string name, float price, string variant) : base(sku, name, price, variant)
+        {
+            SKU = sku;
+            Name = name;
+            Price = price;
+            Variant = variant;
+        }
+
     }
 }
