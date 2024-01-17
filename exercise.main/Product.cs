@@ -12,20 +12,23 @@ namespace exercise.main
         private string _SKU = "BGLO";
         private double _price = 0.49;
         private string _variant = "Onion";
-        private List<Filling> _Fillings;
+        private List<Filling> _Fillings = new List<Filling>();
 
 
         public Product(string sku)
         {
                 _name = getName(sku);
                 _SKU = sku;
-            if (sku.StartsWith("F"))
-            {
-                _price = 0.12;
-            }
-            else { _price = setPrice(sku); }
-                
+             _price = setPrice(sku); 
                 _variant = setVariant(sku);         
+
+        }
+        public Product()
+        {
+            _name = "Bagel";
+            _SKU = "BGLO";
+            _price = 0.49;
+            _variant = "Onion";
 
         }
 
@@ -58,10 +61,18 @@ namespace exercise.main
             return productname;
         }
 
-        public bool AddFilling(string v)
+        public bool AddFilling(string skuFilling)
         {
-            
-            throw new NotImplementedException();
+            if (_name == "Bagel") {
+                Filling filling = new Filling(skuFilling);
+                _Fillings.Add(filling);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public string Name { get =>  _name; set => _name = value;}

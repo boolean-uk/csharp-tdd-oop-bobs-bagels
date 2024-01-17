@@ -12,33 +12,33 @@ namespace exercise.main
     {
         public Basket()
         {
-            _productList = new List<Product>();
+            _productList = new Dictionary<int, Product>();
             _capacity = 5;
         }
         
 
         private int _capacity;
-        private List<Product> _productList;
+        private Dictionary<int,Product> _productList;
 
         public bool AddProduct(Product product)
         {
             
-             if (_productList.Count >= _capacity)
+             if (_productList.Keys.Count >= _capacity)
                {
                    return false;
 
                }else {
-                   _productList.Add(product);
+                   _productList.Add(_productList.Count,product);
                    return true;
                }
        
         }
 
-        public bool RemoveProduct(Product product)
+        public bool RemoveProduct(int BasketID)
         {
-           bool productIsInBasket = _productList.Contains(product);
+           bool productIsInBasket = _productList.ContainsKey(BasketID);
             if (productIsInBasket) { 
-            _productList.Remove(product);
+            _productList.Remove(BasketID);
                 return true;
             }
 
@@ -49,7 +49,11 @@ namespace exercise.main
         public double GetTotal()
         {
             double sum=0;
-            _productList.ForEach(product => { sum += product.Price; });
+            double sumFillings = 0;
+            foreach (Product product in _productList.Values) { 
+                sum += product.Price;
+                sumFillings += product.Fillings.Count * 0.12;
+            }
             sum= Math.Round(sum, 2);
 
             return sum;
@@ -71,7 +75,7 @@ namespace exercise.main
         }
 
         public int Capacity { get => _capacity; }
-        public List<Product> ProductList { get => _productList; }
+        public Dictionary<int,Product> ProductList { get => _productList; }
 
 
 

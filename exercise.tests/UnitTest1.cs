@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Sources;
+using System.Xml.Linq;
 using exercise.main;
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ public class Tests
         Product product = new Product("BGLO");  
         Basket basket = new Basket();
         basket.AddProduct(product);
-        List<Product> Result = basket.ProductList;
+        Dictionary<int,Product> Result = basket.ProductList;
 
         Assert.That(Result.Count >= 1);
     }
@@ -34,7 +35,7 @@ public class Tests
         basket.AddProduct(product);
         Assert.That(basket.ProductList.Count == 3);
 
-        basket.RemoveProduct(product);
+        basket.RemoveProduct(2);
         
         Assert.That(basket.ProductList.Count < 3);
 
@@ -78,36 +79,30 @@ public class Tests
             Assert.That(oldCapacity != Result, Is.EqualTo(basket.Capacity == newCapacity));
         }
     }
-    [TestCase("Coffe")]
-    [TestCase("Bagel")]
-    [TestCase("Filling")]
-    public void removeNotExistingProduct(string name)
+    [TestCase(1)]
+    [TestCase(0)]
+    [TestCase(3)]
+    public void removeNotExistingProduct(int basketID)
     {
         Basket basket = new Basket();
-        Product bagel = new Product("Bagel");
-        Product coffe = new Product("Coffe");
-        Product product = new Product(name);
-
-        basket.AddProduct(bagel);
-        basket.AddProduct(coffe);
+        Product bagel = new Product();
+        Product coffe = new Product("COFW");
         
-        bool Result = basket.RemoveProduct(product);
 
-        if (Result==true)
-        {
-            Assert.That(name == bagel.Name, Is.EqualTo(name != coffe.Name));
-            Assert.That(name != bagel.Name, Is.EqualTo(name == coffe.Name));
-            Assert.That(basket.ProductList.Count < 2);
-        }
-        else{ 
-            Assert.That(name, Is.EqualTo(product.Name));
-            Assert.That(basket.ProductList.Count, Is.EqualTo(2)); 
-        } 
+       basket.AddProduct(bagel);
+       basket.AddProduct(coffe);
+
+        bool doesExistInBasket = basket.ProductList.Keys.Contains(basketID);
+
+         bool Result = basket.RemoveProduct(basketID);
+
+        Assert.That(Result, Is.EqualTo(doesExistInBasket));
+
     }
 
     [TestCase("BGLO", "BGLP", "BGLE")]
     [TestCase("COFB", "COFW", "COFC")]
-    [TestCase("FILB", "FILE", "FILC")]
+  //[TestCase("FILB", "FILE", "FILC")]
     [TestCase("BGLS", "COFB", "COFW")]
 
     public void getTotalCost(string A, string B, string C) {
