@@ -75,9 +75,9 @@ So I know what the damage will be,
 I'd like to know the cost of a bagel before I add it to my basket.
 ```
 
-| Classes  | Members                                                | Methods                                               | Scenario                       | Outputs      |
-|----------|--------------------------------------------------------|-------------------------------------------------------|--------------------------------|--------------|
-| `Basket` |
+| Classes     | Members                                                | Methods         | Scenario | Outputs     |
+|-------------|--------------------------------------------------------|-----------------|----------|-------------|
+| `Inventory` | `List<Item> InventoryItems`                            | `CostOfBagel()` |          | Console.out |
 
 ```
 9.
@@ -86,9 +86,9 @@ So I don't over-spend,
 I'd like to know the cost of each filling before I add it to my bagel order.
 ```
 
-| Classes  | Members                                                | Methods                                               | Scenario                       | Outputs      |
-|----------|--------------------------------------------------------|-------------------------------------------------------|--------------------------------|--------------|
-| `Basket` |
+| Classes     | Members                                                | Methods           | Scenario  | Outputs     |
+|-------------|--------------------------------------------------------|-------------------|-----------|-------------|
+| `Inventory` | `List<Item> InventoryItems`                            | `CostOfFilling()` |           | Console.out |              
 
 
 

@@ -27,39 +27,34 @@ namespace exercise.main
 
         }
 
-
-
-        public List<Item> BasketItems { get { return _basketItems; }set { _basketItems = value; } } 
+        public List<Item> BasketItems { get { return _basketItems; } set { _basketItems = value; } } 
         public int Capacity { get { return _capacity; } set { _capacity = value; } }
 
 
         Inventory inventory = new Inventory();
 
         public void AddItem(string Sku)
-        {
+        {        
             foreach (var itemInv in inventory.InventoryItems)
             {
                 if (itemInv.Sku == Sku)
                 {
-                    BasketItems.Add(itemInv);
+                    Console.WriteLine($"Item: {itemInv.Name} {itemInv.Variant} has been added to basket");
+                    BasketItems.Add(itemInv);                
                 }
             }
-
         }
 
         public bool RemoveBagel(string Sku)
         {
-            bool result = false;
-
-            foreach (var item in BasketItems)
+            bool result = true;
+            Item item = BasketItems.Where(x => x.Sku == Sku).First();
+            if(item == null)
             {
-                if (item.Sku == Sku)
-                {
-                    BasketItems.Remove(item);
-                }
+                return false;
             }
-
-
+            BasketItems.Remove(item);
+            Console.WriteLine($"Item: {item.Name} {item.Variant} has been removed from basket");
             return result;
         }
 
@@ -67,9 +62,11 @@ namespace exercise.main
         {
             if(BasketItems.Count >= Capacity)
             {
+                Console.WriteLine("Basket is full");
                 return true;
             } else
             {
+                Console.WriteLine("Basket is not full");
                 return false;
             }
         }
@@ -79,6 +76,7 @@ namespace exercise.main
             if (BasketItems.Count <= Capacity)
             {
                 Capacity = newCapacity;
+                Console.WriteLine("Capacity of basket has been changed");
             }
 
         }
@@ -90,28 +88,8 @@ namespace exercise.main
             {
                 result += item.Price;
             }
+            Console.WriteLine("The total cost of basket is: " + Math.Round(result, 2));
             return Math.Round(result, 2);
         }
-
-        public double CostOfFilling()
-        {
-            double result = 0d;
-            foreach(var item in BasketItems)
-            {
-                if (item.Name.Equals("Filling"))
-                {
-                    result += item.Price;
-                }
-            }
-            return Math.Round(result, 2);
-        }
-
-        public double CostOfBagel()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
     }
 }

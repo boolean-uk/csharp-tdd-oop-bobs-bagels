@@ -28,5 +28,23 @@ namespace exercise.main
             InventoryItems.Add(new Item("FILH", 0.12, "Filling", "Ham"));
         }
 
+        public void CostOfBagel()
+        {
+            Console.WriteLine("Price of all Bagels");
+            foreach (var item in InventoryItems)
+            {
+                if (item.Variant == "Bagel")
+                {
+                    Console.WriteLine("Price of all Bagels");
+                    Console.WriteLine($"Name: {item.Name} Price: {item.Price}");
+                }
+            }
+        }
+
+        public double CostOfFilling()
+        {
+
+        }
+
     }
 }

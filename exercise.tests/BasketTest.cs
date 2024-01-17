@@ -88,40 +88,5 @@ namespace exercise.tests
             //assert
             Assert.AreEqual(result, 1.8d);
         }
-
-        [Test]
-        public void CostOfBagelTest()
-        {
-            //arrange
-            Basket basket = new Basket();
-            basket.AddItem("BGLO");
-            basket.AddItem("COFB");
-            basket.AddItem("FILB");
-            basket.AddItem("FILE");
-
-            //act
-            double result = basket.CostOfBagel();
-
-
-            //assert
-            Assert.AreEqual(result, 0.73d);
-        }
-
-        [Test]
-        public void CostOfFillingTest()
-        {
-            //arrange
-            Basket basket = new Basket();
-            basket.AddItem("BGLO");
-            basket.AddItem("COFB");
-            basket.AddItem("FILB");
-            basket.AddItem("FILE");
-
-            //act
-            double result = basket.CostOfFilling();
-
-            //assert
-            Assert.AreEqual(result, 0.24d);
-        }
     }
 }
