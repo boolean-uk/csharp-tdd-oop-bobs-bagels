@@ -11,7 +11,7 @@ namespace exercise.main
 
     public class Bagel(BagelType type) : Item
     {
-        public static readonly Dictionary<BagelType, double> BagelPrice = new()
+        private static readonly Dictionary<BagelType, double> _bagelPrice = new()
         {
             {BagelType.Onion, 0.49},
             {BagelType.Plain, 0.39},
@@ -19,7 +19,7 @@ namespace exercise.main
             {BagelType.Sesame, 0.49}
         };
 
-        public static readonly Dictionary<BagelType, string> BagelSku = new()
+        private static readonly Dictionary<BagelType, string> bagelSku = new()
         {
             {BagelType.Onion, "BGLO"},
             {BagelType.Plain, "BGLP"},
@@ -28,10 +28,10 @@ namespace exercise.main
         };
 
         private string _name = type.ToString();
-        private double _price = BagelPrice[type];
-        private string _sku = BagelSku[type];
+        private double _price = _bagelPrice[type];
+        private string _sku = bagelSku[type];
         private string _type = "Bagel";
-        private List<Filling> _fillings = [];
+        private readonly List<Filling> _fillings = [];
 
         public override string Name { get { return _name; } set { _name = value; } }
         public override double Price { get { return _price; } set { _price = value; } }

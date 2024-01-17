@@ -6,9 +6,9 @@ namespace exercise.main
     {
         private static Dictionary<string, Item> skuMap = new() {
             { "BGLO", new Bagel(BagelType.Onion) },
-            { "BGLP", new Bagel(BagelType.Onion) },
-            { "BGLE", new Bagel(BagelType.Onion) },
-            { "BGLS", new Bagel(BagelType.Onion) },
+            { "BGLP", new Bagel(BagelType.Plain) },
+            { "BGLE", new Bagel(BagelType.Everything) },
+            { "BGLS", new Bagel(BagelType.Sesame) },
             { "COFB", new Coffee(CoffeeType.Black) },
             { "COFW", new Coffee(CoffeeType.White) },
             { "COFC", new Coffee(CoffeeType.Capuccino)},
