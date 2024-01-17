@@ -93,15 +93,26 @@ namespace exercise.main.Class_Items
         {
             double price = _customers[customer].TotalCost();
             int bagleCount = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).Count();
-            var bagleList = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).OrderBy(i => i.Price).ToList();
-            if (bagleCount == 6)
+            var bagleList = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).OrderByDescending(i => i.Price).ToList();
+
+
+            if (bagleCount >= 12)
             {
-                price += 2.49d;
-                foreach (var item in bagleList) 
+                price += 3.99d;
+                for (int i = 0; i < 12; i++)
                 {
-                    price -= _products.Find(x => x.SKU == item.SKU).Price;
+                    price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
                 }
             }
+            else if (bagleCount >= 6)
+            {
+                price += 2.49d;
+                for (int i = 0; i < 6; i++)
+                {
+                    price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
+                }
+            }
+            
             return Math.Round(price,2);
         }
 
