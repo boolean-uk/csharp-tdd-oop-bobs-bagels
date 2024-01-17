@@ -60,6 +60,59 @@ namespace exercise.tests
 
             Assert.AreEqual(_basket.Sum(), 0.49d + 0.99d);
         }
-        
+
+        [Test]
+        public void Discount1()
+        {
+            _basket.Add("BGLO");
+            _basket.Add("BGLO");
+            _basket.Add("BGLO");
+            _basket.Add("BGLO");
+            _basket.Add("BGLO");
+            _basket.Add("BGLO");
+
+            Assert.AreEqual(Math.Round(2.49d,2),_basket.Sum());
+        }
+        [Test]
+        public void Discount2() {
+
+            for (int i = 0; i < 16; i++)
+            {
+                _basket.Add("BGLP");
+            }
+
+            Assert.AreEqual(Math.Round(5.55d,2),_basket.Sum());
+        }
+        [Test]
+        public void Discount3()
+        {
+            _basket.Add("BGLO");
+            _basket.Add("COFB");
+
+            Assert.AreEqual(Math.Round(1.25d,2),_basket.Sum());
+        }
+        [Test] public void CheckBagelDiscount()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                _basket.Add("BGLO");
+                _basket.basket[i].AddFilling(new Product("FILB",0.12d,Product.pType.Filling,"Bacon"));
+            }
+            var result = _basket.checkDiscountsBagels();
+            Assert.IsTrue(result.Item1.Any(t => t.SKU == "FILB"));
+            Assert.IsTrue(result.Item2.Any(s => s.amountRequired == 6));
+
+        }
+
+        [Test]
+        public void Move()
+        {
+            _basket.Add("BGLO");
+
+            _basket.MoveProduct("BGLO", 1);
+            Assert.IsTrue(_basket.discountBasket.Count > 0);
+            Assert.IsTrue(_basket.discountBasket.Any(t => t.SKU == "BGLO"));
+        }
+
     }
 }
