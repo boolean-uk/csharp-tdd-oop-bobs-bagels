@@ -77,3 +77,17 @@ _(Only new additions, these are built on top of the old classes)
 | `DiscountBundleBagelAndCoffee` (implementes Discount) | - | - | - |
 | `DiscountBundleLarge` (implements Discount) | - | - | - |
 | `DiscountMundleSmall` (implements Discount) | - | - | - |
+
+# Post Extension 1
+*(Wanted to add a Person class for the core project. Not related to any extensions)*
+
+| Classes | fields | 
+|-|-|
+|`Person`| `string Name` `bool _admin` `Basket basket` |
+
+
+| Classes | Method | Scenario | Outputs | 
+|-|-|-|-|
+|`Person`| `GetBasket()` | Retrieve the basket regisetered on the Person | Basket|
+| | `IsAdmin()` | If the user is administrator | true|
+||| If the user is not an administrator | false | 
