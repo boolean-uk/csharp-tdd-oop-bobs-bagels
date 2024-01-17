@@ -11,17 +11,17 @@ namespace exercise.main
     {
         public Basket()
         {
-            ProductList = new List<Product>();
+            _productList = new List<Product>();
             _capacity = 5;
         }
         
 
         private int _capacity;
-        public List<Product> ProductList;
+        private List<Product> _productList;
 
         public void AddProduct(Product product)
         {
-            throw new NotImplementedException();
+            _productList.Add(product);
         }
 
         public void RemoveProduct(Product product)
@@ -45,7 +45,7 @@ namespace exercise.main
 
 
         public int Capacity { get => _capacity; set => _capacity = value; }
-
+        public List<Product> ProductList { get => _productList; set => _productList = value; }
 
 
 
