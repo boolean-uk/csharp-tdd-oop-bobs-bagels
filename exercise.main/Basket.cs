@@ -12,22 +12,33 @@ namespace exercise.main
         List<Product> _basket = new List<Product>();
         int _maxBasketSize = 5;
 
-        public bool AddItemToBasket(Product item) 
+        public bool AddItemToBasket(Product item)
         {
-            int res1 = _basket.Count;
-            _basket.Add(item);
-            int res2 = _basket.Count;
-            return (res2 > res1);
+            if (IsValid(item))
+            {
+                int res1 = _basket.Count;
+                _basket.Add(item);
+                int res2 = _basket.Count;
+                return (res2 > res1);
+            } else 
+            {
+                return false;
+            }
         }
 
         public bool AddItemToBasket(string[] SKUs)
         {
-            ProductFactory factory = new ProductFactory();
-            Product prod = factory.GenerateProduct(SKUs);
-            int res1 = _basket.Count;
-            _basket.Add(prod);
-            int res2 = _basket.Count;
-            return (res2 > res1);
+            Product prod = ProductFactory.GenerateProduct(SKUs);
+            return AddItemToBasket(prod);
+        }
+
+        private bool IsValid(Product item) 
+        {
+            if (!ProductFactory.ValidateProductSKU(item.GetSKUName()))
+            {
+                return false;
+            }
+            return (item.GetPrice() > 0f);
         }
 
         public int SetBasketSize(int newSize) 
@@ -63,7 +74,6 @@ namespace exercise.main
         public bool RemoveProductFromBasket(string[] SKUs)
         {
             // TODO: REFACTOR, this is hideous
-            ProductFactory factory = new ProductFactory();
             IEnumerable<Product> toRemove = _basket.Where(p => p.GetSKUName() == SKUs[0]);
             // More complex if Bagel due to sub-objects...
             foreach (Product item in toRemove)

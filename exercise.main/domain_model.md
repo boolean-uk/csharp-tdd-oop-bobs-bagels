@@ -24,6 +24,8 @@
 | | | Failed to remove item from basket (5) | false | 
 | | `IsFull()` | Ensure the basket is not full (3) | false |
 | | | The basket is already full (3) | true | 
+| | `IsValid(Product item)` | Validate that the provided item is in the inventory | true |
+| | | If provided item is not in the inventory | false | 
 | `Product` (interface) | `GetPrice()` | Retrieve the price of the product | float |
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |

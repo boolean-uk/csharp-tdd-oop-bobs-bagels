@@ -33,7 +33,7 @@ namespace exercise.main.Products
             }
         }
 
-        private static bool ValidateProductSKU(string SKU) 
+        public static bool ValidateProductSKU(string SKU) 
         {
             float prod1 = Inventory.GetCoffePrice(SKU);
             float prod2 = Inventory.GetBagelPrice(SKU);
