@@ -89,9 +89,21 @@ namespace exercise.main.Classes
             return cost;
         }
 
+        //Returns cost of cart after discounts
         public double DiscountedCost()
         {
-            throw new NotImplementedException();
+            double cost = 0;
+            Stock stock = new();
+
+            //cost = stock.DiscountEvaluate();
+
+            return cost;
+        }
+
+        //Calculates discounts
+        public double BestDiscountValue()
+        {
+            return 0;
         }
 
     }

@@ -8,6 +8,7 @@ namespace exercise.main.Classes
 {
     public class Stock
     {
+        public Stock() { DiscountEvaluate(); } //Calculates discounts when stock is initialized
 
         public static List<(string SKU, double price, Name name, string variant)> Items { get; } = new()
         {
@@ -40,6 +41,66 @@ namespace exercise.main.Classes
         }
 
 
+
+        //Discount calculations:
+
+        public enum Discount { SixBagel, TwelveBagel, CoffeeBagel }
+        List<(List<string> sku, Discount discount, double saved)> deals { get; } = new(); //stores the sku's of items in a discount, the type of discount and the saved value
+
+        //Calculates all deals and stores them in the deals table
+        public void DiscountEvaluate()
+        {
+            deals.Clear();
+            List<string> skuList = new();
+            foreach (var item in Items)
+            {
+                
+                skuList.Add(item.SKU);
+
+                if (item.name == Name.Bagel) //Check deals for bagels
+                {
+                    
+                    deals.Add(new( skuList, Discount.SixBagel, DiscountSixBagel(item.SKU)));
+                    deals.Add(new( skuList, Discount.TwelveBagel, DiscountTwelveBagel(item.SKU)));
+                }
+                else if(item.name == Name.Coffee) //Check coffee deals
+                {
+                    foreach (var item2 in Items.ToList().Where(i => i.name == Name.Bagel)) //Perform coffee+bagel check on every bagel
+                    {
+                        skuList.Add(item2.SKU);
+                        deals.Add(new(skuList.ToList(), Discount.CoffeeBagel, DiscountCoffeeAndBagel(item.SKU, item2.SKU)));
+                        skuList.RemoveAt(skuList.Count - 1);
+                    }
+                }
+                skuList.Clear();
+
+            }
+        }
+
+        //How much saved when buying a coffee and bagel combo
+        public double DiscountCoffeeAndBagel(string csku, string bsku)
+        {
+            double cost = 0;
+            cost = Items.Find(x => x.SKU == csku).price;
+            cost += Items.Find(x => x.SKU == bsku).price;
+            return Math.Round(cost - 1.25, 2);
+        }
+
+        //How much is saved when bulk buying 6 bagels
+        public double DiscountSixBagel(string sku)
+        {
+            double cost = 0;
+            cost = Items.Find(x => x.SKU == sku).price * 6;
+            return Math.Round(cost - 2.49, 2);
+        }
+
+        //How much is saved when bulk buying 12 bagels
+        public double DiscountTwelveBagel(string sku)
+        {
+            double cost = 0;
+            cost = Items.Find(x => x.SKU == sku).price * 12;
+            return Math.Round(cost - 3.99, 2);
+        }
 
     }
 }
