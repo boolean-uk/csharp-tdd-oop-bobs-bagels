@@ -13,7 +13,19 @@ public class Basket
         _menu = new Menu();
     }
 
-    public int Capacity { get { return _capacity; } set { _capacity = value; } }
+    public int Capacity { get { return _capacity; } }
+    public void setCapacity(int newCapacity)
+    {
+        if (newCapacity > 0 && newCapacity >= _products.Count)
+        {
+            _capacity = newCapacity;
+            Console.WriteLine("New size set.");
+        }
+        else
+        {
+            Console.WriteLine("Failed to change basket size. The size must be 1 or higher and not lower than it's current contents.");
+        }
+    }
 
     public bool add(int id, string sku)
     {

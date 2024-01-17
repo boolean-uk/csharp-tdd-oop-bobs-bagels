@@ -114,6 +114,20 @@ public class UserInterface
 
     public void changeBasketSize()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Set new basket size: ");
+        string input = Console.ReadLine().Trim();
+        int newSize;
+        if (int.TryParse(input, out newSize))
+        {
+            Console.Clear();
+            Console.WriteLine($"You entered: {newSize}");
+
+            _basket.setCapacity(newSize);
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Invalid input. Please enter an integer.");
+        }
     }
 }

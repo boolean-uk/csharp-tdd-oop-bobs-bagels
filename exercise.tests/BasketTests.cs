@@ -37,7 +37,7 @@ public class BasketTests
     {
         var basket = new Basket();
 
-        basket.Capacity = 1;
+        basket.setCapacity(1);
         bool result = basket.add(1, "BGLP");
         bool result1 = basket.add(2, "BGLP");
 
