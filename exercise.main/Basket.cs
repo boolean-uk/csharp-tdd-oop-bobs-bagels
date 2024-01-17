@@ -106,6 +106,8 @@
             List<Filling> fillings = Items.Where(x => x.Sku.StartsWith("BGL")).Select(x => (Bagel)x).SelectMany(x => x.GetFillings()).ToList();
             Dictionary<string, int> countFillings = fillings.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
 
+            Console.WriteLine("===================================");
+            Console.WriteLine("Item                 Count    Price");
             Console.WriteLine("-----------------------------------");
             foreach (KeyValuePair<string, int> elem in countItems)
             {
@@ -120,7 +122,7 @@
                 Console.WriteLine($"{elem.Key} {type}{spacing}{elem.Value}    £{fillings.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice())}");
             }
             Console.WriteLine("-----------------------------------");
-
+            Console.WriteLine("Discount:");
             var counts = GetDiscountCounts();
             var amounts = GetDiscountAmounts();
             foreach (DiscountTypes item in Enum.GetValues(typeof(DiscountTypes)).Cast<DiscountTypes>())
@@ -136,6 +138,7 @@
             Console.WriteLine($"Sum                           £{Math.Round(GetBasketCost(), 2)}");
             Console.WriteLine($"Total Discount               -£{Math.Round(GetTotalDiscount(), 2)}");
             Console.WriteLine($"Total                         £{Math.Round(GetDiscountBasketCost(), 2)}");
+            Console.WriteLine("===================================");
             Console.WriteLine($"            Thank you\n         for your order!     ");
         }
     }
