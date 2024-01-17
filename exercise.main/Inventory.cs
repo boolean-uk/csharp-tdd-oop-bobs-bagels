@@ -10,45 +10,98 @@ namespace exercise.main
 {
     public static class Inventory
     {
-        public static List<(string SKU, double Price, string Name, string Variant)> items = new List<(string, double, string, string)>
+        public static List<(string SKU, double Price, BagelType Variant)> bagels = new List<(string, double, BagelType)>
         {
-            ("BGLO", 0.49, "Bagel", "Onion"),
-            ("BGLP", 0.39, "Bagel", "Plain"),
-            ("BGLE", 0.49, "Bagel", "Everything"),
-            ("BGLS", 0.49, "Bagel", "Sesame"),
-            ("COFB", 0.99, "Coffee", "Black"),
-            ("COFW", 1.19, "Coffee", "White"),
-            ("COFC", 1.29, "Coffee", "Cappuccino"),
-            ("COFL", 1.29, "Coffee", "Latte"),
-            ("FILB", 0.12, "Filling", "Bacon"),
-            ("FILE", 0.12, "Filling", "Egg"),
-            ("FILC", 0.12, "Filling", "Cheese"),
-            ("FILX", 0.12, "Filling", "Cream Cheese"),
-            ("FILS", 0.12, "Filling", "Smoked Salmon"),
-            ("FILH", 0.12, "Filling", "Ham")
+            ("BGLO", 0.49, BagelType.Onion),
+            ("BGLP", 0.39, BagelType.Plain),
+            ("BGLE", 0.49, BagelType.Everything),
+            ("BGLS", 0.49, BagelType.Sesame)
+
+        };
+        public static List<(string SKU, double Price, BagelFilling Filling)> fillings = new List<(string, double, BagelFilling)>
+        {
+            ("FILB", 0.12, BagelFilling.Bacon),
+            ("FILE", 0.12, BagelFilling.Egg),
+            ("FILC", 0.12, BagelFilling.Cheese),
+            ("FILX", 0.12, BagelFilling.CreamCheese),
+            ("FILS", 0.12, BagelFilling.SmokedSalmon),
+            ("FILH", 0.12, BagelFilling.Ham)
+        };
+
+        public static List<(string SKU, double Price, CoffeeType Variant)> coffee = new List<(string, double, CoffeeType)>
+        {
+            ("COFB", 0.99, CoffeeType.Black),
+            ("COFW", 1.19, CoffeeType.White),
+            ("COFC", 1.29, CoffeeType.Cappuccino),
+            ("COFL", 1.29, CoffeeType.Latte),
+        };
+
+        public static List<(string SKU, BagelType Variant, int specialAmount, double discountPrice)> BagelDiscountList = new List<(string SKU, BagelType Variant, int specialAmount, double discountPrice)>
+        {
+            ("BGLO", BagelType.Onion, 6, 2.49D),
+            ("BGLP", BagelType.Plain, 12, 3.99D),
+            ("BGLE", BagelType.Everything, 6, 2.49D)
+        };
+
+        public static List<(string SKU, CoffeeType Variant, int specialAmount, double discountPrice)> CoffeeDiscountList = new List<(string SKU, CoffeeType Variant, int specialAmount, double discountPrice)>
+        {
+            ("COFB", CoffeeType.Black, 1, 1.25D),
         };
 
         public static double CheckBagelPrice(Bagel bagel)
         {
             double sum = 0;
 
-            sum += items.Where(x => x.Variant == bagel.BagelType).ToList()[0].Price;
-            if (bagel.BagelFilling != "")
-                sum += items.Where(x => x.Variant == bagel.BagelFilling).ToList()[0].Price;
+            sum += bagels.Where(x => x.Variant == bagel.mBagelType).ToList()[0].Price;
+            if (bagel.mBagelFilling != BagelFilling.None)
+                sum += fillings.Where(x => x.Filling == bagel.mBagelFilling).ToList()[0].Price;
 
             return sum;
         }
 
-        public static double CheckFillingPrice(string filling)
+        public static double CheckFillingPrice(BagelFilling filling)
         {
-            if (items.Any(x => x.Variant == filling))
-                return items.Where(x => x.Variant == filling).ToList()[0].Price;
+            if (fillings.Any(x => x.Filling == filling))
+                return fillings.Where(x => x.Filling == filling).ToList()[0].Price;
             return -1;
         }
 
-        public static bool IsInInventory(string item)
+        public static double GetFillingPrice(List<Bagel> bagelList)
         {
-            return (items.Any(x => x.Variant == item));
+            double sum = 0;
+            foreach (var bagel in bagelList)
+            {
+                if (bagel.mBagelFilling != BagelFilling.None)
+                    sum += Inventory.fillings.Where(x => x.Filling == bagel.mBagelFilling).ToList()[0].Price;
+            }
+
+            return sum;
         }
+
+        public static bool IsInInventory(BagelType bagelType)
+        {
+            return (bagels.Any(x => x.Variant == bagelType));
+        }
+        public static bool IsInInventory(BagelFilling item)
+        {
+            return (fillings.Any(x => x.Filling == item));
+        }
+
+        //public static bool IsInInventory(Coffee coffee)
+        //{
+        //    return (items.Any(x => x.Variant == item));
+        //}
+
+        //public static bool CheckBagelDiscount(List<Bagel> inBagels)
+        //{
+        //    foreach (var disc in BagelDiscountList)
+        //    {
+        //        if (inBagels.Where(x => x.mBagelType == disc.Variant).ToList().Count >= disc.specialAmount)
+        //        {
+        //            return true;
+
+        //        }
+        //    }
+        //}
     }
 }

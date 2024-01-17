@@ -6,23 +6,34 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    //public enum BagelType
-    //{
-    //    Onion,
-    //    Plain,
-    //    Everything,
-    //    Sesame
-    //}
+    public enum BagelType
+    {
+        Onion,
+        Plain,
+        Everything,
+        Sesame
+    }
+
+    public enum BagelFilling
+    {
+        None,
+        Bacon,
+        Egg,
+        Cheese,
+        CreamCheese,
+        SmokedSalmon,
+        Ham
+    }
 
     public class Bagel
     {
-        public Bagel(string bagelType = "Plain", string bagelFilling = "")
+        public Bagel(BagelType type = BagelType.Plain, BagelFilling filling = BagelFilling.None)
         {
-            BagelType = bagelType;
-            BagelFilling = bagelFilling;
+            mBagelType = type;
+            mBagelFilling = filling;
         }
-        public string BagelType { get; set; }
+        public BagelType mBagelType { get; set; }
 
-        public string BagelFilling { get; set; }
+        public BagelFilling mBagelFilling { get; set; }
     }
 }

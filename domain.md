@@ -66,3 +66,9 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Inventory`| `List<(string, double, string, string)>`           | `CheckBagelPrice(string, name, varient)`    |                                           | decimal             |
 |            |                                                    |	`CheckFillingPrice(string filling)`         |                                           | decimal             |
 |            |													  |                                             |									        |                     |
+
+
+11.
+As a customer,
+So that i get a discount,
+I will buy 12 plain bagels for 3.99

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,13 +15,18 @@ namespace exercise.main
         }
 
         public List<Bagel> BagelList { get; set; } = new List<Bagel>();
-        //public List<Coffee> CoffeeList { set; get; } = new List<Coffee>();
+        public List<Coffee> CoffeeList { set; get; } = new List<Coffee>();
+
         public int BasketCapacity { set; get; }
 
         public bool AddBagel(Bagel bagel)
         {
-            if (!Inventory.IsInInventory(bagel.BagelType) && !Inventory.IsInInventory(bagel.BagelFilling))
-                return false;
+            //Not needed when enums are used for type.
+            //if (!Inventory.IsInInventory(bagel.mBagelType) && !Inventory.IsInInventory(bagel.mBagelFilling))
+            //{
+            //    Console.WriteLine("ERROR! Bagel is not in current inventory!");
+            //    return false;
+            //}
 
             if (BagelList.Count >= BasketCapacity)
             {
@@ -32,22 +38,64 @@ namespace exercise.main
             return true;
         }
 
+        public void AddCoffee(Coffee coffee)
+        {
+            CoffeeList.Add(coffee);
+        }
+
+        public void RemoveCoffee(Coffee coffee)
+        {
+            CoffeeList.Remove(coffee);
+        }
+
         public double GetBasketTotal()
         {
             double totalSum = 0;
 
-            foreach (var bagel in BagelList)
-            {
-               totalSum += Inventory.items.Where(x => x.Variant == bagel.BagelType).ToList()[0].Price;
-               if (bagel.BagelFilling != "")
-                 totalSum += Inventory.items.Where(x => x.Variant == bagel.BagelFilling).ToList()[0].Price;
+            //List<Bagel> CopyList = BagelList;
 
+            //Check discount here, remove items discounts apply to
+            for (int i = 0; i < Inventory.BagelDiscountList.Count; i++)
+            {
+
+                int discountAmount = Inventory.BagelDiscountList[i].specialAmount;
+                while (BagelList.Where(x => x.mBagelType == Inventory.BagelDiscountList[i].Variant).ToList().Count >=
+                    discountAmount)
+                {
+                    totalSum += Inventory.BagelDiscountList[i].discountPrice;
+
+                    List<Bagel> tempList = BagelList.Where(x => x.mBagelType == Inventory.BagelDiscountList[i].Variant)
+                        .ToList();
+                    tempList.RemoveRange(discountAmount, tempList.Count - discountAmount);
+                    foreach (var temp in tempList)
+                    {
+                        BagelList.Remove(temp);
+                    }
+                }
             }
 
-            //foreach (var coffee in CoffeeList)
-            //{
+            for (int i = 0; i < Inventory.CoffeeDiscountList.Count; i++)
+            {
 
-            //}
+                while (CoffeeList.Count(x => x.mCoffeeType == Inventory.CoffeeDiscountList[i].Variant) > 0 && BagelList.Count > 0)
+                {
+                    totalSum += Inventory.CoffeeDiscountList[i].discountPrice;
+
+                    CoffeeList.RemoveAt(0);
+                    BagelList.RemoveAt(0);
+                }
+            }
+
+            foreach (var bagel in BagelList)
+            {
+               totalSum += Inventory.bagels.Where(x => x.Variant == bagel.mBagelType).ToList()[0].Price;
+            }
+            totalSum += Inventory.GetFillingPrice(BagelList);
+
+            foreach (var coffee in CoffeeList)
+            {
+                totalSum += Inventory.coffee.Where(x => x.Variant == coffee.mCoffeeType).ToList()[0].Price;
+            }
 
             return totalSum;
         }
