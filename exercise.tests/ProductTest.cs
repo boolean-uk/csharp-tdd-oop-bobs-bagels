@@ -16,22 +16,31 @@ namespace exercise.tests
             product = new Product("BGLO", 0.49d, Product.pType.Bagel, "Onion");
         }
         [Test]
-        public void addFilling()
+        public void addFilling1()
         {
             Product testFilling1 = new("FILB", 0.12d, Product.pType.Filling, "Bacon");
-            Product testFilling2 = new("COFB", 0.12d, Product.pType.Coffee, "Black");
             
             Assert.IsTrue(product.AddFilling(testFilling1));
-            Assert.IsFalse(product.AddFilling(testFilling2));
             Assert.IsTrue(product.Filling.Any(t => t.SKU == "FILB"));
+        }[Test]
+        public void addFilling2()
+        {
+            Product testFilling2 = new("COFB", 0.12d, Product.pType.Coffee, "Black");
+            
+            Assert.IsFalse(product.AddFilling(testFilling2));
         }
         [Test]
-        public void removeFilling()
+        public void removeFilling1()
         {
             Product testFilling1 = new("FILB", 0.12d, Product.pType.Filling, "Bacon");
             product.AddFilling(testFilling1);
-            Product testFilling2 = new("FILE", 0.12d, Product.pType.Filling, "Egg");
             Assert.IsTrue(product.RemoveFilling(testFilling1));
+        }
+        [Test]
+        public void removeFilling2()
+        {
+            
+            Product testFilling2 = new("FILE", 0.12d, Product.pType.Filling, "Egg");
             Assert.IsFalse(product.RemoveFilling(testFilling2));
         }
     }
