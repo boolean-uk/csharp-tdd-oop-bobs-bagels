@@ -14,6 +14,7 @@ namespace exercise.main.Items
         private string _name = "Bagel"; // "Bagel" by default
         private string _variant;
 
+        // Constructor 1 (depent on the input string)
         public Bagel(string variant)
         {
             if (variant == "Onion") {

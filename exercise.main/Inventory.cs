@@ -21,6 +21,7 @@ namespace exercise.main
            "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
         };
 
+        // Adding all items to the Dic "inventory"
         public Inventory()
         {
             bagels.ForEach(bagelType => {
@@ -39,6 +40,8 @@ namespace exercise.main
             });
 
         }
+
+        // Store all of the products based on their the type and store it in Dic<string, Product>
         public Dictionary<string, Product> getFilling() {
             return inventory.Where(pvk => pvk.Key.StartsWith("FIL"))
                 .OrderBy(pvk => pvk.Key)

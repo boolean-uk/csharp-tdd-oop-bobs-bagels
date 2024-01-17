@@ -1,5 +1,6 @@
 using exercise.main;
 using exercise.main.Items;
+using System;
 
 namespace exercise.tests;
 
@@ -283,6 +284,40 @@ public class Tests
 
         //Assert 
         Assert.IsTrue(priceListResult["Bacon"] == 0.12);    // Onion = 0.49
+    }
+
+    [Test]
+    public void testUnavailableObject()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Object random = new object();
+
+        //Product product1 = new Product(bagel1);
+       // Product product2 = new Product(random);
+      
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+        //var result = Assert.Throws<ArgumentException>(product1);
+        TestDelegate result1 = () => new Product(bagel1);
+       
+
+        TestDelegate result2 = () => new Product(random);
+        var check2 = Assert.Throws<ArgumentException>(result2);
+
+
+
+
+        //Assert 
+        Assert.DoesNotThrow(result1);
+        Assert.AreEqual("Unsupported product", check2.Message);
     }
 
 }

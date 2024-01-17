@@ -15,6 +15,8 @@ namespace exercise.main
         private double _price;
         private string _variant;
 
+
+        //Constructors based on the input object.
         public Product(Bagel bagel)
         {
             _variant = bagel.variant;
@@ -35,6 +37,8 @@ namespace exercise.main
             _price = filling.price;
             _name = filling.name;
         }
+
+        // If input object is not of type coffe, filling or bagel
         public Product(object product) {
             throw new ArgumentException($"Unsupported product");
         }
