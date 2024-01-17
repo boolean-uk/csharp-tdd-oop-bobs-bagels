@@ -87,5 +87,21 @@ namespace exercise.tests
             float totalPrice = _customer.Basket.GetTotalPrice();
             Assert.That(Math.Abs(totalPrice - 5.55), Is.LessThanOrEqualTo(1e-2f));
         }
+
+        [Test]
+        public void CalcualteDiscountTest()
+        {
+            _customer.Basket.Capacity = 40;
+            for (int i = 0; i < 13; i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Plain));
+            }
+            for (int i = 0; i < 13; i++)
+            {
+                _customer.Order(new Bagel(BagelVariant.Onion));
+            }
+            float discount = _customer.Basket.CalculateDiscounts(_customer.Basket.GetContents());
+            Assert.That(Math.Abs(discount - 0.69f - 0.9f), Is.LessThanOrEqualTo(1e-2));
+        }
     }
 }
