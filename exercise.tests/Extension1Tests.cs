@@ -66,8 +66,9 @@ namespace exercise.tests
         public void Discount12Plain4Latte()
         {
             _lastBasket().Items.AddRange(Enumerable.Repeat(_plain, 12));
-            _lastBasket().Items.AddRange(Enumerable.Repeat(_latte, 12));
-            Assert.That(_lastBasket().DiscountedCost(), Is.EqualTo(7.72));
+            _lastBasket().Items.AddRange(Enumerable.Repeat(_latte, 4));
+            _lastBasket().BestDiscountValue();
+            Assert.That(_lastBasket().DiscountedCost(), Is.EqualTo(8.12));
         }
 
     }

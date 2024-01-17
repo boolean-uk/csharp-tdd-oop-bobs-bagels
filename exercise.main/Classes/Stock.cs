@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Classes
 {
+    public enum Discount { None, SixBagel, TwelveBagel, CoffeeBagel }
     public class Stock
     {
         public Stock() { DiscountEvaluate(); } //Calculates discounts when stock is initialized
@@ -44,8 +45,8 @@ namespace exercise.main.Classes
 
         //Discount calculations:
 
-        public enum Discount { SixBagel, TwelveBagel, CoffeeBagel }
-        List<(List<string> sku, Discount discount, double saved)> deals { get; } = new(); //stores the sku's of items in a discount, the type of discount and the saved value
+        
+        public List<(List<string> sku, Discount discount, double saved)> deals { get; set; } = new(); //stores the sku's of items in a discount, the type of discount and the saved value
 
         //Calculates all deals and stores them in the deals table
         public void DiscountEvaluate()
@@ -60,8 +61,8 @@ namespace exercise.main.Classes
                 if (item.name == Name.Bagel) //Check deals for bagels
                 {
                     
-                    deals.Add(new( skuList, Discount.SixBagel, DiscountSixBagel(item.SKU)));
-                    deals.Add(new( skuList, Discount.TwelveBagel, DiscountTwelveBagel(item.SKU)));
+                    deals.Add(new( skuList.ToList(), Discount.SixBagel, DiscountSixBagel(item.SKU)));
+                    deals.Add(new( skuList.ToList(), Discount.TwelveBagel, DiscountTwelveBagel(item.SKU)));
                 }
                 else if(item.name == Name.Coffee) //Check coffee deals
                 {
@@ -73,8 +74,10 @@ namespace exercise.main.Classes
                     }
                 }
                 skuList.Clear();
-
             }
+
+            deals = deals.Where(d => d.saved > 0).ToList();
+            deals = deals.OrderByDescending(d => d.saved).ToList();
         }
 
         //How much saved when buying a coffee and bagel combo

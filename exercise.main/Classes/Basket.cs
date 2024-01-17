@@ -93,17 +93,52 @@ namespace exercise.main.Classes
         public double DiscountedCost()
         {
             double cost = 0;
-            Stock stock = new();
+            
 
             //cost = stock.DiscountEvaluate();
 
             return cost;
         }
 
-        //Calculates discounts
+        //Finds the best discount values and returns which items should be used for which discount
         public double BestDiscountValue()
         {
-            return 0;
+            Stock stock = new();
+            List<(Discount discount, List<Item> items, double originalPrice, double discountPrice)> Checkout = new(); //Contains all products as they are checked out
+
+            //Check if everything a coffee deal
+            double tempDeal = 0;
+            List<Item> coffees = new();
+            List<Item> bagels = new();
+            coffees = Items.ToList().Where(c => c.Name == Name.Coffee).OrderByDescending(c => c.Price).ToList();
+            bagels = Items.ToList().Where(b => b.Name == Name.Bagel).OrderByDescending(b => b.Price).ToList();
+            //For the most expensive coffee+bagel pairs
+            for(int i = 0; i < coffees.Count && i < bagels.Count; i++)
+            {
+                //For the coffee deals with the SKU, get the first bagel deal that matches bagel SKU
+                tempDeal += stock.deals.ToList().Where(c => c.sku[0] == coffees[i].SKU).First(b => b.sku[1] == bagels[i].SKU).saved;
+            
+            }
+            //Compare it to 12 and 6 bagel deals
+            List<Item> Twelveof = Items.ToList().GroupBy(x => x).Where(g => g.Count() > 11).SelectMany(g => g).ToList(); // Get all bagels that there are 12 of
+            List<Item> Sixof = Items.ToList().GroupBy(x => x).Where(g => g.Count() > 5 && g.Count() < 12).SelectMany(g => g).ToList(); // Get all bagels that there are 6 of but less than 12
+            double dealTwelveOf = 0;
+            double dealSixOf = 0;
+            foreach (Item bagel in Twelveof)
+            {
+                dealTwelveOf += stock.deals.ToList().Find(b => bagel.SKU == b.sku[0] && b.discount == Discount.TwelveBagel).saved;
+            }
+            foreach (Item bagel in Sixof)
+            {
+                dealSixOf += stock.deals.ToList().Find(b => bagel.SKU == b.sku[0] && b.discount == Discount.SixBagel).saved;
+            }
+            if (tempDeal > dealTwelveOf + dealSixOf)
+            {
+                return tempDeal;
+            }
+            
+
+            return dealTwelveOf+dealSixOf;
         }
 
     }
