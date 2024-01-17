@@ -159,6 +159,10 @@ namespace exercise.main
             double cost = bagelDeals(bagels, out deals);
 
             Console.WriteLine($"\n{new string('-', 36)}\n");
+
+
+
+            Console.WriteLine($"\n{new string('-', 36)}\n");
             sb = new StringBuilder();
             sb.Append($"Total{new (' ', 23)}");
             double totalCost = TotalCost();
