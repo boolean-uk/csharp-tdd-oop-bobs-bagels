@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public enum BagelType { Onion, Plain, Everything, Sesame };
+    public enum BagelType { Plain = 0, Onion = 1, Everything = 2, Sesame = 3 };
     public class Bagel : Product
     {
         public Dictionary<BagelType, (double price, string SKU)> bagelToInfo { get; } = new Dictionary<BagelType, (double price, string SKU)>()
@@ -18,11 +18,11 @@ namespace exercise.main
         };
 
         public List<Filling> _filling { get;  } = new List<Filling>();
-        BagelType _bagelType;
+        public BagelType bagelType { get; }
 
         public Bagel(BagelType bagel)
         {
-            _bagelType = bagel;
+            bagelType = bagel;
             price = bagelToInfo[bagel].price;
             SKU = bagelToInfo[bagel].SKU;
         }
@@ -36,5 +36,7 @@ namespace exercise.main
         {
             _filling.Add(filling);
         }
+
+        public override int itemNr => (int) bagelType;
     }
 }

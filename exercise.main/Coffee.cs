@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public enum CoffeeType { Black, White, Capuccino, Latte };
+    public enum CoffeeType { Black = 4, White = 5, Capuccino = 6, Latte = 7 };
     public class Coffee : Product
     {
-        public CoffeeType _coffee;
+        public CoffeeType coffeeType;
 
-        public Dictionary<CoffeeType, (double price, string SKU)> coffeToInfo { get; } = new Dictionary<CoffeeType, (double price, string SKU)>()
+        public Dictionary<CoffeeType, (double price, string SKU)> coffeToInfo { get; } = 
+            new Dictionary<CoffeeType, (double price, string SKU)>()
         {
             { CoffeeType.Black, (0.99d, "COFB") },
             { CoffeeType.White, (1.19d, "COFW") },
@@ -21,17 +22,13 @@ namespace exercise.main
 
         public Coffee(CoffeeType coffee) 
         {
-            _coffee = coffee;
+            coffeeType = coffee;
             price = coffeToInfo[coffee].price;
             SKU = coffeToInfo[coffee].SKU;
         }
 
         public override double GetPrice() { return price; }
-    }
 
-    /*
-    public class Black : Coffee { public Black() { SKU = "COFB"; price = 0.99d; } }
-    public class White : Coffee { public White() { SKU = "COFW"; price = 1.19d; } }
-    public class Capuccino : Coffee { public Capuccino() { SKU = "COFC"; price = 1.29d; } }
-    public class Latte : Coffee { public Latte() { SKU = "COFL"; price = 1.29d; } } */
+        public override int itemNr { get => (int) coffeeType; }
+    }
 }

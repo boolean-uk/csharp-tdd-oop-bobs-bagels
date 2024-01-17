@@ -108,7 +108,7 @@ public class Tests
     {
         Coffee coffee = new Coffee(CoffeeType.Capuccino);
         basket.Add(coffee);
-        Assert.AreEqual(basket.TotalCost(), 0.98d + 1.29d);
+        Assert.AreEqual(basket.TotalCost(false), 0.98d + 1.29d);
     }
 
     [Test]
@@ -121,6 +121,7 @@ public class Tests
         Filling cheese = new Filling(FillingType.Cheese);
         onion.Add(cheese);
         string end = basket.Prices();
+        // I am NOT checking prices
         Assert.Pass();
     }
 }

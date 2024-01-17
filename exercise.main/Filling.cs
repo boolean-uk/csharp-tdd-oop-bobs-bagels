@@ -28,12 +28,4 @@ namespace exercise.main
         }
     }
 
-    /*
-    public class Bacon : Filling { public Bacon() { SKU = "FILB"; } }
-    public class Egg : Filling { public Egg() { SKU = "FILE"; } }
-    public class Cheese : Filling { public Cheese() { SKU = "FILC"; } }
-    public class CreamCheese : Filling { public CreamCheese() { SKU = "FILX"; } }
-    public class SmokedSalmon : Filling { public SmokedSalmon() { SKU = "FILS"; } }
-    public class Ham : Filling { public Ham() { SKU = "FILH"; } } */
-
 }

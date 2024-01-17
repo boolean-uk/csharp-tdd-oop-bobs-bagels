@@ -76,3 +76,22 @@ I want customers to only be able to order things that we stock in our inventory.
 |        | TotalCost()                  | Returns the cost of all items in basket                     | double |
 |        | Prices()                     | Returns prices of all products in stock                     | string |
 | Bagel  | AddFilling(Filling filling)  | Adds filling to the bagel, and updates price of bagel       | bool   |
+
+Extension 1:
+```
+11
+As a member of the public,
+So I can preserve my wallet,
+I'd like to buy multiple bagels at a discounted price.
+```
+
+```
+12
+As a member of the public,
+So I can save money,
+I want to get discounted prices for cobining coffee and a bagel.
+```
+
+| Class  | Method                       | Scenario                                                             | Output |
+|--------|------------------------------|----------------------------------------------------------------------|--------|
+| Basket | TotalCost()                  | Returns the cost of all items in basket, takes discounts into account| double |
