@@ -84,5 +84,5 @@ I want customers to only be able to order things that we stock in our inventory.
 |		          | `showPrice()`	    						|						 |int		|
 | `Bagel`		  | `Bagel()`									|						 |Bagel		|
 |		          | `addFilling(Filling filling)`				|						 |void		|
-| `Inventory`	  | `approveTransaction()`						|						 |bool		|
+| `Inventory`	  | `FindItemsWithSKU(String Sku)`				|						 |bool		|
 

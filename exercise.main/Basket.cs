@@ -12,6 +12,7 @@ namespace exercise.main
         private List<Product> _products = [];
         private int _basketSize;
         private Inventory _inventory = new Inventory();
+        private double _total;
 
         public Basket(int basketSize)
         {
@@ -31,6 +32,7 @@ namespace exercise.main
             }
             Products.Add(product);
             BasketSize -= 1;
+            Total += product.Price;
             
             
         }
@@ -43,6 +45,7 @@ namespace exercise.main
             }
             Products.Remove(product);
             BasketSize += 1;
+            Total -= product.Price;
         }
 
         public void ExpandBasket(int expansion)
@@ -53,14 +56,47 @@ namespace exercise.main
 
         public double DisplayTotal()
         {
-            return Products.Sum(x => x.Price);
+            var bagels = Products.FindAll(p => p.SKU.StartsWith("BGL"));
+
+            if (bagels.Count >0 && bagels.Count >= 12)
+            {
+                for(int i = 0; i <= 12; i++)
+                {
+                    Total = Total - bagels[i].Price;
+                }
+                return Total += 3.99d;
+            }
+            if (bagels.Count > 0 && bagels.Count >= 6)
+            {
+                for(int i = 0; i < 6; i++)
+                {
+                    Total = Total - bagels[i].Price;
+                }
+                return Total += 2.49d;
+            }
+            if (Products.Exists(p => p.SKU == "COFB"))
+            {
+                
+                if(bagels.Count < 6)
+                {
+                    Total = Total - bagels[0].Price;
+                    Total = Total - 0.99d;
+                    return Total += 1.25d;
+
+                }
+
+            }
+
+            return Total;
         }
 
         public void AddFilling(Bagel bagel, Filling filling)
         {
-            bagel.AddFilling(filling);
-            AddToBasket(filling);
-            AddToBasket(bagel);
+            if (Products.Contains(bagel))
+            {
+                bagel.AddFilling(filling);
+                AddToBasket(filling);
+            }
         }
 
 
@@ -69,5 +105,7 @@ namespace exercise.main
 
 
         public Inventory Inventory { get { return _inventory; } }
+
+        public double Total { get { return _total; } set { _total = value; } }
     }
 }
