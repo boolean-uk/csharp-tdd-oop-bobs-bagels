@@ -79,4 +79,31 @@ public class Basket
         }
         return price;
     }
+
+    public void printProducts()
+    {
+        Console.WriteLine($"Basket contents ({_products.Count}/{_capacity}):");
+        Console.WriteLine("----------------------");
+        if (_products.Count == 0)
+        {
+            Console.WriteLine("Empty");
+        }
+        else
+        {
+            var bagels = _products.OfType<Bagel>().ToList();
+            var coffees = _products.OfType<Product>().ToList();
+            foreach (var item in bagels)
+            {
+                var bagelData = _menu.getItem(item.Sku());
+                var fillingData = _menu.getItem(item.Filling.Sku());
+                Console.WriteLine($"Id: {item.Id()} Product: {bagelData.Item2} {bagelData.Item3} Filling: {fillingData.Item3} price: {bagelData.Item1 + fillingData.Item1}");
+            }
+            foreach(var item in coffees)
+            {
+                var coffeeData = _menu.getItem(item.Sku());
+                Console.WriteLine($"Id: {item.Id()} Product: {coffeeData.Item2} {coffeeData.Item3} price: {coffeeData.Item1}");
+            }
+        }
+        Console.WriteLine("----------------------");
+    }
 }

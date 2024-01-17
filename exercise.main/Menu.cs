@@ -31,4 +31,13 @@ public class Menu
         
         return new Tuple<double, string, string>(0.00, "", "");
     }
+
+    public void printCoffeeMenu()
+    {
+        var coffees = _menu.SelectMany(x => x.Key.Contains("COF") ? new[] { x } : Enumerable.Empty<KeyValuePair<string, Tuple<double, string, string>>>()).ToList();
+        foreach (var coffe in coffees)
+        {
+            Console.WriteLine($"Sku: {coffe.Key} Product: {coffe.Value.Item2} {coffe.Value.Item3} Price: {coffe.Value.Item1}");
+        }
+    }
 }
