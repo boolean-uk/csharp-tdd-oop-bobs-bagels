@@ -25,7 +25,7 @@ public class Tests
 
     }
 
-    private Basket _lastBasket() { return _lastBasket(); }
+    private Basket _lastBasket() { return _store.Baskets.Last(); }
     private Item _lastItem() { return _lastBasket().Items.Last(); }
 
 
