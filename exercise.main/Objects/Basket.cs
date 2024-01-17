@@ -69,15 +69,22 @@ namespace exercise.main.Objects
             List<Product> filling = result.Item1;
             List<Discount> DiscountedBagelPrices = result.Item2;
 
+            var coffee = coffeeBagelDeal();
+
             double sum = 0;
 
             sum += DiscountedBagelPrices.Sum(item => item.price);
             sum += filling.Sum(item => item.Price);
 
+            sum += coffee.Item1;
+            sum += coffee.Item2.Sum(item => item.Price);
+            
+            
             //Add the non discounted basket to the sum
             sum += basket.Sum(item => item.Price);
             foreach (var item in basket)
             {
+
                 if(item.Filling.Count > 0)
                 {
                     sum += item.Filling.Sum(t => t.Price);
@@ -86,6 +93,30 @@ namespace exercise.main.Objects
             
 
             return Math.Round(sum,2);
+        }
+
+        public (double, List<Product>) coffeeBagelDeal()
+        {
+            double sum = 0;
+            List<Product> filling = new();
+            while (basket.Exists(t => t.SKU == "COFB") && basket.Exists(t => t.Type == Product.pType.Bagel))
+            {
+                var bagel = basket.FirstOrDefault(t => t.Type == Product.pType.Bagel);
+                var coffee = basket.FirstOrDefault(t => t.SKU == "COFB");
+                if (bagel.Filling.Count > 0)
+                {
+                    filling.AddRange(bagel.Filling);
+                }
+                discountBasket.Add(bagel);
+                discountBasket.Add(coffee);
+
+                sum += 1.25d;
+                
+                
+                basket.Remove(bagel);
+                basket.Remove(coffee);
+            }
+            return (sum, filling);
         }
         public (List<Product>,List<Discount>) checkDiscountsBagels()
         {
