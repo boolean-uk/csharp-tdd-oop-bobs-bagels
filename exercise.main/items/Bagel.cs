@@ -42,5 +42,5 @@ namespace exercise.main.items
 
 public enum BagelVariant
 {
-    Onion, Plain, Everything, Sesame
+    Onion, Everything, Sesame, Plain
 }

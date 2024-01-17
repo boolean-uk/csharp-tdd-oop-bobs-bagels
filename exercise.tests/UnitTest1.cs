@@ -67,7 +67,7 @@ public class Tests
         basket.Add(bagel);
         basket.Add(coffee);
 
-        Assert.That(basket.Cost(), Is.EqualTo(1.78d));
+        Assert.That(basket.Cost(true), Is.EqualTo(1.78d));
     }
 
     [Test]
@@ -108,7 +108,7 @@ public class Tests
         basket.Add(new Coffee(CoffeeVariant.Latte));
 
         // 0.49 + 0.24 + 0.49 + 1.29
-        Assert.That(basket.Cost(), Is.EqualTo(2.51d));
+        Assert.That(basket.Cost(true), Is.EqualTo(2.51d));
     }
 
     [Test]
@@ -123,7 +123,7 @@ public class Tests
         onion.AddFilling(filling);
         Filling cheese = new Filling(FillingVariant.Cheese);
         onion.AddFilling(cheese);
-        Assert.That(basket.Cost(), Is.EqualTo(0.98d + 0.24d));
+        Assert.That(basket.Cost(true), Is.EqualTo(0.98d + 0.24d));
     }
 
     [Test]
@@ -136,6 +136,67 @@ public class Tests
 
         Coffee coffee = new Coffee(CoffeeVariant.Capuccino);
         basket.Add(coffee);
-        Assert.That(basket.Cost(), Is.EqualTo(0.98d + 1.29d));
+        Assert.That(basket.Cost(true), Is.EqualTo(0.98d + 1.29d));
+    }
+
+    [Test]
+    public void TestDiscountPriceSix()
+    {
+        basket.Capacity = 20;
+        for (int i = 0;  i < 10; i++)
+        {
+            basket.Add(new Bagel(BagelVariant.Onion));
+        }
+
+
+        // 1.96 + 2.49
+        Assert.That(Math.Round(basket.Cost(), 4), Is.EqualTo(Math.Round(1.96d + 2.49d, 4)));
+    }
+
+    [Test]
+    public void TestDiscountPriceTwelve()
+    {
+        basket.Capacity = 20;
+        for (int i = 0; i < 16; i++)
+        {
+            basket.Add(new Bagel(BagelVariant.Onion));
+        }
+
+
+        // 1.96 + 3.99
+        Assert.That(Math.Round(basket.Cost(), 4), Is.EqualTo(Math.Round(1.96d + 3.99, 4)));
+    }
+
+    [Test]
+    public void TestDiscountPriceBoth()
+    {
+        basket.Capacity = 20;
+        for (int i = 0; i < 19; i++)
+        {
+            basket.Add(new Bagel(BagelVariant.Onion));
+        }
+        basket.Add(new Bagel(BagelVariant.Plain));
+
+
+        // 3.99 + 2.49 + 0.49 + 0.39
+        Assert.That(Math.Round(basket.Cost(), 4), Is.EqualTo(Math.Round(3.99d + 2.49d + 0.49d + 0.39d, 4)));
+    }
+
+    [Test]
+    public void TestDiscountPriceCoffeBagel()
+    {
+        basket.Capacity = 25;
+        for (int i = 0; i < 19; i++)
+        {
+            basket.Add(new Bagel(BagelVariant.Onion));
+        }
+        Bagel bagel = new Bagel(BagelVariant.Plain);
+        bagel.AddFilling(new Filling(FillingVariant.Ham));
+        basket.Add(bagel);
+        basket.Add(new Coffee(CoffeeVariant.Capuccino));
+
+
+        // 3.99 + 2.49 + 0.39 + 1.25
+        Assert.That(Math.Round(basket.Cost(), 4), Is.EqualTo(Math.Round(3.99d + 2.49d + 0.39d + 1.25d + 0.12d, 4)));
     }
 }
