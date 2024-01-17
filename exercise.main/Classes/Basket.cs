@@ -89,5 +89,10 @@ namespace exercise.main.Classes
             return cost;
         }
 
+        public double DiscountedCost()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
