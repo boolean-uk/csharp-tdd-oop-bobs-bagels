@@ -21,8 +21,8 @@ namespace exercise.main
 
         public bool AddProduct(Product product)
         {
-            _productList.Add(product);
-            /*   if (_productList.Count >= _capacity)
+            
+             if (_productList.Count >= _capacity)
                {
                    return false;
 
@@ -30,8 +30,7 @@ namespace exercise.main
                    _productList.Add(product);
                    return true;
                }
-              */
-            return false;
+       
         }
 
         public void RemoveProduct(Product product)
