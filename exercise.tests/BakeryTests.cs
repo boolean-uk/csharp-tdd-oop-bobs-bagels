@@ -138,11 +138,12 @@ namespace exercise.tests
             _bakery.AddToBasket("BGLP");
             _bakery.AddToBasket("BGLP");
             _bakery.AddToBasket("BGLP");
+            _bakery.AddFilling("BGLP", "FILC");
             //  Act - use the fucntion we want to test
             double result = _bakery.CheckOut();
 
             //  Assert - check the results
-            Assert.That(result, Is.EqualTo(3.99d));
+            Assert.That(result, Is.EqualTo(2.61d));
         }
     }
 }

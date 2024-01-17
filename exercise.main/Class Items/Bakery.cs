@@ -89,10 +89,19 @@ namespace exercise.main.Class_Items
             return -1d;
         }
 
-        public double CheckOut()
+        public double CheckOut(int customer = 0)
         {
-            throw new NotImplementedException();
-
+            double price = _customers[customer].TotalCost();
+            int bagleCount = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).Count();
+            if (bagleCount == 6)
+            {
+                price += 2.49d;
+                foreach (var item in _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle)) 
+                {
+                    price -= _products.Find(x => x.SKU == item.SKU).Price;
+                }
+            }
+            return Math.Round(price,2);
         }
 
     }
