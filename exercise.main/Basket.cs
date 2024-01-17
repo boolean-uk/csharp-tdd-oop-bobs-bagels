@@ -4,6 +4,7 @@
     {
         public List<Item> Items { get; set; }
         private int _capacity;
+        public Discount Discounts { get; set; }
 
         public Basket()
         {
@@ -14,6 +15,7 @@
         {
             Items = [];
             _capacity = capacity;
+            Discounts = new Discount();
         }
         public void AddItem(Item item)
         {
@@ -74,50 +76,57 @@
 
         public double GetDiscountBasketCost()
         {
-            double total = 0;
-            List<Bagel> bagels = Items.Where(x => x.Sku.StartsWith("BGL")).Select(x => (Bagel)x).ToList();
-            List<Coffee> coffee = Items.Where(x => x.Sku.StartsWith("COF")).Select(x => (Coffee)x).ToList();
-            while (bagels.Count >= 12)
-            {
-                total += 3.99;
-                total += bagels.Take(12).Sum(x => x.GetFillingPrice());
-                bagels.RemoveRange(0, 12);
-            }
-            while (bagels.Count >= 6)
-            {
-                total += 2.49;
-                total += bagels.Take(6).Sum(x => x.GetFillingPrice());
-                bagels.RemoveRange(0, 6);
-            }
-            while (coffee.Count >= 1 && bagels.Count >= 1)
-            {
-                total += 1.25;
-                total += bagels[0].GetFillingPrice();
-                coffee.RemoveRange(0, 1);
-                bagels.RemoveRange(0, 1);
-            }
-            bagels.ForEach(x => { total += x.GetPrice(); });
-            coffee.ForEach(x => { total += x.GetPrice(); });
-            return total;
+            Discounts.CalculateDiscounts(Items);
+            return Discounts.GetTotalPrice();
+        }
+
+        public Dictionary<DiscountTypes, int> GetDiscountCounts()
+        {
+            Discounts.CalculateDiscounts(Items);
+            return Discounts.GetDiscountCounts();
+        }
+
+        public Dictionary<DiscountTypes, double> GetDiscountAmounts()
+        {
+            Discounts.CalculateDiscounts(Items);
+            return Discounts.GetDiscountPrices();
+        }
+
+        public double GetTotalDiscount()
+        {
+            Discounts.CalculateDiscounts(Items);
+            return Discounts.GetDiscountAmount();
         }
 
         public void CreateReceipt()
         {
-            Console.WriteLine("         Bob's Bagels ");
-            Console.WriteLine($"     {DateTime.Now}");
+            Console.WriteLine("           Bob's Bagels ");
+            Console.WriteLine($"        {DateTime.Now}");
             Dictionary<string, int> x = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
-            Console.WriteLine("-----------------------------");
-            foreach (var item in x)
+            Console.WriteLine("-----------------------------------");
+            foreach (KeyValuePair<string, int> item in x)
             {
                 string type = Items.Where(x => x.Name == item.Key).Select(x => x.Type).First();
-                string spacing = new(' ', 18 - (item.Key.Length + type.Length));
+                string spacing = new(' ', 24 - (item.Key.Length + type.Length));
                 Console.WriteLine($"{item.Key} {type}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
             }
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine($"Sum                     £{Math.Round(GetBasketCost(), 2)}");
-            Console.WriteLine($"Discount               -£{Math.Round(GetBasketCost() - GetDiscountBasketCost(), 2)}");
-            Console.WriteLine($"Total                   £{Math.Round(GetDiscountBasketCost(), 2)}");
-            Console.WriteLine($"          Thank you\n       for your order!     ");
+            Console.WriteLine("-----------------------------------");
+            var counts = GetDiscountCounts();
+            var amounts = GetDiscountAmounts();
+            foreach (DiscountTypes item in Enum.GetValues(typeof(DiscountTypes)).Cast<DiscountTypes>())
+            {
+                int count = counts[item];
+                if (count == 0) continue;
+                double amount = amounts[item];
+                string discountTypeString = Discounts.EnumToString(item);
+                string spacing = new(' ', 25 - (discountTypeString.Length));
+                Console.WriteLine($"{discountTypeString}{spacing}{count}   -£{Math.Round(amount, 2)}");
+            }
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine($"Sum                           £{Math.Round(GetBasketCost(), 2)}");
+            Console.WriteLine($"Total Discount               -£{Math.Round(GetTotalDiscount(), 2)}");
+            Console.WriteLine($"Total                         £{Math.Round(GetDiscountBasketCost(), 2)}");
+            Console.WriteLine($"            Thank you\n         for your order!     ");
         }
     }
 }

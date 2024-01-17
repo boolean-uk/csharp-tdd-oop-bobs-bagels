@@ -44,7 +44,7 @@ Start with extracting useful stories and a functional domain model that represen
 As a customer I want to be able to get a list of valid discounts in the store.
 | Classes         | Methods                                     | Scenario                  | Outputs                               |
 |-----------------|---------------------------------------------|---------------------------|---------------------------------------|
-| `Store`	      | `getDiscounts()`                            | any			            | void, prints discounts                |
+| `Discount`	      | `getValidDiscounts()`                   | any			            | void, prints discounts                |
 
 
 As a customer I want to be able to get discounts when adding discounted items to my Basket.
