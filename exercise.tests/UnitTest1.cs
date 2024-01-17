@@ -57,4 +57,26 @@ public class Tests
 
     }
 
+    [TestCase("admin", 32)]
+    [TestCase("customer", 12)]
+    [TestCase("admin", 2)]
+    [TestCase("admin", 5)]
+    [TestCase("customer", 5)]
+
+    public void changeCapacity(string adminLevel, int newCapacity)
+    {
+        Basket basket = new Basket();
+        Person person = new Person(adminLevel);
+        
+        int oldCapacity = basket.Capacity;
+
+        int Result = basket.changeCapacity(person.AdminLevel, newCapacity);
+        
+        Assert.That(oldCapacity != Result, Is.EqualTo(person.AdminLevel == "admin"));
+        Assert.That(oldCapacity != Result, Is.EqualTo(basket.Capacity == newCapacity));
+
+    }
+
+
+
 }

@@ -52,8 +52,12 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
+        public int changeCapacity(string adminLevel, int v)
+        {
+            throw new NotImplementedException();
+        }
 
-        public int Capacity { get => _capacity; set => _capacity = value; }
+        public int Capacity { get => _capacity; }
         public List<Product> ProductList { get => _productList; set => _productList = value; }
 
 
