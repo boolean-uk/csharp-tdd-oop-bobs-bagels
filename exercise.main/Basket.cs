@@ -10,7 +10,7 @@ namespace exercise.main
     public class Basket
     {
         List<Product> _basket = new List<Product>();
-        int _maxBasketSize = 5;
+        int _maxBasketSize = 13;
 
         public bool AddItemToBasket(Product item)
         {

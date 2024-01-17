@@ -125,12 +125,13 @@ namespace exercise.tests
         {
             // Arrange
             Basket basket = new Basket();
-            // Default capacity = 5
+            // Default capacity = 13
             Product prod = new Coffee("COFW", 1.19f);
-            basket.AddItemToBasket(prod);
-            basket.AddItemToBasket(prod);
-            basket.AddItemToBasket(prod);
-            basket.AddItemToBasket(prod);
+            int maxBasketSize = 13;
+            for (int i = 0; i < maxBasketSize-1; i++) 
+            { 
+                basket.AddItemToBasket(prod); 
+            }
 
             // Act
             bool res1 = basket.IsFull();
