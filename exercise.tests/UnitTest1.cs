@@ -77,6 +77,24 @@ public class Tests
             Assert.That(oldCapacity != Result, Is.EqualTo(basket.Capacity == newCapacity));
         }
     }
+    [TestCase("Coffe")]
+    [TestCase("Bagel")]
+    [TestCase("Filling")]
+    public void removeNotExistingProduct(string name)
+    {
+        Basket basket = new Basket();
+        Product bagel = new Product("Bagel");
+        Product coffe = new Product("Coffe");
+
+        basket.AddProduct(bagel);
+        basket.AddProduct(coffe);
+        
+        bool Result = basket.RemoveProduct(bagel);
+
+        basket.ProductList.Contains(bagel);
+
+        Assert.That(name == bagel.Name || name == coffe.Name, Is.EqualTo(Result==true));    
+    }
 
 
 

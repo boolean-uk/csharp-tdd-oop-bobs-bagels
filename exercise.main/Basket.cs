@@ -33,9 +33,11 @@ namespace exercise.main
        
         }
 
-        public void RemoveProduct(Product product)
+        public bool RemoveProduct(Product product)
         {
             _productList.Remove(product);
+
+            return true;
         }
 
 
