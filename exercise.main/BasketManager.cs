@@ -4,7 +4,7 @@ using static exercise.main.Inventory;
 
 namespace exercise.main
 {
-    public class ShoppingCart
+    public class BasketManager
     {
         public class Bagel
         {
@@ -38,13 +38,13 @@ namespace exercise.main
             }
         }
 
-        public class Basket
+        public class Order
         {
             public List<Bagel> Bagels { get; private set; }
             public List<Coffee> Coffees { get; private set; }
             public int Capacity { get; private set; }
 
-            public Basket()
+            public Order()
             {
                 Bagels = new List<Bagel>();
                 Coffees = new List<Coffee>();

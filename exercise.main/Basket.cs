@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static exercise.main.ShoppingCart;
+using static exercise.main.BasketManager;
 
 namespace exercise.main
 {
-    public class BobsBagels
+    public class Basket
     {
         public void ChangeCapacity(int capacity)
         {

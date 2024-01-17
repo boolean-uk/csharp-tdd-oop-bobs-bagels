@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using exercise.main;
 using System.Linq;
-using static exercise.main.ShoppingCart;
+using static exercise.main.BasketManager;
 using static exercise.main.Inventory;
 
 namespace exercise.tests;
@@ -24,7 +24,7 @@ public class CoreTests
     [Test]
     public void BasketCost()
     {
-        var basket = new Basket();
+        var basket = new BasketManager.Order();
         var bagel = new Bagel(onionVariant);
         basket.Add(bagel);
 
