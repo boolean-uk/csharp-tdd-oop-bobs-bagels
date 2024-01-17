@@ -131,9 +131,12 @@ namespace exercise.tests
         [Test]  //  Discount for six bagles
         [TestCase(6, 2.61d)]
         [TestCase(12, 4.11d)]
+        [TestCase(7, 3d)]
+        [TestCase(13, 4.5d)]
         public void Test7(int count, double expected)
         {
             //  Arrange - set up test values
+            _bakery.ChangeCapacity(20);
             for (int i = 0; i < count; i++)
             {
                 _bakery.AddToBasket("BGLP");
