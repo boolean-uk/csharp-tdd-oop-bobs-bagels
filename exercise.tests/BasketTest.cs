@@ -116,5 +116,22 @@ namespace exercise.tests
             //  Assert - check the results
             Assert.That(_basket.TotalCost(), Is.EqualTo(3.0d));
         }
+
+        [Test]  //  Test 7, returning the basket list
+        public void Test7()
+        {
+            //  Arrange - set up test values
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(_bagle);
+            _basket.AddProduct(new Bagle("Check", 1.0d, Product.ProdType.Bagle, "bagle"));
+
+
+
+            //  Act - use the fucntion we want to test
+            List<Product> products = _basket.Items;
+            //  Assert - check the results
+            Assert.That(products.Last().SKU, Is.EqualTo("Check"));
+        }
     }
 }

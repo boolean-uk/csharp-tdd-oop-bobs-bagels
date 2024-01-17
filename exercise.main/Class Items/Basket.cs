@@ -18,6 +18,8 @@ namespace exercise.main.Class_Items
             _items = new List<Product>();
         }
 
+        public List<Product> Items { get { return _items; } }
+
         public bool AddProduct(Product product)
         {
             if (_items.Count < _capacity)

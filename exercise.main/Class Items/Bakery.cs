@@ -63,7 +63,6 @@ namespace exercise.main.Class_Items
 
         public double BagleCost(string sku)
         {
-            //throw new NotImplementedException();
             if (_products.Exists(x => x.SKU == sku))
             {
                 return _products.Find(x => x.SKU == sku).Price;
@@ -73,7 +72,6 @@ namespace exercise.main.Class_Items
         
         public double AddFilling(string skuB, string skuF, int customer = 0)
         {
-            //throw new NotImplementedException();
             if (_products.Exists(x => x.SKU == skuF))
             {
                 int index = _products.IndexOf(_products.Find(x => x.SKU == skuF));
@@ -84,12 +82,16 @@ namespace exercise.main.Class_Items
 
         public double FillingCost(string sku)
         {
-            //throw new NotImplementedException();
             if (_products.Exists(x => x.SKU == sku))
             {
                 return _products.Find(x => x.SKU == sku).Price;
             }
             return -1d;
+        }
+
+        public double CheckOut()
+        {
+            throw new NotImplementedException();
 
         }
 

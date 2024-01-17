@@ -126,5 +126,23 @@ namespace exercise.tests
             //  Assert - check the results
             Assert.That(_bakery.FillingCost(sku), Is.EqualTo(expected));
         }
+
+
+        [Test]  //  Discount for six bagles
+        public void Test7()
+        {
+            //  Arrange - set up test values
+            _bakery.AddToBasket("BGLP");
+            _bakery.AddToBasket("BGLP");
+            _bakery.AddToBasket("BGLP");
+            _bakery.AddToBasket("BGLP");
+            _bakery.AddToBasket("BGLP");
+            _bakery.AddToBasket("BGLP");
+            //  Act - use the fucntion we want to test
+            double result = _bakery.CheckOut();
+
+            //  Assert - check the results
+            Assert.That(result, Is.EqualTo(3.99d));
+        }
     }
 }
