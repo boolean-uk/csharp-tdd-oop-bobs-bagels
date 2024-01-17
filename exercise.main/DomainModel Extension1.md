@@ -47,10 +47,10 @@ To acheive this I will create a new class `Basket` that will abstract the curren
 ## Basket class functionality
 | User story | Method | Scenario | Output |
 |---|---|---|---|
-| 1 | `int Add(string sku)` | There is a item in inventory with `sku` and `Basket` is not full | Adds product to `Basket.Bagels`. And returns the bagels ID|
+| 1 | `int Add(string sku)` | There is a item in inventory with `sku` and `Basket` is not full | Adds product to order. And returns the bagels ID|
 | 10|| There is no item in Inventory with `sku` | Displays `$"There is no item with SKU: {sku}"`. And returns `0`|
 | 3 || `Basket` is full     | Displays `"Basket is full"`. And returns `0`|
-| 2 | `Remove(int id)` | There is a product in basket with `id` | Removes product from `Basket`|
+| 2 | `Remove(int id)` | There is a product in basket with `id` | Removes product from order |
 | 5 || There is no product in basket with `id` | Displays `$"No products were found with ID: {id}"`|
 | 4 | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
 | 6 | `double Cost()` |  | Returns total cost of products in basket |

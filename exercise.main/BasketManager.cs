@@ -6,13 +6,22 @@ namespace exercise.main
 {
     public class BasketManager
     {
+        private static int lastID = 0;
+        private static int GetID()
+        {
+            lastID++;
+            return lastID;
+        }
+
         public class Bagel
         {
+            public int ID {  get; private set; }
             public BagelVariant Variant { get; set; }
             public List<BagelFilling> Fillings { get; private set; }
 
             public Bagel(BagelVariant variant)
             {
+                ID = GetID();
                 Variant = variant;
                 Fillings = new List<BagelFilling>();
             }
@@ -30,10 +39,12 @@ namespace exercise.main
 
         public class Coffee
         {
+            public int ID { get; private set; }
             public CoffeeVariant Variant { get; set; }
 
             public Coffee(CoffeeVariant variant)
             {
+                ID = GetID();
                 Variant = variant;
             }
         }

@@ -4,6 +4,38 @@ namespace exercise.main
 {
     public class Inventory
     {
+        private Dictionary<string, IInventoryItem> items;
+
+        public Inventory()
+        {
+            items = new Dictionary<string, IInventoryItem>();
+
+            foreach (var variant in BagelVariant.AllVariants)
+            {
+                items.Add(variant.SKU, variant);
+            }
+
+            foreach (var filling in BagelFilling.AllFillings)
+            {
+                items.Add(filling.SKU, filling);
+            }
+
+            foreach (var coffee in CoffeeVariant.AllVariants)
+            {
+                items.Add(coffee.SKU, coffee);
+            }
+        }
+
+        public IInventoryItem? GetItem(string sku)
+        {
+            if (items.TryGetValue(sku, out IInventoryItem? item))
+            {
+                return item;
+            }
+
+            return null; 
+        }
+
         public interface IInventoryItem
         {
             string SKU { get; }
@@ -47,14 +79,14 @@ namespace exercise.main
             }
 
             public static readonly IEnumerable<BagelFilling> AllFillings = new List<BagelFilling>
-        {
-            new BagelFilling("FILB", "Bacon", 0.12),
-            new BagelFilling("FILE", "Egg", 0.12),
-            new BagelFilling("FILC", "Cheese", 0.12),
-            new BagelFilling("FILX", "Cream Cheese", 0.12),
-            new BagelFilling("FILS", "Smoked Salmon", 0.12),
-            new BagelFilling("FILH", "Ham", 0.12)
-        };
+            {
+                new BagelFilling("FILB", "Bacon", 0.12),
+                new BagelFilling("FILE", "Egg", 0.12),
+                new BagelFilling("FILC", "Cheese", 0.12),
+                new BagelFilling("FILX", "Cream Cheese", 0.12),
+                new BagelFilling("FILS", "Smoked Salmon", 0.12),
+                new BagelFilling("FILH", "Ham", 0.12)
+            };
         }
 
         public class CoffeeVariant : IInventoryItem
@@ -71,12 +103,12 @@ namespace exercise.main
             }
 
             public static readonly IEnumerable<CoffeeVariant> AllVariants = new List<CoffeeVariant>
-        {
-            new CoffeeVariant("COFB", "Black", 0.99),
-            new CoffeeVariant("COFW", "White", 1.19),
-            new CoffeeVariant("COFC", "Cappuccino", 1.29),
-            new CoffeeVariant("COFL", "Latte", 1.29)
-        };
+            {
+                new CoffeeVariant("COFB", "Black", 0.99),
+                new CoffeeVariant("COFW", "White", 1.19),
+                new CoffeeVariant("COFC", "Cappuccino", 1.29),
+                new CoffeeVariant("COFL", "Latte", 1.29)
+            };
         }
     }
 }
