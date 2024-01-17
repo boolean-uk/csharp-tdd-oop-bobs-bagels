@@ -18,14 +18,21 @@ string id
 string variant
 
 Class Bagel : Item
-enum BagelVariant
 List<Filling> fillings
 bool AddFilling(string SKU)
 float TotalCost();
 
 Class Filling : Item
-enum FillingVariant
+
 
 Class Coffee : Item
-enum CoffeeVariant
 
+
+Class Receipt
+-- properties --
+private Basket basket;
+private DateTime currentTime;
+
+-- methods --
+public Receipt(Basket basket)
+private Print()

@@ -9,7 +9,7 @@ namespace exercise.main
 {
     public class Bagel : Item
     {
-        List<Filling> fillings = new List<Filling>();
+
         public Bagel(string type)
         {
             _SKU = type;

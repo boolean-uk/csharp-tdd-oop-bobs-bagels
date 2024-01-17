@@ -16,8 +16,9 @@ namespace exercise.main
         public int ID { get { return id; } }
         public float Price { get { return price; } }
         public string Name { get { return name; } }
-        public string Variant { get { return Variant; } }
+        public string Variant { get { return variant; } }
         public string SKU { get { return _SKU; } }
+        public List<Filling> fillings = new List<Filling>();
 
 
         public Item()

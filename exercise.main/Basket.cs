@@ -57,26 +57,36 @@ namespace exercise.main
             int blackCoffee = _inventory.Count(x => x.SKU == "COFB");
             foreach (string item in _existingItems)
             {
-                if (item.Substring(0, 3).ToUpper() != "BGL") continue;
-                int num = _inventory.Count(x => x.SKU == item);
-                while (num >= 12)
+                if (item.Substring(0, 3).ToUpper() == "BGL")
                 {
-                    Console.WriteLine(item + num);
-                    result += 3.99f;
-                    num -= 12;
+                    int num = _inventory.Count(x => x.SKU == item);
+                    while (num >= 12)
+                    {
+                        Console.WriteLine(item + num);
+                        result += 3.99f;
+                        num -= 12;
+                    }
+                    if (num >= 6 && item != "BGLP")
+                    {
+                        result += 2.49f;
+                        num -= 6;
+                    }
+                    while (blackCoffee > 0 && num > 0)
+                    {
+                        result += 1.25f;
+                        blackCoffee--;
+                        num--;
+                    }
+                    result += GetPrice(item) * num;
+                    continue;
                 }
-                if (num >= 6 && item != "BGLP")
-                {    
-                    result += 2.49f;
-                    num -= 6;
-                }
-                while (blackCoffee > 0 && num > 0)
+                if (item.ToUpper() == "COFB")
                 {
-                    result += 1.25f;
-                    blackCoffee--;
-                    num--;
+                    result += GetPrice(item) * blackCoffee;
+                    continue;
                 }
-                for (int i = 0; i < num; i++)
+                int amount = _inventory.Count(x => x.SKU == item);
+                for (int i = 0; i < amount; i++)
                 {
                     result += GetPrice(item);
                 }
