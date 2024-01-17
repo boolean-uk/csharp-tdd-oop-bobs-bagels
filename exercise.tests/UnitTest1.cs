@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Sources;
 using exercise.main;
+using NUnit.Framework;
 
 namespace exercise.tests;
 
@@ -85,15 +86,23 @@ public class Tests
         Basket basket = new Basket();
         Product bagel = new Product("Bagel");
         Product coffe = new Product("Coffe");
+        Product product = new Product(name);
 
         basket.AddProduct(bagel);
         basket.AddProduct(coffe);
         
-        bool Result = basket.RemoveProduct(bagel);
+        bool Result = basket.RemoveProduct(product);
 
-        basket.ProductList.Contains(bagel);
-
-        Assert.That(name == bagel.Name || name == coffe.Name, Is.EqualTo(Result==true));    
+        if (Result==true)
+        {
+            Assert.That(name == bagel.Name, Is.EqualTo(name != coffe.Name));
+            Assert.That(name != bagel.Name, Is.EqualTo(name == coffe.Name));
+            Assert.That(basket.ProductList.Count < 2);
+        }
+        else{ 
+            Assert.That(name, Is.EqualTo(product.Name));
+            Assert.That(basket.ProductList.Count, Is.EqualTo(2)); 
+        } 
     }
 
 

@@ -35,9 +35,13 @@ namespace exercise.main
 
         public bool RemoveProduct(Product product)
         {
+           bool productIsInBasket = _productList.Contains(product);
+            if (productIsInBasket) { 
             _productList.Remove(product);
+                return true;
+            }
 
-            return true;
+            return false;
         }
 
 
