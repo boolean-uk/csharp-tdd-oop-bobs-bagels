@@ -81,10 +81,23 @@ public class Tests
     [Test]
     public void BasketCost()
     {
+        _lastBasket().Items.Clear();
         _lastBasket().Add(_bagel);
         _lastBasket().Add(_coffee);
         Assert.That(_lastBasket().Cost(), Is.EqualTo(1.48));
     }
+
+    public void BasketCost2()
+    {
+        _lastBasket().Items.Clear();
+        _lastBasket().Add(_bagel);
+        _lastBasket().Add(_bagel);
+        _lastBasket().Add(_coffee);
+        _lastBasket().Add(_filling);
+        Assert.That(_lastBasket().Cost(), Is.EqualTo(2.09));
+    }
+
+
 
     [Test]
     public void PriceCheck()
