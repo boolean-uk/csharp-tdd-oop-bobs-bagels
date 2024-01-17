@@ -129,10 +129,12 @@ namespace exercise.tests
 
 
         [Test]  //  Discount for six bagles
-        public void Test7a()
+        [TestCase(6, 2.61d)]
+        [TestCase(12, 4.11d)]
+        public void Test7(int count, double expected)
         {
             //  Arrange - set up test values
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < count; i++)
             {
                 _bakery.AddToBasket("BGLP");
             }
@@ -141,25 +143,7 @@ namespace exercise.tests
             double result = _bakery.CheckOut();
 
             //  Assert - check the results
-            Assert.That(result, Is.EqualTo(2.61d));
-        }
-        
-        
-        [Test]  //  Discount for six bagles
-        public void Test7b()
-        {
-            //  Arrange - set up test values
-            //  Arrange - set up test values
-            for (int i = 0; i < 12; i++)
-            {
-                _bakery.AddToBasket("BGLP");
-            }
-            _bakery.AddFilling("BGLP", "FILC");
-            //  Act - use the fucntion we want to test
-            double result = _bakery.CheckOut();
-
-            //  Assert - check the results
-            Assert.That(result, Is.EqualTo(4.11d));
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }
