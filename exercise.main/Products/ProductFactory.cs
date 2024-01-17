@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    public class ProductFactory
+    public static class ProductFactory
     {
-        public Product GenerateProduct(string[] SKU) 
+        public static Product GenerateProduct(string[] SKU) 
         {
             ValidateProductSKU(SKU[0]);
             float prod1 = Inventory.GetCoffePrice(SKU[0]);
@@ -33,7 +33,7 @@ namespace exercise.main.Products
             }
         }
 
-        private bool ValidateProductSKU(string SKU) 
+        private static bool ValidateProductSKU(string SKU) 
         {
             float prod1 = Inventory.GetCoffePrice(SKU);
             float prod2 = Inventory.GetBagelPrice(SKU);

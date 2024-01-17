@@ -35,6 +35,7 @@ namespace exercise.tests
         {
             // Arrange
             Basket basket = new Basket();
+
             Product item1 = new Coffee("COFW", 1.19f);
             Product item2 = new Bagel("BGLP", 0.39f);
             Product item3 = new Bagel("AAAA", 0.39f);

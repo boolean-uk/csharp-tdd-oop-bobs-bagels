@@ -19,10 +19,9 @@ public class ProductTests
     public void ProductFactoryTest(string[] SKU, float expectedPrice)
     {
         // Arrange
-        ProductFactory factory = new ProductFactory();
 
         // Act
-        Product res = factory.GenerateProduct(SKU);
+        Product res = ProductFactory.GenerateProduct(SKU);
 
         // Assert
         Assert.That(res.GetSKUName(), Is.EqualTo(SKU[0]));
@@ -63,9 +62,8 @@ public class ProductTests
     public void AddFillingTest(string[] SKU, float expectedPrice, bool expectedResult) 
     {
         // Arrange
-        ProductFactory factory = new ProductFactory();
-        Bagel bagel1 = (Bagel) factory.GenerateProduct(SKU);
-        Bagel bagel2 = (Bagel)factory.GenerateProduct(SKU);
+        Bagel bagel1 = (Bagel)ProductFactory.GenerateProduct(SKU);
+        Bagel bagel2 = (Bagel)ProductFactory.GenerateProduct(SKU);
 
         // Act
         bool res = bagel1.AddFilling(new Filling(SKU[1]));
