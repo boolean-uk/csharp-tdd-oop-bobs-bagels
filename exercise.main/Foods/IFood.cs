@@ -11,5 +11,6 @@ namespace exercise.main.Foods
         string Name { get; }
         string Sku { get; }
         float Price { get; }
+        string FullName { get; }
     }
 }

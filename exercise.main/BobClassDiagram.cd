@@ -11,7 +11,7 @@
   <Class Name="exercise.main.Foods.Bagel">
     <Position X="11" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAEAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAEAQACAAAAAA=</HashCode>
       <FileName>Foods\Bagel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -34,6 +34,13 @@
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Basket">
+    <Position X="20.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAAABAAABAAAABAQCAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="exercise.main.Foods.IFood" Collapsed="true">

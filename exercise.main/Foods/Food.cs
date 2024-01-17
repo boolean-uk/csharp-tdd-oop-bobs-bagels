@@ -26,5 +26,7 @@ namespace exercise.main.Foods
 
         public abstract string Name { get; }
         public abstract float Price { get; }
+
+        public string FullName => $"{Name} {_variant}";
     }
 }
