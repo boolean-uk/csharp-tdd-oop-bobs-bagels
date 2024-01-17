@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,35 +19,69 @@ namespace exercise.main
         public Dictionary<string, double> Prices = new Dictionary<string, double>();
         public Dictionary<string, string> Variants = new Dictionary<string, string>();
         public Dictionary<string, string> Fillings = new Dictionary<string, string>();
+        private Dictionary<string, int> _stockCount = new Dictionary<string, int>();
         public Inventory()
         {
-            ProductList = new List<Product>();
-            PopulateDictionaries();
-
+           PopulateDictionaries();
         }
 
-       
         public void PopulateDictionaries()
         {
             for (int i = 0; i < _SKU.Length; i++)
             {
+                _stockCount.Add(_SKU[i], 3);
                 Prices.Add(_SKU[i], _Price[i]);
                 Variants.Add(_SKU[i], _Variant[i]);
-            };
+             };
             for(int j = 0; j < _SKUFillings.Length; j++)
             {
+                _stockCount.Add(_SKUFillings[j], 3);
                 Fillings.Add(_SKUFillings[j], _VariantFilling[j]);
             };
-            
+           
         }
-        public List<Product> ProductList;
+
+        public void restockInventory(int newNumber, string sku)
+        {
+                _stockCount[sku] = newNumber;
+        }
+          
+        public void restockInventory()
+        {
+            foreach(string key in _stockCount.Keys){
+                _stockCount[key] = 3;
+            }
+        }
+
+        public void removeSoldItems(List<Product> soldItems)
+        {
+            foreach (Product product in soldItems)
+            {
+                _stockCount[product.SKU] -= 1;
+                foreach(Filling filling in product.Fillings)
+                {
+                    _stockCount[filling.SKU] -= 1;
+                }
+            }
+        }
+        public KeyValuePair<int,bool> checkInventory(string sku)
+        {
+            KeyValuePair<int, bool> Result;
+            if (_stockCount.ContainsKey(sku))
+            {
+                int numInStock = _stockCount[sku];
+                Result = new KeyValuePair<int, bool>(_stockCount[sku], true);
+            }
+            else { Result = new KeyValuePair<int, bool> (0, false); }
 
 
-        public string[] SKU { get { return _SKU; } }
-        public double[] Price { get { return _Price; } }
-        public string[] ProductName { get { return _ProductName; } }
-        public string[] BagelVariant { get { return _Variant; } }
+            return Result;
+        }
 
+
+
+        public Dictionary<string,int> stockCount { get { return _stockCount; } }
+  
 
     }
 

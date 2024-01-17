@@ -163,7 +163,20 @@ public class Tests
         double Result = filling.Price;
 
         Assert.That(Result > 0, Is.EqualTo(filling.Price == 0.12));
+    }
 
+    [TestCase("AAAA")]
+    [TestCase("FILE")]
+    [TestCase("BGLO")]
+    public void checkInventory(string A)
+    {
+        Inventory inventory = new Inventory();
+
+        KeyValuePair<int,bool> Result = inventory.checkInventory(A);
+
+
+       Assert.That(Result.Value==true, Is.EqualTo(Result.Key>0));
+        
     }
 
 
