@@ -145,7 +145,7 @@ public class Tests
 
     [Test]
 
-    public void chooseFillingForBagel()
+    public void addFillingForBagel()
     {
         //SKU Bagels= { "BGLO", "BGLP", "BGLE", "BGLS"}
         //SKU Fillings = { "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
