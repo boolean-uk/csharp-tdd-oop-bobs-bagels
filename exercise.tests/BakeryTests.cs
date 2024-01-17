@@ -128,25 +128,60 @@ namespace exercise.tests
         }
 
 
-        [Test]  //  Discount for six bagles
-        [TestCase(6, 2.61d)]
-        [TestCase(12, 4.11d)]
-        [TestCase(7, 3d)]
-        [TestCase(13, 4.5d)]
-        public void Test7(int count, double expected)
+        [Test]  //  Discount for bagles
+        [TestCase(1, 0, 0, 0.39d)]
+        [TestCase(6, 1, 0, 2.61d)]
+        [TestCase(12, 1, 0, 4.11d)]
+        [TestCase(7, 1, 0, 3d)]
+        [TestCase(13, 1, 0, 4.5d)]
+        [TestCase(16, 0, 0, 5.55d)]
+        [TestCase(18, 0, 0, 6.48d)]
+        public void Test7(int countB, int countF, int countC, double expected)
         {
             //  Arrange - set up test values
             _bakery.ChangeCapacity(20);
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < countB; i++)
             {
                 _bakery.AddToBasket("BGLP");
             }
-            _bakery.AddFilling("BGLP", "FILC");
+            for (int i = 0; i < countF; i++)
+            {
+                _bakery.AddFilling("BGLP", "FILC");
+            }
+
+
             //  Act - use the fucntion we want to test
             double result = _bakery.CheckOut();
 
             //  Assert - check the results
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]  //  Discount for bagles and coffee
+        public void Test7b()
+        {
+            //  Arrange - set up test values
+            _bakery.ChangeCapacity(30);
+            _bakery.AddToBasket("BGLO");
+            _bakery.AddToBasket("BGLO");
+            for (int i = 0; i < 12; i++)
+            {
+                _bakery.AddToBasket("BGLP");
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                _bakery.AddToBasket("BGLE");
+            }
+            _bakery.AddToBasket("COFB");
+            _bakery.AddToBasket("COFB");
+            _bakery.AddToBasket("COFB");
+
+
+            //  Act - use the fucntion we want to test
+            double result = _bakery.CheckOut();
+
+            //  Assert - check the results
+            Assert.That(result, Is.EqualTo(10.43));
         }
     }
 }

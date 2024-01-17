@@ -36,6 +36,8 @@ namespace exercise.main.Class_Items
 
         public bool AddToBasket(string sku, int customer = 0)
         {
+            //throw new NotImplementedException();
+
             if (_products.Exists(x => x.SKU == sku))
             {
                 int index = _products.IndexOf(_products.Find(x => x.SKU == sku));
@@ -92,8 +94,17 @@ namespace exercise.main.Class_Items
         public double CheckOut(int customer = 0)
         {
             double price = _customers[customer].TotalCost();
-            int bagleCount = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).Count();
-            var bagleList = _customers[customer].Items.Where(i => i.Type == Product.ProdType.Bagle).OrderByDescending(i => i.Price).ToList();
+            List<Product> products = _customers[customer].Items;
+            price = Discount(price, products);
+            
+            return Math.Round(price,2);
+        }
+
+        private double Discount(double price, List<Product> cart)
+        {
+            //throw new NotImplementedException();
+            int bagleCount = cart.Where(i => i.Type == Product.ProdType.Bagle).Count();
+            var bagleList = cart.Where(i => i.Type == Product.ProdType.Bagle).OrderByDescending(i => i.Price).ToList();
 
 
             if (bagleCount >= 12)
@@ -102,7 +113,9 @@ namespace exercise.main.Class_Items
                 for (int i = 0; i < 12; i++)
                 {
                     price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
+                    cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[i].SKU)));
                 }
+                price = Discount(price, cart);
             }
             else if (bagleCount >= 6)
             {
@@ -110,11 +123,11 @@ namespace exercise.main.Class_Items
                 for (int i = 0; i < 6; i++)
                 {
                     price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
+                    cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[i].SKU)));
                 }
+                price = Discount(price, cart);
             }
-            
-            return Math.Round(price,2);
+            return price;
         }
-
     }
 }
