@@ -1,31 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace exercise.main
 {
     public class OrderManager
     {
-
-        public void ChangeBasketCapacity()
+        public void ChangeBasketCapacity(Basket basket, int newCapacity)
         {
-            throw new System.NotImplementedException();
+            basket.Capacity = newCapacity;
+            Console.WriteLine($"Basket capacity has been updated to: {newCapacity}");
         }
 
-        public void GetTotalCost()
+        public double GetTotalCost(Basket basket, BagelInventory bagelInventory)
         {
-            throw new System.NotImplementedException();
+            double totalCost = basket.Bagels.Sum(bagelType => bagelInventory.GetCost(bagelType));
+            Console.WriteLine($"Total cost of basket: {totalCost}");
+            return totalCost;
         }
 
-        public void IsItemInInventory()
+        public bool IsItemInInventory(string item, BagelInventory bagelInventory)
         {
-            throw new System.NotImplementedException();
+            bool isItemInInventory = bagelInventory.GetCost(item) > 0;
+            Console.WriteLine($"{item} in inventory: {isItemInInventory}");
+            return isItemInInventory;
         }
 
-        public void GetBagelCost()
+        public double GetBagelCost(string bagelType, BagelInventory bagelInventory)
         {
-            throw new System.NotImplementedException();
+            double bagelCost = bagelInventory.GetCost(bagelType);
+            Console.WriteLine($"Cost of {bagelType} : {bagelCost}");
+            return bagelCost;
         }
     }
 }

@@ -7,19 +7,49 @@ namespace exercise.main
 {
     public class Basket
     {
-        public void Add()
+        private List<string> _bagels;
+        private int _capacity;
+
+        public Basket(int capacity)
         {
-            throw new System.NotImplementedException();
+            _bagels = new List<string>();
+            _capacity = capacity;
         }
 
-        public void Remove()
-        {
-            throw new System.NotImplementedException();
+        public int Capacity
+        { 
+            get { return _capacity; }
+            set { _capacity = value; }
         }
 
-        public void IncreaseCapacity()
+        public List<string> Bagels
         {
-            throw new System.NotImplementedException();
+            get { return _bagels; }
+        }
+
+        public void AddBagel(string bagel) 
+        {
+        if (_bagels.Count < _capacity)
+            {
+                _bagels.Add(bagel);
+                Console.WriteLine($"Added '{bagel}' to the basket");
+            }
+            else
+            {
+                throw new InvalidOperationException("Basket is full");
+            }
+        }
+
+        public void RemoveBagel(string bagel)
+        {
+            if( _bagels.Remove(bagel) )
+            {
+                Console.WriteLine("Removed '{bagel}' from basket");
+            }
+            else
+            {
+                throw new InvalidOperationException("Bagel is not in the basket");
+            }
         }
     }
 }

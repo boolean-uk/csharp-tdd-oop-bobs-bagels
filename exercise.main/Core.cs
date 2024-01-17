@@ -1,54 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using exercise.main;
 
-namespace exercise.main
+public class Core
 {
+    private Basket _basket;
+    private BagelInventory _bagelInventory;
 
-    public class Core
+    public List<string> Bagels
     {
-        private List<string> _bagels;
-        int _nrBagels;
-        int _capacity;
+        get { return _basket.Bagels; }
+    }
 
-        public Core()
+    public Core()
+    {
+        _basket = new Basket(5);
+        _bagelInventory = new BagelInventory();
+    }
+
+    public Basket Basket
+    {
+        get { return _basket; }
+    }
+
+    public BagelInventory BagelInventory
+    {
+        get { return _bagelInventory; }
+    }
+
+    public void Add(string bagelType)
+    {
+        // Check if bagelType is in the inventory before attempting to add
+        if (BagelInventory.IsItemInInventory(bagelType))
         {
-            _bagels = new List<string>();
-            _nrBagels = 0;
-            _capacity = 5;
+            double bagelCost = BagelInventory.GetCost(bagelType);
+            Basket.AddBagel(bagelType);
         }
-
-        public List<string> Bagels { get { return _bagels; } }
-
-        public void Add(string bagel)
+        else
         {
-            if (_nrBagels != _capacity)
-            {
-                Bagels.Add(bagel);
-                _nrBagels++;
-            }
-            else
-            {
-                throw new Exception("Basket is full");
-            }
+            Console.WriteLine($"Invalid bagel type: {bagelType}. Could not add to the basket.");
         }
+    }
 
-        public void Remove(string bagel)
-        {
-            if (!Bagels.Remove(bagel))
-            {
-                throw new Exception("Bagel is not in basket");
-            }
-        }
+    public void Remove(string bagelType)
+    {
+        Basket.RemoveBagel(bagelType);
+    }
 
-        public void IncreaseCapacity()
-        {
+    public void IncreaseCapacity()
+    {
+        _basket.Capacity *= 3; // Increase capacity 3 times
 
-            //BIG customer waves for breakfast :PPPP
-            _capacity *= 3; //upping capacity 3 times.
-            Console.WriteLine($"Increased capacity to: {_capacity}");
-        }
+        // Output the count of Bagels after increasing the capacity
+        Console.WriteLine($"Increased capacity to: {_basket.Capacity}");
     }
 }
