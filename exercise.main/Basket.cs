@@ -120,14 +120,14 @@ namespace exercise.main
             this._capacity = newCapacity;
         }
 
-        public void AddFilling(string ID, string SKU)
+        public void AddFilling(string ID, Filling filling)
         {
             Bagel it = (Bagel)_basket.Single(x => x.ID == ID);
             List<Item> fillings = _inventory.listContents();
 
-            if (fillings.Exists(x => x.SKU  == SKU) )
+            if (fillings.Exists(x => x.SKU  == filling.SKU) )
             {
-                Item fill = fillings.Single(x => x.SKU == SKU);
+                Item fill = fillings.Single(x => x.SKU == filling.SKU);
                 it.AddFilling(fill);
                 totalCost.Add(fill.Price);
             }
@@ -143,13 +143,13 @@ namespace exercise.main
             return item;
         }
 
-        public float GetItemPrice(string SKU)
+        public float GetItemPrice(Item item)
         {
             List<Item> AllProducts = _inventory.listContents();
 
-            if (AllProducts.Exists(x => x.SKU == SKU))
+            if (AllProducts.Exists(x => x.SKU == item.SKU))
             {
-                Item resultItem = AllProducts.FirstOrDefault(x => x.SKU == SKU);
+                Item resultItem = AllProducts.FirstOrDefault(x => x.SKU == item.SKU);
                 return resultItem.Price;
             }
 

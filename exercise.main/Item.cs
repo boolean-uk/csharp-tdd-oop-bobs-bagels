@@ -9,14 +9,15 @@ namespace exercise.main
 {
     public abstract class Item
     {
-        public string ID = Guid.NewGuid().ToString();
+        public string ID;
         public string SKU;
         public string Name;
         public string Variant;
         public float Price;
 
-        public Item(string sku, string name, float price, string variant) 
+        public Item(string sku, string name, float price, string variant)
         {
+            ID = Guid.NewGuid().ToString();
             SKU = sku;
             Name = name;
             Price = price;
