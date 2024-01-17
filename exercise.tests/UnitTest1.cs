@@ -13,8 +13,6 @@ public class Tests
     Item _coffee;
     Filling _filling;
 
-    Item _lastItem = new("", 0, 0, "");
-    Basket _lastBasket = new(10);
 
     [SetUp]
     public void SetUp()
@@ -25,16 +23,16 @@ public class Tests
         _coffee = new("COFB", 0.99, Name.Coffee, "Black");
         _filling = new("FILE", 0.12, Name.Filling, "Egg");
 
-
-        Basket _lastBasket = _store.Baskets.Last();
-        Item _lastItem = _lastBasket.Items.Last();
-
     }
+
+    private Basket _lastBasket() { return _lastBasket(); }
+    private Item _lastItem() { return _lastBasket().Items.Last(); }
+
 
     [Test]
     public void AddBagel() //using the basket class
     {
-        _lastBasket.Add(_bagel);
+        _lastBasket().Add(_bagel);
         Assert.That(_lastItem, Is.EqualTo(_bagel));
     }
 
@@ -48,26 +46,26 @@ public class Tests
     [Test]
     public void AddFilling()
     {
-        _lastBasket.Add(_bagel);
-        _lastItem.AddFilling(_filling);
-        Assert.That(_lastItem.GetFilling().Last(), Is.EqualTo(_filling));
+        _lastBasket().Add(_bagel);
+        _lastItem().AddFilling(_filling);
+        Assert.That(_lastItem().GetFilling().Last(), Is.EqualTo(_filling));
     }
 
     [Test]
     public void RemoveBagel()
     {
-        _lastBasket.Add(_bagel);
-        _lastBasket.Remove("BGLE");
-        Assert.That(_lastBasket.Items.Count, Is.EqualTo(0));
+        _lastBasket().Add(_bagel);
+        _lastBasket().Remove("BGLE");
+        Assert.That(_lastBasket().Items.Count, Is.EqualTo(0));
     }
 
     [Test]
     public void RemoveFilling()
     {
-        _lastBasket.Add(_bagel);
-        _lastItem.AddFilling(_filling);
-        _lastItem.RemoveFilling("FILE");
-        Assert.That(_lastItem.GetFilling().Count, Is.EqualTo(0));
+        _lastBasket().Add(_bagel);
+        _lastItem().AddFilling(_filling);
+        _lastItem().RemoveFilling("FILE");
+        Assert.That(_lastItem().GetFilling().Count, Is.EqualTo(0));
     }
 
 
@@ -76,15 +74,15 @@ public class Tests
     public void SetCapacities()
     {
         _store.SetCapacity(5);
-        Assert.That(_lastBasket.Capacity, Is.EqualTo(5));
+        Assert.That(_lastBasket().Capacity, Is.EqualTo(5));
     }
 
     [Test]
     public void BasketCost()
     {
-        _lastBasket.Add(_bagel);
-        _lastBasket.Add(_coffee);
-        Assert.That(_lastBasket.Cost(), Is.EqualTo(1.48));
+        _lastBasket().Add(_bagel);
+        _lastBasket().Add(_coffee);
+        Assert.That(_lastBasket().Cost(), Is.EqualTo(1.48));
     }
 
     [Test]

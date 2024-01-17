@@ -19,7 +19,14 @@ namespace exercise.main.Classes
 
         public string Add(Item item) //code is "decoded" in store class
         {
-            throw new NotImplementedException();
+
+            if (Items.Count < Capacity)
+            {
+                Items.Add(item);
+                return "";
+            }
+            return "Basket is full";
+            
         }
 
         public string Remove(string sku) 
