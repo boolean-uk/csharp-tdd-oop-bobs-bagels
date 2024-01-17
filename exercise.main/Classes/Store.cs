@@ -8,7 +8,7 @@ namespace exercise.main.Classes
 {
     public class Store
     {
-        public int capacity { get; set; } = 16;
+        public int Capacity { get; set; } = 16;
         public List<Basket> Baskets { get; set; } = new();
         public Stock Stock { get; } = new();
 
@@ -24,8 +24,12 @@ namespace exercise.main.Classes
         }
 
         public void SetCapacity(int capacity) 
-        { 
-            throw new NotImplementedException(); 
+        {
+            Capacity = capacity;
+            foreach (Basket basket in Baskets)
+            {
+                basket.Capacity = capacity;
+            }
         }
 
         public void AddItem(Basket basket, string sku)
