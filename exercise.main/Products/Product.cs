@@ -8,9 +8,9 @@ namespace exercise.main.Products
 {
     public interface Product
     {
-        public float GetPrice();
+        float GetPrice();
 
-        public string GetSKUName();
+        string GetSKUName();
 
     }
 }
