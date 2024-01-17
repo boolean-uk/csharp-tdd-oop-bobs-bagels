@@ -121,7 +121,7 @@ public class Tests
         basket.AddProduct(product3); basket.AddProduct(product1); basket.AddProduct(product2);
 
         double Result = basket.GetTotal();
-        double sum = product1.Price + product2.Price + product3.Price;
+        double sum = Math.Round(product1.Price + product2.Price + product3.Price,2);
 
         Assert.That(Result, Is.EqualTo(sum));
     

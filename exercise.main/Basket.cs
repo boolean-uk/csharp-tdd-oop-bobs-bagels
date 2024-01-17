@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -45,9 +46,13 @@ namespace exercise.main
         }
 
 
-        public int GetTotal()
+        public double GetTotal()
         {
-            throw new NotImplementedException();
+            double sum=0;
+            _productList.ForEach(product => { sum += product.Price; });
+            sum= Math.Round(sum, 2);
+
+            return sum;
         }
 
 
