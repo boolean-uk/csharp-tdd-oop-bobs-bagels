@@ -18,7 +18,7 @@ namespace exercise.main.Classes
 
         public override void AddFilling(Filling filling)
         {
-            throw new NotImplementedException();
+            Fillings.Add(filling);
         }
 
         public override List<Filling> GetFilling()
@@ -28,7 +28,14 @@ namespace exercise.main.Classes
 
         public override void RemoveFilling(string sku)
         {
-            throw new NotImplementedException();
+            foreach (Filling filling in Fillings)
+            {
+                if (filling.SKU == sku)
+                {
+                    Fillings.Remove(filling);
+                    return;
+                }
+            }
         }
     }
 }

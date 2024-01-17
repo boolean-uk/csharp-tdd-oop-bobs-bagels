@@ -22,7 +22,19 @@ namespace exercise.main.Classes
 
             if (Items.Count < Capacity)
             {
-                Items.Add(item);
+                if (item.SKU[..2] == "FIL")
+                {
+                    //add filling to previous Bagel added to cart
+                    List<Bagel> bagels = Items.ToList().Where(i => i.Name == Name.Bagel).ToList().ConvertAll(x => (Bagel)x);
+                    if (bagels.Count > 0)
+                    {
+                        bagels.First().AddFilling((Filling)item);
+                    }
+                    else { Items.Add((Filling)item); } //Add filling to nothing
+                }
+                else {
+                    Items.Add(item);
+                }
                 return "";
             }
             return "Basket is full";
@@ -31,7 +43,33 @@ namespace exercise.main.Classes
 
         public string Remove(string sku) 
         { 
-            throw new NotImplementedException(); 
+            //Check if filling and remove the first instance on the first bagel available
+            if (sku[..2] == "FIL")
+            {
+                List<Bagel> bagels = Items.ToList().Where(i => i.Name == Name.Bagel).ToList().ConvertAll(x => (Bagel)x);
+                if (bagels.Count > 0)
+                {
+                    foreach (Bagel bagel in bagels)
+                    {
+                        if (bagel.Fillings.ToList().Where(f => f.SKU == sku).Count() > 0)
+                        {
+                            bagel.RemoveFilling(sku);
+                            return "";
+                        }
+                    }
+                }
+            }
+            //Otherwise remove the first occurence of sku
+            foreach (Item item in Items) 
+            { 
+                if (item.SKU == sku)
+                {
+                    Items.Remove(item);
+                    return "";
+                }
+            }
+
+            return "Could not find given item type";
         }
 
         public double Cost()

@@ -27,7 +27,17 @@ namespace exercise.main.Classes
             ("FILH", 0.12, Name.Filling, "Ham")
         };
 
-
+        public Item? GetInfoFromSKU(string sku)
+        {
+            foreach (var item in Items)
+            {
+                if (item.SKU == sku)
+                {
+                    return new Item(item.SKU, item.price, item.name, item.variant);
+                }
+            }
+            return null;
+        }
 
     }
 }

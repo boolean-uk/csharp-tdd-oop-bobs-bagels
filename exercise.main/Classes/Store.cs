@@ -10,9 +10,11 @@ namespace exercise.main.Classes
     {
         public int capacity { get; set; } = 16;
         public List<Basket> Baskets { get; set; } = new();
+        public Stock Stock { get; } = new();
+
         public Store() 
         { 
-            Stock stock = new();
+            
 
         }
 
@@ -28,7 +30,15 @@ namespace exercise.main.Classes
 
         public void AddItem(Basket basket, string sku)
         {
-            throw new NotImplementedException();
+            Basket? currentbasket = Baskets.Find(b => b == basket);
+            if (currentbasket != null)
+            {
+                Item? item = Stock.GetInfoFromSKU(sku);
+                if (item != null)
+                {
+                    currentbasket.Add(item);
+                }
+            }
         }
     }
 }
