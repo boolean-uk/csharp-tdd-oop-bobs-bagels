@@ -53,7 +53,7 @@ public class Tests
     {
         basket.addItem("BGLE");
         basket.addItem("COFB");
-        string expected = "Your current total comes to: 1.48";
-        Assert.That(expected, Is.EqualTo(receipt.printTotal()));
+        string expected = "Your current total comes to: 1,48";
+        Assert.That(expected, Is.EqualTo(basket.receipt.printTotal()));
     }
 }

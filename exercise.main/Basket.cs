@@ -11,49 +11,49 @@ namespace exercise.main
     {
         private int _capacity;
         public List<Item> content;
-        private Dictionary<string, Item> priceList;
+        private Dictionary<string, Item> itemList;
         public Receipt receipt;
         public Basket(int capacity)
         {
             _capacity = capacity;
             content = new List<Item>();
             receipt = new Receipt();
-            priceList = new Dictionary<string, Item>();
-            priceList.Clear();
-            priceList.Add("BGLO", new Item(0.49f, "Bagel", "Onion"));
-            priceList.Add("BGLP", new Item(0.39f, "Bagel", "Plain"));
-            priceList.Add("BGLE", new Item(0.49f, "Bagel", "Everything"));
-            priceList.Add("BGLS", new Item(0.49f, "Bagel", "Sesame"));
-            priceList.Add("COFB", new Item(0.99f, "Coffee", "Black"));
-            priceList.Add("COFW", new Item(1.19f, "Coffee", "White"));
-            priceList.Add("COFC", new Item(1.29f, "Coffee", "Capuccino"));
-            priceList.Add("COFL", new Item(0.29f, "Coffee", "Latte"));
-            priceList.Add("FILB", new Item(0.12f, "Filling", "Bacon"));
-            priceList.Add("FILE", new Item(0.12f, "Filling", "Egg"));
-            priceList.Add("FILC", new Item(0.12f, "Filling", "Cheese"));
-            priceList.Add("FILX", new Item(0.12f, "Filling", "Cream Cheese"));
-            priceList.Add("FILS", new Item(0.12f, "Filling", "Smoked Salmon"));
-            priceList.Add("FILH", new Item(0.12f, "Filling", "Ham"));
+            itemList = new Dictionary<string, Item>();
+            itemList.Clear();
+            itemList.Add("BGLO", new Item(0.49f, "Bagel", "Onion"));
+            itemList.Add("BGLP", new Item(0.39f, "Bagel", "Plain"));
+            itemList.Add("BGLE", new Item(0.49f, "Bagel", "Everything"));
+            itemList.Add("BGLS", new Item(0.49f, "Bagel", "Sesame"));
+            itemList.Add("COFB", new Item(0.99f, "Coffee", "Black"));
+            itemList.Add("COFW", new Item(1.19f, "Coffee", "White"));
+            itemList.Add("COFC", new Item(1.29f, "Coffee", "Capuccino"));
+            itemList.Add("COFL", new Item(0.29f, "Coffee", "Latte"));
+            itemList.Add("FILB", new Item(0.12f, "Filling", "Bacon"));
+            itemList.Add("FILE", new Item(0.12f, "Filling", "Egg"));
+            itemList.Add("FILC", new Item(0.12f, "Filling", "Cheese"));
+            itemList.Add("FILX", new Item(0.12f, "Filling", "Cream Cheese"));
+            itemList.Add("FILS", new Item(0.12f, "Filling", "Smoked Salmon"));
+            itemList.Add("FILH", new Item(0.12f, "Filling", "Ham"));
         }
         public Item addItem(string SKU)
         {
             if (content.Count < _capacity)
             {
-                content.Add(priceList[SKU]);
-                //ADD COST
-                return priceList[SKU];
+                content.Add(itemList[SKU]);
+                receipt.addCost(SKU);
+                return itemList[SKU];
             }
             else
             {
                 Console.WriteLine("Your basket is full! No new items added!");
-                return priceList[SKU];
+                return itemList[SKU];
             }
         }
         public bool removeItem(string SKU)
         {
-            if (content.Contains(priceList[SKU]))
+            if (content.Contains(itemList[SKU]))
             {
-                content.Remove(priceList[SKU]);
+                content.Remove(itemList[SKU]);
                 return true;
             }
             Console.WriteLine("It is already not in your basket, great!");
