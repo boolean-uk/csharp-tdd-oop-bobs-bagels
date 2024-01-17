@@ -53,39 +53,56 @@ namespace exercise.main
             BasketSize += expansion;
         }
         
-
-        public void CalculateTotal()
+        /// <summary>
+        /// Assumes that a mix of different bagels is eligible for discount. 
+        /// Does not prioritize on which discount is more effective, but applies a 12x discount before 6x,
+        /// and 6x discount before coffee discount. Assumes the coffee discount is only for black coffee.
+        /// </summary>
+        /// <param name="bagelList"></param>
+        /// <param name="coffeeList"></param>
+        public void CalculateTotal(List<Product> bagelList = null, List<Product> coffeeList = null)
         {
-            var bagels = Products.FindAll(p => p.SKU.StartsWith("BGL"));
-            var blackCoffees = Products.FindAll(p => p.SKU == "COFB");
+            var bagels = bagelList != null ? bagelList : Products.FindAll(p => p.SKU.StartsWith("BGL"));
+            var blackCoffees = coffeeList != null ? coffeeList : Products.FindAll(p => p.SKU == "COFB");
 
-            if (bagels.Count > 0 && bagels.Count >= 12)
+            if (bagels.Count >= 12)
             {
-                for(int i = 0; i < 11; i++)
+                for(int i = 0; i < 12; i++)
                 {
                     Total = Total - bagels[i].Price;
                 }
+                bagels.RemoveRange(0, 12);
+                if(bagels.Count > 0)
+                {
+                    CalculateTotal(bagels, blackCoffees);
+                }
                 Total += 3.99m;
             }
-            if (bagels.Count > 0 && bagels.Count >= 6)
+            if (bagels.Count >= 6)
             {
                 for(int i = 0; i < 6; i++)
                 {
                     Total = Total - bagels[i].Price;
                 }
+                bagels.RemoveRange(0, 6);
+                if(bagels.Count > 0)
+                {
+                    CalculateTotal(bagels, blackCoffees);
+                }
                 Total += 2.49m;
             }
-            if (blackCoffees.Count > 0)
+            if (bagels.Count > 0 && blackCoffees.Count > 0)
             {
-                
-                if(bagels.Count < 6)
+
+                Total = Total - bagels[0].Price;
+                Total = Total - blackCoffees[0].Price;
+                Total += 1.25m;
+                blackCoffees.RemoveAt(0);
+                bagels.RemoveAt(0);
+                if(blackCoffees.Count > 0 && bagels.Count >0)
                 {
-                    Total = Total - bagels[0].Price;
-                    Total = Total - 0.99m;
-                    Total += 1.25m;
-
+                    CalculateTotal(bagels, blackCoffees);
                 }
-
             }
 
         }
