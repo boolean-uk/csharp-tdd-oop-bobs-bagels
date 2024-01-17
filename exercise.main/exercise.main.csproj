@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Failed code I spent too much time with\Product factory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Failed code I spent too much time with\Product factory.cs" />
+  </ItemGroup>
+
 </Project>
