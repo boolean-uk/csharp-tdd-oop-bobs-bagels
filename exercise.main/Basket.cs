@@ -8,29 +8,31 @@ namespace exercise.main
 {
     public class Basket
     {
-        private List<string> _items;
+        private List<Product> _items;
         private int _capacity;
 
         public Basket()
         {
-            _items = new List<string>();
+            _items = new List<Product>();
             _capacity = 10;
         }
 
-        public string AddProduct(string cheeseBagel)
+        public string AddProduct(string product)
         {
-            string encumbered;
-            if (_items.Count == _capacity)
+
+            if (_items.Count >= _capacity)
             {
-                encumbered = "Nope. Overencumbered.";
+                return "Nope. Overencumbered.";
+            }
+            else if (!Inventory.variantToSku.ContainsKey(product))
+            {
+                return "Warning: The product is not available.";
             }
             else
             {
-                _items.Add(cheeseBagel);
-                encumbered = "Product added to basket";
+                _items.Add(Inventory.skuToProductFactory[Inventory.variantToSku[product]]());
+                return "Product added to basket";
             }
-
-            return encumbered;
 
         }
 
@@ -39,26 +41,34 @@ namespace exercise.main
             _capacity = v;
         }
 
-        public List<string> GetItems()
+        public List<Product> GetItems()
         {
             return _items;
         }
 
-        public string RemoveProduct(string product)
+        public string RemoveProduct(string variant)
         {
-            string nonexistent;
-            if (!_items.Contains(product))
+            // Find the product with the matching variant
+            var productToRemove = _items.FirstOrDefault(p => p.Variant == variant);
+
+            if (productToRemove == null)
             {
-                nonexistent = "No such product to remove.";
+                return "No such product to remove.";
             }
             else
             {
-                _items.Remove(product);
-                nonexistent = "Product removed from basket";
+                _items.Remove(productToRemove);
+                return "Product removed from basket";
             }
-
-            return nonexistent;
         }
+
+        public double TotalPrice()
+        {
+            return _items.Sum(product => product.Price);
+        }
+
+        
     }
+
 }
 
