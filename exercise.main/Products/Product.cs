@@ -10,7 +10,8 @@ namespace exercise.main.Products
     {
         float GetPrice();
 
-        string GetSKUName();
+        float GetBasePrice();
 
+        string GetSKUName();
     }
 }

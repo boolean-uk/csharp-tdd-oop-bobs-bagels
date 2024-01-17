@@ -1,4 +1,5 @@
-﻿using exercise.main.Products;
+﻿using exercise.main.Discounts;
+using exercise.main.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,12 @@ namespace exercise.main
             return _basket.Sum(prod => prod.GetPrice());
         }
 
+        public float GetBasketPriceAfterDiscount() 
+        {
+            List<Discount> discountList = new List<Discount>();
+            return DiscountManager.ApplyDiscounts(this, out discountList);
+        }
+
         public bool RemoveProductFromBasket(Product item) 
         {
             List<Product> tempList = new List<Product>(_basket);
@@ -95,7 +102,7 @@ namespace exercise.main
         }
 
         /// <summary>
-        /// Returns a NEW list of items in the basket
+        /// Returns a NEW (shallow copy) list of items in the basket.
         /// </summary>
         /// <returns></returns>
         public List<Product> GetProducts() 

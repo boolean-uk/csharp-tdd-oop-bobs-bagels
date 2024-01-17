@@ -22,6 +22,11 @@ namespace exercise.main.Products
             return _price;
         }
 
+        public float GetBasePrice() 
+        {
+            return GetPrice();
+        }
+
         public string GetSKUName()
         {
             return _SKUName;
