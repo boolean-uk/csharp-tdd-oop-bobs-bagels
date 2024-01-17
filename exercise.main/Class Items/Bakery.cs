@@ -95,8 +95,18 @@ namespace exercise.main.Class_Items
         {
             double price = _customers[customer].TotalCost();
             List<Product> products = _customers[customer].Items;
+            Console.WriteLine("\t~~~ Bob's Bagles ~~~");
+            Console.WriteLine();
+            Console.WriteLine("\t" + DateTime.Now);
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine();
+            
             price = Discount(price, products);
             
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine($"Total:\t\t\t\t £{Math.Round(price, 2)}");
             return Math.Round(price,2);
         }
 
@@ -109,34 +119,54 @@ namespace exercise.main.Class_Items
 
             if (bagleCount >= 12)
             {
+                Console.WriteLine("Twelve Bagel deal \t\t £3.99");
                 price += 3.99d;
+                double saved = 0;
                 for (int i = 0; i < 12; i++)
                 {
                     price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
+                    saved += _products.Find(x => x.SKU == bagleList[i].SKU).Price;
                     cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[i].SKU)));
                 }
+                Console.WriteLine($"\t\t\t\t -£{-1*Math.Round(3.99d - saved, 2)}");
                 price = Discount(price, cart);
             }
             else if (bagleCount >= 6)
             {
+                Console.WriteLine("Six Bagel deal \t\t\t £2.49");
                 price += 2.49d;
+                double saved = 0;
                 for (int i = 0; i < 6; i++)
                 {
                     price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
+                    saved += _products.Find(x => x.SKU == bagleList[i].SKU).Price;
                     cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[i].SKU)));
                 }
+                Console.WriteLine($"\t\t\t\t -£{-1*Math.Round(2.49d - saved, 2)}");
                 price = Discount(price, cart);
             }
             else if (cart.Exists(x => x.Type == Product.ProdType.Bagle) && cart.Exists(x => x.Type == Product.ProdType.Coffee)) 
             {
+                Console.WriteLine("Coffee and bagle deal \t\t £1.25");
                 price += 1.25d;
+                double saved = 0;
                 price -= _products.Find(x => x.SKU == bagleList[0].SKU).Price;
+                saved += _products.Find(x => x.SKU == bagleList[0].SKU).Price;
                 cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[0].SKU)));
 
                 price -= cart.Find(x => x.Type == Product.ProdType.Coffee).Price;
+                saved += cart.Find(x => x.Type == Product.ProdType.Coffee).Price;
                 cart.RemoveAt(cart.IndexOf(cart.Find(x => x.Type == Product.ProdType.Coffee)));
                 
+                Console.WriteLine($"\t\t\t\t -£{-Math.Round(1.25 - saved, 2)}");
                 price = Discount(price, cart);
+            }
+            else 
+            {
+                foreach (var item in cart)
+                {
+                    Console.WriteLine($"{item.Type} {item.Varaiant} \t\t\t £{item.Price}");
+                }
             }
             return price;
         }
