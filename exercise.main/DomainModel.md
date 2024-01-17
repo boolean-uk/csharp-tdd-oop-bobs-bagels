@@ -21,7 +21,7 @@
 | Basket | `List<Bagel> Bagels`, `List<Coffee> Coffees`, `int Capacity` |
 
 
-| User story | Class| Method | Scenario | Output |
+| User story | Class | Method | Scenario | Output |
 |---|---|---|---|---|
 | 1 | Basket | `Add(Bagel bagel)`, `Add(Coffee coffee)` | `Basket` is not full | Adds product to `Basket.Bagels`|
 | 3 | Basket |                    | `Basket` is full    | Displays `"Basket is full"`|
@@ -68,14 +68,17 @@ To acheive this I will create a new class `BobsBagels` that will abstract the cu
 
 
 ## BobsBagels class
-| User story | Method | Scenario | Output |
+| User story | Class | Method | Scenario | Output |
 |---|---|---|---|
-| 1 | `Add(string sku)` | `Basket` is not full | Adds product to `Basket.Bagels`|
-| 3 |                   | `Basket` is full     | Displays `"Basket is full"`|
-| 2 | `Remove(string sku)` | product exists in `Basket`         | Removes product from `Basket.Product`|
-| 5 |                      | product does not exist in `Basket` | Displays `$"{product} was not found in basket"`|
-| 4 | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
-| 6 | `double Cost()` |  | Returns total cost of products in basket |
-| 7 | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
-| 8 | `AddFilling(BagelFilling filling)` |  | Adds `filling` to `Fillings`|
-| 9 | `IEnumerable<BagelFilling> GetAll()` |  | Returns all the `Filling`s |
+| 1 | Basket | `Add(string sku)` | `Basket` is not full | Adds product to `Basket.Bagels`|
+| 10|        |                   | no product has `sku` | Displays `$"There is no product with SKU: {sku}"`|
+| 3 |        |                   | `Basket` is full     | Displays `"Basket is full"`|
+| 2 | Basket | `Remove(string sku)` | product exists in `Basket`         | Removes product from `Basket`|
+| 10|        |                      | no product has `sku` | Displays `$"There is no product with SKU: {sku}"`|
+| 5 | Basket |                      | product does not exist in `Basket` | Displays `$"{product} was not found in basket"`|
+| 4 | Basket | `ChangeCapacity(int capacity)` |  | Sets `Basket.Capacity` to `capacity`|
+| 6 | Basket | `double Cost()` |  | Returns total cost of products in basket |
+| 7 | Bagel | `double Cost()` |  | Returns total `Price` of `Variant` + all `BagelFilling`s |
+| 8 | Bagel | `AddFilling(string sku)` |  | Adds `filling` to `Fillings`|
+| 10|       |                          | no filling has `sku` | Displays `$"There is no product with SKU: {sku}"`|
+| 9 | BobsBagels | `IEnumerable<BagelFilling> GetFillings()` |  | Returns all the `Filling`s |

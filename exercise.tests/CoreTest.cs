@@ -1,24 +1,34 @@
+using NUnit.Framework;
 using exercise.main;
-using static exercise.main.Core;
+using System.Linq;
+using static exercise.main.ShoppingCart;
+using static exercise.main.Inventory;
 
 namespace exercise.tests;
 
+[TestFixture]
 public class CoreTests
 {
+    private BagelVariant onionVariant;
+    private BagelVariant plainVariant;
+    private BagelFilling hamFilling;
+
     [SetUp]
     public void Setup()
     {
-
+        onionVariant = BagelVariant.AllVariants.First(v => v.Name == "Onion");
+        plainVariant = BagelVariant.AllVariants.First(v => v.Name == "Plain");
+        hamFilling = BagelFilling.AllFillings.First(f => f.Name == "Ham");
     }
 
     [Test]
     public void BasketCost()
     {
-        Basket basket = new Basket();
-        Bagel bagel = new Bagel(BagelVariant.Onion);
+        var basket = new Basket();
+        var bagel = new Bagel(onionVariant);
         basket.Add(bagel);
 
-        double expected = 0.49;
+        double expected = onionVariant.Price;
         double actualCost = basket.Cost();
 
         Assert.That(actualCost, Is.EqualTo(expected));
@@ -27,11 +37,11 @@ public class CoreTests
     [Test]
     public void AddFilling()
     {
-        Bagel bagel = new Bagel(BagelVariant.Plain);
+        var bagel = new Bagel(plainVariant);
 
-        bagel.AddFilling(BagelFilling.Ham);
+        bagel.AddFilling(hamFilling);
 
-        bool hasHamFilling = bagel.Fillings.Any(f => f.Name == BagelFilling.Ham.Name && f.Price == BagelFilling.Ham.Price);
+        bool hasHamFilling = bagel.Fillings.Any(f => f.Name == hamFilling.Name && f.Price == hamFilling.Price);
 
         Assert.IsTrue(hasHamFilling);
     }
@@ -39,10 +49,10 @@ public class CoreTests
     [Test]
     public void BagelCost()
     {
-        Bagel bagel = new Bagel(BagelVariant.Onion);
-        bagel.AddFilling(BagelFilling.Ham);
+        var bagel = new Bagel(onionVariant);
+        bagel.AddFilling(hamFilling);
 
-        double expected = 0.49 + 0.12;
+        double expected = onionVariant.Price + hamFilling.Price;
         double actualCost = bagel.Cost();
 
         Assert.That(actualCost, Is.EqualTo(expected));
@@ -51,8 +61,9 @@ public class CoreTests
     [Test]
     public void GetBagelFillings()
     {
-        IEnumerable<BagelFilling> fillings = BagelFilling.GetAll();
+        var fillings = BagelFilling.AllFillings;
 
         Assert.IsNotEmpty(fillings);
+        Assert.That(fillings, Contains.Item(hamFilling));
     }
 }
