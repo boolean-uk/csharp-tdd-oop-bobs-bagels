@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,26 +113,30 @@ namespace exercise.main
         public double checkDisCount()
         {
             double discount = 0;
-            int productCount = _basket.Count(product => product.name == "Bagel");
+            int bagelCount = _basket.Count(product => product.name == "Bagel");
+            int coffeCount = _basket.Count(product => product.name == "Coffe");
 
-            
-            while (productCount > 0)
+            List<double> testList = new List<double>();
+
+
+            while (bagelCount > 0)
             {
 
                 // Get a list of the bagels sorted by lowest price
-                if (productCount >= 12)
+                if (bagelCount >= 12)
                 {
                     var sortBasket = _basket.Where(product => product.name == "Bagel")
                             .OrderBy(product => product.getPrice())
                             .Take(12);
 
-                    productCount -= 12;
+                    bagelCount -= 12;
                     double first12Items = sortBasket.Sum(product => product.getPrice());
 
                     //Check if the sum of the first 12 cheapest is acutally higher than discount price:
                     if (3.99 - first12Items < 0)
                     {
                         discount += (0.49 * 12) - 3.99;
+                        testList.Add((0.49 * 12) - 3.99);
                     }
                     else
                     {
@@ -140,22 +145,23 @@ namespace exercise.main
 
                 }
 
-                else if (productCount >= 6)
+                else if (bagelCount >= 6)
                 {
-                   
-                        // Get a list of the bagels sorted by lowest price
-                        var sortBasket = _basket.Where(product => product.name == "Bagel")
-                            .OrderBy(product => product.getPrice())
-                            .Take(6);
-                   
-                    productCount -= 6;
-                     double first6Items = sortBasket.Sum(product => product.getPrice());
-                   
+
+                    // Get a list of the bagels sorted by lowest price
+                    var sortBasket = _basket.Where(product => product.name == "Bagel")
+                        .OrderBy(product => product.getPrice())
+                        .Take(6);
+
+                    bagelCount -= 6;
+                    double first6Items = sortBasket.Sum(product => product.getPrice());
+
                     //Check if the sum of the first 12 cheapest is acutally higher than discount price:
                     if (2.49 - first6Items < 0)
                     {
 
                         discount += (0.49 * 6) - 2.49;
+                        testList.Add((0.49 * 6) - 2.49);
                     }
                     else
                     {
@@ -163,13 +169,21 @@ namespace exercise.main
                     }
 
                 }
+                else if (bagelCount >= 1 && coffeCount >= 1)
+                {
+                    bagelCount -= 1;
+                    coffeCount -= 1;
+                    discount += (1.29 + 0.49) - 1.25;   //Delta of highest coffe & bagel combination
+                    testList.Add((1.29 + 0.49) - 1.25);
+                }
+
                 else
                 {
-                    productCount = -1;
-                     discount += 0;
+                    bagelCount = -1;
+                    discount += 0;
                 }
             }
-
+            //Console.WriteLine("List elements: " + string.Join(", ", testList));
             return discount;
         }
 
