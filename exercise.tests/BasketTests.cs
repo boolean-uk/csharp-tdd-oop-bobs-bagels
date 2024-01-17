@@ -276,19 +276,36 @@ public class BasketTests
     [Test]
     public void ReceitPrinted()
     {        
-        testBasket.ChangeCapacity(20);
+        testBasket.ChangeCapacity(30);
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
-        
+        Item b1 = testBasket.AddItem(inv["BGLE"]);
+        Item c1 = testBasket.AddItem(inv["COFB"]);
+
+        testBasket.BundleOrder("b6", b1, c1);
+
+        Item i1= testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+
+        testBasket.BundleOrder("b6", i1, i1);
+
+        Item i2 = testBasket.AddItem(inv["BGLE"]);
         testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["COFB"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+
+        testBasket.BundleOrder("b6", i2, i2);
 
         testBasket.PrintReceipt();
 
@@ -299,16 +316,22 @@ public class BasketTests
         DateTime enteredDate = DateTime.Parse(outputLines[1]);
         DateTime now = DateTime.Now;
 
-        Assert.That(enteredDate, Is.InstanceOf(now.GetType()));  // DateTime
+        Assert.That(enteredDate, Is.InstanceOf(now.GetType()));
         Assert.That("------------------------------", Is.EqualTo(outputLines[2]));
-        Assert.That("Everything Bagel      1  £0,49", Is.EqualTo(outputLines[3]));
-        Assert.That("Black Coffee          1  £0,99", Is.EqualTo(outputLines[4]));
+        Assert.That("Bagel & Coffee        2  £1.25", Is.EqualTo(outputLines[3]));
+        Assert.That("                      (-£0.45)", Is.EqualTo(outputLines[4]));
         Assert.That("Onion Bagel           6  £2,49", Is.EqualTo(outputLines[5]));
+        Assert.That("                       (-£0.45)", Is.EqualTo(outputLines[6]));
+        Assert.That("Everything Bagel     12  £3,99", Is.EqualTo(outputLines[7]));
+        Assert.That("                      (-£0.69)", Is.EqualTo(outputLines[8]));
+        Assert.That("------------------------------", Is.EqualTo(outputLines[9]));
+        Assert.That("Total                    £3,97", Is.EqualTo(outputLines[10]));
 
-        Assert.That("------------------------------", Is.EqualTo(outputLines[6]));
-        Assert.That("Total                    £4,42", Is.EqualTo(outputLines[7]));
-        Assert.That("           Thank you", Is.EqualTo(outputLines[8]));
-        Assert.That("        for your order!", Is.EqualTo(outputLines[9]));
+        Assert.That(" You saved a total of £1.14", Is.EqualTo(outputLines[12]));
+        Assert.That("        on this shop", Is.EqualTo(outputLines[13]));
+
+        Assert.That("           Thank you", Is.EqualTo(outputLines[15]));
+        Assert.That("        for your order!", Is.EqualTo(outputLines[16]));
         
     }
 
