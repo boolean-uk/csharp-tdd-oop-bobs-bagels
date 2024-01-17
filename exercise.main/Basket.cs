@@ -56,8 +56,6 @@ namespace exercise.main
         }
 
 
-
-
         public List<string> GetList()
         {
             throw new NotImplementedException();
@@ -73,7 +71,7 @@ namespace exercise.main
         }
 
         public int Capacity { get => _capacity; }
-        public List<Product> ProductList { get => _productList; set => _productList = value; }
+        public List<Product> ProductList { get => _productList; }
 
 
 

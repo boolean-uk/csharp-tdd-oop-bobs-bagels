@@ -15,7 +15,7 @@ public class Tests
     [Test]
     public void addProductToBasket()
     {
-        Product product = new Product();  
+        Product product = new Product("BGLO");  
         Basket basket = new Basket();
         basket.AddProduct(product);
         List<Product> Result = basket.ProductList;
@@ -26,7 +26,7 @@ public class Tests
     [Test]
     public void removeProductFromBasket()
     {
-        Product product = new Product();
+        Product product = new Product("BGLO");
         Basket basket = new Basket();
 
         basket.AddProduct(product);
@@ -43,7 +43,7 @@ public class Tests
     [Test]
     public void addingProductBeyondCapacity()
     {
-        Product product = new Product();
+        Product product = new Product("BGLO");
         Basket basket = new Basket();
         for(int i=0; i<= basket.Capacity;i++)
         {
@@ -125,6 +125,38 @@ public class Tests
 
         Assert.That(Result, Is.EqualTo(sum));
     
+    }
+
+    [TestCase("BGLO")]
+    [TestCase("BGLP")]
+    [TestCase("BGLE")]
+    [TestCase("BGLS")]
+
+    public void getPriceOfSingleItem(string A)
+    {
+        //SKU Bagels= { "BGLO", "BGLP", "BGLE", "BGLS"}
+        Product product = new Product(A);
+        
+        double Result = product.Price;
+
+        Assert.That(Result > 0);
+
+    }
+
+    [Test]
+
+    public void chooseFillingForBagel()
+    {
+        //SKU Bagels= { "BGLO", "BGLP", "BGLE", "BGLS"}
+        //SKU Fillings = { "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
+        Product product = new Product("BGLO");
+        Basket basket = new Basket();
+
+        basket.AddProduct(product);
+        bool Result = product.AddFilling("FILB");
+                
+        Assert.That(product.Fillings.Count>0,Is.EqualTo(Result));
+
     }
 
 
