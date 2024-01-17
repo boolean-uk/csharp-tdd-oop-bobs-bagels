@@ -36,10 +36,10 @@ namespace exercise.tests
             // Arrange
             Basket basket = new Basket();
 
-            Product item1 = new Coffee("COFW", 1.19f);
-            Product item2 = new Bagel("BGLP", 0.39f);
-            Product item3 = new Bagel("AAAA", 0.39f);
-            Product item4 = new Bagel("COFW", 0f);
+            IProduct item1 = new Coffee("COFW", 1.19f);
+            IProduct item2 = new Bagel("BGLP", 0.39f);
+            IProduct item3 = new Bagel("AAAA", 0.39f);
+            IProduct item4 = new Bagel("COFW", 0f);
 
             // Act
             bool res1 = basket.AddItemToBasket(item1);
@@ -79,7 +79,7 @@ namespace exercise.tests
         {
             // Arrange
             Basket basket = new Basket();
-            Product[] set = new Product[] { (new Bagel("BGLE", 0.49f)), new Bagel("BGLP", 0.39f), new Coffee("COFW", 1.19f)  };
+            IProduct[] set = new IProduct[] { (new Bagel("BGLE", 0.49f)), new Bagel("BGLP", 0.39f), new Coffee("COFW", 1.19f)  };
             basket.AddItemToBasket(set[add]);
             basket.AddItemToBasket(set[add2]);
 
@@ -97,8 +97,8 @@ namespace exercise.tests
             // Arrange
             Basket basket = new Basket();
             
-            Product product1 = new Coffee("COFW", 1.19f);
-            Product product2 = new Coffee("COFL", 1.19f);
+            IProduct product1 = new Coffee("COFW", 1.19f);
+            IProduct product2 = new Coffee("COFL", 1.19f);
 
             string[] strings1 = new string[] { "BGLO", "FILE" };
             string[] strings2 = new string[] { "BGLP", "FILE" };
@@ -126,7 +126,7 @@ namespace exercise.tests
             // Arrange
             Basket basket = new Basket();
             // Default capacity = 13
-            Product prod = new Coffee("COFW", 1.19f);
+            IProduct prod = new Coffee("COFW", 1.19f);
             int maxBasketSize = 13;
             for (int i = 0; i < maxBasketSize-1; i++) 
             { 

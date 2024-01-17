@@ -21,7 +21,7 @@ public class ProductTests
         // Arrange
 
         // Act
-        Product res = ProductFactory.GenerateProduct(SKU);
+        IProduct res = ProductFactory.GenerateProduct(SKU);
 
         // Assert
         Assert.That(res.GetSKUName(), Is.EqualTo(SKU[0]));

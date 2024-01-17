@@ -21,8 +21,8 @@ namespace exercise.tests
             Basket basket1 = new Basket(); // 6 bagels
             Basket basket2 = new Basket(); // 12 bagels
             Basket basket3 = new Basket(); // 7 bagels
-            Product prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
-            Product prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
+            IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
+            IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
 
             // 6 bagel discount. 6 for 2.49.
             basket1.AddItemToBasket(prod1);
@@ -84,8 +84,8 @@ namespace exercise.tests
             Basket basket1 = new Basket(); // 6 bagels
             Basket basket2 = new Basket(); // 7 bagels 1 coffee
             Basket basket3 = new Basket(); // 1 bagel 1 coffee
-            Product prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" }); // The bagel
-            Product prod2 = ProductFactory.GenerateProduct(new string[] { "COFB" }); // The coffee
+            IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" }); // The bagel
+            IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "COFB" }); // The coffee
 
             // 6 bagel discount. 6 for 2.49. 6 bagels 1 coffee total
             basket1.AddItemToBasket(prod1);
@@ -142,8 +142,8 @@ namespace exercise.tests
         // Arrange
         Basket basket = new Basket(); // 12 bagels
         basket.SetBasketSize(30);
-        Product prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
-        Product prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
+        IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
+        IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
 
         // 12 bagel discount. 12 for 3.99
         basket.AddItemToBasket(prod1);

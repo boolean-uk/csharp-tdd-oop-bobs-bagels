@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    public interface Product
+    public interface IProduct
     {
         float GetPrice();
 

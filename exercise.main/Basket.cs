@@ -10,10 +10,10 @@ namespace exercise.main
 {
     public class Basket
     {
-        List<Product> _basket = new List<Product>();
+        List<IProduct> _basket = new List<IProduct>();
         int _maxBasketSize = 13;
 
-        public bool AddItemToBasket(Product item)
+        public bool AddItemToBasket(IProduct item)
         {
             if (IsValid(item))
             {
@@ -29,11 +29,11 @@ namespace exercise.main
 
         public bool AddItemToBasket(string[] SKUs)
         {
-            Product prod = ProductFactory.GenerateProduct(SKUs);
+            IProduct prod = ProductFactory.GenerateProduct(SKUs);
             return AddItemToBasket(prod);
         }
 
-        private bool IsValid(Product item) 
+        private bool IsValid(IProduct item) 
         {
             if (!ProductFactory.ValidateProductSKU(item.GetSKUName()))
             {
@@ -59,9 +59,9 @@ namespace exercise.main
             return DiscountManager.ApplyDiscounts(this, out discountList);
         }
 
-        public bool RemoveProductFromBasket(Product item) 
+        public bool RemoveProductFromBasket(IProduct item) 
         {
-            List<Product> tempList = new List<Product>(_basket);
+            List<IProduct> tempList = new List<IProduct>(_basket);
             int res1 = tempList.Count;
             tempList.Remove(item);
             int res2 = tempList.Count;
@@ -81,9 +81,9 @@ namespace exercise.main
         public bool RemoveProductFromBasket(string[] SKUs)
         {
             // TODO: REFACTOR, this is hideous
-            IEnumerable<Product> toRemove = _basket.Where(p => p.GetSKUName() == SKUs[0]);
+            IEnumerable<IProduct> toRemove = _basket.Where(p => p.GetSKUName() == SKUs[0]);
             // More complex if Bagel due to sub-objects...
-            foreach (Product item in toRemove)
+            foreach (IProduct item in toRemove)
             {
                 Bagel bagel = (Bagel)item;
                 for (int i = 1; i < SKUs.Length; i++) 
@@ -105,9 +105,9 @@ namespace exercise.main
         /// Returns a NEW (shallow copy) list of items in the basket.
         /// </summary>
         /// <returns></returns>
-        public List<Product> GetProducts() 
+        public List<IProduct> GetProducts() 
         {
-            return new List<Product>( _basket );
+            return new List<IProduct>( _basket );
         }
 
         public bool IsFull() 

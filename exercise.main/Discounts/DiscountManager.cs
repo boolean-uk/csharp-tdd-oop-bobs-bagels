@@ -28,7 +28,7 @@ namespace exercise.main.Discounts
         /// <returns> The final new price of the basket </returns>
         public static float ApplyDiscounts(Basket basket, out List<Discount> discounts)
         {
-            List<Product> productsList = basket.GetProducts();
+            List<IProduct> productsList = basket.GetProducts();
             float discountedItemsTotalPrice = 0f;
             List<Discount> appliedDiscounts = new List<Discount>();
             float totalDiscountExemptCosts = 0f;
@@ -40,7 +40,7 @@ namespace exercise.main.Discounts
             return discountedItemsTotalPrice + totalDiscountExemptCosts;
         }
 
-        private static void AttemptDiscount(ref float discountedItemsTotalPrice, ref List<Product> list, ref List<Discount> appliedDiscounts, ref float totalDiscountExemptCosts) 
+        private static void AttemptDiscount(ref float discountedItemsTotalPrice, ref List<IProduct> list, ref List<Discount> appliedDiscounts, ref float totalDiscountExemptCosts) 
         {
 
 
@@ -51,10 +51,10 @@ namespace exercise.main.Discounts
                 bool addDisc = true;
                 float originalCosts = 0f;
                 float discountExemptCosts = 0f;
-                List<Product> preAttemptList = new List<Product>(list); // Save snapshot incase we need to restore this list
+                List<IProduct> preAttemptList = new List<IProduct>(list); // Save snapshot incase we need to restore this list
                 foreach (Type discountProduct in disc.GetSequence()) 
                 {
-                    Product? basketItem = list.FirstOrDefault(prod => prod.GetType() == discountProduct); // null if nothing found
+                    IProduct? basketItem = list.FirstOrDefault(prod => prod.GetType() == discountProduct); // null if nothing found
                     if (basketItem != null)
                     {
                         originalCosts += basketItem.GetBasePrice();
@@ -76,7 +76,7 @@ namespace exercise.main.Discounts
                 }
                 else 
                 {
-                    list = new List<Product>(preAttemptList);
+                    list = new List<IProduct>(preAttemptList);
                 }
                 
             }

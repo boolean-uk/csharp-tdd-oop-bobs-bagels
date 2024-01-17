@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    public class Bagel : Product
+    public class Bagel : IProduct
     {
         List<Filling> filling = new List<Filling>();
         string _SKUName;

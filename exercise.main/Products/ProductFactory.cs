@@ -8,7 +8,7 @@ namespace exercise.main.Products
 {
     public static class ProductFactory
     {
-        public static Product GenerateProduct(string[] SKU) 
+        public static IProduct GenerateProduct(string[] SKU) 
         {
             ValidateProductSKU(SKU[0]);
             float prod1 = Inventory.GetCoffePrice(SKU[0]);

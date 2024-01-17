@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    public class Coffee : Product
+    public class Coffee : IProduct
     {
         string _SKUName;
         float _price;
