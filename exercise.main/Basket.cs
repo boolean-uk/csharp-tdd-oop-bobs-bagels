@@ -26,7 +26,7 @@ namespace exercise.main
 
         public void RemoveProduct(Product product)
         {
-            throw new NotImplementedException();
+            _productList.Remove(product);
         }
 
 
