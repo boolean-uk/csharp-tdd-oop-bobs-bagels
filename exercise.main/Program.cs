@@ -13,3 +13,6 @@ for (int i = 0; i < 25; i++)
     customer.Order(new Bagel(BagelVariant.Plain));
 }
 Receipt.Print(customer.Basket);
+
+MessageService messageService = new MessageService();
+messageService.SendOrderConfirmation(customer.Basket);
