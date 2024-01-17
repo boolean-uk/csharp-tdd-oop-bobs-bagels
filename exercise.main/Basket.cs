@@ -94,7 +94,7 @@ namespace exercise.main
             {
                 if ((count / 12) >= 1) sum += 3.99 + (new Bagel(SKU).Price * (count % 12));
                 else if ((count / 6) >= 1) sum += 2.49 + (new Bagel(SKU).Price * (count % 6));
-                else sum += new Bagel(SKU).Price;
+                else sum += new Bagel(SKU).Price * count;
             }
 
             sum += Bagels.Sum(bagel => bagel.Filling is not null ? bagel.Filling.Price : 0);
