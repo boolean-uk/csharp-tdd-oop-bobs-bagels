@@ -75,8 +75,7 @@ namespace exercise.main
                 sum += GetPrice(count, new Bagel(SKU).Price, true);
             }
 
-            sum += Items.Where(filling => filling is Filling).Sum(filling => filling.Price);
-            sum += Items.Where(coffee => coffee is Coffee).Sum(coffee => coffee.Price);
+            sum += Items.Where(item => (item is Filling || item is Coffee)).Sum(item => item.Price);
 
             return sum;
         }
