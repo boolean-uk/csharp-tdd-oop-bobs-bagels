@@ -1,5 +1,7 @@
-﻿using System;
+﻿using exercise.main.Products;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +14,10 @@ namespace exercise.main.Discounts
         Discount LargeBagelBundle = new DiscountBundleLarge("12 bagels", 3.99f);
         Discount CoffeeBagelBundle = new DiscountBundleSmall("coffee and bagel", 1.25f);
 
-        List<Discount> discounts;
+        private List<Discount> _discountList;
         public DiscountManager()
         {
-            discounts = new List<Discount> { 
+            _discountList = new List<Discount> { 
                 SmallBagelBundle,
                 LargeBagelBundle,
                 CoffeeBagelBundle
@@ -30,7 +32,33 @@ namespace exercise.main.Discounts
         /// <exception cref="NotImplementedException"></exception>
         public float ApplyDiscounts(Basket basket, out List<Discount> discounts)
         {
-            throw new NotImplementedException();
+            List<Product> productsList = basket.GetProducts();
+            foreach (Discount disc in _discountList) 
+            {
+                var something = "Hello";
+            }
+            discounts = new List<Discount> { SmallBagelBundle };
+            return 0f;
+        }
+
+        private float AttemptDiscount(List<Product> productList, out List<Discount> tempDiscounts) 
+        {
+            foreach (Discount disc in _discountList) // Need to check each discount instance
+            {
+                // Check if every product
+                foreach (Product discountProduct in disc.GetSequence()) 
+                {
+                    productList.Where(prod => typeof(prod) == typeof(discountProduct))
+                    if (typeof(discountProduct) == typeof(productList))
+                    {
+
+                    }
+                    else 
+                    {
+                        break; // produts does not comply with discount sequence, break loop
+                    }
+                }
+            }
         }
     }
 }

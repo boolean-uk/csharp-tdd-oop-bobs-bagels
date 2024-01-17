@@ -9,15 +9,19 @@ namespace exercise.main.Discounts
 {
     public abstract class Discount(string name, float price)
     {
-        public List<Product> ProductSequence = new List<Product>();
+        public List<Type> ProductSequence = new List<Type>();
 
         public string Name { get { return name; } }
 
         public float DiscountPrice { get { return price; } }
 
-        public List<Product> GetSequence() 
+        /// <summary>
+        /// New list (shallow copy) return list
+        /// </summary>
+        /// <returns></returns>
+        public List<Type> GetSequence() 
         {
-            return new List<Product>(ProductSequence);
+            return new List<Type>(ProductSequence);
         }
     }
 }

@@ -11,12 +11,12 @@ namespace exercise.main.Discounts
     {
         public DiscountBundleSmall(string name, float price) : base(name, price)
         {
-            base.ProductSequence.Add(new Bagel("NA", 0f));
-            base.ProductSequence.Add(new Bagel("NA", 0f));
-            base.ProductSequence.Add(new Bagel("NA", 0f));
-            base.ProductSequence.Add(new Bagel("NA", 0f));
-            base.ProductSequence.Add(new Bagel("NA", 0f));
-            base.ProductSequence.Add(new Bagel("NA", 0f));
+            ProductSequence.Add(typeof(Bagel));
+            ProductSequence.Add(typeof(Bagel));
+            ProductSequence.Add(typeof(Bagel));
+            ProductSequence.Add(typeof(Bagel));
+            ProductSequence.Add(typeof(Bagel));
+            ProductSequence.Add(typeof(Bagel));
         }
     }
 }
