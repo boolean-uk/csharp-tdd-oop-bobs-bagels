@@ -1,5 +1,6 @@
 using exercise.main;
 using exercise.main.Items;
+using NUnit.Framework;
 using System;
 
 namespace exercise.tests;
@@ -312,12 +313,48 @@ public class Tests
         TestDelegate result2 = () => new Product(random);
         var check2 = Assert.Throws<ArgumentException>(result2);
 
-
-
-
         //Assert 
         Assert.DoesNotThrow(result1);
         Assert.AreEqual("Unsupported product", check2.Message);
+        //Assert.Throws<ArgumentException>(result1);
     }
 
+
+    [Test]
+    public void testDisCount()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+
+        Bagel bagel1 = new Bagel("Onion");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(bagel1);
+        Product product3 = new Product(bagel1);
+        Product product4 = new Product(bagel1);
+        Product product5 = new Product(bagel1);
+        Product product6 = new Product(bagel1);
+
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+        basket.setNewCapacity(12);
+        basket.Add(product1);
+        basket.Add(product2);
+        basket.Add(product3);
+        basket.Add(product4);
+        basket.Add(product5);
+        basket.Add(product6);
+        double totalprice = basket.getTotalPrice();  // Shall returns 2.94 if no discount
+
+        //Assert 
+        Assert.That(Math.Round(totalprice, 2), Is.EqualTo(2.949).Within(0.01));
+
+
+    }
 }
