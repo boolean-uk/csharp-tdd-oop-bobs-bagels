@@ -75,19 +75,26 @@ I want customers to only be able to order things that we stock in our inventory.
 ```C# 
 
 class Item
-	PROPERTIES
-	private string sku {get: set}
-	private float price {get: set}
-	private string itemName {get: set}
-	private string variant {get: set}
+PROPERTIES:
+	private string sku
+	private float price
+	private string itemName
+	private string variant
+
+METHODS:
+	public Item (string sku, float price, string itemName, string variant) // used to insitalize items into invetory
+	public Item (Item item) // Used to create copies of items
+
+
+class Bagle : Item
+PROPERTIES:
 	private List<Item> fillings
 
-	METHODS
+METHODS:
 	public Item AddFilling(Item filling)
-		return an item with the added filling
-	
+	return an item with the added filling
 	public float totalPrice()
-		return total price of item + fillings
+	return total price of item + fillings
 	
 
 
@@ -111,10 +118,12 @@ class Basket
 	PROPERTIES:
 	private float _maxCapacity = 4
 	public readonly List<Item> _basketList
-	private Inventory _inventory
 	
 
+
 	METHODS:
+	public Basket(Inventory _inventory)
+
 	public bool AddBagle(string sku)
 		// return true if it's a bagle and is added to basket
 		// return false if item dosent exist in inventory or basket is full

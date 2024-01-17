@@ -3,6 +3,16 @@ using System.Runtime.InteropServices;
 
 namespace exercise.main
 {
+
+    public class Offers
+    {       
+        private string sku;
+        private int quantity;
+        private float costReduction;
+
+        
+    }
+
     public class Item
     {
         private string _sku;
@@ -46,6 +56,8 @@ namespace exercise.main
             return totalPrice;
         }
     }
+
+
 
     public class Inventory
     {
@@ -104,14 +116,19 @@ namespace exercise.main
     {
         private int _maxCapacity = 4;
         public readonly List<Item> _basketList = new List<Item>();
-        private Inventory _inventory = new Inventory();
+        private Inventory _inventory;
+
+        public Basket(Inventory inventory)
+        {
+            _inventory = inventory;
+        }
 
         public bool AddBagel(string sku)
         {
             if (sku.Substring(0, 3) == "BGL" && _inventory.ItemExists(sku) && _basketList.Count < _maxCapacity)
             {
-                Item bagel = new Item(_inventory.GetItem(sku));
-                _basketList.Add(bagel);
+                //Item bagel = new Item(_inventory.GetItem(sku));
+                _basketList.Add(_inventory.GetItem(sku));
                 return true;
             }
             else return false;
@@ -124,8 +141,8 @@ namespace exercise.main
             {
                 if (_inventory.ItemExists(fillingSku) && fillingSku.Substring(0, 3) != "BGL")
                 {
-                    Item fillingToAdd = new Item(_inventory.GetItem(fillingSku));
-                    _basketList[index] = _basketList[index].AddFilling(fillingToAdd);
+                    //Item fillingToAdd = new Item(_inventory.GetItem(fillingSku));
+                    _basketList[index] = _basketList[index].AddFilling(_inventory.GetItem(fillingSku));
                     return true;
                 }
             }

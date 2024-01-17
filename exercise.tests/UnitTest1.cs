@@ -15,15 +15,6 @@ public class Tests
         inventory = new Inventory();
     }
 
-    /*
-    [Test]
-    public void InventoryAddItem()
-    {
-        Inventory _inventory = new Inventory();
-        Assert.That(_inventory.AddItem("BGLO", 0.49f, "Bagel", "Onion"), Is.True);
-    }
-    */
-
     [TestCase("BGLE", true)]
     [TestCase("COFC", true)]
     [TestCase("FILX", true)]
@@ -60,14 +51,14 @@ public class Tests
     [TestCase("FILB", false)]
     public void BasketAddItem(string sku, bool shouldReturn) 
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         Assert.That(_basket.AddBagel(sku), Is.EqualTo(shouldReturn));
     }
 
     [Test]
     public void BasketAddItemFull() 
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         for(int i = 0; i < 4; i++)
         {
             _basket.AddBagel("BGLO");
@@ -80,7 +71,7 @@ public class Tests
     [TestCase(-1, false)]
     public void BasketRemoveBagle(int index, bool shouldReturn)
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         _basket.AddBagel("BGLO");
         Assert.That(_basket.RemoveBagel(index), Is.EqualTo(shouldReturn));
     }
@@ -91,7 +82,7 @@ public class Tests
     [TestCase(-1, "FILB", false)]
     public void BasketAddFilling(int index, string fillingSKU, bool shouldReturn)
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         _basket.AddBagel("BGLO");
         _basket.AddBagel("BGLO");
         if(fillingSKU == "FILE")
@@ -111,7 +102,7 @@ public class Tests
     [Test]
     public void BasketTotalCost()
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         Assert.That(_basket.TotalCost(), Is.EqualTo(0));
 
         //0,49
@@ -131,7 +122,7 @@ public class Tests
     [TestCase(10, true)]
     public void BasketCangeCapacity(int newCapacity, bool shouldReturn)
     {
-        var _basket = new Basket();
+        var _basket = new Basket(inventory);
         int basketCapacity = 5;
         Assert.That(_basket.ChangeCapacity(basketCapacity), Is.True);
         for (int i = 0; i < basketCapacity; i++)
