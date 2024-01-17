@@ -102,15 +102,25 @@
         {
             Console.WriteLine("           Bob's Bagels ");
             Console.WriteLine($"        {DateTime.Now}");
-            Dictionary<string, int> x = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
+            Dictionary<string, int> countItems = Items.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
+            List<Filling> fillings = Items.Where(x => x.Sku.StartsWith("BGL")).Select(x => (Bagel)x).SelectMany(x => x.GetFillings()).ToList();
+            Dictionary<string, int> countFillings = fillings.GroupBy(x => x.Name).ToDictionary(g => g.Key, g => g.Count());
+
             Console.WriteLine("-----------------------------------");
-            foreach (KeyValuePair<string, int> item in x)
+            foreach (KeyValuePair<string, int> elem in countItems)
             {
-                string type = Items.Where(x => x.Name == item.Key).Select(x => x.Type).First();
-                string spacing = new(' ', 24 - (item.Key.Length + type.Length));
-                Console.WriteLine($"{item.Key} {type}{spacing}{item.Value}    £{Items.Where(x => x.Name == item.Key).Sum(x => x.GetPrice())}");
+                string type = Items.Where(x => x.Name == elem.Key).Select(x => x.Type).First();
+                string spacing = new(' ', 24 - (elem.Key.Length + type.Length));
+                Console.WriteLine($"{elem.Key} {type}{spacing}{elem.Value}    £{Items.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice())}");
+            }
+            foreach (KeyValuePair<string, int> elem in countFillings)
+            {
+                string type = fillings.Where(x => x.Name == elem.Key).Select(x => x.Type).First();
+                string spacing = new(' ', 24 - (elem.Key.Length + type.Length));
+                Console.WriteLine($"{elem.Key} {type}{spacing}{elem.Value}    £{fillings.Where(x => x.Name == elem.Key).Sum(x => x.GetPrice())}");
             }
             Console.WriteLine("-----------------------------------");
+
             var counts = GetDiscountCounts();
             var amounts = GetDiscountAmounts();
             foreach (DiscountTypes item in Enum.GetValues(typeof(DiscountTypes)).Cast<DiscountTypes>())
