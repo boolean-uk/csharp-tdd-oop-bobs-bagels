@@ -74,4 +74,4 @@ public abstract class ProductFAIL
 //This works:
 //ProductFAIL bagel = ProductFAIL.CreateProduct("BGLO");
 
-//However, it's still a product no matter what I do :C
+//However, it's still a product no matter what I do :C So much time was wasted on this one.

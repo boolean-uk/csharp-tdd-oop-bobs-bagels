@@ -21,12 +21,12 @@ namespace exercise.main
 
     public class Store
     {
+        private static List<Tuple<string, double, string, string>> _skuList;
+        public static List<Tuple<string, double, string, string>> SkuList { get { return _skuList; } set { _skuList = value;  }  }
 
-        public static Tuple<string, double, string, string> getSkuInfo(string sku)
+        static Store()
         {
-            sku = sku.ToUpper();
-
-            List<Tuple<string, double, string, string>> skuList = new List<Tuple<string, double, string, string>>
+            SkuList = new List<Tuple<string, double, string, string>>
             {
                 new Tuple<string, double, string, string>("BGLO", 0.49,  "Bagel",   "Onion"         ),
                 new Tuple<string, double, string, string>("BGLP", 0.39,  "Bagel",   "Plain"         ),
@@ -44,18 +44,44 @@ namespace exercise.main
                 new Tuple<string, double, string, string>("FILH", 0.12,  "Filling", "Ham"           )
 
             };
+        }
+        public Store()
+        {
 
-            return skuList.FirstOrDefault(t => t.Item1 == sku);
         }
 
-        public bool ChangeBasketSize(bool isManager)
+        public static Tuple<string, double, string, string> getSkuInfo(string sku)
         {
-            throw new NotImplementedException();
+            sku = sku.ToUpper();
+
+            return SkuList.FirstOrDefault(t => t.Item1 == sku);
         }
 
-        public bool IsProductInInventory(string v)
+        public static bool IsProductInInventory(string sKU)
         {
-            throw new NotImplementedException();
+            bool isThere = false;
+            foreach (Tuple<string, double, string, string> sku in SkuList)
+            {
+                if (sku.Item1 == sKU)
+                {
+                    isThere = true;
+                    break;
+                }
+            }
+            return isThere;
+        }
+
+        public static bool ChangeBasketSize(bool isManager, int newCapacity)
+        {
+            if (isManager && newCapacity > 0)
+            {
+                Basket.BasketCapacity = newCapacity;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -73,21 +99,25 @@ namespace exercise.main
             IsManager = isManager;
         }
 
-        public bool IsProductInInventory(string v)
+        public bool IsProductInInventory(string sKU)
         {
-            throw new NotImplementedException();
+            return Store.IsProductInInventory(sKU);
         }
 
-        public bool ChangeBasketSize()
+        public bool ChangeBasketSize(bool isManager, int newCapacity)
         {
-            throw new NotImplementedException();
+            return Store.ChangeBasketSize(isManager, newCapacity);
         }
     }
+
 
     public class Basket
     {
         List<Product> _products;
         List<Product> Products { get { return _products; } set { _products = value; } }
+
+        private static int _basketCapacity = 12;
+        public static int BasketCapacity { get { return _basketCapacity; } set {  _basketCapacity = value; } }
 
         public Basket()
         {
@@ -95,39 +125,48 @@ namespace exercise.main
         }
         public bool AddProduct(Product product)
         {
-            Products.Add(product);
+            if(Products.Count < BasketCapacity)
+            {
+                Products.Add(product);
+                return Products.Contains(product);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool RemoveProduct(Product product)
+        {
+            return Products.Remove(product);
+        }
+
+        public bool IsProductInBasket(Product product)
+        {
             return Products.Contains(product);
-        }
-
-        public int CheckCurrentCapacity()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double CheckTotalCost()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsProductInBasket(string v)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveProduct(string v)
-        {
-            throw new NotImplementedException();
         }
 
         public int TotalCapacity()
         {
-            throw new NotImplementedException();
+            return BasketCapacity;
         }
+
+        public int CheckCurrentCapacity()
+        {
+            return TotalCapacity() - Products.Count();
+        }
+
+        public double CheckTotalCost()
+        {
+            return Products.Any() ? Products.Sum(product => product.Price) : 0.0d;
+        }
+
     }
 
 
 
-    //Abstract or Interface? Abstract... perchance
+
     public abstract class Product
     {
         private string _sku = string.Empty;
@@ -168,20 +207,29 @@ namespace exercise.main
 
         public virtual double CheckPriceOfProduct()
         {
-            throw new NotImplementedException();
+            return Price;
         }
     }
 
     public class Bagel : Product
     {
+        private Filling _filling;
+        public Filling Filling { get { return _filling; } set { _filling = value; } }
+
         public Bagel(string sKU) : base(sKU)
         {
 
         }
 
-        public bool ChooseFilling(string v)
+        public bool ChooseFilling(Filling filling)
         {
-            throw new NotImplementedException();
+            Filling = filling;
+            return Filling != null;
+        }
+
+        public virtual double CheckPriceOfProduct()
+        {
+            return Filling != null ? (Price+Filling.Price) : Price;
         }
     }
 
