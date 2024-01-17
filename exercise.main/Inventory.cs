@@ -39,7 +39,26 @@ namespace exercise.main
             });
 
         }
+        public Dictionary<string, Product> getFilling() {
+            return inventory.Where(pvk => pvk.Key.StartsWith("FIL"))
+                .OrderBy(pvk => pvk.Key)
+                .ToDictionary(pvk => pvk.Key, pvk => pvk.Value);
+        }
 
-       
+        public Dictionary<string, Product> getBagel()
+        {
+            return inventory.Where(pvk => pvk.Key.StartsWith("BGL"))
+                .OrderBy(pvk => pvk.Key)
+                .ToDictionary(pvk => pvk.Key, pvk => pvk.Value);
+        }
+
+        public Dictionary<string, Product> getCoffe()
+        {
+            return inventory.Where(pvk => pvk.Key.StartsWith("FIL"))
+                .OrderBy(pvk => pvk.Key)
+                .ToDictionary(pvk => pvk.Key, pvk => pvk.Value);
+        }
+
+
     }
 }

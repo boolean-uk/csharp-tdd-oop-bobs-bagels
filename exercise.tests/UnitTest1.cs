@@ -253,4 +253,36 @@ public class Tests
         Assert.AreEqual(testResult[product1], Result[product1]);    // Checking if result have same filling as testResult
     }
 
+    [Test]
+    public void testGetPriceInventory()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Bagel bagel1 = new Bagel("Onion");
+        Coffe coffe1 = new Coffe("Black");
+        Filling filling1 = new Filling("Bacon");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(coffe1);
+        Product product4 = new Product(filling1);
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+
+        //Act
+        //Dictionary<string, double> priceList = new Dictionary<string, double>();
+        Dictionary<string, double> priceListResult = 
+            inventory.getFilling().ToDictionary(pair => pair.Value.variant, pair => pair.Value.getPrice());
+
+        //Values.ToList().ForEach(product => product.getPrice());
+
+
+
+        //Assert 
+        Assert.IsTrue(priceListResult["Bacon"] == 0.12);    // Onion = 0.49
+    }
+
 }
