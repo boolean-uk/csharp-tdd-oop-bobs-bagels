@@ -181,7 +181,7 @@ namespace exercise.tests
             double result = _bakery.CheckOut();
 
             //  Assert - check the results
-            Assert.That(result, Is.EqualTo(10.43));
+            Assert.That(result, Is.EqualTo(9.97));
         }
     }
 }

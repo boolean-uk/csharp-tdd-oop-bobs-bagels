@@ -104,7 +104,7 @@ namespace exercise.main.Class_Items
         {
             //throw new NotImplementedException();
             int bagleCount = cart.Where(i => i.Type == Product.ProdType.Bagle).Count();
-            var bagleList = cart.Where(i => i.Type == Product.ProdType.Bagle).OrderByDescending(i => i.Price).ToList();
+            var bagleList = cart.Where(i => i.Type == Product.ProdType.Bagle).OrderBy(i => i.Price).ToList();
 
 
             if (bagleCount >= 12)
@@ -125,6 +125,17 @@ namespace exercise.main.Class_Items
                     price -= _products.Find(x => x.SKU == bagleList[i].SKU).Price;
                     cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[i].SKU)));
                 }
+                price = Discount(price, cart);
+            }
+            else if (cart.Exists(x => x.Type == Product.ProdType.Bagle) && cart.Exists(x => x.Type == Product.ProdType.Coffee)) 
+            {
+                price += 1.25d;
+                price -= _products.Find(x => x.SKU == bagleList[0].SKU).Price;
+                cart.RemoveAt(cart.IndexOf(cart.Find(x => x.SKU == bagleList[0].SKU)));
+
+                price -= cart.Find(x => x.Type == Product.ProdType.Coffee).Price;
+                cart.RemoveAt(cart.IndexOf(cart.Find(x => x.Type == Product.ProdType.Coffee)));
+                
                 price = Discount(price, cart);
             }
             return price;
