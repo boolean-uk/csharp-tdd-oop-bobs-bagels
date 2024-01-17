@@ -33,7 +33,22 @@ namespace exercise.main.Objects.Containers
 
         public Product GetProduct(string productSKU)
         {
-            throw new NotImplementedException();
+            if (_stock.Where(x => x.SKU == productSKU).ToList().Count() == 0)
+            {
+                return null;
+            }
+
+            return _stock.Where(x => x.SKU == productSKU).ToList().First();
+        }
+        public double GetPrice(string productSKU)
+        {
+            
+            if (_stock.Where(x => x.SKU == productSKU).ToList().Count() == 0)
+            {
+                return -1.0d;
+            }
+
+            return _stock.Where(x => x.SKU == productSKU).ToList().First().GetPrice();
         }
 
     }

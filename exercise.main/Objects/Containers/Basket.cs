@@ -32,14 +32,25 @@ namespace exercise.main.Objects.Containers
             _contentsInBasket.Add(ware);
             return true;
         }
+        public bool AddProduct(Ware ware, uint amount)
+        {
+            if (ware == null)
+                return false;
+            if (_contentsInBasket.Count() + amount > _basketSizeLimit)
+                return false;
+
+            for(int i = 0; i < amount; i++)
+                _contentsInBasket.Add(ware);
+
+            return true;
+        }
 
         public double GetPriceTotal()
         {
             double sum = 0;
             foreach (var item in _contentsInBasket)
-            {
                 sum += item.GetPrice();
-            }
+
             return sum;
         }
 
