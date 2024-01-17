@@ -19,9 +19,19 @@ namespace exercise.main
         private int _capacity;
         private List<Product> _productList;
 
-        public void AddProduct(Product product)
+        public bool AddProduct(Product product)
         {
             _productList.Add(product);
+            /*   if (_productList.Count >= _capacity)
+               {
+                   return false;
+
+               }else {
+                   _productList.Add(product);
+                   return true;
+               }
+              */
+            return false;
         }
 
         public void RemoveProduct(Product product)

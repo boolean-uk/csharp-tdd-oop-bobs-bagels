@@ -39,4 +39,22 @@ public class Tests
 
     }
 
+    [Test]
+    public void addingProductBeyondCapacity()
+    {
+        Product product = new Product();
+        Basket basket = new Basket();
+        for(int i=0; i<= basket.Capacity;i++)
+        {
+            basket.AddProduct(product);
+        }
+        
+        Assert.That(basket.ProductList.Count == basket.Capacity);
+
+        bool Result = basket.AddProduct(product);
+
+        Assert.That(basket.ProductList.Count == basket.Capacity && Result==false);
+
+    }
+
 }
