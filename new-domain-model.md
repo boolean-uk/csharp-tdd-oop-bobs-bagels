@@ -36,6 +36,9 @@ Methods
 : `float void addFilling(string ID, Item filling)`
     * adds filling to Contents list if filling exists
     * adds filling cost to Price
+: `public void BundleOrder(string descr, string SKU, string SKU2)`
+    * makes modification to totalCost list for a bundle of 6 or 12 bagels, or bagel + coffee bundle
+    * string descr must be one of the Bundles enum
 
 
 

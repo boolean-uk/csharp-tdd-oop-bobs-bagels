@@ -198,77 +198,79 @@ public class BasketTests
     [Test]
     public void OnlyValidOrders()
     {
-        /**
-        ItemOld it1 = testBasket.AddItem("AAAA");
-        Assert.That(it1.data.SKU, Is.EqualTo("none"));
+        Bagel item2 = new Bagel("AAAA", "Fake", 0.0F, "B");
+        Filling item3 = new Filling("AAAA", "Fake", 0.0F, "B");
 
-        ItemOld it2 = testBasket.AddItem("BGLE");
-        testBasket.AddFilling(it2.ID, "AAAA");
+        Item it1 = testBasket.AddItem(item2);
+        Assert.That(it1.SKU, Is.EqualTo("none"));
 
-        List<ItemOld> fillings = it2.ListFillings();
+        Bagel it2 = (Bagel)testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddFilling(it2.ID, item3);
+
+        List<Item> fillings = it2.ListFillings();
         Assert.AreEqual(fillings.Count, 0);
-        **/
+        
 
     }
 
     [Test]
     public void DiscountBagelBundle6()
     {
-        /**
+        
         testBasket.ChangeCapacity(15);
 
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
+        Item i1 = testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
 
-        testBasket.BundleOrder("b6", "BGLE", "");
+        testBasket.BundleOrder("b6", i1, i1);
 
         float totalInit = testBasket.TotalCost();
         Assert.That(totalInit, Is.EqualTo(2.49F));
-        **/
+        
     }
 
     [Test]
     public void DiscountBagelBundle12()
     {
-        /**
+        
         testBasket.ChangeCapacity(15);
 
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("BGLE");
+        Item i1 = testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
 
-        testBasket.BundleOrder("b12", "BGLE", "");
+        testBasket.BundleOrder("b12", i1, i1);
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(3.99F));
-        **/
+        
     }
 
     [Test]
     public void DiscountCoffeeAndBagel()
     {
-        /**
-        testBasket.AddItem("BGLE");
-        testBasket.AddItem("COFB");
+        
+        Item i1 = testBasket.AddItem(inv["BGLE"]);
+        Item i2 = testBasket.AddItem(inv["COFB"]);
 
-        testBasket.BundleOrder("bac", "BGLE", "COFB");
+        testBasket.BundleOrder("bac", i1, i2);
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(1.25F));
-        **/
+        
     }
 
     [Test]
