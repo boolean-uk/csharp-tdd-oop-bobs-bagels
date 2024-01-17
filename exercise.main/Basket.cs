@@ -45,7 +45,7 @@ namespace exercise.main
         }
 
 
-        public void GetTotal(Product product)
+        public int GetTotal()
         {
             throw new NotImplementedException();
         }

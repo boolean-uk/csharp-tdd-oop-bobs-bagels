@@ -105,6 +105,27 @@ public class Tests
         } 
     }
 
+    [TestCase("BGLO", "BGLP", "BGLE")]
+    [TestCase("COFB", "COFW", "COFC")]
+    [TestCase("FILB", "FILE", "FILC")]
+    [TestCase("BGLS", "COFB", "COFW")]
+
+    public void getTotalCost(string A, string B, string C) {
+        Basket basket = new Basket();
+
+        //SKU = { "BGLO", "BGLP", "BGLE", "BGLS", "COFB", "COFW", "COFC", "COFL", "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
+        Product product1 = new Product(A);
+        Product product2 = new Product(B);
+        Product product3 = new Product(C);
+
+        basket.AddProduct(product3); basket.AddProduct(product1); basket.AddProduct(product2);
+
+        double Result = basket.GetTotal();
+        double sum = product1.Price + product2.Price + product3.Price;
+
+        Assert.That(Result, Is.EqualTo(sum));
+    
+    }
 
 
 }
