@@ -9,23 +9,22 @@ namespace exercise.tests;
 public class Extension1Tests
 {
     private Basket basket;
-    private Inventory inventory; // Assuming this is your inventory management class
+    private Inventory inventory; 
 
     [SetUp]
     public void Setup()
     {
         basket = new Basket();
         inventory = new Inventory();
-        // Assume inventory is populated with items
     }
 
     [Test]
     public void Add()
     {
-        string sku = "BGLO"; // Assuming this SKU exists in inventory
+        string sku = "BGLO";
         int id = basket.Add(sku);
         Assert.That(id, Is.Not.EqualTo(0));
-        Assert.IsTrue(basket.Order.Bagels.Any(b => b.ID == id));
+        Assert.IsTrue(basket.CustomerOrder.Bagels.Any(b => b.ID == id));
     }
 
     [Test]
@@ -39,10 +38,11 @@ public class Extension1Tests
     [Test]
     public void AddBasketIsFull()
     {
-        basket.ChangeCapacity(0); // Setting basket capacity to full
+        basket.ChangeCapacity(0);
         string sku = "BGLO";
-        int id = basket.Add(sku);
-        Assert.That(id, Is.EqualTo(0));
+
+        var exception = Assert.Throws<Exception>(() => basket.Add(sku));
+        Assert.That(exception.Message, Is.EqualTo("Bagel was not added to basket, because basket is full."));
     }
 
     [Test]
@@ -51,24 +51,14 @@ public class Extension1Tests
         string sku = "BGLO";
         int id = basket.Add(sku);
         basket.Remove(id);
-        Assert.IsFalse(basket.Order.Bagels.Any(b => b.ID == id));
+        Assert.IsFalse(basket.CustomerOrder.Bagels.Any(b => b.ID == id));
     }
 
     [Test]
     public void RemoveMissingID()
     {
-        // Add some items to the basket
-        int existingId1 = basket.Add("BGLO"); // Assuming this SKU exists
-        int existingId2 = basket.Add("BGLP"); // Assuming this SKU exists
-
-        // Attempt to remove an item with a non-existing ID
-        int nonExistingId = 999;
-        basket.Remove(nonExistingId);
-
-        // Assert that the basket still contains the originally added items
-        Assert.IsTrue(basket.Order.Bagels.Any(b => b.ID == existingId1));
-        Assert.IsTrue(basket.Order.Bagels.Any(b => b.ID == existingId2));
-        Assert.IsFalse(basket.Order.Bagels.Any(b => b.ID == nonExistingId));
+        var exception = Assert.Throws<Exception>(() => basket.Remove(999));
+        Assert.That(exception.Message, Is.EqualTo("No product with specified ID."));
     }
 
     [Test]
@@ -85,7 +75,7 @@ public class Extension1Tests
         basket.Add("BGLO");
         basket.Add("BGLP");
 
-        double expectedTotalCost = 0.49 + 0.49;
+        double expectedTotalCost = 0.49 + 0.39;
 
         double totalCost = basket.Cost();
         Assert.That(totalCost, Is.EqualTo(expectedTotalCost));
@@ -103,8 +93,8 @@ public class Extension1Tests
     public void ProductCostMissingSKU()
     {
         string sku = "INVALID_SKU";
-        double cost = basket.ProductCost(sku);
-        Assert.That(cost, Is.EqualTo(0));
+        var exception = Assert.Throws<Exception>(() => basket.ProductCost(sku));
+        Assert.That(exception.Message, Is.EqualTo("No item with the specified SKU."));
     }
 
     [Test]
@@ -112,21 +102,21 @@ public class Extension1Tests
     {
         int id = basket.Add("BGLP");
         basket.AddFilling(id, "FILH");
-        Assert.IsTrue(basket.Order.Bagels.First(b => b.ID == id).Fillings.Any(f => f.SKU == "FILH"));
+        Assert.IsTrue(basket.CustomerOrder.Bagels.First(b => b.ID == id).Fillings.Any(f => f.SKU == "FILH"));
     }
 
     [Test]
     public void AddFillingMissingID()
     {
-        basket.AddFilling(999, "FILH"); // Assuming 999 is an invalid ID
-        // Assert that filling has not been added to any bagel
+        var exception = Assert.Throws<Exception>(() => basket.AddFilling(999, "FILH"));
+        Assert.That(exception.Message, Is.EqualTo("No bagel with the specified ID."));
     }
 
     [Test]
     public void AddFillingMissingSKU()
     {
-        int id = basket.Add("BGLP");
-        basket.AddFilling(id, "INVALID_SKU");
-        Assert.IsFalse(basket.Order.Bagels.First(b => b.ID == id).Fillings.Any(f => f.SKU == "INVALID_SKU"));
+        int id = basket.Add("BGLP"); // Assuming "BGLP" is a valid SKU for a BagelVariant
+        var exception = Assert.Throws<Exception>(() => basket.AddFilling(id, "INVALID_SKU"));
+        Assert.That(exception.Message, Is.EqualTo("No item with the specified SKU."));
     }
 }

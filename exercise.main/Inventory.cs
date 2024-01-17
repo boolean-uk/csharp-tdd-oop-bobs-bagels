@@ -4,15 +4,22 @@ namespace exercise.main
 {
     public class Inventory
     {
+        public interface IInventoryItem
+        {
+            string SKU { get; }
+            string Name { get; }
+            double Price { get; }
+        }
+
         private Dictionary<string, IInventoryItem> items;
 
         public Inventory()
         {
             items = new Dictionary<string, IInventoryItem>();
 
-            foreach (var variant in BagelVariant.AllVariants)
+            foreach (var bagel in BagelVariant.AllVariants)
             {
-                items.Add(variant.SKU, variant);
+                items.Add(bagel.SKU, bagel);
             }
 
             foreach (var filling in BagelFilling.AllFillings)
@@ -33,14 +40,7 @@ namespace exercise.main
                 return item;
             }
 
-            return null; 
-        }
-
-        public interface IInventoryItem
-        {
-            string SKU { get; }
-            string Name { get; }
-            double Price { get; }
+            return null;
         }
 
         public class BagelVariant : IInventoryItem

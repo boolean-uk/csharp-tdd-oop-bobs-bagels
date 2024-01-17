@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using static exercise.main.BasketManager;
 using static exercise.main.Inventory;
 
 namespace exercise.main
@@ -59,6 +60,7 @@ namespace exercise.main
             {
                 Bagels = new List<Bagel>();
                 Coffees = new List<Coffee>();
+                Capacity = 6;
             }
 
             public void ChangeCapacity(int capacity)
@@ -68,11 +70,18 @@ namespace exercise.main
 
             public void Add(Bagel bagel)
             {
+                if (Bagels.Count + Coffees.Count >= Capacity)
+                    throw new Exception("Bagel was not added to basket, because basket is full.");
+
                 Bagels.Add(bagel);
             }
 
+
             public void Add(Coffee coffee)
             {
+                if (Bagels.Count + Coffees.Count >= Capacity)
+                    throw new Exception("Coffee was not added to basket, because basket is full.");
+
                 Coffees.Add(coffee);
             }
 
