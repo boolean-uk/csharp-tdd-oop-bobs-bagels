@@ -56,14 +56,13 @@ namespace exercise.main
             return noneItem;
         }
 
-        public void BundleOrder(string descr, string SKU, string SKU2)
+        public void BundleOrder(string descr, Item i1, Item i2)
         {
-            float extract = _basket.FirstOrDefault(x => x.SKU == SKU).Price;
-            Console.WriteLine(Bundles.b12.ToString());
+            float extract = _basket.FirstOrDefault(x => x.SKU == i1.SKU).Price;
 
             if (Bundles.b6.ToString() == descr)
             {
-                int res = _basket.Count(x => x.SKU.Contains(SKU));
+                int res = _basket.Count(x => x.SKU.Contains(i1.SKU));
                 if (res >= 6)
                 {
                     priceRemover(extract, 6);
@@ -73,10 +72,10 @@ namespace exercise.main
 
             if (Bundles.bac.ToString() == descr)
             {
-                int resb = _basket.Count(x => x.SKU.Contains(SKU));
-                int resc = _basket.Count(x => x.SKU.Contains(SKU2));
+                int resb = _basket.Count(x => x.SKU.Contains(i1.SKU));
+                int resc = _basket.Count(x => x.SKU.Contains(i2.SKU));
 
-                float extract2 = _basket.FirstOrDefault(x => x.SKU == SKU2).Price;
+                float extract2 = _basket.FirstOrDefault(x => x.SKU == i2.SKU).Price;
 
                 if (resb >= 1 && resc >= 1)
                 {
@@ -89,7 +88,7 @@ namespace exercise.main
             if (Bundles.b12.ToString() == descr)
             {
                   
-                int res2 = _basket.Count(x => x.SKU.Contains(SKU));
+                int res2 = _basket.Count(x => x.SKU.Contains(i1.SKU));
 
                 if (res2 >= 12)
                 {
