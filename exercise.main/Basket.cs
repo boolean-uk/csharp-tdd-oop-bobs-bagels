@@ -156,9 +156,46 @@ namespace exercise.main
             return 0F;
         }
 
-        public void PrintReceit()
+        public void PrintReceipt()
         {
+            DateTime dt = DateTime.Now;
+            string date = dt.Date.ToString().Split(" ")[0];
+            string time = dt.TimeOfDay.ToString().Split(".")[0];
+            float totalprice = TotalCost();
 
+            Console.WriteLine("     ~~~ Bob's Bagels ~~~");
+            Console.WriteLine("");
+            Console.WriteLine($"      {date} {time}");
+            Console.WriteLine("");
+            Console.WriteLine("------------------------------");
+
+            List<string> skuUnique = _basket.Select(x => x.SKU).Distinct().ToList();
+
+            Dictionary<string, float> bundle = new Dictionary<string, float> { ["6"] = 2.49F, ["12"] = 3.99F, ["bac"] = 1.25F };
+
+            foreach (string sku in skuUnique)
+            {
+                int countItems = _basket.Count(x => x.SKU == sku);
+                Item i = _basket.FirstOrDefault(x => x.SKU == sku);
+
+                string res = $"{i.Variant} {i.Name}";
+                int spacing = 22 - res.Length;
+                string spaces = new String(' ', spacing);
+                float itemPrice = i.Price * countItems;
+
+                if (countItems == 6 || countItems == 12 && totalCost.Count() < _basket.Count()) 
+                {
+                    itemPrice = bundle[$"{countItems}"];
+                }
+
+                Console.WriteLine($"{i.Variant} {i.Name}{spaces}{countItems}  £{itemPrice}");
+            }
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"Total                    £{totalprice}");
+            Console.WriteLine("");
+            Console.WriteLine("           Thank you");
+            Console.WriteLine("        for your order!");
         }
     }
 }
