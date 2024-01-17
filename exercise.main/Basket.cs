@@ -107,14 +107,22 @@ public class Basket
             foreach (var item in bagels)
             {
                 var bagelData = _menu.getItem(item.Sku());
-                var fillingData = _menu.getItem(item.Filling.Sku());
-                Console.WriteLine($"Id: {item.Id()} Product: {bagelData.Item2} {bagelData.Item3} Filling: {fillingData.Item3} price: {bagelData.Item1 + fillingData.Item1}");
+                if (item.Filling != null)
+                {
+                    var fillingData = _menu.getItem(item.Filling.Sku());
+                    Console.WriteLine($"Id: {item.Id()} Product: {bagelData.Item2} {bagelData.Item3} Filling: {fillingData.Item3} price: {bagelData.Item1 + fillingData.Item1}");
+                }
+                else
+                {
+                    Console.WriteLine($"Id: {item.Id()} Product: {bagelData.Item2} {bagelData.Item3} price: {bagelData.Item1}");
+                }
             }
             foreach(var item in coffees)
             {
                 var coffeeData = _menu.getItem(item.Sku());
                 Console.WriteLine($"Id: {item.Id()} Product: {coffeeData.Item2} {coffeeData.Item3} price: {coffeeData.Item1}");
             }
+            Console.WriteLine($"Total price: {getBasketPrice()}");
         }
         Console.WriteLine("----------------------");
     }

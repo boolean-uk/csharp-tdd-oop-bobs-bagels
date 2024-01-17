@@ -28,16 +28,16 @@ public class Menu
     public Tuple<double, string, string> getItem(string sku)
     {
         if (_menu.ContainsKey(sku.Trim())) return _menu[sku.Trim()];
-        
+
         return new Tuple<double, string, string>(0.00, "", "");
     }
 
-    public void printCoffeeMenu()
+    public void printSkuMenu(string type)
     {
-        var coffees = _menu.SelectMany(x => x.Key.Contains("COF") ? new[] { x } : Enumerable.Empty<KeyValuePair<string, Tuple<double, string, string>>>()).ToList();
-        foreach (var coffe in coffees)
+        var items = _menu.SelectMany(x => x.Key.Contains(type) ? new[] { x } : Enumerable.Empty<KeyValuePair<string, Tuple<double, string, string>>>()).ToList();
+        foreach (var item in items)
         {
-            Console.WriteLine($"Sku: {coffe.Key} Product: {coffe.Value.Item2} {coffe.Value.Item3} Price: {coffe.Value.Item1}");
+            Console.WriteLine($"Sku: {item.Key} Product: {item.Value.Item2} {item.Value.Item3} Price: {item.Value.Item1}");
         }
     }
 }

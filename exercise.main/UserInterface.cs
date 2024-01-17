@@ -2,6 +2,10 @@
 
 public class UserInterface
 {
+    private static string BAGEL_SKU_TYPE = "BGL";
+    private static string FILLING_SKU_TYPE = "FIL";
+    private static string COFFEE_SKU_TYPE = "COF";
+
     private Basket _basket;
     private Menu _menu;
     private int _id = 1;
@@ -59,12 +63,33 @@ public class UserInterface
 
     public void addBagel()
     {
-        throw new NotImplementedException();
+        _menu.printSkuMenu(BAGEL_SKU_TYPE);
+        Console.WriteLine("Enter the Sku of the desired product: ");
+        string input = Console.ReadLine().ToUpper().Trim();
+        bool result = _basket.add(_id, input);
+        Console.Clear();
+        if (!result)
+        {
+            Console.WriteLine("Could not add Bagel, make sure the Sku is correct and the basket has space for more items.");
+            input = Console.ReadLine().ToUpper().Trim();
+        }
+        else
+        {
+            Console.WriteLine("Bagel added");
+            _menu.printSkuMenu(FILLING_SKU_TYPE);
+            Console.WriteLine("Enter the Sku of the desired filling or nothing for no filling: ");
+            input = Console.ReadLine().ToUpper().Trim();
+            result = _basket.addFilling(_id, input);
+            Console.Clear();
+            if (!result) Console.WriteLine("No filling added.");
+            else Console.WriteLine("Filling added.");
+            _id++;
+        }
     }
 
     public void addCoffee()
     {
-        _menu.printCoffeeMenu();
+        _menu.printSkuMenu(COFFEE_SKU_TYPE);
         Console.WriteLine("Enter the Sku of the desired product: ");
         string input = Console.ReadLine().ToUpper().Trim();
         bool result = _basket.add(_id, input);
