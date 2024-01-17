@@ -151,6 +151,18 @@ public class Tests
         bool Result = product.AddFilling("FILB");
                 
         Assert.That(product.Fillings.Count>0,Is.EqualTo(Result));
+        Assert.IsTrue(product.Fillings.Count > 0);
+
+    }
+    [Test]
+    public void getCostOfFillig()
+    {
+        
+        //SKU Fillings = { "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
+        Filling filling = new Filling("FILB");
+        double Result = filling.Price;
+
+        Assert.That(Result > 0, Is.EqualTo(filling.Price == 0.12));
 
     }
 

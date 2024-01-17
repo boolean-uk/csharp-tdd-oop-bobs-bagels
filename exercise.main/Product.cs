@@ -89,16 +89,23 @@ namespace exercise.main
             _SKU = sku;
             _variant = setVariant(sku);
         }
+        public Filling()
+        {
+            _name = "Filling";
+            _SKU = "FILB";
+            _price = 0.12;
+            _variant = "Bacon";
+        }
         private string setVariant(string sku)
         {
             Inventory inventory = new Inventory();
             return inventory.Fillings[sku];
         }
 
-        private string _name = "Filling";
-        private string _SKU = "FILB";
-        private double _price = 0.12;
-        private string _variant = "Bacon";
+        private string _name;
+        private string _SKU;
+        private double _price;
+        private string _variant;
 
 
         public string Name { get => _name; }
