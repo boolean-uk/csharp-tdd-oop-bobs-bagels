@@ -148,7 +148,9 @@ public class BasketTests
         Assert.That(itemPrice1, Is.EqualTo(0.49F));
         Assert.That(itemPrice2, Is.EqualTo(0.39F));
 
-        float itemPrice3 = testBasket.GetItemPrice("AAAA");
+        Bagel item2 = new Bagel("AAAA", "Fake", 0.0F, "B");
+
+        float itemPrice3 = testBasket.GetItemPrice(item2);
         Assert.That(itemPrice3, Is.EqualTo(0F));
         
     }
@@ -168,16 +170,21 @@ public class BasketTests
     [Test]
     public void AddFillings()
     {
-        /
-        Item it1 = testBasket.AddItem(inv["BGLE"]);
-        Item it2 = testBasket.AddItem(inv["BGLE"]);
+        
+        Bagel it1 = (Bagel)testBasket.AddItem(inv["BGLE"]);
+        Bagel it2 = (Bagel)testBasket.AddItem(inv["BGLE"]);
+
+        Filling f1 = (Filling)inv["FILE"];
+        Filling f2 = (Filling)inv["FILH"];
+        Filling f3 = (Filling)inv["FILB"];
 
         Assert.That(it1.SKU, Is.EqualTo("BGLE"));
         Assert.That(it2.SKU, Is.EqualTo("BGLE"));
 
-        testBasket.AddFilling(it1.ID, "FILE");
-        testBasket.AddFilling(it2.ID, "FILH");
-        testBasket.AddFilling(it2.ID, "FILB");
+
+        testBasket.AddFilling(it1, f1);
+        testBasket.AddFilling(it2, f2);
+        testBasket.AddFilling(it2, f3);
 
         List<Item> fillings = it1.ListFillings();
         Assert.That(fillings[0].SKU, Is.EqualTo("FILE"));
