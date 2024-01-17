@@ -56,3 +56,13 @@ Assuming this can be integrated into 2., that it does not necessarily require de
 
 ### 7.
 Interpret the "cost of bagel" to also extend to coffee if selected as item to add to basket. 
+
+# Extension 1
+_(Only new additions, these are built on top of the old classes)_
+| Classes | fields | 
+|-|-|
+| `DiscountManager` | |
+
+| Classes | Methods | Scenario (user_story_#) | Outputs | 
+| `Bagel` | `GetBasePrice` | Retrieve the price of the base bagel (excluding fillings) | float | 
+| `DiscountManager` | `ApplyDiscount(Basket basket)` | Apply the most beneficial discount to the basket and return the new total price | float | 

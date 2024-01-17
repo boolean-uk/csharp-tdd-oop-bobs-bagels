@@ -22,6 +22,11 @@ namespace exercise.main.Products
             return _basePrice + filling.Sum(fill => fill.GetPrice());
         }
 
+        public float GetBasePrice()
+        { 
+            return _basePrice;
+        }
+
         public string GetSKUName()
         {
             return _SKUName;
