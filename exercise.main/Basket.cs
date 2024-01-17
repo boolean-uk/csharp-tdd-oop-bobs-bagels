@@ -49,6 +49,13 @@ namespace exercise.main
         public double getTotalPrice()
         {
             _total = _basket.Sum(product => product.getPrice());
+            double discount = checkDisCount();
+            //Check if the discount scenario occurs:
+            if (discount > 0)
+            {
+                _total -= discount;
+            }
+
             return _total;
         }
 
@@ -76,7 +83,8 @@ namespace exercise.main
                     {
                         _sandWiches[product1].Add(product5);
                     }
-                    else {
+                    else
+                    {
                         throw new Exception("Check the basket capacity");
                     }
                 }
@@ -94,11 +102,79 @@ namespace exercise.main
 
         // Method returning the sandwich
         public Dictionary<Product, List<Product>> getSandwich()
-        {   
+        {
             return _sandWiches;
         }
 
         public int capacity { get { return _capacity; } }
 
+        //Method for calculating the discount:
+        public double checkDisCount()
+        {
+            double discount = 0;
+            int productCount = _basket.Count(product => product.name == "Bagel");
+
+            
+            while (productCount > 0)
+            {
+
+                // Get a list of the bagels sorted by lowest price
+                if (productCount >= 12)
+                {
+                    var sortBasket = _basket.Where(product => product.name == "Bagel")
+                            .OrderBy(product => product.getPrice())
+                            .Take(12);
+
+                    productCount -= 12;
+                    double first12Items = sortBasket.Sum(product => product.getPrice());
+
+                    //Check if the sum of the first 12 cheapest is acutally higher than discount price:
+                    if (3.99 - first12Items < 0)
+                    {
+
+                        discount += (0.49 * 12) - 3.99;
+                    }
+                    else
+                    {
+                        discount += 0;
+                    }
+
+                }
+
+                else if (productCount >= 6)
+                {
+                   
+                        // Get a list of the bagels sorted by lowest price
+                        var sortBasket = _basket.Where(product => product.name == "Bagel")
+                            .OrderBy(product => product.getPrice())
+                            .Take(6);
+                   
+                    productCount -= 6;
+                     double first6Items = sortBasket.Sum(product => product.getPrice());
+                   
+                    //Check if the sum of the first 12 cheapest is acutally higher than discount price:
+                    if (2.49 - first6Items < 0)
+                    {
+
+                        discount += (0.49 * 6) - 2.49;
+                    }
+                    else
+                    {
+                        discount += 0;
+                    }
+
+                }
+                else
+                {
+                    productCount = -1;
+                     discount += 0;
+                }
+            }
+
+            return discount;
+        }
+
     }
+
+
 }

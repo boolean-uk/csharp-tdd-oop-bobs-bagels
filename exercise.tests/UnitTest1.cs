@@ -321,7 +321,7 @@ public class Tests
 
 
     [Test]
-    public void testDisCount()
+    public void testDisCount1()
     {
         //Arrange
         Inventory inventory = new Inventory();
@@ -341,7 +341,6 @@ public class Tests
         //"Black","White","Capuccino","Latte"
         // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
 
-
         //Act
         basket.setNewCapacity(12);
         basket.Add(product1);
@@ -353,8 +352,55 @@ public class Tests
         double totalprice = basket.getTotalPrice();  // Shall returns 2.94 if no discount
 
         //Assert 
-        Assert.That(Math.Round(totalprice, 2), Is.EqualTo(2.949).Within(0.01));
+        Assert.That(Math.Round(totalprice, 2), Is.EqualTo(2.49).Within(0.01));
 
+    }
+
+    [Test]
+    public void testDisCount2()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+
+        Bagel bagel1 = new Bagel("Onion");
+
+        Product product1 = new Product(bagel1);
+        Product product2 = new Product(bagel1);
+        Product product3 = new Product(bagel1);
+        Product product4 = new Product(bagel1);
+        Product product5 = new Product(bagel1);
+        Product product6 = new Product(bagel1);
+        Product product7 = new Product(bagel1);
+        Product product8 = new Product(bagel1);
+        Product product9 = new Product(bagel1);
+        Product product10 = new Product(bagel1);
+        Product product11 = new Product(bagel1);
+        Product product12 = new Product(bagel1);
+
+
+        //"Onion","Plain","Everything","Sesame"
+        //"Black","White","Capuccino","Latte"
+        // "Bacon","Egg","Cheese","Cream Cheese", "Smoked Salmon", "Ham"
+
+        //Act
+        basket.setNewCapacity(12);
+        basket.Add(product1);
+        basket.Add(product2);
+        basket.Add(product3);
+        basket.Add(product4);
+        basket.Add(product5);
+        basket.Add(product6);
+        basket.Add(product7);
+        basket.Add(product8);
+        basket.Add(product9);
+        basket.Add(product10);
+        basket.Add(product11);
+        basket.Add(product12);
+        double totalprice = basket.getTotalPrice();  // Shall returns 2.94 if no discount
+
+        //Assert 
+        Assert.That(Math.Round(totalprice, 2), Is.EqualTo(3.99).Within(0.01));
 
     }
 }
