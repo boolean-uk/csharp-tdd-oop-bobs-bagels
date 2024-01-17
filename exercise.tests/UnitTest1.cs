@@ -1,7 +1,4 @@
 using exercise.main;
-using NUnit.Framework.Internal.Execution;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Emit;
 
 namespace exercise.tests;
 
@@ -36,11 +33,12 @@ public class Tests
     [TestCase("BGLO", "BGLO", 0.49f, "Bagle", "Onion")]
     [TestCase("BGLX", "BGLO", 0.49f, "Bagle", "Onion")]
     public void InventoryGetItem(string sku, string expectedSKU, float expectedPrice, string expectedName, string expectedVariant)
-    { 
-        if(sku == "BGLO")
+    {
+        if (sku == "BGLO")
         {
             Assert.That(inventory.GetItem(sku), Is.Not.Null);
-        } else
+        }
+        else
         {
             Assert.That(inventory.GetItem(sku), Is.Null);
         }
@@ -49,17 +47,17 @@ public class Tests
     [TestCase("BGLO", true)]
     [TestCase("COFB", false)]
     [TestCase("FILB", false)]
-    public void BasketAddItem(string sku, bool shouldReturn) 
+    public void BasketAddItem(string sku, bool shouldReturn)
     {
         var _basket = new Basket(inventory);
         Assert.That(_basket.AddBagel(sku), Is.EqualTo(shouldReturn));
     }
 
     [Test]
-    public void BasketAddItemFull() 
+    public void BasketAddItemFull()
     {
         var _basket = new Basket(inventory);
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             _basket.AddBagel("BGLO");
         }
@@ -76,8 +74,8 @@ public class Tests
         Assert.That(_basket.RemoveBagel(index), Is.EqualTo(shouldReturn));
     }
 
-    [TestCase(0,"FILB" ,true)]
-    [TestCase(0,"FILE" ,true)]
+    [TestCase(0, "FILB", true)]
+    [TestCase(0, "FILE", true)]
     [TestCase(0, "BGLP", false)]
     [TestCase(-1, "FILB", false)]
     public void BasketAddFilling(int index, string fillingSKU, bool shouldReturn)
@@ -85,17 +83,17 @@ public class Tests
         var _basket = new Basket(inventory);
         _basket.AddBagel("BGLO");
         _basket.AddBagel("BGLO");
-        if(fillingSKU == "FILE")
+        if (fillingSKU == "FILE")
         {
             _basket.AddFilling(index, fillingSKU);
             _basket.AddFilling(index, fillingSKU);
-            Assert.That(_basket._basketList[0].TotalPrice(), Is.EqualTo(0.49 + 0.12 + 0.12).Within(0.05));
-            Assert.That(_basket._basketList[1].TotalPrice(), Is.EqualTo(0.49).Within(0.005));
+            Assert.That(_basket._basketList[0].GetPrice(), Is.EqualTo(0.49 + 0.12 + 0.12).Within(0.05));
+            Assert.That(_basket._basketList[1].GetPrice(), Is.EqualTo(0.49).Within(0.005));
         }
         else
         {
             Assert.That(_basket.AddFilling(index, fillingSKU), Is.EqualTo(shouldReturn));
-            Assert.That(_basket._basketList[1].TotalPrice(), Is.EqualTo(0.49).Within(0.005));
+            Assert.That(_basket._basketList[1].GetPrice(), Is.EqualTo(0.49).Within(0.005));
         }
     }
 
