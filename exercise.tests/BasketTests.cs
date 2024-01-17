@@ -60,132 +60,132 @@ public class BasketTests
     [Test]
     public void CapacityExceededMessage()
     {
-        /**
+        
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
-        testBasket.AddItem("BGLO");
-        testBasket.AddItem("BGLP");
-        testBasket.AddItem("COFB");
-        testBasket.AddItem("BGLS");
-        testBasket.AddItem("COFW");
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLP"]);
+        testBasket.AddItem(inv["COFB"]);
+        testBasket.AddItem(inv["BGLS"]);
+        testBasket.AddItem(inv["COFW"]);
 
-        Item res = testBasket.AddItem("BGLE");
+        Item res = testBasket.AddItem(inv["BGLE"]);
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.That(res.data.SKU, Is.EqualTo("none"));
-        **/
+        Assert.That(res.SKU, Is.EqualTo("none"));
+  
     }
 
     [Test]
     public void ChangeCapacity()
     {
-        /**
+        
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
         testBasket.ChangeCapacity(3);
 
-        testBasket.AddItem("BGLO");
-        testBasket.AddItem("BGLP");
-        testBasket.AddItem("COFB");
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLP"]);
+        testBasket.AddItem(inv["COFB"]);
 
-        Item res = testBasket.AddItem("BGLE");
+        Item res = testBasket.AddItem(inv["BGLE"]);
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
 
-        Assert.That(res.data.SKU, Is.EqualTo("none"));
-        **/
+        Assert.That(res.SKU, Is.EqualTo("none"));
+        
     }
 
     [Test]
     public void NotRemovable()
     {
-        /**
+       
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
-        Item t1 = testBasket.AddItem("BGLO");
-        Item t2 = testBasket.AddItem("BGLO");
+        Item t1 = testBasket.AddItem(inv["BGLO"]);
+        Item t2 = testBasket.AddItem(inv["BGLO"]);
 
-        bool res = testBasket.RemoveItem("BGLE");
+        bool res = testBasket.RemoveItem(inv["BGLE"]);
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         Assert.That("Item not in basket!", Is.EqualTo(outputLines[0]));
 
         Assert.IsFalse(res);
-        **/
+        
 
     }
 
     [Test]
     public void TotalCostReceived()
     {
-        /**
+        
         float totalInit = testBasket.TotalCost();
 
         Assert.That(totalInit, Is.EqualTo(0F));
 
-        Item t1 = testBasket.AddItem("BGLO");
-        Item t2 = testBasket.AddItem("BGLE");
+        Item t1 = testBasket.AddItem(inv["BGLO"]);
+        Item t2 = testBasket.AddItem(inv["BGLE"]);
 
         float total = testBasket.TotalCost();
 
         Assert.That(total, Is.EqualTo(0.98F));
-        **/
+        
     }
 
     [Test]
     public void ItemPriceRetreivable()
     {
-        /**
-        float itemPrice1 = testBasket.GetItemPrice("BGLO");
-        float itemPrice2 = testBasket.GetItemPrice("BGLP");
+        
+        float itemPrice1 = testBasket.GetItemPrice(inv["BGLO"]);
+        float itemPrice2 = testBasket.GetItemPrice(inv["BGLP"]);
 
         Assert.That(itemPrice1, Is.EqualTo(0.49F));
         Assert.That(itemPrice2, Is.EqualTo(0.39F));
 
         float itemPrice3 = testBasket.GetItemPrice("AAAA");
         Assert.That(itemPrice3, Is.EqualTo(0F));
-        **/
+        
     }
 
     [Test]
     public void FillingPriceRetreivable()
     {
-        /**
-        float itemPrice1 = testBasket.GetItemPrice("FILX");
-        float itemPrice2 = testBasket.GetItemPrice("FILS");
+        
+        float itemPrice1 = testBasket.GetItemPrice(inv["FILX"]);
+        float itemPrice2 = testBasket.GetItemPrice(inv["FILS"]);
 
         Assert.That(itemPrice1, Is.EqualTo(0.12F));
         Assert.That(itemPrice2, Is.EqualTo(0.12F));
-        **/
+        
     }
 
     [Test]
     public void AddFillings()
     {
-        /**
-        Item it1 = testBasket.AddItem("BGLE");
-        Item it2 = testBasket.AddItem("BGLE");
+        /
+        Item it1 = testBasket.AddItem(inv["BGLE"]);
+        Item it2 = testBasket.AddItem(inv["BGLE"]);
 
-        Assert.That(it1.data.SKU, Is.EqualTo("BGLE"));
-        Assert.That(it2.data.SKU, Is.EqualTo("BGLE"));
+        Assert.That(it1.SKU, Is.EqualTo("BGLE"));
+        Assert.That(it2.SKU, Is.EqualTo("BGLE"));
 
         testBasket.AddFilling(it1.ID, "FILE");
         testBasket.AddFilling(it2.ID, "FILH");
         testBasket.AddFilling(it2.ID, "FILB");
 
         List<Item> fillings = it1.ListFillings();
-        Assert.That(fillings[0].data.SKU, Is.EqualTo("FILE"));
+        Assert.That(fillings[0].SKU, Is.EqualTo("FILE"));
 
         List<Item> fillings2 = it2.ListFillings();
-        Assert.That(fillings2[0].data.SKU, Is.EqualTo("FILH"));
-        Assert.That(fillings2[1].data.SKU, Is.EqualTo("FILB"));
-        **/
+        Assert.That(fillings2[0].SKU, Is.EqualTo("FILH"));
+        Assert.That(fillings2[1].SKU, Is.EqualTo("FILB"));
+        
     }
 
     [Test]
