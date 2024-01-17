@@ -94,6 +94,14 @@ namespace exercise.main
 
         }
 
+        /// <summary>
+        /// Returns a NEW list of items in the basket
+        /// </summary>
+        /// <returns></returns>
+        public List<Product> GetProducts() 
+        {
+            return new List<Product>( _basket );
+        }
 
         public bool IsFull() 
         {

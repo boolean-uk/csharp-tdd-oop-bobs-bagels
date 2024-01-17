@@ -133,6 +133,59 @@ namespace exercise.tests
             Assert.That(discounts3[0].Name, Is.EqualTo("coffee and bagel"));
             Assert.That(discounts3[0].DiscountPrice, Is.EqualTo(1.25f));
         }
+
+
+    [Test]
+    public void DiscountDoubleBulkBagelsTest()
+    {
+        // Arrange
+        DiscountManager discounter = new DiscountManager();
+        Basket basket = new Basket(); // 12 bagels
+        basket.SetBasketSize(30);
+        Product prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
+        Product prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
+
+        // 12 bagel discount. 12 for 3.99
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+        basket.AddItemToBasket(prod1);
+
+        // 12 bagel discount. 12 for 3.99
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+        basket.AddItemToBasket(prod2);
+
+        // Act
+        List<Discount> discounts = new List<Discount>();
+        float res = discounter.ApplyDiscounts(basket, out discounts);
+
+
+        // Assert
+        Assert.That(res, Is.EqualTo(10.86f));
+        Assert.That(discounts[0].Name, Is.EqualTo("12 bagels"));
+        Assert.That(discounts[0].DiscountPrice, Is.EqualTo(3.99f));
+        Assert.That(discounts[1].Name, Is.EqualTo("12 bagels"));
+        Assert.That(discounts[1].DiscountPrice, Is.EqualTo(3.99f));
+
+        }
     }
 }
 

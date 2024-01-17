@@ -9,7 +9,7 @@ namespace exercise.main.Discounts
     public class DiscountManager
     {
         Discount SmallBagelBundle = new DiscountBundleSmall("6 bagels", 2.49f);
-        Discount LargeBagelBundle = new DiscountBundleSmall("12 bagels", 3.99f);
+        Discount LargeBagelBundle = new DiscountBundleLarge("12 bagels", 3.99f);
         Discount CoffeeBagelBundle = new DiscountBundleSmall("coffee and bagel", 1.25f);
 
         List<Discount> discounts;
