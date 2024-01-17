@@ -27,14 +27,17 @@
 | | `IsValid(Product item)` | Validate that the provided item is in the inventory | true |
 | | | If provided item is not in the inventory | false | 
 | `Product` (interface) | `GetPrice()` | Retrieve the price of the product | float |
+| | `GetBasePrice()` | Retrieve the base price of the product | float |
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Bagel` | `AddFilling(Filling fill)` | Add filling to bagel (1,8) | true |
 | | | Failed to add filling (1, 8, 10) | false | 
 | | `GetPrice()` | Retrieve price of the complete bagel including filling (7) | float |
+| | `GetBasePrice()` | Retrieve the base price of the product | float |
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Coffee` | `GetPrice()` | Retrieve price of the coffee | float |
+| | `GetBasePrice()` | Retrieve the base price of the product | float |
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
 | | | Failed to add item to product (1,2,10) | false |
 | `Filling` | `GetPrice()` | Retrieve filling cost (9) | float | 
@@ -58,11 +61,19 @@ Assuming this can be integrated into 2., that it does not necessarily require de
 Interpret the "cost of bagel" to also extend to coffee if selected as item to add to basket. 
 
 # Extension 1
-_(Only new additions, these are built on top of the old classes)_
+_(Only new additions, these are built on top of the old classes)
+
 | Classes | fields | 
 |-|-|
-| `DiscountManager` | |
+| `DiscountManager` (*static*) | |
+| `Discount`| `List<Type> ProductSequence` `string Name` `float DiscountPrice` |
 
 | Classes | Methods | Scenario (user_story_#) | Outputs | 
+|-|-|-|-|
+| `Basket`| `GetBasketPriceAfterDiscount()` | Returns the final price of the basket after applying all discounts | float |
 | `Bagel` | `GetBasePrice` | Retrieve the price of the base bagel (excluding fillings) | float | 
-| `DiscountManager` | `ApplyDiscount(Basket basket)` | Apply the most beneficial discount to the basket and return the new total price | float | 
+| `DiscountManager` | `ApplyDiscount(Basket basket)` (*static*) | Apply the most beneficial discount to the basket and return the new total price | float | 
+| `Discount`(abstract) | `GetSequence()` | Retrieve a shallow copy list of Types in the discount sequence | List<Type> |
+| `DiscountBundleBagelAndCoffee` (implementes Discount) | - | - | - |
+| `DiscountBundleLarge` (implements Discount) | - | - | - |
+| `DiscountMundleSmall` (implements Discount) | - | - | - |
