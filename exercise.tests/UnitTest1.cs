@@ -25,7 +25,17 @@ public class Tests
     [Test]
     public void removeProductFromBasket()
     {
-       Assert.Pass();
+        Product product = new Product();
+        Basket basket = new Basket();
+
+        basket.AddProduct(product);
+        basket.AddProduct(product);
+        basket.AddProduct(product);
+        Assert.That(basket.ProductList.Count == 3);
+
+        basket.RemoveProduct(product);
+        
+        Assert.That(basket.ProductList.Count < 3);
 
     }
 
