@@ -12,13 +12,17 @@ Bagel onion = new Bagel(BagelType.Onion);
 basket.Add(onion);
 onion.Add(new Filling(FillingType.CreamedCheese));
 basket.Add(new Bagel(BagelType.Sesame));
+
 basket.Add(new Coffee(CoffeeType.Latte));
 basket.Add(new Coffee(CoffeeType.Black));
 basket.Add(new Coffee(CoffeeType.Latte));
 basket.Add(new Coffee(CoffeeType.Black));
+
 for ( int i = 0; i < 100; i++)
 {
     basket.Add(new Bagel(BagelType.Plain));
 }
 
+// 103 bagels, 4 coffee + 1 filling
+// 8 * 12 + 1 * 6 + 1 bagels
 basket.WriteReceipt();

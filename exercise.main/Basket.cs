@@ -40,7 +40,8 @@ namespace exercise.main
             products = products.OrderBy(x => x.itemNr).ToList();
 
             // check if bagels should be discounted
-            if ( bagels >= 6) total += bagelDeals(bagels, out deals);
+            if ( bagels >= 12) total += bagelDeals(bagels, 12, out deals);
+            if (bagels - deals >= 6) total += bagelDeals(bagels, 6, out deals); 
 
 
             int coffeeDeals = Math.Min(bagels - deals, products.Count - bagels);
@@ -50,14 +51,15 @@ namespace exercise.main
             return total + products.Sum(x => x.GetPrice());
         }
 
-        private double bagelDeals(int bagels, out int deals)
+        private double bagelDeals(int bagels, int count, out int deals)
         {
-            deals = (bagels / 6) * 6;
+            deals = (bagels / count) * count;
             for (int i = 0; i < deals; i++)
             {
                 products[i].price = 0;
             }
-            return( (bagels / 12) * 3.99d + ((bagels % 12) / 6) * 2.49d);
+            if (count == 12) return (bagels / 12) * 3.99d;
+            return ((bagels % 12) / 6) * 2.49d;
         }
 
         private double CoffeeDeals(int bagels, int coffeeDeals, int deals = 0)
@@ -156,10 +158,35 @@ namespace exercise.main
                 Console.WriteLine(sb.ToString());
             }
 
-            double cost = bagelDeals(bagels, out deals);
+            
+            double cost, 
+                costDeal;
 
             Console.WriteLine($"\n{new string('-', 36)}\n");
 
+            if ( bagels  >= 12)
+            {
+                cost = products.Take((bagels / 12)*12).Sum(x => x.GetPrice());
+                costDeal = bagelDeals(bagels, 12, out deals);
+
+                Console.WriteLine("12 Bagels for £3.99        {0}  -£{1:F2}", bagels / 12, Math.Abs(costDeal - cost));
+            }
+
+
+            if ( bagels >= 6 )
+            {
+                cost = products.Skip(deals).Take(((bagels % 12) / 6)*6).Sum(x => x.GetPrice());
+                costDeal = bagelDeals(bagels, 6, out deals);
+
+                Console.WriteLine("6 Bagels for £2.49         1  -£{0:F2}", Math.Abs(costDeal - cost));
+            }
+
+            int coffeeDeals = Math.Min(bagels - deals, products.Count - bagels);
+            if ( coffeeDeals > 0 )
+            {
+                cost = products.Skip(deals).Take(coffeeDeals).Sum(x => x.GetPrice());
+                costDeal = CoffeeDeals(bagels, coffeeDeals, deals);
+            }
 
 
             Console.WriteLine($"\n{new string('-', 36)}\n");
