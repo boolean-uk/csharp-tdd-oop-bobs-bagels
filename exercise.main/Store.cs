@@ -61,27 +61,42 @@ namespace exercise.main
 
         public User GetActiveUser()
         {
-            throw new NotImplementedException();
+            return Users[Users.FindIndex(user => user.UserID == ActiveUser)];
         }
 
         public void AddToBasket(string itemID, int count = 1)
         {
-            throw new NotImplementedException();
+            BaseItem? item = GetBaseItemByID(itemID);
+            if (item != null)
+            {
+                GetActiveUser().AddToBasket(item, count);
+            }
         }
 
         public void RemoveFromBasket(int basketIndex = -1)
         {
-            throw new NotImplementedException();
+            if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
+            GetActiveUser().RemoveFromBasket(basketIndex);
         }
 
         public void IncludeAddOn(string itemID, int basketIndex = -1)
         {
-            throw new NotImplementedException();
+            AddOn? addOn = GetAddOnByID(itemID);
+            if (addOn != null)
+            {
+                if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
+                GetActiveUser().IncludeAddOn(basketIndex, addOn);
+            }
         }
 
         public void ExcludeAddOn(string itemID, int basketIndex = -1)
         {
-            throw new NotImplementedException();
+            AddOn? addOn = GetAddOnByID(itemID);
+            if (addOn != null)
+            {
+                if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
+                GetActiveUser().ExcludeAddOn(basketIndex, addOn);
+            }
         }
 
 
@@ -100,7 +115,7 @@ namespace exercise.main
             }
             return false;
         }
-        
+
         private bool HasAdminPriveleges()
         {
             return Managers.Contains(ActiveUser);
@@ -113,5 +128,24 @@ namespace exercise.main
             return isABaseItemID || isAnAddOnID;
         }
 
+
+        private IMenuItem GetMenuItemByID(string itemID, IEnumerable<IMenuItem> itemList)
+        {
+            foreach (IMenuItem item in itemList)
+            {
+                if (item.ItemID == itemID) return item;
+            }
+            throw new KeyNotFoundException($"Could not find menu item with ID={itemID}.");
+        }
+
+        private BaseItem? GetBaseItemByID(string itemID)
+        {
+            return GetMenuItemByID(itemID, BaseItems) as BaseItem;
+        }
+
+        private AddOn? GetAddOnByID(string itemID)
+        {
+            return GetMenuItemByID(itemID, AddOns) as AddOn;
+        }
     }
 }

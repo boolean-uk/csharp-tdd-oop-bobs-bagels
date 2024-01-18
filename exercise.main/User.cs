@@ -19,22 +19,25 @@ namespace exercise.main
 
         public void AddToBasket(BaseItem item, int count = 1)
         {
-            throw new NotImplementedException();
+            Basket.Add(new BasketEntry(item, count));
         }
 
-        public void RemoveItem(int basketIndex)
+        public void RemoveFromBasket(int basketIndex)
         {
-            throw new NotImplementedException();
+            if (IsValidBasketIndex(basketIndex)) Basket.RemoveAt(basketIndex);
+            else throw new InvalidOperationException("There is no menu item at the specified location.");
         }
 
         public void IncludeAddOn(int basketIndex, AddOn addOn)
         {
-            throw new NotImplementedException();
+            if (IsValidBasketIndex(basketIndex)) Basket[basketIndex].IncludeAddOn(addOn);
+            else throw new InvalidOperationException("There is no menu item at the specified location.");
         }
 
         public void ExcludeAddOn(int basketIndex, AddOn addOn)
         {
-            throw new NotImplementedException();
+            if (IsValidBasketIndex(basketIndex)) Basket[basketIndex].ExcludeAddOn(addOn);
+            else throw new InvalidOperationException("There is no menu item at the specified location.");
         }
 
         public decimal BasketTotalCost()

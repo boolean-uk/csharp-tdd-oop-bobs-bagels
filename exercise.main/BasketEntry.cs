@@ -23,12 +23,12 @@ namespace exercise.main
 
         public void IncludeAddOn(AddOn addOn)
         {
-            throw new NotImplementedException();
+            if(!AddOns.Contains(addOn)) AddOns.Add(addOn);
         }
 
         public void ExcludeAddOn(AddOn addOn)
         {
-            throw new NotImplementedException();
+            if (AddOns.Contains(addOn)) AddOns.Remove(addOn);
         }
 
         public BaseItem BaseItem { get => _baseItem; }
