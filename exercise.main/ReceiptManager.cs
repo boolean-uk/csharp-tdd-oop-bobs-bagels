@@ -2,6 +2,7 @@
 using exercise.main.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace exercise.main
         private int _totalColumnWidth;
         public ReceiptManager() 
         {
-            _currency = "Euro";
+            _currency = "$";
             _leftColumnWidth = 20;
             _middleColumnWidth = 7;
-            _rightColumnWidth = 8;
+            _rightColumnWidth = 9;
             _totalColumnWidth = _leftColumnWidth + _middleColumnWidth + _rightColumnWidth;
         }
 
@@ -31,8 +32,14 @@ namespace exercise.main
         /// <param name="user"> The owner of the basket item provided </param>
         public void PrintReceipt(Basket basket, Person user) 
         {
+            // Make it so that the float presents with "." as seperator instead of ","
+            CultureInfo culture = new CultureInfo("en-US");
+            // Set the current culture to the one with a dot as the decimal separator
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+
+
             List<IProduct> products = basket.GetProducts();
-            float totalPrice = basket.GetBasketPriceAfterDiscount();
+            float totalPrice = basket.GetBasketPrice(); // This does NOT include discount!
 
             PrintHeader(user);
             PrintItemizedLines(products, totalPrice);
@@ -61,7 +68,7 @@ namespace exercise.main
                     {
                         Tuple<string, string> fillItem = TranslateSKU.GetNameAndVariantFromSKU(fill.SKUName);
                         Console.WriteLine(
-                            $"|     {fillItem.Item2}".PadRight(_leftColumnWidth)
+                            $"|  -{fillItem.Item2}".PadRight(_leftColumnWidth)
                             + $"".PadRight(_middleColumnWidth)
                             + $"{fill.GetPrice():F2} {_currency}".PadRight(_rightColumnWidth)
                             + "|"
@@ -69,7 +76,7 @@ namespace exercise.main
                     }
                 }
             }
-            Console.WriteLine("|" + "|".PadLeft(_totalColumnWidth + 1));
+            Console.WriteLine("|" + "|".PadLeft(_totalColumnWidth));
             Console.WriteLine($"| Total:".PadRight(_leftColumnWidth) + $"".PadRight(_middleColumnWidth) + $"{totalPrice:F2} {_currency}".PadRight(_rightColumnWidth) + "|");
         }
 
@@ -87,25 +94,25 @@ namespace exercise.main
             "|    \\       /   \\       /          |",
             "|     `-----'     `-----'           |"
 };
-            Console.WriteLine(new string('-', _totalColumnWidth + 2));
+            Console.WriteLine(new string('-', _totalColumnWidth + 1));
             foreach (string bob in bobBagels) 
             {
                 Console.WriteLine(bob);
             }
 
-            Console.WriteLine("|".PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2 + 3)));
+            Console.WriteLine("|".PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2 + 1)));
             string userName = $"| Customer: {user.Name}";
-            Console.WriteLine(userName.PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2) + 3));
+            Console.WriteLine(userName.PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
-            Console.WriteLine(new string('-', _totalColumnWidth + 2));
+            Console.WriteLine(new string('-', _totalColumnWidth + 1));
 
             string time = $"| time: {DateTime.Now.ToString("HH: mm: ss")}";
-            Console.WriteLine(time.PadRight(_totalColumnWidth /2) + "|".PadLeft((_totalColumnWidth / 2) + 2));
+            Console.WriteLine(time.PadRight(_totalColumnWidth /2) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
             string date = $"| date: {DateTime.Now.ToString("dd.mm.yyyy")}";
-            Console.WriteLine(date.PadRight(_totalColumnWidth /2  ) + "|".PadLeft((_totalColumnWidth / 2) + 2));
+            Console.WriteLine(date.PadRight(_totalColumnWidth /2  ) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
-            Console.WriteLine(new string('-', _totalColumnWidth + 2));
+            Console.WriteLine(new string('-', _totalColumnWidth + 1));
         }
 
         /// <summary>
@@ -113,10 +120,10 @@ namespace exercise.main
         /// </summary>
         private void PrintFooter() 
         {
-            Console.WriteLine(new string('-', _totalColumnWidth+2));
+            Console.WriteLine(new string('-', _totalColumnWidth+1));
             Console.WriteLine($"| Thank you for your purchase at".PadLeft(_totalColumnWidth / 2) + "|".PadLeft(5));
             Console.WriteLine($"| Bob's Bagels!".PadLeft(_totalColumnWidth / 2 - 4) + "|".PadLeft(22));
-            Console.WriteLine(new string('-', _totalColumnWidth + 2));
+            Console.WriteLine(new string('-', _totalColumnWidth + 1));
         }
     }
 }
