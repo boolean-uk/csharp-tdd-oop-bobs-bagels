@@ -141,7 +141,8 @@ namespace exercise.tests
     {
         // Arrange
         Basket basket = new Basket(); // 12 bagels
-        basket.SetBasketSize(30);
+        Person Bob = new Person("Bob", true);
+        basket.SetBasketSize(30, Bob);
         IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
         IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
 

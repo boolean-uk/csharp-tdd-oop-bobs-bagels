@@ -63,12 +63,16 @@ namespace exercise.tests
         {
             // Arrange
             Basket basket = new Basket();
+            Person Bob = new Person("Bob", true);
+            Person Alice = new Person("Alice");
 
             // Act
-            int res = basket.SetBasketSize(newSize);
+            int res1 = basket.SetBasketSize(newSize, Bob); // Is admin so should return new size of basket.
+            int res2 = basket.SetBasketSize(newSize, Alice); // Is not admin so should return 0.
 
             // Assert
-            Assert.That(res, Is.EqualTo(newSize));
+            Assert.That(res1, Is.EqualTo(newSize));
+            Assert.That(res2, Is.EqualTo(0));
 
         }
 
