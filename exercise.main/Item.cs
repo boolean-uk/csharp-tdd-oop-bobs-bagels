@@ -22,5 +22,13 @@ namespace exercise.main
             _type = type;
             _variant = variant;
         }
+        private bool addFilling()
+        {
+            if(this._type == "Bagel")
+            {
+
+            }
+            return false;
+        }
     }
 }

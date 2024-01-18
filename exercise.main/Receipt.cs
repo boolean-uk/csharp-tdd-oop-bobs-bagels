@@ -22,12 +22,12 @@ namespace exercise.main
             priceList.Add("COFW", 1.19f);
             priceList.Add("COFC", 1.29f);
             priceList.Add("COFL", 0.29f);
-            priceList.Add("FILB", 0.12f);
-            priceList.Add("FILE", 0.12f);
-            priceList.Add("FILC", 0.12f);
-            priceList.Add("FILX", 0.12f);
-            priceList.Add("FILS", 0.12f);
-            priceList.Add("FILH", 0.12f);
+            //priceList.Add("FILB", 0.12f);
+            //priceList.Add("FILE", 0.12f);
+            //priceList.Add("FILC", 0.12f);
+            //priceList.Add("FILX", 0.12f);
+            //priceList.Add("FILS", 0.12f);
+            //priceList.Add("FILH", 0.12f);
         }
         public void addCost(string SKU)
         {
