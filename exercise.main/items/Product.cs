@@ -21,6 +21,13 @@ namespace exercise.main.items
             Bagel = bagel;
         }
 
+        public string ToString()
+        {
+            if (Bagel != null) return Bagel.ToString();
+            if (Coffee != null) return Coffee.ToString();
+            return "";
+        }
+
         public double Cost()
         {
             if (Bagel != null) return Bagel.Cost();

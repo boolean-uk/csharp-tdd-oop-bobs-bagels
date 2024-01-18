@@ -104,12 +104,10 @@ namespace exercise.main
                     discountedPrice -= coffee.Price;
                 }
             }
-
-
-
-
             return discountedPrice;
         }
+
+        public string GetReceipt() { return new Receipt(Products).GetReceipt(); }
     }
 }
 

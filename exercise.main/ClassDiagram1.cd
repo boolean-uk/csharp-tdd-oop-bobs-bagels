@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.Basket">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABBQCAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.items.Product">
+    <Position X="3" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAQAABAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>items\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.items.Bagel">
+    <Position X="5.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQAAAAAEAAAAABAABAiAAAAAEAQAAAAAAAA=</HashCode>
+      <FileName>items\Bagel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.items.Coffee">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAQAAAAAEAAAAABAAAACAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>items\Coffee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.items.Filling">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAABAAAACAAAAAEAAAAAAAABA=</HashCode>
+      <FileName>items\Filling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BagelVariant">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAQAAAAAAAAAAAAgAQAAAAAAA=</HashCode>
+      <FileName>items\Bagel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CoffeeVariant">
+    <Position X="7.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAIAAAAAAAAAQAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>items\Coffee.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FillingVariant">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAgAQEAAAAAAAAAABAQAAAAAAAAAA=</HashCode>
+      <FileName>items\Filling.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

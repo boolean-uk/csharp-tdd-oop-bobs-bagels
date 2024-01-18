@@ -12,6 +12,8 @@ namespace exercise.main.items
         public double Price { get; set; }
         public CoffeeVariant Variant { get; set; }
 
+        public string ToString() { return $"{Variant.ToString()} Coffee"; }
+
         public Coffee(CoffeeVariant variant)
         {
             Variant = variant;

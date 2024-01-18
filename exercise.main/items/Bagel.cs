@@ -13,6 +13,8 @@ namespace exercise.main.items
         public BagelVariant Variant { get; set; }
         public List<Filling> Fillings { get; set; } = new List<Filling>();
 
+        public string ToString() { return $"{Variant.ToString()} Bagel"; }
+
         public Bagel(BagelVariant variant)
         { 
             Variant = variant;
@@ -36,6 +38,11 @@ namespace exercise.main.items
         public void AddFilling(Filling filling)
         {
             Fillings.Add(filling);
+        }
+
+        public double FillingCost()
+        {
+            return Fillings.Sum(f => f.Cost());
         }
     }
 }
