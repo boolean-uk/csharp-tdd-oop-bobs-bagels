@@ -14,7 +14,7 @@ namespace exercise.main
         private decimal _basketFootprint;
 
 
-        public AddOn()
+        public AddOn(string id, string name, decimal price, decimal basketFootprint)
         {
             throw new NotImplementedException();
         }

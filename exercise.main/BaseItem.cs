@@ -15,11 +15,13 @@ namespace exercise.main
         private List<String> _defaultAddOns;
         private List<String> _availableAddOns;
 
-        public BaseItem()
+        public BaseItem(string id, string name, decimal price, decimal basketFootprint)
         {
             throw new NotImplementedException();
         }
 
+        public void AllowAddOns(params string[] itemIDs) { throw new NotImplementedException(); }
+        public void DisallowAddOns(params string[] itemIDs) { throw new NotImplementedException(); }
         public string ItemID { get => _itemID; }
         public string Name { get => _name; }
         public decimal Price { get => _price; }
