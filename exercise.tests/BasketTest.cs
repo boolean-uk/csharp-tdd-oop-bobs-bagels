@@ -12,10 +12,17 @@ namespace exercise.tests
     [TestFixture]
     public class BasketTest
     {
+        public Basket basket;
+
+        [SetUp]
+        public void SetUp() 
+        {
+            basket = new();
+        }
+
         [Test]
         public void AddFoodItemsToBasket()
         {
-            Basket basket = new();
             Bagel bagel = new(BagelVariant.Onion);
             Coffee coffe = new(CoffeeVariant.Black);
             Assert.DoesNotThrow(() => basket.Add(bagel));
@@ -26,7 +33,6 @@ namespace exercise.tests
         [Test]
         public void GetTotalPriceOfItemsInBasket()
         {
-            Basket basket = new();
             Filling filling = new(FillingVariant.Ham);
             Bagel bagel = new(BagelVariant.Onion, filling);
             Coffee coffee = new(CoffeeVariant.Black);
@@ -41,7 +47,6 @@ namespace exercise.tests
         [Test]
         public void CanChangeBasketCapacity()
         {
-            Basket basket = new();
             basket.Capacity = 1;
             Assert.DoesNotThrow(() => basket.Add(new Coffee(CoffeeVariant.Black)));
             Assert.Throws<Exception>(() => basket.Add(new Bagel(BagelVariant.Onion)));
@@ -50,7 +55,6 @@ namespace exercise.tests
         [Test]
         public void ThrowsExceptionWhenRemovingNonExistingItem()
         {
-            Basket basket = new();
             Assert.Throws<Exception>(() => basket.Remove(new Bagel(BagelVariant.Plain)));
         }
     }

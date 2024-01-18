@@ -21,6 +21,12 @@ namespace exercise.main
             _basket.Add(food);
         }
 
+        public void Order(IFood food, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public bool Order(IFood food, List<string> availableSkus)
         {
             if(food is Bagel)

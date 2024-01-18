@@ -58,5 +58,12 @@ namespace exercise.tests
             Bagel bagel = new(BagelVariant.Onion);
             Assert.That(_customer.Order(bagel, availableItemsSku), Is.True);
         }
+
+        [Test]
+        public void CanAddMultipleFoodsAtOnce()
+        {
+            _customer.Order(new Bagel(BagelVariant.Sesame), 14);
+            Assert.That(_customer.Basket.Count, Is.EqualTo(14));
+        }
     }
 }
