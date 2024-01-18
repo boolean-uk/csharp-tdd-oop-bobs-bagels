@@ -82,7 +82,7 @@ return: true if in inventory / false if not
 |"COFB"|0.99f|"Coffee" | "Black"        |
 |"COFW"|1.19f|"Coffee" | "White"        |
 |"COFC"|1.29f|"Coffee" | "Capuccino"    |
-|"COFL"|0.29f|"Coffee" | "Latte"        |
+|"COFL"|1.29f|"Coffee" | "Latte"        |
 |"FILB"|0.12f|"Filling"| "Bacon"        |
 |"FILE"|0.12f|"Filling"| "Egg"          |
 |"FILC"|0.12f|"Filling"| "Cheese"       |

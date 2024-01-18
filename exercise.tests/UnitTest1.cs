@@ -15,7 +15,7 @@ public class Tests
         basket = new Basket();
         inventory = new Inventory();
     }
-    [TestCase("BLGO", true)]
+    [TestCase("BGLO", true)]
     [TestCase("COFB", true)]
     [TestCase("FILB", true)]
     [TestCase("FILX", true)]
