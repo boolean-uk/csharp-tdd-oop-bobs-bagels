@@ -51,6 +51,25 @@ I'd like to see the special offer for an item
 
 ```C# 
 
+class Discount
+	PROPERTIES
+		public Item IteomOnDeal {get}
+		private float SavedMoney
+		public List<DiscountItem> {get}
+
+	METHODS:
+		public Discount(Item, float, List<DiscountedItem>)
+
+		public float GetDiscount()
+			return savedmoney
+
+struct DiscountItem
+	PROPERTIES:
+	Item item {get}
+	int Quantity {get}
+
+	DiscountItem(Item, int)
+
 class Item
 	PROPERTIES
 	private string sku
@@ -75,7 +94,7 @@ class Inventory
 	PROPERTIES:
 	private Dictionary<string, Item> items //<sku, Item>
 
-	private Dictionary<string, offer> offers //<sku, offers>
+	private List<Discount> _discounts //<sku, offers>
 		
 
 	METHODS:
@@ -87,10 +106,13 @@ class Inventory
 	public float GetPrice(string sku)
 		return price
 
-
 	public Item GetItem(string sku)
 		return the item if it exists
 		If it dosen't return null
+
+	//Extension 1
+	public float RemoveDiscount(List<Item> basket)
+		Return the total discounted amount
 
 
 class Basket

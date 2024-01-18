@@ -129,4 +129,18 @@ public class Tests
         }
         Assert.That(_basket.ChangeCapacity(newCapacity), Is.EqualTo(shouldReturn));
     }
+
+    //TESTS FOR EXTENSION 1
+    [Test]
+    public void TestDiscount()
+    {
+        var _basket = new Basket(inventory);
+        _basket.ChangeCapacity(16);
+        for (int i = 0; i < 16; i++)
+        {
+            _basket.AddBagel("BGLP");
+        }
+        float testPrice = 5.55f;
+        Assert.That(_basket.TotalCost(), Is.EqualTo(testPrice).Within(0.005));
+    }
 }

@@ -3,7 +3,7 @@
     public class Basket
     {
         private int _maxCapacity = 4;
-        public readonly List<Bagel> _basketList = new List<Bagel>();
+        public readonly List<Item> _basketList = new List<Item>();
         private Inventory _inventory;
 
         public Basket(Inventory inventory)
@@ -13,9 +13,9 @@
 
         public bool AddBagel(string sku)
         {
-            if (_inventory.GetItem(sku).GetType() == typeof(Bagel) && _basketList.Count < _maxCapacity)
+            if (_inventory.GetItem(sku).GetType() != typeof(Filling) && _basketList.Count < _maxCapacity)
             {
-                _basketList.Add((Bagel)_inventory.GetItem(sku));
+                _basketList.Add((Item)_inventory.GetItem(sku));
                 return true;
             }
             else return false;
@@ -23,11 +23,11 @@
 
         public bool AddFilling(int index, string fillingSku)
         {
-            if (index >= 0 && index < _basketList.Count)
+            if (index >= 0 && index < _basketList.Count && (Bagel)_basketList[index] != null)
             {
                 if (_inventory.GetItem(fillingSku).GetType() == typeof(Filling))
                 {
-                    _basketList[index] = _basketList[index].AddFilling((Filling)_inventory.GetItem(fillingSku));
+                    _basketList[index] = ((Bagel)_basketList[index]).AddFilling((Filling)_inventory.GetItem(fillingSku));
                     return true;
                 }
             }
@@ -51,6 +51,7 @@
             {
                 totalCost += item.GetPrice();
             }
+            totalCost -= _inventory.RemoveDiscount(_basketList);
             return totalCost;
         }
 
