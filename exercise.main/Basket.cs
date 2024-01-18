@@ -1,5 +1,6 @@
 ﻿using static exercise.main.Inventory;
 using static exercise.main.BasketManager;
+using static exercise.main.ReceiptManager;
 
 namespace exercise.main
 {
@@ -95,6 +96,12 @@ namespace exercise.main
                 throw new Exception("No item with the specified SKU.");
 
             return item.Price;
+        }
+
+        public Receipt Receipt()
+        {
+            ReceiptManager receiptManager = new ReceiptManager();
+            return receiptManager.GetReceipt(CustomerOrder);
         }
     }
 }

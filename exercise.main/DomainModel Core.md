@@ -13,7 +13,7 @@
 10. I want customers to only be able to order things that we stock in our inventory.
  
 ## Classes
-| Class | properties |
+| Class | Properties |
 |---|---|
 | BagelVariant | `string Name`, `double Price` |
 | BagelFilling | `string Name`, `double Price` |

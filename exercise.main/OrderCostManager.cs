@@ -25,12 +25,12 @@ namespace exercise.main
         }
 
         //The order determines priority.
-        private static readonly List<Discount> RunningDiscounts = new List<Discount>
-        {
-            new Discount("Onion", 6, 2.49),
-            new Discount("Plain", 12, 3.99),
-            new Discount("Everything", 6, 2.49),
-            new Discount("Coffee & Bagel", 1, 1.25)
+        private static readonly List<(string Name, int Quantity, double Price)> RunningDiscounts = new List<(string, int, double)>
+        {   
+            ("Onion", 6, 2.49),
+            ("Plain", 12, 3.99),
+            ("Everything", 6, 2.49),
+            ("Coffee & Bagel", 1, 1.25)
         };
 
         public List<Discount> GetDiscounts(Order order)
@@ -51,8 +51,8 @@ namespace exercise.main
             }
 
             // Apply 'Coffee & Bagel' discount
-            Discount? coffeeBagelDiscount = RunningDiscounts.FirstOrDefault(d => d.Name == "Coffee & Bagel");
-            if (coffeeBagelDiscount == null || order.Coffees.Count <= 0)
+            var coffeeBagelDiscount = RunningDiscounts.FirstOrDefault(d => d.Name == "Coffee & Bagel");
+            if ((coffeeBagelDiscount.Name == null && coffeeBagelDiscount.Quantity == 0 && coffeeBagelDiscount.Price == 0.0) || order.Coffees.Count <= 0)
                 return discounts;
 
             List<Bagel>? eligibleBagels = order.Bagels.Where(bagel =>
@@ -71,7 +71,6 @@ namespace exercise.main
                 discounts.Add(new Discount("Coffee & Bagel", discountApplies, discountCost));
             }
             
-
             return discounts;
         }
 
