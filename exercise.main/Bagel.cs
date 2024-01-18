@@ -9,7 +9,6 @@ namespace exercise.main
 {
     public class Bagel : Item
     {
-
         public Bagel(string type)
         {
             _SKU = type;
@@ -42,17 +41,11 @@ namespace exercise.main
 
         public override float TotalPrice()
         {
-            float fillingPrice = 0;
-            foreach (Filling item in fillings)
-            {
-                fillingPrice += item.Price;
-            }
-            return price + fillingPrice;
+            return fillings.TotalPrice() + price;
         }
         public override void AddFilling(string SKU)
         {
-            Filling filling = new Filling(SKU);
-            fillings.Add(filling);
+            fillings.addFilling(SKU);
         }
     }
 }

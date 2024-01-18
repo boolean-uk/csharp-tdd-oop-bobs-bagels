@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Filling : Item
+    public class Filling : Item, IComparable 
     {
         public Filling(string type)
         {
@@ -38,5 +38,14 @@ namespace exercise.main
                     break;
             }
         }
+
+        public int CompareTo(object? obj)
+        {
+            if (obj == null) return 1;
+            Filling otherFilling = obj as Filling;
+            return _SKU.CompareTo(otherFilling._SKU);
+        }
     }
+
+
 }

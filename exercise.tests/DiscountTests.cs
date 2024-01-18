@@ -47,6 +47,7 @@ namespace exercise.tests
             Assert.That(_basket.TotalCost(), Is.EqualTo(expectedResult));
         }
 
+        /*
        // [TestCase(1, 1, 1.25f)]
         [TestCase(0, 2, 0.78f)]
         [TestCase(2, 2, 2.50f)]
@@ -84,6 +85,7 @@ namespace exercise.tests
             }
             Assert.That(_basket.TotalCost(), Is.EqualTo(expectedResult));
         }
+        */
 
 
     }

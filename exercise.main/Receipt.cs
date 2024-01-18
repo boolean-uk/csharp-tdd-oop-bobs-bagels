@@ -13,6 +13,7 @@ namespace exercise.main
         Basket _basket;
         DateTime _createdAt;
         Dictionary<string, ReceiptLine> list = new Dictionary<string, ReceiptLine>();
+        double discount = 0;
 
         public Receipt(Basket basket)
         {
@@ -26,20 +27,17 @@ namespace exercise.main
             
             foreach(Item product in _basket.Inventory)
             {
-                
-                
                 //If product already exists in list:
-                if (list.ContainsKey(product.SKU))
+                if (list.ContainsKey(product.SKU + product.fillings.ToString()))
                 {
-                    list[product.SKU].AddProduct(product.fillings);
+                    list[product.SKU + product.fillings.ToString()].AddProduct();
                 }
                 
                 //Product doesn't exists in list:
                 else
                 {
-                    string name = product.Variant + " " + product.Name;
-                    ReceiptLine receiptLine = new ReceiptLine(name, product.Price, product.fillings);
-                    list.Add(product.SKU, receiptLine);
+                    ReceiptLine receiptLine = new ReceiptLine(product);
+                    list.Add(product.SKU + product.fillings.ToString(), receiptLine);
                 }
                      
             }
@@ -52,8 +50,12 @@ namespace exercise.main
             foreach (KeyValuePair<string, ReceiptLine> line in list)
             {
                 Console.WriteLine(line.Value.Print());
+                discount += line.Value.GetDiscount();
             }
-            Console.WriteLine($"\n------------------------\nTotal             €{_basket.TotalCost()} \n\n \t  Thank you \n   for your order! ");
+            Console.WriteLine($"------------------------\nTotal             €{Math.Round(_basket.TotalCost() - discount, 2)}");
+            if (discount > 0)
+                Console.WriteLine($"You saved a total of €{discount} \n on this shop");
+            Console.WriteLine($" \n \t  Thank you \n   for your order! ");
         }
     }
 }

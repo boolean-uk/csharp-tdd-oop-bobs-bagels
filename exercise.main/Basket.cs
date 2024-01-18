@@ -54,6 +54,7 @@ namespace exercise.main
         public float TotalCost()
         {
             float result = 0;
+            
             int blackCoffee = _inventory.Count(x => x.SKU == "COFB");
             foreach (string item in _existingItems)
             {
@@ -88,11 +89,12 @@ namespace exercise.main
                 int amount = _inventory.Count(x => x.SKU == item);
                 for (int i = 0; i < amount; i++)
                 {
+
                     result += GetPrice(item);
                 }
-
             }
-            return result;
+            
+            return (float)Math.Round(result, 2);
         }
 
 
