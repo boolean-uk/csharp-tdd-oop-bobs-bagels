@@ -8,61 +8,64 @@ using System.Security.Cryptography.X509Certificates;
 namespace exercise.main
 {
     
-        public class Basket
+        public class Basket : Item
         {
             //set basket capacity, i.e list length
-            private List<Item> basket = new List<Item>();
-            private List<Item> basketItems;
-            private int basketCapacity = 2;
+            private List<IProduct> basket = new List<IProduct>();
+            //private List<IProduct> basketItems;
+            private int basketCapacity;
+            private Inventory inventory;
 
-        public Basket()
+        public Basket(Inventory inventory) : base(0, "", "", "") // Call the base class constructor
         {
-            basket = new List<Item>();
-            basketItems = new List<Item>();
-        }
-
-        public void AddItem(Item item)
-        {
-            basketItems.Add(item);
-        }
-
-        public List<Item> GetBasketItems()
-        {
-            return basketItems;
+            //basketItems = new List<IProduct>();
+            basketCapacity = 2;
+            this.inventory = inventory;
         }
 
 
-        public bool addBagel(Item bagel, out string message)
+
+
+        public bool AddProduct(string productSKU, out string message)
+        {
+            if (inventory.ContainsProduct(productSKU))
             {
+                IProduct product = inventory.GetProduct(productSKU);
 
                 if (basket.Count < basketCapacity)
                 {
-                    basket.Add(bagel);
+                    basket.Add(product);
                     message = string.Empty;
                     return true;
                 }
-                else
+                else //(basket.Count >= basketCapacity)
                 {
                     message = "Basket is full";
                     return false;
                 }
+            
+            }
+            message=string.Empty;
+            return false;
+        }
+
+        //add filling method
+
+        public List<IProduct> GetBasketContent()
+            {
+                return new List<IProduct>(basket); // Return a copy of the basket to prevent modification from outside
             }
 
-            //add filling method
 
-            public List<Item> GetBasketContent()
+
+            public bool RemoveProduct(string productSKU, out string message)
             {
-                return new List<Item>(basket); // Return a copy of the basket to prevent modification from outside
-            }
 
-
-
-            public bool removeBagel(Item bagel, out string message)
-            {
-                Console.WriteLine(basket.Count);
-                if (basket.Contains(bagel))
+                IProduct product = inventory.GetProduct(productSKU);
+            //Console.WriteLine(basket.Count);
+                if (basket.Contains(product))
                 {
-                    basket.Remove(bagel);
+                    basket.Remove(product);
                     message = string.Empty;
                     //
                     return true;
@@ -81,19 +84,18 @@ namespace exercise.main
                 return basketCapacity;
             }
 
-        public bool addFillingToBagel(Item bagel, Item filling, out string message)
+        public bool AddFillingToBagel(string productSKU, IProduct filling, out string message)
         {
+            IProduct product = inventory.GetProduct(productSKU);
             // Check if bagel is in the basket
-            if (basket.Contains(bagel))
+            if (basket.Contains(product))
             {
                 // Check if filling starts with 'F'
-                if (filling.getNameVariant().StartsWith("F"))
+                if (filling.Name.StartsWith("F") )
                 {
-                    // Add the filling to the bagel's subItems
-                    bagel.addSubItems(filling);
-
-                    message = string.Empty;
-                    return true;
+                        ((Item)product).AddSubItems(filling);
+                        message = string.Empty;
+                        return true;
                 }
                 else
                 {
@@ -112,27 +114,5 @@ namespace exercise.main
     
 
 
-
-    /*
-     - class Basket()
-
-
-     - Properties
-    public List<string> basket
-    public int basketCapacity
-
-
-    -Methods
-    bool add bageltype (string)
-            adds a bagel to the basket, outputs true if bagel added and false otherwise
-            If the basket is full, outputs a message saying the basket is full
-
-    bool remove bageltype (string)
-            removes a bagel from the basket, outputs true if the bagel is removed and false otherwise
-            If the item is not in the basket, outputs a message saying the item doesn't exist
-
-    int changeCapacity(int)
-            changes the capacity of the basket, outputs the new integer capacity
-
-     */
+  
 }

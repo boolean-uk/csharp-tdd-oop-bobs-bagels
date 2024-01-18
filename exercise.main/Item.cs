@@ -6,56 +6,67 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Item
+    public interface IProduct
     {
-        private float price;
-        private string nameVariant;
-        private string SKU;
-        private List<Item> subItems;
+        float Price { get; }
+        string Name { get; }
+        string Variant { get; }
+        string SKU { get; }
+    }
+    public class Item : IProduct
+    {
+        public float Price { get; private set; }
+        public string Name { get; private set; }
+        public string Variant { get; private set; }
+        public string SKU { get; private set; }
+        private List<IProduct> subItems;
 
-        public Item(float price, string nameVariant, string SKU) {
-            this.price = price;
-            this.nameVariant = nameVariant;
+        public Item(float price, string name, string variant, string SKU)
+        {
+            this.Price = price;
+            this.Name = name;
+            this.Variant = variant;
             this.SKU = SKU;
 
-            subItems = new List<Item>();
+            subItems = new List<IProduct>();
         }
 
 
-        public void setSKU(string sku)
-        { this.SKU = sku; }
 
+        /*
         public string getSKU()
         {
             return SKU;
         }
-
-
-        public void setNameVariant(string nameVariant)
-        { this.nameVariant = nameVariant; }
+        
 
         public string getNameVariant()
         {
             return nameVariant;
         }
 
-        public void setPrice(float price)
-        { this.price = price; }
+ 
 
         public float getPrice()
         {
             return price;
-        }
+        }*/
 
-        public void addSubItems(Item subItem)
+
+
+        public void AddSubItems(IProduct subItem)
         {
             subItems.Add(subItem);        
         }
-        public List<Item> GetSubItems()
+
+
+        public List<IProduct> GetSubItems()
         {
             return subItems;
         }
 
 
     }
+
+
 }

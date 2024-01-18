@@ -25,7 +25,7 @@ namespace exercise.main
 
             foreach (Item item in basket.GetBasketContent())
             {
-                total += item.getPrice();
+                total += item.Price;
             }
 
             return total;
