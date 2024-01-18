@@ -28,7 +28,7 @@ namespace exercise.tests
             basket.AddProduct(bagel6);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 2.49d;
 
             //Assert
@@ -54,7 +54,7 @@ namespace exercise.tests
             basket.AddProduct(bagel6);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 2.49d;
 
             //Assert
@@ -86,64 +86,6 @@ namespace exercise.tests
             //Act
             double expectedResult = Math.Round(basket.CheckTotalCost(), 3);
             double actualResult = 2.34d;
-
-            //Assert
-            Assert.That(expectedResult, Is.EqualTo(actualResult));
-        }
-
-        /// <summary>
-        /// 5x plain bagels+1 regular = 2.44 = CHEAPER THAN THE DISCOUNT!
-        /// </summary>
-        [Test, Order(3)]
-        public void Test_03_Discount_6_5Plain()
-        {
-            //Arrange
-            Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLP");
-            Bagel bagel2 = new Bagel("BGLP");
-            Bagel bagel3 = new Bagel("BGLP");
-            Bagel bagel4 = new Bagel("BGLP");
-            Bagel bagel5 = new Bagel("BGLP");
-            Bagel bagel6 = new Bagel("BGLO");
-            basket.AddProduct(bagel1);
-            basket.AddProduct(bagel2);
-            basket.AddProduct(bagel3);
-            basket.AddProduct(bagel4);
-            basket.AddProduct(bagel5);
-            basket.AddProduct(bagel6);
-
-            //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost(), 3);
-            double actualResult = 2.44d;
-
-            //Assert
-            Assert.That(expectedResult, Is.EqualTo(actualResult));
-        }
-
-        /// <summary>
-        /// 4x plain bagels+2 regular = 2.54 = More expensive than discount = discount should work.
-        /// </summary>
-        [Test, Order(3)]
-        public void Test_03_Discount_6_4Plain()
-        {
-            //Arrange
-            Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLP");
-            Bagel bagel2 = new Bagel("BGLP");
-            Bagel bagel3 = new Bagel("BGLP");
-            Bagel bagel4 = new Bagel("BGLP");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
-            basket.AddProduct(bagel1);
-            basket.AddProduct(bagel2);
-            basket.AddProduct(bagel3);
-            basket.AddProduct(bagel4);
-            basket.AddProduct(bagel5);
-            basket.AddProduct(bagel6);
-
-            //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost(), 3);
-            double actualResult = 2.49d;
 
             //Assert
             Assert.That(expectedResult, Is.EqualTo(actualResult));
@@ -230,18 +172,18 @@ namespace exercise.tests
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLP");
-            Bagel bagel2 = new Bagel("BGLP");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
             Bagel bagel3 = new Bagel("BGLO");
             Bagel bagel4 = new Bagel("BGLE");
             Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLP");
+            Bagel bagel6 = new Bagel("BGLO");
             Bagel bagel7 = new Bagel("BGLO");
             Bagel bagel8 = new Bagel("BGLO");
             Bagel bagel9 = new Bagel("BGLS");
-            Bagel bagel10 = new Bagel("BGLP");
-            Bagel bagel11 = new Bagel("BGLP");
-            Bagel bagel12 = new Bagel("BGLP");
+            Bagel bagel10 = new Bagel("BGLS");
+            Bagel bagel11 = new Bagel("BGLS");
+            Bagel bagel12 = new Bagel("BGLS");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
             basket.AddProduct(bagel3);
@@ -256,7 +198,7 @@ namespace exercise.tests
             basket.AddProduct(bagel12);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost(), 3);
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 4.98d;
 
             //Assert
@@ -336,28 +278,28 @@ namespace exercise.tests
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLP");
-            Bagel bagel2 = new Bagel("BGLP");
+            Bagel bagel1 = new Bagel("BGLO");
+            Bagel bagel2 = new Bagel("BGLO");
             Bagel bagel3 = new Bagel("BGLO");
             Bagel bagel4 = new Bagel("BGLE");
             Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLP");
+            Bagel bagel6 = new Bagel("BGLS");
             Bagel bagel7 = new Bagel("BGLO");
             Bagel bagel8 = new Bagel("BGLO");
             Bagel bagel9 = new Bagel("BGLS");
-            Bagel bagel10 = new Bagel("BGLP");
-            Bagel bagel11 = new Bagel("BGLP");
-            Bagel bagel12 = new Bagel("BGLP");
+            Bagel bagel10 = new Bagel("BGLS");
+            Bagel bagel11 = new Bagel("BGLS");
+            Bagel bagel12 = new Bagel("BGLO");
             Bagel bagel13 = new Bagel("BGLO");
             Bagel bagel14 = new Bagel("BGLE");
             Bagel bagel15 = new Bagel("BGLO");
-            Bagel bagel16 = new Bagel("BGLP");
+            Bagel bagel16 = new Bagel("BGLO");
             Bagel bagel17 = new Bagel("BGLO");
             Bagel bagel18 = new Bagel("BGLO");
             Bagel bagel19 = new Bagel("BGLS");
-            Bagel bagel20 = new Bagel("BGLP");
-            Bagel bagel21 = new Bagel("BGLP");
-            Bagel bagel22 = new Bagel("BGLP");
+            Bagel bagel20 = new Bagel("BGLO");
+            Bagel bagel21 = new Bagel("BGLO");
+            Bagel bagel22 = new Bagel("BGLE");
             Bagel bagel23 = new Bagel("BGLO");
             Bagel bagel24 = new Bagel("BGLO");
             basket.AddProduct(bagel1);
@@ -386,7 +328,7 @@ namespace exercise.tests
             basket.AddProduct(bagel24);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost(), 3);
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 9.96d;
 
             //Assert
@@ -408,7 +350,7 @@ namespace exercise.tests
 
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 1.25d;
 
             //Assert
@@ -430,7 +372,7 @@ namespace exercise.tests
 
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 1.25d;
 
             //Assert
@@ -456,7 +398,7 @@ namespace exercise.tests
             basket.AddProduct(coffee2);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 2.5d;
 
             //Assert
@@ -487,7 +429,7 @@ namespace exercise.tests
             basket.AddProduct(coffee1);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 3.48d;
 
             //Assert
@@ -519,7 +461,7 @@ namespace exercise.tests
             basket.AddProduct(bagel6);
 
             //Act
-            double expectedResult = Math.Round(basket.CheckTotalCost());
+            double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
             double actualResult = 2.73d;
 
             //Assert

@@ -179,12 +179,14 @@ public class Core
         Basket basket = new Basket();
         Bagel bagel1 = new Bagel("BGLO");
         Bagel bagel2 = new Bagel("BGLO");
+        Bagel bagel3 = new Bagel("BGLO");
         basket.AddProduct(bagel1);
         basket.AddProduct(bagel2);
+        basket.AddProduct(bagel3);
 
         //Act
         double expectedResult = basket.CheckTotalCost();
-        double actualResult = 0.98d;
+        double actualResult = 1.47d;
 
         //Assert
         Assert.That(expectedResult, Is.EqualTo(actualResult));

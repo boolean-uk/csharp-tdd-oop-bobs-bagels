@@ -1,3 +1,4 @@
+/*
 public abstract class ProductFAIL
 {
 	private string _sku;
@@ -71,7 +72,26 @@ public abstract class ProductFAIL
 	}
 }
 
-//This works:
-//ProductFAIL bagel = ProductFAIL.CreateProduct("BGLO");
 
-//However, it's still a product no matter what I do :C So much time was wasted on this one.
+public class Bagel : Product
+{
+    private Filling _filling;
+    public Filling Filling { get { return _filling; } set { _filling = value; } }
+
+    public Bagel(string sKU) : base(sKU)
+    {
+
+    }
+
+    public virtual double CheckPriceOfProduct()
+    {
+        return Filling != null ? (Price + Filling.Price) : Price;
+    }
+}
+*/
+
+
+//This should work, but I wasn't comfortable using it.
+//ProductFAIL bagel = ProductFAIL.CreateProduct("BGLO");
+//Bagel bagelInstance = bagel as Bagel;
+
