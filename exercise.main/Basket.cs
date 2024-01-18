@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace exercise.main
     public class Basket
     {
         private List<Item> _basketItems = new List<Item>();
-        private int _capacity;
+        private int _capacity = 20;
 
         public Basket(List<Item> basketItems, int capacity)
         {
@@ -34,18 +35,31 @@ namespace exercise.main
         Inventory inventory = new Inventory();
 
         public void AddItem(string Sku)
-        {        
-            foreach (var itemInv in inventory.InventoryItems)
+        {
+            if (!IsBasketFull())
             {
-                if (itemInv.Sku == Sku)
+                foreach (var itemInv in inventory.InventoryItems)
                 {
-                    Console.WriteLine($"Item: {itemInv.Variant} {itemInv.Name} has been added to basket");
-                    BasketItems.Add(itemInv);                
+                    if (itemInv.Sku == Sku)
+                    {
+                       Console.WriteLine($"Item: {itemInv.Variant} {itemInv.Name} has been added to basket");
+                        if(itemInv.Quantity == 0)
+                        {
+                            BasketItems.Add(itemInv);
+                            itemInv.Quantity++;
+                        } else
+                        {
+                            itemInv.Quantity++;
+                        }
+
+                    }
                 }
+
             }
+ 
         }
 
-        public bool RemoveBagel(string Sku)
+        public bool RemoveItem(string Sku)
         {
             bool result = true;
             Item item = BasketItems.Where(x => x.Sku == Sku).First();
@@ -60,14 +74,14 @@ namespace exercise.main
 
         public bool IsBasketFull()
         {
-            if(BasketItems.Count >= Capacity)
+            if(BasketItems.Count < Capacity || BasketItems.Count == 0)
             {
-                Console.WriteLine("Basket is full");
-                return true;
+//              Console.WriteLine("Basket is not full");
+                return false;
             } else
             {
-                Console.WriteLine("Basket is not full");
-                return false;
+//              Console.WriteLine("Basket is full");
+                return true;
             }
         }
 
@@ -84,37 +98,87 @@ namespace exercise.main
         public double TotalCostBasket()
         {
             double result = 0d;
-            foreach(var item in BasketItems)
+            
+            bool hasCoffee = false;
+            bool hasBagel = false;
+            int coffeeQuantity = 0;
+            int bagelQuantity = 0;
+            int discountQuantity = 0;
+            double coffeePrice = 0;
+            double bagelPrice = 0;
+            double bagelCoffePrice = 0;
+            foreach (var item in BasketItems)
             {
-                result += item.Price;
+                //Checks if there are 0 items left in basket
+                while(item.Quantity > 0)
+                {
+                    //Checks 6 for 2.49 discount
+                    if ((item.Variant == "Onion" || item.Variant == "Everything") && item.Quantity >= 6)
+                    {
+                        result += 2.49d;
+                        double discountAmount6 = Math.Round((item.Quantity * item.Price) - 2.49, 2);
+                        item.Quantity -= 6;
+                        Console.WriteLine($"6 {item.Variant} Bagels for {2.49d} discount (-£{discountAmount6})");
+                    }
+                    //Checks 12 for 3.99 discount
+                    else if ((item.Variant == "Plain" || item.Variant == "Sesame") && item.Quantity >= 12)
+                    {
+                        result += 3.99d;
+                        double discountAmount12 = Math.Round((item.Quantity*item.Price) - 3.99, 2);
+                        item.Quantity -= 12;
+                        Console.WriteLine($"12 {item.Variant} Bagels for {3.99} discount (-£{discountAmount12})");
+
+                    }  
+                    else
+                    {
+                        //Checks for Coffee and Bagel discount
+                        if (item.Name == "Coffee")
+                        {
+                            hasCoffee = true;
+                            coffeeQuantity += item.Quantity;
+                            coffeePrice += item.Price * item.Quantity;
+                            if (hasBagel)
+                            {
+                                bagelCoffePrice = bagelPrice;
+                            } else
+                            {
+                                bagelCoffePrice = coffeePrice;
+                            }
+                        } else if (item.Name == "Bagel")
+                        {
+                            hasBagel = true;
+                            bagelQuantity += item.Quantity;
+                            bagelPrice += item.Price * item.Quantity;
+                        }
+
+                        if (hasCoffee && hasBagel) { 
+                            hasCoffee = false;
+                            hasBagel = false;
+                            if(coffeeQuantity > bagelQuantity)
+                            {
+                                discountQuantity = bagelQuantity;
+
+                            } else
+                            {
+                                discountQuantity = coffeeQuantity;
+                            }
+
+                            result += 1.25 * discountQuantity - bagelCoffePrice;
+                            item.Quantity -= discountQuantity;
+                            Console.WriteLine($"Coffee and Bagel discount  (-£{Math.Round((bagelPrice + coffeePrice - (1.25*discountQuantity)), 2)})");
+                              
+                        }
+
+                           result += item.Price * item.Quantity;
+                           item.Quantity -= item.Quantity;                                         
+                    }
+                    
+                }           
+
             }
-            Console.WriteLine("The total cost of basket is: " + Math.Round(result, 2));
+
+            //          Console.WriteLine("The total cost of basket is: " + Math.Round(result, 2));
             return Math.Round(result, 2);
-        }
-
-        public void CostOfBagel()
-        {
-            Console.WriteLine("Price of all Bagels");
-            foreach (var item in inventory.InventoryItems)
-            {
-                if (item.Variant.Equals("Bagel"))
-                {
-                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
-                }
-            }
-        }
-
-        public void CostOfFilling()
-        {
-            Console.WriteLine("Price of all Filling");
-            foreach (var item in inventory.InventoryItems)
-            {
-                if (item.Variant.Equals("Filling"))
-                {
-                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
-                }
-            }
-
         }
     }
 }

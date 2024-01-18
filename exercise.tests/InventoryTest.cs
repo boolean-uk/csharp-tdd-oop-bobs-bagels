@@ -45,11 +45,20 @@ namespace exercise.tests
             {
                 //arrange
                 Console.SetOut(sw);
-                
+                string expected =
+                    "Price of all Fillings\r\n" +
+                    "Variant: Bacon, Price: 0,12\r\n" +
+                    "Variant: Egg, Price: 0,12\r\n" +
+                    "Variant: Cheese, Price: 0,12\r\n" +
+                    "Variant: Cream Cheese, Price: 0,12\r\n" +
+                    "Variant: Smoked Salmon, Price: 0,12\r\n" +
+                    "Variant: Ham, Price: 0,12\r\n";
 
                 //act
+                _inventory.CostOfFilling();
 
                 //assert
+                Assert.AreEqual(expected, sw.ToString());
 
             }
         }

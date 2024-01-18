@@ -12,6 +12,7 @@ namespace exercise.main
         private double _price;
         private string _name;
         private string _variant;
+        private int _quantity = 0;
 
         public Item (string sku, double price, string name, string variant)
         {
@@ -25,6 +26,7 @@ namespace exercise.main
         public double Price { get { return _price; } set { _price = value; } }
         public string Name { get { return _name; } set { _name = value; } }
         public string Variant { get { return _variant; } set { _variant = value; } }
+        public int Quantity { get { return _quantity; } set { _quantity = value; } }
 
 
 

@@ -88,7 +88,12 @@ I'd like to know the cost of each filling before I add it to my bagel order.
 
 | Classes     | Members                                                | Methods           | Scenario  | Outputs     |
 |-------------|--------------------------------------------------------|-------------------|-----------|-------------|
-| `Inventory` | `List<Item> InventoryItems`                            | `CostOfFilling()` |           | Console.out |              
+| `Inventory` | `List<Item> InventoryItems`                            | `CostOfFilling()` |           | Console.out |  
+
+
+| Classes   | Members         | Methods          | Scenario  | Outputs     |
+|-----------|-----------------|------------------|-----------|-------------|
+| `Receipt` | `Basket basket` | `PrintReceipt()` |           | Console.out |  
 
 
 

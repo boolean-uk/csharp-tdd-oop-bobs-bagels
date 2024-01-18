@@ -42,12 +42,12 @@ namespace exercise.main
 
         public void CostOfFilling()
         {
-            Console.WriteLine("Price of all Filling");
+            Console.WriteLine("Price of all Fillings");
             foreach(var item in this.InventoryItems)
             {
                 if(item.Name == "Filling")
                 {
-                    Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
+                    Console.WriteLine($"Variant: {item.Variant}, Price: {item.Price}");
                 }
             }
 

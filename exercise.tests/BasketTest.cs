@@ -27,14 +27,14 @@ namespace exercise.tests
 
 
         [TestCase("BGLO")]
-        public void RemoveBagelTest(string sku)
+        public void RemoveItemTest(string sku)
         {
             //arrange
             Basket basket = new Basket();
             basket.AddItem(sku);
 
             //act
-            basket.RemoveBagel(sku);
+            basket.RemoveItem(sku);
 
             //assert
             Assert.IsTrue(basket.BasketItems.Count == 0);
@@ -78,15 +78,42 @@ namespace exercise.tests
         {
             //arrange
             Basket basket = new Basket();
-            basket.AddItem("BGLO");
             basket.AddItem("COFW");
+            basket.AddItem("BGLO");
             basket.AddItem("FILE");
 
             //act
             double result = basket.TotalCostBasket();
 
             //assert
-            Assert.AreEqual(result, 1.8d);
+            Assert.AreEqual(Math.Round(0.12d + 1.25d, 2), result);
+        }
+
+        [Test]
+        public void BasketDiscountTest()
+        {
+            //arrange
+            Basket basket = new Basket();
+            for (int i = 0; i < 6; i++)
+            {
+                basket.AddItem("BGLO");
+            }
+
+            basket.AddItem("COFB");
+            for (int i = 0; i < 14; i++)
+            {
+                basket.AddItem("BGLP");
+            }
+
+            basket.AddItem("COFB");
+
+
+            //act
+            double result = basket.TotalCostBasket();
+
+            //assert
+            Assert.AreEqual(Math.Round(2.49d + 3.99d + 1.25d + 1.25d, 2), result);
+
         }
     }
 }
