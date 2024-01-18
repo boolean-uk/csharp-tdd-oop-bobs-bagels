@@ -23,6 +23,28 @@ namespace exercise.main
             {"FILS", new Item("FILS", 0.12m, "Filling", "Smoked Salmon")},
             {"FILH", new Item("FILH", 0.12m, "Filling", "Ham")}
         };
+
+      
+
+      
+
+        public Item GetFilling(string sku)
+        {
+            if (_inventory.TryGetValue(sku, out Item item)) {
+                return item;
+            }
+            return null;
+        }
+
+
+        /*7. As a customer,
+        So I know what the damage will be,
+        I'd like to know the cost of a bagel before I add it to my basket.
+        */
+        /*9. As a customer,
+        So I don't over-spend,
+        I'd like to know the cost of each filling before I add it to my bagel order.
+        */
         public decimal GetProductPrice(string sku)
         {
             if (_inventory.TryGetValue(sku, out Item item)) {
@@ -31,6 +53,10 @@ namespace exercise.main
            return 0.0m;
         }
 
+        /*10. As the manager,
+        So we don't get any weird requests,
+        I want customers to only be able to order things that we stock in our inventory.
+        */
         public bool IsItemInStock(string sku)
         {
             return _inventory.ContainsKey(sku);

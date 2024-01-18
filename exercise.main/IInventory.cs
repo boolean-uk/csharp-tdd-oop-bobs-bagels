@@ -8,6 +8,8 @@ namespace exercise.main
     public interface IInventory
     {
         bool IsItemInStock(string sku);
-        decimal GetProductPrice(string sku);
+        decimal GetProductPrice(string sku); // 7. As a customer, So I know what the damage will be, I'd like to know the cost of a bagel before I add it to my basket.
+        Item GetFilling(string sku);
+       
     }
 }
