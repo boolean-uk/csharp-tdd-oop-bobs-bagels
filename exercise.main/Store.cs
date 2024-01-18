@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace exercise.main
             else throw new InvalidOperationException("Username does not exist.");
         }
 
-        public void AddUser(string userID)
+        public void CreateNewUser(string userID)
         {
             if (Users.Count == 0)
             {
@@ -44,17 +45,46 @@ namespace exercise.main
             Users.Add(user);
         }
 
-        public void AddBaseItem(string id, string name, decimal price, decimal basketFootprint = 1m)
+        public void CreateNewBaseItem(string id, string name, decimal price, decimal basketFootprint = 1m)
         {
             if (!HasAdminPriveleges()) throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
+            if (IsAnItemID(id)) throw new InvalidOperationException($"Item with ID={id} already exists!");
             BaseItems.Add(new BaseItem(id, name, price, basketFootprint));
         }
 
-        public void AddAddOn(string id, string name, decimal price, decimal basketFootprint = 0m)
+        public void CreateNewAddOn(string id, string name, decimal price, decimal basketFootprint = 0m)
         {
             if (!HasAdminPriveleges()) throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
+            if (IsAnItemID(id)) throw new InvalidOperationException($"Item with ID={id} already exists!");
             AddOns.Add(new AddOn(id, name, price, basketFootprint));
         }
+
+        public User GetActiveUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddToBasket(string itemID, int count = 1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveFromBasket(int basketIndex = -1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IncludeAddOn(string itemID, int basketIndex = -1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExcludeAddOn(string itemID, int basketIndex = -1)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public List<User> Users { get => _users; }
         public List<BaseItem> BaseItems { get => _baseItems; }
         public List<AddOn> AddOns { get => _addOns; }
@@ -75,5 +105,13 @@ namespace exercise.main
         {
             return Managers.Contains(ActiveUser);
         }
+
+        private bool IsAnItemID(string itemID)
+        {
+            bool isABaseItemID = BaseItems.Any(item => item.ItemID == itemID);
+            bool isAnAddOnID = AddOns.Any(item => item.ItemID == itemID);
+            return isABaseItemID || isAnAddOnID;
+        }
+
     }
 }

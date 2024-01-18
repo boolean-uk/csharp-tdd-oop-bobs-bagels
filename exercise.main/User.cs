@@ -17,22 +17,22 @@ namespace exercise.main
             _basket = new List<BasketEntry>();
         }
 
-        public void AddItem()
+        public void AddToBasket(BaseItem item, int count = 1)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveItem(int index)
+        public void RemoveItem(int basketIndex)
         {
             throw new NotImplementedException();
         }
 
-        public void AddAddOn()
+        public void IncludeAddOn(int basketIndex, AddOn addOn)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveAddOn()
+        public void ExcludeAddOn(int basketIndex, AddOn addOn)
         {
             throw new NotImplementedException();
         }
@@ -45,6 +45,11 @@ namespace exercise.main
         public decimal BasketOccupation()
         {
             throw new NotImplementedException();
+        }
+
+        private bool IsValidBasketIndex(int basketIndex)
+        {
+            return basketIndex >= 0 && basketIndex < _basket.Count;
         }
 
         public string UserID { get => _userID;}

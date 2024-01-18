@@ -21,6 +21,16 @@ namespace exercise.main
             _addOns = new List<AddOn>();
         }
 
+        public void IncludeAddOn(AddOn addOn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExcludeAddOn(AddOn addOn)
+        {
+            throw new NotImplementedException();
+        }
+
         public BaseItem BaseItem { get => _baseItem; }
         public int Count { get => _count; }
         public List<AddOn> AddOns { get => _addOns; }
