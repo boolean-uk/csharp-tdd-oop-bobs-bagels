@@ -15,8 +15,8 @@ namespace exercise.main.Objects.Containers
 
     public struct Requirement(string sku, int amount)
     {
-        string SKU = sku;
-        int Amount = amount;
+        public string SKU { get; } = sku;
+        public int Amount { get; } = amount;
     }
 
     public struct Discount(List<Requirement> requirements, double price)
@@ -34,7 +34,7 @@ namespace exercise.main.Objects.Containers
 
     public class Store
     {
-        public Checkout Checkout = new Checkout();
+        protected Checkout Checkout = new Checkout();
 
         // List contains product, amount
         private List<Stock> _stock = new List<Stock>()
@@ -67,11 +67,10 @@ namespace exercise.main.Objects.Containers
         };
         public Store()
         {
-            // Stock within the store
 
         }
 
-        protected Product GetProduct(string productSKU)
+        public Product GetProduct(string productSKU)
         {
             if (_stock.Where(x => x.Product.SKU == productSKU).ToList().Count() == 0)
             {
@@ -89,6 +88,10 @@ namespace exercise.main.Objects.Containers
             }
 
             return _stock.Where(x => x.Product.SKU == productSKU).ToList().First().Product.GetPrice();
+        }
+        public bool BuyWares(Customer customer)
+        {
+            return Checkout.PurchaseWares(customer, _discounts);
         }
     }
 }

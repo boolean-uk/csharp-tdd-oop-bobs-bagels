@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Mail;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,78 +22,87 @@ namespace exercise.main.Objects.Tools
         
         }
 
-        public bool PurchaseWares(Person payer, List<Product> stock, List<Discount> discounts)
+        public bool PurchaseWares(Person payer, List<Discount> discounts)
         {
-            /*
-            // --- Calculate Discounts ---
-            List<Ware> basketContents = payer.Basket.Contents;
+            List<Ware> nonDiscountedWares = new List<Ware> (payer.Basket.Contents);
             double totalCostUndiscounted = payer.Basket.GetPriceTotal();
             // Tuple contains <SKU, moneyToRemoveFromProduct>
-            List<Tuple<string, double>> discountsToGivePayer = new List<Tuple<string, double>>();
+            List<Tuple<string, double, int>> discountsToGivePayer = new List<Tuple<string, double, int>>();
 
-            // Discovers discounted elements within the list(basketContents) and removes them.
-            foreach (Discount discount in discounts) {
+            // --- Calculate Discounts ---
+            foreach (Discount discount in discounts)
+            {
+                bool isMeetingRequirements = true;
+                int discountCount = 0; 
 
-                // Find the group of products that the given discount affects
-                var group = basketContents.Where(x => x.SKU.StartsWith(discount.SKU)).ToList();
-                if (group.Count() < discount.Amount)
-                    break;
-
-                int discountCount = 0;
-                // Removes multiple times based on discount.
-                while (group.Count() >= discount.Amount)
+                do
                 {
-                    int removedCount = 0;
-                    
-                    // Remove X elements from the basketContents
-                    basketContents.RemoveAll(x =>
+                    // Check Requirements
+                    foreach (Requirement requirement in discount.Requirement)
                     {
-                        if (removedCount < discount.Amount)
+                        var group = nonDiscountedWares.Where(x => x.SKU.StartsWith(requirement.SKU)).ToList();
+                        if (group.Count() < requirement.Amount)
                         {
-                            removedCount++;
-                            group.Remove(group.First());
-                            return true;
+                            isMeetingRequirements = false;
+                            break;
                         }
-                        return false;
-                    });
+
+                        if (!isMeetingRequirements)
+                            continue;
+                    }
+                    if (!isMeetingRequirements)
+                        break;
+
+                    // DO SOMETHING THAT REMOVES THE PRODUCT FROM THE LIST AND MAKE SURE TO SUBTRACT.
+                    foreach (Requirement requirement in discount.Requirement)
+                    {
+                        int removedCount = 0;
+                        // Remove X elements from the basketContents
+                        nonDiscountedWares.RemoveAll(x =>
+                        {
+                            if (removedCount < requirement.Amount)
+                            {
+                                removedCount++;
+                                //group.Remove(group);
+                                return true;
+                            }
+                            return false;
+                        });
+                    }
 
                     discountCount++;
-
                     if (discount.IsMultipleUse)
                         break;
-                }
-                
-                if (discountCount > 0)
-                {
-                    Product productToDiscount = stock.First(x => x.SKU == discount.SKU);
-                    double amountToSubtract = (discount.Price - (discount.Amount * productToDiscount.GetPriceSingle())) * discountCount;
-                    discountsToGivePayer.Add(new Tuple<string, double>(discount.SKU.ToString(), amountToSubtract));
-                }
+
+                } while (isMeetingRequirements);
+
+                if(discountCount > 0)
+                    discountsToGivePayer.Add(new Tuple<string, double, int>(
+                        $"{discount.Requirement.First().SKU}", 
+                        discount.Price * discountCount,
+                        discountCount)
+                        );
             }
 
-
             // --- Check If Payer Can Afford ---
-            double totalCostDiscounted = totalCostUndiscounted - discountsToGivePayer.Sum(x => x.Item2);
+            double totalCostDiscounted = nonDiscountedWares.Sum(x => x.GetPrice()) + discountsToGivePayer.Sum(x => x.Item2);
 
             if (payer.money < totalCostDiscounted)
                 return false;
-
+            
 
             // --- Print Reciept ---
-            basketContents = payer.Basket.Contents;
-            PrintReciept(basketContents, discountsToGivePayer);
+            List<Ware> basketContents = payer.Basket.Contents;
+            PrintReciept(payer.Basket.Contents, discountsToGivePayer, totalCostDiscounted);
 
 
             // --- Pay For Product ---
             payer.money -= totalCostDiscounted;
 
-            foreach (var ware in payer.Basket.Contents)
-                payer.AddToInventory(ware);
+            payer.AddToInventory(basketContents);
             payer.Basket.Contents.Clear();
 
-            return true;*/
-
-            throw new NotImplementedException();
+            return true;
         }
 
 
@@ -101,8 +112,8 @@ namespace exercise.main.Objects.Tools
          *      2021-03-16 21:38:44
          *      
          * ------------------------------
-         * Onion Bagel        2     £0.98
-         * Filling
+         * Onion Bagel        2     £3.98
+         * + Filling             (+£1.20)
          *                       (-£0.20)
          * Plain Bagel        12    £3.99
          * Coffee             3     £2.97
@@ -113,52 +124,98 @@ namespace exercise.main.Objects.Tools
          *        for your order!
          */
 
-        protected internal void PrintReciept(List<Ware> wares, List<Tuple<string, double>> discountToGivePayer)
+        protected void PrintReciept(List<Ware> wares, List<Tuple<string, double, int>> discountToGivePayer, double totalCost)
         {
-            double sum = 0.0d;
-
             Console.WriteLine("     ~~~ Bob's Bagels ~~~\n");
             Console.WriteLine("     2021-03-16 21:38:44\n");
-            Console.WriteLine("------------------------------");
+            Console.WriteLine("------------------------------\n");
 
-            // Write a line to console of the product, amount of product, + attachment - discount
+            wares = wares.OrderBy(x => x.SKU).ToList();
 
 
-            foreach(var ware in wares)
+            List<Ware> uniqueSKUWare = wares.DistinctBy(x => x.SKU).ToList();
+
+            // Pseudo-code: Write a line to console of the product, amount of product, + attachment - discount
+
+            foreach(var ware in uniqueSKUWare)
             {
-                string lineToPrint = $"{ware.Variant} {ware.Name}";
-                string costStr = $" £{ware.GetPriceSingle()}";
+                List<Ware> specifiedSDKWare = wares.Where(x => x.SKU == ware.SKU).ToList();
+                double wareCost = 0.0d;
+                double wareDiscountedCost = 0.0d;
 
-                Console.WriteLine(lineToPrint);
 
-                if (ware.Attachment != null)
+                List<Tuple<string, double>> attachments = new List<Tuple<string, double>>();
+
+                foreach (var sWare in specifiedSDKWare)
                 {
-                    string lineToPrint1 = ware.Variant.ToString() + " " + ware.Name.ToString();
-                    string costStr1 = $"£{ware.GetPriceSingle()}";
+                    wareCost += sWare.GetPrice();
 
-                    Console.WriteLine(lineToPrint1);
+                    // Check for attachment
+                    if (sWare.Attachment != null)
+                    {
+                        attachments.Add(new Tuple<string, double>(sWare.Attachment.Name, sWare.Attachment.GetPriceSingle()));
+                    }
+                    
                 }
 
-
-                //Check if product was discounted
-                var discount = discountToGivePayer.Find(x => x.Item1 == ware.SKU);
-                if (discount != null)
+                // Calculate ware cost
+                if(discountToGivePayer.Any(x => x.Item1 == ware.SKU))
                 {
-                    string discountStr = $"(-£{discount.Item2})";
-                    discountStr.PadLeft(30 - discountStr.Length);
-                    Console.WriteLine(discountStr);
+                    // REMOVED UNTIL DISCOUNT IS PATCHED
+                    wareDiscountedCost = wareCost - discountToGivePayer.First(x => x.Item1 == ware.SKU).Item2;
+                }
+
+                // --- Print --- 
+                PrintWare($"{ware.Variant} {ware.Name}", specifiedSDKWare.Count(), wareCost);
+                foreach(Tuple<string, double> attachment in attachments)
+                {
+                    PrintAttachment(attachment);
+                }
+
+                if (discountToGivePayer.Any(x => x.Item1 == ware.SKU))
+                {
+                    PrintDiscount(discountToGivePayer.First(x => x.Item1 == ware.SKU).Item2);
                 }
             }
 
-            Console.WriteLine("------------------------------");
+            Console.WriteLine("\n------------------------------");
 
             string sumStr = "Total"; 
-            sumStr.PadRight(24 - sum.ToString().Count());
-            sumStr += $"£{sum}";
+            sumStr = sumStr.PadRight(29 - Math.Round(totalCost, 2).ToString().Count(), ' ');
+            sumStr += $"£{Math.Round(totalCost, 2)}";
             Console.WriteLine(sumStr);
 
             Console.WriteLine("          Thank you");
             Console.WriteLine("       for your order!");
         }
+        private void PrintWare(string wareFullName, int amount, double cost)
+        {
+            // Print ware
+            string lineToPrint = $"{wareFullName}";
+            string costStr = $"{amount}  £{Math.Round(cost, 2)}";
+            lineToPrint = lineToPrint.PadRight(30 - costStr.Length);
+            lineToPrint += costStr;
+
+            Console.WriteLine(lineToPrint);
+        }
+        private void PrintAttachment(Tuple<string, double> attachment)
+        {
+            string lineToPrint = $"  + {attachment.Item1}";
+            string costStr = $"(+£{Math.Round(attachment.Item2, 2)})";
+            lineToPrint = lineToPrint.PadRight(30 - costStr.Length, ' ');
+            lineToPrint += costStr;
+
+            Console.WriteLine(lineToPrint);
+        }
+        private void PrintDiscount(double priceReduction)
+        {
+            string lineToPrint = "";
+            string costStr = $"(-£{Math.Round(priceReduction, 2)})";
+            lineToPrint = lineToPrint.PadRight(30 - costStr.Length, ' ');
+            lineToPrint += costStr;
+
+            Console.WriteLine(lineToPrint);
+        }
     }
+
 }

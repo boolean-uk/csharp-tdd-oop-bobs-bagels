@@ -15,7 +15,7 @@ namespace exercise.main.Objects.Containers
         public int BasketSizeMax { get => _basketSizeLimit; }
         public int BasketSize { get => _contentsInBasket.Capacity; }
 
-        public List<Ware> Contents { get => _contentsInBasket; }
+        public List<Ware> Contents { get => _contentsInBasket; set => _contentsInBasket = value; }
 
         public Basket()
         {
