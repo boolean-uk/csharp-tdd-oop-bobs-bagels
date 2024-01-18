@@ -22,7 +22,7 @@ As the manager, So we don't get any weird requests, I want customers to only be 
 Class: Basket
 Properties:
 private int capacity
-List<Item> content //Baskets contents
+List<Item> contents //Baskets contents
 
 Methods:
 public bool addItem (Item item)
@@ -31,7 +31,8 @@ returns: true if successfull
 public bool removeItem (Item item)
 returns: true if successfull
 
-public void changeBasketSize(int newSize)
+public int changeBasketSize(int newSize)
+return: newSize
 
 Abstract Class: Item
 Properties: 
@@ -39,6 +40,7 @@ private string SKU
 private float price
 private string type
 private string variant
+private string name // will be type + variant
 
 Class: Bagel : Item
 Properties:
@@ -46,7 +48,7 @@ Dictionary<float price, string fillingName> fillingPrices
 List<Filling> bagelFilling //This bagels fillings
 
 Methods:
-public void showFillingPrices(fillingPrices)
+public void showFillingPrices()
 print fillingPrices
 
 public void addFillin(Filling filling)
@@ -69,7 +71,7 @@ Properties:
 List<Item> inventory
 
 Methods:
-public bool indInventory(string SKU)
+public bool inInventory(string SKU)
 return: true if in inventory / false if not
 
 ._______________________________________.
