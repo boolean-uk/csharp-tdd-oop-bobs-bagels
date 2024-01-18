@@ -63,10 +63,6 @@ namespace exercise.main
         {
             float extract = _basket.FirstOrDefault(x => x.SKU == items[0].SKU).Price;
 
-            
-
-            // we are not actully working with _basket items here....
-
             if (Bundles.b6.ToString() == descr)
             {
                 int res = _basket.Count(x => x.SKU.Contains(items[0].SKU));
@@ -80,7 +76,7 @@ namespace exercise.main
                     priceRemover(extract, 6);
                     totalCost.Add(2.49F);
 
-                    foreach (Item it in basketItems)  // for 6 items
+                    foreach (Item it in basketItems) 
                     {
 
                         if (it.isInBundle() == false)
@@ -181,7 +177,7 @@ namespace exercise.main
             if (fillings.Exists(x => x.SKU  == filling.SKU) )
             {
                 Item fill = fillings.Single(x => x.SKU == filling.SKU);
-                it.AddFilling(fill);
+                it.AddFilling(fill);  // 
                 totalCost.Add(fill.Price);
             }
         }
@@ -210,95 +206,10 @@ namespace exercise.main
             return 0F;
         }
 
-        public void PrintReceipt()
+        public void PrintReceipt(Receit receit)
         {
-            DateTime dt = DateTime.Now;
-            string date = dt.Date.ToString().Split(" ")[0];
-            string time = dt.TimeOfDay.ToString().Split(".")[0];
             float totalprice = TotalCost();
-            List<float> savedAmount = new List<float>();
-           
-
-            Console.WriteLine("     ~~~ Bob's Bagels ~~~");
-            Console.WriteLine("");
-            Console.WriteLine($"      {date} {time}");
-            Console.WriteLine("");
-            Console.WriteLine("------------------------------");
-
-            List<string> skuUnique = _basket.Select(x => x.SKU).Distinct().ToList();
-            Dictionary<string, float> bundle = new Dictionary<string, float> { ["6"] = 2.49F, ["12"] = 3.99F, ["2"] = 1.25F };
-            List<Item> bundleSkip = new List<Item>();
-
-
-            foreach (Item item in _basket)
-            {
-                if (bundleSkip.Contains(item))
-                {
-                    continue;
-                }
-
-                string itemName = $"{ item.Variant } { item.Name}";
-
-                int countItems = (item.isInBundle()) ? item.ListBundleIds().Count() : _basket.Where(x => !x.isInBundle()).Count(x => x.SKU == item.SKU);  // how many identical items in basket 
-
-                // for receipt string formatting
-                string res = $"{item.Variant} {item.Name}";
-                int spt = (countItems > 9) ? 21 : 22;
-                int spacing = spt - res.Length;
-
-                float itemPrice = item.Price * countItems;
-                string savedPrice = "";
-
-                // this item is in one of the bundle types
-
-                
-
-                if (item.isInBundle())
-                {
-                    List<string> bundleIDS = item.ListBundleIds();
-
-                    bundleSkip.AddRange(_basket.Where(x => bundleIDS.Contains(x.ID)).ToList());
-
-                    string countIt = $"{item.ListBundleIds().Count()}";   
-                    float res2 = Math.Abs(itemPrice - bundle[countIt]);  // discount amount
-
-                    savedAmount.Add(res2);
-
-                    savedPrice = $"{res2:0.00}"; 
-                    itemPrice = bundle[$"{countIt}"];
-
-                    if (item.ListBundleIds().Count() == 2)
-                    {
-                        itemName = "Bagel & Coffee";
-                        spacing = 8;
-                    }
-
-                    countItems = item.ListBundleIds().Count();
-
-                }
-
-                string spaces = new String(' ', spacing);
-
-                Console.WriteLine($"{itemName}{spaces}{countItems}  £{itemPrice}");
-
-                if (savedPrice.Length > 1)
-                {
-                   
-                    Console.WriteLine($"                      (-£{savedPrice})");
-                }
-
-            }
-
-            string totalResult = $"{totalprice:0.00}";
-
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"Total                    £{totalResult}");
-            Console.WriteLine("");
-            Console.WriteLine($"   You saved a total of £{savedAmount.Sum():0.00}");
-            Console.WriteLine("         on this shop");
-            Console.WriteLine(" ");
-            Console.WriteLine("           Thank you");
-            Console.WriteLine("        for your order!");
+            receit.PrintReceit(totalprice, _basket);
 
         }
     }

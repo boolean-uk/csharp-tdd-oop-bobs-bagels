@@ -133,9 +133,13 @@ public class BasketTests
         Item t1 = testBasket.AddItem(inv["BGLO"]);
         Item t2 = testBasket.AddItem(inv["BGLE"]);
 
+        Filling filling = (Filling)inv["FILB"];
+
+        testBasket.AddFilling(t1.ID, filling);
+
         float total = testBasket.TotalCost();
 
-        Assert.That(total, Is.EqualTo(0.98F));
+        Assert.That(total, Is.EqualTo(1.1F));
         
     }
 
@@ -323,7 +327,7 @@ public class BasketTests
 
         testBasket.BundleOrder("b12", new List<Item> { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 });
 
-        testBasket.PrintReceipt();
+        testBasket.PrintReceipt(new Receit());
 
         var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         

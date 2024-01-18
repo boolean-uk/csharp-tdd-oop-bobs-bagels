@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public interface IInventory
-    {
-        public Dictionary<string, Item> getInventory();
-        public List<Item> listContents();
-    }
-
     public class WholeInventory : IInventory
     {
         private Dictionary<string, Item> _all = new Dictionary<string, Item> {
