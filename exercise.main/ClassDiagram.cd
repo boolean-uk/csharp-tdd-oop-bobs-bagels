@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.Bagel">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAEA=</HashCode>
+      <FileName>Bagel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="exercise.main.Filling">
+    <Position X="8.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAAAAAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Filling.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="exercise.main.Basket">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIABAAAAAAACAAAEAAABAQCABAAAAAEAAAAAAAEAAA=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.BobsBagels">
+    <Position X="1" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAQAAAAAAAAAAAAQCABAAAAAAAAAAAEAIAAA=</HashCode>
+      <FileName>BobsBagels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Coffee">
+    <Position X="6" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAAAEAQQAAAAAAAAAAIAAAAACAAAAAAAAAEAAAAEA=</HashCode>
+      <FileName>Coffee.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -38,3 +38,15 @@ Every Bagel is available for the `6 for 2.49` and `12 for 3.99` offer, but filli
 Update and extend your program to handle these orders at Bob's Bagels.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
+
+```
+1.
+As a member of the public,
+So I can order bagels at a discount,
+I'd like my discounts to be applied to the total of my basket,
+```
+
+| `Classes` | `Methods`    | `Scenarios`                        | `Outputs`                          |
+|-----------|--------------|------------------------------------|------------------------------------|
+| `Basket`  | `GetTotal()` | `6 bagels of same type in basket`  | `Discount of 6 bagels is applied`  |
+|           |              | `12 bagels of same type in basket` | `Discount of 12 bagels is applied` |

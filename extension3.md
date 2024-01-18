@@ -52,3 +52,5 @@ You saved a total of £0.69
         Thank you
       for your order!
 ```
+
+Already implemented in extension2.:)
