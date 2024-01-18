@@ -24,26 +24,33 @@ namespace exercise.main
         public void PrintReceipt()
         {
             Console.WriteLine("");
-            Console.WriteLine("          ~~~Bob's Bagels ~~~    ");
+            Console.WriteLine("           ~~~Bob's Bagels ~~~    ");
             Console.WriteLine("");
-            Console.WriteLine("          "  +  ReceiptDateTime.ToString());
+            Console.WriteLine("           "  +  ReceiptDateTime.ToString());
             Console.WriteLine("");
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("");
             List<Item> receiptItems = ReceiptBasket.BasketItems;
             foreach(var item in receiptItems)
             {
-                Console.WriteLine($"{item.Variant} {item.Name} {String.Format("{0, 20}", item.Quantity)} £{Math.Round(item.Quantity * item.Price, 2)}");
+                if(item.Sku == "COFW")
+                {
+                    Console.WriteLine($"{item.Variant} {item.Name} {String.Format("{0, 21}", item.Quantity)} £{Math.Round(item.Quantity * item.Price, 2)}");
+                } else
+                {
+                    Console.WriteLine($"{item.Variant} {item.Name} {String.Format("{0, 22}", item.Quantity)} £{Math.Round(item.Quantity * item.Price, 2)}");
+                }
+                
             }
             Console.WriteLine("");
             double total = ReceiptBasket.TotalCostBasket();
             Console.WriteLine("");
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("");
-            Console.WriteLine($"Total                          £{total}");
+            Console.WriteLine($"Total                               £{total}");
             Console.WriteLine("");
-            Console.WriteLine("              Thank you");
-            Console.WriteLine("            for your order!");
+            Console.WriteLine("               Thank you");
+            Console.WriteLine("             for your order!");
            
         }
 

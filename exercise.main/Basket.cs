@@ -76,11 +76,11 @@ namespace exercise.main
         {
             if(BasketItems.Count < Capacity || BasketItems.Count == 0)
             {
-//              Console.WriteLine("Basket is not full");
+                Console.WriteLine("Basket is not full");
                 return false;
             } else
             {
-//              Console.WriteLine("Basket is full");
+                Console.WriteLine("Basket is full");
                 return true;
             }
         }
@@ -165,7 +165,7 @@ namespace exercise.main
 
                             result += 1.25 * discountQuantity - bagelCoffePrice;
                             item.Quantity -= discountQuantity;
-                            Console.WriteLine($"Coffee and Bagel discount  (-£{Math.Round((bagelPrice + coffeePrice - (1.25*discountQuantity)), 2)})");
+                            Console.WriteLine($"Coffee and Bagel discount        (-£{Math.Round((bagelPrice + coffeePrice - (1.25*discountQuantity)), 2)})");
                               
                         }
 
@@ -176,7 +176,6 @@ namespace exercise.main
                 }           
 
             }
-
             //          Console.WriteLine("The total cost of basket is: " + Math.Round(result, 2));
             return Math.Round(result, 2);
         }
