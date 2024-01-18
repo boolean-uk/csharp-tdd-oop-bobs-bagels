@@ -1,36 +1,44 @@
-﻿namespace exercise.main
+﻿using static exercise.main.PriceCalculator;
+
+namespace exercise.main
 {
     public static class Receipt
     {
+        private static void PrintFoodItems(IEnumerable<dynamic> foodGroups)
+        {
+            foreach (var group in foodGroups)
+            {
+                Console.WriteLine(
+                    $"{group.Name,-10}{group.Count,10}{group.Price,18:0.00}$");
+                if (group.Discount > 0)
+                {
+                    Console.Write("\t{0, 35}", $"-({group.Discount:0.00}$)\n");
+                }
+            }
+        }
         public static void Print(Basket basket)
         {
             var content = basket.GetContents();
             string title = "~~~ Bob's Bagels ~~~";
             string date = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
             string border = new('-', title.Length * 2);
-            float totalDiscount = PriceCalculator.CalculateDiscounts(basket.GetContents());
+            float totalDiscount = CalculateDiscounts(basket.GetContents());
             var foodGroups = content.GroupBy(x => x.FullName)
                 .Select(group => new
                 {
                     Name = group.Key,
                     Count = group.Count(),
-                    Price = PriceCalculator.GetTotalPrice([..group]),
-                    Discount = PriceCalculator.CalculateDiscounts([..group])
+                    Price = GetTotalPrice([..group]),
+                    Discount = CalculateDiscounts([..group])
                 });
 
             Console.WriteLine(
                 $"\t{title, 10}\n\n" +
                 $"\t{date, 10}\n\n" +
                 $"{border, 10}\n");
-            foreach (var group in foodGroups)
-            {
-                Console.WriteLine(
-                    $"{group.Name, -10}{group.Count, 10}{group.Price, 18:0.00}$");
-                if (group.Discount > 0)
-                {
-                    Console.Write("\t{0, 35}", $"-({group.Discount:0.00}$)\n");
-                }
-            }
+
+            PrintFoodItems(foodGroups);
+
             Console.WriteLine(
                 $"{border}\n" +
                 $"Total:" +
