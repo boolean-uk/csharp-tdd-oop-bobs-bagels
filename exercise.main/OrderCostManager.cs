@@ -79,11 +79,16 @@ namespace exercise.main
         {
             double result = 0;
 
-            // Discounts
             List<Discount> discounts = GetDiscounts(order);
+
+            // Handle discounts 
             result += discounts.Sum(d => d.Price);
 
-            // Bagel Discounts
+            // Handle coffees that are not dicounted
+            int coffeeAndBagelDiscountCount = discounts.Count(d => d.Name == "Coffee & Bagel");
+            result += order.Coffees.Skip(coffeeAndBagelDiscountCount).Sum(c => c.Variant.Price);
+
+            // Handle bagel that are not discounted
             Dictionary<string, int> bagelsInDiscount = discounts
                 .Where(d => d.Name != "Coffee & Bagel")
                 .ToDictionary(d => d.Name, d => d.Quantity);
@@ -91,21 +96,20 @@ namespace exercise.main
             foreach (var bagel in order.Bagels)
             {
                 string bagelName = bagel.Variant.Name;
-                if (!bagelsInDiscount.ContainsKey(bagelName) || bagelsInDiscount[bagelName] <= 0)
+
+                if (coffeeAndBagelDiscountCount > 0) // Deduct bagels used in 'Coffee & Bagel' discount.
                 {
-                    result += bagel.Cost();
+                    coffeeAndBagelDiscountCount--;  
+                }
+                else if (!bagelsInDiscount.ContainsKey(bagelName) || bagelsInDiscount[bagelName] <= 0)
+                {
+                    result += bagel.Cost(); 
                 }
                 else
                 {
-                    bagelsInDiscount[bagelName] -= 1;
+                    bagelsInDiscount[bagelName] -= 1;  // Deduct from specific bagel discount count
                 }
-            }
-
-            // 'Coffee & Bagel' discounts
-            int coffeeAndBagelDiscountCount = discounts.Count(d => d.Name == "Coffee & Bagel");
-
-            int coffeesToCharge = Math.Max(0, order.Coffees.Count - coffeeAndBagelDiscountCount);
-            result += order.Coffees.Take(coffeesToCharge).Sum(c => c.Variant.Price);
+            }         
 
             return result;
         }

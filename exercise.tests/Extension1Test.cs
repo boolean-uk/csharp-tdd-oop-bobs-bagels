@@ -128,12 +128,12 @@ public class Extension1Tests
     }
 
     [Test]
-    public void GetDiscountsOneDiscount()
+    public void GetDiscountsOnionDiscount()
     {
         OrderCostManager costManager = new OrderCostManager();
         var order = new Order();
 
-        var onionVariant = inventory.GetItem("BGLO") as Inventory.BagelVariant;
+        var onionVariant = inventory.GetItem("BGLO") as BagelVariant;
 
         for (int i = 0; i < 6; i++)
         {
@@ -145,6 +145,22 @@ public class Extension1Tests
         Assert.That(discounts.Count, Is.EqualTo(1));
         Assert.That(discounts[0].Name, Is.EqualTo("Onion"));
         Assert.That(discounts[0].Price, Is.EqualTo(2.49));
+    }
+
+    [Test]
+    public void GetDiscountsCoffeeAndBagelDiscount()
+    {
+        Order order = new Order();
+
+        var onionVariant = inventory.GetItem("BGLO") as Inventory.BagelVariant;
+        var coffeeVariant = inventory.GetItem("COFB") as Inventory.CoffeeVariant;
+
+        order.Add(new Bagel(onionVariant));
+        order.Add(new Coffee(coffeeVariant));
+
+        List<Discount>? discounts = costManager.GetDiscounts(order);
+
+        Assert.That(discounts.Any(d => d.Name == "Coffee & Bagel" && d.Quantity == 1), Is.True);
     }
 
     [Test]
@@ -213,7 +229,7 @@ public class Extension1Tests
         var discounts = costManager.GetDiscounts(order);
         Assert.IsTrue(discounts.Any(d => d.Name == "Coffee & Bagel" && d.Quantity == 1), "Coffee & Bagel discount not applied");
 
-        double expectedCost = 1.25;
+        double expectedCost =  1.25;
         double actualCost = costManager.Cost(order);
 
         Assert.That(actualCost, Is.EqualTo(expectedCost));
@@ -234,8 +250,8 @@ public class Extension1Tests
         order.Add(new Bagel(plainVariant)); // No discount
         order.Add(new Coffee(coffeeVariant)); // Part of Coffee & Bagel discount
 
-        double expectedCost = 2.49 + 0.39 + 1.25; // Bulk discount + regular price of Plain + Coffee & Bagel discount
-        double actualCost = costManager.Cost(order);
+        double expectedCost = Math.Round(2.49 + 0.39 + 1.25, 2); // Round to 2 decimal places
+        double actualCost = Math.Round(costManager.Cost(order), 2); // Round to 2 decimal places
 
         Assert.That(actualCost, Is.EqualTo(expectedCost));
     }
