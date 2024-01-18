@@ -190,6 +190,7 @@ namespace exercise.main.Objects
             //Discounts
             if (discountBasket.Count> 0)
             {
+                Console.WriteLine("       Discounts used     ");
                 if (discountBasket.Any(t => t.SKU == "COFB"))
                 {
                     Console.WriteLine("{0,10}    {1,10}    {2,10}",
@@ -206,8 +207,10 @@ namespace exercise.main.Objects
                     item.amountRequired,
                     $"£{item.price}"
                     );
+                    Console.WriteLine($"                                (£{Math.Round(item.price - (inventory.items.FirstOrDefault(t=>t.SKU==item.SKU).Price * item.amountRequired),2)})");
                 }
             }
+            Console.WriteLine("              Non discount items         ");
             foreach (var item in basket) 
             {
                 Console.WriteLine("{0,10}    {1,10}    {2,10}",
