@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Bagel : Product
+    public class Bagel
     {
         public string _sku;
         public double _price;
@@ -23,9 +23,9 @@ namespace exercise.main
             _variant = Variant;
         }
 
-        //public string SKU { get { return _sku; } set { _sku = value; } }
-        //public double Price { get { return _price; } set { _price = value; } }
-        //public string Name { get { return _name; } set { _name = value; } }
-        //public string Variant { get { return _variant; } set { _variant = value; } }
+        public string SKU { get { return _sku; } set { _sku = value; } }
+        public double Price { get { return _price; } set { _price = value; } }
+        public string Name { get { return _name; } set { _name = value; } }
+        public string Variant { get { return _variant; } set { _variant = value; } }
     }
 }

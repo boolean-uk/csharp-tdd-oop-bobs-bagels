@@ -16,8 +16,8 @@ public class Tests
         Assert.Pass();
     }
 
-    [TestCase]
-    public void AddBagel()
+    [Test]
+    public void AddProduct()
     {
         //Arrange
         Basket basket = new Basket();
@@ -26,11 +26,11 @@ public class Tests
         basket.addProductToBasket(prod);
 
         //Assert
-        Assert.IsTrue(basket._basketList.Contains(prod));
+        Assert.IsTrue(basket.basketList.Contains(prod));
     }
 
     [Test]
-    public void RemoveBagel()
+    public void RemoveProduct()
     {
         //Arrange
         Basket basket = new Basket();
@@ -40,7 +40,7 @@ public class Tests
         basket.removeProduct(prod);
 
         //Assert
-        Assert.IsTrue(!basket._basketList.Contains(prod));
+        Assert.IsTrue(!basket.basketList.Contains(prod));
     }
 
     [Test]
@@ -54,12 +54,13 @@ public class Tests
 
         basket.addProductToBasket(prod1);
         basket.addProductToBasket(prod2);
+        basket.changeBasketCapacity(1);
 
         //Act
         basket.addProductToBasket(prod3);
 
         //Assert
-        Assert.IsTrue(!basket._basketList.Contains(prod3));
+        Assert.IsTrue(!basket.basketList.Contains(prod3));
     }
 
     [Test]
@@ -97,15 +98,18 @@ public class Tests
     {
         //Arrange
         Basket basket = new Basket();
-        double sum = 0.88;
+        double sum = 1.88d;
         
-        Product prod1 = new Product("BGLP", 0.39, "Bagel", "Plain");
-        Product prod2 = new Product("BGLE", 0.49, "Bagel", "Everything");
+        Product prod1 = new Product("BGLP", 0.39d, "Bagel", "Plain", 2);
+        Product prod2 = new Product("BGLE", 0.49d, "Bagel", "Everything", 2);
+        Product prod3 = new Product("FILH", 0.12d, "Filling", "Ham", 1);
 
 
         //Act
+        basket.changeBasketCapacity(4);
         basket.addProductToBasket(prod1);
         basket.addProductToBasket(prod2);
+        basket.addProductToBasket(prod3);
         double totalCost = basket.totalCost();
 
         //Assert
@@ -120,11 +124,27 @@ public class Tests
         //Arrange
         Basket basket = new Basket();
 
+
         //Act
-        string s = basket.printMenu();
+        string s = basket.showMenu();
         //Assert
-        Assert.IsTrue(s.Equals(basket.printMenu()));
+        Assert.IsTrue(s.Equals(basket.showMenu()));
     }
+
+    [Test]
+    public void CheckInventory()
+    {
+        //Arrange
+        Basket basket = new Basket();
+        Product prod = new Product("BGLX", 0.49, "Bagel", "Onion");
+        //Act
+        basket.addProductToBasket(prod);
+
+        //Assert
+        Assert.IsTrue(!basket.basketList.Contains(prod));
+    }
+
+    
 }
 
     

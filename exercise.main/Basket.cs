@@ -7,36 +7,43 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace exercise.main
 {
     public class Basket
     {
-        public int _capacity = 1;
-        public List<Product> _basketList = new List<Product>();
-        public Menu _menu = new Menu();
+        public int _capacity = 12;
+        public List<Product> basketList = new List<Product>();
+        public Menu menu = new Menu();
+        
+        
         
 
         public Basket()
         {
-            _basketList = new List<Product>(_capacity);
-            
+            basketList = new List<Product>(_capacity);
+            menu.printMenu();
         }
 
-        public List<Product> Products { get { return _basketList; } }
+        public List<Product> Products { get { return basketList; } }
         public int Capacity { get { return _capacity; } }
 
         public bool addProductToBasket(Product prod)
         {
-            if (_basketList.Count > _capacity)
+            if (basketList.Count > _capacity)
             {
                 Console.WriteLine("Basket is full");
                 return false;
             }
+            else if (!checkInventory(prod._sku))
+            {
+                Console.WriteLine("Item not in inventory");
+                return false;
+            }
             else
             {
-                _basketList.Add(prod);
+                basketList.Add(prod);
                 return true;
             }
 
@@ -44,11 +51,11 @@ namespace exercise.main
 
         public void removeProduct(Product product)
         {
-            if(!_basketList.Contains(product))
+            if(!basketList.Contains(product))
             {
                 ProductNotInBasket(product);
             }
-            else { _basketList.Remove(product);}
+            else { basketList.Remove(product);}
             
         }
 
@@ -65,19 +72,82 @@ namespace exercise.main
         public double totalCost()
         {
             double totalCost = 0;
-            foreach(Product product in _basketList)
+            foreach(Product product in basketList)
             {
-                totalCost += product._price;
+                totalCost += (product._price * product.count);
             }
 
             return totalCost;
         }
 
-        public string printMenu()
+        public string showMenu()
         {
-            return _menu.showMenu();
+            string s = menu.stringifyMenu();
+            return s;
         }
 
+        public bool checkInventory(string sku)
+        {
+            
+            foreach(var item in menu.menuList)
+            {
+                if(item._sku == sku )
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+        public string printBasket()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (Product product in basketList)
+            {
+                sb.Append(product.ToString());
+                
+            }
+            return sb.ToString();
+        }
+
+        //Extension 1 
+
+        public double CalculateTotalCost()
+        {
+            double totalCost = 0;
+            double discountCost = 0;
+
+
+            foreach (Product product in basketList)
+            {
+                totalCost += (product._price * product.count);
+            }
+
+            foreach (Product product in basketList)
+            {
+                discountCost += product.SpecialOfferCost();
+            }
+
+            return discountCost;
+        }
+
+        public void WriteReceipt()
+        {
+            Console.WriteLine($"         ~~ Bob's Bagels ~~");
+            Console.WriteLine();
+            Console.WriteLine($"         {DateTime.Now.ToShortTimeString()}");
+            Console.WriteLine();
+            Console.WriteLine("{0,10}    {1,10}    {2,10} ", "Product", "Qty", "Price");
+            foreach (Product prod in basketList)
+            {
+                Console.WriteLine("{0,10}    {1,10}    {2,10}", prod._variant, prod.count, $"£{prod._price}");
+
+            }
+
+            Console.WriteLine(new string('-', 40));
+            double result = totalCost();
+            Console.WriteLine($"Total                          {result}");
+        }
 
     }
 }

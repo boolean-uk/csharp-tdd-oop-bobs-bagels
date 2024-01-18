@@ -16,6 +16,7 @@ namespace exercise.main
 
         public Fillings(string sku, double price, string name, string variant)
         {
+            _fillings = new List<Fillings>();
             _sku = sku;
             _price = price;
             _name = name;

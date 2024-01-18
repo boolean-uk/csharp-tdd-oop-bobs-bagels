@@ -8,37 +8,62 @@ namespace exercise.main
 {
     public class Menu
     {
-        public List<string> menuList = new List<string>();
-
+        public List<Product> menuList = new List<Product>();
+        public List<Product> MenuList { get { return menuList;} }
+        
         public Menu() 
         {
-            menuList.Add("BGLO, 0.49d, Bagel, Onion");
-            menuList.Add("BGLp, 0.39d, Bagel, PLain");
-            menuList.Add("BGLE, 0.49d, Bagel, Everything");
-            menuList.Add("BGLS, 0.99d, Bagel, Sesame");
-            menuList.Add("COFB, 0.99d, Coffee, Black");
-            menuList.Add("COFW, 1.19d, Coffee, White");
-            menuList.Add("COFC, 1.29d, Coffee, Cappuccino");
-            menuList.Add("COFL, 1.29d, Coffee, Latte");
-            menuList.Add("FILB, 0.12d, Filling, Bacon");
-            menuList.Add("FILE, 0.12d, Filling, Egg");
-            menuList.Add("FILC, 0.12d, Filling, Cheese");
-            menuList.Add("FILX, 0.12d, Filling, Cream Cheese");
-            menuList.Add("FILS, 0.12d, Filling, Smoked Salmon");
-            menuList.Add("FILH, 0.12d, Filling, Ham");
+            menuList = CreateMenu();
         }
 
-        public string showMenu() 
+        public string stringifyMenu() 
         {
             StringBuilder sb = new StringBuilder();
-            foreach (string item in menuList)
+            foreach (Product item in menuList)
             {
                 sb.Append(item);
             }
             return sb.ToString();
         }
 
-        
+        public void printMenu()
+        {
+            Console.WriteLine($"         ~~ Bob's Bagels Menu~~");
+            Console.WriteLine();
+            Console.WriteLine("{0,10}    {1,10}       {2,10}     {3,10} ", "SKU", "Product", "Variant", "Price");
+            Console.WriteLine();
+            foreach (Product prod in menuList)
+            {
+                Console.WriteLine("{0,10}    {1,10}       {2,10}     {3,10}", prod._sku, prod._name, prod._variant, $"£{prod._price}");
+
+            }
+
+
+        }
+
+        public static List<Product> CreateMenu()
+        {
+            return new List<Product>
+            {
+                new Product("BGLO", 0.49d, "Bagel", "Onion"),
+                new Product("BGLP", 0.39d, "Bagel", "Plain"),
+                new Product("BGLE", 0.49d, "Bagel", "Everything"),
+                new Product("BGLS", 0.49d, "Bagel", "Sesame"),
+                new Product("COFB", 0.99d, "Coffee", "Black"),
+                new Product("COFW", 1.19d, "Coffee", "White"),
+                new Product("COFC", 1.29d, "Coffee", "Cappuccino"),
+                new Product("COFL", 1.29d, "Coffee", "Latte"),
+                new Product("FILB", 0.12d, "Filling", "Bacon"),
+                new Product("FILE", 0.12d, "Filling", "Egg"),
+                new Product("FILC", 0.12d, "Filling", "Cheese"),
+                new Product("FILX", 0.12d, "Filling", "Cream Cheese"),
+                new Product("FILS", 0.12d, "Filling", "Smoked Salmon"),
+                new Product("FILH", 0.12d, "Filling", "Ham")
+            };
+        }
+
+
+
 
     }
 }
