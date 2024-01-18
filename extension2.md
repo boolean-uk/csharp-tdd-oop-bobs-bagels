@@ -61,9 +61,6 @@ I'd like to see the name and price of the products, with quantity and total cost
 ```
 | `Classes` | `Methods`       | `Scenarios` | `Outputs`                                                   |
 |-----------|-----------------|-------------|-------------------------------------------------------------|
-| `Receipt` | `PrintHeadline` |             | `Prints the headline of the receipt`                        |
-|           | `PrintDateTime` |             | `Prints the date and time of the purchase`                  |
+| `Receipt` | `PrintHeader`   |             | `Prints the headline of the receipt`                        |
 |           | `PrintItems`    |             | `Prints the items from the basket, with quantity and price` |
-|           | `PrintDiscount` |             | `Prints the discount applied`                               |
-|           | `PrintTotal`    |             | `Prints the total price of the basket`                      |
-|           | `PrintThankYou` |             | `Prints a thank you note`                                   |
+|           | `PrintEnd`      |             | `Prints a thank you note`                                   |
