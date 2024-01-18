@@ -1,15 +1,17 @@
 ﻿using exercise.main;
 
-Console.WriteLine("Welcome to Bobs Bagel\nMenu:");
-DefaultInventory.Inventory.ForEach(Item =>
+Customer c = new Customer();
+Item plain = DefaultInventory.FindItemInInventoryBySKU("BGLP");
+Item everything = DefaultInventory.FindItemInInventoryBySKU("BGLE");
+Item coffee = DefaultInventory.FindItemInInventoryBySKU("COFB");
+for (int i = 0; i < 26; i++)
 {
-    Console.WriteLine($"{Item.Name} {Item.Variant} - {Item.Price}");
-});
-Console.WriteLine("What do you want to add to your basket?");
-string itemVariant = Console.ReadLine();
-Item item = DefaultInventory.Inventory.Find(i => i.Variant == itemVariant);
-if (item.Name == Name.Filling)
-{
-    Console.WriteLine($"Price for filling is {item.Price}");
+    c.basket.PutInBasket(plain);
 }
+c.basket.PutInBasket(coffee);
+c.basket.PutInBasket(everything);
+
+
+Receipt r = new Receipt("Bob s bagels", c);
+r.PrintReceipt();
 

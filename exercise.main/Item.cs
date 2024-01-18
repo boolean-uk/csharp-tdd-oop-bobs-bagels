@@ -8,7 +8,7 @@ namespace exercise.main
 {
     public enum Name
     {
-        Coffe, Bagel, Filling
+        Coffe, Bagel, Filling, Special
     }
 
     public class Item
@@ -24,10 +24,14 @@ namespace exercise.main
             _name = name;
             _variant = variant;
         }
+        public void updatePrice(double discountPrice)
+        {
+            _price = discountPrice;
+        }
 
-        public string Sku { get => _SKU; }
-        public double Price { get => _price; }
-        public Name Name { get => _name; }
-        public string Variant { get => _variant; }
+        public string Sku { get => _SKU; set => _SKU = value; }
+        public double Price { get => _price; set => _price = value; }
+        public Name Name { get => _name; set => Name = value; }
+        public string Variant { get => _variant; set => _variant = value; }
     }
 }

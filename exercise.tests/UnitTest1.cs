@@ -8,9 +8,9 @@ public class Tests
     [Test]
     public void ShouldSumItemsInBasket()
     {
-        Item bagel = DefaultInventory.FindItemBySKU("BGLO");
-        Item coffee = DefaultInventory.FindItemBySKU("COFB");
-        Item filling = DefaultInventory.FindItemBySKU("FILB");
+        Item bagel = DefaultInventory.FindItemInInventoryBySKU("BGLO");
+        Item coffee = DefaultInventory.FindItemInInventoryBySKU("COFB");
+        Item filling = DefaultInventory.FindItemInInventoryBySKU("FILB");
         Basket basket = new Basket(3);
         basket.PutInBasket(bagel);
         basket.PutInBasket(coffee);
@@ -25,10 +25,10 @@ public class Tests
     [Test]
     public void ShouldFindCostOfBagel()
     {
-        Item bagel = DefaultInventory.FindItemBySKU("BGLO");
-        Item filling = DefaultInventory.FindItemBySKU("FILB");
-        Item coffee = DefaultInventory.FindItemBySKU("COFB");
-        Item secondFilling = DefaultInventory.FindItemBySKU("FILE");
+        Item bagel = DefaultInventory.FindItemInInventoryBySKU("BGLO");
+        Item filling = DefaultInventory.FindItemInInventoryBySKU("FILB");
+        Item coffee = DefaultInventory.FindItemInInventoryBySKU("COFB");
+        Item secondFilling = DefaultInventory.FindItemInInventoryBySKU("FILE");
         List<Item> items = new List<Item>
         {
             bagel,filling, coffee, secondFilling
@@ -41,7 +41,7 @@ public class Tests
     [Test]
     public void ShouldFindCostOfOneFilling()
     {
-        Item filling = DefaultInventory.FindItemBySKU("FILB");
+        Item filling = DefaultInventory.FindItemInInventoryBySKU("FILB");
         double sum = DefaultInventory.FindFillingCost(filling);
 
         // 0,12
@@ -50,7 +50,7 @@ public class Tests
     [Test]
     public void ShouldRemoveItemFromBasket()
     {
-        Item bagel = DefaultInventory.FindItemBySKU("BGLO");
+        Item bagel = DefaultInventory.FindItemInInventoryBySKU("BGLO");
         Basket b = new Basket(5);
         b.PutInBasket(bagel);
         b.RemoveFromBasket(bagel);
@@ -59,8 +59,8 @@ public class Tests
     [Test]
     public void ShouldNotBePossibleToAddItemAfterBasketCapacityIsReached()
     {
-        Item bagel = DefaultInventory.FindItemBySKU("BGLO");
-        Item filling = DefaultInventory.FindItemBySKU("FILB");
+        Item bagel = DefaultInventory.FindItemInInventoryBySKU("BGLO");
+        Item filling = DefaultInventory.FindItemInInventoryBySKU("FILB");
         Basket b = new Basket(1);
         b.PutInBasket(bagel);
         string response = b.PutInBasket(filling);
@@ -79,8 +79,8 @@ public class Tests
     [Test]
     public void CustomerShouldHaveABasket()
     {
-        Item bagel = DefaultInventory.FindItemBySKU("BGLO");
-        Item filling = DefaultInventory.FindItemBySKU("FILB");
+        Item bagel = DefaultInventory.FindItemInInventoryBySKU("BGLO");
+        Item filling = DefaultInventory.FindItemInInventoryBySKU("FILB");
         Customer c = new Customer();
         c.basket.PutInBasket(bagel);
         c.basket.PutInBasket(filling);

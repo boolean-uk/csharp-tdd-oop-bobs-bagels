@@ -9,6 +9,7 @@ namespace exercise.main
     public static class DefaultInventory
     {
         public static List<Item> Inventory { get; private set; }
+        public static List<Item> SpecialOffers { get; private set; }
         static DefaultInventory()
         {
             Inventory = new List<Item>
@@ -19,13 +20,22 @@ namespace exercise.main
 
             };
 
+            SpecialOffers = new List<Item>
+            {
+                new Item("SOBO", 2.49d, Name.Special, "6 for 2.49"), new Item("SOBP", 3.99d, Name.Special, "12 for 3.99"),
+                new Item("SOBE", 2.49d, Name.Special, "6 for 2.49"), new Item("SOCB", 1.25d, Name.Special, "Coffee & Bagel for 1.25")
+            };
         }
 
-        public static Item FindItemBySKU(string sku)
+        
+        public static Item FindItemInInventoryBySKU(string sku)
         {
             return Inventory.FirstOrDefault(item => item.Sku == sku);
         }
-
+        public static Item FindItemInSpecialOffersBySKU(string sku)
+        {
+            return SpecialOffers.FirstOrDefault(item => item.Sku == sku);
+        }
         public static double FindBagelCost(List<Item> items)
         {
             return items.Where(i => i.Name == Name.Filling || i.Name == Name.Bagel).Sum(i => i.Price);
@@ -34,5 +44,7 @@ namespace exercise.main
         {
             return filling.Price;
         }
+        
+        
     }
 }
