@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace tdd_bobs_bagels.CSharp.Main
 {
-    public class Item
-    {
-        public string Name, SKU, Variant;
-        public float Price;
+   public class Item
+{
+    public string Name { get; set;}
+    public string SKU { get; set; }
+    public string Variant { get; set; }
+    public float Price { get; set; }
 
-        public Item(string sku, string name, string variant, float price)
-        {
-            this.SKU = sku;
-            this.Name = name;
-            this.Variant = variant;
-            this.Price = price;
-        }
+    public Item(string sku, string name, string variant, float price)
+    {
+        SKU = sku;
+        Name = name;
+        Variant = variant;
+        Price = price;
     }
+}
+
 }
 
 

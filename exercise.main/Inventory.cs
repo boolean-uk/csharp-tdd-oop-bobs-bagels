@@ -5,9 +5,19 @@ using tdd_bobs_bagels.CSharp.Main;
 
 namespace tdd_bobs_bagels.CSharp.Main
 {
-public class Inventory
+
+    public interface IInventory
     {
-        private Dictionary<string, Item> items = new Dictionary<string, Item>{
+        IEnumerable<Item> GetItemsByCategory(string category);
+        Item GetItemDetails(string sku);
+    }
+
+
+    public class Inventory : IInventory
+    {
+        
+        private Dictionary<string, Item> items = new Dictionary<string, Item>
+        {
             {"1", new Item("BGLP", "Bagel", "plain", 1.00f)},
             {"2", new Item("BGLS", "Bagel", "Sesame", 1.10f)},
             {"3", new Item("BGLC", "Bagel", "Cinnamon", 1.20f)},
@@ -19,15 +29,14 @@ public class Inventory
             {"9", new Item("COFL", "Coffee", "Latte", 3.00f)}
         };
 
-        public List<Item> Bagels {get {return items.Values.Where(i => i.Name == "Bagel").ToList();}}
-        public List<Item> Fillings {get {return items.Values.Where(i => i.Name == "Filling").ToList();}}
-        public List<Item> Coffees {get {return items.Values.Where(i => i.Name == "Coffee").ToList();}}
+        public IEnumerable<Item> GetItemsByCategory(string category)
+        {
+            return items.Values.Where(i => i.Name.Equals(category, StringComparison.OrdinalIgnoreCase));
+        }
 
-        public Item ItemDetails(string sku){
-            if(items.ContainsKey(sku)){
-                return items[sku];
-            }
-            return null;
+        public Item? GetItemDetails(string sku)
+        {
+            return items.TryGetValue(sku, out var item) ? item : null;
         }
     }
 }

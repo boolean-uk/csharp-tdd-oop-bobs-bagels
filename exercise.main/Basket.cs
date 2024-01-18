@@ -11,67 +11,53 @@ namespace tdd_bobs_bagels.CSharp.Main
 {
     public class Basket
     {
-        private Inventory inventory = new Inventory();
-        private List<Item> _basket = new List<Item>();
-        private Item item;
+        private readonly IInventory inventory;
+        private readonly List<Item> basket;
         private float totalCost;
         private int capacity = 5;
 
+         public Basket(IInventory inventory)
+        {
+            this.inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
+            basket = new List<Item>();
+        }
+
         public bool AddItem(string sku)
         {
-            if(_basket.Count < capacity)
+            if (basket.Count < capacity && inventory.GetItemDetails(sku) is Item item)
             {
-                if(inventory.ItemDetails(sku) == null)
-                {
-                    return false;
-                }
-                item = inventory.ItemDetails(sku);
-                _basket.Add(item);
+                basket.Add(item);
                 return true;
             }
             return false;
         }
-        public bool RemoveItem(string sku)
+        
+       public bool RemoveItem(string sku)
+    {
+        Item item = inventory.GetItemDetails(sku);
+        return item != null && basket.Remove(item);
+    }
+
+    public float CalculateTotalCost()
+    {
+        totalCost = basket.Sum(item => item.Price);
+        return totalCost;
+    }
+
+    public bool SetCapacity(int newCapacity)
+    {
+        if (newCapacity > 0)
         {
-            if(_basket.Count > 0)
-            {
-                if(inventory.ItemDetails(sku) == null)
-                {
-                    return false;
-                }
-                item = inventory.ItemDetails(sku);
-                _basket.Remove(item);
-                return true;
-            }
-            return false;
+            capacity = newCapacity;
+            return true;
         }
-        public float CalculateTotalCost()
-        {
-            totalCost = 0;
-            foreach(Item item in _basket)
-            {
-                totalCost += item.Price;
-            }
-            return totalCost;
-        }
-        public bool SetCapacity(int capacity)
-        {
-            if(capacity > 0)
-            {
-                this.capacity = capacity;
-                return true;
-            }
-            return false;
-        }
-        public float GetPrice(string sku)
-        {
-            if(inventory.ItemDetails(sku) == null)
-            {
-                return 0;
-            }
-            item = inventory.ItemDetails(sku);
-            return item.Price;
-        }
+        return false;
+    }
+
+    public float GetPrice(string sku)
+    {
+        return inventory.GetItemDetails(sku)?.Price ?? 0;
+    }
     }
 }
 

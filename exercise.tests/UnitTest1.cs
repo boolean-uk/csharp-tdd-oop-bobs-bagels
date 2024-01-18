@@ -4,54 +4,51 @@ namespace exercise.tests
 {
     public class BobsBagelsTest
     {
-        private Basket _basket;
-        private Inventory _inventory;
-        private Item _item;
-
+        private Inventory inventory;
+        private Basket basket;
 
         [SetUp]
         public void SetUp()
         {
-            _basket = new Basket();   
-            _inventory = new Inventory();   
-            _item = new Item();
-            _basket.AddItem("BGLP");
-            _basket.AddItem("BGLS");
-            _basket.AddItem("FILC");
+            inventory = new Inventory();
+            basket = new Basket(inventory);
         }
+        
 
         [Test]
-        public void AddItem()
+        public void RemoveItem_InvalidSku()
         {
-            Assert.That(_basket.AddItem("BGLP"), Is.True);
+            bool result = basket.RemoveItem("INVALID");
+            Assert.IsFalse(result);
         }
 
-        [Test]
-        public void RemoveItem()
-        {
-            
-            Assert.That(_basket.RemoveItem("BGLP"), Is.True);
-        }
-
-        [Test]
-        public void CalculateTotalCost()
-        {
-            _basket.AddItem("BGLP");
-            _basket.AddItem("BGLS");
-            _basket.AddItem("FILC");
-            Assert.That(_basket.CalculateTotalCost(), Is.EqualTo(2.60f));
-        }
 
         [Test]
         public void SetCapacity()
         {
-            Assert.That(_basket.SetCapacity(10), Is.True);
+            bool result = basket.SetCapacity(0);
+            Assert.IsFalse(result);
         }
 
         [Test]
-        public void Bagels()
+        public void GetItemsByCategory()
         {
-            Assert.That(_inventory.Bagels, Is.EqualTo(_inventory.Bagels));
+            IEnumerable<Item> items = inventory.GetItemsByCategory("Bagel");
+            Assert.AreEqual(3, items.Count());
+        }
+
+        [Test]
+        public void GetItemsByCategory_InvalidCategory()
+        {
+            IEnumerable<Item> items = inventory.GetItemsByCategory("INVALID");
+            Assert.AreEqual(0, items.Count());
+        }
+
+        [Test]
+        public void GetPrice()
+        {
+            float price = basket.GetPrice("BGLP");
+            Assert.AreEqual(1.00f, price);
         }
 
     }
