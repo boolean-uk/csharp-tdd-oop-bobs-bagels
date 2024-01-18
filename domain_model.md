@@ -22,12 +22,18 @@ As the manager, So we don't get any weird requests, I want customers to only be 
 Class: Basket
 Properties:
 private int capacity
+List<Item> content //Baskets contents
 
 Methods:
-public Item addItem (string SKU, float price, string type, string variant)
-returns: the created Item
+public bool addItem (Item item)
+returns: true if successfull
 
-Class: Item
+public bool removeItem (Item item)
+returns: true if successfull
+
+public void changeBasketSize(int newSize)
+
+Abstract Class: Item
 Properties: 
 private string SKU
 private float price
@@ -35,10 +41,49 @@ private string type
 private string variant
 
 Class: Bagel : Item
+Properties:
+Dictionary<float price, string fillingName> fillingPrices
+List<Filling> bagelFilling //This bagels fillings
 
-Class: BagelWithFilling : Bagel
+Methods:
+public void showFillingPrices(fillingPrices)
+print fillingPrices
 
+public void addFillin(Filling filling)
+
+Class: Filling : Item
 
 Class: Coffee : Item
 
-Class: User
+Class: Receipt
+Properties:
+float total
+List<Item> yourOrder
+
+Methods:
+public string showTotal(total)
+return: "your total comes to: {total}"
+
+Class: Inventory
+Properties:
+List<Item> inventory
+
+Methods:
+public bool indInventory(string SKU)
+return: true if in inventory / false if not
+
+._______________________________________.
+|"BGLO"|0.49f|"Bagel"  | "Onion"        |
+|"BGLP"|0.39f|"Bagel"  | "Plain"        |
+|"BGLE"|0.49f|"Bagel"  | "Everything"   |
+|"BGLS"|0.49f|"Bagel"  | "Sesame"       |
+|"COFB"|0.99f|"Coffee" | "Black"        |
+|"COFW"|1.19f|"Coffee" | "White"        |
+|"COFC"|1.29f|"Coffee" | "Capuccino"    |
+|"COFL"|0.29f|"Coffee" | "Latte"        |
+|"FILB"|0.12f|"Filling"| "Bacon"        |
+|"FILE"|0.12f|"Filling"| "Egg"          |
+|"FILC"|0.12f|"Filling"| "Cheese"       |
+|"FILX"|0.12f|"Filling"| "Cream Cheese" |
+|"FILS"|0.12f|"Filling"| "Smoked Salmon"|
+|"FILH"|0.12f|"Filling"| "Ham"          |
