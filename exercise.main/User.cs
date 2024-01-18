@@ -46,9 +46,9 @@ namespace exercise.main
             else throw new InvalidOperationException("There is no menu item at the specified location.");
         }
 
-        public decimal BasketTotalCost()
+        public decimal Cost()
         {
-            throw new NotImplementedException();
+            return Basket.Sum(basketEntry => basketEntry.Cost());
         }
 
         public bool HasSpaceForItem(IMenuItem item, int count = 1)

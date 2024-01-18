@@ -69,7 +69,7 @@ namespace exercise.main
             AddOns.Add(new AddOn(id, name, price, basketFootprint));
         }
 
-        public User GetActiveUser()
+        public User ActiveUser()
         {
             return Users[Users.FindIndex(user => user.UserID == ActiveUserID)];
         }
@@ -79,14 +79,14 @@ namespace exercise.main
             BaseItem? item = GetBaseItemByID(itemID);
             if (item != null)
             {
-                GetActiveUser().AddToBasket(item, count);
+                ActiveUser().AddToBasket(item, count);
             }
         }
 
         public void RemoveFromBasket(int basketIndex = -1)
         {
-            if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
-            GetActiveUser().RemoveFromBasket(basketIndex);
+            if (basketIndex < 0) basketIndex = ActiveUser().Basket.Count - 1;
+            ActiveUser().RemoveFromBasket(basketIndex);
         }
 
         public void IncludeAddOn(string itemID, int basketIndex = -1)
@@ -94,8 +94,8 @@ namespace exercise.main
             AddOn? addOn = GetAddOnByID(itemID);
             if (addOn != null)
             {
-                if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
-                GetActiveUser().IncludeAddOn(basketIndex, addOn);
+                if (basketIndex < 0) basketIndex = ActiveUser().Basket.Count - 1;
+                ActiveUser().IncludeAddOn(basketIndex, addOn);
             }
         }
 
@@ -104,14 +104,14 @@ namespace exercise.main
             AddOn? addOn = GetAddOnByID(itemID);
             if (addOn != null)
             {
-                if (basketIndex < 0) basketIndex = GetActiveUser().Basket.Count - 1;
-                GetActiveUser().ExcludeAddOn(basketIndex, addOn);
+                if (basketIndex < 0) basketIndex = ActiveUser().Basket.Count - 1;
+                ActiveUser().ExcludeAddOn(basketIndex, addOn);
             }
         }
 
-        public decimal BasketTotalCost()
+        public decimal TotalBasketCost()
         {
-            throw new NotImplementedException();
+            return ActiveUser().Cost();
         }
 
         public void SetMaximumBasketCapacity(decimal maximumBasketCapacity)

@@ -36,6 +36,11 @@ namespace exercise.main
             return Count * (BaseItem.BasketFootprint + AddOns.Sum(addOn => addOn.BasketFootprint));
         }
 
+        public decimal Cost()
+        {
+            return Count * (BaseItem.Price + AddOns.Sum(addOn => addOn.Price));
+        }
+
         public BaseItem BaseItem { get => _baseItem; }
         public int Count { get => _count; }
         public List<AddOn> AddOns { get => _addOns; }

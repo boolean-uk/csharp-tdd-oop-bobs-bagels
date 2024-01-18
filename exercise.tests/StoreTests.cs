@@ -62,7 +62,7 @@ public class StoreTests
     [Test]
     public void StoreOrderBagelTest()
     {
-        User user = _store.GetActiveUser();
+        User user = _store.ActiveUser();
         _store.AddToBasket("BGLP", 2);
         Assert.That(user.Basket.Count == 1);
         Assert.That(user.Basket[0].BaseItem.ItemID == "BGLP");
@@ -72,7 +72,7 @@ public class StoreTests
     [Test]
     public void StoreRemoveOrderTest()
     {
-        User user = _store.GetActiveUser();
+        User user = _store.ActiveUser();
         _store.AddToBasket("BGLP", 2);
         _store.RemoveFromBasket();
         Assert.That(user.Basket.Count == 0);
@@ -118,7 +118,7 @@ public class StoreTests
         _store.AddToBasket("BGLP");
         _store.AddToBasket("BGLE");
         Assert.DoesNotThrow(() => _store.RemoveFromBasket(2));
-        Assert.That(_store.GetActiveUser().Basket[2].BaseItem.ItemID == "BGLE");
+        Assert.That(_store.ActiveUser().Basket[2].BaseItem.ItemID == "BGLE");
     }
 
     [Test]
@@ -128,9 +128,9 @@ public class StoreTests
         decimal everythingBagelPrice = _store.GetBaseItemByID("BGLE").Price;
         _store.AddToBasket("BGLP", 2);
         _store.AddToBasket("BGLE", 1);
-        Assert.That(_store.BasketTotalCost() == 2 * plainBagelPrice + everythingBagelPrice);
+        Assert.That(_store.TotalBasketCost() == 2 * plainBagelPrice + everythingBagelPrice);
         _store.RemoveFromBasket();
-        Assert.That(_store.BasketTotalCost() == 2 * plainBagelPrice);
+        Assert.That(_store.TotalBasketCost() == 2 * plainBagelPrice);
     }
 
 }
