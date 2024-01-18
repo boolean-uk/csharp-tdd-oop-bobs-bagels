@@ -24,13 +24,20 @@ Properties:
 private int capacity
 
 Methods:
-Item addItem (string SKU, float price, string type, string variant)
+public Item addItem (string SKU, float price, string type, string variant)
 returns: the created Item
 
 Class: Item
 Properties: 
+private string SKU
+private float price
+private string type
+private string variant
 
 Class: Bagel : Item
+
+Class: BagelWithFilling : Bagel
+
 
 Class: Coffee : Item
 
