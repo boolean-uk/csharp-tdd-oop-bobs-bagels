@@ -44,6 +44,7 @@ namespace exercise.tests
         [Test]
         public void Discount6Bagel()
         {
+            _lastBasket().Items.Clear();
             _lastBasket().Items.AddRange(Enumerable.Repeat(_bagel,6));
             Assert.That(_lastBasket().DiscountedCost(), Is.EqualTo(2.49));
         }
@@ -51,6 +52,7 @@ namespace exercise.tests
         [Test]
         public void Discount6Plain()
         {
+            _lastBasket().Items.Clear();
             _lastBasket().Items.AddRange(Enumerable.Repeat(_plain, 6));
             Assert.That(_lastBasket().DiscountedCost(), Is.EqualTo(2.34));
         }
@@ -58,6 +60,7 @@ namespace exercise.tests
         [Test]
         public void Discount12Plain()
         {
+            _lastBasket().Items.Clear();
             _lastBasket().Items.AddRange(Enumerable.Repeat(_plain,12));
             Assert.That(_lastBasket().DiscountedCost(), Is.EqualTo(3.99));
         }
@@ -65,6 +68,7 @@ namespace exercise.tests
         [Test]
         public void Discount12Plain4Latte()
         {
+            _lastBasket().Items.Clear();
             _lastBasket().Items.AddRange(Enumerable.Repeat(_plain, 12));
             _lastBasket().Items.AddRange(Enumerable.Repeat(_latte, 4));
             _lastBasket().BestDiscountValue();

@@ -11,8 +11,8 @@ namespace exercise.main.Classes
         public List<Item> Items { get; set; } = new();
         public int Capacity { get; set; }
 
-        public Basket(int capacity) 
-        { 
+        public Basket(int capacity)
+        {
             Capacity = capacity;
             //Items.Add(new Item("", 0, 0, ""));
         }
@@ -38,11 +38,11 @@ namespace exercise.main.Classes
                 return "";
             }
             return "Basket is full";
-            
+
         }
 
-        public string Remove(string sku) 
-        { 
+        public string Remove(string sku)
+        {
             //Check if filling and remove the first instance on the first bagel available
             if (sku[..2] == "FIL")
             {
@@ -60,8 +60,8 @@ namespace exercise.main.Classes
                 }
             }
             //Otherwise remove the first occurence of sku
-            foreach (Item item in Items) 
-            { 
+            foreach (Item item in Items)
+            {
                 if (item.SKU == sku)
                 {
                     Items.Remove(item);
@@ -75,7 +75,7 @@ namespace exercise.main.Classes
         public double Cost()
         {
             double cost = 0;
-            foreach(Item item in Items)
+            foreach (Item item in Items)
             {
                 if (item.Name == Name.Bagel)
                 {
@@ -92,20 +92,87 @@ namespace exercise.main.Classes
         //Returns cost of cart after discounts
         public double DiscountedCost()
         {
-            double cost = 0;
-            
-
+            double cost = Cost();
+            List<(Discount discount, List<Item> items, double originalPrice, double discountValue)> checkout = BestDiscountValue();
+            foreach (var deal in checkout)
+            {
+                cost -= deal.discountValue;
+            }
             //cost = stock.DiscountEvaluate();
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         //Finds the best discount values and returns which items should be used for which discount
-        public double BestDiscountValue()
+        public List<(Discount, List<Item>, double, double)> BestDiscountValue()
         {
             Stock stock = new();
-            List<(Discount discount, List<Item> items, double originalPrice, double discountPrice)> Checkout = new(); //Contains all products as they are checked out
+            List<(Discount discount, List<Item> items, double originalPrice, double discountValue)> checkout = new(); //Contains all products as they are checked out
 
+
+            //Find coffee and bagel deals
+            Items.OrderByDescending(p => p.Price);
+            while (Items.ToList().Where(c => c.Name == Name.Coffee).Count() > 0 && Items.ToList().Where(b => b.Name == Name.Bagel).Count() > 0) //while both coffee AND bagel exists in basket
+            {
+                Item coffee1 = Items.ToList().Find(c => c.Name == Name.Coffee); //Most expensive coffee
+                Item bagel1 = Items.ToList().Find(b => b.Name == Name.Bagel); //Most expensive bagel
+
+                double saved = stock.deals.ToList().Find(d => d.sku[0] == coffee1.SKU && d.sku[1] == bagel1.SKU).saved; //Get saved value
+
+                List<Item> coffeebagel = new() { coffee1, bagel1 };
+                checkout.Add(new(Discount.CoffeeBagel, coffeebagel, coffee1.Price + bagel1.Price, saved));
+
+                Items.Remove(coffee1);
+                Items.Remove(bagel1);
+            }
+
+            List<Item> Twelveof = Items.ToList().GroupBy(x => x).Where(g => g.Count() > 11).SelectMany(g => g).ToList().OrderBy(g => g.SKU).ToList(); // Get all bagels that there are 12 of
+            if (Twelveof.Count > 0)
+            {
+                while (true)
+                {
+                    string SKU = Twelveof[0].SKU; // get sku of first item
+                    double saved = stock.deals.ToList().Find(b => b.sku[0] == SKU && b.discount == Discount.TwelveBagel).saved; // Find the deal for the 12 of that bagel
+
+                    checkout.Add(new(Discount.TwelveBagel, Twelveof[..11], Twelveof[0].Price * 12, saved)); //Adds twelwe bagel deal to the checkout
+
+                    Twelveof = Twelveof[12..];
+                    Twelveof.GroupBy(x => x).Where(g => g.Count() > 11).SelectMany(g => g); // Remove bagels that no longer have 12 
+
+                    for (int i = 0; i < 12; i++)
+                    {
+                        Items.Remove(Items.Find(b => b.SKU == SKU));
+                    }
+
+                    if (Twelveof.Count == 0) { break; };
+                }
+
+            }
+            List<Item> Sixof = Items.ToList().GroupBy(x => x).Where(g => g.Count() > 5 && g.Count() < 12).SelectMany(g => g).ToList(); // Get all bagels that there are 6 of but less than 12
+            if (Sixof.Count > 0) { 
+                while (true)
+                {
+                    string SKU = Sixof[0].SKU; // get sku of first item
+                    double saved = stock.deals.ToList().Find(b => b.sku[0] == SKU && b.discount == Discount.SixBagel).saved; // Find the deal for the 6 of that bagel
+
+                    checkout.Add(new(Discount.SixBagel, Sixof[..5], Sixof[0].Price * 6, saved)); //Adds 6 bagel deal to the checkout
+
+                    Sixof = Sixof[6..];
+                    Sixof.GroupBy(x => x).Where(g => g.Count() > 5).SelectMany(g => g); // Remove bagels that no longer have 6 
+
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Items.Remove(Items.Find(b => b.SKU == SKU));
+                    }
+
+                    if (Sixof.Count == 0) { break; };
+                }
+            }
+
+            return checkout;
+
+            /*
+            //Wanted to have the program calculate which deal combination was the best but didn't really figure out how to do it elegantly
             //Check if everything a coffee deal
             double tempDeal = 0;
             List<Item> coffees = new();
@@ -139,6 +206,7 @@ namespace exercise.main.Classes
             
 
             return dealTwelveOf+dealSixOf;
+           */
         }
 
     }
