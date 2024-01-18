@@ -85,4 +85,5 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Bagel`		  | `Bagel()`									|						 |Bagel		|
 |		          | `addFilling(Filling filling)`				|						 |void		|
 | `Inventory`	  | `FindItemsWithSKU(String Sku)`				|						 |bool		|
+| `Reciept`		  | `PrintReciept(Basket order)`				|						 |void		|
 
