@@ -116,7 +116,8 @@ namespace exercise.main
             int bagelCount = _basket.Count(product => product.name == "Bagel");
             int coffeCount = _basket.Count(product => product.name == "Coffe");
 
-            List<double> testList = new List<double>();
+            
+            List<double> testList = new List<double>();     //Just for testing. Can potentially return List to orginze the type for discount
 
 
             while (bagelCount > 0)
