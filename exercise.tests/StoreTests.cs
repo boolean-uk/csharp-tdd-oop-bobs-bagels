@@ -138,8 +138,10 @@ public class StoreTests
     {
         decimal plainBagelPrice = _store.GetPrice("BGLP");
         decimal blackCoffeePrice = _store.GetPrice("COFB");
+        decimal creamCheeseFillingPrice = _store.GetPrice("FILX");
         Assert.That(_store.GetBaseItemByID("BGLP").Price == plainBagelPrice);
         Assert.That(_store.GetBaseItemByID("COFB").Price == blackCoffeePrice);
+        Assert.That(_store.GetAddOnByID("FILX").Price ==  creamCheeseFillingPrice);
     }
 
     [Test]
@@ -153,6 +155,23 @@ public class StoreTests
         _store.IncludeAddOn("FILE", 0);
         Assert.That(_store.ActiveUser().Basket[1].AddOns[0].ItemID == "FILX");
         Assert.That(_store.ActiveUser().Basket[0].AddOns.Count == 2);
+        Assert.DoesNotThrow(() => _store.ExcludeAddOn("FILX"));
+        Assert.That(_store.ActiveUser().Basket[1].AddOns.Count == 0);
+    }
+
+    [Test]
+    public void StoreNonExistentItemTest()
+    {
+        Assert.Throws<KeyNotFoundException>(() => _store.AddToBasket("XXXX"));
+        _store.AddToBasket("BGLP");
+        Assert.Throws<KeyNotFoundException>(() => _store.IncludeAddOn("1234"));
+    }
+
+    [Test]
+    public void StoreDisallowBaconInCoffeeTest()
+    {
+        _store.AddToBasket("COFL");
+        Assert.Throws<InvalidOperationException>(() => _store.IncludeAddOn("FILB"));
     }
 
 }
