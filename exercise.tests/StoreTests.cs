@@ -48,7 +48,7 @@ public class StoreTests
     [Test]
     public void StoreSetUpTest()
     {
-        Assert.That(_store.ActiveUser == _genericUserID);
+        Assert.That(_store.ActiveUserID == _genericUserID);
         Assert.That(_store.Users.Count == 2);
         Assert.Throws<UnauthorizedAccessException>(() => _store.CreateNewUser("user@test.com"));
         _store.Login(_bossUserID);
@@ -119,6 +119,18 @@ public class StoreTests
         _store.AddToBasket("BGLE");
         Assert.DoesNotThrow(() => _store.RemoveFromBasket(2));
         Assert.That(_store.GetActiveUser().Basket[2].BaseItem.ItemID == "BGLE");
+    }
+
+    [Test]
+    public void BasketTotalCostTest()
+    {
+        decimal plainBagelPrice = _store.GetBaseItemByID("BGLP").Price;
+        decimal everythingBagelPrice = _store.GetBaseItemByID("BGLE").Price;
+        _store.AddToBasket("BGLP", 2);
+        _store.AddToBasket("BGLE", 1);
+        Assert.That(_store.BasketTotalCost() == 2 * plainBagelPrice + everythingBagelPrice);
+        _store.RemoveFromBasket();
+        Assert.That(_store.BasketTotalCost() == 2 * plainBagelPrice);
     }
 
 }

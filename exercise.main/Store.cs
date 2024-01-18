@@ -25,7 +25,7 @@ namespace exercise.main
         private List<BaseItem> _baseItems;
         private List<AddOn> _addOns;
 
-        private string _activeUser;
+        private string _activeUserID;
         private List<string> _managers;
 
         public Store()
@@ -34,12 +34,12 @@ namespace exercise.main
             _baseItems = new List<BaseItem>();
             _addOns = new List<AddOn>();
             _managers = new List<string>();
-            _activeUser = "";
+            _activeUserID = "";
         }
 
         public void Login(string userID)
         {
-            if (IsAUser(userID)) _activeUser = userID;
+            if (IsAUser(userID)) _activeUserID = userID;
             else throw new InvalidOperationException("Username does not exist.");
         }
 
@@ -48,7 +48,7 @@ namespace exercise.main
             if (Users.Count == 0)
             {
                 Managers.Add(userID);
-                _activeUser = userID;
+                _activeUserID = userID;
             }
             if (!HasAdminPriveleges()) throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
             User user = new User(userID);
@@ -71,7 +71,7 @@ namespace exercise.main
 
         public User GetActiveUser()
         {
-            return Users[Users.FindIndex(user => user.UserID == ActiveUser)];
+            return Users[Users.FindIndex(user => user.UserID == ActiveUserID)];
         }
 
         public void AddToBasket(string itemID, int count = 1)
@@ -109,17 +109,34 @@ namespace exercise.main
             }
         }
 
+        public decimal BasketTotalCost()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetMaximumBasketCapacity(decimal maximumBasketCapacity)
         {
             bool isAdmin = HasAdminPriveleges();
             StoreVariables.SetMaximumBasketCapacity(maximumBasketCapacity, isAdmin);
         }
 
+        public BaseItem GetBaseItemByID(string itemID)
+        {
+            if (IsAnItemID(itemID)) return BaseItems[BaseItems.FindIndex(item => item.ItemID == itemID)];
+            else throw new KeyNotFoundException($"No MenuItem with ID={itemID}.)");
+        }
+
+        public AddOn GetAddOnByID(string itemID)
+        {
+            if (IsAnItemID(itemID)) return AddOns[AddOns.FindIndex(item => item.ItemID == itemID)];
+            else throw new KeyNotFoundException($"No MenuItem with ID={itemID}.)");
+        }
+
 
         public List<User> Users { get => _users; }
         public List<BaseItem> BaseItems { get => _baseItems; }
         public List<AddOn> AddOns { get => _addOns; }
-        public string ActiveUser { get => _activeUser; }
+        public string ActiveUserID { get => _activeUserID; }
         public List<string> Managers { get => _managers; }
 
         private bool IsAUser(string userID)
@@ -133,7 +150,7 @@ namespace exercise.main
 
         private bool HasAdminPriveleges()
         {
-            return Managers.Contains(ActiveUser);
+            return Managers.Contains(ActiveUserID);
         }
 
         private bool IsAnItemID(string itemID)
@@ -143,24 +160,5 @@ namespace exercise.main
             return isABaseItemID || isAnAddOnID;
         }
 
-
-        private IMenuItem GetMenuItemByID(string itemID, IEnumerable<IMenuItem> itemList)
-        {
-            foreach (IMenuItem item in itemList)
-            {
-                if (item.ItemID == itemID) return item;
-            }
-            throw new KeyNotFoundException($"Could not find menu item with ID={itemID}.");
-        }
-
-        private BaseItem? GetBaseItemByID(string itemID)
-        {
-            return GetMenuItemByID(itemID, BaseItems) as BaseItem;
-        }
-
-        private AddOn? GetAddOnByID(string itemID)
-        {
-            return GetMenuItemByID(itemID, AddOns) as AddOn;
-        }
     }
 }
