@@ -250,13 +250,13 @@ public class Tests
         Assert.That(basket.Items.Count, Is.EqualTo(12));
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99));
 
-/*        store.Baskets[0].Items[3].SetFilling("FILE");
+        basket.Add(new Filling("FILE"));
         Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12));
 
         bagel = new Bagel("BGLO");
         basket.Add(bagel);
-        Assert.That(basket.Items.Count, Is.EqualTo(13));
-        Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12 + 0.49));*/
+        Assert.That(basket.Items.Count, Is.EqualTo(14));
+        Assert.That(basket.GetTotal(), Is.EqualTo(3.99 + 0.12 + 0.49));
 
     }
 
@@ -298,6 +298,80 @@ public class Tests
 
         Assert.That(basket.Items.Count, Is.EqualTo(23));
         Assert.That(basket.GetTotal(), Is.EqualTo(10.43));
+    }
+
+    [Test]
+    public void TestSeveralDiscounts()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(20);
+        Bagel bagel;
+
+
+        for (int i = 0; i < 20; i++)
+        {
+            bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+
+        Assert.That(Math.Round(basket.GetTotal(), 2), Is.EqualTo(7.46));
+    }
+
+    [Test]
+    public void TestSeveralDiscounts2()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(20);
+        Bagel bagel;
+
+
+        for (int i = 0; i < 26; i++)
+        {
+            bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+
+        Assert.That(Math.Round(basket.GetTotal(), 2), Is.EqualTo(8.96));
+    }
+
+    [Test]
+    public void TestSeveralDiscounts3()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(20);
+        Bagel bagel;
+
+        for (int i = 0; i < 30; i++)
+        {
+            bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+
+        Assert.That(Math.Round(basket.GetTotal(), 2), Is.EqualTo(10.47));
+    }
+
+    [Test]
+    public void TestSeveralDiscounts4()
+    {
+        BobsBagels store = new BobsBagels();
+        Basket basket = new Basket();
+        store.AddBasket(basket);
+        store.IncreaseCapacity(30);
+        Bagel bagel;
+
+        for (int i = 0; i < 31; i++)
+        {
+            bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+
+        Assert.That(Math.Round(basket.GetTotal(), 2), Is.EqualTo(10.96));
     }
 
     [Test]

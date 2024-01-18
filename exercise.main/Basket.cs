@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -34,15 +35,51 @@ namespace exercise.main
             Items.Remove(product);
         }
 
+        public double GetBagelDiscountHalfDozen(int count, double price)
+        {
+            double total = 2.49 * Math.Floor(count / 6d);
+
+            if ((count % 6) >= 1)
+            {
+                total += price * (count % 6);
+            }
+
+            return total;
+        }
+
+        public double GetBagelDiscountDozen(int count, double price)
+        {
+            double total = 3.99 * Math.Floor(count / 12d);
+
+            if ((count % 12) >= 6) {
+                total += 2.49 + (price * (count % 6));
+            } 
+            else
+            {
+                total += price * (count % 12);
+            }
+
+            return total;
+        }
+
         public double GetPrice(int count, double price, bool discount)
         {
             double total = 0;
 
             if (!discount) { return price * count; }
 
-            if ((count / 12) >= 1) total = 3.99 + (price * (count % 12));
-            else if ((count / 6) >= 1) total = 2.49 + (price * (count % 6));
-            else total = price * count;
+            if ((count / 12) >= 1)
+            {
+                total += GetBagelDiscountDozen(count, price);
+            }
+            else if ((count / 6) >= 1)
+            {
+                total += GetBagelDiscountHalfDozen(count, price);
+            }
+            else
+            {
+                total += price * count;
+            }
 
             return total;
         }
@@ -67,7 +104,6 @@ namespace exercise.main
         public double GetTotal()
         {
             Dictionary<string, int> bagelCount = getCount(Items.Where(item => item is Bagel));
-
             double sum = 0;
 
             foreach ((string SKU, int count) in bagelCount)
