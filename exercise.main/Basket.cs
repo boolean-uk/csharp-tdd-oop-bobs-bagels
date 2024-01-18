@@ -9,45 +9,80 @@ namespace exercise.main
 {
     public class Basket
     {
-        private List<Bagel> basket;
+        private Dictionary<Basket, int> basket;
         private int capacity;
+        protected string SKU = "";
 
-        public Basket()
+        private Dictionary<string, float> inventory;
+
+        public Basket() 
         {
-            capacity = 10;
-            basket = new List<Bagel>();
+
         }
 
-        public bool AddBagel(string SKU, float cost, string fillingName = "", float fillingCost = 0)
+        public Basket(Inventory inventory)
         {
-            if (BasketFull())
+            basket = new Dictionary<Basket, int>();
+            capacity = 20;
+
+            this.inventory = inventory.GetInventory();
+        }
+
+        public bool AddItem(Basket item)
+        {
+            if (item.SKU == "")
                 return false;
 
-            if (SKU == "")
+            //Checks if the items is possible to order
+            bool found = false;
+            for (int i = 0; i < inventory.Count(); i++)
+            {
+                if (inventory.ElementAt(i).Key == item.SKU)
+                    found = true;
+            }
+
+            if (!found)
                 return false;
 
-            if (cost < 0 || fillingCost < 0)
-                return false;
+            //Adds the item to the basket, and the amount
+            found = false;
+            for (int i = 0; i < basket.Count(); i++)
+            {
+                if (basket.ElementAt(i).Key.SKU == item.SKU)
+                {
+                    found = true;
+                    basket[basket.ElementAt(i).Key]++;
+                }
+            }
+            if (!found)
+                basket.Add(item, 1);
 
-            Bagel bagel = new Bagel(SKU, cost, fillingName, fillingCost);
-            basket.Add(bagel);
             return true;
         }
 
-        public bool RemoveBagel(string SKU, string fillingName)
+        public bool RemoveItem(string SKU)
         {
-            if (SKU == "")
-                return false;
-
-            if (!ItemExists(SKU, fillingName))
-                return false;
-
+            //Searches for the item name instead
+            bool found = false;
             for (int i = 0; i < basket.Count(); i++)
             {
-                if (basket[i].GetBagelType() == SKU && basket[i].GetFillingName() == fillingName)
-                    basket.RemoveAt(i);
+                if (basket.ElementAt(i).Key.SKU == SKU)
+                {
+                    basket.Remove(basket.ElementAt(i).Key);
+                    found = true;
+                }
             }
 
+            return found;
+        }
+
+        public bool RemoveItem(Basket item)
+        {
+            //If it does not contain item, it can't be removed
+            if (!basket.ContainsKey(item))
+                return false;
+
+            basket.Remove(item);
             return true;
         }
 
@@ -59,38 +94,51 @@ namespace exercise.main
             return false;
         }
 
-        public int IncreaseCapacity(int newCapacity)
+        public int GetCapacity()
         {
-            if (capacity < newCapacity)
-                capacity = newCapacity;
+           return capacity;
+        }
 
+        public int IncreaseCapacity(int amount)
+        {
+            if (amount > 0)
+                capacity += amount;
             return capacity;
         }
 
-        public bool ItemExists(string SKU, string fillingName)
+        public bool ItemExists(string SKU)
         {
+            //Searches for the item name instead
             for (int i = 0; i < basket.Count(); i++)
-            {
-                if (basket[i].GetBagelType() == SKU && basket[i].GetFillingName() == fillingName)
-                    return true;
-            }
+                return basket.ElementAt(i).Key.SKU == SKU;
 
             return false;
         }
 
+        public bool ItemExists(Basket item)
+        {
+            return basket.ContainsKey(item);
+        }
+        
         public float TotalCost()
         {
             float total = 0;
 
+            //Adds the costs together
             for (int i = 0; i < basket.Count(); i++)
-                total += basket[i].GetBagelCost();
+                total += basket.ElementAt(i).Value;
 
             return total;
         }
 
-        public List<Bagel> GetBagels()
+        public Dictionary<Basket, int> GetBasket()
         {
             return basket;
+        }
+
+        public string GetSKU()
+        {
+            return SKU;
         }
     }
 }

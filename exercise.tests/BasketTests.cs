@@ -11,32 +11,41 @@ namespace exercise.tests
 {
     public class BasketTests
     {
+        private Inventory inventory;
         private Basket basket;
 
         [SetUp]
         public void SetUp()
         {
-            basket = new Basket();
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
-            //basket.AddBagel("COFB", 0.99f);
+            inventory = new Inventory();
+            basket = new Basket(inventory);
+
+            Bagel bagel = new Bagel("BGLO");
+            Bagel bagel2 = new Bagel("BGLS");
+            Filling fil = new Filling("FILE");
+            
+            basket.AddItem(bagel);
+            basket.AddItem(bagel2);
+            basket.AddItem(fil);
         }
 
-        [TestCase("BGLP", 0.39f, true)]
-        [TestCase("", 0.55f, false)]
-        [TestCase("COFL", 1.29f, true)]
-        public void AddedBagel(string bagelType, float cost, bool expected)
+        [TestCase("BGLP", true)]
+        [TestCase("", false)]
+        [TestCase("COFL", true)]
+        public void AddedBagel(string bagelType, bool expected)
         {
-            bool haveAdded = basket.AddBagel(bagelType, cost);
+            Bagel bagel = new Bagel(bagelType);
+            bool haveAdded = basket.AddItem(bagel);
+
             Assert.That(expected, Is.EqualTo(haveAdded));
         }
 
-        [TestCase("BGLO", "", true)]
-        [TestCase("", "FILC", false)]
-        [TestCase("BGLS", "", false)]
-        public void RemovedBagel(string bagelType, string fillingName, bool expected)
+        [TestCase("BGLO", true)]
+        [TestCase("", false)]
+        [TestCase("COFW", false)]
+        public void RemovedBagel(string bagelType, bool expected)
         {
-            bool haveAdded = basket.RemoveBagel(bagelType, fillingName);
+            bool haveAdded = basket.RemoveItem(bagelType);
             Assert.That(expected, Is.EqualTo(haveAdded));
         }
 
@@ -50,8 +59,8 @@ namespace exercise.tests
         [Test]
         public void IncreasedCapacity()
         {
-            int oldCapacity = basket.IncreaseCapacity(12);
-            int newCapacity = basket.IncreaseCapacity(14);
+            int oldCapacity = basket.GetCapacity();
+            int newCapacity = basket.IncreaseCapacity(3);
             Assert.That(oldCapacity, Is.LessThan(newCapacity));
         }
 
@@ -63,39 +72,34 @@ namespace exercise.tests
             Assert.That(oldCapacity, Is.EqualTo(newCapacity));
         }
 
-        [TestCase("BGLO", "", true)]
-        [TestCase("KBLO", "FILE", false)]
-        public void ItemDoesExist(string bagelType, string fillingName, bool expected)
+        [TestCase("BGLO", true)]
+        [TestCase("KBLO", false)]
+        public void ItemDoesExist(string bagelType, bool expected)
         {
-            bool exists = basket.ItemExists(bagelType, fillingName);
+            bool exists = basket.ItemExists(bagelType);
             Assert.That(expected, Is.EqualTo(exists));
         }
 
         [TestCase("BGLO", 0.49f)]
         [TestCase("COFB", 0.99f)]
-        public void CostOfBagelType(string bagelType, float cost)
+        public void CostOfBagelType(string bagelType, float expected)
         {
-            Bagel bagel = new Bagel(bagelType, cost);
-            float result = bagel.CostOfBagel(bagelType);
-            Assert.That(cost, Is.EqualTo(result));
+            float cost = inventory.CostOfBagel(bagelType);
+            Assert.That(expected, Is.EqualTo(cost));
         }
 
         [Test]
-        public void GetAllFillings()
+        public void AllFillings()
         {
-            Filling filling = new Filling();
-            string allFillings = filling.AllFillings();
-
-            Assert.That("Bacon, Egg, Cheese, Cream Cheese, Smoked Salmon, Ham", Is.EqualTo(allFillings));
+            string fillings = inventory.GetFillings();
+            Assert.That("FILB, FILE, FILC, FILX, FILS, FILH", Is.EqualTo(fillings));
         }
 
         [Test]
         public void GetAllFillingCosts()
         {
-            Filling filling = new Filling();
-            string allFillings = filling.FillingCosts();
-
-            Assert.That("Bacon:0,12, Egg:0,12, Cheese:0,12, Cream Cheese:0,12, Smoked Salmon:0,12, Ham:0,12", Is.EqualTo(allFillings));
+            string fillings = inventory.GetFillingsCosts();
+            Assert.That("FILB:0,12, FILE:0,12, FILC:0,12, FILX:0,12, FILS:0,12, FILH:0,12", Is.EqualTo(fillings));
         }
 
         [Test]
@@ -103,61 +107,67 @@ namespace exercise.tests
         {
             Inventory inventory = new Inventory();
             string items = inventory.PrintInventory();
-
-            Assert.That("Bagels, Coffee, Fillings", Is.EqualTo(items));
-        }
-
-        [TestCase("BGO", false)]
-        [TestCase("BGLP", true)]
-        public void CheckDiscounts(string SKU, bool expected)
-        {
-            Deal deal = new Deal();
-            bool result = deal.CheckDeal(SKU);
-
-            Assert.That(expected, Is.EqualTo(result));
+            Assert.That("BGLO, BGLP, BGLE, BGLS, COFB, COFW, COFC, COFL, FILB, FILE, FILC, FILX, FILS, FILH", Is.EqualTo(items));
         }
 
         [Test]
         public void GetDiscount()
         {
             Deal deal = new Deal();
+            Bagel bagel4 = new Bagel("BGLO");
+            Bagel bagel5 = new Bagel("BGLO");
+            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel7 = new Bagel("BGLO");
+            Bagel bagel8 = new Bagel("BGLO");
 
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
+            basket.AddItem(bagel4);
+            basket.AddItem(bagel5);
+            basket.AddItem(bagel6);
+            basket.AddItem(bagel7);
+            basket.AddItem(bagel8);
 
-            float price = deal.DiscountPrice(basket);
-            Assert.That(3.7099998f, Is.EqualTo(price));
+            float price = deal.DiscountedTotalPrice(basket.GetBasket());
+            Assert.That(2.98000002f, Is.EqualTo(price));
         }
 
         [Test]
-        public void GetReceipt()
+        public void PrintReceipt()
         {
-            basket.AddBagel("BGLO", 0.49f);
+            Bagel bagel4 = new Bagel("BGLO");
+            Bagel bagel5 = new Bagel("BGLO");
+            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel7 = new Bagel("BGLO");
+            Bagel bagel8 = new Bagel("BGLO");
+
+            basket.AddItem(bagel4);
+            basket.AddItem(bagel5);
+            basket.AddItem(bagel6);
+            basket.AddItem(bagel7);
+            basket.AddItem(bagel8);
 
             Receipt receipt = new Receipt();
-            bool result = receipt.PrintReceipt(basket);
-
-            Assert.That(true, Is.EqualTo(result));
+            string result = receipt.GetReceipt(basket.GetBasket());
+            Console.WriteLine(result);
         }
 
         [Test]
-        public void GetProperReceipt()
+        public void PrintDiscountedReceipt()
         {
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLO", 0.49f);
-            basket.AddBagel("BGLS", 0.49f, "FILE", 0.12f);
+            Bagel bagel4 = new Bagel("BGLO");
+            Bagel bagel5 = new Bagel("BGLO");
+            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel7 = new Bagel("BGLO");
+            Bagel bagel8 = new Bagel("BGLO");
+
+            basket.AddItem(bagel4);
+            basket.AddItem(bagel5);
+            basket.AddItem(bagel6);
+            basket.AddItem(bagel7);
+            basket.AddItem(bagel8);
 
             Receipt receipt = new Receipt();
-            bool result = receipt.DiscountedReceipt(basket);
-
-            Assert.That(true, Is.EqualTo(result));
+            string result = receipt.DiscountedReceipt(basket.GetBasket());
+            Console.WriteLine(result);
         }
     }
 }

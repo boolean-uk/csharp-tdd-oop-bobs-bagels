@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Filling : Basket
+    public class Coffee : Basket
     {
-        public Filling(string SKU)
+        public Coffee(string SKU)
         {
             this.SKU = SKU;
         }

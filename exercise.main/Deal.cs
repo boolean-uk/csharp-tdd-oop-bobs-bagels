@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,119 +9,174 @@ namespace exercise.main
 {
     public class Deal
     {
-        public struct Discounts
-        {
-            public string SKU;
-            public int nrItems;
-            public float price;
-        }
-
-        List<Discounts> discounts;
-
+        private Inventory inventory = new Inventory();
         public Deal()
         {
-            discounts = new List<Discounts>();
-            
-            Discounts deal1 = new Discounts();
-            deal1.SKU = "BGLO";
-            deal1.nrItems = 6;
-            deal1.price = 2.49f;
-
-
-            Discounts deal2 = new Discounts();
-            deal2.SKU = "BGLP";
-            deal2.nrItems = 12;
-            deal2.price = 3.99f;
-
-            Discounts deal3 = new Discounts();
-            deal3.SKU = "BGLE";
-            deal3.nrItems = 6;
-            deal3.price = 2.49f;
-
-            //Discounts deal4 = new Discounts();
-            //deal4.SKU = "COFB";
-            //deal4.nrItems = 1;
-            //deal4.price = 1.25f;
-
-            discounts.Add(deal1);
-            discounts.Add(deal2);
-            discounts.Add(deal3);
-            //discounts.Add(deal4);
         }
 
-        public bool CheckDeal(string SKU)
+        public float DiscountedTotalPrice(Dictionary<Basket, int> basket)
         {
-            for (int i = 0; i < discounts.Count(); i++)
-            {
-                if (discounts[i].SKU == SKU)
-                    return true;
-            }
-
-            return false;
-        }
-
-        public float DiscountPrice(Basket basket)
-        {
-            List<Bagel> bagels = basket.GetBagels();
+            Dictionary<Basket, int> tempBasket = basket;
             float totalPrice = 0.0f;
+            int nrCoffees = 0;
+            int nrBagels = 0;
 
-            float[] currentNr = new float[discounts.Count];
-            currentNr[0] = 0;
-            currentNr[1] = 0;
-            currentNr[2] = 0;
-
-            for (int i = 0; i < bagels.Count(); i++)
+            for (int i = 0; i < tempBasket.Count(); i++)
             {
-                for (int j = 0; j < discounts.Count(); j++)
+                //If it is a bagel
+                if (tempBasket.ElementAt(i).Key.GetSKU()[0] == 'B')
                 {
-                    if (bagels[i].GetBagelType() == discounts[j].SKU)
-                    { 
-                        currentNr[j]++;
+                    if (tempBasket.ElementAt(i).Value < 6)
+                    {
+                        //Checks if the coffee can be paired with a bagel
+                        if (nrCoffees > 0 && nrBagels > 0)
+                        {
+                            if (nrCoffees < nrBagels)
+                            {
+                                totalPrice += 1.25f * nrCoffees;
+                                nrCoffees -= nrCoffees;
+                                nrBagels -= nrCoffees;
+                            }
+                            else
+                            {
+                                totalPrice += 1.25f * nrBagels;
+                                nrCoffees -= nrBagels;
+                                nrBagels -= nrBagels;
+                            }
+                        }
+                        else
+                            totalPrice += inventory.CostOfBagel(tempBasket.ElementAt(i).Key.GetSKU());
+                    }
+
+                    //If there are exactly 6 same bagels
+                    else if (tempBasket.ElementAt(i).Value == 6)
+                        totalPrice += 2.49f;
+
+                    //If there are exactly 12 same bagels
+                    else if (tempBasket.ElementAt(i).Value == 12)
+                        totalPrice += 3.99f;
+
+                    //More than 12
+                    else if (tempBasket.ElementAt(i).Value > 12)
+                    {
+                        i--;
+                        totalPrice += 3.99f;
+                        tempBasket[tempBasket.ElementAt(i).Key] -= 12;
+                    }
+
+                    //More than 6
+                    else if (tempBasket.ElementAt(i).Value > 6)
+                    {
+                        i--;
+                        totalPrice += 2.49f;
+                        tempBasket[tempBasket.ElementAt(i).Key] -= 6;
                     }
                 }
-                    totalPrice += bagels[i].GetBagelCost();
-                    totalPrice += bagels[i].GetFillingCost();
-            }
 
-            for (int i = 0; i < discounts.Count(); i++)
-            {
-                if (discounts[i].nrItems == currentNr[i])
+                //If it is a coffee
+                else if (tempBasket.ElementAt(i).Key.GetSKU()[0] == 'C')
                 {
-                    totalPrice -= (bagels[i].CostOfBagel(discounts[i].SKU) * discounts[i].nrItems);
-                    totalPrice += discounts[i].price;
+                    nrCoffees += tempBasket.ElementAt(i).Value;
+
+                    //Checks if the coffee can be paired with a bagel
+                    if (nrCoffees > 0 && nrBagels > 0)
+                    {
+                        if (nrCoffees < nrBagels)
+                        {
+                            totalPrice += 1.25f * nrCoffees;
+                            nrCoffees -= nrCoffees;
+                            nrBagels -= nrCoffees;
+                        }
+                        else
+                        {
+                            totalPrice += 1.25f * nrBagels;
+                            nrCoffees -= nrBagels;
+                            nrBagels -= nrBagels;
+                        }
+                    }
+                    else
+                        totalPrice += inventory.CostOfBagel(tempBasket.ElementAt(i).Key.GetSKU());
                 }
             }
 
             return totalPrice;
         }
 
-        public Dictionary<Bagel, float> SavedMoney(Dictionary<Bagel, float> nrBagels)
+        public bool CheckDiscount(Basket item, int amount)
         {
-            Dictionary<Bagel, float> discBagels = new Dictionary<Bagel, float>();
+            if (amount < 6 || item.GetSKU()[0] != 'B')
+                return false;
 
-            for (int i = 0; i < nrBagels.Count(); i++)
-            {
-                for (int j = 0; j < discounts.Count(); j++)
-                {
-                    if (nrBagels.ElementAt(i).Key.GetBagelType() == discounts[j].SKU && nrBagels.ElementAt(i).Value == discounts[j].nrItems)
-                        discBagels.Add(nrBagels.ElementAt(i).Key, discounts[j].price - nrBagels.ElementAt(i).Key.GetBagelCost());
-                }
-            }
-
-            return discBagels;
+            return true;
         }
 
-        public float DiscountedPrice(string SKU)
+        public float GetDiscounts(Basket item, int amount)
         {
-            float cost = 1;
+            float price = 0.0f;
 
-            for (int i = 0; i < discounts.Count(); i++)
+            if (item.GetSKU()[0] == 'B')
             {
-                if (discounts[i].SKU == SKU)
-                    cost = discounts[i].price;
+                if (amount == 6)
+                    return 2.49f;
+                else if (amount == 12)
+                    return 3.99f;
+                else if (amount > 12)
+                {
+                    price = 3.99f;
+                    int tempAmount = amount;
+                    tempAmount -= 12;
+
+                    while (tempAmount > 12)
+                    {
+                        price += 3.99f;
+                        tempAmount -= 12;
+                    }
+
+                    while (tempAmount > 6)
+                    {
+                        price += 2.49f;
+                        tempAmount -= 6;
+                    }
+
+                    if (tempAmount > 0)
+                        price += inventory.CostOfBagel(item.GetSKU()) * tempAmount;
+
+                    return price;
+                }
+                else if (amount > 6)
+                {
+                    price = 2.49f;
+                    int tempAmount = amount;
+                    tempAmount -= 6;
+
+                    while (tempAmount > 6)
+                    {
+                        price += 2.49f;
+                        tempAmount -= 6;
+                    }
+
+                    if (tempAmount > 0)
+                        price += inventory.CostOfBagel(item.GetSKU()) * tempAmount;
+
+                    return price;
+                }
+                else if (amount < 6)
+                    price = inventory.CostOfBagel(item.GetSKU()) * amount;
             }
 
-            return cost;
+            return price;
+        }
+
+        public Dictionary<Basket, int> GetDiscountList(Dictionary<Basket, int> basket)
+        {
+            Dictionary<Basket, int> discounts = new Dictionary<Basket, int>();
+
+            for (int i = 0; i < basket.Count(); i++)
+            {
+                
+            }
+
+            return discounts;
         }
     }
 }
