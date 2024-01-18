@@ -111,7 +111,12 @@ namespace exercise.main
 
         public decimal GetPrice(string itemID)
         {
-            throw new NotImplementedException();
+            if (IsAnItemID(itemID))
+            {
+                foreach (BaseItem baseItem in BaseItems) if (baseItem.ItemID == itemID) return baseItem.Price;
+                return AddOns[AddOns.FindIndex(addOn => addOn.ItemID == itemID)].Price;
+            }
+            throw new KeyNotFoundException($"No MenuItem with ID={itemID}.)");
         }
 
         public decimal TotalBasketCost()

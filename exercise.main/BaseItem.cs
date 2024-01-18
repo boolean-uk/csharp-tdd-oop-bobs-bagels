@@ -58,6 +58,11 @@ namespace exercise.main
             }
         }
 
+        public bool IsAllowingAddOn(string itemID)
+        {
+            return AvailableAddOns.Contains(itemID);
+        }
+
         public string ItemID { get => _itemID; }
         public string Name { get => _name; }
         public decimal Price { get => _price; }

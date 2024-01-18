@@ -165,6 +165,7 @@ public class StoreTests
         Assert.Throws<KeyNotFoundException>(() => _store.AddToBasket("XXXX"));
         _store.AddToBasket("BGLP");
         Assert.Throws<KeyNotFoundException>(() => _store.IncludeAddOn("1234"));
+        Assert.Throws<KeyNotFoundException>(() => _store.GetPrice("LOL"));
     }
 
     [Test]

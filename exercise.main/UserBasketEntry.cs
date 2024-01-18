@@ -23,7 +23,11 @@ namespace exercise.main
 
         public void IncludeAddOn(AddOn addOn)
         {
-            if(!AddOns.Contains(addOn)) AddOns.Add(addOn);
+            if (BaseItem.IsAllowingAddOn(addOn.ItemID))
+            {
+                if (!AddOns.Contains(addOn)) AddOns.Add(addOn);
+            }
+            else throw new InvalidOperationException($"{addOn.Name} is not an available add-on for {BaseItem.Name}.");
         }
 
         public void ExcludeAddOn(AddOn addOn)
