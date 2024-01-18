@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,13 +27,14 @@ namespace exercise.main.Objects
             new Discount("BGLO",6,2.49d),
             new Discount("BGLE",6,2.49d)
         };
+        private List<Discount> _bagelDiscountTracker = new List<Discount>() { };
         
         public Basket()
         {
 
         }
         public bool Add(string SKU)
-        {
+         {
             Product foundItem = inventory.items.FirstOrDefault(item => item.SKU == SKU);
 
             int bagelAmount = basket.Count(t => t.Type == Product.pType.Bagel);
@@ -149,7 +152,7 @@ namespace exercise.main.Objects
                 }
             }
 
-
+            _bagelDiscountTracker.AddRange(prices);
             return (filling,prices);
         }
 
@@ -176,7 +179,49 @@ namespace exercise.main.Objects
             return true;
         }
 
+        public void WriteReceipt()
+        {
+            double sum = Sum();
+            Console.WriteLine($"         ~~ Bob's Bagels ~~");
+            Console.WriteLine();
+            Console.WriteLine($"         {DateTime.Now.ToShortTimeString()}");
+            Console.WriteLine();
+            Console.WriteLine("{0,10}    {1,10}    {2,10} ", "Product", "Qty", "Price");
+            //Discounts
+            if (discountBasket.Count> 0)
+            {
+                if (discountBasket.Any(t => t.SKU == "COFB"))
+                {
+                    Console.WriteLine("{0,10}    {1,10}    {2,10}",
+                    "Coffee and bagel deal!",
+                    discountBasket.Count(t => t.SKU == "COFB"),
+                    $"£{1.25d * discountBasket.Count(t => t.SKU == "COFB")}"
+                    );
+                }
 
+                foreach(var item in _bagelDiscountTracker)
+                {
+                    Console.WriteLine("{0,10}    {1,10}    {2,10}",
+                    item.SKU,
+                    item.amountRequired,
+                    $"£{item.price}"
+                    );
+                }
+            }
+            foreach (var item in basket) 
+            {
+                Console.WriteLine("{0,10}    {1,10}    {2,10}",
+                item.SKU,
+                1,
+                $"£{item.Price}"
+                );
+            }
+
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine($"Total                          £{sum}");
+
+
+        }
 
 
 

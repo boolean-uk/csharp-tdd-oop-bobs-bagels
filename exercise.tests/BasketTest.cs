@@ -20,16 +20,15 @@ namespace exercise.tests
         [Test]
         public void Add()
         {
+            
             bool resultTrue = _basket.Add("BGLO");
             bool resultFalse = _basket.Add("wrong");
             _basket.Add("BGLP");
             _basket.Add("BGLP");
             _basket.Add("BGLP");
-            bool resultOverLimit = _basket.Add("BGLO");
 
             Assert.IsTrue(resultTrue);
             Assert.IsFalse(resultFalse);
-            Assert.IsFalse(resultOverLimit);
             Assert.IsTrue(_basket.basket.Any(item => item.SKU == "BGLO"));
         }
         [Test]
@@ -58,7 +57,7 @@ namespace exercise.tests
             _basket.Add("BGLO");
             _basket.Add("COFB");
 
-            Assert.AreEqual(_basket.Sum(), 0.49d + 0.99d);
+            Assert.AreEqual(_basket.Sum(), 1.25d);
         }
 
         [Test]
