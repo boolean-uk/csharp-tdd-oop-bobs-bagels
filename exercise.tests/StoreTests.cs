@@ -84,4 +84,14 @@ public class StoreTests
         Assert.That(user.Basket[0].BaseItem.ItemID == "BGLO");
     }
 
+    [Test]
+    public void StoreBasketCapacityTest()
+    {
+        _store.Login(_bossUserID);
+        _store.SetMaximumBasketCapacity(5m);
+        _store.AddToBasket("BGLP", 4);
+        Assert.DoesNotThrow(() => _store.AddToBasket("BGLP", 1));
+        Assert.Throws<InvalidOperationException>(() => _store.AddToBasket("BGLP", 2));
+    }
+
 }

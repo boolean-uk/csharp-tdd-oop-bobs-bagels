@@ -99,6 +99,12 @@ namespace exercise.main
             }
         }
 
+        public void SetMaximumBasketCapacity(decimal maximumBasketCapacity)
+        {
+            if (!HasAdminPriveleges()) throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
+            _maximumBasketCapacity = maximumBasketCapacity;
+        }
+
 
         public List<User> Users { get => _users; }
         public List<BaseItem> BaseItems { get => _baseItems; }
