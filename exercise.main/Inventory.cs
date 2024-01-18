@@ -34,7 +34,7 @@ namespace exercise.main
             return items.ContainsKey(productSKU);
         }
 
-        public IProduct GetProduct(string productSKU)
+        public Item GetProduct(string productSKU)
         {
             if (items.TryGetValue(productSKU, out Item product))
             {

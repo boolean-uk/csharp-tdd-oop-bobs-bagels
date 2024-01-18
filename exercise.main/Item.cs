@@ -6,20 +6,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public interface IProduct
-    {
-        float Price { get; }
-        string Name { get; }
-        string Variant { get; }
-        string SKU { get; }
-    }
-    public class Item : IProduct
+    public class Item
     {
         public float Price { get; private set; }
         public string Name { get; private set; }
         public string Variant { get; private set; }
         public string SKU { get; private set; }
-        private List<IProduct> subItems;
+        private List<Item> subItems;
+        
 
         public Item(float price, string name, string variant, string SKU)
         {
@@ -28,39 +22,17 @@ namespace exercise.main
             this.Variant = variant;
             this.SKU = SKU;
 
-            subItems = new List<IProduct>();
+            subItems = new List<Item>();
         }
 
 
-
-        /*
-        public string getSKU()
-        {
-            return SKU;
-        }
-        
-
-        public string getNameVariant()
-        {
-            return nameVariant;
-        }
-
- 
-
-        public float getPrice()
-        {
-            return price;
-        }*/
-
-
-
-        public void AddSubItems(IProduct subItem)
+        public void AddSubItems(Item subItem)
         {
             subItems.Add(subItem);        
         }
 
 
-        public List<IProduct> GetSubItems()
+        public List<Item> GetSubItems()
         {
             return subItems;
         }
@@ -68,5 +40,5 @@ namespace exercise.main
 
     }
 
-
+    
 }

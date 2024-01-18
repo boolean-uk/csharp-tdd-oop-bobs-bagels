@@ -11,7 +11,6 @@ namespace exercise.main
         private float total;
         private Basket basket;
      
-
         public Receipt(Basket basket)
         {
             this.basket = basket;

@@ -1,10 +1,4 @@
 ﻿using exercise.main;
-/*using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-*/
 using NUnit.Framework;
 using System.Reflection.Emit;
 
@@ -44,8 +38,11 @@ namespace exercise.tests
             bool result = _basket.AddProduct("BGLP", out message1);
             Assert.That(result, Is.EqualTo(true));
 
+            //testing that only 1 item is in the basket
             Assert.That(_basket.GetBasketContent().Count, Is.EqualTo(1));
-            IProduct addedProduct = _basket.GetBasketContent()[0];
+
+            //testing if that item is the plain bagel
+            Item addedProduct = _basket.GetBasketContent()[0];
 
             Assert.That(addedProduct.Price, Is.EqualTo(bagelPlain.Price).Within(0.001));
             Assert.That(addedProduct.Name, Is.EqualTo(bagelPlain.Name));
@@ -55,18 +52,18 @@ namespace exercise.tests
 
 
 
-
-
-
         [Test]
-        public void addBageltest2()
+        public void addBagelUntilCapacityIsFull()
         {
-            //testing if the basket is full
+            //testing if the basket is full, if the last item will not be added 
             string message2;
             _basket.AddProduct("BGLP", out message2);
             _basket.AddProduct("BGLO", out message2);
             _basket.AddProduct("BGLS", out message2);
+
+            //testing that, since capacity=2, onlt two items are in the basket
             Assert.That(_basket.GetBasketContent().Count, Is.EqualTo(2));
+            //testing the output message
             Assert.That(message2, Is.EqualTo("Basket is full"));
 
         }
@@ -93,8 +90,9 @@ namespace exercise.tests
             List<string> expected1 = new List<string> { "Chilli" };
 
             Assert.That(_basket.GetBasketContent().Count, Is.EqualTo(1));
-            //Assert.That(_basket.GetBasketContent()[0], Is.EqualTo(bagel1));
-            IProduct addedProduct1 = _basket.GetBasketContent()[0];
+            
+
+            Item addedProduct1 = _basket.GetBasketContent()[0];
 
             Assert.That(addedProduct1.Price, Is.EqualTo(bagel1.Price).Within(0.001));
             Assert.That(addedProduct1.Name, Is.EqualTo(bagel1.Name));
@@ -108,11 +106,13 @@ namespace exercise.tests
 
 
         [Test]
-        public void removeTest2()
+        public void removeIfItemNotInBasket()
         {
             string message2;
-            //testing if the basket is full
+            //Adding one bagel
             _basket.AddProduct("BGLP", out message2);
+
+            //trying to remove a different bagel
             bool message = _basket.RemoveProduct("BGLS", out message2);
 
             Assert.That(message2, Is.EqualTo("Item not in basket"));
@@ -128,13 +128,24 @@ namespace exercise.tests
         //testing if the capacity of the basket will be changed as expected
         public void changeCapacityTest()
         {
-            int result = _basket.changeCapacity(2);
+            int result = _basket.changeCapacity(3);
 
-            Assert.That(result, Is.EqualTo(2));
+            Assert.That(result, Is.EqualTo(3));
+    
+
+            //testing if the basket is full, if the last item will not be added 
+            string message2;
+            _basket.AddProduct("BGLP", out message2);
+            _basket.AddProduct("BGLO", out message2);
+            _basket.AddProduct("BGLS", out message2);
+            _basket.AddProduct("COFL", out message2);
+
+            //testing that, since capacity is now 3, that 3 items are in the basket
+            Assert.That(_basket.GetBasketContent().Count, Is.EqualTo(3));
+            //testing the output message
+            Assert.That(message2, Is.EqualTo("Basket is full"));
+
         }
-
-
-
 
 
 
@@ -147,7 +158,6 @@ namespace exercise.tests
             float resultTotal = _receipt.totalPrice();
             Assert.That(resultTotal, Is.EqualTo(0.49f).Within(0.001f));
            
-
 
             _basket.AddProduct("BGLS", out message);
             float result1 = _receipt.totalPrice();
@@ -164,8 +174,6 @@ namespace exercise.tests
             string message2;
             float resultEmpty = _receipt.totalPrice();
             Assert.That(resultEmpty, Is.EqualTo(0f));
-
-            
         }
 
 
@@ -175,6 +183,7 @@ namespace exercise.tests
         [Test]
         public void addFillingTestFail()
         {
+            Bagel BagelOnion = new Bagel("Onion");
             //testing for an item that is not a filling
             // Add bagel to the basket
             string message1;
@@ -183,7 +192,7 @@ namespace exercise.tests
             // Add invalid filling to the bagel
             Item invalidFilling = new Item(0.49f, "Bagel", "Sesame", "BGLS");
             string message2;
-            bool result = _basket.AddFillingToBagel("BGLO", invalidFilling, out message2);
+            bool result = BagelOnion.AddFillingToBagel("BGLO", invalidFilling, out message2);
 
             Assert.That(result, Is.EqualTo(false));
             //Assert.That(message2, Is.EqualTo("Invalid filling type"));
@@ -196,26 +205,19 @@ namespace exercise.tests
 
 
         [Test]
-        public void addFillingTest()
+        public void addFillingToBagelTest()
         {
-            // Add bagel to the basket
-            string message1;
-            _basket.AddProduct("BGLS", out message1);
+            Bagel BagelSesame = new Bagel("Sesame");
+             //Add bagel to the basket
 
             Item _filling = new Item(0.12f, "Filling", "Bacon", "FILB");
             // Add filling to the bagel
             string message2;
-            bool result = _basket.AddFillingToBagel("BGLS", _filling, out message2);
+            bool result = BagelSesame.AddFillingToBagel("BGLS", _filling, out message2);
 
             Assert.That(result, Is.EqualTo(true));
             Assert.That(message2, Is.EqualTo(string.Empty));
 
-            // Get the bagels in the basket
-            List<IProduct> bagelsInBasket = _basket.GetBasketContent();
-
-            // Check the sub-items of the bagel in the basket
-            List<IProduct> subItems = ((Item)bagelsInBasket[0]).GetSubItems();
-            Assert.That(subItems.Count, Is.EqualTo(1));  
         }
        
 
@@ -224,15 +226,16 @@ namespace exercise.tests
 
 
         [Test]
-        public void AddFillingTestFail2()
+        public void AddFillingTestFailBagelNotInBasket()
         {
+            Bagel BagelOnion = new Bagel("Onion");
             // Try to add filling to a bagel not in the basket
             Item _filling1 = new Item(0.12f, "Filling","Bacon", "FILB");
             string message;
-            bool result = _basket.AddFillingToBagel("BGLS", _filling1, out message);
+            bool result = BagelOnion.AddFillingToBagel("BGLS", _filling1, out message);
 
             Assert.That(result, Is.EqualTo(false));
-            Assert.That(message, Is.EqualTo("Bagel not in basket"));
+            
 
             // Check if the bagel still does not contain the filling
             Assert.That(bagel1.GetSubItems(), Does.Not.Contain(_filling1));

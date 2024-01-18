@@ -10,69 +10,68 @@ namespace exercise.main
     
         public class Basket : Item
         {
-            //set basket capacity, i.e list length
-            private List<IProduct> basket = new List<IProduct>();
-            //private List<IProduct> basketItems;
+            
+            private List<Item> basket = new List<Item>();
+            
             private int basketCapacity;
             private Inventory inventory;
 
-        public Basket(Inventory inventory) : base(0, "", "", "") // Call the base class constructor
-        {
-            //basketItems = new List<IProduct>();
-            basketCapacity = 2;
-            this.inventory = inventory;
-        }
-
-
-
-
-        public bool AddProduct(string productSKU, out string message)
-        {
-            if (inventory.ContainsProduct(productSKU))
+            public Basket(Inventory inventory) : base(0, "", "", "") // Call the base class constructor
             {
-                IProduct product = inventory.GetProduct(productSKU);
+                basketCapacity = 2;
+                this.inventory = inventory;
+            }
 
-                if (basket.Count < basketCapacity)
+
+
+
+            public bool AddProduct(string productSKU, out string errorMessage)
+            {
+                if (inventory.ContainsProduct(productSKU))
                 {
-                    basket.Add(product);
-                    message = string.Empty;
-                    return true;
-                }
-                else //(basket.Count >= basketCapacity)
-                {
-                    message = "Basket is full";
-                    return false;
-                }
+                    Item product = inventory.GetProduct(productSKU);
+
+                    if (basket.Count < basketCapacity)
+                    {
+                        basket.Add(product);
+                        errorMessage = string.Empty;
+                        return true;
+                    }
+                    else 
+                    {
+                        errorMessage = "Basket is full";
+                        return false;
+                    }
             
-            }
-            message=string.Empty;
-            return false;
-        }
-
-        //add filling method
-
-        public List<IProduct> GetBasketContent()
-            {
-                return new List<IProduct>(basket); // Return a copy of the basket to prevent modification from outside
+                }
+                errorMessage=string.Empty;
+                return false;
             }
 
+           
+
+            public List<Item> GetBasketContent()
+            {
+                return new List<Item>(basket); // Return a copy of the basket to prevent modification from outside
+            }
 
 
-            public bool RemoveProduct(string productSKU, out string message)
+
+            public bool RemoveProduct(string productSKU, out string errorMessage)
             {
 
-                IProduct product = inventory.GetProduct(productSKU);
-            //Console.WriteLine(basket.Count);
+                Item product = inventory.GetProduct(productSKU);
+                
                 if (basket.Contains(product))
                 {
                     basket.Remove(product);
-                    message = string.Empty;
-                    //
+                    errorMessage = string.Empty;
+                    
                     return true;
                 }
                 else
                 {
-                    message = "Item not in basket";
+                    errorMessage = "Item not in basket";
                     return false;
                 }
             }
@@ -84,35 +83,8 @@ namespace exercise.main
                 return basketCapacity;
             }
 
-        public bool AddFillingToBagel(string productSKU, IProduct filling, out string message)
-        {
-            IProduct product = inventory.GetProduct(productSKU);
-            // Check if bagel is in the basket
-            if (basket.Contains(product))
-            {
-                // Check if filling starts with 'F'
-                if (filling.Name.StartsWith("F") )
-                {
-                        ((Item)product).AddSubItems(filling);
-                        message = string.Empty;
-                        return true;
-                }
-                else
-                {
-                    message = "Invalid filling type";
-                    return false;
-                }
-            }
-            else
-            {
-                message = "Bagel not in basket";
-                return false;
-            }
+
+    
         }
     
-}
-    
-
-
-  
 }
