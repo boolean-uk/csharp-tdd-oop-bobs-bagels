@@ -55,7 +55,7 @@ Class Basket
 
 Properties
 
-private List<Item>() listItems {get;}
+private List<Item>() listItems {get;} ##changes from list<Item> to Dictionary<string id, Item> it is hard to get spesific values out of the list.
 private int basketLimit = 4;
 
 
@@ -92,6 +92,10 @@ public Item GetItemFromBasket(itemID)
 public string AddFillingToBagle(itemID) "moved this from Item to here because it makes more sense"
 -adds a filling to the Bagle.
 -returns an error if filling does not exist
+
+public bool ExistsInBasket(string itemID)  "Added this because it was needed to verrify the ID input "
+-returns true if item was found in ShopInventory.
+-returns false if item was not found.
 
 -----------------------------------------------------------------------------------
 
@@ -134,6 +138,10 @@ CreateNewItem(string name, string itemID, float cost, string variant)
 
 public Item GetItem(itemID)
 returns Item based in itemID.
+
+public bool ExistsInInventory(string itemID)  "Added this because it was needed to verrify the ID input "
+-returns true if item was found in ShopInventory.
+-returns false if item was not found.
 	
 
 	

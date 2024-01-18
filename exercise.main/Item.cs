@@ -9,29 +9,26 @@ namespace exercise.main
 {
     public class Item
     {
-        public string Name { get;}
-        public string itemID { get;}
-        public string Variant { get; }
-        public float Cost { get; }
+        private string _name;
+        private string _itemID;
+        private string _variant;
+        private float _cost;
 
 
-        public Item(string name,string _itemID, string variant, float cost) 
+        public Item(string name,string itemID, string variant, float cost) 
         { 
-            Name = name;
-            itemID = _itemID;
-            Variant = variant;
-            Cost = cost;
+            _name = name;
+            _itemID = itemID;
+            _variant = variant;
+            _cost = cost;
 
         }
 
-
-        List<Item> BagleFillings = new List<Item>();
+        public string Name { get { return _name; } }
+        public string ItemID { get { return _itemID; } }
+        public string Variant { get { return _variant; } }
+        public float Cost { get { return _cost; } }
 
        
-
-        public float GetTotalItemCost() 
-        { 
-            throw(new NotImplementedException()); 
-        }
     }
 }
