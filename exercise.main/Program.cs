@@ -1,2 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using exercise.main;
+
+Products p = new Products();
+Basket basket = new Basket(p);
+basket.Receipt();
