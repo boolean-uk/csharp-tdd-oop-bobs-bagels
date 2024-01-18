@@ -93,12 +93,14 @@ namespace exercise.main.Classes
         public double DiscountedCost()
         {
             double cost = Cost();
+            List<Item> ghostItems = Items.ToList();
             List<(Discount discount, List<Item> items, double originalPrice, double discountValue)> checkout = BestDiscountValue();
             foreach (var deal in checkout)
             {
                 cost -= deal.discountValue;
             }
-            //cost = stock.DiscountEvaluate();
+
+            Receipt(checkout, ghostItems, Math.Round(cost, 2));
 
             return Math.Round(cost, 2);
         }
@@ -209,5 +211,44 @@ namespace exercise.main.Classes
            */
         }
 
+
+        public void Receipt(List<(Discount discount, List<Item> items, double originalPrice, double discountValue)> checkout, List<Item> items, double cost)
+        {
+            const int width = 31;
+            char[] line = new char[width];
+
+            StringBuilder receipt = new StringBuilder();
+
+            //Print header
+            for (int i = 0;i < width;i++)
+            {
+                line[i] = '-';
+            }
+            line[^1] = '\n';
+            receipt.Append(line);
+
+            //Print body
+            foreach (Item item in items)
+            {
+                receipt.Append($"{item.Name} {item.Variant} {item.Price}\n");
+            }
+
+            //Print discounts
+            foreach (var discount in checkout) 
+            {
+                receipt.Append($"{discount.discount} -{discount.discountValue}\n");
+            }
+            //Print total
+            receipt.Append($"total: {cost} \n");
+
+            //Print ending
+            for (int i = 0; i < width; i++)
+            {
+                line[i] = '-';
+            }
+            line[^1] = '\n';
+            receipt.Append(line);
+            Console.WriteLine(receipt.ToString());
+        }
     }
 }
