@@ -9,17 +9,20 @@ namespace exercise.tests
 {
     public class Extension
     {
+        /// <summary>
+        /// Gives discount
+        /// </summary>
         [Test, Order(1)]
-        public void Test_01_Discount_6_Onion()
+        public void Test_01_Discount_6_Everything()
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLO");
-            Bagel bagel2 = new Bagel("BGLO");
-            Bagel bagel3 = new Bagel("BGLO");
-            Bagel bagel4 = new Bagel("BGLO");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
+            Bagel bagel3 = new Bagel("BGLE");
+            Bagel bagel4 = new Bagel("BGLE");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
             basket.AddProduct(bagel3);
@@ -35,8 +38,11 @@ namespace exercise.tests
             Assert.That(expectedResult, Is.EqualTo(actualResult));
         }
 
+        /// <summary>
+        /// No discount
+        /// </summary>
         [Test, Order(2)]
-        public void Test_02_Discount_6_Mix()
+        public void Test_02_NOT_Discount_6_Mix()
         {
             //Arrange
             Basket basket = new Basket();
@@ -55,18 +61,18 @@ namespace exercise.tests
 
             //Act
             double expectedResult = Math.Round(basket.CheckTotalCost(), 2);
-            double actualResult = 2.49d;
+            double actualResult = 2.94d;
 
             //Assert
             Assert.That(expectedResult, Is.EqualTo(actualResult));
         }
 
         /// <summary>
-        /// 6x plain bagels = 2.34 = CHEAPER THAN THE DISCOUNT!
+        /// 6x plain bagels. No discount.
         /// </summary>
         /// 
         [Test, Order(3)]
-        public void Test_03_Discount_6_6Plain()
+        public void Test_03_NOTDiscount_6_6Plain()
         {
             //Arrange
             Basket basket = new Basket();
@@ -99,13 +105,13 @@ namespace exercise.tests
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLO");
-            Bagel bagel2 = new Bagel("BGLO");
-            Bagel bagel3 = new Bagel("BGLO");
-            Bagel bagel4 = new Bagel("BGLO");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
-            Bagel bagel7 = new Bagel("BGLO");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
+            Bagel bagel3 = new Bagel("BGLE");
+            Bagel bagel4 = new Bagel("BGLE");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
+            Bagel bagel7 = new Bagel("BGLE");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
             basket.AddProduct(bagel3);
@@ -165,7 +171,7 @@ namespace exercise.tests
         }
 
         /// <summary>
-        /// Mix of 12 means 2 x 6 discount in my eyes or this discount would be too OP.
+        /// 12 of Everything means 2 x 6 discount in my eyes or this discount would be too OP.
         /// </summary>
         [Test, Order(6)]
         public void Test_06_Discount_12_Mix()
@@ -174,16 +180,16 @@ namespace exercise.tests
             Basket basket = new Basket();
             Bagel bagel1 = new Bagel("BGLE");
             Bagel bagel2 = new Bagel("BGLE");
-            Bagel bagel3 = new Bagel("BGLO");
+            Bagel bagel3 = new Bagel("BGLE");
             Bagel bagel4 = new Bagel("BGLE");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
-            Bagel bagel7 = new Bagel("BGLO");
-            Bagel bagel8 = new Bagel("BGLO");
-            Bagel bagel9 = new Bagel("BGLS");
-            Bagel bagel10 = new Bagel("BGLS");
-            Bagel bagel11 = new Bagel("BGLS");
-            Bagel bagel12 = new Bagel("BGLS");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
+            Bagel bagel7 = new Bagel("BGLE");
+            Bagel bagel8 = new Bagel("BGLE");
+            Bagel bagel9 = new Bagel("BGLE");
+            Bagel bagel10 = new Bagel("BGLE");
+            Bagel bagel11 = new Bagel("BGLE");
+            Bagel bagel12 = new Bagel("BGLE");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
             basket.AddProduct(bagel3);
@@ -271,37 +277,37 @@ namespace exercise.tests
         }
 
         /// <summary>
-        /// 24x mixed bagels gives 4x6 discount
+        /// 24x Everything bagels gives 4x6 discount
         /// </summary>
         [Test, Order(8)]
-        public void Test_08_Discount_24_mixed()
+        public void Test_08_Discount_24_Everything()
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLO");
-            Bagel bagel2 = new Bagel("BGLO");
-            Bagel bagel3 = new Bagel("BGLO");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
+            Bagel bagel3 = new Bagel("BGLE");
             Bagel bagel4 = new Bagel("BGLE");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLS");
-            Bagel bagel7 = new Bagel("BGLO");
-            Bagel bagel8 = new Bagel("BGLO");
-            Bagel bagel9 = new Bagel("BGLS");
-            Bagel bagel10 = new Bagel("BGLS");
-            Bagel bagel11 = new Bagel("BGLS");
-            Bagel bagel12 = new Bagel("BGLO");
-            Bagel bagel13 = new Bagel("BGLO");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
+            Bagel bagel7 = new Bagel("BGLE");
+            Bagel bagel8 = new Bagel("BGLE");
+            Bagel bagel9 = new Bagel("BGLE");
+            Bagel bagel10 = new Bagel("BGLE");
+            Bagel bagel11 = new Bagel("BGLE");
+            Bagel bagel12 = new Bagel("BGLE");
+            Bagel bagel13 = new Bagel("BGLE");
             Bagel bagel14 = new Bagel("BGLE");
-            Bagel bagel15 = new Bagel("BGLO");
-            Bagel bagel16 = new Bagel("BGLO");
-            Bagel bagel17 = new Bagel("BGLO");
-            Bagel bagel18 = new Bagel("BGLO");
-            Bagel bagel19 = new Bagel("BGLS");
-            Bagel bagel20 = new Bagel("BGLO");
-            Bagel bagel21 = new Bagel("BGLO");
+            Bagel bagel15 = new Bagel("BGLE");
+            Bagel bagel16 = new Bagel("BGLE");
+            Bagel bagel17 = new Bagel("BGLE");
+            Bagel bagel18 = new Bagel("BGLE");
+            Bagel bagel19 = new Bagel("BGLE");
+            Bagel bagel20 = new Bagel("BGLE");
+            Bagel bagel21 = new Bagel("BGLE");
             Bagel bagel22 = new Bagel("BGLE");
-            Bagel bagel23 = new Bagel("BGLO");
-            Bagel bagel24 = new Bagel("BGLO");
+            Bagel bagel23 = new Bagel("BGLE");
+            Bagel bagel24 = new Bagel("BGLE");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
             basket.AddProduct(bagel3);
@@ -406,19 +412,19 @@ namespace exercise.tests
         }
 
         /// <summary>
-        /// Based on the example order, one cannot combine any discounts with a coffee deal (thank god)
+        /// Based on the example order, one cannot combine any discounts with a coffee deal (thank god for our business)
         /// </summary>
         [Test, Order(11)]
         public void Test_11_Discount_CoffeeDeal_And_6x()
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLO");
-            Bagel bagel2 = new Bagel("BGLO");
-            Bagel bagel3 = new Bagel("BGLO");
-            Bagel bagel4 = new Bagel("BGLO");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
+            Bagel bagel3 = new Bagel("BGLE");
+            Bagel bagel4 = new Bagel("BGLE");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
             Coffee coffee1 = new Coffee("COFB");
             basket.AddProduct(bagel1);
             basket.AddProduct(bagel2);
@@ -436,19 +442,20 @@ namespace exercise.tests
             Assert.That(expectedResult, Is.EqualTo(actualResult));
         }
 
-        //Fillings ;_;
-
+        /// <summary>
+        /// Bagels with filling. Returns correct price. Though receipt does not state the ones with filling. Then again, the extension example receipts does not show it.
+        /// </summary>
         [Test, Order(12)]
         public void Test_12_Discount_6_Discount_Fillings()
         {
             //Arrange
             Basket basket = new Basket();
-            Bagel bagel1 = new Bagel("BGLO");
-            Bagel bagel2 = new Bagel("BGLO");
-            Bagel bagel3 = new Bagel("BGLO");
-            Bagel bagel4 = new Bagel("BGLO");
-            Bagel bagel5 = new Bagel("BGLO");
-            Bagel bagel6 = new Bagel("BGLO");
+            Bagel bagel1 = new Bagel("BGLE");
+            Bagel bagel2 = new Bagel("BGLE");
+            Bagel bagel3 = new Bagel("BGLE");
+            Bagel bagel4 = new Bagel("BGLE");
+            Bagel bagel5 = new Bagel("BGLE");
+            Bagel bagel6 = new Bagel("BGLE");
             Filling filling1 = new Filling("FILB");
             Filling filling2 = new Filling("FILE");
             bagel1.ChooseFilling(filling1);

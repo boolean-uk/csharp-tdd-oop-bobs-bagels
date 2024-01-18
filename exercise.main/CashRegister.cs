@@ -8,7 +8,12 @@ namespace exercise.main
 {
     public static class CashRegister
     {
-
+        /// <summary>
+        /// Sorry for not refactoring this absolute mess. But time is running out and I have to do the other exercises. No time for refactor. 
+        /// I can see multiple ways to make things easier for me here, but I am some exercises behind now.
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
         public static double CalculateReceipt(List<Product> products)
         {
             Dictionary<string, int> discountTracker = PopulateTracker();
@@ -18,74 +23,171 @@ namespace exercise.main
                 return total;
             }
 
-            int bagels = 0;
-            int plainBagels = 0;
-            int blackCoffe = 0;
+            StringBuilder receipt = new StringBuilder();
+            receipt.Append("      ~~~ Bob's Bagels ~~~      ");
+            receipt.Append(System.Environment.NewLine + System.Environment.NewLine);
+            receipt.Append("       " + DateTime.Now);
+            receipt.Append(System.Environment.NewLine + System.Environment.NewLine);
+            receipt.Append("--------------------------------");
+            receipt.Append(System.Environment.NewLine + System.Environment.NewLine);
+
             foreach (Product product in products)
             {
-                //discountTracker[product.SKU] += 1;
                 if (product.SKU.Contains("BGLP"))
                 {
-                    plainBagels++;
+                    discountTracker["BGLP"]++;
                 }
-                else if (product.SKU.Contains("BGL"))
+                else if (product.SKU.Contains("BGLO"))
                 {
-                    bagels++;
+                    discountTracker["BGLO"]++;
+                }
+                else if (product.SKU.Contains("BGLE"))
+                {
+                    discountTracker["BGLE"]++;
+                }
+                else if (product.SKU.Contains("BGLS"))
+                {
+                    discountTracker["BGLS"]++;
                 }
                 else if (product.SKU.Contains("COFB"))
                 {
-                    blackCoffe++;
+                    discountTracker["COFB"]++;
                 }
             }
 
-            double twelveDiscount = plainBagels / 12;
-            double sixDiscount = bagels / 6;
+            double twelveDiscount = discountTracker["BGLP"] / 12;
+            double sixDiscount = discountTracker["BGLE"] / 6;
             double discount = 0.00d;
 
-
-            //Bagel discount adder
+            // Bagel discount adder
             if (twelveDiscount >= 1)
             {
                 for (int i = 0; i < twelveDiscount; i++)
                 {
+                    receipt.Append("Plain Bagel          12   £3.99 ");
+                    receipt.Append(System.Environment.NewLine);
+                    receipt.Append("                        (-£0.69)");
+                    receipt.Append(System.Environment.NewLine);
                     discount += 0.69d;
-                    plainBagels -= 12;
+                    discountTracker["BGLP"] -= 12;
                 }
             }
             if (sixDiscount >= 1)
             {
                 for (int i = 0; i < sixDiscount; i++)
                 {
+                    receipt.Append("Everything Bagel       6   £2.49 ");
+                    receipt.Append(System.Environment.NewLine);
+                    receipt.Append("                        (-£0.45)");
+                    receipt.Append(System.Environment.NewLine);
                     discount += 0.45d;
-                    bagels -= 6;
+                    discountTracker["BGLE"] -= 6;
                 }
             }
 
-            //coffee deals discount adder
-            if (blackCoffe >= 1 && (plainBagels >= 1 || bagels >= 1))
+            // Coffee deals discount adder
+            if (discountTracker["COFB"] >= 1)
             {
-                for (int i = 0; i < blackCoffe; i++)
+                int iterations = discountTracker["COFB"];
+                for (int i = 0; i < iterations; i++)
                 {
-                    if (plainBagels >= 1)
+                    if (discountTracker["BGLP"] >= 1)
                     {
+                        receipt.Append("Coffee+Plain Bagel     1   £1.25 ");
+                        receipt.Append(System.Environment.NewLine);
+                        receipt.Append("                        (-£0.13)");
+                        receipt.Append(System.Environment.NewLine);
                         discount += 0.13;
-                        plainBagels--;
+                        discountTracker["BGLP"]--;
+                        discountTracker["COFB"]--;
                     }
-                    else if (bagels >= 1)
+                    else if (discountTracker["BGLE"] >= 1)
                     {
+                        receipt.Append("Coffee+Everything Bgl  1   £1.25 ");
+                        receipt.Append(System.Environment.NewLine);
+                        receipt.Append("                        (-£0.23)");
+                        receipt.Append(System.Environment.NewLine);
                         discount += 0.23;
-                        bagels--;
+                        discountTracker["BGLE"]--;
+                        discountTracker["COFB"]--;
+                    }
+                    else if (discountTracker["BGLS"] >= 1)
+                    {
+                        receipt.Append("Coffee+Sesame Bagel    1   £1.25 ");
+                        receipt.Append(System.Environment.NewLine);
+                        receipt.Append("                        (-£0.23)");
+                        receipt.Append(System.Environment.NewLine);
+                        discount += 0.23;
+                        discountTracker["BGLS"]--;
+                        discountTracker["COFB"]--;
+                    }
+                    else if (discountTracker["BGLO"] >= 1)
+                    {
+                        receipt.Append("Coffee+Onion Bagel     1   £1.25 ");
+                        receipt.Append(System.Environment.NewLine);
+                        receipt.Append("                        (-£0.23)");
+                        receipt.Append(System.Environment.NewLine);
+                        discount += 0.23;
+                        discountTracker["BGLO"]--;
+                        discountTracker["COFB"]--;
+                    }
+                    else
+                    {
+                        break; // Exit if bagels are no more
                     }
                 }
+            }
 
+            if (discountTracker.Values.Any(value => value > 0))
+            {
+                foreach (var item in discountTracker)
+                {
+                    if (item.Value > 0)
+                    {
+                        if (item.Key == "BGLP")
+                        {
+                            receipt.Append($"Plain Bagel           {item.Value}   £{Math.Round(item.Value * 0.39, 2)}");
+                        }
+                        else if (item.Key == "BGLO")
+                        {
+                            receipt.Append($"Onion Bagel           {item.Value}   £{Math.Round(item.Value * 0.49, 2)}");
+                        }
+                        else if (item.Key == "BGLE")
+                        {
+                            receipt.Append($"Everything Bagel      {item.Value}   £{Math.Round(item.Value * 0.49, 2)}");
+                        }
+                        else if (item.Key == "BGLS")
+                        {
+                            receipt.Append($"Sesame Bagel          {item.Value}   £{Math.Round(item.Value * 0.49, 2)}");
+                        }
+                        else if (item.Key == "COFB")
+                        {
+                            receipt.Append($"Black Coffee          {item.Value}   £{Math.Round(item.Value * 0.99, 2)}");
+                        }
+                        receipt.Append(System.Environment.NewLine);
+                    }
+                }
             }
 
             total = products.Sum(product => product.Price);
             double returnPrice = total - discount;
+
+            receipt.Append(System.Environment.NewLine);
+            receipt.Append("--------------------------------");
+            receipt.Append(System.Environment.NewLine);
+            receipt.Append($"Total                    £{Math.Round(returnPrice, 2)}");
+            receipt.Append(System.Environment.NewLine);
+            receipt.Append(System.Environment.NewLine);
+            receipt.Append("           Thank you            ");
+            receipt.Append(System.Environment.NewLine);
+            receipt.Append("        For your order!         ");
+
+
+            Console.WriteLine(receipt);
             return returnPrice;
-
-
         }
+
+
 
         public static Dictionary<string, int> PopulateTracker()
         {
