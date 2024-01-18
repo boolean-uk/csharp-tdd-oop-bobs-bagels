@@ -36,5 +36,5 @@ so I can understand what I'm paying for.
 ## Basket class functionality
 | class|  Method | Scenario | Output |
 |---|---|---|---|
-| Basket | `Receipt Receipt()` |  | Returns a `Receipt` |
+| Basket | `Receipt Receipt(Order order)` |  | Returns a `Receipt` |
 | Receipt | `int DisplayReceipt()` |  | Displays the receipt in the terminal |
