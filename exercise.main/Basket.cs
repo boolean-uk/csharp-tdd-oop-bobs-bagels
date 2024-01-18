@@ -64,8 +64,8 @@ namespace exercise.main
                 {
                     totalSum += Inventory.BagelDiscountList[i].discountPrice;
 
-                    List<Bagel> tempList = BagelList.Where(x => x.mBagelType == Inventory.BagelDiscountList[i].Variant)
-                        .ToList();
+                    List<Bagel> tempList = BagelList.Where(x => x.mBagelType == Inventory.BagelDiscountList[i].Variant).ToList();
+
                     tempList.RemoveRange(discountAmount, tempList.Count - discountAmount);
                     foreach (var temp in tempList)
                     {
