@@ -75,11 +75,11 @@ namespace exercise.tests
         [Test]
         public void CoffeAndBagelDiscountTest()
         {
-            _customer.Order(new Bagel(BagelVariant.Sesame), 2);
-            _customer.Order(new Coffee(CoffeeVariant.Black), 2);
+            _customer.Order(new Bagel(BagelVariant.Sesame));
+            _customer.Order(new Coffee(CoffeeVariant.Black));
 
-            float discount = _customer.Basket.CalculateDiscounts(_customer.Basket.GetContents());
-            Assert.That(Math.Abs(discount - 1.25f * 2), Is.LessThanOrEqualTo(1e-2));
+            float discount = _customer.Basket.GetTotalPrice(_customer.Basket.GetContents());
+            Assert.That(Math.Abs(discount - 1.25f), Is.LessThanOrEqualTo(1e-2));
         }
     }
 }
