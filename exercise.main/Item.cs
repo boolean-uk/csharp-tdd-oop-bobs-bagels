@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace exercise.main
 {
@@ -14,6 +15,9 @@ namespace exercise.main
         public string Name;
         public string Variant;
         public float Price;
+
+        public bool inBundle = false;
+        public List<string> inBundleWith = new List<string>(12);
 
         public Item(string sku, string name, float price, string variant)
         {
@@ -26,61 +30,28 @@ namespace exercise.main
 
         public Item() { }
 
-    }
-
-    public class Bagel : Item
-    {
-        private List<Item> Contents = new List<Item>();
-
-        public Bagel(string sku, string name, float price, string variant) : base(sku, name, price, variant) 
+        public bool isInBundle()
         {
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
+            return inBundle;
         }
 
-
-        public Bagel()
+        public virtual List<string> ListBundleIds()
         {
-            SKU = "none";
-            Name = "none";
-            Variant = "none";
+            return inBundleWith;
         }
 
-        public void AddFilling(Item item)
+        public virtual void putToBundle(List<string> ids)
         {
-            Contents.Add(item);
+            inBundleWith = ids;
+            inBundle = true;
         }
 
-        public List<Item> ListFillings()
+        public virtual void RemoveFromBundle()
         {
-            return Contents;
-        }
-    }
-
-    public class Coffee : Item
-    {
-
-        public Coffee(string sku, string name, float price, string variant) : base(sku, name, price, variant)
-        {
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
+            inBundleWith.Clear();
+            inBundle = false;
         }
 
     }
 
-    public class Filling : Item
-    {
-        public Filling(string sku, string name, float price, string variant) : base(sku, name, price, variant)
-        {
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
-        }
-
-    }
 }
