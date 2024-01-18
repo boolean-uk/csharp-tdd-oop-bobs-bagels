@@ -116,5 +116,4 @@ I'd like the receipt to also state how much money I've saved if I bought a disco
 |        	          |                                     |                                          			     | If basketSize was NOT changed (!isManager)	      | false     |
 | `Person`            |  Basket personalBasket              |                                   			         | 			                                          |           |
 |                     |                                     | can call on the store methods			                 | 			                                          |           |
-| `Receipt`           |                                     | double CheckTotalCost()		                         | 						                              | double    |
-|                     |                                     | string printReceipt()        			                 | 			                                          | string    |
+| `CashRegister`      |                                     | double CheckTotalCost()		                         | 						                              | double    |

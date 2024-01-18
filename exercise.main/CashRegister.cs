@@ -211,10 +211,5 @@ namespace exercise.main
 
             return discountTracker;
         }
-
-        public static string PrintReceipt()
-        {
-            return "receipt";
-        }
     }
 }
