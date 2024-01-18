@@ -8,6 +8,11 @@ namespace exercise.main.Products
 {
     public static class ProductFactory
     {
+        /// <summary>
+        /// Ensure that the provided SKU is valid then returns a new IProduct object that match the provided SKU
+        /// </summary>
+        /// <param name="SKU"> Inventory item identifier </param>
+        /// <returns><IProduct>The generated IProduct object based on the provided SKU. If invalid SKU the object will be a </IProduct></returns>
         public static IProduct GenerateProduct(string[] SKU) 
         {
             ValidateProductSKU(SKU[0]);
@@ -33,6 +38,12 @@ namespace exercise.main.Products
             }
         }
 
+
+        /// <summary>
+        /// Validate if the provided SKU is a valid SKU in for any item in bobs inventory that implements IProduct
+        /// </summary>
+        /// <param name="SKU"> The SKU to check is valid or not</param>
+        /// <returns><bool> True if the SKU is valid, false if invalid </bool></returns>
         public static bool ValidateProductSKU(string SKU) 
         {
             float prod1 = Inventory.GetCoffePrice(SKU);

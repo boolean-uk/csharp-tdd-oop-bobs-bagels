@@ -57,8 +57,7 @@ namespace exercise.main
                     ) ;
                 if (prod is Bagel) 
                 {
-                    Bagel bagel = (Bagel) prod;
-                    foreach (Filling fill in bagel.GetFilling()) 
+                    foreach (Filling fill in (prod as Bagel).GetFilling()) 
                     {
                         Tuple<string, string> fillItem = TranslateSKU.GetNameAndVariantFromSKU(fill.SKUName);
                         Console.WriteLine(
