@@ -14,9 +14,11 @@ namespace exercise.main
         private List<AddOn> _addOns;
 
 
-        public BasketEntry()
+        public BasketEntry(BaseItem baseItem, int count)
         {
-            throw new NotImplementedException();
+            _baseItem = baseItem;
+            _count = count;
+            _addOns = new List<AddOn>();
         }
 
         public BaseItem BaseItem { get => _baseItem; }

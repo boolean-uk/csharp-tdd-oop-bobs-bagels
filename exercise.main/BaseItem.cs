@@ -17,11 +17,47 @@ namespace exercise.main
 
         public BaseItem(string id, string name, decimal price, decimal basketFootprint)
         {
-            throw new NotImplementedException();
+            _itemID = id;
+            _name = name;
+            _price = price;
+            _basketFootprint = basketFootprint;
+            _defaultAddOns = new List<String>();
+            _availableAddOns = new List<String>();
         }
 
-        public void AllowAddOns(params string[] itemIDs) { throw new NotImplementedException(); }
-        public void DisallowAddOns(params string[] itemIDs) { throw new NotImplementedException(); }
+        public void AllowAddOns(params string[] itemIDs)
+        {
+            foreach (string itemID in itemIDs)
+            {
+                if (!AvailableAddOns.Contains(itemID)) AvailableAddOns.Add(itemID);
+            }
+        }
+        public void DisallowAddOns(params string[] itemIDs)
+        {
+            RemoveDefaultAddons(itemIDs);
+            for (int i = 0; i < AvailableAddOns.Count; i++)
+            {
+                if (itemIDs.Contains(AvailableAddOns[i])) AvailableAddOns.RemoveAt(i);
+            }
+        }
+
+        public void SetDefaultAddons(params string[] itemIDs)
+        {
+            AllowAddOns(itemIDs);
+            foreach (string itemID in itemIDs)
+            {
+                if (!DefaultAddOns.Contains(itemID)) DefaultAddOns.Add(itemID);
+            }
+        }
+
+        public void RemoveDefaultAddons(params string[] itemIDs)
+        {
+            for (int i = 0; i < DefaultAddOns.Count; i++)
+            {
+                if (itemIDs.Contains(DefaultAddOns[i])) DefaultAddOns.RemoveAt(i);
+            }
+        }
+
         public string ItemID { get => _itemID; }
         public string Name { get => _name; }
         public decimal Price { get => _price; }

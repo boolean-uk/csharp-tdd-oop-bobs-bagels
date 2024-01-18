@@ -16,7 +16,10 @@ namespace exercise.main
 
         public AddOn(string id, string name, decimal price, decimal basketFootprint)
         {
-            throw new NotImplementedException();
+            _itemID = id;
+            _name = name;
+            _price = price;
+            _basketFootprint = basketFootprint;
         }
 
         public string ItemID { get => _itemID; }

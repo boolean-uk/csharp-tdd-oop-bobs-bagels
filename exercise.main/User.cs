@@ -13,7 +13,8 @@ namespace exercise.main
 
         public User(string userID)
         {
-            throw new NotImplementedException();
+            _userID = userID;
+            _basket = new List<BasketEntry>();
         }
 
         public void AddItem()

@@ -23,9 +23,7 @@ public class StoreTests
     private void InitialSetUp()
     {
         _store.AddUser(_bossUserID);
-        _store.Login(_bossUserID);
         _store.AddUser(_genericUserID);
-        _store.Login(_genericUserID);
         _store.AddAddOn("FILB", "Bacon", 0.12m);
         _store.AddAddOn("FILE", "Egg", 0.12m, 0.1m);
         _store.AddAddOn("FILC", "Cheese", 0.12m);
@@ -44,6 +42,7 @@ public class StoreTests
         _store.AddBaseItem("COFW", "White Coffee", 1.19m, 1.5m);
         _store.AddBaseItem("COFC", "Capucciono", 1.29m, 1.5m);
         _store.AddBaseItem("COFL", "Caffè Latte", 1.29m, 1.5m);
+        _store.Login(_genericUserID);
     }
 
     [Test]
@@ -57,6 +56,7 @@ public class StoreTests
         Assert.DoesNotThrow(() => _store.AddUser("user@test.com"));
         Assert.That(_store.BaseItems.Count > 0);
         Assert.That(_store.AddOns.Count > 0);
+        Assert.That(_store.BaseItems[0].AvailableAddOns.Contains("FILE"));
     }
 
 }
