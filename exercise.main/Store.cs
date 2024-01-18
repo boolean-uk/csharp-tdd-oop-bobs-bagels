@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
+
+    public static class StoreVariables
+    {
+        private static decimal MaximumBasketCapacity { get; set;  } = 5m;
+        
+        public static decimal GetMaximumBasketCapacity() { return MaximumBasketCapacity; }
+        public static void SetMaximumBasketCapacity(decimal maximumBasketCapacity, bool isAdmin)
+        {
+            if (isAdmin) MaximumBasketCapacity = maximumBasketCapacity;
+            else throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
+        }
+    }
     public class Store
     {
         private List<User> _users;
@@ -14,7 +26,6 @@ namespace exercise.main
         private List<AddOn> _addOns;
 
         private string _activeUser;
-        private decimal _maximumBasketCapacity;
         private List<string> _managers;
 
         public Store()
@@ -23,7 +34,6 @@ namespace exercise.main
             _baseItems = new List<BaseItem>();
             _addOns = new List<AddOn>();
             _managers = new List<string>();
-            _maximumBasketCapacity = 5m;
             _activeUser = "";
         }
 
@@ -101,8 +111,8 @@ namespace exercise.main
 
         public void SetMaximumBasketCapacity(decimal maximumBasketCapacity)
         {
-            if (!HasAdminPriveleges()) throw new UnauthorizedAccessException("You are unauthorized to perform this operation.");
-            _maximumBasketCapacity = maximumBasketCapacity;
+            bool isAdmin = HasAdminPriveleges();
+            StoreVariables.SetMaximumBasketCapacity(maximumBasketCapacity, isAdmin);
         }
 
 
@@ -110,7 +120,6 @@ namespace exercise.main
         public List<BaseItem> BaseItems { get => _baseItems; }
         public List<AddOn> AddOns { get => _addOns; }
         public string ActiveUser { get => _activeUser; }
-        public decimal MaximumBasketCapacity { get => _maximumBasketCapacity; }
         public List<string> Managers { get => _managers; }
 
         private bool IsAUser(string userID)

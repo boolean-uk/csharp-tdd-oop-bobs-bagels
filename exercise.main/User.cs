@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,17 +10,18 @@ namespace exercise.main
     public class User
     {
         private string _userID;
-        private List<BasketEntry> _basket;
+        private List<UserBasketEntry> _basket;
 
         public User(string userID)
         {
             _userID = userID;
-            _basket = new List<BasketEntry>();
+            _basket = new List<UserBasketEntry>();
         }
 
         public void AddToBasket(BaseItem item, int count = 1)
         {
-            Basket.Add(new BasketEntry(item, count));
+            if (HasSpaceForItem(item)) Basket.Add(new UserBasketEntry(item, count));
+            else throw new InvalidOperationException("There is not enough space in your basket.");
         }
 
         public void RemoveFromBasket(int basketIndex)
@@ -30,8 +32,12 @@ namespace exercise.main
 
         public void IncludeAddOn(int basketIndex, AddOn addOn)
         {
-            if (IsValidBasketIndex(basketIndex)) Basket[basketIndex].IncludeAddOn(addOn);
-            else throw new InvalidOperationException("There is no menu item at the specified location.");
+            if (HasSpaceForItem(addOn))
+            {
+                if (IsValidBasketIndex(basketIndex)) Basket[basketIndex].IncludeAddOn(addOn);
+                else throw new InvalidOperationException("There is no menu item at the specified location.");
+            }
+            else throw new InvalidOperationException("There is not enough space in your basket.");
         }
 
         public void ExcludeAddOn(int basketIndex, AddOn addOn)
@@ -45,9 +51,14 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
-        public decimal BasketOccupation()
+        public bool HasSpaceForItem(IMenuItem item)
         {
-            throw new NotImplementedException();
+            return StoreVariables.GetMaximumBasketCapacity() >= BasketSpaceOccupation() + item.BasketFootprint;
+        }
+
+        public decimal BasketSpaceOccupation()
+        {
+            return Basket.Sum(basketEntry => basketEntry.Footprint());
         }
 
         private bool IsValidBasketIndex(int basketIndex)
@@ -56,6 +67,6 @@ namespace exercise.main
         }
 
         public string UserID { get => _userID;}
-        public List<BasketEntry> Basket { get => _basket;}
+        public List<UserBasketEntry> Basket { get => _basket;}
     }
 }

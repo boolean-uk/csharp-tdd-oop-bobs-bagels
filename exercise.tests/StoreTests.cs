@@ -90,6 +90,7 @@ public class StoreTests
         _store.Login(_bossUserID);
         _store.SetMaximumBasketCapacity(5m);
         _store.AddToBasket("BGLP", 4);
+        Console.WriteLine(_store.GetActiveUser().BasketSpaceOccupation());
         Assert.DoesNotThrow(() => _store.AddToBasket("BGLP", 1));
         Assert.Throws<InvalidOperationException>(() => _store.AddToBasket("BGLP", 2));
     }

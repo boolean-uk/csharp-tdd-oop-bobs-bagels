@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class BasketEntry
+    public class UserBasketEntry
     {
         private BaseItem _baseItem;
         private int _count;
         private List<AddOn> _addOns;
 
 
-        public BasketEntry(BaseItem baseItem, int count)
+        public UserBasketEntry(BaseItem baseItem, int count)
         {
             _baseItem = baseItem;
             _count = count;
@@ -29,6 +29,11 @@ namespace exercise.main
         public void ExcludeAddOn(AddOn addOn)
         {
             if (AddOns.Contains(addOn)) AddOns.Remove(addOn);
+        }
+
+        public decimal Footprint()
+        {
+            return Count * (BaseItem.BasketFootprint + AddOns.Sum(addOn => addOn.BasketFootprint));
         }
 
         public BaseItem BaseItem { get => _baseItem; }
