@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public interface IInventory
+    public class Coffee : IProduct
     {
-        bool IsItemInStock(string sku);
-        decimal GetProductPrice(string sku);
+        public string Sku { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public interface IInventory
+    public interface IFillable : IProduct
     {
-        bool IsItemInStock(string sku);
-        decimal GetProductPrice(string sku);
+        List<Tuple<string, decimal>> _fillings { get; set; }
     }
 }

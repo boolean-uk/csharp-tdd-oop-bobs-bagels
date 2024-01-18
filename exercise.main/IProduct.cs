@@ -7,7 +7,7 @@ namespace exercise.main
 {
     public interface IProduct
     {
-        public string getSku();
-        public decimal getPrice();
+        string Sku { get; }
+        decimal Price { get; }
     }
 }
