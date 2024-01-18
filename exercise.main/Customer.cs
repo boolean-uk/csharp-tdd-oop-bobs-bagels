@@ -29,7 +29,6 @@ namespace exercise.main
             }
         }
 
-
         public bool Order(IFood food, List<string> availableSkus)
         {
             if(food is Bagel)

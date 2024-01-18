@@ -13,6 +13,7 @@ namespace exercise.main
         }
 
         public int Capacity { get { return _capacity; } set { _capacity = value; } }
+        public int Count { get { return _contents.Count; } }
         public List<IFood> GetContents() { return _contents; }
         public void Add(IFood food) 
         {
@@ -30,7 +31,6 @@ namespace exercise.main
                 throw new Exception("That food item does not exist!");
             }
         }
-        public int Count { get { return _contents.Count; } }
         public void Clear() {  _contents.Clear(); }
         public float CalculateDiscounts(List<IFood> foods)
         {
