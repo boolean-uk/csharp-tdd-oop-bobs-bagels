@@ -2,6 +2,7 @@ using NUnit.Framework;
 using exercise.main;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 using NuGet.Frameworks;
+using System.Security.Cryptography;
 
 namespace exercise.tests;
 
@@ -220,13 +221,24 @@ public class BasketTests
         testBasket.ChangeCapacity(15);
 
         Item i1 = testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
+        Item i2 = testBasket.AddItem(inv["BGLE"]);
+        Item i3 = testBasket.AddItem(inv["BGLE"]);
+        Item i4 = testBasket.AddItem(inv["BGLE"]);
+        Item i5 = testBasket.AddItem(inv["BGLE"]);
+        Item i6 = testBasket.AddItem(inv["BGLE"]);
 
-        testBasket.BundleOrder("b6", i1, i1);
+        testBasket.BundleOrder("b6", new List<Item> { i1, i2, i3, i4, i5, i6 });
+
+        Assert.IsTrue(i1.isInBundle());
+        Assert.IsTrue(i2.isInBundle());
+        Assert.IsTrue(i3.isInBundle());
+        Assert.IsTrue(i4.isInBundle());
+        Assert.IsTrue(i5.isInBundle());
+        Assert.IsTrue(i6.isInBundle());
+
+        List<string> bundleList = i1.ListBundleIds();
+
+        Assert.AreEqual(bundleList, new List<string> { i1.ID, i2.ID, i3.ID, i4.ID, i5.ID, i6.ID });
 
         float totalInit = testBasket.TotalCost();
         Assert.That(totalInit, Is.EqualTo(2.49F));
@@ -240,19 +252,19 @@ public class BasketTests
         testBasket.ChangeCapacity(15);
 
         Item i1 = testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
+        Item i2 = testBasket.AddItem(inv["BGLE"]);
+        Item i3 = testBasket.AddItem(inv["BGLE"]);
+        Item i4 = testBasket.AddItem(inv["BGLE"]);
+        Item i5 = testBasket.AddItem(inv["BGLE"]);
+        Item i6 = testBasket.AddItem(inv["BGLE"]);
+        Item i7 = testBasket.AddItem(inv["BGLE"]);
+        Item i8 = testBasket.AddItem(inv["BGLE"]);
+        Item i9 = testBasket.AddItem(inv["BGLE"]);
+        Item i10 = testBasket.AddItem(inv["BGLE"]);
+        Item i11 = testBasket.AddItem(inv["BGLE"]);
+        Item i12 = testBasket.AddItem(inv["BGLE"]);
 
-        testBasket.BundleOrder("b12", i1, i1);
+        testBasket.BundleOrder("b12", new List<Item> { i1, i2, i3, i4, i5, i6 , i7 , i8, i9, i10, i11, i12 });
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(3.99F));
@@ -266,7 +278,7 @@ public class BasketTests
         Item i1 = testBasket.AddItem(inv["BGLE"]);
         Item i2 = testBasket.AddItem(inv["COFB"]);
 
-        testBasket.BundleOrder("bac", i1, i2);
+        testBasket.BundleOrder("bac", new List<Item> { i1, i2 });
 
         float totalInit2 = testBasket.TotalCost();
         Assert.That(totalInit2, Is.EqualTo(1.25F));
@@ -280,32 +292,36 @@ public class BasketTests
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
+        Item t1 = testBasket.AddItem(inv["BGLE"]);
+
         Item b1 = testBasket.AddItem(inv["BGLE"]);
         Item c1 = testBasket.AddItem(inv["COFB"]);
 
-        testBasket.BundleOrder("b6", b1, c1);
+        testBasket.BundleOrder("bac", new List<Item> { b1 , c1 });
 
-        Item i1= testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
-        testBasket.AddItem(inv["BGLO"]);
+        Item i1 = testBasket.AddItem(inv["BGLO"]);
+        Item i2 = testBasket.AddItem(inv["BGLO"]);
+        Item i3 = testBasket.AddItem(inv["BGLO"]);
+        Item i4 = testBasket.AddItem(inv["BGLO"]);
+        Item i5 = testBasket.AddItem(inv["BGLO"]);
+        Item i6 = testBasket.AddItem(inv["BGLO"]);
 
-        testBasket.BundleOrder("b6", i1, i1);
+        testBasket.BundleOrder("b6", new List<Item> { i1, i2, i3, i4, i5, i6 });
 
-        Item i2 = testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
-        testBasket.AddItem(inv["BGLE"]);
+        Item a1 = testBasket.AddItem(inv["BGLE"]);
+        Item a2 = testBasket.AddItem(inv["BGLE"]);
+        Item a3 = testBasket.AddItem(inv["BGLE"]);
+        Item a4 = testBasket.AddItem(inv["BGLE"]);
+        Item a5 = testBasket.AddItem(inv["BGLE"]);
+        Item a6 = testBasket.AddItem(inv["BGLE"]);
+        Item a7 = testBasket.AddItem(inv["BGLE"]);
+        Item a8 = testBasket.AddItem(inv["BGLE"]);
+        Item a9 = testBasket.AddItem(inv["BGLE"]);
+        Item a10 = testBasket.AddItem(inv["BGLE"]);
+        Item a11 = testBasket.AddItem(inv["BGLE"]);
+        Item a12 = testBasket.AddItem(inv["BGLE"]);
 
-        testBasket.BundleOrder("b6", i2, i2);
+        testBasket.BundleOrder("b12", new List<Item> { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 });
 
         testBasket.PrintReceipt();
 
@@ -318,17 +334,18 @@ public class BasketTests
 
         Assert.That(enteredDate, Is.InstanceOf(now.GetType()));
         Assert.That("------------------------------", Is.EqualTo(outputLines[2]));
-        Assert.That("Bagel & Coffee        2  £1.25", Is.EqualTo(outputLines[3]));
-        Assert.That("                      (-£0.45)", Is.EqualTo(outputLines[4]));
-        Assert.That("Onion Bagel           6  £2,49", Is.EqualTo(outputLines[5]));
-        Assert.That("                       (-£0.45)", Is.EqualTo(outputLines[6]));
-        Assert.That("Everything Bagel     12  £3,99", Is.EqualTo(outputLines[7]));
-        Assert.That("                      (-£0.69)", Is.EqualTo(outputLines[8]));
-        Assert.That("------------------------------", Is.EqualTo(outputLines[9]));
-        Assert.That("Total                    £3,97", Is.EqualTo(outputLines[10]));
+        Assert.That("Bagel & Coffee        2  £1,25", Is.EqualTo(outputLines[3]));
+        Assert.That("                      (-£0,27)", Is.EqualTo(outputLines[4]));
+        Assert.That("Everything Bagel     12  £3,99", Is.EqualTo(outputLines[5]));
+        Assert.That("                      (-£1,89)", Is.EqualTo(outputLines[6]));
+        Assert.That("Onion Bagel           6  £2,49", Is.EqualTo(outputLines[7]));
+        Assert.That("                      (-£0,45)", Is.EqualTo(outputLines[8]));
+        Assert.That("Everything Bagel      1  £0,49", Is.EqualTo(outputLines[9]));
+        Assert.That("------------------------------", Is.EqualTo(outputLines[10]));
+        Assert.That("Total                    £8,22", Is.EqualTo(outputLines[11]));
 
-        Assert.That(" You saved a total of £1.14", Is.EqualTo(outputLines[12]));
-        Assert.That("        on this shop", Is.EqualTo(outputLines[13]));
+        Assert.That("   You saved a total of £2,61", Is.EqualTo(outputLines[12]));
+        Assert.That("         on this shop", Is.EqualTo(outputLines[13]));
 
         Assert.That("           Thank you", Is.EqualTo(outputLines[15]));
         Assert.That("        for your order!", Is.EqualTo(outputLines[16]));
