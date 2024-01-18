@@ -11,9 +11,9 @@ namespace exercise.main
     {
         private readonly Basket _basket;
 
-        public Customer()
+        public Customer(Basket basket)
         {
-            _basket = new Basket();
+            _basket = basket;
         }
         public Basket Basket { get { return _basket; } }
         public void Order(IFood food)
@@ -31,9 +31,8 @@ namespace exercise.main
 
         public bool Order(IFood food, List<string> availableSkus)
         {
-            if(food is Bagel)
+            if(food is Bagel bagel)
             {
-                Bagel bagel = (Bagel)food;
                 if(bagel.Fillings.All(f => availableSkus.Contains(f.Sku)))
                 {
                     _basket.Add(food);

@@ -12,7 +12,8 @@ namespace exercise.tests
         [SetUp]
         public void SetUp()
         {
-            _customer = new();
+            Basket basket = new Basket(60);
+            _customer = new(basket);
         }
 
         [Test]

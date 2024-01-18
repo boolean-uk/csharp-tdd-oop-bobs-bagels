@@ -2,7 +2,7 @@
 using exercise.main.Foods;
 using exercise.main.Variants;
 
-Customer customer = new();
+Customer customer = new(new Basket(50));
 customer.Order(new Bagel(BagelVariant.Sesame));
 customer.Order(new Bagel(BagelVariant.Onion), 10);
 customer.Order(new Bagel(BagelVariant.Plain), 25);
