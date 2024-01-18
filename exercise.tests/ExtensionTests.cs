@@ -18,9 +18,13 @@ namespace exercise.tests
         public void DiscountBulkBagelsTest()
         {
             // Arrange
-            Basket basket1 = new Basket(); // 6 bagels
-            Basket basket2 = new Basket(); // 12 bagels
-            Basket basket3 = new Basket(); // 7 bagels
+            Person user1 = new Person("User1");
+            Basket basket1 = user1.GetBasket(); // 6 bagels
+            Person user2 = new Person("User2");
+            Basket basket2 = user2.GetBasket(); // 12 bagels
+            Person user3 = new Person("User3");
+            Basket basket3 = user3.GetBasket(); // 7 bagels
+
             IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
             IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
 
@@ -81,9 +85,12 @@ namespace exercise.tests
         public void DiscountBulkBagelAndCoffeeTest()
         {
             // Arrange
-            Basket basket1 = new Basket(); // 6 bagels
-            Basket basket2 = new Basket(); // 7 bagels 1 coffee
-            Basket basket3 = new Basket(); // 1 bagel 1 coffee
+            Person user1 = new Person("user1");
+            Basket basket1 = user1.GetBasket(); // 6 bagels
+            Person user2 = new Person("user1");
+            Basket basket2 = user2.GetBasket(); // 7 bagels 1 coffee
+            Person user3 = new Person("user1");
+            Basket basket3 = user3.GetBasket(); // 1 bagel 1 coffee
             IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" }); // The bagel
             IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "COFB" }); // The coffee
 
@@ -139,10 +146,11 @@ namespace exercise.tests
     [Test]
     public void DiscountDoubleBulkBagelsTest()
     {
-        // Arrange
-        Basket basket = new Basket(); // 12 bagels
+            // Arrange
         Person Bob = new Person("Bob", true);
-        basket.SetBasketSize(30, Bob);
+        Basket basket = Bob.GetBasket(); // 12 bagels
+
+        basket.SetBasketSize(30);
         IProduct prod1 = ProductFactory.GenerateProduct(new string[] { "BGLO", "FILE" });
         IProduct prod2 = ProductFactory.GenerateProduct(new string[] { "BGLP", "FILX" });
 

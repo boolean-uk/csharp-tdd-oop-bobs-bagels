@@ -17,7 +17,7 @@ namespace exercise.main
         {
             Name = name;
             _admin = admin;
-            basket = new Basket();
+            basket = new Basket(this);
 
         }
 

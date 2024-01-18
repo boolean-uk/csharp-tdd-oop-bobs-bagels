@@ -12,6 +12,12 @@ namespace exercise.main
     {
         List<IProduct> _basket = new List<IProduct>();
         int _maxBasketSize = 13;
+        Person _user;
+
+        public Basket(Person user)
+        {
+            _user = user;
+        }
 
         public bool AddItemToBasket(IProduct item)
         {
@@ -44,8 +50,16 @@ namespace exercise.main
 
         public int SetBasketSize(int newSize) 
         {
-            _maxBasketSize = newSize;
-            return _maxBasketSize;
+            if (_user.IsAdmin())
+            {
+                _maxBasketSize = newSize;
+                return _maxBasketSize;
+            }
+            else 
+            {
+                return 0;
+            }
+
         }
 
         public float GetBasketPrice() 
@@ -113,6 +127,12 @@ namespace exercise.main
         public bool IsFull() 
         {
             return _maxBasketSize <= _basket.Count;
+        }
+
+        public void PrintReceipt() 
+        {
+            ReceiptManager printer = new ReceiptManager();
+            printer.PrintReceipt(this, _user);
         }
     }
 }

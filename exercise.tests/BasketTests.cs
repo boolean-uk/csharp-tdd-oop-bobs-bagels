@@ -21,7 +21,8 @@ namespace exercise.tests
         public void AddToBasketSKUTest(string[] SKU, bool shouldWork) 
         {
             // Arrange
-            Basket basket = new Basket();
+            Person user = new Person("TestPerson");
+            Basket basket = user.GetBasket();
 
             // Act
             bool res = basket.AddItemToBasket(SKU);
@@ -34,7 +35,8 @@ namespace exercise.tests
         public void AddToBasketItemTest() 
         {
             // Arrange
-            Basket basket = new Basket();
+            Person user = new Person("TestPerson");
+            Basket basket = user.GetBasket();
 
             IProduct item1 = new Coffee("COFW", 1.19f);
             IProduct item2 = new Bagel("BGLP", 0.39f);
@@ -62,13 +64,15 @@ namespace exercise.tests
         public void SetBasketSizeTest(int newSize) 
         {
             // Arrange
-            Basket basket = new Basket();
             Person Bob = new Person("Bob", true);
+            Basket basket1 = Bob.GetBasket();
+
             Person Alice = new Person("Alice");
+            Basket basket2 = Alice.GetBasket();
 
             // Act
-            int res1 = basket.SetBasketSize(newSize, Bob); // Is admin so should return new size of basket.
-            int res2 = basket.SetBasketSize(newSize, Alice); // Is not admin so should return 0.
+            int res1 = basket1.SetBasketSize(newSize); // Is admin so should return new size of basket.
+            int res2 = basket2.SetBasketSize(newSize); // Is not admin so should return 0.
 
             // Assert
             Assert.That(res1, Is.EqualTo(newSize));
@@ -82,7 +86,8 @@ namespace exercise.tests
         public void GetBasketPrizeTest(int add, int add2, float expectValue) 
         {
             // Arrange
-            Basket basket = new Basket();
+            Person user = new Person("TestPerson");
+            Basket basket = user.GetBasket();
             IProduct[] set = new IProduct[] { (new Bagel("BGLE", 0.49f)), new Bagel("BGLP", 0.39f), new Coffee("COFW", 1.19f)  };
             basket.AddItemToBasket(set[add]);
             basket.AddItemToBasket(set[add2]);
@@ -99,7 +104,8 @@ namespace exercise.tests
         public void RemoveProductFromBasketTest() 
         {
             // Arrange
-            Basket basket = new Basket();
+            Person user = new Person("TestPerson");
+            Basket basket = user.GetBasket();
             
             IProduct product1 = new Coffee("COFW", 1.19f);
             IProduct product2 = new Coffee("COFL", 1.19f);
@@ -128,7 +134,8 @@ namespace exercise.tests
         public void IsFullTest() 
         {
             // Arrange
-            Basket basket = new Basket();
+            Person user = new Person("TestPerson");
+            Basket basket = user.GetBasket();
             // Default capacity = 13
             IProduct prod = new Coffee("COFW", 1.19f);
             int maxBasketSize = 13;

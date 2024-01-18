@@ -2,7 +2,7 @@
 
 | Classes | Fields | 
 | - | - |
-| `Basket` | `List<Product> _basket` `int _maxBasketSize` |
+| `Basket` | `List<Product> _basket` `int _maxBasketSize` `Person _user` |
 | `Product` | `string SKU` `float productPrice` |
 | `Bagel` | `List<Fill> filling` `string SKUName` `float basePrice` |
 | `Filling` | `string SKUName` `float price` |
@@ -16,7 +16,7 @@
 | | | Failed to add item to basket (1, 2, 10) | false |
 | | `AddItemToBasket(Product item)` | Add item to basket (1) | true |
 | | | Failed to add item to basket (1, 2, 10) | false |
-| | `SetBasketSize(int newSize)` | Change maximum basket capacity (4) | int |
+| | `SetBasketSize(int newSize, Person user)` | Change maximum basket capacity (4) | int |
 | | `GetBasketPrice()` | Show total price of basket (6) | float | 
 | | `RemoveProductFromBasket(string[] SKUs)` | Remove a item from the basket (2, 5) | true |
 | | | Failed to remove item from basket (5) | false | 
@@ -26,6 +26,7 @@
 | | | The basket is already full (3) | true | 
 | | `IsValid(Product item)` | Validate that the provided item is in the inventory | true |
 | | | If provided item is not in the inventory | false | 
+| | `PrintReceipt()` | Print a receipt of prices for the current basket selection | Out/console |
 | `Product` (interface) | `GetPrice()` | Retrieve the price of the product | float |
 | | `GetBasePrice()` | Retrieve the base price of the product | float |
 | | `GetSKUName()` | Retrieve the primary SKU name of the product | string |
@@ -78,6 +79,9 @@ _(Only new additions, these are built on top of the old classes)
 | `DiscountBundleLarge` (implements Discount) | - | - | - |
 | `DiscountMundleSmall` (implements Discount) | - | - | - |
 
+### Assumptions
+Assuming the type of bagel is irrelevant for the discount applying. I.e. 4 "BGLP" and 2 "BGLO" will still apply the 6 for 2.49 discount.
+
 # Post Extension 1
 *(Wanted to add a Person class for the core project. Not related to any extensions)*
 
@@ -91,3 +95,19 @@ _(Only new additions, these are built on top of the old classes)
 |`Person`| `GetBasket()` | Retrieve the basket regisetered on the Person | Basket|
 | | `IsAdmin()` | If the user is administrator | true|
 ||| If the user is not an administrator | false | 
+
+### Applying Person to core domain_model due to change in the SetBasketSize method
+
+# Extension 2
+
+| Classes | fields | 
+|-|-|
+|`ReceiptManager`| `string _currencySymbol` `int _leftColumnWidth` `int _middleColumnWidth` `int _rightColumnWidth` `int _totalColumnWidth`|
+|`TranslateSKU` | `Dictionary<string, Tuple<string, string>> _inventoryNames` |
+
+| Classes | Method | Scenario | Outputs | 
+| - | - | - | - |
+| `ReceiptManager` | `PrintReceipt(Basket basket, Person user)` | Prints a receipt of items and costs in the basket to the console | Out/console | 
+| | `PrintItemizedLines(List<IProduct> products, float totalPrice)` | Prints each item in the basket to the receipt | Out/console | 
+| | `PrintHeader(Person user)` | Prints introduction to receipt | Out/console | 
+| | `PrintFooter()` | Prints ending to receipt | Out/console | 
