@@ -8,13 +8,14 @@
             string title = "~~~ Bob's Bagels ~~~";
             string date = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
             string border = new('-', title.Length * 2);
+            float totalDiscount = PriceCalculator.CalculateDiscounts(basket.GetContents());
             var foodGroups = content.GroupBy(x => x.FullName)
                 .Select(group => new
                 {
                     Name = group.Key,
                     Count = group.Count(),
-                    Price = basket.GetTotalPrice(group.ToList()),
-                    Discount = basket.CalculateDiscounts(group.ToList())
+                    Price = PriceCalculator.GetTotalPrice([..group]),
+                    Discount = PriceCalculator.CalculateDiscounts([..group])
                 });
 
             Console.WriteLine(
@@ -34,7 +35,7 @@
                 $"{border}\n" +
                 $"Total:" +
                 $"\t{basket.GetTotalPrice(), 30:0.00}$");
-            Console.WriteLine("{0,25}\n{1,25}", $"You saved {basket.CalculateDiscounts(basket.GetContents()):0.00}$", "on this purchase.");
+            Console.WriteLine("{0,25}\n{1,25}", $"You saved {totalDiscount:0.00}$", "on this purchase.");
             Console.WriteLine($"\n\t{"Thank you\n", 16}" + $"\t{"for your order!", 18}");
         }
     }

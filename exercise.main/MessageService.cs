@@ -44,8 +44,8 @@ namespace exercise.main
                 {
                     Name = group.Key,
                     Count = group.Count(),
-                    Price = basket.GetTotalPrice([..group]),
-                    Discount = basket.CalculateDiscounts([..group]) 
+                    Price = PriceCalculator.CalculateDiscounts([..group]),
+                    Discount = PriceCalculator.CalculateDiscounts([..group]) 
                 });
             foreach (var group in foodGroups)
             {

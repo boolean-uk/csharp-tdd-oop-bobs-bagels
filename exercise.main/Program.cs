@@ -8,5 +8,5 @@ customer.Order(new Bagel(BagelVariant.Onion), 10);
 customer.Order(new Bagel(BagelVariant.Plain), 25);
 Receipt.Print(customer.Basket);
 
-MessageService messageService = new MessageService();
-messageService.SendOrderConfirmation(customer.Basket);
+//MessageService messageService = new MessageService();
+//messageService.SendOrderConfirmation(customer.Basket);

@@ -31,35 +31,16 @@ namespace exercise.main
                 throw new Exception("That food item does not exist!");
             }
         }
-        public void Clear() {  _contents.Clear(); }
-        public float CalculateDiscounts(List<IFood> foods)
-        {
-            float total = 0f;
-            int bgloCount = foods.Count(x => x.Sku.Equals("BGLO"));
-            int bglpCount = foods.Count(x => x.Sku.Equals("BGLP"));
-            int bgleCount = foods.Count(x => x.Sku.Equals("BGLE"));
+        public void Clear() { _contents.Clear(); }
 
-            total += MathF.Floor(bgloCount / 6) * 0.45f;
-            total += MathF.Floor(bglpCount / 12) * 0.69f;
-            total += MathF.Floor(bgleCount / 6) * 0.45f;
-            if (foods.Count == 2 && foods.All(x => x is Bagel || x.Sku.Equals("COFB")))
-            {
-                total += 0.49f + 0.99f - 1.25f;
-            }
-            return total;
-        }
-        private float CalculateDiscounts()
+        public float GetTotalDiscount()
         {
-            return CalculateDiscounts(_contents);
+            return PriceCalculator.CalculateDiscounts(_contents);
         }
+
         public float GetTotalPrice()
         {
-            return _contents.Sum(x => x.Price) - CalculateDiscounts();
-        }
-
-        public float GetTotalPrice(List<IFood> foods)
-        {
-            return foods.Sum(x => x.Price) - CalculateDiscounts(foods);
+            return _contents.Sum(x => x.Price) - GetTotalDiscount();
         }
     }
 }

@@ -68,7 +68,7 @@ namespace exercise.tests
             _customer.Order(new Bagel(BagelVariant.Plain), 13);
             _customer.Order(new Bagel(BagelVariant.Onion), 13);
 
-            float discount = _customer.Basket.CalculateDiscounts(_customer.Basket.GetContents());
+            float discount = PriceCalculator.CalculateDiscounts(_customer.Basket.GetContents());
             Assert.That(Math.Abs(discount - 0.69f - 0.9f), Is.LessThanOrEqualTo(1e-2));
         }
 
@@ -78,7 +78,7 @@ namespace exercise.tests
             _customer.Order(new Bagel(BagelVariant.Sesame));
             _customer.Order(new Coffee(CoffeeVariant.Black));
 
-            float discount = _customer.Basket.GetTotalPrice(_customer.Basket.GetContents());
+            float discount = PriceCalculator.GetTotalPrice(_customer.Basket.GetContents());
             Assert.That(Math.Abs(discount - 1.25f), Is.LessThanOrEqualTo(1e-2));
         }
     }
