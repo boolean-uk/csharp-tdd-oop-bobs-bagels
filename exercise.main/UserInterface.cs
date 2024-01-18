@@ -1,4 +1,6 @@
-﻿namespace exercise.main;
+﻿using System.Reflection.Metadata;
+
+namespace exercise.main;
 
 public class UserInterface
 {
@@ -96,11 +98,13 @@ public class UserInterface
         Console.Clear();
         if (!result)
         {
+            Console.Clear();
             Console.WriteLine("Could not add coffee, make sure the Sku is correct and the basket has space for more items.");
         }
         else
         {
             _id++;
+            Console.Clear();
             Console.WriteLine("Coffee added");
         }
     }
@@ -118,10 +122,12 @@ public class UserInterface
             bool result = _basket.remove(toRemove);
             if (!result)
             {
+                Console.Clear();
                 Console.WriteLine("Failed to remove. Make sure the id you entered is correct.");
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("Item removed.");
             }
         }
@@ -134,7 +140,12 @@ public class UserInterface
 
     public void printReciept()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("~~~ Bob's Bagels ~~~\r\n\r\n");
+        Console.WriteLine(DateTime.Now.ToLongTimeString());
+        _basket.printProducts();
+        Console.WriteLine("Thank you\r\nfor your order!");
+        Console.ReadKey();
+        Console.Clear();
     }
 
     public void changeBasketSize()
