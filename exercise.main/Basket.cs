@@ -42,25 +42,40 @@ namespace exercise.main
             List<Product> bagels = _items.Where(item => item.Name == "Bagel").ToList();
             List<Product> coffees = _items.Where(item => item.Name == "Coffee").ToList();
 
+            bagels = bagels.OrderByDescending(item => item.BasePrice).ToList();
+            coffees = coffees.OrderByDescending(item => item.BasePrice).ToList();
 
-            //calculate bagel discounts
+            // calculate the BAGEL dicounts
+
+            //calculate bagel discounted prices for 12 for 3.99
             int numberOfDozens = bagels.Count / 12;
             double discountedBagelPrice = numberOfDozens * 3.99d;
+
+            //add the discounted price for the remainding bagels for 6 for 2.49
             int numberOfHalfDozens = (bagels.Count - (numberOfDozens*12))/6;
             discountedBagelPrice += numberOfHalfDozens * 2.49d;
+
+            //calculate the difference between the original prices and the discounted prices
             int discountedBagels = (numberOfDozens * 12) + (numberOfHalfDozens * 6);
             double originalBagelPrice = bagels.Take(discountedBagels).Sum(product => product.BasePrice);
             double bagelDiscount = originalBagelPrice - discountedBagelPrice;
-            
 
-            // calculate coffe discounts on the remainding bagels that are paired with coffees
+            // calculate COFFEE-BAGEL discounts for the remainding bagels that are paired with coffees
+
+            //find the number of coffee/bagel pairs for remainding bagels not already discounted
             int coffeeNumber = coffees.Count;
             int unDiscountedBagelsNumber = bagels.Count - (discountedBagels);
-            int coffeBagelCombos = Math.Min(unDiscountedBagelsNumber, coffeeNumber);
-            double coffeeBagelDiscountedPrice = coffeBagelCombos * 1.25d;
+            int coffeBagelCombos = Math.Min(unDiscountedBagelsNumber, coffeeNumber); 
+
+            // calculate the original price for the coffee and bagels before coffe-bagel discount 
             double originalCoffeePrice = coffees.Take(coffeBagelCombos).Sum(product => product.BasePrice);
             double originalLeftOverBagelPrice = bagels.Take(coffeBagelCombos).Sum(product => product.BasePrice);
-            double coffeBagelDiscount = originalCoffeePrice + originalLeftOverBagelPrice - coffeeBagelDiscountedPrice;
+            double originalCoffeBagelPrice = originalCoffeePrice + originalLeftOverBagelPrice;
+            // calculate the new discounted price 
+            double discountedCoffeeBagelPrice = coffeBagelCombos * 1.25d;
+
+            //calculate the difference between the original prices and the discounted prices
+            double coffeBagelDiscount = originalCoffeBagelPrice - discountedCoffeeBagelPrice;
             
 
             return bagelDiscount + coffeBagelDiscount;

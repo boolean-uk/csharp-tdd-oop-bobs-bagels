@@ -185,7 +185,7 @@ public class Tests
         
 
         //act
-        double expectedDiscount = (0.99d + 1.19d) + (0.49d + 0.39d) - (1.25d*2);
+        double expectedDiscount = (1.29 + 1.19d) + (0.49d + 0.39d) - (1.25d*2);
         double actualDicount = _basket.CalculateDiscount();
         double tolerance = 0.01; // This is for two decimal places
 
