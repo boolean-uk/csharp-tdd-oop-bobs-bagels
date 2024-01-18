@@ -67,7 +67,6 @@ namespace exercise.main
                 throw new Exception("Specified SKU is not a Bagel Filling.");
         }
 
-
         public void Remove(int id)
         {
             Bagel? bagel = CustomerOrder.Bagels.FirstOrDefault(x => x.ID == id);

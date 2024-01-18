@@ -60,7 +60,7 @@ namespace exercise.main
             {
                 Bagels = new List<Bagel>();
                 Coffees = new List<Coffee>();
-                Capacity = 6;
+                Capacity = 30;
             }
 
             public void ChangeCapacity(int capacity)
@@ -97,7 +97,8 @@ namespace exercise.main
 
             public double Cost()
             {
-                return Bagels.Sum(b => b.Cost()) + Coffees.Sum(c => c.Variant.Price);
+                OrderCostManager costManager = new OrderCostManager();
+                return costManager.Cost(this);
             }
         }
     }
