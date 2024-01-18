@@ -10,11 +10,7 @@ Class: Product		Method: AddProduct()					void: add products to other products	ca
 Class: Product		Method: GetPrice()						return: price of product				case:As a customer,So I know what the damage will be,I'd like to know the cost of a bagel before I add it to my basket.
 Class: Basket		Method: TotalPrice()					return: the sum of the prices in basket case:As a customer,So I know how much money I need,I'd like to know the total cost of items in my basket.
 																									case: As a customer,So I don't over-spend,I'd like to know the cost of each filling before I add it to my bagel order.
-Class: Basket		Method: AddProduct()					Use: Enum								case:As the manager,So we don't get any weird requests,I want customers to only be able to order things that we stock in our inventory.
-
-
-
-
+Class: Inventory	Methods: Dictionaries					Use: Enum								case:As the manager,So we don't get any weird requests,I want customers to only be able to order things that we stock in our inventory.
 Class: Basket		Method: CalculateDiscount()		return: the discounts		case:	All bagels 6 for 2.49
 																				case:	All bagels 12 for 3.99
 																				case:	Coffe + bagel for 1.25
@@ -22,8 +18,4 @@ Class: Basket		Method: CalculateDiscount()		return: the discounts		case:	All bag
 
 
 
-
-
-
-
-remember to commit before implementing
+![](./assets/BobsBagelsClassDiagram.png)
