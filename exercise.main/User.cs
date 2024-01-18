@@ -20,7 +20,7 @@ namespace exercise.main
 
         public void AddToBasket(BaseItem item, int count = 1)
         {
-            if (HasSpaceForItem(item)) Basket.Add(new UserBasketEntry(item, count));
+            if (HasSpaceForItem(item, count)) Basket.Add(new UserBasketEntry(item, count));
             else throw new InvalidOperationException("There is not enough space in your basket.");
         }
 
@@ -51,9 +51,9 @@ namespace exercise.main
             throw new NotImplementedException();
         }
 
-        public bool HasSpaceForItem(IMenuItem item)
+        public bool HasSpaceForItem(IMenuItem item, int count = 1)
         {
-            return StoreVariables.GetMaximumBasketCapacity() >= BasketSpaceOccupation() + item.BasketFootprint;
+            return StoreVariables.GetMaximumBasketCapacity() >= BasketSpaceOccupation() + item.BasketFootprint * count;
         }
 
         public decimal BasketSpaceOccupation()

@@ -48,7 +48,6 @@ public class StoreTests
     [Test]
     public void StoreSetUpTest()
     {
-
         Assert.That(_store.ActiveUser == _genericUserID);
         Assert.That(_store.Users.Count == 2);
         Assert.Throws<UnauthorizedAccessException>(() => _store.CreateNewUser("user@test.com"));
@@ -90,9 +89,36 @@ public class StoreTests
         _store.Login(_bossUserID);
         _store.SetMaximumBasketCapacity(5m);
         _store.AddToBasket("BGLP", 4);
-        Console.WriteLine(_store.GetActiveUser().BasketSpaceOccupation());
         Assert.DoesNotThrow(() => _store.AddToBasket("BGLP", 1));
         Assert.Throws<InvalidOperationException>(() => _store.AddToBasket("BGLP", 2));
+    }
+
+    [Test]
+    public void StoreSetbasketCapacityTest()
+    {
+        _store.Login(_genericUserID);
+        Assert.Throws<UnauthorizedAccessException>(() => _store.SetMaximumBasketCapacity(10m));
+        _store.Login(_bossUserID);
+        Assert.DoesNotThrow(() => _store.SetMaximumBasketCapacity(10m));
+        _store.SetMaximumBasketCapacity(10m);
+        Assert.Throws<InvalidOperationException>(() => _store.AddToBasket("BGLP", 11));
+        _store.SetMaximumBasketCapacity(11);
+        Assert.DoesNotThrow(() => _store.AddToBasket("BGLP", 11));
+    }
+
+    [Test]
+    public void StoreInvalidRemoveTest()
+    {
+        Assert.Throws<InvalidOperationException>(() => _store.RemoveFromBasket());
+        _store.AddToBasket("BGLP");
+        Assert.DoesNotThrow(() => _store.RemoveFromBasket());
+        _store.AddToBasket("BGLP");
+        Assert.Throws<InvalidOperationException>(() => _store.RemoveFromBasket(1));
+        _store.AddToBasket("BGLO");
+        _store.AddToBasket("BGLP");
+        _store.AddToBasket("BGLE");
+        Assert.DoesNotThrow(() => _store.RemoveFromBasket(2));
+        Assert.That(_store.GetActiveUser().Basket[2].BaseItem.ItemID == "BGLE");
     }
 
 }
