@@ -109,6 +109,11 @@ namespace exercise.main
             }
         }
 
+        public decimal GetPrice(string itemID)
+        {
+            throw new NotImplementedException();
+        }
+
         public decimal TotalBasketCost()
         {
             return ActiveUser().Cost();

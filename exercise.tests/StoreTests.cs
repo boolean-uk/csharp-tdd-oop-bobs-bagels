@@ -122,7 +122,7 @@ public class StoreTests
     }
 
     [Test]
-    public void BasketTotalCostTest()
+    public void StoreTotalCostTest()
     {
         decimal plainBagelPrice = _store.GetBaseItemByID("BGLP").Price;
         decimal everythingBagelPrice = _store.GetBaseItemByID("BGLE").Price;
@@ -131,6 +131,28 @@ public class StoreTests
         Assert.That(_store.TotalBasketCost() == 2 * plainBagelPrice + everythingBagelPrice);
         _store.RemoveFromBasket();
         Assert.That(_store.TotalBasketCost() == 2 * plainBagelPrice);
+    }
+
+    [Test]
+    public void StoreSeePriceTest()
+    {
+        decimal plainBagelPrice = _store.GetPrice("BGLP");
+        decimal blackCoffeePrice = _store.GetPrice("COFB");
+        Assert.That(_store.GetBaseItemByID("BGLP").Price == plainBagelPrice);
+        Assert.That(_store.GetBaseItemByID("COFB").Price == blackCoffeePrice);
+    }
+
+    [Test]
+    public void StoreChooseBagelFillingTest()
+    {
+        _store.AddToBasket("BGLP");
+        Assert.DoesNotThrow(() => _store.IncludeAddOn("FILB"));
+        Assert.That(_store.ActiveUser().Basket[0].AddOns[0].ItemID == "FILB");
+        _store.AddToBasket("BGLE");
+        _store.IncludeAddOn("FILX");
+        _store.IncludeAddOn("FILE", 0);
+        Assert.That(_store.ActiveUser().Basket[1].AddOns[0].ItemID == "FILX");
+        Assert.That(_store.ActiveUser().Basket[0].AddOns.Count == 2);
     }
 
 }
