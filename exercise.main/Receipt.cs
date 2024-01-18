@@ -6,13 +6,13 @@ namespace exercise.main
     {
         private static void PrintFoodItems(IEnumerable<dynamic> foodGroups)
         {
+            Console.WriteLine("{0,12}{1,12}{2,12}", "Product", "Amount", "Price");
             foreach (var group in foodGroups)
             {
-                Console.WriteLine(
-                    $"{group.Name,-10}{group.Count,10}{group.Price,18:0.00}$");
+                Console.WriteLine("{0,12}{1,12}{2,12:0.00}", group.Name, group.Count, group.Price);
                 if (group.Discount > 0)
                 {
-                    Console.Write("\t{0, 35}", $"-({group.Discount:0.00}$)\n");
+                    Console.Write("{0,40}", $"-({group.Discount:0.00}$)\n");
                 }
             }
         }
@@ -33,18 +33,19 @@ namespace exercise.main
                 });
 
             Console.WriteLine(
-                $"\t{title, 10}\n\n" +
-                $"\t{date, 10}\n\n" +
-                $"{border, 10}\n");
+                $"{title, 30}\n\n" +
+                $"{date, 30}\n\n" +
+                $"{border, 30}");
 
             PrintFoodItems(foodGroups);
 
             Console.WriteLine(
                 $"{border}\n" +
                 $"Total:" +
-                $"\t{basket.GetTotalPrice(), 30:0.00}$");
-            Console.WriteLine("{0,25}\n{1,25}", $"You saved {totalDiscount:0.00}$", "on this purchase.");
-            Console.WriteLine($"\n\t{"Thank you\n", 16}" + $"\t{"for your order!", 18}");
+                $"{basket.GetTotalPrice(), 30:0.00}$");
+            Console.WriteLine("{0,26}\n{1,26}", $"You saved {totalDiscount:0.00}$", "on this purchase.");
+            Console.WriteLine($"\n{"Thank you\n", 23}" + $"{"for your order!", 26}");
+            Console.WriteLine($"{border,30}");
         }
     }
 }
