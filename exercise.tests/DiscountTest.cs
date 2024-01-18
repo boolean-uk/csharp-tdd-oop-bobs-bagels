@@ -59,20 +59,11 @@ namespace exercise.tests
         [Test]
         public void ExampleOrdersTest()
         {
-            _customer.Order(new Bagel(BagelVariant.Onion));
-            _customer.Order(new Bagel(BagelVariant.Onion));
-            for (int i = 0;i < 12;i++)
-            {
-                _customer.Order(new Bagel(BagelVariant.Plain));
-            }
-            for (int i = 0;i<6;i++)
-            {
-                _customer.Order(new Bagel(BagelVariant.Everything));
-            }
-            for (int i = 0;i<3;i++)
-            {
-                _customer.Order(new Coffee(CoffeeVariant.Black));
-            }
+            _customer.Order(new Bagel(BagelVariant.Onion), 2);
+            _customer.Order(new Bagel(BagelVariant.Plain), 12);
+            _customer.Order(new Bagel(BagelVariant.Everything), 6);
+            _customer.Order(new Coffee(CoffeeVariant.Black), 3);
+
             float totalPrice = _customer.Basket.GetTotalPrice();
             Assert.That(Math.Abs(totalPrice - 10.43f), Is.LessThanOrEqualTo(1e-2f));
         }

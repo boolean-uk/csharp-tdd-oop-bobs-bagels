@@ -23,7 +23,10 @@ namespace exercise.main
 
         public void Order(IFood food, int amount)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < amount; i++)
+            {
+                Order(food);
+            }
         }
 
 
