@@ -14,11 +14,11 @@ namespace exercise.main
         {
 
         }
-        public bool addItem()
+        public bool addItem(Item item)
         {
             return false;
         }
-        public bool removeItem()
+        public bool removeItem(Item item)
         {
             return false;
         }
