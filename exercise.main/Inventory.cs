@@ -8,7 +8,7 @@ namespace exercise.main
 {
     public class Inventory
     {
-        List<Item> inventory;
+        public List<Item> inventory;
         public Inventory()
         {
             inventory = new List<Item>();

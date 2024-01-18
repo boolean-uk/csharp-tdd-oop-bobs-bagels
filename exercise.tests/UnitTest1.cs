@@ -30,7 +30,8 @@ public class Tests
     [Test]
     public void addItemTest()
     {
-        
+        basket.addItem(new Item("BGLO", 0.49f, "Bagel", "Onion"));
+
     }
     [Test]
     public void removeItemTest()
