@@ -70,4 +70,18 @@ public class StoreTests
         Assert.That(user.Basket[0].Count == 2);
     }
 
+    [Test]
+    public void StoreRemoveOrderTest()
+    {
+        User user = _store.GetActiveUser();
+        _store.AddToBasket("BGLP", 2);
+        _store.RemoveFromBasket();
+        Assert.That(user.Basket.Count == 0);
+        _store.AddToBasket("BGLO", 2);
+        _store.AddToBasket("BGLP", 1);
+        _store.RemoveFromBasket();
+        Assert.That(user.Basket.Count == 1);
+        Assert.That(user.Basket[0].BaseItem.ItemID == "BGLO");
+    }
+
 }
