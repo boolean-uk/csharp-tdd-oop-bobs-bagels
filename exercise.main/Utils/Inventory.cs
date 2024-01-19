@@ -32,7 +32,7 @@ namespace exercise.main
             {"FILH", 0.12f},
         };
 
-        public static float GetCoffePrice(string SKU) 
+        public static float GetCoffePrice(string SKU)
         {
             return coffeePrices.Where(t => t.Key == SKU).FirstOrDefault(new KeyValuePair<string, float>("NA", 0f)).Value;
         }
@@ -44,6 +44,12 @@ namespace exercise.main
         {
             float res = fillingPrices.Where(t => t.Key == SKU).FirstOrDefault(new KeyValuePair<string, float>("NA", 0f)).Value;
             return res;
+        }
+
+        public static List<string> GetValidProductSKUs() 
+        {
+            List<(string Key, float Value)> combinedProducts = bagelPrices.Select(p => (p.Key, p.Value)).Concat(coffeePrices.Select(p => (p.Key, p.Value))).OrderBy(p => p.Value).ToList();
+            return combinedProducts.Select(p => p.Key).ToList();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace exercise.main.Discounts
 
         public string Name { get { return name; } }
 
-        public float DiscountPrice { get { return price; } }
+        public float DiscountPrice { get { return price; } set { } }
 
         /// <summary>
         /// New list (shallow copy) return list

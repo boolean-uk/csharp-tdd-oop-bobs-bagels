@@ -1,4 +1,5 @@
-﻿using exercise.main.Products;
+﻿using exercise.main.Discounts;
+using exercise.main.Products;
 using exercise.main.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,8 @@ namespace exercise.main
         public ReceiptManager() 
         {
             _currency = "$";
-            _leftColumnWidth = 20;
-            _middleColumnWidth = 7;
+            _leftColumnWidth = 25;
+            _middleColumnWidth = 4;
             _rightColumnWidth = 9;
             _totalColumnWidth = _leftColumnWidth + _middleColumnWidth + _rightColumnWidth;
         }
@@ -39,45 +40,67 @@ namespace exercise.main
 
 
             List<IProduct> products = basket.GetProducts();
-            float totalPrice = basket.GetBasketPrice(); // This does NOT include discount!
+            List<Discount> discounts = new List<Discount>();
+            float totalPrice = basket.GetBasketPriceAfterDiscount(out discounts);
 
             PrintHeader(user);
-            PrintItemizedLines(products, totalPrice);
+            PrintItemizedLines(products, totalPrice, discounts);
             PrintFooter();
         }
+
 
         /// <summary>
         /// Print all provided products to console
         /// </summary>
         /// <param name="products"> List of products that is in the current basket</param>
         /// <param name="totalPrice">A total price for all the products</param>
-        private void PrintItemizedLines(List<IProduct> products, float totalPrice) 
+        private void PrintItemizedLines(List<IProduct> products, float totalPrice, List<Discount> discounts) 
         {
-            foreach (IProduct prod in products) 
+            Dictionary<string, Tuple<int, float, bool, float>> compactedProducts = PrintingUtils.CompactProducts(products, discounts);
+            foreach (KeyValuePair<string, Tuple<int, float, bool, float>> product in compactedProducts) 
             {
-                Tuple<string, string> item = TranslateSKU.GetNameAndVariantFromSKU(prod.GetSKUName());
+                Tuple<string, string> item = TranslateSKU.GetNameAndVariantFromSKU(product.Key);
+                Tuple<int, float, bool, float> compactedDetails = product.Value;
+
                 Console.WriteLine(
                     $"| {item.Item2} {item.Item1.ToLower()}".PadRight(_leftColumnWidth)
-                    +$"".PadRight(_middleColumnWidth)
-                    +$"{prod.GetPrice():F2} {_currency}".PadRight(_rightColumnWidth) 
-                    + "|"
+                    +$"{compactedDetails.Item1}".PadRight(_middleColumnWidth)
+                    +$"{compactedDetails.Item4:F2} {_currency} |".PadLeft(_rightColumnWidth + 1) 
                     ) ;
-                if (prod is Bagel) 
+
+                if (compactedDetails.Item3) // Only print if there was applied a discount to this grouping
                 {
-                    foreach (Filling fill in (prod as Bagel).GetFilling()) 
+                    Console.WriteLine($"|  [Bundle discount]".PadRight(_leftColumnWidth) + $"(-{compactedDetails.Item2:F2} {_currency})|".PadLeft(_middleColumnWidth + _rightColumnWidth + 1));
+                }
+                List<IProduct> curProd = products.Where(a => a.GetSKUName() == product.Key).ToList();
+                if (curProd.FirstOrDefault() is Bagel) 
+                {
+                    foreach (Bagel bagel in curProd) 
                     {
-                        Tuple<string, string> fillItem = TranslateSKU.GetNameAndVariantFromSKU(fill.SKUName);
-                        Console.WriteLine(
-                            $"|  -{fillItem.Item2}".PadRight(_leftColumnWidth)
-                            + $"".PadRight(_middleColumnWidth)
-                            + $"{fill.GetPrice():F2} {_currency}".PadRight(_rightColumnWidth)
-                            + "|"
-                            );
+
+                        float fillingPrice = bagel.GetFilling().Sum(a => a.GetPrice());
+                        foreach (Filling fill in bagel.GetFilling()) 
+                        {
+                            Tuple<string, string> fillItem = TranslateSKU.GetNameAndVariantFromSKU(fill.SKUName);
+                            if (fill.Equals(bagel.GetFilling().First()))
+                            {
+                                Console.WriteLine($"| * {fillItem.Item2}".PadRight(_leftColumnWidth) + "".PadLeft(_middleColumnWidth) + $"{fillingPrice:F2} {_currency} |".PadLeft(_rightColumnWidth +1));
+                            }
+                            else 
+                            {
+                                Console.WriteLine($"|   {fillItem.Item2}".PadRight(_leftColumnWidth) + "".PadLeft(_middleColumnWidth) + $"|".PadLeft(_rightColumnWidth+1));
+                            }
+                            
+                        }
+
                     }
                 }
             }
+
+            float sumOfDiscounts = products.Sum(a => a.GetPrice()) - totalPrice;
             Console.WriteLine("|" + "|".PadLeft(_totalColumnWidth));
-            Console.WriteLine($"| Total:".PadRight(_leftColumnWidth) + $"".PadRight(_middleColumnWidth) + $"{totalPrice:F2} {_currency}".PadRight(_rightColumnWidth) + "|");
+            Console.WriteLine($"| Total:".PadRight(_totalColumnWidth / 2) + $"{totalPrice:F2} {_currency} |".PadLeft(_totalColumnWidth / 2 + 1));
+            Console.WriteLine($"| Discounts: ".PadRight(_totalColumnWidth / 2) + $"{sumOfDiscounts:F2} {_currency} |".PadLeft(_totalColumnWidth / 2 + 1));
         }
 
         /// <summary>
@@ -88,11 +111,11 @@ namespace exercise.main
         {
             string[] bobBagels = new string[]
 {
-            "|     .------.    .------.          |",
-            "|    /  Bob's \\  / Bagels \\         |",
-            "|   |`-------'| |'-------'|         |",
-            "|    \\       /   \\       /          |",
-            "|     `-----'     `-----'           |"
+            "|      .------.    .------.           |",
+            "|     /  Bob's \\  / Bagels \\          |",
+            "|    |`-------'| |'-------'|          |",
+            "|     \\       /   \\       /           |",
+            "|      `-----'     `-----'            |"
 };
             Console.WriteLine(new string('-', _totalColumnWidth + 1));
             foreach (string bob in bobBagels) 
@@ -113,6 +136,12 @@ namespace exercise.main
             Console.WriteLine(date.PadRight(_totalColumnWidth /2  ) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
             Console.WriteLine(new string('-', _totalColumnWidth + 1));
+            Console.WriteLine(
+                $"| Item".PadRight(_leftColumnWidth)
+                + $"| # |".PadRight(_middleColumnWidth)
+                + $"Price |".PadLeft(_rightColumnWidth)
+                );
+            Console.WriteLine(new string('-', _totalColumnWidth + 1));
         }
 
         /// <summary>
@@ -121,8 +150,8 @@ namespace exercise.main
         private void PrintFooter() 
         {
             Console.WriteLine(new string('-', _totalColumnWidth+1));
-            Console.WriteLine($"| Thank you for your purchase at".PadLeft(_totalColumnWidth / 2) + "|".PadLeft(5));
-            Console.WriteLine($"| Bob's Bagels!".PadLeft(_totalColumnWidth / 2 - 4) + "|".PadLeft(22));
+            Console.WriteLine($"| Thank you for your purchase at".PadLeft(_totalColumnWidth / 2) + "|".PadLeft(7));
+            Console.WriteLine($"| Bob's Bagels!".PadLeft(_totalColumnWidth / 2 - 4) + "|".PadLeft(24));
             Console.WriteLine(new string('-', _totalColumnWidth + 1));
         }
     }

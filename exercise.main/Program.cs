@@ -7,10 +7,25 @@ Person bob = new Person("Bob", true);
 Basket basket = bob.GetBasket();
 
 basket.AddItemToBasket(new string[] { "BGLO", "FILC" });
-basket.AddItemToBasket(new string[] { "BGLO", "FILC", "FILX", "FILH" });
-basket.AddItemToBasket(new string[] { "BGLP", "FILC" });
 basket.AddItemToBasket(new string[] { "BGLO", "FILX" });
-basket.AddItemToBasket(new string[] { "BGLO", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLO", "FILX" });
+basket.AddItemToBasket(new string[] { "BGLO", "FILX" });
+basket.AddItemToBasket(new string[] { "BGLP", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLP", "FILC", "FILX", "FILH" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILS" });
+basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
 basket.AddItemToBasket(new string[] { "COFB" });
 
 basket.PrintReceipt();

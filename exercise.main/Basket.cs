@@ -73,6 +73,11 @@ namespace exercise.main
             return DiscountManager.ApplyDiscounts(this, out discountList);
         }
 
+        public float GetBasketPriceAfterDiscount(out List<Discount> discountList)
+        {
+            return DiscountManager.ApplyDiscounts(this, out discountList);
+        }
+
         public bool RemoveProductFromBasket(IProduct item) 
         {
             List<IProduct> tempList = new List<IProduct>(_basket);
