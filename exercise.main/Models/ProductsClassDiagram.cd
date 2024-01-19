@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="exercise.main.Products.ProductFactory">
+    <Position X="2.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\ProductFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Products.Filling">
+    <Position X="3" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAEAgAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Products\Filling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Products.Coffee" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAIAAAAAAAAEAAEEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\Coffee.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="exercise.main.Products.Bagel" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAAAAAAAEAAEEAAAAAAABAAACAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Products\Bagel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="exercise.main.Products.IProduct">
+    <Position X="10" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAEEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\IProduct.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
