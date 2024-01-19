@@ -112,3 +112,8 @@ basket.Add(product13);
 Receipt receipt = new Receipt(basket);
 
 receipt.printReceipt();
+
+
+Message message = new Message(basket);
+
+message.SendReceipt(basket);

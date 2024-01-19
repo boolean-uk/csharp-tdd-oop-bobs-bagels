@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Receipt
+    public class  Receipt
     {
-        private DateTime _timeInfo = DateTime.Now;
-        private double _totalPrice;
-        private double _totalPrice1;
-        private double _totalDiscount;
-        private string _title = $"{"",4}~~~ Bob's Bagels ~~~";
-        private string _footer = $"{"",7}Thank you \n{"",4}for you order!";
-        private string _enter = "\n";
-        private string _line = "----------------------------";
-       
+        protected DateTime _timeInfo = DateTime.Now;
+        protected double _totalPrice;
+        protected double _totalPrice1;
+        protected double _totalDiscount;
+        protected string _title = $"{"",4}~~~ Bob's Bagels ~~~";
+        protected string _footer = $"{"",7}Thank you \n{"",4}for you order!";
+        protected string _enter = "\n";
+        protected string _line = "----------------------------";
+
 
         // Diction of <variant,(qty,double)>
-        private Dictionary<string, (int qty,double price)> _cashier = new Dictionary<string, (int,double)>();
+        protected Dictionary<string, (int qty,double price)> _cashier = new Dictionary<string, (int,double)>();
        
         
         public Receipt(Basket basket)
