@@ -101,7 +101,7 @@ namespace exercise.main
         public Receipt Receipt()
         {
             ReceiptManager receiptManager = new ReceiptManager();
-            return receiptManager.GetReceipt(CustomerOrder);
+            return receiptManager.CreateReceipt(CustomerOrder);
         }
     }
 }

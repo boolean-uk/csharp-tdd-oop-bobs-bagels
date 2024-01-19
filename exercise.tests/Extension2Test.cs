@@ -45,7 +45,7 @@ namespace exercise.tests
             Bagel bagel = new Bagel(onionVariant);
             order.Add(bagel);
 
-            Receipt receipt = receiptManager.GetReceipt(order);
+            Receipt receipt = receiptManager.CreateReceipt(order);
 
             Assert.That(receipt, Is.Not.Null);
         }

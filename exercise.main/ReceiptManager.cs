@@ -13,6 +13,15 @@ namespace exercise.main
 {
     public class ReceiptManager
     {
+        //The order determines priority.
+        private static readonly List<(string Name, int Quantity, double Price)> RunningDiscounts = new List<(string, int, double)>
+        {
+            ("Onion", 6, 2.49),
+            ("Plain", 12, 3.99),
+            ("Everything", 6, 2.49),
+            ("Coffee & Bagel", 1, 1.25)
+        };
+
         public class Receipt
         {
             public List<Entry> Entries { get; set; }
@@ -22,7 +31,7 @@ namespace exercise.main
             public Receipt()
             {
                 Entries = new List<Entry>();
-                DateTime DateOfPurchase = DateTime.Now;
+                DateOfPurchase = DateTime.Now;
             }
 
             public class Entry
@@ -55,56 +64,70 @@ namespace exercise.main
                 }
             }
 
+            public void AddDiscountToEntry(string name, string type, int quantity, double savingsOnOne)
+            {
+                Entry? entry = Entries.FirstOrDefault(entry => entry.Name == name);
+                if (entry == null)
+                {
+                    Entries.Add(new Entry(name, type, 0, 0));
+                }
+                else
+                {
+                    entry.Quantity += quantity;
+                    entry.Price = entry.Quantity * savingsOnOne;
+                }
+            }
+
             public void AddDiscounts(List<(string Name, int Quantity, double Price)> discounts)
             {
-                // Apply bagel discounts
+                AddBulkDiscount(discounts);
+
+                var coffeeBagelDiscount = discounts.FirstOrDefault(d => d.Name == "Coffee & Bagel");
+                if (coffeeBagelDiscount != default((string, int, double)))
+                    AddCoffeeAndBagelDiscount(coffeeBagelDiscount);
+            }
+
+            private void AddBulkDiscount(List<(string Name, int Quantity, double Price)> discounts)
+            {
                 foreach (var discount in discounts)
                 {
-                    List<Entry> bagelEntries = Entries.All(entry => entry.Type == "Bagel");
+                    Entry? entry = Entries.FirstOrDefault(entry => entry.Name == discount.Name);
 
-                    Entry? entry = bagelEntries.FirstOrDefault(entry => entry.Name == discount.Name);
-                    if (entry != null) {   
+                    if (entry != null)
+                    {
+                        int howManyTimesItApplies = entry.Quantity / discount.Quantity;
+
+                        if (howManyTimesItApplies > 0)
+                        {
+                            double SavingsForEachApplicationOfDiscounts = discount.Price - (entry.Price * howManyTimesItApplies);
+                            Entries.Add(new Entry(discount.Name, "Discount", howManyTimesItApplies, SavingsForEachApplicationOfDiscounts));
+                        }
+                    }
+                }
+            }
+
+            private void AddCoffeeAndBagelDiscount((string Name, int Quantity, double Price) discount)
+            {
+                if ((discount.Name == null && discount.Quantity == 0 && discount.Price == 0.0))
+                {
+                    List<Entry> coffeeEntries = Entries.Where(entry => entry.Type == "Coffee").ToList();
+
+                    Entry? entry = coffeeEntries.FirstOrDefault(entry => entry.Name == discount.Name);
+                    if (entry != null)
+                    {
                         int howManyTimesDoesItApply = entry.Quantity / discount.Quantity;
 
                         if (howManyTimesDoesItApply > 0)
                         {
                             double discountPrice = howManyTimesDoesItApply * discount.Price;
-                            Entries.Add(new Entry(discount.Name, "Discount", howManyTimesDoesItApply, -discountPrice));
-                        }
-                    }
-                }
-
-                // Apply 'Coffee & Bagel' discounts
-                var coffeeBagelDiscount = discounts.FirstOrDefault(d => d.Name == "Coffee & Bagel");
-                if ((coffeeBagelDiscount.Name == null && coffeeBagelDiscount.Quantity == 0 && coffeeBagelDiscount.Price == 0.0))
-                {
-                    List<Entry> coffeeEntries = Entries.All(entry => entry.Type == "Coffee");
-
-                    Entry? entry = coffeeEntries.FirstOrDefault(entry => entry.Name == coffeeBagelDiscount.Name);
-                    if (entry != null)
-                    {
-                        int howManyTimesDoesItApply = entry.Quantity / coffeeBagelDiscount.Quantity;
-
-                        if (howManyTimesDoesItApply > 0)
-                        {
-                            double discountPrice = howManyTimesDoesItApply * coffeeBagelDiscount.Price;
-                            Entries.Add(new Entry(coffeeBagelDiscount.Name, "Discount", howManyTimesDoesItApply, discountPrice));
+                            Entries.Add(new Entry(discount.Name, "Discount", howManyTimesDoesItApply, discountPrice));
                         }
                     }
                 }
             }
         }
 
-        //The order determines priority.
-        private static readonly List<(string Name, int Quantity, double Price)> RunningDiscounts = new List<(string, int, double)>
-        {
-            ("Onion", 6, 2.49),
-            ("Plain", 12, 3.99),
-            ("Everything", 6, 2.49),
-            ("Coffee & Bagel", 1, 1.25)
-        };
-
-        public Receipt GetReceipt(Order order)
+        public Receipt CreateReceipt(Order order)
         {
             Receipt receipt = new Receipt();
 
@@ -134,7 +157,54 @@ namespace exercise.main
 
         public void DisplayReceipt(Order order)
         {
-            throw new NotImplementedException();
+            Receipt receipt = CreateReceipt(order);
+
+            StringBuilder receiptText = new StringBuilder();
+            receiptText.AppendLine("~~~ Bob's Bagels ~~~".PadLeft(23));
+            receiptText.AppendLine("");
+            receiptText.AppendLine(receipt.DateOfPurchase.ToString("yyyy-MM-dd HH:mm:ss").PadLeft(23));
+            receiptText.AppendLine("");
+            receiptText.AppendLine("----------------------------");
+            receiptText.AppendLine("");
+
+            double totalSavings = 0;
+
+            foreach (var entry in receipt.Entries.Where(e => e.Type != "Discount"))
+            {
+                string entryLine = $"{entry.Name} {entry.Type}";
+                receiptText.Append(entryLine.PadRight(19));
+
+                entryLine = $"{entry.Quantity}  £{entry.Price.ToString("0.00")}";
+                receiptText.AppendLine(entryLine.PadRight(19));
+
+                // Check and add corresponding discount entry
+                var discountEntry = receipt.Entries.FirstOrDefault(e => e.Type == "Discount" && e.Name == entry.Name);
+                if (discountEntry != null)
+                {
+                    totalSavings += discountEntry.Price;
+                    string savingsLine = $"(-£{(-discountEntry.Price).ToString("0.00")})";
+                    receiptText.AppendLine(savingsLine.PadLeft(28));
+                }
+            }
+
+            receiptText.AppendLine("");
+            receiptText.AppendLine("----------------------------");
+            receiptText.AppendLine($"Total                 £{receipt.TotalCost.ToString("0.00")}".PadRight(30));
+
+            // Display total savings if any
+            if (totalSavings != 0)
+            {
+                receiptText.AppendLine("");
+                receiptText.AppendLine($" You saved a total of £{(-totalSavings).ToString("0.00")}".PadRight(30));
+                receiptText.AppendLine("       on this shop".PadRight(30));
+            }
+
+            receiptText.AppendLine();
+            receiptText.AppendLine("        Thank you".PadLeft(18));
+            receiptText.AppendLine("      for your order!".PadLeft(18));
+
+            Console.WriteLine(receiptText.ToString());
         }
+
     }
 }
