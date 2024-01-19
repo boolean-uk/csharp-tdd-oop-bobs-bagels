@@ -192,14 +192,14 @@ public class Tests
     [Test]
     public void TestNonExistantCoffee()
     {
-        Coffee coffee;
+        Product coffee;
         Assert.Throws<Exception>(() => coffee = new Coffee("Mocha"));
     }
 
     [Test]
     public void TestNonExistantFilling()
     {
-        Filling filling;
+        Product filling;
         Assert.Throws<Exception>(() => filling = new Filling("Choclate"));
     }
 
