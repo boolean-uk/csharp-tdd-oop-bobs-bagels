@@ -12,10 +12,29 @@ namespace exercise.main
 {
     public class ReceiptManager
     {
+        /// <summary>
+        /// Selected currency icon
+        /// </summary>
         private string _currency;
+
+        /// <summary>
+        /// Size of the (largest) left aligned column
+        /// </summary>
         private int _leftColumnWidth;
+
+        /// <summary>
+        /// Size of the middle aligned column
+        /// </summary>
         private int _middleColumnWidth;
+
+        /// <summary>
+        /// Size of the right aligned column
+        /// </summary>
         private int _rightColumnWidth;
+
+        /// <summary>
+        /// Total size of the receipt, calculated as sum of the <see cref="_leftColumnWidth"/>, <see cref="_middleColumnWidth"/>, and <see cref="_rightColumnWidth"/>
+        /// </summary>
         private int _totalColumnWidth;
         public ReceiptManager() 
         {
@@ -23,6 +42,7 @@ namespace exercise.main
             _leftColumnWidth = 25;
             _middleColumnWidth = 4;
             _rightColumnWidth = 9;
+            
             _totalColumnWidth = _leftColumnWidth + _middleColumnWidth + _rightColumnWidth;
         }
 
@@ -68,10 +88,13 @@ namespace exercise.main
                     +$"{compactedDetails.Item4:F2} {_currency} |".PadLeft(_rightColumnWidth + 1) 
                     ) ;
 
-                if (compactedDetails.Item3) // Only print if there was applied a discount to this grouping
+                // Only print if there was applied a discount to this grouping
+                if (compactedDetails.Item3) 
                 {
                     Console.WriteLine($"|  [Bundle discount]".PadRight(_leftColumnWidth) + $"(-{compactedDetails.Item2:F2} {_currency})|".PadLeft(_middleColumnWidth + _rightColumnWidth + 1));
                 }
+
+                // Need to print each filling contained within each bagel object.
                 List<IProduct> curProd = products.Where(a => a.GetSKUName() == product.Key).ToList();
                 if (curProd.FirstOrDefault() is Bagel) 
                 {
@@ -97,10 +120,11 @@ namespace exercise.main
                 }
             }
 
+            // Printing the summary lines (total price and total discounts)
             float sumOfDiscounts = products.Sum(a => a.GetPrice()) - totalPrice;
             Console.WriteLine("|" + "|".PadLeft(_totalColumnWidth));
             Console.WriteLine($"| Total:".PadRight(_totalColumnWidth / 2) + $"{totalPrice:F2} {_currency} |".PadLeft(_totalColumnWidth / 2 + 1));
-            Console.WriteLine($"| Discounts: ".PadRight(_totalColumnWidth / 2) + $"{sumOfDiscounts:F2} {_currency} |".PadLeft(_totalColumnWidth / 2 + 1));
+            Console.WriteLine($"| Discount savings:".PadRight(_totalColumnWidth / 2) + $"{sumOfDiscounts:F2} {_currency} |".PadLeft(_totalColumnWidth / 2 + 1));
         }
 
         /// <summary>
@@ -109,14 +133,16 @@ namespace exercise.main
         /// <param name="user"> The operator/user that is purchasing the basket</param>
         private void PrintHeader(Person user)
         {
-            string[] bobBagels = new string[]
-{
-            "|      .------.    .------.           |",
-            "|     /  Bob's \\  / Bagels \\          |",
-            "|    |`-------'| |'-------'|          |",
-            "|     \\       /   \\       /           |",
-            "|      `-----'     `-----'            |"
-};
+            // ASCII art
+            string[] bobBagels = new string[] 
+            {
+                "|      .------.    .------.           |",
+                "|     /  Bob's \\  / Bagels \\          |",
+                "|    |`-------'| |'-------'|          |",
+                "|     \\       /   \\       /           |",
+                "|      `-----'     `-----'            |"
+            };
+
             Console.WriteLine(new string('-', _totalColumnWidth + 1));
             foreach (string bob in bobBagels) 
             {
@@ -124,15 +150,15 @@ namespace exercise.main
             }
 
             Console.WriteLine("|".PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2 + 1)));
-            string userName = $"| Customer: {user.Name}";
-            Console.WriteLine(userName.PadRight(_totalColumnWidth / 2) + "|".PadLeft((_totalColumnWidth / 2) + 1));
+            string basketCustomerNameString = $"| Customer: {user.Name}";
+            Console.WriteLine(basketCustomerNameString.PadRight(_totalColumnWidth) + "|");
 
             Console.WriteLine(new string('-', _totalColumnWidth + 1));
 
-            string time = $"| time: {DateTime.Now.ToString("HH: mm: ss")}";
+            string time = $"| Time: {DateTime.Now.ToString("HH:mm:ss")}";
             Console.WriteLine(time.PadRight(_totalColumnWidth /2) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
-            string date = $"| date: {DateTime.Now.ToString("dd.mm.yyyy")}";
+            string date = $"| Date: {DateTime.Now.ToString("dd.mm.yyyy")}";
             Console.WriteLine(date.PadRight(_totalColumnWidth /2  ) + "|".PadLeft((_totalColumnWidth / 2) + 1));
 
             Console.WriteLine(new string('-', _totalColumnWidth + 1));

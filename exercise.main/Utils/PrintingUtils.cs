@@ -10,100 +10,100 @@ namespace exercise.main.Utils
 {
     public static class PrintingUtils
     {
-
+        /// <summary>
+        /// Generate a compact overview of the allProductsInBasket in the form of a Dictionary that that contain most pertinent information for receipt printing.
+        /// </summary>
+        /// <param name="products"> List<IProduct> of for every item that is to appear on the receipt</param>
+        /// <param name="discounts">A List<Discount> of every discount that the List<IProduct> qualify for</param>
+        /// <returns> Dictionary<string, Tuple<int, float, bool, float>> The dictionary key is the currentProduct SKU. In the tuple the values are as follows: number of items of the specified SKU, the total SKU cost after applying discounts, boolean of whether any discount was applied to the SKU, the pre-discount price of the SKU items.</returns>
         public static Dictionary<string, Tuple<int, float, bool, float>> CompactProducts(List<IProduct> products, List<Discount> discounts)
         {
             List<string> SKUs = Inventory.GetValidProductSKUs();
-
-
-            Dictionary<string, Tuple<int, float, bool, float>> compactedProducts = new Dictionary<string, Tuple<int, float, bool, float>>();
-            int countOfSKU;
-            float prediscountPrice;
-
-            // TODO: Apply discounts to the discount value for each SKU
             List<IProduct> sortedProducts = products.OrderBy(p => p.GetBasePrice()).ToList();
-
-            List<IProduct> pickListOfProducts = new List<IProduct>(sortedProducts);
-            Dictionary<string, float> SKUDiscount = new Dictionary<string, float>();
-
-            bool hasAppliedDiscount = false;
-
+            List<IProduct> pickListOfProducts = new List<IProduct>(sortedProducts); // Provided to each discount application by reference
+            Dictionary<string, float> SKUDiscount = new Dictionary<string, float>(); // Provided to each discount application by reference
             foreach (Discount disc in discounts)
             {
                 ApplyDiscountToSKUs(ref pickListOfProducts, SKUs, disc, ref SKUDiscount);
             }
 
+            int itemsOfCurrentSKU;
+            float prediscountPrice;
+            bool hasAppliedDiscount = false;
+            Dictionary<string, Tuple<int, float, bool, float>> compactedProducts = new Dictionary<string, Tuple<int, float, bool, float>>();
             foreach (string SKU in SKUs)
             {
                 List<IProduct> productsOfCurrentSKU = (new List<IProduct>(sortedProducts)).Where(prod => prod.GetSKUName() == SKU).ToList();
                 prediscountPrice = products.Where(p => p.GetSKUName() == SKU).Sum(x => x.GetBasePrice());
-                countOfSKU = productsOfCurrentSKU.Count();
+                itemsOfCurrentSKU = productsOfCurrentSKU.Count();
 
                 float discountAmountOnSKU = SKUDiscount.FirstOrDefault(x => x.Key == SKU).Value;
                 float reducedPrice = 0f;
-                if (discountAmountOnSKU != 0f) 
+                if (discountAmountOnSKU != 0f)
                 {
                     reducedPrice = discountAmountOnSKU;
                     hasAppliedDiscount = true;
                 }
 
-                if (countOfSKU != 0)
+                if (itemsOfCurrentSKU != 0)
                 {
-                    compactedProducts.Add(SKU, new Tuple<int, float, bool, float>(countOfSKU, reducedPrice, hasAppliedDiscount, prediscountPrice));
+                    compactedProducts.Add(SKU, new Tuple<int, float, bool, float>(itemsOfCurrentSKU, reducedPrice, hasAppliedDiscount, prediscountPrice));
                 }
             }
             return compactedProducts;
+        }
 
-            static void ApplyDiscountToSKUs(ref List<IProduct> products, List<string> SKUs, Discount discount, ref Dictionary<string, float> SKUDiscount)
+        private static void ApplyDiscountToSKUs(ref List<IProduct> allProductsInBasket, List<string> SKUs, Discount discount, ref Dictionary<string, float> SKUDiscount)
+        {
+            List<Type> discountCondition = new List<Type>(discount.ProductSequence);
+            float totalDiscountAmount = discount.DiscountPrice;
+            float discountAmountEvenSplit = totalDiscountAmount / discountCondition.Count;
+
+            while (discountCondition.Count != 0) 
             {
-                List<Type> discountCondition = new List<Type>(discount.ProductSequence);
-                float discountAmount = discount.DiscountPrice;
-                float discountAmountSplit = discountAmount / discountCondition.Count;
-
-                while (discountCondition.Count != 0) 
+                foreach (string SKU in SKUs) 
                 {
-                    foreach (string SKU in SKUs) 
-                    {
-                        float currentDiscount = 0f;
-                        List<IProduct> prodsOfSKU = new List<IProduct>(products.Where(p => p.GetSKUName() == SKU));
-                        IProduct? product = prodsOfSKU.FirstOrDefault();
-                        if (product != null) { 
-                            List<Type> matchingConditionType = new List<Type>(discountCondition.Where(d => d == prodsOfSKU.FirstOrDefault()?.GetType()));
-                            if (matchingConditionType != null) 
+                    float currentSKUAppliedDiscount = 0f;
+                    List<IProduct> productsOfCurrentSKU = new List<IProduct>(allProductsInBasket.Where(p => p.GetSKUName() == SKU));
+                    IProduct? currentProduct = productsOfCurrentSKU.FirstOrDefault();
+                    if (currentProduct != null) { 
+                        List<Type> matchingConditionType = new List<Type>(discountCondition.Where(d => d == productsOfCurrentSKU.FirstOrDefault()?.GetType()));
+                        if (matchingConditionType != null) 
+                        {
+                            // Need to select the smallest value, we dont give customers money when they buy something!
+                            float appliedDiscountValue = Math.Min(discountAmountEvenSplit, currentProduct.GetBasePrice());
+                            foreach (Type type in matchingConditionType) // Iterate through each Type for the discount
                             {
-                                
+                                // Count up the remaining and applied discount
+                                totalDiscountAmount -= appliedDiscountValue;
+                                currentSKUAppliedDiscount += currentProduct.GetBasePrice() - appliedDiscountValue;
 
-                                    float appliedDiscountValue = Math.Min(discountAmountSplit, product.GetBasePrice());
-                                    foreach (Type type in matchingConditionType) 
-                                    {
-                                        discountAmount -= appliedDiscountValue;
-                                        currentDiscount += product.GetBasePrice() - appliedDiscountValue;
+                                // Need to remove "used" allProductsInBasket, both to prevent double application and keep track of when discount is finished applying.
+                                allProductsInBasket.Remove(currentProduct); 
+                                productsOfCurrentSKU.Remove(currentProduct);
+                                currentProduct = productsOfCurrentSKU.FirstOrDefault();
+                                discountCondition.Remove(type);
 
-                                        products.Remove(product); // Need to remove from parent method for when applying multiple discounts
-                                        prodsOfSKU.Remove(product);
-                                        product = prodsOfSKU.FirstOrDefault();
-                                        discountCondition.Remove(type);
-
-                                        if (matchingConditionType.Count == 0 || product == null) { break; }
-                                    }
-                                }
+                                // If no more products of the relevant SKU was found, break discount loop
+                                if (currentProduct == null) { break; }
                             }
-                        // With mulitple discounts applied to basket we might get duplicates. Therefore need two methods to add to the dictionary
-                        if (SKUDiscount.ContainsKey(SKU))
-                        {
-                            KeyValuePair<string, float> entry = SKUDiscount.Where(p => p.Key == SKU).First();
-                            SKUDiscount.Remove(entry.Key);
-                            float newValue = (entry.Value + currentDiscount);
-                            SKUDiscount.Add(SKU, newValue);
                         }
-                        else 
-                        {
-                            SKUDiscount.Add(SKU, currentDiscount);
-                        }
-                        
+                     }
 
-                        if (discountCondition.Count == 0) { break; }
+                    // With mulitple discounts applied to basket we might get duplicates. Therefore need two methods to add to the dictionary
+                    if (SKUDiscount.ContainsKey(SKU))
+                    { // Make new float value, remove old entry from dictionary, then add the new keyvaluepair
+                        KeyValuePair<string, float> entry = SKUDiscount.Where(p => p.Key == SKU).First();
+                        SKUDiscount.Remove(entry.Key);
+                        float newValue = (entry.Value + currentSKUAppliedDiscount);
+                        SKUDiscount.Add(SKU, newValue);
                     }
+                    else 
+                    {
+                        SKUDiscount.Add(SKU, currentSKUAppliedDiscount);
+                    }
+                    // No more discount Types to apply
+                    if (discountCondition.Count == 0) { break; }
                 }
             }
         }

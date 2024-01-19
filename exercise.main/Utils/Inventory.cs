@@ -46,6 +46,10 @@ namespace exercise.main
             return res;
         }
 
+        /// <summary>
+        /// Retrieve a list of every registered SKU for all IProduct integrators
+        /// </summary>
+        /// <returns>List<string> - A ascending sorted list (sorted by basePrice) of strings</returns>
         public static List<string> GetValidProductSKUs() 
         {
             List<(string Key, float Value)> combinedProducts = bagelPrices.Select(p => (p.Key, p.Value)).Concat(coffeePrices.Select(p => (p.Key, p.Value))).OrderBy(p => p.Value).ToList();

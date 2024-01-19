@@ -3,7 +3,7 @@
 
 using exercise.main;
 
-Person bob = new Person("Bob", true);
+Person bob = new Person("Customer 1", true);
 Basket basket = bob.GetBasket();
 
 basket.AddItemToBasket(new string[] { "BGLO", "FILC" });
