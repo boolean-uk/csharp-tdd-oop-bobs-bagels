@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Product : IProduct
+    public abstract class Product : IProduct
     {
         public string SKU { get; set; }
         public double Price { get; set; }
