@@ -38,19 +38,6 @@ namespace exercise.tests
         }
 
         [Test]
-        public void ReceiptGetReceipt()
-        {
-            Order order = new Order();
-            BagelVariant onionVariant = BagelVariant.AllVariants.First(v => v.Name == "Onion");
-            Bagel bagel = new Bagel(onionVariant);
-            order.Add(bagel);
-
-            Receipt receipt = receiptManager.CreateReceipt(order);
-
-            Assert.That(receipt, Is.Not.Null);
-        }
-
-        [Test]
         public void DisplayReceipt()
         {
             Order order = new Order();

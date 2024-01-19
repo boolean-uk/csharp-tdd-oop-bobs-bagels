@@ -9,16 +9,18 @@ namespace exercise.tests;
 [TestFixture]
 public class CoreTests
 {
-    private BagelVariant onionVariant;
-    private BagelVariant plainVariant;
-    private BagelFilling hamFilling;
+    Inventory inventory = new Inventory();
+
+    private InventoryItem onionVariant;
+    private InventoryItem plainVariant;
+    private InventoryItem hamFilling;
 
     [SetUp]
     public void Setup()
     {
-        onionVariant = BagelVariant.AllVariants.First(v => v.Name == "Onion");
-        plainVariant = BagelVariant.AllVariants.First(v => v.Name == "Plain");
-        hamFilling = BagelFilling.AllFillings.First(f => f.Name == "Ham");
+        onionVariant = inventory.GetItem("BGLO");
+        plainVariant = inventory.GetItem("BGLP");
+        hamFilling = inventory.GetItem("FILH");
     }
 
     [Test]
@@ -56,14 +58,5 @@ public class CoreTests
         double actualCost = bagel.Cost();
 
         Assert.That(actualCost, Is.EqualTo(expected));
-    }
-
-    [Test]
-    public void GetBagelFillings()
-    {
-        var fillings = BagelFilling.AllFillings;
-
-        Assert.IsNotEmpty(fillings);
-        Assert.That(fillings, Contains.Item(hamFilling));
     }
 }

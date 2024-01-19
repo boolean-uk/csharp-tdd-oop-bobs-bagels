@@ -8,11 +8,11 @@ class Program
     {
         // Initialize the inventory and basket manager
         Inventory inventory = new Inventory();
-        Order order = new BasketManager.Order();
+        Order order = new Order();
 
         // Add items to the order
-        BagelVariant onionVariant = (BagelVariant)inventory.GetItem("BGLO");
-        BagelVariant everythingVariant = (BagelVariant)inventory.GetItem("BGLE");
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
+        InventoryItem everythingVariant = inventory.GetItem("BGLE");
 
         // Adding 2 Onion Bagels
         for (int i = 0; i < 2; i++)

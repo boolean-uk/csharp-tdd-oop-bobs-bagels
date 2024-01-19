@@ -27,58 +27,42 @@ namespace exercise.main
         public int Add(string sku)
         {
             Inventory inventory = new Inventory();
-            IInventoryItem? item = inventory.GetItem(sku);
+            InventoryItem? item = inventory.GetItem(sku);
 
             if (item == null)
                 return 0;
 
-            string first3Letters = item.SKU.Substring(0, 3);
+            Product product = new Product(item);
 
-            if (first3Letters == "BGL")
-            {
-                Bagel bagel = new Bagel((BagelVariant)item);
-                CustomerOrder.Add(bagel);
-                return bagel.ID;
-            }
-            else if (first3Letters == "COF")
-            {
-                Coffee coffee = new Coffee((CoffeeVariant)item);
-                CustomerOrder.Add(coffee);
-                return coffee.ID;
-            }
+            CustomerOrder.Add(product);
 
-            return 0;
+            return product.ID;
         }
 
         public void AddFilling(int id, string sku)
         {
-            Bagel? bagel = CustomerOrder.Bagels.FirstOrDefault(x => x.ID == id);
-            if (bagel == null)  // This condition might be redundant since you've already checked if the bagel exists
+            Bagel? bagel = CustomerOrder.Products.FirstOrDefault(x => x.ID == id) as Bagel;
+            if (bagel == null) 
                 throw new Exception("No bagel with the specified ID.");
 
             Inventory inventory = new Inventory();
-            IInventoryItem? item = inventory.GetItem(sku);
+            InventoryItem? item = inventory.GetItem(sku);
 
             if (item == null)
                 throw new Exception("No item with the specified SKU.");
 
-            if (item is BagelFilling filling)
-                bagel.AddFilling(filling);
+            if (item.Type == "Filling")
+                bagel.AddFilling(item);
             else
                 throw new Exception("Specified SKU is not a Bagel Filling.");
         }
 
         public void Remove(int id)
         {
-            Bagel? bagel = CustomerOrder.Bagels.FirstOrDefault(x => x.ID == id);
-            if(bagel != null)
-                CustomerOrder.Bagels.Remove(bagel);
-
-            Coffee? coffee = CustomerOrder.Coffees.FirstOrDefault(x => x.ID == id);
-            if (coffee != null)
-                CustomerOrder.Coffees.Remove(coffee);
-
-            if (bagel == null && coffee == null)
+            Product? product = CustomerOrder.Products.FirstOrDefault(x => x.ID == id);
+            if(product != null)
+                CustomerOrder.Products.Remove(product);
+            else 
                 throw new Exception("No product with specified ID.");
         }
 
@@ -87,10 +71,10 @@ namespace exercise.main
             return CustomerOrder.Cost();
         }
 
-        public double ProductCost(string sku)
+        public double MenyItemCost(string sku)
         {
             Inventory inventory = new Inventory();
-            IInventoryItem? item = inventory.GetItem(sku);
+            InventoryItem? item = inventory.GetItem(sku);
 
             if (item == null)
                 throw new Exception("No item with the specified SKU.");

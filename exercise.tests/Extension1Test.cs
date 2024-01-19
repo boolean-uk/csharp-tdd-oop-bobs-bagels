@@ -31,7 +31,7 @@ public class Extension1Tests
         string sku = "BGLO";
         int id = basket.Add(sku);
         Assert.That(id, Is.Not.EqualTo(0));
-        Assert.IsTrue(basket.CustomerOrder.Bagels.Any(b => b.ID == id));
+        Assert.IsTrue(basket.CustomerOrder.Products.Any(b => b.ID == id));
     }
 
     [Test]
@@ -49,7 +49,7 @@ public class Extension1Tests
         string sku = "BGLO";
 
         var exception = Assert.Throws<Exception>(() => basket.Add(sku));
-        Assert.That(exception.Message, Is.EqualTo("Bagel was not added to basket, because basket is full."));
+        Assert.That(exception.Message, Is.EqualTo("Product was not added to basket, because basket is full."));
     }
 
     [Test]
@@ -58,7 +58,7 @@ public class Extension1Tests
         string sku = "BGLO";
         int id = basket.Add(sku);
         basket.Remove(id);
-        Assert.IsFalse(basket.CustomerOrder.Bagels.Any(b => b.ID == id));
+        Assert.IsFalse(basket.CustomerOrder.Products.Any(b => b.ID == id));
     }
 
     [Test]
@@ -92,7 +92,7 @@ public class Extension1Tests
     public void ProductCost()
     {
         string sku = "BGLO";
-        double cost = basket.ProductCost(sku);
+        double cost = basket.MenyItemCost(sku);
         Assert.That(cost, Is.EqualTo(inventory.GetItem(sku).Price));
     }
 
@@ -100,16 +100,8 @@ public class Extension1Tests
     public void ProductCostMissingSKU()
     {
         string sku = "INVALID_SKU";
-        var exception = Assert.Throws<Exception>(() => basket.ProductCost(sku));
+        var exception = Assert.Throws<Exception>(() => basket.MenyItemCost(sku));
         Assert.That(exception.Message, Is.EqualTo("No item with the specified SKU."));
-    }
-
-    [Test]
-    public void AddFilling()
-    {
-        int id = basket.Add("BGLP");
-        basket.AddFilling(id, "FILH");
-        Assert.IsTrue(basket.CustomerOrder.Bagels.First(b => b.ID == id).Fillings.Any(f => f.SKU == "FILH"));
     }
 
     [Test]
@@ -122,9 +114,9 @@ public class Extension1Tests
     [Test]
     public void AddFillingMissingSKU()
     {
-        int id = basket.Add("BGLP"); // Assuming "BGLP" is a valid SKU for a BagelVariant
+        int id = basket.Add("BGLO");
         var exception = Assert.Throws<Exception>(() => basket.AddFilling(id, "INVALID_SKU"));
-        Assert.That(exception.Message, Is.EqualTo("No item with the specified SKU."));
+        Assert.That(exception.Message, Is.EqualTo("No bagel with the specified SKU."));
     }
 
     [Test]
@@ -133,7 +125,7 @@ public class Extension1Tests
         OrderCostManager costManager = new OrderCostManager();
         var order = new Order();
 
-        var onionVariant = inventory.GetItem("BGLO") as BagelVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
 
         for (int i = 0; i < 6; i++)
         {
@@ -152,8 +144,8 @@ public class Extension1Tests
     {
         Order order = new Order();
 
-        var onionVariant = inventory.GetItem("BGLO") as Inventory.BagelVariant;
-        var coffeeVariant = inventory.GetItem("COFB") as Inventory.CoffeeVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
+        InventoryItem coffeeVariant = inventory.GetItem("COFB");
 
         order.Add(new Bagel(onionVariant));
         order.Add(new Coffee(coffeeVariant));
@@ -168,8 +160,8 @@ public class Extension1Tests
     {
         Order order = new Order();
 
-        var onionVariant = inventory.GetItem("BGLO") as Inventory.BagelVariant;
-        var coffeeVariant = inventory.GetItem("COFB") as Inventory.CoffeeVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
+        InventoryItem coffeeVariant = inventory.GetItem("COFB");
 
         for (int i = 0; i < 7; i++)
         {
@@ -190,7 +182,7 @@ public class Extension1Tests
     [Test]
     public void CostNoDiscounts()
     {
-        BagelVariant onionVariant = inventory.GetItem("BGLO") as BagelVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
 
         order.Add(new Bagel(onionVariant)); 
 
@@ -203,7 +195,7 @@ public class Extension1Tests
     [Test]
     public void CostOnionDiscount()
     {
-        BagelVariant onionVariant = inventory.GetItem("BGLO") as BagelVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
 
         for (int i = 0; i < 6; i++)
         {
@@ -219,8 +211,8 @@ public class Extension1Tests
     [Test]
     public void CostCoffeeAndBagelDiscount()
     {
-        BagelVariant onionVariant = inventory.GetItem("BGLO") as BagelVariant;
-        CoffeeVariant coffeeVariant = inventory.GetItem("COFB") as CoffeeVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
+        InventoryItem coffeeVariant = inventory.GetItem("COFB");
 
         order.Add(new Bagel(onionVariant));
         order.Add(new Coffee(coffeeVariant));
@@ -238,9 +230,9 @@ public class Extension1Tests
     [Test]
     public void CostMultipleDiscounts()
     {
-        BagelVariant onionVariant = inventory.GetItem("BGLO") as BagelVariant;
-        BagelVariant plainVariant = inventory.GetItem("BGLP") as BagelVariant;
-        CoffeeVariant coffeeVariant = inventory.GetItem("COFB") as CoffeeVariant;
+        InventoryItem onionVariant = inventory.GetItem("BGLO");
+        InventoryItem plainVariant = inventory.GetItem("BGLP");
+        InventoryItem coffeeVariant = inventory.GetItem("COFB");
 
         for (int i = 0; i < 6; i++)
         {

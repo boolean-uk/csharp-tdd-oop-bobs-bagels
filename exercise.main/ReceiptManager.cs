@@ -117,22 +117,16 @@ namespace exercise.main
         {
             Receipt receipt = new Receipt();
 
-            // Add bagels
-            foreach (Bagel bagel in order.Bagels)
+            // Add bagels and coffees
+            foreach (Product product in order.Products)
             {
-                receipt.AddItemToEntry(bagel.Variant.Name, "Bagel", 1, bagel.Variant.Price);
+                receipt.AddItemToEntry(product.Item.Name, product.Item.Type, 1, product.Item.Price);
 
                 // Add bagel fillings
-                foreach (Inventory.BagelFilling filling in bagel.Fillings)
+                foreach (Inventory.InventoryItem filling in product.Fillings)
                 {
                     receipt.AddItemToEntry(filling.Name, "Filling", 1, filling.Price);
                 }
-            }
-
-            // Count Coffees
-            foreach (Coffee coffee in order.Coffees)
-            {
-                receipt.AddItemToEntry(coffee.Variant.Name, "Coffee", 1, coffee.Variant.Price);
             }
 
             receipt.AddDiscounts(RunningDiscounts);

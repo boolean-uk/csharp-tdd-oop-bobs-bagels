@@ -4,111 +4,50 @@ namespace exercise.main
 {
     public class Inventory
     {
-        public interface IInventoryItem
+        private Dictionary<string, InventoryItem> Items;
+        public class InventoryItem
         {
-            string SKU { get; }
-            string Name { get; }
-            double Price { get; }
-        }
+            public string Name { get; private set; }
+            public double Price { get; private set; }
+            public string Type { get; private set; }
 
-        private Dictionary<string, IInventoryItem> items;
+            public InventoryItem(string name, double price, string type)
+            {
+                Name = name;
+                Price = price;
+                Type = type;
+            }
+        }
 
         public Inventory()
         {
-            items = new Dictionary<string, IInventoryItem>();
-
-            foreach (var bagel in BagelVariant.AllVariants)
+            Items = new Dictionary<string, InventoryItem>
             {
-                items.Add(bagel.SKU, bagel);
-            }
-
-            foreach (var filling in BagelFilling.AllFillings)
-            {
-                items.Add(filling.SKU, filling);
-            }
-
-            foreach (var coffee in CoffeeVariant.AllVariants)
-            {
-                items.Add(coffee.SKU, coffee);
-            }
+                {"BGLO", new InventoryItem( "Onion", 0.49, "Bagel")},
+                {"BGLP", new InventoryItem( "Plain", 0.39, "Bagel")},
+                {"BGLE", new InventoryItem("Everything", 0.49, "Bagel")},
+                {"BGLS", new InventoryItem("Sesame", 0.49, "Bagel")},
+                {"COFB", new InventoryItem("Black", 0.99, "Coffee")},
+                {"COFW", new InventoryItem("White", 1.19, "Coffee")},
+                {"COFC", new InventoryItem("Capuccino", 1.29, "Coffee")},
+                {"COFL", new InventoryItem("Latte", 1.29, "Coffee")},
+                {"FILB", new InventoryItem("Bacon", 0.12, "Filling")},
+                {"FILE", new InventoryItem("Egg", 0.12, "Filling")},
+                {"FILC", new InventoryItem("Cheese", 0.12, "Filling")},
+                {"FILX", new InventoryItem("Cream Cheese", 0.12, "Filling")},
+                {"FILS", new InventoryItem("Smoked Salmon", 0.12, "Filling")},
+                {"FILH", new InventoryItem("Ham", 0.12, "Filling")}
+            };
         }
 
-        public IInventoryItem? GetItem(string sku)
+        public InventoryItem? GetItem(string sku)
         {
-            if (items.TryGetValue(sku, out IInventoryItem? item))
+            if (Items.TryGetValue(sku, out InventoryItem? item))
             {
                 return item;
             }
 
             return null;
-        }
-
-        public class BagelVariant : IInventoryItem
-        {
-            public string SKU { get; private set; }
-            public string Name { get; private set; }
-            public double Price { get; private set; }
-
-            public BagelVariant(string sku, string name, double price)
-            {
-                SKU = sku;
-                Name = name;
-                Price = price;
-            }
-
-            public static readonly IEnumerable<BagelVariant> AllVariants = new List<BagelVariant>
-            {
-                new BagelVariant("BGLO", "Onion", 0.49),
-                new BagelVariant("BGLP", "Plain", 0.39),
-                new BagelVariant("BGLE", "Everything", 0.49),
-                new BagelVariant("BGLS", "Sesame", 0.49)
-            };
-        }
-
-        public class BagelFilling : IInventoryItem
-        {
-            public string SKU { get; private set; }
-            public string Name { get; private set; }
-            public double Price { get; private set; }
-
-            public BagelFilling(string sku, string name, double price)
-            {
-                SKU = sku;
-                Name = name;
-                Price = price;
-            }
-
-            public static readonly IEnumerable<BagelFilling> AllFillings = new List<BagelFilling>
-            {
-                new BagelFilling("FILB", "Bacon", 0.12),
-                new BagelFilling("FILE", "Egg", 0.12),
-                new BagelFilling("FILC", "Cheese", 0.12),
-                new BagelFilling("FILX", "Cream Cheese", 0.12),
-                new BagelFilling("FILS", "Smoked Salmon", 0.12),
-                new BagelFilling("FILH", "Ham", 0.12)
-            };
-        }
-
-        public class CoffeeVariant : IInventoryItem
-        {
-            public string SKU { get; private set; }
-            public string Name { get; private set; }
-            public double Price { get; private set; }
-
-            public CoffeeVariant(string sku, string name, double price)
-            {
-                SKU = sku;
-                Name = name;
-                Price = price;
-            }
-
-            public static readonly IEnumerable<CoffeeVariant> AllVariants = new List<CoffeeVariant>
-            {
-                new CoffeeVariant("COFB", "Black", 0.99),
-                new CoffeeVariant("COFW", "White", 1.19),
-                new CoffeeVariant("COFC", "Cappuccino", 1.29),
-                new CoffeeVariant("COFL", "Latte", 1.29)
-            };
         }
     }
 }

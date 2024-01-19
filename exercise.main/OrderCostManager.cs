@@ -36,11 +36,13 @@ namespace exercise.main
         public List<Discount> GetDiscounts(Order order)
         {
             List<Discount> discounts = new List<Discount>();
+            List<Product> bagels = order.Products.Where(p => p.Item.Type == "Bagel").ToList();
+            List<Product> coffees = order.Products.Where(p => p.Item.Type == "Coffee").ToList();
 
             // Apply bagel discounts
             foreach (var runningDiscount in RunningDiscounts)
             {
-                int bagelVariantQuantity = order.Bagels.Count(bagel => bagel.Variant.Name == runningDiscount.Name);
+                int bagelVariantQuantity = bagels.Count(bagel => bagel.Item.Name == runningDiscount.Name);
                 int howManyTimesDoesItApply = bagelVariantQuantity / runningDiscount.Quantity;
 
                 if (howManyTimesDoesItApply > 0)
@@ -52,18 +54,18 @@ namespace exercise.main
 
             // Apply 'Coffee & Bagel' discount
             var coffeeBagelDiscount = RunningDiscounts.FirstOrDefault(d => d.Name == "Coffee & Bagel");
-            if ((coffeeBagelDiscount.Name == null && coffeeBagelDiscount.Quantity == 0 && coffeeBagelDiscount.Price == 0.0) || order.Coffees.Count <= 0)
+            if ((coffeeBagelDiscount.Name == null) || order.Products.Where(p => p.Item.Type == "Coffee").Count() <= 0)
                 return discounts;
 
-            List<Bagel>? eligibleBagels = order.Bagels.Where(bagel =>
-                !discounts.Any(d => d.Name == bagel.Variant.Name && order.Bagels.Count(b => b.Variant.Name == bagel.Variant.Name) 
+            List<Product>? eligibleBagels = bagels.Where(bagel =>
+                !discounts.Any(d => d.Name == bagel.Item.Name && bagels.Count(b => b.Item.Name == bagel.Item.Name) 
                 <= d.Quantity)
             ).ToList();
 
             if (eligibleBagels == null)
                 return discounts;
 
-            int discountApplies = Math.Min(order.Coffees.Count, eligibleBagels.Count);
+            int discountApplies = Math.Min(coffees.Count, eligibleBagels.Count);
 
             if (discountApplies > 0)
             {
@@ -79,22 +81,24 @@ namespace exercise.main
             double result = 0;
 
             List<Discount> discounts = GetDiscounts(order);
+            List<Product> bagels = order.Products.Where(p => p.Item.Type == "Bagel").ToList();
+            List<Product> coffees = order.Products.Where(p => p.Item.Type == "Coffee").ToList();
 
             // Handle discounts 
             result += discounts.Sum(d => d.Price);
 
             // Handle coffees that are not dicounted
             int coffeeAndBagelDiscountCount = discounts.Count(d => d.Name == "Coffee & Bagel");
-            result += order.Coffees.Skip(coffeeAndBagelDiscountCount).Sum(c => c.Variant.Price);
+            result += coffees.Skip(coffeeAndBagelDiscountCount).Sum(c => c.Item.Price);
 
             // Handle bagel that are not discounted
             Dictionary<string, int> bagelsInDiscount = discounts
                 .Where(d => d.Name != "Coffee & Bagel")
                 .ToDictionary(d => d.Name, d => d.Quantity);
 
-            foreach (var bagel in order.Bagels)
+            foreach (var bagel in bagels)
             {
-                string bagelName = bagel.Variant.Name;
+                string bagelName = bagel.Item.Name;
 
                 if (coffeeAndBagelDiscountCount > 0) // Deduct bagels used in 'Coffee & Bagel' discount.
                 {

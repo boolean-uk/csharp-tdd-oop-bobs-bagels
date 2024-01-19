@@ -7,6 +7,46 @@ namespace exercise.main
 {
     public class BasketManager
     {
+        public class Product
+        {
+            public int ID { get; private set; }
+            public InventoryItem Item { get; private set; }
+            public List<InventoryItem> Fillings { get; private set; }
+
+            public Product(InventoryItem variant)
+            {
+                ID = GetID();
+                Item = variant;
+                Fillings = new List<InventoryItem>();
+            }
+
+            public virtual double Cost()
+            {
+                return Item.Price;
+            }
+        }
+
+        public class Bagel : Product
+        {
+            public Bagel(InventoryItem variant) : base(variant) { }
+
+            public void AddFilling(InventoryItem filling)
+            {
+                Fillings?.Add(filling);
+            }
+
+            public override double Cost()
+            {
+                double fillingsCost = Fillings?.Sum(f => f.Price) ?? 0;
+                return Item.Price + fillingsCost;
+            }
+        }
+
+        public class Coffee : Product
+        {
+            public Coffee(InventoryItem variant) : base(variant) { }
+        }
+
         private static int lastID = 0;
         private static int GetID()
         {
@@ -14,52 +54,14 @@ namespace exercise.main
             return lastID;
         }
 
-        public class Bagel
-        {
-            public int ID {  get; private set; }
-            public BagelVariant Variant { get; set; }
-            public List<BagelFilling> Fillings { get; private set; }
-
-            public Bagel(BagelVariant variant)
-            {
-                ID = GetID();
-                Variant = variant;
-                Fillings = new List<BagelFilling>();
-            }
-
-            public double Cost()
-            {
-                return Variant.Price + Fillings.Sum(f => f.Price);
-            }
-
-            public void AddFilling(BagelFilling filling)
-            {
-                Fillings.Add(filling);
-            }
-        }
-
-        public class Coffee
-        {
-            public int ID { get; private set; }
-            public CoffeeVariant Variant { get; set; }
-
-            public Coffee(CoffeeVariant variant)
-            {
-                ID = GetID();
-                Variant = variant;
-            }
-        }
-
         public class Order
         {
-            public List<Bagel> Bagels { get; private set; }
-            public List<Coffee> Coffees { get; private set; }
+            public List<Product> Products { get; private set; }
             public int Capacity { get; private set; }
 
             public Order()
             {
-                Bagels = new List<Bagel>();
-                Coffees = new List<Coffee>();
+                Products = new List<Product>();
                 Capacity = 30;
             }
 
@@ -68,31 +70,17 @@ namespace exercise.main
                 Capacity = capacity;
             }
 
-            public void Add(Bagel bagel)
+            public void Add(Product product)
             {
-                if (Bagels.Count + Coffees.Count >= Capacity)
-                    throw new Exception("Bagel was not added to basket, because basket is full.");
+                if (Products.Count >= Capacity)
+                    throw new Exception("Product was not added to basket, because basket is full.");
 
-                Bagels.Add(bagel);
+                Products.Add(product);
             }
 
-
-            public void Add(Coffee coffee)
+            public void Remove(Product product)
             {
-                if (Bagels.Count + Coffees.Count >= Capacity)
-                    throw new Exception("Coffee was not added to basket, because basket is full.");
-
-                Coffees.Add(coffee);
-            }
-
-            public void Remove(Bagel bagel)
-            {
-                Bagels.Remove(bagel);
-            }
-
-            public void Remove(Coffee coffee)
-            {
-                Coffees.Remove(coffee);
+                Products.Remove(product);
             }
 
             public double Cost()
