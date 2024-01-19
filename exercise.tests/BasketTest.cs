@@ -205,7 +205,66 @@ namespace exercise.tests
 
             // Assert
             Assert.That(addedToBasket, Is.False);
-        }        
+        }
+
+        /*----------------------------------------------------------------EXTENSION 1 -------------------------------------------------------------------------------*/
+
+        //This testcase cheks if special offer is working when we add multiple bagels
+        [Test]
+        public void SpecialOfferShouldWorkWhenAddingMulitpleBagels()
+        {
+            //Arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            //Act
+            Item bagel = inventory.GetItemBySKU("BGLE");
+            int quantity = bagel.Offer.Quantity;
+            double specialPrice = bagel.Offer.SpecialPrice;
+
+            for (int i = 0; i < quantity; i++)
+            {
+                basket.AddBagel(bagel);
+            }
+
+            double totalCost = basket.GetTotalCost();
+
+            // Assert
+            Assert.AreEqual(specialPrice, totalCost);
+
+        }
+        //Test case checks if the customer can buy mix of items while the specialOffer still works
+        [Test]
+        public void ShouldCalculateTotalCostWithMixedBagelsAndSpecialOffer()
+        {
+            // Arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            // Act
+            Item bagelWithOffer = inventory.GetItemBySKU("BGLE");
+            Item bagelWithoutOffer = inventory.GetItemBySKU("BGLP");
+
+            int quantityWithOffer = bagelWithOffer.Offer.Quantity;
+            double specialPrice = bagelWithOffer.Offer.SpecialPrice;
+
+            // Adding bagels with special offer
+            for (int i = 0; i < quantityWithOffer; i++)
+            {
+                basket.AddBagel(bagelWithOffer);
+            }
+
+            // Adding bagels without special offer
+            basket.AddBagel(bagelWithoutOffer);
+
+            double totalCost = basket.GetTotalCost();
+
+            // Assert
+            Assert.AreEqual(specialPrice + bagelWithoutOffer.Price, totalCost);
+        }
+
+        /*----------------------------------------------------------------EXTENSION 2 -------------------------------------------------------------------------------*/
+
 
     }
 }

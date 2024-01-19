@@ -22,9 +22,9 @@ namespace exercise.main
         {
             _Inventory.AddRange(new List<Item>
         {
-            new Item("BGLO", 0.49d, "Bagel", "Onion"),
-            new Item("BGLP", 0.39d, "Bagel", "Plain"),
-            new Item("BGLE", 0.49d, "Bagel", "Everything"),
+            new Item("BGLO", 0.49d, "Bagel", "Onion", new SpecialOffer { Quantity = 6, SpecialPrice = 2.49 }),
+            new Item("BGLP", 0.39d, "Bagel", "Plain", new SpecialOffer { Quantity = 12, SpecialPrice = 3.99 }),
+            new Item("BGLE", 0.49d, "Bagel", "Everything", new SpecialOffer { Quantity = 6, SpecialPrice = 2.49 }),
             new Item("BGLS", 0.49d, "Bagel", "Sesame"),
             new Item("COFB", 0.99d, "Coffee", "Black"),
             new Item("COFW", 1.19d, "Coffee", "White"),

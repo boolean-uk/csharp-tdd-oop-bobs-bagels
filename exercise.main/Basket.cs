@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static exercise.main.Receipt;
 
 namespace exercise.main
 {
@@ -36,9 +37,7 @@ namespace exercise.main
                 {
                     return false;
                 }
-
             }    
-
         }
 
         public bool RemoveBagel(string bagelType)
@@ -66,12 +65,10 @@ namespace exercise.main
         }
 
 
-
         public bool IsBasketFull()
         {
             return BagelList.Count > BasketCapacity;
         }
-
 
         public bool ChangeBasketCapacity(int newCapacity)
         {
@@ -79,7 +76,6 @@ namespace exercise.main
             {
                 return false; // Invalid or same capacity
             }
-
             BasketCapacity = newCapacity;
 
             //  If capacity changed successfully
@@ -93,10 +89,42 @@ namespace exercise.main
 
 
         //user story 6
+        // extension 1
+        // Method to calculate the total cost of items in the basket, considering special offers.
+
+
         public double GetTotalCost()
         {
-            return BagelList.Sum(Item => Item.Price);
+            double totalCost = 0;
+
+            // Filter the items in the basket that have special offers
+
+            var itemsWithOffers = BagelList.Where(item => item.Offer != null);
+
+            // Iterate through each item with a special offer in the basket
+            foreach (Item item in itemsWithOffers)
+            {
+                // Check if the quantity in the basket meets the offer requirement
+                if (BagelList.Count(i => i.Sku == item.Sku) >= item.Offer.Quantity)
+                {
+                    // Calculate how many times the special offer applies based on the quantity.
+                    int offerCount = BagelList.Count(i => i.Sku == item.Sku) / item.Offer.Quantity;
+
+                    // Add the cost of the special offer to the total cost
+                    totalCost += offerCount * item.Offer.SpecialPrice;
+                }
+                else
+                {
+                    // If there is no special offer, add the regular price to the total cost
+                    totalCost += item.Price;
+                }
+            }
+
+            return Math.Round(totalCost, 2);
         }
+
+
+
 
         //user story 7
 
@@ -144,13 +172,36 @@ namespace exercise.main
             return inventory.GetItemBySKU(Sku).Price;
         }
 
-        
-        
-        
 
+        //Extension 2
+        public Receipt GenerateReceipt()
+        {
+            var receipt = new Receipt
+            {
+                ShopName = "Bob's Bagels",
+                Date = DateTime.Now
+            };
 
-        
+            foreach (var item in BagelList)
+            {
+                receipt.Items.Add(new ReceiptItem
+                {
+                    Name = item.Name,
+                    Quantity = BagelList.Count(i => i.Sku == item.Sku),
+                    Price = (item.Offer != null) ? item.Offer.SpecialPrice : item.Price
+                });
+            }
 
+            receipt.TotalCost = GetTotalCost();
 
+            return receipt;
+        }
+
+        public void PrintReceipt()
+        {
+            var receipt = GenerateReceipt();
+            receipt.PrintReceipt();
+        }
     }
+
 }
