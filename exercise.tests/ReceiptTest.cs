@@ -10,6 +10,9 @@ namespace exercise.tests
     [TestFixture]
     public class ReceiptTest
     {
+
+        //Missing parts of Test.
+        //Reformated receipt through looking at console output
         [Test]
         public void PrintReceiptTest()
         {
@@ -26,7 +29,6 @@ namespace exercise.tests
 
                 //act
                 receipt.PrintReceipt();
-                string expected = "~~~ Bob's Bagels ~~~";
 
                 //assert
                 Assert.Pass();

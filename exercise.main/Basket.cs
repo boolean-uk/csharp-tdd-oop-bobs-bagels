@@ -150,7 +150,7 @@ namespace exercise.main
                             bagelQuantity += item.Quantity;
                             bagelPrice += item.Price * item.Quantity;
                         }
-
+                        //adds coffee and bagel discount if coffee and bagel is in basket
                         if (hasCoffee && hasBagel) { 
                             hasCoffee = false;
                             hasBagel = false;
