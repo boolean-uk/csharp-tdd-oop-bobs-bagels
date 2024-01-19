@@ -64,20 +64,6 @@ namespace exercise.main
                 }
             }
 
-            public void AddDiscountToEntry(string name, string type, int quantity, double savingsOnOne)
-            {
-                Entry? entry = Entries.FirstOrDefault(entry => entry.Name == name);
-                if (entry == null)
-                {
-                    Entries.Add(new Entry(name, type, 0, 0));
-                }
-                else
-                {
-                    entry.Quantity += quantity;
-                    entry.Price = entry.Quantity * savingsOnOne;
-                }
-            }
-
             public void AddDiscounts(List<(string Name, int Quantity, double Price)> discounts)
             {
                 AddBulkDiscount(discounts);
