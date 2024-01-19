@@ -23,30 +23,33 @@ namespace exercise.main.Inventory
             _capacity = capacity;
         }
 
-        public void AddItem(string item)
+        public void AddItem(Item item)
         {
-            if (BobsInventory.Inventory.Any(x => x._SKU == item)) 
+            if(Items.Count() < _capacity)
             {
-                var item2 = BobsInventory.Inventory.Where(x => x._SKU == item).FirstOrDefault();
-                Items.Add(new Item(item2._SKU, item2._price, item2._type, item2._variant));
+                Items.Add(item);
             }
-            else if (Items.Count > _capacity) 
+            else
             {
                 Console.WriteLine("Basket is full");
             }
 
         }
 
-        public void RemoveItem(Item item) 
+        public bool RemoveItem(Item item) 
         {
+
+            bool exists = true;
             if (Items.Contains(item) != true)
             {
                 Console.WriteLine("Item does not exist in basket");
+                exists = false;
             }
             else
             {
                 Items.Remove(item);
             }
+            return exists;
           
         }
 
@@ -75,7 +78,7 @@ namespace exercise.main.Inventory
 
         }
 
-        public static string PriceOfItem(string item)
+        public string PriceOfItem(Item item)
         { 
             StringBuilder sb = new StringBuilder();
 
@@ -83,7 +86,7 @@ namespace exercise.main.Inventory
 
             foreach(var shopitem in  BobsInventory.Inventory)
             {
-                if(shopitem._variant == item)
+                if(shopitem. == item)
                 {
                     sb.Append($"Price of item: {shopitem._price}");
                     found = true;

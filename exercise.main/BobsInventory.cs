@@ -33,11 +33,8 @@ namespace exercise.main.Inventory
                      ("FILS", 0.12, Type.Filling, "Smoked Salmon"),
                      ("FILH", 0.12, Type.Filling, "Ham")
                  };
-        public List<Item> Products { get; } = new List<Item>() { };
+        
 
-        public BobsInventory ()
-        {
-            Products.Add(new Bagel("BGLO", 0.49, Type.Bagel, "Onion"));
-        }
+        
     }
 }
