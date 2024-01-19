@@ -9,7 +9,8 @@ namespace exercise.main
     {
         bool IsItemInStock(string sku);
         decimal GetProductPrice(string sku); // 7. As a customer, So I know what the damage will be, I'd like to know the cost of a bagel before I add it to my basket.
-        Item GetFilling(string sku);
+        Product GetFilling(string sku);
+        Product GetProduct(string sku);
        
     }
 }

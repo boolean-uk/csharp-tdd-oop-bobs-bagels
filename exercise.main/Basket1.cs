@@ -20,26 +20,29 @@ namespace exercise.main
         So I can order a bagel before work,
         I'd like to add a specific type of bagel to my basket.
         */
-        public bool AddToBasket(IProduct product, List<string> extraSelectedFillings) { // <--------8. As a customer, So I can shake things up a bit, I'd like to be able to choose fillings for my bagel.                                                                                                                                                                                                       
-            if (_inventory.IsItemInStock(product.Sku)) { // Checks if product is in stock
-                if (!isFull()) { // Checks if the basket has reached max capacity
+        public bool AddToBasketIfExists(string sku, List<string> extraSelectedFillings, out IProduct product) {
+            if (_inventory.IsItemInStock(sku)) {
+                product = _inventory.GetProduct(sku);
+
+                if (!isFull()) {
                     if (product is IFillable fillable) {
                         List<Tuple<string, decimal>> additionalFillings = new List<Tuple<string, decimal>>();
 
                         if (extraSelectedFillings != null) {
                             foreach (string filling in extraSelectedFillings) {
                                 if (_inventory.IsItemInStock(filling)) {
-                                    Item fillingItem = _inventory.GetFilling(filling);
-                                    if (fillingItem != null && fillingItem.Variant.Equals("Filling")) {
+                                    Product fillingItem = _inventory.GetFilling(filling);
+                                    if (fillingItem != null && fillingItem.Category.StartsWith("Filling")) {
                                         additionalFillings.Add(new Tuple<string, decimal>(fillingItem.Variant, _inventory.GetProductPrice(fillingItem.Sku)));
-                                    } else {
+                                    }
+                                    else {
                                         throw new Exception($"Invalid filling selected: {filling}");
                                     }
-                                } else {
+                                }
+                                else {
                                     throw new Exception($"Filling not in stock: {filling}");
                                 }
                             }
-                            
                         }
                         fillable._fillings.AddRange(additionalFillings);
                     }
@@ -47,18 +50,11 @@ namespace exercise.main
                     return true;
                 }
 
-
-                /*3. As a member of the public,
-                So that I can not overfill my small bagel basket
-                I'd like to know when my basket is full when I try adding an item beyond my basket capacity.
-                */
                 throw new Exception("Basket is full");
-
             }
-            throw new Exception($"Product not in stock: {product.Sku}");
+
+            throw new Exception($"Product not in stock: {sku}");
         }
-
-
 
         /*2. As a member of the public,
         So I can change my order,
@@ -106,12 +102,20 @@ namespace exercise.main
         I’d like to change the capacity of baskets.
         */
         public void ChangeBasketCapacity(int newCapacity) {
-            _capacity = newCapacity;
+            if (newCapacity > 0) {
+                _capacity = newCapacity;
+            }
+            throw new Exception("Invalid change of basket size");
         }
 
         private bool isFull()
         {
             return _products.Count >= _capacity ? true : false;
+        }
+
+        public int GetCapacity()
+        {
+            return _capacity;
         }
     }
 }

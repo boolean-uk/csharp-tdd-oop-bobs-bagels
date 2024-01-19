@@ -9,5 +9,7 @@ namespace exercise.main
     {
         string Sku { get; }
         decimal Price { get; }
+        string Category { get; }
+        string Variant { get; }
     }
 }

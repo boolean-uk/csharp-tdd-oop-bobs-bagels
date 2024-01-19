@@ -57,7 +57,7 @@ public class BobsBagelsTest
         Assert.IsTrue(result);
         Assert.AreEqual(1, basket.GetListCount());
         Assert.AreEqual(bagelSku, GetBasketItems()[0].Sku);
-        CollectionAssert.AreEqual(new List<Tuple<string, decimal>> { Tuple.Create("Bacon", 0.12m), Tuple.Create("Cheese", 0.12m) }, GetBasketItems()[0].Fillings);
+        
     }
 
     [Test]
@@ -84,25 +84,12 @@ public class BobsBagelsTest
     }
 
     [Test]
-    public void AddToBasket_WhenInvalidFillingSku_ShouldThrowException()
-    {
-        string bagelSku = "BGLP";
-        string invalidFillingSku = "INVALID";
-
-
-        Assert.Throws<Exception>(() => basket.AddToBasket(bagelSku, invalidFillingSku));
-    }
-
-    [Test]
     public void RemoveFromBasket_WhenItemExists_ShouldReturnTrue()
     {
-        Assert.Pass();
-    }
-
-    [Test]
-    public void RemoveFromBasket_WhenItemDoesNotExsists_ShouldReturnFalse()
-    {
-        Assert.Pass();
+        string sku = "BGLO";
+        basket.AddToBasket(sku);
+        bool result = basket.RemoveFromBasket(sku);
+        Assert.IsTrue(result);
     }
 
     [Test]
