@@ -5,7 +5,7 @@ BobsBagels store = new BobsBagels();
 Basket basket = new Basket();
 store.AddBasket(basket);
 store.IncreaseCapacity(20);
-Bagel bagel;
+Product bagel;
 
 
 for (int i = 0; i < 2; i++)
@@ -26,7 +26,7 @@ for (int i = 0; i < 6; i++)
     basket.Add(bagel);
 }
 
-Coffee coffee;
+Product coffee;
 for (int i = 0; i < 3; i++)
 {
     coffee = new Coffee("COFB");

@@ -13,7 +13,7 @@ public class Tests
     [Test]
     public void TestFilling()
     {
-        Filling filling = new Filling("FILB");
+        Product filling = new Filling("FILB");
 
         Assert.That(filling.Variant, Is.EqualTo("Bacon"));
         Assert.That(filling.Price, Is.EqualTo(0.12));
@@ -23,7 +23,7 @@ public class Tests
     [Test]
     public void TestBagelConstructor()
     {
-        Bagel bagel = new Bagel("BGLO");
+        Product bagel = new Bagel("BGLO");
 
         Assert.That(bagel.Variant, Is.EqualTo("Onion"));
         Assert.That(bagel.Price, Is.EqualTo(0.49));
@@ -33,7 +33,7 @@ public class Tests
     [Test]
     public void TestBagelSetFilling()
     {
-        Filling filling = new Filling("FILB");
+        Product filling = new Filling("FILB");
 
         Assert.That(filling.Variant, Is.EqualTo("Bacon"));
     }
@@ -52,7 +52,7 @@ public class Tests
     public void TestBasketAdd()
     {
         Basket basket = new Basket();
-        Bagel bagel = new Bagel("BGLO");
+        Product bagel = new Bagel("BGLO");
 
         basket.Add(bagel);
 
@@ -78,7 +78,7 @@ public class Tests
     public void TestBasketRemove()
     {
         Basket basket = new Basket();
-        Bagel bagel = new Bagel("BGLO");
+        Product bagel = new Bagel("BGLO");
 
         basket.Add(bagel);
         basket.Remove(bagel);
@@ -135,7 +135,7 @@ public class Tests
     [Test]
     public void TestCoffeeConstructor()
     {
-        Coffee coffee = new Coffee("COFW");
+        Product coffee = new Coffee("COFW");
 
         Assert.That(coffee.Variant, Is.EqualTo("White"));
         Assert.That(coffee.SKU, Is.EqualTo("COFW"));
@@ -146,7 +146,7 @@ public class Tests
     public void TestAddCoffee()
     {
         Basket basket = new Basket();
-        Coffee coffee = new Coffee("COFB");
+        Product coffee = new Coffee("COFB");
 
         basket.Add(coffee);
 
@@ -170,7 +170,7 @@ public class Tests
     public void TestRemoveCoffee()
     {
         Basket basket = new Basket();
-        Coffee coffee = new Coffee("COFB");
+        Product coffee = new Coffee("COFB");
 
         basket.Add(coffee);
         basket.Remove(coffee);
@@ -184,7 +184,7 @@ public class Tests
     public void TestAddNonExistantBagel()
     {
         Basket basket = new Basket();
-        Bagel bagel;
+        Product bagel;
 
         Assert.Throws<Exception>(() => bagel = new Bagel("Chicken"));
     }
@@ -207,8 +207,8 @@ public class Tests
     public void TestPricing()
     {
         Basket basket = new Basket();
-        Bagel bagel = new Bagel("BGLO");
-        Coffee coffee = new Coffee("COFW");
+        Product bagel = new Bagel("BGLO");
+        Product coffee = new Coffee("COFW");
 
         basket.Add(bagel);
         Assert.That(basket.GetTotal(), Is.EqualTo(0.49));
@@ -229,7 +229,7 @@ public class Tests
         BobsBagels store = new BobsBagels();
         Basket basket = new Basket();
         store.AddBasket(basket);
-        Bagel bagel;
+        Product bagel;
 
         for (int i = 0; i < 6; i++)
         {
@@ -268,7 +268,7 @@ public class Tests
         Basket basket = new Basket();
         store.AddBasket(basket);
         store.IncreaseCapacity(20);
-        Bagel bagel;
+        Product bagel;
         
 
         for (int i = 0; i < 2; i++)
@@ -289,7 +289,7 @@ public class Tests
             basket.Add(bagel);
         }
 
-        Coffee coffee;
+        Product coffee;
         for (int i = 0; i < 3; i++)
         {
             coffee = new Coffee("COFB");
@@ -307,7 +307,7 @@ public class Tests
         Basket basket = new Basket();
         store.AddBasket(basket);
         store.IncreaseCapacity(20);
-        Bagel bagel;
+        Product bagel;
 
 
         for (int i = 0; i < 20; i++)
@@ -326,7 +326,7 @@ public class Tests
         Basket basket = new Basket();
         store.AddBasket(basket);
         store.IncreaseCapacity(20);
-        Bagel bagel;
+        Product bagel;
 
 
         for (int i = 0; i < 26; i++)
@@ -345,7 +345,7 @@ public class Tests
         Basket basket = new Basket();
         store.AddBasket(basket);
         store.IncreaseCapacity(20);
-        Bagel bagel;
+        Product bagel;
 
         for (int i = 0; i < 30; i++)
         {
@@ -363,7 +363,7 @@ public class Tests
         Basket basket = new Basket();
         store.AddBasket(basket);
         store.IncreaseCapacity(30);
-        Bagel bagel;
+        Product bagel;
 
         for (int i = 0; i < 31; i++)
         {
@@ -378,7 +378,7 @@ public class Tests
     public void TestReceiptConstructor()
     {
         Basket basket = new Basket();
-        Bagel bagel = new Bagel("BGLO");
+        Product bagel = new Bagel("BGLO");
 
         basket.Add(bagel);
 
