@@ -10,10 +10,7 @@ namespace exercise.main.Inventory
     {
         public Filling(string sku, double price, Type type, string variant) : base(sku, price, type, variant)
         {
-            _SKU = sku;
-            _price = price;
-            _type = type;
-            _variant = variant;
+            
         }
     }
 }

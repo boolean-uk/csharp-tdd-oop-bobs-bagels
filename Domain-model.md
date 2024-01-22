@@ -51,28 +51,20 @@ I want customers to only be able to order things that we stock in our inventory.
 
 
 
-Add
-Remove
-HowManyMoreBagels
-ChangeBasketSize
-TotalCost
-BagelCost
-Choose Fillings
-CostOfFilling
-OnlyOrderFromStock
 
--------------------------------------------------------------------------------------------------------------------------------------
-| Classes	| Methods										| Scenario		| Output	|
-|			|												|				|			|
-| `Basket`	|												|				|			|
-|			|`AddItem(string type,string filling, int)`		|				|			| 
-|			|`RemoveBagel(string)`							|				|			|
-|			|`HowManyMoreItems()`							|				|			|
-|			|`CalculateSum()`								|				|			|
-|			|`CostOfBagel(string)`							|				|			|
-|			|`ChangeBasketSize(int)`						|				|			|
-|			|`CostOfFilling(string)`						|				|			|
-|			|`ListOfInventory()`							|				|			|
-|			|												|				|			|
-|			|												|				|			|
-| `Bagel`	|												|				|			|
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+| Classes			| Methods										| Scenario						| Output											|
+|					|												|								|													|
+| `Basket`			|												|								|													|
+|					|`AddItem(string type,string filling, int)`		|`If basket is full`			|`"Basket is full"`									| 
+|					|`RemoveItem(string)`							|`If item doesnt exist`			|`"No such item in inventory"`						|
+|					|`ListOfItems()`								|`If i want to see item list`	|`foreach item Print "Price of item: {item.price}"`	|
+|					|`PriceOfItem(Item item)`						|`I want to see price of item`	|`"Price of item: {item.price}"`					|
+|					|`ChangeBasketSize(int)`						|								|													|
+|					|`TotalCost()`									|								|													|
+| `Item`			|												|								|													|
+| `Bagel`			|												|								|													|
+| `Filling`			|												|								|													|
+| `Coffee`			|												|								|													|
+| `BobsInventory`	|												|								|													|
