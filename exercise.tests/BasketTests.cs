@@ -3,6 +3,8 @@ using exercise.main;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 using NuGet.Frameworks;
 using System.Security.Cryptography;
+using NUnit.Framework.Interfaces;
+using System.Drawing;
 
 namespace exercise.tests;
 
@@ -15,12 +17,9 @@ public class BasketTests
     [SetUp]
     public void Setup()
     {
-        IInventory wholeInventory = new WholeInventory();
-        IInventory bagelInventory = new BagelInventory();
-        IInventory coffeeInventory = new CoffeeInventory();
-        IInventory fillingsInventory = new FillingInventory();
-        testBasket = new Basket(wholeInventory);  // default
-        inv = wholeInventory.getInventory();
+        Inventory inventory = new Inventory();
+        testBasket = new Basket(inventory);
+        inv = inventory.getInventory();
     }
 
     [Test]
@@ -34,15 +33,15 @@ public class BasketTests
 
         Bagel item2 = new Bagel("AAAA", "Fake", 0.0F, "B");
 
-        Item res2 = testBasket.AddItem(item2);
-
-        Assert.That(res2.SKU, Is.EqualTo("none"));
+        Exception ex = Assert.Throws<System.Exception>(() => testBasket.AddItem(item2));
+        Assert.That(ex.Message, Is.EqualTo("SKU not found!"));
 
     }
 
     [Test]
     public void RemoveItem()
     {
+
         Item item = inv["BGLO"];
         Item item2 = inv["BGLP"];
         Bagel itemFake = new Bagel("AAAA", "Fake", 0.0F, "B");
@@ -61,7 +60,7 @@ public class BasketTests
     [Test]
     public void CapacityExceededMessage()
     {
-        
+
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
@@ -71,21 +70,14 @@ public class BasketTests
         testBasket.AddItem(inv["BGLS"]);
         testBasket.AddItem(inv["COFW"]);
 
-        Item res = testBasket.AddItem(inv["BGLE"]);
-
-        var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
-
-        Assert.That(res.SKU, Is.EqualTo("none"));
+        Exception ex = Assert.Throws<System.Exception>(() => testBasket.AddItem(inv["BGLE"]));
+        Assert.That(ex.Message, Is.EqualTo("Basket size exceeded!"));
   
     }
 
     [Test]
     public void ChangeCapacity()
     {
-        
-        var stringWriter = new StringWriter();
-        Console.SetOut(stringWriter);
 
         testBasket.ChangeCapacity(3);
 
@@ -93,24 +85,23 @@ public class BasketTests
         testBasket.AddItem(inv["BGLP"]);
         testBasket.AddItem(inv["COFB"]);
 
-        Item res = testBasket.AddItem(inv["BGLE"]);
+        Exception ex = Assert.Throws<System.Exception>(() => testBasket.AddItem(inv["BGLE"]));
+        Assert.That(ex.Message, Is.EqualTo("Basket size exceeded!"));
 
-        var outputLines = stringWriter.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        Assert.That("Basket size exceeded!", Is.EqualTo(outputLines[0]));
+        Exception ex2 = Assert.Throws<System.Exception>(() => testBasket.ChangeCapacity(1));
+        Assert.That(ex2.Message, Is.EqualTo("Cannot reduce the basket size below current item count!"));
 
-        Assert.That(res.SKU, Is.EqualTo("none"));
-        
     }
 
     [Test]
     public void NotRemovable()
     {
-       
+
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
 
-        Item t1 = testBasket.AddItem(inv["BGLO"]);
-        Item t2 = testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
+        testBasket.AddItem(inv["BGLO"]);
 
         bool res = testBasket.RemoveItem(inv["BGLE"]);
 
@@ -125,28 +116,28 @@ public class BasketTests
     [Test]
     public void TotalCostReceived()
     {
-        
+
         float totalInit = testBasket.TotalCost();
 
         Assert.That(totalInit, Is.EqualTo(0F));
 
         Item t1 = testBasket.AddItem(inv["BGLO"]);
-        Item t2 = testBasket.AddItem(inv["BGLE"]);
+        testBasket.AddItem(inv["BGLE"]);
 
         Filling filling = (Filling)inv["FILB"];
-
+       
         testBasket.AddFilling(t1.ID, filling);
 
         float total = testBasket.TotalCost();
 
         Assert.That(total, Is.EqualTo(1.1F));
-        
+
     }
 
     [Test]
     public void ItemPriceRetreivable()
     {
-        
+
         float itemPrice1 = testBasket.GetItemPrice(inv["BGLO"]);
         float itemPrice2 = testBasket.GetItemPrice(inv["BGLP"]);
 
@@ -163,7 +154,7 @@ public class BasketTests
     [Test]
     public void FillingPriceRetreivable()
     {
-        
+
         float itemPrice1 = testBasket.GetItemPrice(inv["FILX"]);
         float itemPrice2 = testBasket.GetItemPrice(inv["FILS"]);
 
@@ -175,7 +166,7 @@ public class BasketTests
     [Test]
     public void AddFillings()
     {
-        
+
         Bagel it1 = (Bagel)testBasket.AddItem(inv["BGLE"]);
         Bagel it2 = (Bagel)testBasket.AddItem(inv["BGLE"]);
 
@@ -203,11 +194,16 @@ public class BasketTests
     [Test]
     public void OnlyValidOrders()
     {
+      
         Bagel item2 = new Bagel("AAAA", "Fake", 0.0F, "B");
+        Coffee item4 = new Coffee("AAAA", "Fake", 0.0F, "B");
         Filling item3 = new Filling("AAAA", "Fake", 0.0F, "B");
 
-        Item it1 = testBasket.AddItem(item2);
-        Assert.That(it1.SKU, Is.EqualTo("none"));
+        Exception ex = Assert.Throws<System.Exception>(() => testBasket.AddItem(item2));
+        Assert.That(ex.Message, Is.EqualTo("SKU not found!"));
+
+        Exception ex2 = Assert.Throws<System.Exception>(() => testBasket.AddItem(item3));
+        Assert.That(ex2.Message, Is.EqualTo("SKU not found!"));
 
         Bagel it2 = (Bagel)testBasket.AddItem(inv["BGLE"]);
         testBasket.AddFilling(it2.ID, item3);
@@ -221,7 +217,7 @@ public class BasketTests
     [Test]
     public void DiscountBagelBundle6()
     {
-        
+
         testBasket.ChangeCapacity(15);
 
         Item i1 = testBasket.AddItem(inv["BGLE"]);
@@ -252,7 +248,7 @@ public class BasketTests
     [Test]
     public void DiscountBagelBundle12()
     {
-        
+     
         testBasket.ChangeCapacity(15);
 
         Item i1 = testBasket.AddItem(inv["BGLE"]);
@@ -278,7 +274,7 @@ public class BasketTests
     [Test]
     public void DiscountCoffeeAndBagel()
     {
-        
+       
         Item i1 = testBasket.AddItem(inv["BGLE"]);
         Item i2 = testBasket.AddItem(inv["COFB"]);
 
@@ -291,7 +287,8 @@ public class BasketTests
 
     [Test]
     public void ReceitPrinted()
-    {        
+    {
+
         testBasket.ChangeCapacity(30);
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
@@ -338,17 +335,17 @@ public class BasketTests
 
         Assert.That(enteredDate, Is.InstanceOf(now.GetType()));
         Assert.That("------------------------------", Is.EqualTo(outputLines[2]));
-        Assert.That("Bagel & Coffee        2  £1,25", Is.EqualTo(outputLines[3]));
-        Assert.That("                      (-£0,27)", Is.EqualTo(outputLines[4]));
-        Assert.That("Everything Bagel     12  £3,99", Is.EqualTo(outputLines[5]));
-        Assert.That("                      (-£1,89)", Is.EqualTo(outputLines[6]));
-        Assert.That("Onion Bagel           6  £2,49", Is.EqualTo(outputLines[7]));
-        Assert.That("                      (-£0,45)", Is.EqualTo(outputLines[8]));
-        Assert.That("Everything Bagel      1  £0,49", Is.EqualTo(outputLines[9]));
+        Assert.That("Bagel & Coffee        2  Â£1,25", Is.EqualTo(outputLines[3]));
+        Assert.That("                      (-Â£0,27)", Is.EqualTo(outputLines[4]));
+        Assert.That("Everything Bagel     12  Â£3,99", Is.EqualTo(outputLines[5]));
+        Assert.That("                      (-Â£1,89)", Is.EqualTo(outputLines[6]));
+        Assert.That("Onion Bagel           6  Â£2,49", Is.EqualTo(outputLines[7]));
+        Assert.That("                      (-Â£0,45)", Is.EqualTo(outputLines[8]));
+        Assert.That("Everything Bagel      1  Â£0,49", Is.EqualTo(outputLines[9]));
         Assert.That("------------------------------", Is.EqualTo(outputLines[10]));
-        Assert.That("Total                    £8,22", Is.EqualTo(outputLines[11]));
+        Assert.That("Total                    Â£8,22", Is.EqualTo(outputLines[11]));
 
-        Assert.That("   You saved a total of £2,61", Is.EqualTo(outputLines[12]));
+        Assert.That("   You saved a total of Â£2,61", Is.EqualTo(outputLines[12]));
         Assert.That("         on this shop", Is.EqualTo(outputLines[13]));
 
         Assert.That("           Thank you", Is.EqualTo(outputLines[15]));
