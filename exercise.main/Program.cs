@@ -1,138 +1,142 @@
-﻿using exercise.main;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Program
+namespace exercise.main
 {
-    static List<Product> basket = new List<Product>();
-    static void Main(string[] args)
+    class Program
     {
-        Inventory inventory = new Inventory();
-        bool showMenu = true;
-        while (showMenu)
+        static Basket basket = new Basket();
+
+        static void Main(string[] args)
         {
-            showMenu = MainMenu(inventory);
-        }
-    }
+            Inventory inventory = new Inventory();
+            bool showMenu = true;
 
-    private static bool MainMenu(Inventory inventory)
-    {
-        Console.Clear();
-        Console.WriteLine("Welcome to Bob's Bagels - Best bagels in town!");
-        Console.WriteLine("Choose an option:");
-        Console.WriteLine("1. Add item to basket");
-        Console.WriteLine("2. Remove item from basket");
-        Console.WriteLine("3. Show total price of basket");
-        Console.WriteLine("4. Exit");
-
-        switch (Console.ReadLine())
-        {
-            case "1":
-                AddItemToBasket(inventory.Products);
-                return true;
-            case "2":
-                RemoveItemFromBasket();
-                return true;
-            case "3":
-                ShowReceipt();
-                return true;
-            case "4":
-                return false;
-            default:
-                return true;
-
-        }
-    }
-
-    private static void AddItemToBasket(List<Product> products)
-    {
-        Console.Clear();
-        Console.WriteLine("Choose a product:");
-
-        bool addingItems = true;       
-
-        while (addingItems)
-        {
-            for (int i = 0; i < products.Count; i++)
+            while (showMenu)
             {
-                Console.WriteLine($"{i + 1}. {products[i].Name} - {products[i].Variant} - ${products[i].Price}");
+                showMenu = MainMenu(inventory);
+            }
+        }
+
+        private static bool MainMenu(Inventory inventory)
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome to Bob's Bagels - Best bagels in town!");
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1. Add item to basket");
+            Console.WriteLine("2. Remove item from basket");
+            Console.WriteLine("3. Show total price of basket");
+            Console.WriteLine("4. Change basket capacity");
+            Console.WriteLine("5. Exit");
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    AddItemToBasket(inventory.Products);
+                    return true;
+                case "2":
+                    RemoveItemFromBasket();
+                    return true;
+                case "3":
+                    ShowReceipt();
+                    return true;
+                case "4":
+                    ChangeBasketCapacity();
+                    return true;
+                case "5":
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        private static void AddItemToBasket(List<Product> products)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose a product:");
+
+            bool addingItems = true;
+
+            while (addingItems)
+            {
+                for (int i = 0; i < products.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {products[i].Name} - {products[i].Variant} - ${products[i].Price}");
+                }
+
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= products.Count)
+                {
+                    basket.AddItem(products[choice - 1]);
+
+                    Console.WriteLine("Do you want to add another item? (Y/N)");
+                    string response = Console.ReadLine().Trim().ToUpper();
+
+                    if (response != "Y")
+                    {
+                        addingItems = false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                }
             }
 
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= products.Count)
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
+
+        private static void RemoveItemFromBasket()
+        {
+            Console.Clear();
+            if (basket.GetBasketCount() == 0)
             {
-                basket.Add(products[choice - 1]);
-                Console.WriteLine($"{products[choice - 1].Name} was added to the basket!");
+                Console.WriteLine("Basket is empty.");
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+                return;
+            }
 
-                Console.WriteLine("Do you want to add another item? (Y/N)");
-                string response = Console.ReadLine().Trim().ToUpper();
+            Console.WriteLine("Choose an item to remove from the basket:");
+            for (int i = 0; i < basket.GetBasketCount(); i++)
+            {
+                Console.WriteLine($"{i + 1}. {basket.GetItem(i).Name} - {basket.GetItem(i).Variant} - ${basket.GetItem(i).Price}");
+            }
 
-                if (response != "Y")
-                {
-                    addingItems = false;
-                }
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= basket.GetBasketCount())
+            {
+                basket.RemoveItem(choice - 1);
             }
             else
             {
                 Console.WriteLine("Invalid choice. Please try again.");
             }
-        }
 
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
-    }
-
-    private static void RemoveItemFromBasket()
-    {
-        Console.Clear();
-        if (basket.Count == 0)
-        {
-            Console.WriteLine("Basket is empty.");
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
-            return;
         }
 
-        Console.WriteLine("Choose an item to remove from the basket:");
-        for (int i = 0; i < basket.Count; i++)
+        private static void ShowReceipt()
         {
-            Console.WriteLine($"{i + 1}. {basket[i].Name} - {basket[i].Variant} - ${basket[i].Price}");
+            basket.ShowReceipt();
         }
 
-        if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= basket.Count)
+        private static void ChangeBasketCapacity()
         {
-            Product removedItem = basket[choice - 1];
-            basket.RemoveAt(choice - 1);
-            Console.WriteLine($"{removedItem.Name} removed from the basket!");
-        }
-        else
-        {
-            Console.WriteLine("Invalid choice. Please try again.");
-        }
-
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
-    }
-
-    private static void ShowReceipt()
-    {
-        Console.Clear();
-
-        if (basket.Count == 0)
-        {
-            Console.WriteLine("Basket is empty. Total price: $0.00");
-        }
-        else
-        {
-            Console.WriteLine("Items in the basket:");
-            for (int i = 0; i < basket.Count; i++)
+            Console.Clear();
+            Console.WriteLine("Enter the new basket capacity:");
+            if (int.TryParse(Console.ReadLine(), out int newCapacity))
             {
-                Console.WriteLine($"{i + 1}. {basket[i].Name} - {basket[i].Variant} - ${basket[i].Price}");
+                basket.ChangeBasketCapacity(newCapacity);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
             }
 
-            double total = basket.Sum(item => item.Price);
-            Console.WriteLine($"Total price: ${total}");
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
         }
-
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
     }
-
 }
