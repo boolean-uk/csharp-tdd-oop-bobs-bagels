@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,18 @@ namespace exercise.main
         {
             List<(string Key, float Value)> combinedProducts = bagelPrices.Select(p => (p.Key, p.Value)).Concat(coffeePrices.Select(p => (p.Key, p.Value))).OrderBy(p => p.Value).ToList();
             return combinedProducts.Select(p => p.Key).ToList();
+        }
+
+        public static Dictionary<string, float> GetValidProductsInformation()
+        {
+            Dictionary<string, float> combinedProducts = new Dictionary<string, float>();
+            combinedProducts = bagelPrices.Concat(coffeePrices).ToDictionary(x => x.Key, x => x.Value);
+            return combinedProducts;
+        }
+
+        public static Dictionary<string, float> GetValidFillingInformation()
+        {
+            return new Dictionary<string, float>(fillingPrices);
         }
     }
 }

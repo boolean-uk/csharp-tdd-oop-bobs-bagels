@@ -3,6 +3,8 @@
 
 using exercise.main;
 
+// I will leave this here if receipt print testing is desired.
+/* 
 Person bob = new Person("Customer 1", true);
 Basket basket = bob.GetBasket();
 
@@ -29,3 +31,6 @@ basket.AddItemToBasket(new string[] { "BGLE", "FILC" });
 basket.AddItemToBasket(new string[] { "COFB" });
 
 basket.PrintReceipt();
+*/
+
+ProgramCLI program = new ProgramCLI();
