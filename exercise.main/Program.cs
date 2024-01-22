@@ -13,6 +13,7 @@ class Program
         // Add items to the order
         InventoryItem onionVariant = inventory.GetItem("BGLO");
         InventoryItem everythingVariant = inventory.GetItem("BGLE");
+        InventoryItem blackCoffee = inventory.GetItem("COFB");
 
         // Adding 2 Onion Bagels
         for (int i = 0; i < 2; i++)
@@ -24,6 +25,11 @@ class Program
         for (int i = 0; i < 8; i++)
         {
             order.Add(new Bagel(everythingVariant));
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            order.Add(new Bagel(blackCoffee));
         }
 
         // Create and display the receipt

@@ -94,23 +94,23 @@ namespace exercise.main
 
             private void AddCoffeeAndBagelDiscount((string Name, int Quantity, double Price) discount)
             {
-                if ((discount.Name == null && discount.Quantity == 0 && discount.Price == 0.0))
+                int coffeeCount = Entries.Where(entry => entry.Type == "Coffee").Sum(entry => entry.Quantity);
+
+                // Counting bagels that are not part of other discounts
+                int eligibleBagelCount = Entries
+                    .Where(entry => entry.Type == "Bagel" && !Entries.Any(d => d.Type == "Discount" && d.Name == entry.Name))
+                    .Sum(entry => entry.Quantity);
+
+                // Determine how many times the "Coffee & Bagel" discount applies
+                int discountApplicationCount = Math.Min(coffeeCount, eligibleBagelCount);
+
+                if (discountApplicationCount > 0)
                 {
-                    List<Entry> coffeeEntries = Entries.Where(entry => entry.Type == "Coffee").ToList();
-
-                    Entry? entry = coffeeEntries.FirstOrDefault(entry => entry.Name == discount.Name);
-                    if (entry != null)
-                    {
-                        int howManyTimesDoesItApply = entry.Quantity / discount.Quantity;
-
-                        if (howManyTimesDoesItApply > 0)
-                        {
-                            double discountPrice = howManyTimesDoesItApply * discount.Price;
-                            Entries.Add(new Entry(discount.Name, "Discount", howManyTimesDoesItApply, discountPrice));
-                        }
-                    }
+                    double totalDiscountAmount = discountApplicationCount * discount.Price;
+                    Entries.Add(new Entry(discount.Name, "Discount", discountApplicationCount, -totalDiscountAmount));
                 }
             }
+
         }
 
         public Receipt CreateReceipt(Order order)
@@ -165,6 +165,13 @@ namespace exercise.main
                     string savingsLine = $"(-£{(-discountEntry.Price).ToString("0.00")})";
                     receiptText.AppendLine(savingsLine.PadLeft(28));
                 }
+            }
+            var coffeAndBagelDiscount = receipt.Entries.FirstOrDefault(e => e.Type == "Discount" && e.Name == "Coffee & Bagel");
+            
+            if (coffeAndBagelDiscount != null)
+            {
+                string savingsLine2 = $"(-£{(-coffeAndBagelDiscount.Price).ToString("0.00")})";
+                receiptText.AppendLine(savingsLine2.PadLeft(28));
             }
 
             receiptText.AppendLine("");
