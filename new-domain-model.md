@@ -1,3 +1,18 @@
+Extension user stories
+
+As a Bob's Bagels manager,
+So I can attract more customers with offers,
+I'd like to have bundle discounts available on my shop.
+
+As a member of the public,
+So that I can keep track of my spending,
+I'd like to receive a receipt of my purchases.
+
+As a Bob's Bagels manager,
+So that I can encourage customers to visit more often,
+I want to emphasize how much a customer has saved in the receit when they buy bundles.
+
+
 Class
 : `Basket()`
 
