@@ -14,21 +14,13 @@ namespace exercise.main
         
         public Bagel(string sku, string name, float price, string variant) : base(sku, name, price, variant) 
         {
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
+            _SKU = sku;
+            _Name = name;
+            _Price = price;
+            _Variant = variant;
         }
 
-
-        public Bagel()
-        {
-            SKU = "none";
-            Name = "none";
-            Variant = "none";
-        }
-
-        public void AddFilling(Item item)
+        public void AddFillingToBagel(Item item)
         {
             Contents.Add(item);
         }

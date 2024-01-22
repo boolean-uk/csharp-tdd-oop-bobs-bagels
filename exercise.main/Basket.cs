@@ -12,14 +12,13 @@ namespace exercise.main
     public class Basket
     {
         private List<Item> _basket = new List<Item>();
-        private IInventory _inventory;
+        private Inventory _inventory;
         private int _capacity = 5;
         private List<float> totalCost = new List<float>();
         private enum Bundles { b6, b12, bac };
 
-        // Basket can be instansiated with the full inventory
-        // or a subinventory (bagels, coffees, fillings)
-        public Basket(IInventory inventory) 
+
+        public Basket(Inventory inventory) 
         {
             this._inventory = inventory;
         }
@@ -35,8 +34,6 @@ namespace exercise.main
 
         public Item AddItem(Item item)
         {
-            Item noneItem = new Bagel();
-
             List<Item> AllProducts = _inventory.listContents();
 
             if (AllProducts.Exists(x => x.SKU == item.SKU) && _basket.Count < _capacity)
@@ -49,14 +46,12 @@ namespace exercise.main
                 return newItem;
             }
 
-
             if (_basket.Count >= _capacity)
             {
-                Console.WriteLine("Basket size exceeded!");
-                return noneItem;
+                throw new Exception("Basket size exceeded!");
             }
 
-            return noneItem;
+            throw new Exception("SKU not found!");
         }
 
         public void BundleOrder(string descr, List<Item> items)
@@ -161,26 +156,30 @@ namespace exercise.main
 
         public void ChangeCapacity(int newCapacity)
         {
+            if(newCapacity < _basket.Count )
+            {
+                throw new Exception("Cannot reduce the basket size below current item count!");
+            }
             this._capacity = newCapacity;
         }
 
+
+
         public void AddFilling(string ID, Filling filling)
         {
-            if (!_inventory.getInventory().Keys.Contains("FILB"))
-            {
-                Console.WriteLine("The inventory you're using does not contain fillings!");
-                return;
-            }
-            Bagel it = (Bagel)_basket.Single(x => x.ID == ID);
+            
+             Bagel it = (Bagel)_basket.Single(x => x.ID == ID);
+
             List<Item> fillings = _inventory.listContents();
 
             if (fillings.Exists(x => x.SKU  == filling.SKU) )
             {
-                Item fill = fillings.Single(x => x.SKU == filling.SKU);
-                it.AddFilling(fill);  // 
-                totalCost.Add(fill.Price);
+                it.AddFillingToBagel(filling);
+                totalCost.Add(filling.Price);
             }
         }
+
+
         public float TotalCost()
         {
             return totalCost.Sum();

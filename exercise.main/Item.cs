@@ -8,24 +8,30 @@ using System.Xml;
 
 namespace exercise.main
 {
-    public abstract class Item
+    public abstract class Item : IItem
     {
-        public string ID;
-        public string SKU;
-        public string Name;
-        public string Variant;
-        public float Price;
+        protected string _ID;
+        protected string _SKU;
+        protected string _Name;
+        protected string _Variant;
+        protected float _Price;
+
+        public string ID { get { return _ID;  } }
+        public string SKU { get { return _SKU; } }
+        public string Name { get { return _Name; } }
+        public string Variant { get { return _Variant; } }
+        public float Price { get { return _Price; } }
 
         public bool inBundle = false;
-        public List<string> inBundleWith = new List<string>(12);
+        public List<string> inBundleWith = new List<string>();
 
         public Item(string sku, string name, float price, string variant)
         {
-            ID = Guid.NewGuid().ToString();
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
+            _ID = Guid.NewGuid().ToString();
+            _SKU = sku;
+            _Name = name;
+            _Price = price;
+            _Variant = variant;
         }
 
         public Item() { }

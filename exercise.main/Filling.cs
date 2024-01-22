@@ -13,10 +13,10 @@ namespace exercise.main
     {
         public Filling(string sku, string name, float price, string variant) : base(sku, name, price, variant)
         {
-            SKU = sku;
-            Name = name;
-            Price = price;
-            Variant = variant;
+            _SKU = sku;
+            _Name = name;
+            _Price = price;
+            _Variant = variant;
         }
 
         public override void putToBundle(List<string> skus)
