@@ -8,13 +8,10 @@ namespace exercise.main
 {
     public class Filling : Item
     {
-        //private Inventory inventory = new Inventory();
-        public string Variant { get; private set; }
-
 
         public Filling(string variant) : base(0, "", "", "")
         {
-            this.Variant = variant;
+          
         }
 
 

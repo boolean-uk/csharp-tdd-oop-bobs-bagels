@@ -183,7 +183,7 @@ namespace exercise.tests
         [Test]
         public void addFillingTestFail()
         {
-            Bagel BagelOnion = new Bagel("Onion");
+            Bagel BagelOnion = new Bagel("BGLO");
             //testing for an item that is not a filling
             // Add bagel to the basket
             string message1;
@@ -207,7 +207,7 @@ namespace exercise.tests
         [Test]
         public void addFillingToBagelTest()
         {
-            Bagel BagelSesame = new Bagel("Sesame");
+            Bagel BagelSesame = new Bagel("BGLS");
              //Add bagel to the basket
 
             Item _filling = new Item(0.12f, "Filling", "Bacon", "FILB");
@@ -228,7 +228,7 @@ namespace exercise.tests
         [Test]
         public void AddFillingTestFailBagelNotInBasket()
         {
-            Bagel BagelOnion = new Bagel("Onion");
+            Bagel BagelOnion = new Bagel("BGLO");
             // Try to add filling to a bagel not in the basket
             Item _filling1 = new Item(0.12f, "Filling","Bacon", "FILB");
             string message;
@@ -242,8 +242,38 @@ namespace exercise.tests
         }
 
 
+
+        [Test]
+        public void CalculateTotalCost_WithoutFilling_ShouldReturnBagelPrice()
+        {
+            // Arrange
+            Bagel bagel5 = new Bagel("BGLS");
+
+            // Act
+            float totalCost = bagel5.CalculateTotalCost();
+
+            // Assert
+            Assert.AreEqual(0.49f, totalCost);
+        }
+
+        [Test]
+        public void CalculateTotalCost_WithOneFilling_ShouldReturnBagelAndFillingPrice()
+        {
+            // Arrange
+            Bagel bagel = new Bagel("BGLS");
+        
+            Item filling = new Item(0.12f, "Filling", "Bacon", "FILB");
+            bagel.AddSubItems(filling);
+
+            // Act
+            float totalCost = bagel.CalculateTotalCost();
+
+            // Assert
+            Assert.AreEqual(0.49f + 0.12f, totalCost);
+        }
+
     }
 
 
-   
+
 }

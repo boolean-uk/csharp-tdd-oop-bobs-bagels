@@ -10,11 +10,18 @@ namespace exercise.main
     {
         private Inventory inventory = new Inventory();
         public string Variant { get; private set; }
+        public float Price { get; private set; }
+        public string SKU { get; private set; }
+        public string Name { get; private set; }
 
 
-        public Bagel(string variant) : base(0, "", "", "")
+        public Bagel(string SKU) : base(0, "", "", "")
         {
-            this.Variant = variant;
+            Item bagelprod = inventory.GetProduct(SKU);
+            this.Price = bagelprod.Price;
+            this.Variant = bagelprod.Variant;
+            this.SKU = SKU;
+            this.Name = bagelprod.Name;
         }
 
         public bool AddFillingToBagel(string productSKU, Item filling, out string errorMessage)
@@ -43,6 +50,22 @@ namespace exercise.main
                 return false;
             }
         }
+
+        public float CalculateTotalCost()
+        {
+            float totalCost = this.Price; // Start with the bagel's own price
+
+            // Add the cost of each filling
+            foreach (Item subItem in GetSubItems())
+            {
+                totalCost += subItem.Price;
+            }
+
+            return totalCost;
+        }
+
+
+
 
     }
 

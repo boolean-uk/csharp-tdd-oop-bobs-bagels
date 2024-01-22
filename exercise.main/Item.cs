@@ -37,6 +37,12 @@ namespace exercise.main
             return subItems;
         }
 
+        public float seePrice()
+        {
+            return this.Price; // Start with the bagel's own price
+        }
+
+
 
     }
 

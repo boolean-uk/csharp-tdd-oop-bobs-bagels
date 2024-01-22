@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace exercise.main
 {
     
-        public class Basket : Item
+        public class Basket
         {
             
             private List<Item> basket = new List<Item>();
@@ -16,7 +16,7 @@ namespace exercise.main
             private int basketCapacity;
             private Inventory inventory;
 
-            public Basket(Inventory inventory) : base(0, "", "", "") // Call the base class constructor
+            public Basket(Inventory inventory) 
             {
                 basketCapacity = 2;
                 this.inventory = inventory;
@@ -84,7 +84,8 @@ namespace exercise.main
             }
 
 
-    
+    // cost of bagel before added to basket
+    //cost of filling before adding
         }
     
 }
