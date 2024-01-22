@@ -1,87 +1,59 @@
-﻿using System;
+﻿using exercise.main.Products;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace exercise.main
 {
     public class Inventory
     {
-        private string[] _SKU = { "BGLO", "BGLP", "BGLE", "BGLS", "COFB", "COFW", "COFC", "COFL" };
-        private string[] _SKUFillings ={"FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
-        private double[] _Price = { 0.49, 0.39, 0.49, 0.49, 0.99, 1.19, 1.29, 1.29 };
-        private string[] _ProductName = { "Bagel", "Coffe", "Filling", };
-        private string[] _Variant = { "Onion", "Plain", "Everything", "Sesame", "Black", "White", "Cappucino", "Latte" };
-        private string[] _VariantFilling = {"Bacon", "Egg", "Cheese", "Cream Cheese", "Smoked Salmon", "Ham" };
-        public Dictionary<string, double> Prices = new Dictionary<string, double>();
-        public Dictionary<string, string> Variants = new Dictionary<string, string>();
-        public Dictionary<string, string> Fillings = new Dictionary<string, string>();
-        private Dictionary<string, int> _stockCount = new Dictionary<string, int>();
+        private int uniqueId = 100;
+        public List<InventoryProduct> items; 
+
+        public InventoryProduct OnionBagel = new Bagel("BGLO","Onion",0.49);
+        public InventoryProduct PlainBagel = new Bagel("BGLP", "Plain", 0.39);
+        public InventoryProduct EverythinBagel = new Bagel("BGLE", "Everything", 0.49);
+        public InventoryProduct SesameBagel = new Bagel("BGLS", "Sesame", 0.49);
+        public InventoryProduct BlackCoffee = new Coffee("COFB", "Black", 0.99);
+        public InventoryProduct WhiteCoffee = new Coffee("COFW", "White", 1.19);
+        public InventoryProduct Cappucino = new Coffee("COFC", "Cappucion", 1.29);
+        public InventoryProduct Latte = new Coffee("COFL", "Latte", 1.29);
+
+        public InventoryProduct Bacon = new Filling("FILB", "Bacon", 0.12);
+        public InventoryProduct Egg = new Filling("FILE", "Egg", 0.12);
+        public InventoryProduct Cheese = new Filling("FILC", "Cheese", 0.12);
+        public InventoryProduct CreamCheese = new Filling("FILX", "Cream Cheese", 0.12);
+        public InventoryProduct SmokedSalmon = new Filling("FILS", "Smoked Salmon", 0.12);
+        public InventoryProduct Ham = new Filling("FILH", "Ham", 0.12);
+         
         public Inventory()
         {
-           PopulateDictionaries();
+            
+            items = [OnionBagel, PlainBagel, EverythinBagel, SesameBagel, BlackCoffee, WhiteCoffee, Cappucino, Latte, Bacon, Egg, Cheese, CreamCheese, SmokedSalmon, Ham];
+            
         }
 
-        public void PopulateDictionaries()
+        public bool checkInventory(InventoryProduct product)
         {
-            for (int i = 0; i < _SKU.Length; i++)
+            foreach (InventoryProduct item in items)
             {
-                _stockCount.Add(_SKU[i], 3);
-                Prices.Add(_SKU[i], _Price[i]);
-                Variants.Add(_SKU[i], _Variant[i]);
-             };
-            for(int j = 0; j < _SKUFillings.Length; j++)
-            {
-                _stockCount.Add(_SKUFillings[j], 3);
-                Fillings.Add(_SKUFillings[j], _VariantFilling[j]);
-            };
-           
-        }
-
-        public void restockInventory(int newNumber, string sku)
-        {
-                _stockCount[sku] = newNumber;
-        }
-          
-        public void restockInventory()
-        {
-            foreach(string key in _stockCount.Keys){
-                _stockCount[key] = 3;
-            }
-        }
-
-        public void removeSoldItems(List<Product> soldItems)
-        {
-            foreach (Product product in soldItems)
-            {
-                _stockCount[product.SKU] -= 1;
-                foreach(Filling filling in product.Fillings)
+                if (item.Sku == product.Sku)
                 {
-                    _stockCount[filling.SKU] -= 1;
+                    return true;
                 }
             }
-        }
-        public KeyValuePair<int,bool> checkInventory(string sku)
-        {
-            KeyValuePair<int, bool> Result;
-            if (_stockCount.ContainsKey(sku))
-            {
-                int numInStock = _stockCount[sku];
-                Result = new KeyValuePair<int, bool>(_stockCount[sku], true);
-            }
-            else { Result = new KeyValuePair<int, bool> (0, false); }
-
-
-            return Result;
+          
+            return false;
         }
 
-
-
-        public Dictionary<string,int> stockCount { get { return _stockCount; } }
-  
+        public List<InventoryProduct> Items {  get { return items; } }  
+        public int ID { get => uniqueId; set => uniqueId = value; }
 
     }
 

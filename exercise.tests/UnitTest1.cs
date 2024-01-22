@@ -2,6 +2,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Sources;
 using System.Xml.Linq;
 using exercise.main;
+using exercise.main.Products;
 using NUnit.Framework;
 
 namespace exercise.tests;
@@ -12,50 +13,53 @@ public class Tests
     public void Setup()
     {
     }
-
     [Test]
     public void addProductToBasket()
     {
-        Product product = new Product("BGLO");  
         Basket basket = new Basket();
-        basket.AddProduct(product);
-        Dictionary<int,Product> Result = basket.ProductList;
+        Inventory inventory = new Inventory();
+        InventoryProduct bagel = basket.Inventory.OnionBagel;
+
+        basket.AddProduct(bagel);
+        List<InventoryProduct> Result = basket.ListOfProducts;
 
         Assert.That(Result.Count >= 1);
     }
-
     [Test]
     public void removeProductFromBasket()
     {
-        Product product = new Product("BGLO");
+
         Basket basket = new Basket();
+        Bagel bagel = (Bagel)basket.Inventory.PlainBagel;
 
-        basket.AddProduct(product);
-        basket.AddProduct(product);
-        basket.AddProduct(product);
-        Assert.That(basket.ProductList.Count == 3);
+        basket.AddProduct(bagel);
+        basket.AddProduct(bagel);
+        basket.AddProduct(bagel);
+        Assert.That(basket.ListOfProducts.Count == 3);
 
-        basket.RemoveProduct(2);
-        
-        Assert.That(basket.ProductList.Count < 3);
+        basket.RemoveProduct(bagel);
+
+        Assert.That(basket.ListOfProducts.Count < 3);
 
     }
 
     [Test]
     public void addingProductBeyondCapacity()
     {
-        Product product = new Product("BGLO");
+        Coffee coffee = new Coffee("COFL");
+        Coffee BlackCoffee = new Coffee("COFB");
         Basket basket = new Basket();
-        for(int i=0; i<= basket.Capacity;i++)
+        for (int i = 0; i <= basket.Capacity; i++)
         {
-            basket.AddProduct(product);
+            basket.AddProduct(coffee);
         }
-        
-        Assert.That(basket.ProductList.Count == basket.Capacity);
 
-        bool Result = basket.AddProduct(product);
+        Assert.That(basket.ListOfProducts.Count == basket.Capacity);
 
-        Assert.That(basket.ProductList.Count == basket.Capacity && Result==false);
+        bool Result = basket.AddProduct(BlackCoffee);
+
+        Assert.That(basket.ListOfProducts.Count == basket.Capacity && Result == false);
+        Assert.That(basket.ListOfProducts.Contains(BlackCoffee) == false, Is.EqualTo(basket.ListOfProducts.Count <= basket.Capacity));
 
     }
 
@@ -69,7 +73,7 @@ public class Tests
     {
         Basket basket = new Basket();
         Person person = new Person(adminLevel);
-        
+
         int oldCapacity = basket.Capacity;
         if (newCapacity != oldCapacity)
         {
@@ -79,47 +83,47 @@ public class Tests
             Assert.That(oldCapacity != Result, Is.EqualTo(basket.Capacity == newCapacity));
         }
     }
-    [TestCase(1)]
-    [TestCase(0)]
-    [TestCase(3)]
-    public void removeNotExistingProduct(int basketID)
+
+    [Test]
+    public void removeNotExistingProduct()
     {
         Basket basket = new Basket();
-        Product bagel = new Product();
-        Product coffe = new Product("COFW");
-        
+        Bagel bagel = new Bagel("BGLP");
+        Coffee coffee = new Coffee("COFB");
 
-       basket.AddProduct(bagel);
-       basket.AddProduct(coffe);
 
-        bool doesExistInBasket = basket.ProductList.Keys.Contains(basketID);
+        basket.AddProduct(bagel);
+        Assert.That(basket.ListOfProducts, Is.Not.Empty);
 
-         bool Result = basket.RemoveProduct(basketID);
+        bool Result = basket.RemoveProduct(bagel);
+        bool Result2 = basket.RemoveProduct(coffee);
 
-        Assert.That(Result, Is.EqualTo(doesExistInBasket));
+        Assert.That(Result == true && Result2 == false);
 
     }
 
-    [TestCase("BGLO", "BGLP", "BGLE")]
-    [TestCase("COFB", "COFW", "COFC")]
-  //[TestCase("FILB", "FILE", "FILC")]
-    [TestCase("BGLS", "COFB", "COFW")]
+    [Test]
 
-    public void getTotalCost(string A, string B, string C) {
+    [TestCase("BGLO", "COFW", "COFC")]
+    [TestCase("BGLS", "COFW", "COFC")]
+    [TestCase("BGLS", "COFL", "COFW")]
+
+    public void getTotalCost(string A, string B, string C)
+    {
         Basket basket = new Basket();
 
         //SKU = { "BGLO", "BGLP", "BGLE", "BGLS", "COFB", "COFW", "COFC", "COFL", "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
-        Product product1 = new Product(A);
-        Product product2 = new Product(B);
-        Product product3 = new Product(C);
+        InventoryProduct product1 = new Bagel(A);
+        InventoryProduct product2 = new Coffee(B);
+        InventoryProduct product3 = new Coffee(C);
 
         basket.AddProduct(product3); basket.AddProduct(product1); basket.AddProduct(product2);
 
         double Result = basket.GetTotal();
-        double sum = Math.Round(product1.Price + product2.Price + product3.Price,2);
+        double sum = Math.Round(product1.Price + product2.Price + product3.Price, 2);
 
         Assert.That(Result, Is.EqualTo(sum));
-    
+
     }
 
     [TestCase("BGLO")]
@@ -130,12 +134,14 @@ public class Tests
     public void getPriceOfSingleItem(string A)
     {
         //SKU Bagels= { "BGLO", "BGLP", "BGLE", "BGLS"}
-        Product product = new Product(A);
-        
+        InventoryProduct product = new Bagel(A);
+
         double Result = product.Price;
-
+        Basket basket = new Basket();
+        basket.AddProduct(product);
+        double fromBasket = basket.ListOfProducts[0].Price;
         Assert.That(Result > 0);
-
+        Assert.That(fromBasket > 0);
     }
 
     [Test]
@@ -144,20 +150,21 @@ public class Tests
     {
         //SKU Bagels= { "BGLO", "BGLP", "BGLE", "BGLS"}
         //SKU Fillings = { "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
-        Product product = new Product("BGLO");
+        Bagel product = new Bagel("BGLO");
         Basket basket = new Basket();
-
+        Inventory inventory = new Inventory();
+        Filling Bacon = (Filling)inventory.Bacon;
         basket.AddProduct(product);
-        bool Result = product.AddFilling("FILB");
-                
-        Assert.That(product.Fillings.Count>0,Is.EqualTo(Result));
+        bool Result = product.AddFilling(Bacon);
+
+        Assert.That(product.Fillings.Count > 0, Is.EqualTo(Result));
         Assert.IsTrue(product.Fillings.Count > 0);
 
     }
     [Test]
-    public void getCostOfFillig()
+    public void getCostOfFilling()
     {
-        
+
         //SKU Fillings = { "FILB", "FILE", "FILC", "FILX", "FILS", "FILH" };
         Filling filling = new Filling("FILB");
         double Result = filling.Price;
@@ -171,13 +178,16 @@ public class Tests
     public void checkInventory(string A)
     {
         Inventory inventory = new Inventory();
+        InventoryProduct Bagel = new Bagel(A);
+        Basket Basket = new Basket();
 
-        KeyValuePair<int,bool> Result = inventory.checkInventory(A);
+        bool Result = inventory.checkInventory(Bagel);
 
 
-       Assert.That(Result.Value==true, Is.EqualTo(Result.Key>0));
-        
+        Assert.That(Result == true, Is.EqualTo(Basket.AddProduct(Bagel) == true));
+
     }
+
 
 
 }

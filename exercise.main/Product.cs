@@ -12,15 +12,12 @@ namespace exercise.main
         private string _SKU = "BGLO";
         private double _price = 0.49;
         private string _variant = "Onion";
-        private List<Filling> _Fillings = new List<Filling>();
-
-
+        private int _id = 0;
+        
+        
         public Product(string sku)
         {
-                _name = getName(sku);
-                _SKU = sku;
-             _price = setPrice(sku); 
-                _variant = setVariant(sku);         
+            getItemMembers(sku);    
 
         }
         public Product()
@@ -32,87 +29,30 @@ namespace exercise.main
 
         }
 
-        private double setPrice(string sku)
+
+        public void getItemMembers(string sku)
         {
             Inventory inventory = new Inventory();
-            return inventory.Prices[sku];
-        }
-
-        private string setVariant(string sku)
-        {
-            Inventory inventory = new Inventory();
-            return inventory.Variants[sku];
-        }
-
-        private string getName(string sku)
-        {
-            string productname = "";
-            if (sku.StartsWith('B')){
-                productname = "Bagel";
-            }else if (sku.StartsWith('C'))
+            foreach (InventoryProduct item in inventory.Items)
             {
-                productname = "Coffe";
-            }
-            else if (sku.StartsWith('F'))
-            {
-                productname = "Filling";
-            }
-               
-            return productname;
-        }
+                if (item.Sku == sku)
+                {
+                    Name = item.Name;
+                    Price = item.Price;
+                    Variant = item.Variant;
 
-        public bool AddFilling(string skuFilling)
-        {
-            if (_name == "Bagel") {
-                Filling filling = new Filling(skuFilling);
-                _Fillings.Add(filling);
-                return true;
-            }
-            else
-            {
-                return false;
+                };
             }
 
         }
+
 
         public string Name { get =>  _name; set => _name = value;}
-        public string SKU { get=> _SKU; set => _SKU = value;}
-        public double Price { get => _price;}
-        public string Variant { get => _variant;}
-
-        public List<Filling> Fillings { get => _Fillings; }
-    }
-
-    public class Filling
-    {
-        public Filling(string sku) {
-            _SKU = sku;
-            _variant = setVariant(sku);
-        }
-        public Filling()
-        {
-            _name = "Filling";
-            _SKU = "FILB";
-            _price = 0.12;
-            _variant = "Bacon";
-        }
-        private string setVariant(string sku)
-        {
-            Inventory inventory = new Inventory();
-            return inventory.Fillings[sku];
-        }
-
-        private string _name;
-        private string _SKU;
-        private double _price;
-        private string _variant;
-
-
-        public string Name { get => _name; }
-        public string SKU { get => _SKU; }
-        public double Price { get => _price; }
-        public string Variant { get => _variant; }
-
+        public string Sku { get=> _SKU; set => _SKU = value;}
+        public double Price { get => _price; set => _price = value; }
+        public string Variant { get => _variant; set => _variant = value; }
+        public int ID { get => _id; set => _id = value; }
 
     }
+
 }
