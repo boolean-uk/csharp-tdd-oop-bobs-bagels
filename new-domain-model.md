@@ -48,6 +48,12 @@ Methods
 : `public void BundleOrder(string descr, List<Item> items)`
     * corrects the bundle price according to type instruction (b6, b12, bac)
   
+: `public void bagelBundle(List<Item> items, float extract, int amount, float newCost)`
+    * handles bagel bundle orders (6, 12)
+  
+: `public void BagelCoffeeBundle(List<Item> items, float extract)`
+    * handles bagel coffee bundle orders
+  
 : `public float GetItemPrice(Item item)`
     * returns the Item price from _basket list
   

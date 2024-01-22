@@ -60,82 +60,72 @@ namespace exercise.main
 
             if (Bundles.b6.ToString() == descr)
             {
-                int res = _basket.Count(x => x.SKU.Contains(items[0].SKU));
-
-                List<Item> basketItems = _basket.Where(x => x.SKU == items[0].SKU).Where(x => x.isInBundle() == false).Take(6).ToList();
-                
-                List<string> idList = basketItems.Select(x => x.ID).ToList();
-
-                if (res >= 6)
-                {
-                    priceRemover(extract, 6);
-                    totalCost.Add(2.49F);
-
-                    foreach (Item it in basketItems) 
-                    {
-
-                        if (it.isInBundle() == false)
-                        {
-                            it.putToBundle(idList);  
-                        }
-                       
-                    }
-                }
+                bagelBundle(items, extract, 6, 2.49F);
             }
 
             if (Bundles.bac.ToString() == descr)
             {
-                int resb = _basket.Count(x => x.SKU.Contains(items[0].SKU));
-                int resc = _basket.Count(x => x.SKU.Contains(items[1].SKU));
-
-                float extract2 = _basket.FirstOrDefault(x => x.SKU == items[1].SKU).Price;
-
-                List<string> skuList = new List<string> { items[0].SKU, items[1].SKU };
-
-                List<Item> basketItems = _basket.Where(x => x.isInBundle() == false)
-                                                .Where(x => skuList.Contains(x.SKU))
-                                                .GroupBy(x => x.SKU).Select(x => x.First()).ToList();
-
-                List<string> idList = basketItems.Select(x => x.ID).ToList();
-
-                if (resb >= 1 && resc >= 1)
-                {
-                    priceRemover(extract, 1);
-                    priceRemover(extract2, 1);
-                    totalCost.Add(1.25F);
-
-                    foreach (Item it in basketItems)
-                    {
-                        if (it.isInBundle() == false)
-                        {
-                            it.putToBundle(idList);  
-                        }
-                    }
-                }
+                BagelCoffeeBundle(items, extract);
             }
 
             if (Bundles.b12.ToString() == descr)
             {
+                bagelBundle(items, extract, 12, 3.99F);
                   
-                int res2 = _basket.Count(x => x.SKU.Contains(items[0].SKU));
+            }
+        }
 
-                List<Item> basketItems = _basket.Where(x => x.SKU == items[0].SKU).Where(x => x.isInBundle() == false).Take(12).ToList();
-                List<string> idList = basketItems.Select(x => x.ID).ToList();
+        private void bagelBundle(List<Item> items, float extract, int amount, float newCost)
+        {
+            int res = _basket.Count(x => x.SKU.Contains(items[0].SKU));
+            List<Item> basketItems = _basket.Where(x => x.SKU == items[0].SKU).Where(x => x.isInBundle() == false).Take(amount).ToList();
+            List<string> idList = basketItems.Select(x => x.ID).ToList();
 
-                if (res2 >= 12)
+            if (res >= 6)
+            {
+                priceRemover(extract, amount);
+                totalCost.Add(newCost);
+
+                foreach (Item it in basketItems)
                 {
-                    priceRemover(extract, 12);
-                    totalCost.Add(3.99F);
 
-                    foreach (Item it in basketItems)
+                    if (it.isInBundle() == false)
                     {
-                        if (it.isInBundle() == false)
-                        {
-                            it.putToBundle(idList);
-                        }
+                        it.putToBundle(idList);
+                    }
+
+                }
+            }
+        }
+
+        private void BagelCoffeeBundle(List<Item> items, float extract)
+        {
+            int resb = _basket.Count(x => x.SKU.Contains(items[0].SKU));
+            int resc = _basket.Count(x => x.SKU.Contains(items[1].SKU));
+
+            float extract2 = _basket.FirstOrDefault(x => x.SKU == items[1].SKU).Price;
+
+            List<string> skuList = new List<string> { items[0].SKU, items[1].SKU };
+
+            List<Item> basketItems = _basket.Where(x => x.isInBundle() == false)
+                                            .Where(x => skuList.Contains(x.SKU))
+                                            .GroupBy(x => x.SKU).Select(x => x.First()).ToList();
+
+            List<string> idList = basketItems.Select(x => x.ID).ToList();
+
+            if (resb >= 1 && resc >= 1)
+            {
+                priceRemover(extract, 1);
+                priceRemover(extract2, 1);
+                totalCost.Add(1.25F);
+
+                foreach (Item it in basketItems)
+                {
+                    if (it.isInBundle() == false)
+                    {
+                        it.putToBundle(idList);
                     }
                 }
-
             }
         }
 
