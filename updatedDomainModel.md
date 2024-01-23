@@ -95,3 +95,97 @@ Methods:
 
 	float GetItemPrice(String, SKU)
 		(returns the price of an item, based on SKU provided
+
+REFACTOR
+/*
+Things updated in this domainModel:
+1. Updated the accessability to properties to classes:
+	- Item
+	- Basket
+	- Inventory
+2. With a {get; private set;} property, I realized you dont need get methods
+3. Created interface for all items so they have a tempelate
+4. Made inventory a property of Basket, so that the customer dont have to pass 
+	instance of basket everytime they add item
+
+Interface
+	Iitem:
+
+Properties:
+	private string: Name
+	private string: SKU
+	private readonly float: Price
+
+Class:
+	Bagel : Iitem
+
+Properties:
+	private string: Name {get;private set;}
+	private string: SKU {get;private set;}
+	private readonly float: Price {get;private set;}
+	private string: Variant {get;private set;}
+
+Methods:
+	Bagel()
+		Variant = "Bagel"
+
+Class:
+	Coffee : Iitem
+
+Properties:
+	private string: Variant
+
+Methods:
+	Coffee()
+		Variant = "Coffee"
+Class:
+	Filling : Iitem
+
+Properties:
+	private string: Variant
+
+
+Methods:
+	Filling()
+		Variant = "Filling"
+
+Class:
+	Basket
+
+Properties:
+	private list<Item>: itemsInBasket
+	private int: Capacity (5 by default)
+	public Inventory: inventory
+
+Methods:
+
+	void AddItemToBasket(string SKU)
+	(adds item to basket if it exists in inventory, and if max capacity is'nt reached, 
+	returns errorMessage otherwise)
+
+	void RemoveItemFromBasket (String SKU)
+		(Removes Item from the basket if it exists in the basket, 
+		otherwise return error message)
+
+	void AdjustBasketCapacity(Int basketCapacity)
+		(Adjusts the capacity of the basket to the value provided)
+
+	float GetTotalPrice()
+		(returns the total price of all items in the basket)
+
+Class:
+	Inventory
+
+Properties:
+	private List<Item> AvailableItems
+
+Methods:
+
+	bool IsItemInStock(String, SKU)
+		(returns true if item is in the inventory, false otherwise)
+
+	void AddItemToInventory(Item, item)
+		(adds Item to Inventory)
+
+	float GetItemPrice(String, SKU)
+		(returns the price of an item, based on SKU provided
