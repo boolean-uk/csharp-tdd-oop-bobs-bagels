@@ -29,6 +29,10 @@ namespace exercise.main
         public string Variant { get { return _variant; } }
         public float Cost { get { return _cost; } }
 
+        public virtual float GetItemCost()
+        {
+            return _cost;
+        }
        
     }
 }

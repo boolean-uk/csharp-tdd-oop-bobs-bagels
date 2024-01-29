@@ -53,10 +53,10 @@ namespace exercise.main
 
         public bool ContainsItem(string itemID)
         {
-            throw new NotImplementedException();
-            //if (ShopInventory.ContainsKey(itemID)) return true;
+            
+            if(ShopInventory.ContainsKey(itemID)) return true; 
 
-            //return false;
+            return false;
         }
     }
 }

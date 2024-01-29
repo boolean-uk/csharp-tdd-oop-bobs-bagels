@@ -11,100 +11,133 @@ namespace exercise.main
     {
         private Inventory inventory;
         private int basketLimit;
-        private Dictionary<string, Item> listItems;
+        private List<Item> listItems;
         public Basket() 
         {
-            listItems = new Dictionary<string, Item>();
+            listItems = new List<Item>();
             basketLimit = 4;
             inventory = new Inventory();
         }
-        public Dictionary<string,Item> ListItems { get { return listItems; } }  
+        public List<Item> ListItems { get { return listItems; } }  
         public int BasketLimit { get {  return basketLimit; } }
 
         
 
         public string AddItemToBasket(string itemID, Inventory inventory)
         {
-            throw new NotImplementedException();
-            //Item item = inventory.GetItem(itemID);
+            if (!inventory.ShopInventory.ContainsKey(itemID))
+            {
+                return new string($"{itemID} is not a real itemID");
+            }
+            Item item = inventory.GetItem(itemID);
 
 
 
-            //if (listItems.Count < basketLimit)
-            //{
-            //    listItems.Add(item.itemID,item);
+            if (listItems.Count < basketLimit)
+            {
+                listItems.Add(item);
 
-            //    return new string($"{item.Variant} {item.Name} for: {item.Cost} was added to the basket");
-            //}
-            //else
-            //{
-            //    return new string($"Basket is full! did not add {item.Variant} {item.Name} for: {item.Cost} to the basket");
-            //}
+                return new string($"{item.Variant} {item.Name} for: {item.Cost} was added to the basket");
+            }
+            else
+            {
+                return new string($"Basket is full! did not add {item.Variant} {item.Name} for: {item.Cost} to the basket");
+            }
 
 
         }
 
         public string RemoveItemFromBasket(string itemCode)
         {
-            throw new NotImplementedException();
-            //if (listItems.Count > 0)
-            //{
-            //    Item tempItem = listItems[itemCode];
-            //    listItems.Remove(itemCode);
 
-            //    return new string($"{tempItem.Variant} {tempItem.Name} for: {tempItem.Cost} was removed to the basket");
-            //}
-            //else
-            //{
-            //    return new string($"Basket is empty!");
-            //}
+            if (listItems.Count > 0)
+            {
+                Item tempItem = null;
+                foreach (Item item in listItems)
+                {
+                    if(item.ItemID == itemCode)
+                    {
+                         tempItem = item;
+                        listItems.Remove(tempItem);
+                        break;
+                    }
+                }
+                
+                if(tempItem != null)
+                {
+                    return new string($"{tempItem.Variant} {tempItem.Name} for: {tempItem.Cost} was removed from basket");
+                }
+                else
+                {
+                    return new string($"item with itemID {itemCode} was not found in basket");
+                }
+
+                
+            }
+            else
+            {
+                return new string($"Basket is empty!");
+            }
         }
 
         public string ChangeBasketSize(int newBasketSize) 
         {
-            throw new NotImplementedException();
-            //int temp = basketLimit;
-            //basketLimit = newBasketSize;
-            //return new string($"Basket size was changed from {temp} to {basketLimit}");
+
+            int temp = basketLimit;
+            basketLimit = newBasketSize;
+            return new string($"Basket size was changed from {temp} to {basketLimit}");
         }
 
         public string GetBasketCost() 
         {
-            throw new NotImplementedException();
-            //foreach(string item in listItems)
-            //{
+            float basketCost = 0f;
 
-            //} 
+            foreach (Item item in listItems)
+            {
+                if(item is Bagle)
+                {
+                    Bagle bagle = (Bagle)item;  
+                    basketCost += bagle.GetItemCost();
+                }
+                else
+                {
+                    basketCost += item.GetItemCost();
+                }
+
+                
+            }
+            
+
+            return new string($"the Cost for all items in the basket is: {basketCost}");
         }
 
         public string GetItemCost(string itemID) 
-        { 
-            throw new NotImplementedException();
-            //if (!listItems.ContainsKey(itemID))
-            //{
-            //    float tempFloat = listItems[itemID].GetTotalItemCost();
+        {
+            foreach (Item item in listItems)
+            {
+                if (item.ItemID == itemID) 
+                {
+                    float cost = item.Cost;
 
-            //    return new string($"The {listItems[itemID].Variant} {listItems[itemID].Name} costs: {tempFloat}");
-            //}
-            //else
-            //{
-            //    return new string($"No item with ID: {itemID} found in basket");
-            //}
-            
+                    return new string($"The {item.Variant} {item.Name} costs: {item.Cost}");
+                }
+            }
+
+            return new string($"No item with ID: {itemID} found in basket");
+
         }
 
-        public void GetFillingsCost() 
-        { 
-            
-        }
+
+
 
         public Item GetItemFromBasket(string itemID)
         {
-            throw new NotImplementedException();
-            /*
+           
+            
             foreach (Item item in listItems) 
             {
-                if(item.itemID == itemID)
+                
+                if(item.ItemID == itemID)
                 {
                    return item;
                     
@@ -112,7 +145,7 @@ namespace exercise.main
                 
             }
             return null;
-            */
+            
         }
 
         //public string AddFillingToBagle(string itemID)

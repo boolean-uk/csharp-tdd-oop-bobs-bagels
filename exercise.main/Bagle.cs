@@ -20,14 +20,28 @@ namespace exercise.main
 
         public List<Item> BagleFillings { get { return _bagleFillings; } }
 
-        public float GetTotalItemCost() 
+        public override float GetItemCost() 
         {
-            throw new NotImplementedException();
+            float totalCost = this.Cost;
+            if(_bagleFillings.Count > 0)
+            {
+
+                foreach (Item item in _bagleFillings)
+                {
+                    totalCost += item.Cost;
+                }
+
+                return totalCost;
+            }
+
+            return totalCost;
         }
 
         public void AddFillingToBagle(string ItemID, Inventory inventory)
         {
+            Filling filling = (Filling)inventory.GetItem(ItemID);
 
+            _bagleFillings.Add(filling);
         }
     }
 }

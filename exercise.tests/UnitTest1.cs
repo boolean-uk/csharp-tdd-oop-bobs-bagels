@@ -69,7 +69,7 @@ public class Tests
     {
         //ItemTest (Bagle) GetTotalItemCost() && AddFillingToBagle()
 
-        float expectedCost = 0.73f;
+        float expectedCost = 0.63f;
 
 
         basket.AddItemToBasket("BGLP", inventory);
@@ -81,7 +81,7 @@ public class Tests
         Assert.That(test2.BagleFillings.Count, Is.EqualTo(2));
 
 
-        float testCost = test.GetTotalItemCost();
+        float testCost = test.GetItemCost();
 
         Assert.That(testCost, Is.EqualTo(expectedCost));
         
@@ -96,7 +96,7 @@ public class Tests
     public void Test4()
     {
         // BasketTest AddItemToBasket() can add to basket
-        string expectedString = new string("Capuccino Coffee for: 1.29 was added to the basket");
+        string expectedString = new string("Capuccino Coffee for: 1,29 was added to the basket");
 
         string testString = basket.AddItemToBasket("COFC", inventory);
 
@@ -120,7 +120,7 @@ public class Tests
     public void Test6()
     {
         // BasketTest AddItemToBasket() baket is full
-        string expectedString = new string("Basket is full! did not add Capuccino Coffee for: 1.29 to the basket");
+        string expectedString = new string("Basket is full! did not add Capuccino Coffee for: 1,29 to the basket");
 
         basket.AddItemToBasket("COFC", inventory);
         basket.AddItemToBasket("COFC", inventory);
@@ -136,7 +136,7 @@ public class Tests
     {
         // BasketTest RemoveItemFromBasket() removed item
 
-        string expectedString = new string("Capuccino Coffee for: 1.29 was removed from basket");
+        string expectedString = new string("Capuccino Coffee for: 1,29 was removed from basket");
 
         basket.AddItemToBasket("COFC", inventory);
 
@@ -150,8 +150,9 @@ public class Tests
     {
         // BasketTest RemoveItemFromBasket() item of itemID not in basket.
 
-        string expectedString = new string("No item with ID: COFC found in basket.");
+        string expectedString = new string("item with itemID COFC was not found in basket");
 
+        basket.AddItemToBasket("BGLP", inventory);
         string testString = basket.RemoveItemFromBasket("COFC");
 
         Assert.That(testString, Is.EqualTo(expectedString));
@@ -173,7 +174,7 @@ public class Tests
     public void Test10()
     {
         // BasketTest GetBasketCost()
-        string expectedString = new string("the Cost for all items in the basket is: 2.29");
+        string expectedString = new string("the Cost for all items in the basket is: 2,29");
 
         basket.AddItemToBasket("BGLE",inventory);
         basket.AddItemToBasket("COFC",inventory);
@@ -190,10 +191,22 @@ public class Tests
     public void Test11()
     {
         //BasketTest GetItemCost
-        string expectedString = new string("The Plain Bagle costs: 0.39");
+        string expectedString = new string("The Plain Bagle costs: 0,39");
         basket.AddItemToBasket("BGLP",  inventory);
 
         string testString = basket.GetItemCost("BGLP");
+
+        Assert.That(testString, Is.EqualTo(expectedString));
+    }
+
+    [Test]
+    public void Test12()
+    {
+        //BasketTest GetItemCost
+        string expectedString = new string("No item with ID: COFF found in basket");
+        basket.AddItemToBasket("BGLP", inventory);
+
+        string testString = basket.GetItemCost("COFF");
 
         Assert.That(testString, Is.EqualTo(expectedString));
     }
