@@ -17,7 +17,9 @@ class Basket
                                        - returns false if item does not exists in basket
         public void ChangeCapacity(int) - changes the capacity of the basket
                                    - returns false if capacity gets < 0
-        public double GetTotalCost - returns the total amount of all the items in the basket
+        public double GetTotalCost - returns the total amount of all the items in the basket and calculated the discounts
+    EXTENSION 1 METHODS
+        public Dictionary<string int> GetItemAmounts() - returns a Dictionary with the items and the amount of that variant grouped by sku
 
 class Inventory
     PROPERTIES
