@@ -55,6 +55,23 @@ public class BasketTests
     }
 
     [Test]
+    public void GetItemAmounts_ReturnsCorrectItemAmounts()
+    {
+        _basket.Add("BGLO");
+        _basket.Add("BGLO");
+        _basket.Add("BGLP");
+        
+        Dictionary<string, int> expectedItemAmounts = new Dictionary<string, int>
+        {
+            { "BGLO", 2 },
+            { "BGLP", 1 }
+        };
+
+        Dictionary<string, int> actualItemAmounts = _basket.GetItemAmounts();
+        Assert.AreEqual(expectedItemAmounts, actualItemAmounts);
+    }
+
+    [Test]
     public void TestTotalPrice()
     {
         _basket.Add("BGLO");

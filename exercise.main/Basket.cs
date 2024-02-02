@@ -12,7 +12,7 @@ namespace exercise.main
         private int _capacity;
         private Inventory _inventory;
 
-        public int Capacity => _capacity;
+        public int Capacity => _capacity; 
 
         public Basket()
         {
@@ -23,27 +23,50 @@ namespace exercise.main
 
         public bool Add(string sku)
         {
-            if (_inventory.InStock(sku) && _items.Count < _capacity)
+            if (_inventory.InStock(sku))
             {
                 _items.Add(_inventory.Stock[sku]);
                 return true;
             }
-            return false;
+           return false;
         }
 
         public bool Remove(string sku)
         {
-            if (_inventory.InStock(sku))
-            {
-                _items.Remove(_inventory.Stock[sku]);
-                return true;
-            }
+                if (_inventory.InStock(sku))
+                {
+                    _items.Remove(_inventory.Stock[sku]);
+                    return true;
+                }
+   
             return false;
         }
 
         public void ChangeCapacity(int capacity)
         {
             _capacity = capacity;
+        }
+
+        public Dictionary<string, int> GetItemAmounts()
+        {
+            Dictionary<string, int> itemAmounts = new Dictionary<string, int>();
+
+            if (_items.Any())
+            {
+                foreach (Item item in _items)
+                {
+                    if (!itemAmounts.ContainsKey(item.Sku))
+                    {
+                        itemAmounts.Add(item.Sku, 1);
+                    }
+                    else
+                    {
+                        itemAmounts[item.Sku]++;
+                    }
+                }
+                return itemAmounts;
+            }
+            throw new InvalidOperationException($"Your basket is empty");
         }
 
         public double GetTotalCost()
@@ -56,4 +79,5 @@ namespace exercise.main
             return totalCost;
         }
     }
+
 }
