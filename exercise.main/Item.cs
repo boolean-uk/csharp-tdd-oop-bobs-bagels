@@ -26,5 +26,10 @@ namespace exercise.main
             _name = name;
             _variant = variant;
         }
+
+        public ItemDto ToDto()
+        {
+            return new ItemDto(Sku, Price);
+        }
     }
 }

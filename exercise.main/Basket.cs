@@ -47,37 +47,68 @@ namespace exercise.main
             _capacity = capacity;
         }
 
-        public Dictionary<string, int> GetItemAmounts()
+        public Dictionary<ItemDto, int> GetItemAmounts()
         {
-            Dictionary<string, int> itemAmounts = new Dictionary<string, int>();
+            Dictionary<ItemDto, int> itemAmounts = new Dictionary<ItemDto, int>();
 
             if (_items.Any())
             {
                 foreach (Item item in _items)
                 {
-                    if (!itemAmounts.ContainsKey(item.Sku))
+                    ItemDto itemDto = item.ToDto();
+
+                    // Check if SKU already exists in the dictionary
+                    if (itemAmounts.ContainsKey(itemDto))
                     {
-                        itemAmounts.Add(item.Sku, 1);
+                        // Increment the quantity for the existing SKU
+                        itemAmounts[itemDto]++;
                     }
                     else
                     {
-                        itemAmounts[item.Sku]++;
+           
+                        itemAmounts.Add(itemDto, 1);
                     }
                 }
+
                 return itemAmounts;
             }
+
             throw new InvalidOperationException($"Your basket is empty");
         }
 
         public double GetTotalCost()
         {
             double totalCost = 0;
-            foreach (Item item in _items)
+            Dictionary<ItemDto, int> itemAmounts = GetItemAmounts().ToDictionary(entry => entry.Key, entry => entry.Value);
+
+            foreach (KeyValuePair<ItemDto, int> item in itemAmounts)
             {
-                totalCost += item.Price;
+                int quantity = item.Value;
+                    if (item.Key.Sku.StartsWith("BGL", StringComparison.OrdinalIgnoreCase))
+                    {
+                        int discountQuantity12 = quantity / 12;
+                        totalCost += 3.99 * discountQuantity12;  // Discount for multiples of 12
+
+                        quantity %= 12;
+
+                        int discountQuantity6 = quantity / 6;
+                        totalCost += 2.49 * discountQuantity6;  // Discount for multiples of 6
+
+                        quantity %= 6;
+                    }
+
+                    totalCost += item.Key.Price * quantity; // Remaining quantity at regular price
+                    itemAmounts[item.Key] = 0;  // Set the quantity to 0 to indicate it's already processed
+                
             }
-            return totalCost;
+
+            return Math.Round(totalCost, 2);
         }
+
+
+
+
+
     }
 
 }

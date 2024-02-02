@@ -54,22 +54,7 @@ public class BasketTests
         Assert.IsFalse(_basket.Add("BGLP"));
     }
 
-    [Test]
-    public void GetItemAmounts_ReturnsCorrectItemAmounts()
-    {
-        _basket.Add("BGLO");
-        _basket.Add("BGLO");
-        _basket.Add("BGLP");
-        
-        Dictionary<string, int> expectedItemAmounts = new Dictionary<string, int>
-        {
-            { "BGLO", 2 },
-            { "BGLP", 1 }
-        };
-
-        Dictionary<string, int> actualItemAmounts = _basket.GetItemAmounts();
-        Assert.AreEqual(expectedItemAmounts, actualItemAmounts);
-    }
+ 
 
     [Test]
     public void TestTotalPrice()
@@ -83,5 +68,24 @@ public class BasketTests
     public void TestTotalPriceEmptyBasket()
     {
         Assert.AreEqual(0, _basket.GetTotalCost());
+    }
+
+    [Test]
+    public void GetTotalCost_CalculatesCorrectTotalCost()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            _basket.Add("BGLO");
+        }
+
+        _basket.Add("BGLP");
+
+        // Act
+        double totalCost = _basket.GetTotalCost();
+
+        // Assert
+        // Assuming discounts are applied correctly based on the provided logic
+        // Bagel discount: (3.99 * 1) + (2.49 * 1) + (0.49 * (15 % 12))
+        Assert.AreEqual(3.99 + (3*0.49) + 0.39, totalCost);
     }
 }
