@@ -6,15 +6,13 @@ Console.WriteLine("Hello, World!");
 Basket basket = new Basket();
 Inventory inventory = new Inventory();
 
-basket.Add("BGLP");
-basket.Add("BGLP");
-basket.Add("BGLP");
-basket.Add("BGLP");
-basket.Add("BGLP");
-basket.Add("BGLP");
 basket.Add("BGLO");
 basket.Add("BGLO");
-
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
 
 
 

@@ -67,7 +67,7 @@ public class BasketTests
     [Test]
     public void TestTotalPriceEmptyBasket()
     {
-        Assert.AreEqual(0, _basket.GetTotalCost());
+        Assert.Throws<InvalidOperationException>(() => _basket.GetTotalCost());
     }
 
     [Test]
@@ -82,10 +82,6 @@ public class BasketTests
 
         // Act
         double totalCost = _basket.GetTotalCost();
-
-        // Assert
-        // Assuming discounts are applied correctly based on the provided logic
-        // Bagel discount: (3.99 * 1) + (2.49 * 1) + (0.49 * (15 % 12))
         Assert.AreEqual(3.99 + (3*0.49) + 0.39, totalCost);
     }
 }

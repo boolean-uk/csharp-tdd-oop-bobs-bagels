@@ -23,12 +23,16 @@ namespace exercise.main
 
         public bool Add(string sku)
         {
-            if (_inventory.InStock(sku))
+            if (_capacity == _items.Count)
+            {
+                Console.WriteLine("Your basket is full, could not add all the items!");
+                return false;
+            } else if  (_inventory.InStock(sku) && _capacity > _items.Count)
             {
                 _items.Add(_inventory.Stock[sku]);
                 return true;
             }
-           return false;
+            return false;
         }
 
         public bool Remove(string sku)
@@ -79,27 +83,27 @@ namespace exercise.main
         public double GetTotalCost()
         {
             double totalCost = 0;
-            Dictionary<ItemDto, int> itemAmounts = GetItemAmounts().ToDictionary(entry => entry.Key, entry => entry.Value);
+            Dictionary<ItemDto, int> itemAmounts = GetItemAmounts();
 
             foreach (KeyValuePair<ItemDto, int> item in itemAmounts)
             {
                 int quantity = item.Value;
-                    if (item.Key.Sku.StartsWith("BGL", StringComparison.OrdinalIgnoreCase))
-                    {
+                if (item.Key.Sku.StartsWith("BGL", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (quantity >= 12) {
                         int discountQuantity12 = quantity / 12;
                         totalCost += 3.99 * discountQuantity12;  // Discount for multiples of 12
 
                         quantity %= 12;
-
+                    }
+                    if (quantity >= 6) {
                         int discountQuantity6 = quantity / 6;
                         totalCost += 2.49 * discountQuantity6;  // Discount for multiples of 6
-
                         quantity %= 6;
                     }
+                }
 
-                    totalCost += item.Key.Price * quantity; // Remaining quantity at regular price
-                    itemAmounts[item.Key] = 0;  // Set the quantity to 0 to indicate it's already processed
-                
+                totalCost += item.Key.Price * quantity; // Remaining quantity at regular price 
             }
 
             return Math.Round(totalCost, 2);
