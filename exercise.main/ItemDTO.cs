@@ -11,10 +11,16 @@ namespace exercise.main
         public string Sku { get; set; }
         public double Price { get; set; }
 
-        public ItemDto(string sku, double price)
+        public string Variant { get; set; }
+
+        public string Name { get; set; }
+
+        public ItemDto(string sku, double price, string variant, string name)
         {
             Sku = sku;
             Price = price;
+            Variant = variant;
+            Name = name;
         }
 
         public override bool Equals(object obj)
@@ -25,12 +31,12 @@ namespace exercise.main
             }
 
             ItemDto other = (ItemDto)obj;
-            return Sku == other.Sku && Price == other.Price;
+            return Sku == other.Sku && Price == other.Price && Variant == other.Variant;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Sku, Price);
+            return HashCode.Combine(Sku, Price, Variant);
         }
     }
 

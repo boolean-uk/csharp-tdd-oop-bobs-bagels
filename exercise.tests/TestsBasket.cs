@@ -73,15 +73,17 @@ public class BasketTests
     [Test]
     public void GetTotalCost_CalculatesCorrectTotalCost()
     {
+        _basket.ChangeCapacity(20);
         for (int i = 0; i < 15; i++)
         {
             _basket.Add("BGLO");
         }
 
         _basket.Add("BGLP");
+        _basket.Add("COFB");
 
         // Act
         double totalCost = _basket.GetTotalCost();
-        Assert.AreEqual(3.99 + (3*0.49) + 0.39, totalCost);
+        Assert.AreEqual(3.99 + (3*0.49) + 0.39 + 0.99, totalCost);
     }
 }

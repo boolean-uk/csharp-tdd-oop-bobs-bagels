@@ -5,17 +5,22 @@ Console.WriteLine("Hello, World!");
 
 Basket basket = new Basket();
 Inventory inventory = new Inventory();
-
-basket.Add("BGLO");
-basket.Add("BGLO");
-basket.Add("BGLO");
-basket.Add("BGLO");
-basket.Add("BGLO");
-basket.Add("BGLO");
-basket.Add("BGLO");
+basket.ChangeCapacity(25);
 
 
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("BGLO");
+basket.Add("COFB");
 
+
+
+
+
+Receipt receipt = new Receipt(basket);
 var itemAmounts = basket.GetItemAmounts();
 
 foreach (var kvp in itemAmounts)
@@ -24,4 +29,5 @@ foreach (var kvp in itemAmounts)
 }
 
 Console.WriteLine(basket.GetTotalCost());
-
+Console.WriteLine(basket.GetTotalCostWithoutDiscount());
+receipt.PrintReceipt();

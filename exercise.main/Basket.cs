@@ -12,7 +12,7 @@ namespace exercise.main
         private int _capacity;
         private Inventory _inventory;
 
-        public int Capacity => _capacity; 
+        public int Capacity => _capacity;
 
         public Basket()
         {
@@ -27,7 +27,8 @@ namespace exercise.main
             {
                 Console.WriteLine("Your basket is full, could not add all the items!");
                 return false;
-            } else if  (_inventory.InStock(sku) && _capacity > _items.Count)
+            }
+            else if (_inventory.InStock(sku) && _capacity > _items.Count)
             {
                 _items.Add(_inventory.Stock[sku]);
                 return true;
@@ -37,12 +38,12 @@ namespace exercise.main
 
         public bool Remove(string sku)
         {
-                if (_inventory.InStock(sku))
-                {
-                    _items.Remove(_inventory.Stock[sku]);
-                    return true;
-                }
-   
+            if (_inventory.InStock(sku))
+            {
+                _items.Remove(_inventory.Stock[sku]);
+                return true;
+            }
+
             return false;
         }
 
@@ -69,7 +70,7 @@ namespace exercise.main
                     }
                     else
                     {
-           
+
                         itemAmounts.Add(itemDto, 1);
                     }
                 }
@@ -90,13 +91,15 @@ namespace exercise.main
                 int quantity = item.Value;
                 if (item.Key.Sku.StartsWith("BGL", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (quantity >= 12) {
+                    if (quantity >= 12)
+                    {
                         int discountQuantity12 = quantity / 12;
                         totalCost += 3.99 * discountQuantity12;  // Discount for multiples of 12
 
                         quantity %= 12;
                     }
-                    if (quantity >= 6) {
+                    if (quantity >= 6)
+                    {
                         int discountQuantity6 = quantity / 6;
                         totalCost += 2.49 * discountQuantity6;  // Discount for multiples of 6
                         quantity %= 6;
@@ -109,10 +112,17 @@ namespace exercise.main
             return Math.Round(totalCost, 2);
         }
 
+        public double GetTotalCostWithoutDiscount()
+        {
+            double totalCost = 0;
+            Dictionary<ItemDto, int> itemAmounts = GetItemAmounts();
 
-
-
-
+            foreach (KeyValuePair<ItemDto, int> item in itemAmounts)
+            {
+                int quantity = item.Value;
+                totalCost += item.Key.Price * quantity;
+            }
+            return Math.Round(totalCost, 2);
+        }
     }
-
 }

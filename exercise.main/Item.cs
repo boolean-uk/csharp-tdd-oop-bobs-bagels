@@ -29,7 +29,7 @@ namespace exercise.main
 
         public ItemDto ToDto()
         {
-            return new ItemDto(Sku, Price);
+            return new ItemDto(Sku, Price, Name, Variant);
         }
     }
 }
