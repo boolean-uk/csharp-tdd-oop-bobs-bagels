@@ -11,7 +11,7 @@
             _inventory = inventory;
         }
 
-        public bool AddBagel(string sku)
+        public bool AddProduct(string sku)
         {
             if (_inventory.GetItem(sku).GetType() != typeof(Filling) && _basketList.Count < _maxCapacity)
             {

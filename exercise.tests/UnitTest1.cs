@@ -45,12 +45,12 @@ public class Tests
     }
 
     [TestCase("BGLO", true)]
-    [TestCase("COFB", false)]
+    [TestCase("COFB", true)]
     [TestCase("FILB", false)]
     public void BasketAddItem(string sku, bool shouldReturn)
     {
         var _basket = new Basket(inventory);
-        Assert.That(_basket.AddBagel(sku), Is.EqualTo(shouldReturn));
+        Assert.That(_basket.AddProduct(sku), Is.EqualTo(shouldReturn));
     }
 
     [Test]
@@ -59,9 +59,9 @@ public class Tests
         var _basket = new Basket(inventory);
         for (int i = 0; i < 4; i++)
         {
-            _basket.AddBagel("BGLO");
+            _basket.AddProduct("BGLO");
         }
-        Assert.That(_basket.AddBagel("BGLO"), Is.False);
+        Assert.That(_basket.AddProduct("BGLO"), Is.False);
         Assert.That(_basket._basketList.Count, Is.EqualTo(4));
     }
 
@@ -70,7 +70,7 @@ public class Tests
     public void BasketRemoveBagle(int index, bool shouldReturn)
     {
         var _basket = new Basket(inventory);
-        _basket.AddBagel("BGLO");
+        _basket.AddProduct("BGLO");
         Assert.That(_basket.RemoveBagel(index), Is.EqualTo(shouldReturn));
     }
 
@@ -81,8 +81,8 @@ public class Tests
     public void BasketAddFilling(int index, string fillingSKU, bool shouldReturn)
     {
         var _basket = new Basket(inventory);
-        _basket.AddBagel("BGLO");
-        _basket.AddBagel("BGLO");
+        _basket.AddProduct("BGLO");
+        _basket.AddProduct("BGLO");
         if (fillingSKU == "FILE")
         {
             _basket.AddFilling(index, fillingSKU);
@@ -104,14 +104,14 @@ public class Tests
         Assert.That(_basket.TotalCost(), Is.EqualTo(0));
 
         //0,49
-        _basket.AddBagel("BGLO");
+        _basket.AddProduct("BGLO");
         //0,49
-        _basket.AddBagel("BGLE");
+        _basket.AddProduct("BGLE");
+        //0,99
+        _basket.AddProduct("COFL");
         //0,12
         _basket.AddFilling(0, "FILB");
-        //0,99
-        _basket.AddFilling(0, "COFB");
-        float shouldBePrice = 0.49f + 0.49f + 0.12f + 0.99f;
+        float shouldBePrice = 0.49f + 0.49f + 0.12f + 1.29f;
         Assert.That(_basket.TotalCost(), Is.EqualTo(shouldBePrice));
     }
 
@@ -125,7 +125,7 @@ public class Tests
         Assert.That(_basket.ChangeCapacity(basketCapacity), Is.True);
         for (int i = 0; i < basketCapacity; i++)
         {
-            _basket.AddBagel("BGLO");
+            _basket.AddProduct("BGLO");
         }
         Assert.That(_basket.ChangeCapacity(newCapacity), Is.EqualTo(shouldReturn));
     }
@@ -138,9 +138,93 @@ public class Tests
         _basket.ChangeCapacity(16);
         for (int i = 0; i < 16; i++)
         {
-            _basket.AddBagel("BGLP");
+            _basket.AddProduct("BGLP");
         }
         float testPrice = 5.55f;
         Assert.That(_basket.TotalCost(), Is.EqualTo(testPrice).Within(0.005));
+    }
+
+    [Test]
+    public void TestDiscount_CoffeBagel()
+    {
+        var _basket = new Basket(inventory);
+        _basket.ChangeCapacity(16);
+        _basket.AddProduct("BGLO");
+        _basket.AddProduct("BGLO");
+        _basket.AddProduct("COFB");
+        float testPrice = 1.25f + 0.49f;
+        Assert.That(_basket.TotalCost(), Is.EqualTo(testPrice).Within(0.005));
+    }
+
+    [Test]
+    public void TestPrintReceipt()
+    {
+        List<string> expectedReturn =
+        [
+            "~~~ Bob's Bagels ~~~",
+            $"{DateTime.Now}",
+            "----------------------------",
+            "Onion Bagel 2 £0,98",
+            "Plain Bagel 12 £3,99",
+            "Everything Bagel 6 £2,49",
+            "Coffee 3 £2,97",
+            "----------------------------",
+            "Total £10,43",
+            "",
+            "Thank you for your order!",
+        ];
+
+        Basket basket = new Basket(inventory);
+        basket.ChangeCapacity(40);
+
+        for (int i = 0; i < 2; i++)
+        {
+            basket.AddProduct("BGLO");
+        }
+        for (int i = 0; i < 12; i++)
+        {
+            basket.AddProduct("BGLP");
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            basket.AddProduct("BGLE");
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            basket.AddProduct("COFB");
+        }
+
+        Receipt receipt = new Receipt(basket);
+
+        Assert.That(receipt.PrintRecipt(), Is.EqualTo(expectedReturn));
+    }
+
+    [Test]
+    public void TestPrintReceipt2()
+    {
+        List<string> expectedReturn =
+        [
+            "~~~ Bob's Bagels ~~~",
+            $"{DateTime.Now}",
+            "----------------------------",
+            "Plain Bagel 16 £5,55",
+            "----------------------------",
+            "Total £5,55",
+            "",
+            "Thank you for your order!",
+        ];
+
+        Basket basket = new Basket(inventory);
+        basket.ChangeCapacity(20);
+
+
+        for (int i = 0; i < 16; i++)
+        {
+            basket.AddProduct("BGLP");
+        }
+
+        Receipt receipt = new Receipt(basket);
+
+        Assert.That(receipt.PrintRecipt(), Is.EqualTo(expectedReturn));
     }
 }

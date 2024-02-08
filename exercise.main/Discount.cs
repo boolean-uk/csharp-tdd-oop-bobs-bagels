@@ -3,22 +3,27 @@
     public class Discount
     {
         public Item ItemOnDeal { get; }
-        private float _savedMoney;
         private float _discount;
         public List<DiscountItem> DiscountItems { get; }
 
-        public Discount(Item item, float discount, float savedMoney, List<DiscountItem> discountItems)
+        public Discount(Item item, float discount, List<DiscountItem> discountItems)
         {
             this.ItemOnDeal = item;
             this._discount = discount;
-            this._savedMoney = savedMoney;
             DiscountItems = discountItems;
         }
 
         public float GetDiscount()
         {
+            float totalCost = 0;
+            foreach (var discountItem in this.DiscountItems)
+            {
+                float price = discountItem.Item.Price;
+                int quantity = discountItem.Quantity;
 
-            return _savedMoney;
+                totalCost += price * quantity;
+            }
+            return totalCost - this._discount;
         }
     }
 

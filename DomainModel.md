@@ -74,6 +74,16 @@ I want customers to only be able to order things that we stock in our inventory.
 ## Domain Model
 ```C# 
 
+interface Ireceipt
+	+ List<string> CreateHeader()
+
+
+class Receipt
+PROPERTIES:
+
+METHODS:
+
+
 class Item
 PROPERTIES:
 	private string sku

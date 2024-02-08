@@ -13,10 +13,10 @@
                 { "BGLP", new Bagel("BGLP", 0.39f, "Bagel", "Plain") },
                 { "BGLE", new Bagel("BGLE", 0.49f, "Bagel", "Everything") },
                 { "BGLS", new Bagel("BGLS", 0.49f, "Bagel", "Sesame") },
-                { "COFB", new Filling("COFB", 0.99f, "Coffee", "Black") },
-                { "COFW", new Filling("COFW", 1.19f, "Coffee", "White") },
-                { "COFC", new Filling("COFC", 1.29f, "Coffee", "Cappuccino") },
-                { "COFL", new Filling("COFL", 1.29f, "Coffee", "Latte") },
+                { "COFB", new Coffee("COFB", 0.99f, "Coffee", "Black") },
+                { "COFW", new Coffee("COFW", 1.19f, "Coffee", "White") },
+                { "COFC", new Coffee("COFC", 1.29f, "Coffee", "Cappuccino") },
+                { "COFL", new Coffee("COFL", 1.29f, "Coffee", "Latte") },
                 { "FILB", new Filling("FILB", 0.12f, "Filling", "Bacon") },
                 { "FILE", new Filling("FILE", 0.12f, "Filling", "Egg") },
                 { "FILC", new Filling("FILC", 0.12f, "Filling", "Cheese") },
@@ -25,19 +25,22 @@
                 { "FILH", new Filling("FILH", 0.12f, "Filling", "Ham") }
             };
 
-
-
-            //Discount(sku, discount, List<DiscountItem>{Item, quantity})
-
             this._dicounts = new List<Discount> {
-                {new Discount(GetItem("BGLO"), 2.49f, 0.45f, new List<DiscountItem> { { new DiscountItem(_items["BGLO"], 6) } })},
-                {new Discount(GetItem("BGLP"), 2.49f, 0.69f, new List<DiscountItem> { { new DiscountItem(_items["BGLP"], 12) } })},
-                {new Discount(GetItem("BGLE"), 2.49f, 0.45f, new List<DiscountItem> { { new DiscountItem(_items["BGLE"], 6) } })},
-                {new Discount(GetItem("COFB"), 1.25f, 0.45f, new List<DiscountItem> { { new DiscountItem(_items["BGLO"], 1) },{ new DiscountItem(_items["BGLO"], 1) } })},
+                {new Discount(GetItem("BGLO"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLO"), 12) } })},
+                {new Discount(GetItem("BGLO"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLO"), 6) } })},
 
+                {new Discount(GetItem("BGLP"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLP"), 12) } })},
+                {new Discount(GetItem("BGLP"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLP"), 6) } })},
+
+                {new Discount(GetItem("BGLE"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLE"), 12) } })},
+                {new Discount(GetItem("BGLE"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLE"), 6) } })},
+
+                {new Discount(GetItem("BGLS"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLS"), 12) } })},
+                {new Discount(GetItem("BGLS"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLS"), 6) } })},
+
+                {new Discount(GetItem("COFB"), 1.25f, new List<DiscountItem> { { new DiscountItem(GetItem("COFB"), 1) },{ new DiscountItem(GetItem("BGLO"), 1) } })},
             };
-
-            //Sort based on best deal
+            //TODO Sort based on best deal & add method to easily add generic discounts
             //_dicounts = _dicounts.OrderDescending(d => d.GetDiscount()).ToList();
 
         }
@@ -59,7 +62,7 @@
             }
         }
 
-        public Item GetItem(string sku)
+        public Item? GetItem(string sku)
         {
             if (this.ItemExists(sku))
             {
@@ -71,74 +74,94 @@
         public float RemoveDiscount(List<Item> basketList)
         {
             float totalDiscount = 0;
+            var basketDict = CreateDictFromBasket(basketList);
 
-            //Copy basket into a temp basket to keep track of discounted items
-            List<Item> discountedBasket = new List<Item>(basketList);
-
-            //Look through each available discount
             foreach (var discount in _dicounts)
             {
-                bool isDealValid = true;
+                bool discountIsValid = true;
+                Dictionary<string, int> tempBasketDict = new Dictionary<string, int>(basketDict);
 
-                //Temp discount basket to keep track of remove items
-                List<Item> tempDiscountBasket = new List<Item>(discountedBasket);
-
-                //If there is an item in the basket that has a deal
-                if (tempDiscountBasket.Contains(discount.ItemOnDeal))
+                foreach (var discountItem in discount.DiscountItems)
                 {
-                    //Look through the discount for the neccessary requirements
-                    foreach (var discountItem in discount.DiscountItems)
+                    Item item = discountItem.Item;
+                    if (!basketDict.ContainsKey(item.Sku))
                     {
-                        int requiredQuantity = discountItem.Quantity;
-                        int quantityInBasket = 0;
-
-                        //TODO Change to check SKU instead, not using bagels with fillings now
-                        Item itemDeal = discountItem.Item;
-
-                        //Remove items if they match the discount
-                        for (int i = 0; i < tempDiscountBasket.Count();)
-                        {
-                            if (tempDiscountBasket[i].Sku.Equals(itemDeal.Sku))
-                            {
-                                tempDiscountBasket.RemoveAt(i);
-                                quantityInBasket++;
-                            }
-                            else
-                            {
-                                i++;
-                            }
-                            if (quantityInBasket >= requiredQuantity) break;
-                        }
-
-                        bool pause = true;
-
-                        //Discount was not fulfilled
-                        if (quantityInBasket < requiredQuantity)
-                        {
-                            isDealValid = false;
-                            break;
-                        }
-                        // The discount is valid
-                        if (isDealValid)
-                        {
-                            //Store the list with removed items
-                            discountedBasket = new List<Item>(tempDiscountBasket);
-                            totalDiscount += discount.GetDiscount();
-                        }
+                        discountIsValid = false;
+                        break;
                     }
 
+                    int requiredQuantity = discountItem.Quantity;
+                    int quantityInBasket = tempBasketDict[item.Sku];
+                    if (quantityInBasket < requiredQuantity)
+                    {
+                        discountIsValid = false;
+                        break;
+                    }
+                    else
+                    {
+                        tempBasketDict[item.Sku] -= requiredQuantity;
+                    }
+                }
+
+                if (discountIsValid)
+                {
+                    totalDiscount += discount.GetDiscount();
+                    basketDict = new Dictionary<string, int>(tempBasketDict);
                 }
             }
+            return totalDiscount;
+        }
 
-            //Return
-            if (totalDiscount > 0)
+        public float RemoveDiscount(ReceiptItem item)
+        {
+            float totalDiscount = 0;
+            bool discountIsValid = true;
+
+
+
+            Item item = discountItem.Item;
+            if (!basketDict.ContainsKey(item.Sku))
             {
-                return totalDiscount;
+                discountIsValid = false;
+                break;
+            }
+
+            int requiredQuantity = discountItem.Quantity;
+            int quantityInBasket = tempBasketDict[item.Sku];
+            if (quantityInBasket < requiredQuantity)
+            {
+                discountIsValid = false;
+                break;
             }
             else
             {
-                return 0;
+                tempBasketDict[item.Sku] -= requiredQuantity;
             }
+
+
+            if (discountIsValid)
+            {
+                totalDiscount += discount.GetDiscount();
+                basketDict = new Dictionary<string, int>(tempBasketDict);
+            }
+            return totalDiscount;
+        }
+
+        private Dictionary<string, int> CreateDictFromBasket(List<Item> basketList)
+        {
+            Dictionary<string, int> basketDict = new Dictionary<string, int>();
+            foreach (var item in basketList)
+            {
+                if (!basketDict.ContainsKey(item.Sku))
+                {
+                    basketDict.Add(item.Sku, 1);
+                }
+                else
+                {
+                    basketDict[item.Sku]++;
+                }
+            }
+            return basketDict;
         }
     }
 }

@@ -10,6 +10,17 @@ Start with extracting useful stories and a functional domain model that represen
 
 Tip: Think about a Receipt as an object. What other objects are contained in a receipt?
 
+```
+As a customer
+So that I can see what I payed for
+Id like to get a receipt
+
+As a owner
+So that I can keep track of my sales
+I'd likes to store orders made by customers
+```
+
+
 #### Example Receipt
 ```
     ~~~ Bob's Bagels ~~~

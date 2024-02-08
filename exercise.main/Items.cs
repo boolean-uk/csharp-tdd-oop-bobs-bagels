@@ -3,7 +3,7 @@
     public class Item
     {
         public string Sku { get; }
-        public float Price { get; }
+        public float Price;
         public string ItemName { get; }
         public string Variant { get; }
 
@@ -23,7 +23,7 @@
 
     public class Bagel : Item
     {
-        private List<Filling> _fillings;
+        public List<Filling> _fillings { get; }
 
         public Bagel(string sku, float price, string itemName, string variant) : base(sku, price, itemName, variant)
         {
