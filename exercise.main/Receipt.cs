@@ -15,6 +15,7 @@
         {
             var receipt = new List<string>();
             decimal totalBasketCost = 0;
+            decimal totalSavings = 0;
 
             AddHeader();
             AddItems();
@@ -46,12 +47,14 @@
                         receipt.Add($"{filling.Variant} (£{filling.Price})");
                     }
 
-                    /*
+
                     if (basket[item.Item.Sku].TotalCost != item.TotalCost)
                     {
-                        receipt.Add($"(-£{basket[item.Item.Sku].TotalCost - item.TotalCost})");
+                        var savings = basket[item.Item.Sku].TotalCost - item.TotalCost;
+                        totalSavings += savings;
+                        receipt.Add($"(-£{savings})");
                     }
-                    */
+
                 }
             }
 
@@ -59,6 +62,8 @@
             {
                 receipt.Add("----------------------------");
                 receipt.Add($"Total £{totalBasketCost}");
+                receipt.Add("");
+                receipt.Add($"You saved a total of £{totalSavings}");
                 receipt.Add("");
                 receipt.Add("Thank you for your order!");
             }

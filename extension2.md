@@ -10,6 +10,7 @@ Start with extracting useful stories and a functional domain model that represen
 
 Tip: Think about a Receipt as an object. What other objects are contained in a receipt?
 
+## User Stories
 ```
 As a customer
 So that I can see what I payed for
