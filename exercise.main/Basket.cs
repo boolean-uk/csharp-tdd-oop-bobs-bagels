@@ -13,21 +13,30 @@
 
         public bool AddProduct(string sku)
         {
-            if (_inventory.GetItem(sku).GetType() != typeof(Filling) && _basketList.Count < _maxCapacity)
+            var item = _inventory.GetItem(sku);
+
+            if (item == null) { return false; }
+
+            if (item.GetType() != typeof(Filling) && _basketList.Count < _maxCapacity)
             {
-                _basketList.Add((Item)_inventory.GetItem(sku));
+                _basketList.Add(item);
                 return true;
             }
-            else return false;
+
+            return false;
         }
 
         public bool AddFilling(int index, string fillingSku)
         {
-            if (index >= 0 && index < _basketList.Count && (Bagel)_basketList[index] != null)
+
+            if (index >= 0 && index < _basketList.Count && _basketList[index].GetType() == typeof(Bagel))
             {
-                if (_inventory.GetItem(fillingSku).GetType() == typeof(Filling))
+                var item = _inventory.GetItem(fillingSku);
+                if (item == null) { return false; }
+
+                if (item.GetType() == typeof(Filling))
                 {
-                    _basketList[index] = ((Bagel)_basketList[index]).AddFilling((Filling)_inventory.GetItem(fillingSku));
+                    _basketList[index] = ((Bagel)_basketList[index]).AddFilling((Filling)item);
                     return true;
                 }
             }
@@ -43,18 +52,6 @@
             }
             else return false;
         }
-
-        public float TotalCost()
-        {
-            float totalCost = 0;
-            foreach (var item in _basketList)
-            {
-                totalCost += item.GetPrice();
-            }
-            totalCost -= _inventory.RemoveDiscount(_basketList);
-            return totalCost;
-        }
-
         public bool ChangeCapacity(int newCapacity)
         {
             if (newCapacity < 1 || newCapacity < _basketList.Count - 1)
@@ -66,6 +63,72 @@
                 _maxCapacity = newCapacity;
                 return true;
             }
+        }
+
+        public Dictionary<string, BasketItem> GetDiscountedBasket()
+        {
+            var discountedBasket = _inventory.GetDiscountedBasket(GetBasket());
+
+            return discountedBasket;
+        }
+
+        public Dictionary<string, BasketItem> GetBasket()
+        {
+            var basketDict = new Dictionary<string, BasketItem>();
+            foreach (Item item in _basketList)
+            {
+                if (!basketDict.ContainsKey(item.Sku))
+                {
+                    basketDict.Add(item.Sku, new BasketItem(item));
+
+                    if (item is Bagel)
+                    {
+                        Bagel itemBagel = (Bagel)item;
+                        if (itemBagel.Fillings.Count > 0)
+                        {
+                            basketDict[item.Sku].Fillings.AddRange(itemBagel.Fillings);
+                        }
+                    }
+                }
+                else
+                {
+                    var basketItem = basketDict[item.Sku];
+                    basketItem.IncrementQuantity();
+                    basketItem.TotalCost += item.GetPrice();
+                    if (item is Bagel)
+                    {
+                        Bagel itemBagel = (Bagel)item;
+                        if (itemBagel.Fillings.Count > 0)
+                        {
+                            basketDict[item.Sku].Fillings.AddRange(itemBagel.Fillings);
+                        }
+                    }
+
+                    basketDict[item.Sku] = basketItem;
+
+                }
+            }
+            return basketDict;
+        }
+    }
+
+    public struct BasketItem
+    {
+        public Item Item { get; set; }
+        public List<Filling> Fillings { get; set; }
+        public int Quantity { get; set; }
+        public decimal TotalCost { get; set; }
+        public BasketItem(Item item)
+        {
+            Item = item;
+            TotalCost = item.GetPrice();
+            Quantity = 1;
+            Fillings = new List<Filling>();
+        }
+
+        public void IncrementQuantity()
+        {
+            this.Quantity += 1;
         }
     }
 }

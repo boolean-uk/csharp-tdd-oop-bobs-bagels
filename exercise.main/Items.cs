@@ -3,11 +3,11 @@
     public class Item
     {
         public string Sku { get; }
-        public float Price;
+        public decimal Price { get; }
         public string ItemName { get; }
         public string Variant { get; }
 
-        protected Item(string sku, float price, string itemName, string variant)
+        protected Item(string sku, decimal price, string itemName, string variant)
         {
             Sku = sku;
             Price = price;
@@ -15,7 +15,7 @@
             Variant = variant;
         }
 
-        public virtual float GetPrice()
+        public virtual decimal GetPrice()
         {
             return Price;
         }
@@ -23,23 +23,23 @@
 
     public class Bagel : Item
     {
-        public List<Filling> _fillings { get; }
+        public List<Filling> Fillings { get; private set; }
 
-        public Bagel(string sku, float price, string itemName, string variant) : base(sku, price, itemName, variant)
+        public Bagel(string sku, decimal price, string itemName, string variant) : base(sku, price, itemName, variant)
         {
-            _fillings = new List<Filling>();
+            Fillings = new List<Filling>();
         }
 
         //Used by AddFilling to create a copy of previous bagel
         public Bagel(Bagel bagel, List<Filling> fillings) : base(bagel.Sku, bagel.Price, bagel.ItemName, bagel.Variant)
         {
-            _fillings = new List<Filling>(fillings);
+            Fillings = new List<Filling>(fillings);
         }
 
-        public override float GetPrice()
+        public override decimal GetPrice()
         {
-            float totalPrice = this.Price;
-            foreach (Filling filling in _fillings)
+            decimal totalPrice = this.Price;
+            foreach (Filling filling in Fillings)
             {
                 totalPrice += filling.GetPrice();
             }
@@ -48,15 +48,15 @@
 
         public Bagel AddFilling(Filling filling)
         {
-            Bagel newBagel = new Bagel(this, this._fillings);
-            newBagel._fillings.Add(filling);
+            Bagel newBagel = new Bagel(this, this.Fillings);
+            newBagel.Fillings.Add(filling);
             return newBagel;
         }
     }
 
     public class Coffee : Item
     {
-        public Coffee(string sku, float price, string itemName, string variant) : base(sku, price, itemName, variant)
+        public Coffee(string sku, decimal price, string itemName, string variant) : base(sku, price, itemName, variant)
         {
         }
     }
@@ -64,7 +64,7 @@
     public class Filling : Item
     {
 
-        public Filling(string sku, float price, string itemName, string variant) : base(sku, price, itemName, variant)
+        public Filling(string sku, decimal price, string itemName, string variant) : base(sku, price, itemName, variant)
         {
         }
     }

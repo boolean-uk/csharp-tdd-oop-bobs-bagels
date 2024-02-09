@@ -2,36 +2,39 @@
 {
     public class Discount
     {
-        public Item ItemOnDeal { get; }
-        private float _discount;
-        public List<DiscountItem> DiscountItems { get; }
+        public Item ItemWithDeal { get; }
+        private decimal _discount;
+        public List<RequiredItemsForDiscount> RequiredItemsForDiscount { get; }
 
-        public Discount(Item item, float discount, List<DiscountItem> discountItems)
+        public Discount(Item item, decimal discount, List<RequiredItemsForDiscount> discountItems)
         {
-            this.ItemOnDeal = item;
+            this.ItemWithDeal = item;
             this._discount = discount;
-            DiscountItems = discountItems;
+            RequiredItemsForDiscount = discountItems;
         }
 
-        public float GetDiscount()
+        public decimal GetDiscountedPrice()
         {
-            float totalCost = 0;
-            foreach (var discountItem in this.DiscountItems)
+            decimal totalCost = 0;
+            foreach (var discountItem in this.RequiredItemsForDiscount)
             {
-                float price = discountItem.Item.Price;
+                decimal price = discountItem.Item.Price;
                 int quantity = discountItem.Quantity;
 
                 totalCost += price * quantity;
             }
-            return totalCost - this._discount;
+
+            var discountedPrice = totalCost - this._discount;
+
+            return discountedPrice;
         }
     }
 
-    public struct DiscountItem
+    public struct RequiredItemsForDiscount
     {
         public Item Item { get; }
         public int Quantity { get; }
-        public DiscountItem(Item item, int quantity)
+        public RequiredItemsForDiscount(Item item, int quantity)
         {
             this.Item = item;
             this.Quantity = quantity;

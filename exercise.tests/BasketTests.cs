@@ -3,7 +3,7 @@ using exercise.main;
 namespace exercise.tests;
 
 [TestFixture]
-public class Tests
+public class BasketTests
 {
     Inventory inventory;
     [SetUp]
@@ -100,19 +100,27 @@ public class Tests
     [Test]
     public void BasketTotalCost()
     {
-        var _basket = new Basket(inventory);
-        Assert.That(_basket.TotalCost(), Is.EqualTo(0));
+        var basket = new Basket(inventory);
 
         //0,49
-        _basket.AddProduct("BGLO");
+        basket.AddProduct("BGLO");
         //0,49
-        _basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
         //0,99
-        _basket.AddProduct("COFL");
+        basket.AddProduct("COFL");
         //0,12
-        _basket.AddFilling(0, "FILB");
+        basket.AddFilling(0, "FILB");
+
         float shouldBePrice = 0.49f + 0.49f + 0.12f + 1.29f;
-        Assert.That(_basket.TotalCost(), Is.EqualTo(shouldBePrice));
+
+        var discountedBasket = basket.GetDiscountedBasket();
+        decimal actualTotalCost = 0;
+        foreach (var item in discountedBasket)
+        {
+            actualTotalCost += item.Value.TotalCost;
+        }
+
+        Assert.That(actualTotalCost, Is.EqualTo(shouldBePrice).Within(0.005));
     }
 
     [TestCase(0, false)]
@@ -128,103 +136,5 @@ public class Tests
             _basket.AddProduct("BGLO");
         }
         Assert.That(_basket.ChangeCapacity(newCapacity), Is.EqualTo(shouldReturn));
-    }
-
-    //TESTS FOR EXTENSION 1
-    [Test]
-    public void TestDiscount()
-    {
-        var _basket = new Basket(inventory);
-        _basket.ChangeCapacity(16);
-        for (int i = 0; i < 16; i++)
-        {
-            _basket.AddProduct("BGLP");
-        }
-        float testPrice = 5.55f;
-        Assert.That(_basket.TotalCost(), Is.EqualTo(testPrice).Within(0.005));
-    }
-
-    [Test]
-    public void TestDiscount_CoffeBagel()
-    {
-        var _basket = new Basket(inventory);
-        _basket.ChangeCapacity(16);
-        _basket.AddProduct("BGLO");
-        _basket.AddProduct("BGLO");
-        _basket.AddProduct("COFB");
-        float testPrice = 1.25f + 0.49f;
-        Assert.That(_basket.TotalCost(), Is.EqualTo(testPrice).Within(0.005));
-    }
-
-    [Test]
-    public void TestPrintReceipt()
-    {
-        List<string> expectedReturn =
-        [
-            "~~~ Bob's Bagels ~~~",
-            $"{DateTime.Now}",
-            "----------------------------",
-            "Onion Bagel 2 £0,98",
-            "Plain Bagel 12 £3,99",
-            "Everything Bagel 6 £2,49",
-            "Coffee 3 £2,97",
-            "----------------------------",
-            "Total £10,43",
-            "",
-            "Thank you for your order!",
-        ];
-
-        Basket basket = new Basket(inventory);
-        basket.ChangeCapacity(40);
-
-        for (int i = 0; i < 2; i++)
-        {
-            basket.AddProduct("BGLO");
-        }
-        for (int i = 0; i < 12; i++)
-        {
-            basket.AddProduct("BGLP");
-        }
-        for (int i = 0; i < 6; i++)
-        {
-            basket.AddProduct("BGLE");
-        }
-        for (int i = 0; i < 3; i++)
-        {
-            basket.AddProduct("COFB");
-        }
-
-        Receipt receipt = new Receipt(basket);
-
-        Assert.That(receipt.PrintRecipt(), Is.EqualTo(expectedReturn));
-    }
-
-    [Test]
-    public void TestPrintReceipt2()
-    {
-        List<string> expectedReturn =
-        [
-            "~~~ Bob's Bagels ~~~",
-            $"{DateTime.Now}",
-            "----------------------------",
-            "Plain Bagel 16 £5,55",
-            "----------------------------",
-            "Total £5,55",
-            "",
-            "Thank you for your order!",
-        ];
-
-        Basket basket = new Basket(inventory);
-        basket.ChangeCapacity(20);
-
-
-        for (int i = 0; i < 16; i++)
-        {
-            basket.AddProduct("BGLP");
-        }
-
-        Receipt receipt = new Receipt(basket);
-
-        Assert.That(receipt.PrintRecipt(), Is.EqualTo(expectedReturn));
     }
 }

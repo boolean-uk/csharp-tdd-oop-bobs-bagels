@@ -9,36 +9,36 @@
         {
             this._items = new Dictionary<string, Item>
             {
-                { "BGLO", new Bagel("BGLO", 0.49f, "Bagel", "Onion") },
-                { "BGLP", new Bagel("BGLP", 0.39f, "Bagel", "Plain") },
-                { "BGLE", new Bagel("BGLE", 0.49f, "Bagel", "Everything") },
-                { "BGLS", new Bagel("BGLS", 0.49f, "Bagel", "Sesame") },
-                { "COFB", new Coffee("COFB", 0.99f, "Coffee", "Black") },
-                { "COFW", new Coffee("COFW", 1.19f, "Coffee", "White") },
-                { "COFC", new Coffee("COFC", 1.29f, "Coffee", "Cappuccino") },
-                { "COFL", new Coffee("COFL", 1.29f, "Coffee", "Latte") },
-                { "FILB", new Filling("FILB", 0.12f, "Filling", "Bacon") },
-                { "FILE", new Filling("FILE", 0.12f, "Filling", "Egg") },
-                { "FILC", new Filling("FILC", 0.12f, "Filling", "Cheese") },
-                { "FILX", new Filling("FILX", 0.12f, "Filling", "Cream Cheese") },
-                { "FILS", new Filling("FILS", 0.12f, "Filling", "Smoked Salmon") },
-                { "FILH", new Filling("FILH", 0.12f, "Filling", "Ham") }
+                { "BGLO", new Bagel("BGLO", 0.49m, "Bagel", "Onion") },
+                { "BGLP", new Bagel("BGLP", 0.39m, "Bagel", "Plain") },
+                { "BGLE", new Bagel("BGLE", 0.49m, "Bagel", "Everything") },
+                { "BGLS", new Bagel("BGLS", 0.49m, "Bagel", "Sesame") },
+                { "COFB", new Coffee("COFB", 0.99m, "Coffee", "Black") },
+                { "COFW", new Coffee("COFW", 1.19m, "Coffee", "White") },
+                { "COFC", new Coffee("COFC", 1.29m, "Coffee", "Cappuccino") },
+                { "COFL", new Coffee("COFL", 1.29m, "Coffee", "Latte") },
+                { "FILB", new Filling("FILB", 0.12m, "Filling", "Bacon") },
+                { "FILE", new Filling("FILE", 0.12m, "Filling", "Egg") },
+                { "FILC", new Filling("FILC", 0.12m, "Filling", "Cheese") },
+                { "FILX", new Filling("FILX", 0.12m, "Filling", "Cream Cheese") },
+                { "FILS", new Filling("FILS", 0.12m, "Filling", "Smoked Salmon") },
+                { "FILH", new Filling("FILH", 0.12m, "Filling", "Ham") }
             };
 
             this._dicounts = new List<Discount> {
-                {new Discount(GetItem("BGLO"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLO"), 12) } })},
-                {new Discount(GetItem("BGLO"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLO"), 6) } })},
+                {new Discount(_items["BGLO"], 3.99m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLO"], 12) } })},
+                {new Discount(_items["BGLO"], 2.49m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLO"], 6) } })},
 
-                {new Discount(GetItem("BGLP"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLP"), 12) } })},
-                {new Discount(GetItem("BGLP"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLP"), 6) } })},
+                {new Discount(_items["BGLP"], 3.99m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLP"], 12) } })},
+                {new Discount(_items["BGLP"], 2.49m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLP"], 6) } })},
 
-                {new Discount(GetItem("BGLE"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLE"), 12) } })},
-                {new Discount(GetItem("BGLE"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLE"), 6) } })},
+                {new Discount(_items["BGLE"], 3.99m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLE"], 12) } })},
+                {new Discount(_items["BGLE"], 2.49m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLE"], 6) } })},
 
-                {new Discount(GetItem("BGLS"), 3.99f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLS"), 12) } })},
-                {new Discount(GetItem("BGLS"), 2.49f, new List<DiscountItem> { { new DiscountItem(GetItem("BGLS"), 6) } })},
+                {new Discount(_items["BGLS"], 3.99m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLS"], 12) } })},
+                {new Discount(_items["BGLS"], 2.49m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["BGLS"], 6) } })},
 
-                {new Discount(GetItem("COFB"), 1.25f, new List<DiscountItem> { { new DiscountItem(GetItem("COFB"), 1) },{ new DiscountItem(GetItem("BGLO"), 1) } })},
+                {new Discount(_items["COFB"], 1.25m, new List<RequiredItemsForDiscount> { { new RequiredItemsForDiscount(_items["COFB"], 1) },{ new RequiredItemsForDiscount(_items["BGLO"], 1) } })},
             };
             //TODO Sort based on best deal & add method to easily add generic discounts
             //_dicounts = _dicounts.OrderDescending(d => d.GetDiscount()).ToList();
@@ -50,7 +50,7 @@
             return _items.ContainsKey(sku);
         }
 
-        public float GetPrice(string sku)
+        public decimal GetPrice(string sku)
         {
             if (this.ItemExists(sku))
             {
@@ -71,97 +71,65 @@
             else return null;
         }
 
-        public float RemoveDiscount(List<Item> basketList)
+        public Dictionary<string, BasketItem> GetDiscountedBasket(Dictionary<string, BasketItem> basket)
         {
-            float totalDiscount = 0;
-            var basketDict = CreateDictFromBasket(basketList);
+            var discountedBasket = new Dictionary<string, BasketItem>(basket);
 
             foreach (var discount in _dicounts)
             {
-                bool discountIsValid = true;
-                Dictionary<string, int> tempBasketDict = new Dictionary<string, int>(basketDict);
+                var updatedDiscountBasket = new Dictionary<string, BasketItem>(discountedBasket);
+                int nrOfTimesDiscountApplied = TryApplyDiscount(discount, updatedDiscountBasket);
 
-                foreach (var discountItem in discount.DiscountItems)
+                if (nrOfTimesDiscountApplied > 0)
                 {
-                    Item item = discountItem.Item;
-                    if (!basketDict.ContainsKey(item.Sku))
-                    {
-                        discountIsValid = false;
-                        break;
-                    }
+                    string discountSku = discount.ItemWithDeal.Sku;
+                    discountedBasket = new Dictionary<string, BasketItem>(updatedDiscountBasket);
 
-                    int requiredQuantity = discountItem.Quantity;
-                    int quantityInBasket = tempBasketDict[item.Sku];
-                    if (quantityInBasket < requiredQuantity)
-                    {
-                        discountIsValid = false;
-                        break;
-                    }
-                    else
-                    {
-                        tempBasketDict[item.Sku] -= requiredQuantity;
-                    }
-                }
+                    var discountAmount = discount.GetDiscountedPrice() * nrOfTimesDiscountApplied;
+                    var discountedItem = discountedBasket[discountSku];
 
-                if (discountIsValid)
-                {
-                    totalDiscount += discount.GetDiscount();
-                    basketDict = new Dictionary<string, int>(tempBasketDict);
+                    discountedItem.TotalCost -= discountAmount;
+                    discountedBasket[discountSku] = discountedItem;
                 }
             }
-            return totalDiscount;
+
+            return discountedBasket;
         }
 
-        public float RemoveDiscount(ReceiptItem item)
+        private int TryApplyDiscount(Discount discount, Dictionary<string, BasketItem> basket)
         {
-            float totalDiscount = 0;
-            bool discountIsValid = true;
+            int discountAppliedTimes = 0;
 
-
-
-            Item item = discountItem.Item;
-            if (!basketDict.ContainsKey(item.Sku))
+            while (IsDiscountValid(discount, basket))
             {
-                discountIsValid = false;
-                break;
+                discountAppliedTimes++;
+
+                foreach (var discountItem in discount.RequiredItemsForDiscount)
+                {
+                    string discountItemSku = discountItem.Item.Sku;
+
+                    var temp = basket[discountItemSku];
+                    temp.Quantity -= discountItem.Quantity;
+                    basket[discountItemSku] = temp;
+                }
             }
 
-            int requiredQuantity = discountItem.Quantity;
-            int quantityInBasket = tempBasketDict[item.Sku];
-            if (quantityInBasket < requiredQuantity)
-            {
-                discountIsValid = false;
-                break;
-            }
-            else
-            {
-                tempBasketDict[item.Sku] -= requiredQuantity;
-            }
-
-
-            if (discountIsValid)
-            {
-                totalDiscount += discount.GetDiscount();
-                basketDict = new Dictionary<string, int>(tempBasketDict);
-            }
-            return totalDiscount;
+            return discountAppliedTimes;
         }
 
-        private Dictionary<string, int> CreateDictFromBasket(List<Item> basketList)
+        private bool IsDiscountValid(Discount discount, Dictionary<string, BasketItem> basket)
         {
-            Dictionary<string, int> basketDict = new Dictionary<string, int>();
-            foreach (var item in basketList)
+            foreach (var discountItem in discount.RequiredItemsForDiscount)
             {
-                if (!basketDict.ContainsKey(item.Sku))
+                string discountItemSku = discountItem.Item.Sku;
+
+                if (!basket.ContainsKey(discountItemSku) || basket[discountItemSku].Quantity < discountItem.Quantity)
                 {
-                    basketDict.Add(item.Sku, 1);
-                }
-                else
-                {
-                    basketDict[item.Sku]++;
+                    return false;
                 }
             }
-            return basketDict;
+
+            return true;
         }
     }
 }
