@@ -8,6 +8,16 @@ Update and extend your program to handle showing savings to the customer.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
 
+## User stories
+```
+As a customer
+So that I can see what I "saved"
+Id like to get a receipt with the amount discounted
+```
+
+## Domain model
+Same as extension 2, update of print recipie method
+
 #### Example Receipt
 ```
     ~~~ Bob's Bagels ~~~
