@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Filling
+    /**
+     * public class Filling
     {
         public string SKU { get; }
         public decimal Price { get; }
@@ -18,5 +19,9 @@ namespace exercise.main
             Price = price;
             Name = name;
         }
+    }
+    */
+    public class Filling(string SKU) : Product(SKU)
+    {
     }
 }

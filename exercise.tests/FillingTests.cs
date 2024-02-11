@@ -14,12 +14,11 @@ namespace exercise.tests
         public void FillingProperties_AreSetCorrectly()
         {
             // Arrange
-            Filling filling = new Filling("FILB", 0.12m, "Bacon");
-
-            // Assert
-            Assert.AreEqual("FILB", filling.SKU);
-            Assert.AreEqual(0.12m, filling.Price);
-            Assert.AreEqual("Bacon", filling.Name);
+            Product filling = new Filling("FILB");
+            //Assert
+            Assert.That(filling.Variant, Is.EqualTo("Bacon"));
+            Assert.That(filling.Price, Is.EqualTo(0.12));
+            Assert.That(filling.SKU, Is.EqualTo("FILB"));
         }
     }
 }

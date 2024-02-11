@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
+    /**
     public class Bagel
     {
         public string SKU { get; }
@@ -21,5 +22,9 @@ namespace exercise.main
             Variant = variant;
         }
 
+    }
+    **/
+    public class Bagel(string SKU) : Product(SKU)
+    {
     }
 }

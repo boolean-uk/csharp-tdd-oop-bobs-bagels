@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using csharp_tdd_bobs_bagels.tests;
+using exercise.main;
 using tdd_bobs_bagels.Main;
 
 
@@ -15,45 +16,42 @@ namespace csharp_tdd_bobs_bagels.tests
         [Test]
         public void TestAddBagelToBasket()
         {
-            Basket basket = new Basket(5);
-            basket.AddItem("Plain Bagel");
-            CollectionAssert.AreEqual(new[] { "Plain Bagel" }, basket.Items);
+            Basket basket = new Basket();
+            Product bagel = new Bagel("BGLO");
+
+            basket.Add(bagel);
+
+            Assert.That(basket.Items.Count, Is.EqualTo(1));
+            Assert.That(basket.GetTotal(), Is.EqualTo(0.49));
+            Assert.That(basket.Items[0], Is.EqualTo(bagel));
+
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+            basket.Add(bagel);
+
+            Assert.Throws<Exception>(() => basket.Add(bagel));
         }
 
         [Test]
         public void TestRemoveBagelFromBasket()
         {
-            Basket basket = new Basket(5);
-            basket.AddItem("Whole Wheat Bagel");
-            basket.RemoveItem("Whole Wheat Bagel");
-            CollectionAssert.AreEqual(new string[] { }, basket.Items);
+            Basket basket = new Basket();
+            Product bagel = new Bagel("BGLO");
+
+            basket.Add(bagel);
+            basket.Remove(bagel);
+
+            Assert.That(basket.Items.Count, Is.EqualTo(0));
+
+            Assert.Throws<Exception>(() => basket.Remove(bagel));
         }
 
-        [Test]
-        public void TestCheckBasketFull()
-        {
-            Basket basket = new Basket(2);
-            basket.AddItem("Blueberry Bagel");
-            basket.AddItem("Cinnamon Raisin Bagel");
-            Assert.IsTrue(basket.IsFull());
-        }
-
-        [Test]
-        public void TestChangeBasketCapacity()
-        {
-            Basket basket = new Basket(3);
-            basket.ChangeCapacity(5);
-            Assert.AreEqual(5, basket.Capacity);
-        }
-
-        [Test]
-        public void TestRemoveNonexistentItem()
-        {
-            Basket basket = new Basket(5);
-           // basket.RemoveItem("Sesame Bagel");
-            string nonExistentItem = "Banana";
-            Assert.Throws<ArgumentException>(() => basket.RemoveItem(nonExistentItem), "Expected ArgumentException for non-existent item");
-        }
     
 
     }

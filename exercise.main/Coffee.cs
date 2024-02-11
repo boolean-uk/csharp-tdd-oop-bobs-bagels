@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Coffee
-    {
+    
+        /**
         public string SKU { get; }
         public decimal Price { get; }
         public string Name { get; }
@@ -20,5 +20,9 @@ namespace exercise.main
             Name = name;
             Type = type;
         }
-    }
+        **/
+        public class Coffee(string SKU) : Product(SKU)
+        {
+        }
+    
 }

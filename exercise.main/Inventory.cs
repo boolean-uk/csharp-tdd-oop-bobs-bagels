@@ -3,61 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tdd_bobs_bagels.Main;
 
 namespace exercise.main
 {
     public class Inventory
     {
-        private  Dictionary<string, object> availableItems;
+        private int _capacity;
+        private List<Basket> _baskets;
 
         public Inventory()
         {
-            availableItems = new Dictionary<string, object>();
-            InitializeInventory();
+            _capacity = 10;
+            _baskets = new List<Basket>();
         }
 
-        private void InitializeInventory()
+        public int Capacity { get => _capacity; set => _capacity = value; }
+        public List<Basket> Baskets { get => _baskets; }
+
+        public void AddBasket(Basket basket)
         {
-            AddItem(new Bagel("BGLO", 0.49m, "Bagel", "Onion"));
-            
+            Baskets.Add(basket);
         }
 
-        public void AddItem(object item)
+        public void RemoveBasket(Basket basket)
         {
-            // Assuming SKU is a unique identifier for items
-            var skuProperty = item.GetType().GetProperty("SKU");
-            if (skuProperty != null)
-            {
-                var sku = (string)skuProperty.GetValue(item);
-                availableItems[sku] = item;
-            }
-            else
-            {
-                throw new InvalidOperationException("Item must have a SKU property.");
-            }
+            if (!Baskets.Contains(basket)) { throw new Exception("Basket does not exist"); }
+
+            Baskets.Remove(basket);
         }
 
-        public void RemoveItem(string sku)
+        public void IncreaseCapacity(int capacity)
         {
-            if (availableItems.ContainsKey(sku))
-            {
-                availableItems.Remove(sku);
-            }
-            else
-            {
-                throw new ArgumentException("Item not found in inventory");
-            }
-        }
+            Capacity += capacity;
 
-        public object GetItemDetails(string sku)
-        {
-            if (availableItems.ContainsKey(sku))
+            foreach (Basket basket in Baskets)
             {
-                return availableItems[sku];
-            }
-            else
-            {
-                throw new ArgumentException("Item not found in inventory");
+                basket.Capacity = Capacity;
             }
         }
     }

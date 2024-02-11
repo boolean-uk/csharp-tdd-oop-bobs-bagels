@@ -14,13 +14,11 @@ namespace exercise.tests
         public void CoffeeProperties_AreSetCorrectly()
         {
             // Arrange
-            Coffee coffee = new Coffee("COFB", 0.99m, "Coffee", "Black");
-
+            Product coffee = new Coffee("COFW");
             // Assert
-            Assert.AreEqual("COFB", coffee.SKU);
-            Assert.AreEqual(0.99m, coffee.Price);
-            Assert.AreEqual("Coffee", coffee.Name);
-            Assert.AreEqual("Black", coffee.Type);
+            Assert.That(coffee.Variant, Is.EqualTo("White"));
+            Assert.That(coffee.SKU, Is.EqualTo("COFW"));
+            Assert.That(coffee.Price, Is.EqualTo(1.19));
         }
     }
 }

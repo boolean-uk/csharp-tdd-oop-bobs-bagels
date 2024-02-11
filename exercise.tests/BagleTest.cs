@@ -14,13 +14,12 @@ namespace exercise.tests
         public void BagelProperties_AreSetCorrectly()
         {
             // Arrange
-            Bagel bagel = new Bagel("BGLO", 0.49m, "Bagel", "Onion");
+            Bagel bagel = new Bagel("BEGLO");
 
             // Assert
-            Assert.AreEqual("BGLO", bagel.SKU);
-            Assert.AreEqual(0.49m, bagel.Price);
-            Assert.AreEqual("Bagel", bagel.Name);
-            Assert.AreEqual("Onion", bagel.Variant);
+            Assert.That(bagel.Variant, Is.EqualTo("Onion"));
+            Assert.That(bagel.Price, Is.EqualTo(0.49));
+            Assert.That(bagel.SKU, Is.EqualTo("BGLO"));
         }
     }
 }

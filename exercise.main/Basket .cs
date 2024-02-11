@@ -1,52 +1,119 @@
-﻿namespace tdd_bobs_bagels.Main
+﻿using exercise.main;
+
+namespace tdd_bobs_bagels.Main
 {
     public class Basket
 {
 
-        public int Capacity { get; private set; }
-        public List<string> Items { get; private set; }
+        private List<IProduct> _items;
+        private int _capacity;
 
-        public Basket(int capacity)
+        public Basket()
         {
-            Capacity = capacity;
-            Items = new List<string>();
+            _items = new List<IProduct>();
+            _capacity = 10;
         }
 
-        public void AddItem(string item)
+        public List<IProduct> Items { get => _items; }
+        public int Capacity { get => _capacity; set => _capacity = value; }
+
+        public void Add(IProduct product)
         {
-            if (Items.Count < Capacity)
+            if (Items.Count == Capacity) { throw new Exception("Basket is full"); }
+
+            Items.Add(product);
+        }
+
+        public void Remove(IProduct product)
+        {
+            if (!Items.Contains(product)) { throw new Exception("Product does not exist in basket"); }
+
+            Items.Remove(product);
+        }
+
+        public double GetBagelDiscountHalfDozen(int count, double price)
+        {
+            double total = 2.49 * Math.Floor(count / 6d);
+
+            if ((count % 6) >= 1)
             {
-                Items.Add(item);
+                total += price * (count % 6);
+            }
+
+            return total;
+        }
+
+        public double GetBagelDiscountDozen(int count, double price)
+        {
+            double total = 3.99 * Math.Floor(count / 12d);
+
+            if ((count % 12) >= 6)
+            {
+                total += 2.49 + (price * (count % 6));
             }
             else
             {
-                throw new InvalidOperationException("Basket is full");
+                total += price * (count % 12);
             }
+
+            return total;
         }
 
-        public void RemoveItem(string item)
+        public double GetPrice(int count, double price, bool discount)
         {
-            if (Items.Contains(item))
+            double total = 0;
+
+            if (!discount) { return price * count; }
+
+            if ((count / 12) >= 1)
             {
-                Items.Remove(item);
+                total += GetBagelDiscountDozen(count, price);
+            }
+            else if ((count / 6) >= 1)
+            {
+                total += GetBagelDiscountHalfDozen(count, price);
             }
             else
             {
-                throw new ArgumentException("Item not found in basket");
+                total += price * count;
             }
+
+            return total;
         }
 
-        public bool IsFull()
+        public Dictionary<string, int> getCount(IEnumerable<IProduct> items)
         {
-            return Items.Count >= Capacity;
+            Dictionary<string, int> countDict = new Dictionary<string, int>();
+            foreach (var item in items)
+            {
+                if (!countDict.ContainsKey(item.SKU))
+                {
+                    countDict.Add(item.SKU, 1);
+                }
+                else
+                {
+                    countDict[item.SKU]++;
+                }
+            }
+            return countDict;
         }
 
-
-       
-
-        public void ChangeCapacity(int newCapacity)
+        public double GetTotal()
         {
-            Capacity = newCapacity;
+            Dictionary<string, int> bagelCount = getCount(Items.Where(item => item is Bagel));
+            double sum = 0;
+
+            foreach ((string SKU, int count) in bagelCount)
+            {
+                sum += GetPrice(count, new Bagel(SKU).Price, true);
+            }
+
+            sum += Items.Where(item => (item is Filling || item is Coffee)).Sum(item => item.Price);
+
+            return sum;
         }
     }
+
+
+    
 }
