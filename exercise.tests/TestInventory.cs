@@ -1,6 +1,6 @@
-namespace exercise.tests;
+namespace inventory.tests;
 
-public class Tests
+public class TestInventory
 {
     [SetUp]
     public void Setup()
