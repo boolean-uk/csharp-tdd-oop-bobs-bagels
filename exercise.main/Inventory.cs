@@ -37,17 +37,24 @@ namespace inventory.main
 
         public double GetPriceOfItem(string sku)
         {
-            double costItem = 0;
-            if(_stock.ContainsKey(sku))
+            // double costItem = 0;
+            if (_stock.ContainsKey(sku))
             {
                 Item item = _stock[sku];
                 return item.Price;
-            } else
+            }
+            else
             {
                 throw new ArgumentException($"Item with {sku} is not found in Inventory List.");
             }
-           
         }
 
+        
+        public bool GetFilling(string sku)
+        {
+           
+            return false;
+        }
+       
     }
 }

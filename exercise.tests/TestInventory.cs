@@ -1,6 +1,7 @@
 using basket.main;
 using inventory.main;
 using basket.main;
+using NUnit.Framework.Internal;
 
 namespace inventory.tests;
 
@@ -14,12 +15,13 @@ public class TestInventory
         _inventory = new Inventory();
     }
 
-    // same test as test with testCase
+    /* same test as test with testCase
     [Test]
     public void TestGetPriceOfItem()
     {
         Assert.That(1.29, Is.EqualTo(_inventory.GetPriceOfItem("COFC")));
     }
+    */
 
     // same test as TestGetPriceOfItem
     [TestCase("BGLS", 0.49)]
@@ -28,11 +30,18 @@ public class TestInventory
     [TestCase("COFC", 1.29)]
     public void TestGetPrice(string sku, double price)
     {
-        _inventory.GetPriceOfItem(sku);
         double getPrice = _inventory.GetPriceOfItem(sku);
         //Assert.AreEqual(expectedTotalPrice, totalPrice);
         Assert.That(getPrice, Is.EqualTo(Math.Round(price, 2)));
     }
+    
 
-
+    [Test]
+    public void TestsGetFilling()
+    {
+       //_inventory.GetFilling("FILB");
+        bool getFilling = _inventory.GetFilling("FILB");
+        Assert.That(getFilling, Is.True);
+    }
+    
 }
