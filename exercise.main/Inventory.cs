@@ -52,7 +52,12 @@ namespace inventory.main
         
         public bool GetFilling(string sku)
         {
-           
+            if (_stock.ContainsKey(sku))
+            {
+                Item item = _stock[sku];
+                Console.WriteLine($"Your filling is: {item.Variant}");
+                return true;
+            }
             return false;
         }
        
