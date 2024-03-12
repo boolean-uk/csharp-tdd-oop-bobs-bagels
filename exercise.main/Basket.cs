@@ -22,6 +22,7 @@ namespace basket.main
         {
             _items = new List<Item>();
             _inventory = new Inventory();
+            // set _capacity to given basketCapacity new Basket(5) in Test [SetUp]
             _capacity = basketCapacity;
 
         }
@@ -56,8 +57,24 @@ namespace basket.main
 
         public bool FullBasket(int capacity)
         {
+            if (_capacity >= capacity)
+            {
+                Console.WriteLine("Maximum basket Capacity is reached!");
+                return true;
+            }
+            Console.WriteLine("Your item is added!");
             return false;
         }
 
+        public double TotalPrice()
+        {
+            // set initial value of totalCosts to 0;
+            double totalCosts = 0;
+            foreach (Item item in _items)
+            {
+                totalCosts += item.Price;
+            }
+            return totalCosts;
+        }
     }
 }
