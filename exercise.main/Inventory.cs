@@ -41,6 +41,7 @@ namespace inventory.main
             if (_stock.ContainsKey(sku))
             {
                 Item item = _stock[sku];
+                Console.WriteLine($"Your item is: {item.Variant} and the price is € {item.Price:F2}");
                 return item.Price;
             }
             else
@@ -54,7 +55,7 @@ namespace inventory.main
             if (_stock.ContainsKey(sku))
             {
                 Item item = _stock[sku];
-                Console.WriteLine($"Your filling is: {item.Variant}");
+                Console.WriteLine($"Your filling is: {item.Variant} and the price is € {item.Price:F2}");
                 return true;
             }
             return false;

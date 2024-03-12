@@ -29,13 +29,13 @@ namespace basket.main
         public bool AddItemToBasket(string sku)
         {
             // check if sku exists in inventory's Stock Dictionary
-            if(_inventory.Stock.ContainsKey(sku))
+            if(_inventory.ItemInStock(sku) && _inventory.Stock.ContainsKey(sku) )
             {
                 Item item = _inventory.Stock[sku];
                 _items.Add(item);
                 // if exists get the matching sku - Item object from the inventory's stong using sku as a keyvalue
                 // print message of which item and which variant is added to your order to see if right.
-                Console.WriteLine($"- {sku}: {item.Name} {item.Variant} is added to your order.");
+                Console.WriteLine($"- item {sku}: {item.Name} {item.Variant} is added to your order.");
                 return true;
             }
             Console.WriteLine($"{sku} is not added to your basket");
@@ -73,10 +73,8 @@ namespace basket.main
             {
                 Console.WriteLine($"{item.Name}: {item.Price}");
                 totalCosts += item.Price;
-
-                // Console.WriteLine($"Total: E {totalCosts}");
-
             }
+            // print the total price to the console.
             Console.WriteLine($"Total Price: €{totalCosts:F2}");
             return Math.Round(totalCosts, 2);
 
