@@ -33,8 +33,9 @@ PROPERTIES
 	private Inventory inventory;
 
 METHODS 
-	public bool AddItem(string sku), adds bagel/item to List<string> ordersInBasket; => when order does not excist in List<Inventory>
+	public bool AddItemToBasket(string sku), adds bagel/item to List<string> ordersInBasket; => when order does not excist in List<Inventory>
 	public bool RemoveItem(string sku), removes bagel/item from List<string> ordersInBasket; => when excist in List<Inventory>, message when return false
+	public bool FullBasket(int capacity), returns true when basket is full, set its capacity _basket = new Basket(5);_
 	public void SetBasketSize(int newSize), returns false when newSize is < 0
 	public double GetTotalCosts, returns all costs of items in basket.
 
@@ -43,9 +44,9 @@ PROPERTIES
 	Dictionary<string(sku), Item(List<Item>) items 
 
 METHODS
-	public Item getItemFromList(string SKU), returns item found by its sku
-	public double getPrice(string SKU), returns price of each item found by its sku
-	public bool checkItemInStock(string SKU), returns true if item exists && is in stock
+	public bool GetFilling(string SKU), returns item found by its sku
+	public double GetPriceOfItem(string SKU), returns price of each item found by its sku
+	public bool ItemInStock(string SKU), returns true if item exists && is in stock
 												returns false if item is not in stock || doesnt exists.
 
 ### Item

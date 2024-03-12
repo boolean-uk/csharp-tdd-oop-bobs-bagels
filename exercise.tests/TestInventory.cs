@@ -44,7 +44,9 @@ public class TestInventory
         Assert.That(getFilling, Is.True);
     }
 
+    // test if sku is in inventory List with expected result
     [TestCase("BGLO", true)]
+    [TestCase("bglo", true)]
     [TestCase("COFB", true)]
     [TestCase("FALSE", false)]
     public void TestsItemInStock(string sku, bool exectedResult) 
@@ -52,4 +54,5 @@ public class TestInventory
         bool itemInStock = _inventory.ItemInStock(sku);
         Assert.That(itemInStock, Is.EqualTo(exectedResult));
     }
+
 }

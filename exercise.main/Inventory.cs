@@ -48,7 +48,6 @@ namespace inventory.main
                 throw new ArgumentException($"Item with {sku} is not found in Inventory List.");
             }
         }
-
         
         public bool GetFilling(string sku)
         {
@@ -63,12 +62,14 @@ namespace inventory.main
 
         public bool ItemInStock(string sku)
         {
+            sku = sku.ToUpper();
             if (_stock.ContainsKey(sku))
             {
                 Item item = _stock[sku];
-                Console.WriteLine($"Your {item} is in stock!");
+                Console.WriteLine($"Your {item.Variant} {item.Name} is in stock!");
                 return true;
             }
+            Console.WriteLine($"Item does not excist in stock!");
             return false;
         }
        
