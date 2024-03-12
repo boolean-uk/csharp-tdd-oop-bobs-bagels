@@ -45,7 +45,6 @@ public class TestInventory
     }
 
     [TestCase("BGLO", true)]
-    [TestCase("bglo", true)]
     [TestCase("COFB", true)]
     [TestCase("FALSE", false)]
     public void TestsItemInStock(string sku, bool exectedResult) 

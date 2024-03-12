@@ -63,8 +63,13 @@ namespace inventory.main
 
         public bool ItemInStock(string sku)
         {
+            if (_stock.ContainsKey(sku))
+            {
+                Item item = _stock[sku];
+                Console.WriteLine($"Your {item} is in stock!");
+                return true;
+            }
             return false;
-           
         }
        
     }
