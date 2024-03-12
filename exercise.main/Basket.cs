@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using item.main;
 using inventory.main;
+using System.Reflection.Emit;
 
 namespace basket.main
 {
@@ -27,11 +28,22 @@ namespace basket.main
             // check if sku exists in inventory's Stock Dictionary
             if(_inventory.Stock.ContainsKey(sku))
             {
+                Item item = _inventory.Stock[sku];
+                _items.Add(item);
                 // if exists get the matching sku - Item object from the inventory's stong using sku as a keyvalue
-                _items.Add(_inventory.Stock[sku]);
+                //_items.Add(_inventory.Stock[sku]);
+                // print message of which item and which variant is added to your order to see if right.
+                Console.WriteLine($"- {sku}: {item.Name} {item.Variant} is added to your order.");
                 return true;
             }
+            Console.WriteLine($"{sku} is not added to your basket");
             return false;
         }
+
+        public bool RemoveItem(string sku)
+        {
+            return false;
+        }
+
     }
 }

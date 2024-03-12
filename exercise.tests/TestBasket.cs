@@ -24,9 +24,17 @@ public class TestsBasket
         // setup is done in global setup
         // execute the actual function to test
         bool addedItem = _basket.AddItemToBasket("BGLS");
-        //int itemsInBasket = _bagelsInBasket.Count;  
+        //int itemsInBasket = _itemsInBasket.Count;  
         // Assert test, whether execution is successful ( -> check if results / outputs are ok)
         Assert.IsTrue(addedItem);
     }
 
+    [Test] 
+    public void TestRemoveItem() 
+    {
+        // execute the actual function to test
+        bool removeItem = _basket.RemoveItem("BGLS");
+        // Assert test, whether execution is successful ( -> check if results / outputs are ok)
+        Assert.That(removeItem, Is.True);
+    }
 }
