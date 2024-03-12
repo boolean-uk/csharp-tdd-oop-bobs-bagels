@@ -48,7 +48,6 @@ METHODS
 	public bool checkItemInStock(string SKU), returns true if item exists && is in stock
 												returns false if item is not in stock || doesnt exists.
 
-
 ### Item
 	private string sku
 	private double price
