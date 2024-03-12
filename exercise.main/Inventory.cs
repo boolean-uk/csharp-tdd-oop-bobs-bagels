@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using item.main;
@@ -33,5 +34,20 @@ namespace inventory.main
             _stock.Add("FILS", new Item("FILS", 0.12, "Filling", "Smoked Salmon"));
             _stock.Add("FILH", new Item("FILH", 0.12, "Filling", "Ham"));
         }
+
+        public double GetPriceOfItem(string sku)
+        {
+            double costItem = 0;
+            if(_stock.ContainsKey(sku))
+            {
+                Item item = _stock[sku];
+                return item.Price;
+            } else
+            {
+                throw new ArgumentException($"Item with {sku} is not found in Inventory List.");
+            }
+           
+        }
+
     }
 }

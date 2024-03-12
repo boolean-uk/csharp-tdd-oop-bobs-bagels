@@ -44,7 +44,8 @@ public class TestsBasket
         bool basketIsFull = _basket.FullBasket(5);
         Assert.That(basketIsFull, Is.True);
     }
-
+    
+    // TODO testCase totalPrice()
     [TestCase("BGLS", 0.49)] 
     [TestCase("FILB", 0.12)] 
     [TestCase("FILE", 0.12)]
@@ -54,7 +55,8 @@ public class TestsBasket
         _basket.AddItemToBasket(sku);
         double totalPrice = _basket.TotalPrice();
         //Assert.AreEqual(expectedTotalPrice, totalPrice);
-        Assert.That(totalPrice, Is.EqualTo(Math.Round(expectedTotalPrice, 2)));
-
+        Assert.That(totalPrice, Is.EqualTo(expectedTotalPrice));
     }
+
+
 }

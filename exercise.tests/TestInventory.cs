@@ -1,15 +1,38 @@
+using basket.main;
+using inventory.main;
+using basket.main;
+
 namespace inventory.tests;
 
 public class TestInventory
 {
+    private Inventory _inventory;
+
     [SetUp]
     public void Setup()
     {
+        _inventory = new Inventory();
     }
 
+    // same test as test with testCase
     [Test]
-    public void Test1()
+    public void TestGetPriceOfItem()
     {
-        Assert.Pass();
+        Assert.That(1.29, Is.EqualTo(_inventory.GetPriceOfItem("COFC")));
     }
+
+    // same test as TestGetPriceOfItem
+    [TestCase("BGLS", 0.49)]
+    [TestCase("FILB", 0.12)]
+    [TestCase("FILE", 0.12)]
+    [TestCase("COFC", 1.29)]
+    public void TestGetPrice(string sku, double price)
+    {
+        _inventory.GetPriceOfItem(sku);
+        double getPrice = _inventory.GetPriceOfItem(sku);
+        //Assert.AreEqual(expectedTotalPrice, totalPrice);
+        Assert.That(getPrice, Is.EqualTo(Math.Round(price, 2)));
+    }
+
+
 }
