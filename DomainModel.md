@@ -28,20 +28,24 @@ METHODS
 
 ### Class Basket
 PROPERTIES
-	private int basketCapacity;
-	private List<Item> itemsInList;
+	private int _capacity;
+	private List<Item> _items;
 	private Inventory inventory;
 
 METHODS 
 	public bool AddItemToBasket(string sku), adds bagel/item to List<string> ordersInBasket; => when order does not excist in List<Inventory>
 	public bool RemoveItem(string sku), removes bagel/item from List<string> ordersInBasket; => when excist in List<Inventory>, message when return false
-	public bool FullBasket(int capacity), returns true when basket is full, set its capacity _basket = new Basket(5);_
+	public bool FullBasket(int capacity), returns true when basket is full, set its capacity _basket = new Basket(5);
 	public void SetBasketSize(int newSize), returns false when newSize is < 0
 	public double GetTotalCosts, returns all costs of items in basket.
 
 ### Class Inventory
 PROPERTIES
-	Dictionary<string(sku), Item(List<Item>) items 
+	private Dictionary<string(sku), Item(List<Item>) items;
+	private Dictionary<string, Item> _stock;
+	// => shows that _stock is read only!
+	public Dictionary<string, Item> Stock => _stock;
+
 
 METHODS
 	public bool GetFilling(string SKU), returns item found by its sku
@@ -54,3 +58,11 @@ METHODS
 	private double price
 	private string name
 	private stirng variant
+
+	PROPERTIES
+	// read only properties =>
+	public string Sku => _sku
+	"Price, Name, Variant"
+
+	public Item(string sku, double price, string name, string variant)
+

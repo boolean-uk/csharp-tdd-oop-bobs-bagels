@@ -46,13 +46,9 @@ public class TestsBasket
     }
     
     // TODO testCase totalPrice()
-    [TestCase("BGLS", 0.49)] 
-    [TestCase("FILB", 0.12)] 
-    [TestCase("FILE", 0.12)]
-    [TestCase("COFC", 1.29)]
-    public void TestTotalPrice(string sku, double expectedTotalPrice)
-    {
-        _basket.AddItemToBasket(sku);
+    [TestCase(0.49, 0.39, 0.88)] 
+    public void TestTotalPrice(double priceA, double priceB, double expectedTotalPrice)
+    { 
         double totalPrice = _basket.TotalPrice();
         //Assert.AreEqual(expectedTotalPrice, totalPrice);
         Assert.That(totalPrice, Is.EqualTo(expectedTotalPrice));

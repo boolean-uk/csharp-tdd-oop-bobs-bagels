@@ -70,12 +70,7 @@ namespace basket.main
             // set initial value of totalCosts to 0;
             double totalCosts = 0;
 
-            foreach (Item item in _items)
-            {
-                Console.WriteLine($"{item.Name}: {item.Price}");
-                totalCosts += item.Price;
-            }
-           // Console.WriteLine($"Total: E {totalCosts}");
+        
             return Math.Round(totalCosts, 2);
         }
     }

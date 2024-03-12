@@ -13,6 +13,8 @@ namespace item.main
         private string _name;
         private string _variant;
 
+        // string Sku = a public property which returns a string
+        // => short hand for a simple getter and returns the value of the private field _sku 
         public string Sku => _sku;
         public double Price => _price;
         public string Name => _name;
