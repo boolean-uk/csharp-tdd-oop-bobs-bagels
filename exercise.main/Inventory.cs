@@ -66,7 +66,7 @@ namespace inventory.main
             if (_stock.ContainsKey(sku))
             {
                 Item item = _stock[sku];
-                Console.WriteLine($"Your {item.Variant} {item.Name} is in stock!");
+                Console.WriteLine($"Your {item.Variant} {item.Name}is in stock!");
                 return true;
             }
             Console.WriteLine($"Item does not excist in stock!");
