@@ -60,6 +60,12 @@ namespace inventory.main
             }
             return false;
         }
+
+        public bool ItemInStock(string sku)
+        {
+            return false;
+           
+        }
        
     }
 }

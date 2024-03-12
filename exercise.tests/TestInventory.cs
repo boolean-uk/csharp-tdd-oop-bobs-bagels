@@ -43,5 +43,14 @@ public class TestInventory
         bool getFilling = _inventory.GetFilling("FILB");
         Assert.That(getFilling, Is.True);
     }
-    
+
+    [TestCase("BGLO", true)]
+    [TestCase("bglo", true)]
+    [TestCase("COFB", true)]
+    [TestCase("FALSE", false)]
+    public void TestsItemInStock(string sku, bool exectedResult) 
+    {
+        bool itemInStock = _inventory.ItemInStock(sku);
+        Assert.That(itemInStock, Is.EqualTo(exectedResult));
+    }
 }
