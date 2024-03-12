@@ -42,6 +42,13 @@ namespace basket.main
 
         public bool RemoveItem(string sku)
         {
+            if (_inventory.Stock.ContainsKey(sku))
+            {
+                Item item = _inventory.Stock[sku];
+                _items.Remove(item);
+                Console.WriteLine($"{item.Name} {item.Variant} is removed from your order.");
+                return true;
+            }
             return false;
         }
 
