@@ -11,6 +11,8 @@ namespace inventory.main
     public class Inventory
     {
         private Dictionary<string, Item> _stock;
+        //Stock property type of Dictionary whick holds a collection of key value pairs of sku's and Item objects:
+        //'public Item(string sku, double price, string name, string variant)'
         public Dictionary<string, Item> Stock => _stock;
 
         public Inventory()

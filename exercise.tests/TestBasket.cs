@@ -1,4 +1,6 @@
 using basket.main;
+using inventory.main;
+using item.main;
 
 namespace basket.tests;
 
@@ -24,8 +26,7 @@ public class TestsBasket
         bool addedItem = _basket.AddItemToBasket("BGLS");
         //int itemsInBasket = _bagelsInBasket.Count;  
         // Assert test, whether execution is successful ( -> check if results / outputs are ok)
-        Assert.That(addedItem, Is.True);
-        Assert.That(_basket, Is.Not.Null);
+        Assert.IsTrue(addedItem);
     }
 
 }
