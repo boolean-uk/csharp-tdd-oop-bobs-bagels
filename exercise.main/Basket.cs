@@ -15,12 +15,14 @@ namespace basket.main
     {
         private List<Item> _items;
         private Inventory _inventory;
+        private int _capacity;
 
         public List<Item> Items => _items;
         public Basket(int basketCapacity) 
         {
             _items = new List<Item>();
             _inventory = new Inventory();
+            _capacity = basketCapacity;
 
         }
         public bool AddItemToBasket(string sku)
@@ -49,6 +51,11 @@ namespace basket.main
                 Console.WriteLine($"{item.Name} {item.Variant} is removed from your order.");
                 return true;
             }
+            return false;
+        }
+
+        public bool FullBasket(int capacity)
+        {
             return false;
         }
 

@@ -37,4 +37,11 @@ public class TestsBasket
         // Assert test, whether execution is successful ( -> check if results / outputs are ok)
         Assert.That(removeItem, Is.True);
     }
+
+    [Test]
+    public void TestIfBasketCapacityIsFull() 
+    {
+        bool basketIsFull = _basket.FullBasket(5);
+        Assert.That(basketIsFull, Is.True);
+    }
 }
