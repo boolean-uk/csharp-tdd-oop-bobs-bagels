@@ -8,6 +8,7 @@ namespace inventory.tests;
 public class TestInventory
 {
     private Inventory _inventory;
+    public Basket basket;
 
     [SetUp]
     public void Setup()
@@ -51,7 +52,7 @@ public class TestInventory
     [TestCase("FALSE", false)]
     public void TestsItemInStock(string sku, bool exectedResult) 
     {
-        bool itemInStock = _inventory.ItemInStock(sku);
+        bool itemInStock = basket.ItemInStock(sku);
         Assert.That(itemInStock, Is.EqualTo(exectedResult));
     }
 

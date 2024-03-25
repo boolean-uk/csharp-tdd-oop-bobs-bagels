@@ -20,6 +20,7 @@ namespace item.main
         public string Name => _name;
         public string Variant => _variant;
 
+        // constructor that uses the getter from the read only propperties
         public Item(string sku, double price, string name, string variant)
         {
             _sku = sku;

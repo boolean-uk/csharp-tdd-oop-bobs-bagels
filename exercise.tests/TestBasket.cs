@@ -1,4 +1,5 @@
 using basket.main;
+using bagel.main;
 using inventory.main;
 using item.main;
 
@@ -7,15 +8,14 @@ namespace basket.tests;
 
 public class TestsBasket
 {
-    private Basket _basket;
-    private List<string> _itemsInBasket;
+    private Basket _basket = new Basket();
 
     [SetUp]
     public void Setup()
     {
         // for each test a new Basket() will be created
-        _basket = new Basket(5);
-        _itemsInBasket = new List<string>();
+        //_basket = new Basket(5);
+        //_itemsInBasket = new List<string>();
     }
 
     [Test]
@@ -55,6 +55,38 @@ public class TestsBasket
         double totalPrice = _basket.TotalPrice();
         //Assert.AreEqual(expectedTotalPrice, totalPrice);
         Assert.That(totalPrice, Is.EqualTo(expectedTotalPrice));
+    }
+
+    [Test]
+    public void TestDiscountBagels6()
+    {
+        Bagel bagel = new Bagel("BGLO", 0.49, "Onion");
+        
+        for (int i = 0; i < 6; i++)
+        {
+            _basket.basketItems.Add(bagel);
+        }
+
+        double discount6 = _basket.DiscountPrice();
+        Assert.That(discount6, Is.EqualTo(2.49));
+    }  
+    
+    [Test]
+    public void TestDiscountBagels12()
+    {
+        // Arrange
+        Bagel bagel = new Bagel("BGLP", 0.39, "Plain");
+        
+        for (int i = 0; i < 12; i++)
+        {
+            _basket.basketItems.Add(bagel);
+        }
+
+        // Act
+        double discount12 = _basket.DiscountPrice();
+
+        // Assert
+        Assert.That(discount12, Is.EqualTo(3.99));
     }
 
 

@@ -61,6 +61,7 @@ namespace inventory.main
             return false;
         }
 
+        /*
         public bool ItemInStock(string sku)
         {
             sku = sku.ToUpper();
@@ -73,6 +74,6 @@ namespace inventory.main
             Console.WriteLine($"Item does not excist in stock!");
             return false;
         }
-       
+        */
     }
 }
