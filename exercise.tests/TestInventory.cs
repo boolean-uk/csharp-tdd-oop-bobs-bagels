@@ -1,6 +1,5 @@
 using basket.main;
 using inventory.main;
-using basket.main;
 using NUnit.Framework.Internal;
 
 namespace inventory.tests;

@@ -60,20 +60,5 @@ namespace inventory.main
             }
             return false;
         }
-
-        /*
-        public bool ItemInStock(string sku)
-        {
-            sku = sku.ToUpper();
-            if (_stock.ContainsKey(sku))
-            {
-                Item item = _stock[sku];
-                Console.WriteLine($"Your {item.Variant} {item.Name}is in stock!");
-                return true;
-            }
-            Console.WriteLine($"Item does not excist in stock!");
-            return false;
-        }
-        */
     }
 }
