@@ -54,7 +54,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 Console.WriteLine(" ID | Price | Item      ");
                 DisplayMenu();
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                DiscountMenu();
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine("To add an item, type its ID and press Enter");
+                Console.WriteLine("To add a special bagel offer, type its ID followed by D (e.g. B2D)");
                 Console.WriteLine("To remove B1, type B1R and press Enter");
                 Console.WriteLine("P: Place completed order");
                 Console.WriteLine("Q: Quit");
@@ -70,6 +73,27 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 //quit
                 switch (input)
                 {
+                    case "B1D": //6 onion bagels
+                        for (int i=0; i<6; i++)
+                        {
+                            basket.AddItem("B1");
+                        }
+                        Console.Clear();
+                        break;
+                    case "B2D": //12 plain bagels
+                        for (int i = 0; i<12; i++)
+                        {
+                            basket.AddItem("B2");
+                        }
+                        Console.Clear();
+                        break;
+                    case "B3D": //6 everything bagels
+                        for (int i = 0; i<6; i++)
+                        {
+                            basket.AddItem("B3");
+                        }
+                        Console.Clear();
+                        break;
                     case "B1":
                     case "B2":
                     case "B3":
@@ -159,8 +183,20 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             {
                 menu.AppendLine($" {i.ID} |  {i.Price} | {i.Variant} {i.Name}");
             }
+            
             Console.WriteLine(menu.ToString());
             //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+
+        private void DiscountMenu()
+        {
+            StringBuilder discountmenu = new StringBuilder();
+            discountmenu.AppendLine("Special Offers:");
+            discountmenu.AppendLine("Onion Bagel (BGLO): 6 for 2.49");
+            discountmenu.AppendLine("Plain Bagel (BGLP): 6 for 2.49");
+            discountmenu.AppendLine("Everything Balge (BGLE) 6 for 2.49");
+            discountmenu.AppendLine("Black Coffee & Bagel for 1.25");
+            Console.WriteLine(discountmenu.ToString());
         }
 
         private void ManagerAccess(string managerCode)

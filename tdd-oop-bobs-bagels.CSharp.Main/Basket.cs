@@ -1,6 +1,9 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.Engine;
+﻿using Microsoft.VisualBasic;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Engine;
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection.Emit;
@@ -13,8 +16,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     public class Basket
     {
         public List<Item> orderBasket = new List<Item>();
-        public List<Item> Receipt = new List<Item>();
-        private int _maxcapacity = 7;
+        public List<Item> ReceiptStart = new List<Item>();
+        public List<Item> ReceiptProcessed = new List<Item>();
+        private int _maxcapacity = 50;
+        public double total_savings;
 
         public int MaxCapacity { get { return _maxcapacity; } set { _maxcapacity = value; } }
 
@@ -83,39 +88,109 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return sum;
         }
 
-        public float Discounts()
-        {
-            //if basket has 12 bagels
-            float discounts = 0;
-            return discounts;
-        }
-
         public string GetReceipt()
         {
             StringBuilder getReceipt = new StringBuilder();
             var Rec = orderBasket.GroupBy(orderBasket => orderBasket.ID);
-            getReceipt.AppendLine("         ~~~ Bob's Bagels ~~~     \n");
-            getReceipt.AppendLine($"        {DateTime.UtcNow.ToString()}");
-            getReceipt.AppendLine("--------------------------------------\n");
+            getReceipt.AppendLine("               ~~~ Bob's Bagels ~~~             \n");
+            getReceipt.AppendLine($"              {DateTime.UtcNow.ToString()}");
+            getReceipt.AppendLine("------------------------------------------------\n");
 
             foreach(var rec in Rec)
             {
-                //getReceipt.AppendLine($"{ rec.Key} {rec.Count()}");
+                
                 Inventory BobsInventory = new Inventory();
                 BobsInventory.SetInventory();
                 var currentItem = BobsInventory.Stock.Where(x => x.ID == rec.Key).FirstOrDefault();
                 currentItem.Quantity = rec.Count();
-                Receipt.Add(currentItem);
+                ReceiptStart.Add(currentItem);
             }
 
-            foreach (Item item in Receipt)
+            ReceiptProcessed = ReceiptStart.ToList();
+
+            while (ReceiptProcessed.Sum(x => x.Quantity) > 0)
             {
-                string fullName = $"{item.Variant} {item.Name}";
-                getReceipt.AppendLine($"{fullName.PadRight(25)} {item.Quantity.ToString().PadRight(3)} $ {Math.Round(item.Price * item.Quantity, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                //Get the 12x and 6x special offers
+                foreach (Item item in ReceiptProcessed)
+                {
+                    string fullName = $"{item.Variant} {item.Name}";
+                    if (item.SKU == "BGLP" && item.Quantity >= 12)
+                    {
+                        item.Quantity -= 12;
+                        int quantity = 12;
+                        double price = 3.99;
+                        double savings = 0.69;
+                        total_savings += savings;
+                        getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                        getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));
+                    }
+
+                    if (item.SKU == "BGLO" && item.Quantity >= 6)
+                    {
+                        item.Quantity -= 6;
+                        int quantity = 6;
+                        double price = 2.49;
+                        double savings = 0.45;
+                        total_savings += savings;
+                        getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                        getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));
+                    }
+
+                    if (item.SKU == "BGLE" && item.Quantity >= 6)
+                    {
+                        item.Quantity -= 6;
+                        int quantity = 6;
+                        double price = 2.49;
+                        double savings = 0.45;
+                        total_savings += savings;
+                        getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                        getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));
+                    }
+                }
+
+                //Get the Black Coffee & Bagel combos:
+                foreach (Item item in ReceiptProcessed)
+                {
+                    int combos = 0;
+                    //check for black coffee: 
+                    int blackcoffee = ReceiptProcessed.Where(x => x.ID == "C1").Count();
+                    if (item.Name == "Bagel" && item.Quantity>0 && blackcoffee!=0)
+                    {
+                        var coffee = ReceiptProcessed.Where(x => x.ID == "C1").FirstOrDefault();
+                        //how many combos to make with this bagel:
+                        combos = Math.Min(coffee.Quantity, item.Quantity);
+                        item.Quantity -= combos;
+                        coffee.Quantity -= combos;
+                    }
+
+                    if (combos != 0)
+                    {
+                        string fullName = $"Coffee & {item.Variant} Bagel Combo";
+                        double price = 1.25;
+                        int quantity = combos;
+                        double savings = ((item.Price + 0.99) * quantity) - (price * quantity);
+                        total_savings += savings;
+                        getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                        getReceipt.AppendLine($"(-{Math.Round(savings, 2, MidpointRounding.AwayFromZero).ToString()})".PadLeft(48));
+                    }
+                }
+
+                //Get the remaining items for normal price:
+                foreach (Item item in ReceiptProcessed)
+                {
+                    if (item.Quantity > 0)
+                    {
+                        string fullName = $"{item.Variant} {item.Name}";
+                        getReceipt.AppendLine($"{fullName.PadRight(35)} {item.Quantity.ToString().PadRight(3)} $ {Math.Round(item.Price * item.Quantity, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
+                        item.Quantity -= item.Quantity;
+                    }
+                }
+ 
             }
-            getReceipt.AppendLine("--------------------------------------\n");
-            getReceipt.AppendLine($"                  Total:      $ {Math.Round(SumBasket(), 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)}\n");
-            getReceipt.AppendLine("       Thank you for your order!");
+            getReceipt.AppendLine("------------------------------------------------\n");
+            getReceipt.AppendLine($"Total:                                 $ {Math.Round(SumBasket()-total_savings, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)}");
+            getReceipt.AppendLine($"\n    You saved a total of $ {Math.Round(total_savings, 2, MidpointRounding.AwayFromZero).ToString()} on this shop");
+            getReceipt.AppendLine("\n         Thank you for your order!");
             return getReceipt.ToString();
 
         }
