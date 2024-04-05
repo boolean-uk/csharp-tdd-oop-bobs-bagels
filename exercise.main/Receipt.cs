@@ -55,6 +55,8 @@ namespace exercise.main
                 {
                     double totalPriceForItem = pair.Value * item.Price;
                     sb.AppendLine($"{item.Variant} {item.Name}     {pair.Value}    £ {totalPriceForItem:F2}");
+                     
+                    // 
                     DiscountPrice();
                     _totalPrice += totalPriceForItem;
                 }
