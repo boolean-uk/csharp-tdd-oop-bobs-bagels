@@ -16,8 +16,8 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     public class Basket
     {
         public List<Item> orderBasket = new List<Item>();
-        public List<Item> ReceiptStart = new List<Item>();
-        public List<Item> ReceiptProcessed = new List<Item>();
+        private List<Item> _ReceiptStart = new List<Item>();
+        public List<Item> ReceiptProcessed { get { return _ReceiptStart; } set { _ReceiptStart = value; } }
         private int _maxcapacity = 50;
         public double total_savings;
 
@@ -103,10 +103,10 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 BobsInventory.SetInventory();
                 var currentItem = BobsInventory.Stock.Where(x => x.ID == rec.Key).FirstOrDefault();
                 currentItem.Quantity = rec.Count();
-                ReceiptStart.Add(currentItem);
+                _ReceiptStart.Add(currentItem);
             }
 
-            ReceiptProcessed = ReceiptStart.ToList();
+            //ReceiptProcessed = _ReceiptStart.ToList();
 
             while (ReceiptProcessed.Sum(x => x.Quantity) > 0)
             {
@@ -116,10 +116,13 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                     string fullName = $"{item.Variant} {item.Name}";
                     if (item.SKU == "BGLP" && item.Quantity >= 12)
                     {
-                        item.Quantity -= 12;
-                        int quantity = 12;
-                        double price = 3.99;
-                        double savings = 0.69;
+                        //how many times can we give discount12:
+                        decimal d = item.Quantity/12;
+                        int num_discounts = (int)Math.Floor(d);
+                        item.Quantity -= (12 * num_discounts);
+                        int quantity = 12 * num_discounts;
+                        double price = (3.99 * num_discounts);
+                        double savings = (0.69 * num_discounts);
                         total_savings += savings;
                         getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
                         getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));
@@ -127,10 +130,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
                     if (item.SKU == "BGLO" && item.Quantity >= 6)
                     {
-                        item.Quantity -= 6;
-                        int quantity = 6;
-                        double price = 2.49;
-                        double savings = 0.45;
+                        decimal d = item.Quantity / 6;
+                        int num_discounts = (int)Math.Floor(d);
+                        item.Quantity -= (6 * num_discounts);
+                        int quantity = 12 * num_discounts;
+                        double price = (2.49 * num_discounts);
+                        double savings = (0.45 * num_discounts);
                         total_savings += savings;
                         getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
                         getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));
@@ -138,10 +143,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
 
                     if (item.SKU == "BGLE" && item.Quantity >= 6)
                     {
-                        item.Quantity -= 6;
-                        int quantity = 6;
-                        double price = 2.49;
-                        double savings = 0.45;
+                        decimal d = item.Quantity / 6;
+                        int num_discounts = (int)Math.Floor(d);
+                        item.Quantity -= (6 * num_discounts);
+                        int quantity = 12 * num_discounts;
+                        double price = (2.49 * num_discounts);
+                        double savings = (0.45 * num_discounts);
                         total_savings += savings;
                         getReceipt.AppendLine($"{fullName.PadRight(35)} {quantity.ToString().PadRight(3)} $ {Math.Round(price, 2, MidpointRounding.AwayFromZero).ToString().PadLeft(6)} ");
                         getReceipt.AppendLine($"(-{savings.ToString()})".PadLeft(48));

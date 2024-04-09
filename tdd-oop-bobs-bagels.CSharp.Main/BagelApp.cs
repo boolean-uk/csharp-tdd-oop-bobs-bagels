@@ -130,6 +130,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                         Console.Clear();
                         break;
                     case "P":
+                    case "p":
                         Console.Clear();
                         Console.WriteLine("Processing payment");
                         Thread.Sleep(1500);
@@ -192,9 +193,9 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
         {
             StringBuilder discountmenu = new StringBuilder();
             discountmenu.AppendLine("Special Offers:");
-            discountmenu.AppendLine("Onion Bagel (BGLO): 6 for 2.49");
-            discountmenu.AppendLine("Plain Bagel (BGLP): 6 for 2.49");
-            discountmenu.AppendLine("Everything Balge (BGLE) 6 for 2.49");
+            discountmenu.AppendLine("Onion Bagel: 6 for 2.49");
+            discountmenu.AppendLine("Plain Bagel: 12 for 3.99");
+            discountmenu.AppendLine("Everything Bagel: 6 for 2.49");
             discountmenu.AppendLine("Black Coffee & Bagel for 1.25");
             Console.WriteLine(discountmenu.ToString());
         }
