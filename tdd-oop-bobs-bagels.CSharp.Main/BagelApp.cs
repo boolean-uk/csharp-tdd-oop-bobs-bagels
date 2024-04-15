@@ -38,7 +38,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                         Console.WriteLine("Try again..");
                         Thread.Sleep(1500);
                         Console.Clear();
-                        //Stop();
                         break;
                 }
             }

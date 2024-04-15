@@ -17,10 +17,11 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
     {
         public List<Item> orderBasket = new List<Item>();
         private List<Item> _ReceiptStart = new List<Item>();
-        public List<Item> ReceiptProcessed { get { return _ReceiptStart; } set { _ReceiptStart = value; } }
+        public List<Item> ReceiptProcessed = new List<Item>();
         private int _maxcapacity = 50;
         public double total_savings;
 
+        //public Receipt myreceipt = new Receipt();
         public int MaxCapacity { get { return _maxcapacity; } set { _maxcapacity = value; } }
 
 
@@ -57,7 +58,6 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 Console.WriteLine("Item not in basket");
                 Thread.Sleep(1500);
             }
-
         }
 
         public string ViewBasket()
@@ -88,25 +88,40 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
             return sum;
         }
 
-        public string GetReceipt()
+        private void StartReceipt()
         {
-            StringBuilder getReceipt = new StringBuilder();
             var Rec = orderBasket.GroupBy(orderBasket => orderBasket.ID);
-            getReceipt.AppendLine("               ~~~ Bob's Bagels ~~~             \n");
-            getReceipt.AppendLine($"              {DateTime.UtcNow.ToString()}");
-            getReceipt.AppendLine("------------------------------------------------\n");
-
-            foreach(var rec in Rec)
+            foreach (var rec in Rec)
             {
-                
                 Inventory BobsInventory = new Inventory();
                 BobsInventory.SetInventory();
                 var currentItem = BobsInventory.Stock.Where(x => x.ID == rec.Key).FirstOrDefault();
                 currentItem.Quantity = rec.Count();
                 _ReceiptStart.Add(currentItem);
             }
+        } 
 
-            //ReceiptProcessed = _ReceiptStart.ToList();
+        private void DeepCopyReceipt()
+        {
+            foreach (Item i in _ReceiptStart)
+            {
+                Inventory BobsInventory = new Inventory();
+                BobsInventory.SetInventory();
+                var currentItem = BobsInventory.Stock.Where(x => x.ID == i.ID).FirstOrDefault();
+                currentItem.Quantity = i.Quantity;
+                ReceiptProcessed.Add(currentItem);
+            }
+
+        }
+       
+        public string GetReceipt()
+        {
+            StartReceipt();
+            DeepCopyReceipt();
+            StringBuilder getReceipt = new StringBuilder();
+            getReceipt.AppendLine("               ~~~ Bob's Bagels ~~~             \n");
+            getReceipt.AppendLine($"              {DateTime.UtcNow.ToString()}");
+            getReceipt.AppendLine("------------------------------------------------\n");
 
             while (ReceiptProcessed.Sum(x => x.Quantity) > 0)
             {
@@ -114,11 +129,12 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                 foreach (Item item in ReceiptProcessed)
                 {
                     string fullName = $"{item.Variant} {item.Name}";
+                    int num_discounts = 0;
                     if (item.SKU == "BGLP" && item.Quantity >= 12)
                     {
                         //how many times can we give discount12:
                         decimal d = item.Quantity/12;
-                        int num_discounts = (int)Math.Floor(d);
+                        num_discounts = (int)Math.Floor(d);
                         item.Quantity -= (12 * num_discounts);
                         int quantity = 12 * num_discounts;
                         double price = (3.99 * num_discounts);
@@ -131,7 +147,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                     if (item.SKU == "BGLO" && item.Quantity >= 6)
                     {
                         decimal d = item.Quantity / 6;
-                        int num_discounts = (int)Math.Floor(d);
+                        num_discounts = (int)Math.Floor(d);
                         item.Quantity -= (6 * num_discounts);
                         int quantity = 12 * num_discounts;
                         double price = (2.49 * num_discounts);
@@ -144,7 +160,7 @@ namespace tdd_oop_bobs_bagels.CSharp.Main
                     if (item.SKU == "BGLE" && item.Quantity >= 6)
                     {
                         decimal d = item.Quantity / 6;
-                        int num_discounts = (int)Math.Floor(d);
+                        num_discounts = (int)Math.Floor(d);
                         item.Quantity -= (6 * num_discounts);
                         int quantity = 12 * num_discounts;
                         double price = (2.49 * num_discounts);
