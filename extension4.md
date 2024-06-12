@@ -9,6 +9,10 @@ Users should receive a text message with their order summary,
 and delivery time when they complete their order.
 ```
 
+| `Classes`    | `Methods`        | `Scenarios` | `Outputs`                                   |
+|--------------|------------------|-------------|---------------------------------------------|
+| `SMSService` | `SendSummary`    |             | `Sends a order summary to the phone number` |
+
 #### Part 2
 ```
 Users should also be able to make orders via text message.
