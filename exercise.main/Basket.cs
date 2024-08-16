@@ -23,7 +23,7 @@ namespace exercise.main
                 return false;
             }
 
-            Item? itemFound = FindItem(newItem.SKU);
+            Item? itemFound = GetItem(newItem.SKU);
             if (itemFound == null)
             {
                 _items.Add(newItem, 1);
@@ -36,7 +36,7 @@ namespace exercise.main
             }
         }
 
-        private Item? FindItem(string sku)
+        private Item? GetItem(string sku)
         {
             List<Item> itemsFound = _items.Where(item => item.Key.SKU == sku).Select(item => item.Key).ToList();
             if (itemsFound.Count == 0) return null;
@@ -45,7 +45,7 @@ namespace exercise.main
 
         public bool RemoveItem(string sku)
         {
-            Item? itemFound = FindItem(sku);
+            Item? itemFound = GetItem(sku);
             if (itemFound == null)
             {
                 return false;

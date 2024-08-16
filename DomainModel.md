@@ -20,7 +20,7 @@
 | `Basket` | `Dictionary<Item, int> _items` | `RemoveItem(Item item)` | Remove item from basket that doesn't exist in basket | `false` |
 | `Basket` | `int basketCapacity` | `ChangeCapacity(int capacity, User user)` | As manager(admin) change basket capacity | `true` |
 | `Basket` | `Dictionary<Item, int> _items` | `SumOfItems()` | Get sum of total cost of items in basket | `float` |
-| `Basket` | `List<Item> _inventory` | `GetItem(Item item)` | Get item from inventory | `true` |
+| `BobsBagelStore` | `List<Item> _inventory` | `GetItem(Item item)` | Get item from inventory | `true` |
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products in store to choose wanted name and variant | `Console + bool` |
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products with prices | `Console + bool` |
 | `Item` | float price |  | Get price of item | `float` |
