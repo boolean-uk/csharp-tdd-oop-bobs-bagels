@@ -28,6 +28,11 @@ namespace exercise.main
             return false;
         }
 
+        public bool ChangeBasketSize(int newSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool RemoveProduct(Basket bskt, string product)
         {
             //Check if product exists in basket

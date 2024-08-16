@@ -78,4 +78,25 @@ public class Tests
         //assert
         Assert.That(result, Is.EqualTo(expectedFailure));
     }
+
+    [TestCase("COFB", "COFW")]
+    public void CapacityChangeTest(string product1, string product2)
+    {
+        //arrange
+        Manager manager = new Manager();
+        int newSize = 1;
+        manager.ChangeBasketSize(newSize);
+        Customer customer = new Customer(manager, 3.50f);
+        bool expectedFailure = false;
+        customer.Add(manager, product1);
+
+        //act
+        bool result = customer.Add(manager, product2);
+
+        bool changeToNegative = manager.ChangeBasketSize(-1);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedFailure));
+        Assert.That(changeToNegative, Is.EqualTo(expectedFailure));
+    }
 }
