@@ -6,13 +6,23 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Customer : Manager
+    public class Customer
     {
-        public Basket basket = new Basket();
+        public Basket basket;
         public float wallet { get; set; }
-        public Customer(float allowance)
+        public Customer(Manager manager, float allowance)
         {
+            this.basket = new Basket(manager);
             this.wallet = allowance;
+        }
+
+        public bool Add(Manager manager, string product)
+        {
+            if (manager.AddProduct(this.basket, product))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Product : Inventory
+    public class Product
     {
         public Base info; //product information
         List<Base> fillings = new List<Base>(); //product fillings

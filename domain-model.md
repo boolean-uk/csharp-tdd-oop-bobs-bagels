@@ -53,48 +53,49 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 
 
-| Classes     | Methods                                                  | Scenario                                                                           | Outputs|
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------|
-| `Customer`  | `Customer(float allowance)`                              | Create a customer with their own basket, wallet                                    | ----   |
-|             | `Add(string product)`                                    | Request to add a product of this type                                              | true   |
-|             |                                                          | This product does not exist or basket is too full                                  | false  |
-|             | `Remove(string product)`                                 | Request to remove a product of this type from basket                               | true   |
-|             |                                                          | This product does not exist in basket                                              | false  |
-|             | `TotalCost()`                                            | Request to know the total cost of everything currently in the basket               | float  |
-|             | `HowMuch(string product)`                                | Request to know how much this product costs                                        | float  |
-|             | `AddFilling(string filling, string bagel)`               | Request to add a filling of a certain type                                         | true   |
-|             |                                                          | Filling does not exist or bagel is not in basket                                   | false  |
-|             | `HowMuchFillings()`                                      | Request to know how much every filling costs                                       | float  | //Could expand this to a string that lists all fillings and individual prices, but all fillings cost 0.12
-|             | `Purchase()`                                             | Request to purchase everything in the basket                                       | true   |
-|             |                                                          | Could not afford everything                                                        | false  |
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------| //Spacing to improve readability
-| `Basket`    | `Basket()`                                               | Create a basket that can hold products                                             | ----   |
-|             | `Search(string product)`                                 | Search through a basket to check if it has the product                             | true   |
-|             |                                                          | Product does not exist in basket or basket is empty                                | false  |
-|             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float  |
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------|
-| `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----   |
-|             | `AddFilling(string name, float price)`                   | Update a product by adding a filling to it                                         | void   |
-|             | `Cost()`                                                 | Return the cost of this product                                                    | float  |
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------|
-| `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----   |
-|             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true   |
-|             |                                                          | Product does not exist                                                             | false  |
-|             | `IsFilling(string filling)`                              | Check if the filling exists                                                        | true   |
-|             |                                                          | Filling does not exist                                                             | false  |
-|             | `HowMuchFillings()`                                      | Return the cost of each filling in the inventory                                   | float  |
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------|
-| `Manager`   | `Manager()`                                              | Create a manager that takes requests from the customer                             | ----   |
-|             | `ChangeBasketSize(int newSize)`                          | Update the standard size of baskets, but leave already existing baskets untouched  | true   |
-|             |                                                          | If the new size is not a positive number                                           | false  |
-|             | `Add(Basket& bskt, string product)`                      | Add this type of product to the customer's basket                                  | true   |
-|             |                                                          | This product does not exist                                                        | false  |
-|             | `Remove(Basket& bskt, string product)`                   | Remove this type of product from the customer's basket                             | true   |
-|             |                                                          | This product does not exist or basket is empty                                     | false  |
-|             | `AddFilling(Basket& bskt, string filling, string bagel)` | Add the filling to the bagel                                                       | true   |
-|             |                                                          | Bagel or filling does not exist                                                    | false  |
-|             | `Purchase(Basket& bskt)`                                 | Pay for everything in the basket and empty it                                      | true   |
-|             |                                                          | Could not afford                                                                   | false  |
-|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|--------|
+| Classes     | Methods                                                  | Scenario                                                                           | Outputs |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
+| `Customer`  | `Customer(Manager mngr, float allowance)`                | Create a customer with their own basket and wallet                                 | ----    |
+|             | `Add(Manager mngr, string product)`                      | Request to add a product of this type                                              | true    |
+|             |                                                          | This product does not exist or basket is too full                                  | false   |
+|             | `Remove(Manager, string product)`                        | Request to remove a product of this type from basket                               | true    |
+|             |                                                          | This product does not exist in basket                                              | false   |
+|             | `TotalCost()`                                            | Request to know the total cost of everything currently in the basket               | float   |
+|             | `HowMuch(string product)`                                | Request to know how much this product costs                                        | float   |
+|             | `AddFilling(Manager mngr, string filling, string bagel)` | Request to add a filling of a certain type                                         | true    |
+|             |                                                          | Filling does not exist or bagel is not in basket                                   | false   |
+|             | `HowMuchFillings(Manager mngr)`                          | Request to know how much every filling costs                                       | float   | //Could expand this to a string that lists all fillings and individual prices, but all fillings cost 0.12
+|             | `Purchase(Manager manager)`                              | Request to purchase everything in the basket                                       | true    |
+|             |                                                          | Could not afford everything                                                        | false   |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------| //Spacing to improve readability
+| `Basket`    | `Basket(Manager mngr)`                                   | Create a basket that can hold products, refer to manager for size                  | ----    |
+|             | `Search(string product)`                                 | Search through a basket to check if it has the product                             | true    |
+|             |                                                          | Product does not exist in basket or basket is empty                                | false   |
+|             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
+| `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |
+|             | `AddFilling(string name, float price)`                   | Update a product by adding a filling to it                                         | void    |
+|             | `Cost()`                                                 | Return the cost of this product                                                    | float   |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
+| `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----    |
+|             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |
+|             |                                                          | Product does not exist                                                             | false   |
+|             | `GetProduct(string product)`                             | Returns selected product                                                           | Product |
+|             | `IsFilling(string filling)`                              | Check if the filling exists                                                        | true    |
+|             |                                                          | Filling does not exist                                                             | false   |
+|             | `HowMuchFillings()`                                      | Return the cost of each filling in the inventory                                   | float   |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
+| `Manager`   | `Manager()`                                              | Create a manager that takes requests from the customer                             | ----    |
+|             | `ChangeBasketSize(int newSize)`                          | Update the standard size of baskets, but leave already existing baskets untouched  | true    |
+|             |                                                          | If the new size is not a positive number                                           | false   |
+|             | `AddProduct(Basket bskt, string product)`                | Add this type of product to the customer's basket                                  | true    |
+|             |                                                          | This product does not exist                                                        | false   |
+|             | `RemoveProduct(Basket bskt, string product)`             | Remove this type of product from the customer's basket                             | true    |
+|             |                                                          | This product does not exist or basket is empty                                     | false   |
+|             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to the bagel                                                       | true    |
+|             |                                                          | Bagel or filling does not exist                                                    | false   |
+|             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it                                      | true    |
+|             |                                                          | Could not afford                                                                   | false   |
+|-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 
 

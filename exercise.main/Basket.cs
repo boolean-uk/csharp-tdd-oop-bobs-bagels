@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Basket : Manager
+    public class Basket
     {
         public int size {  get; set; } //Size of basket
         public List<Product> products = new List<Product>(); //List of all 
 
-        public Basket()
+        public Basket(Manager manager)
         {
-            this.size = allowedBasketSize; 
+            this.size = manager.allowedBasketSize; 
         }
     }
 }

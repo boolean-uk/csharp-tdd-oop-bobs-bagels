@@ -9,11 +9,11 @@ public class Tests
     {
         //arrange
         Manager manager = new Manager();
-        Customer customer = new Customer(3.50f);
+        Customer customer = new Customer(manager, 3.50f);
         bool expectedFailure = false;
 
         //act
-        bool result = customer.Add(fail);
+        bool result = customer.Add(manager, fail);
 
         //assert
         Assert.That(result, Is.EqualTo(expectedFailure));
@@ -22,7 +22,7 @@ public class Tests
         bool expectedSuccess = true;
 
         //act
-        result = customer.Add(bagel);
+        result = customer.Add(manager, bagel);
 
         //assert
         Assert.That(result, Is.EqualTo(expectedSuccess));

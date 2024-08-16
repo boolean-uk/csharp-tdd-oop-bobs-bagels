@@ -6,26 +6,10 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Inventory : Manager
+    public class Inventory
     {
-        public struct Base //The base of a product
-        {
-            public string key;
-            public float price;
-            public string name;
-            public string variant;
-
-            public Base(string key, float price, string name, string variant)
-            {
-                this.key = key;
-                this.price = price;
-                this.name = name;
-                this.variant = variant;
-            }
-        }
-
         //List with all base products
-        List<Product> baseProducts = new List<Product>();
+        public List<Product> baseProducts = new List<Product>();
 
         public Inventory() 
         {
@@ -45,5 +29,26 @@ namespace exercise.main
             baseProducts.Add(new Product(new Base("FILH", 0.12f, "Filling", "Ham")));
         }
 
+        public bool Find(string product)
+        {
+            foreach(Product p in baseProducts)
+            {
+                if(p.info.key == product) return true;
+            }
+            return false;
+        }
+
+        public Product GetProduct(string product)
+        {
+            foreach (Product p in baseProducts)
+            {
+                if (p.info.key == product)
+                {
+                    return p;
+                }
+            }
+
+            throw new Exception();
+        }
     }
 }
