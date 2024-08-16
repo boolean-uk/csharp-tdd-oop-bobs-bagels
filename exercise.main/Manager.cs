@@ -10,12 +10,6 @@ namespace exercise.main
     {
         public Manager(string name) : base(name)
         { } 
-
-        public int SetBasketSize(int  size)
-        {
-            return 0;
-        }
-
         
     }
 }

@@ -64,6 +64,17 @@ namespace exercise.main
             }
         }
 
+        public float GetCost()
+        {
+            float cost = 0f;
+            foreach (Product p in basket)
+            {
+                cost += p.Cost;
+            }
+
+            return cost;
+        }
+
 
     }
 }

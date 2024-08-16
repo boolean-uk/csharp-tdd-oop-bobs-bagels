@@ -37,4 +37,16 @@ public class Tests
         Assert.True(p.GetBasket().Count == 3);
 
     }
+
+    [Test]
+    public void GetTotalCostOfBasket()
+    {
+        Customer p = new Customer("Tom");
+        p.addItemToBascet(productType.BGLO);
+        p.addItemToBascet(productType.COFB);
+        p.addItemToBascet(productType.COFB);
+        Assert.True(p.GetCost() == 2.47f);
+
+
+    }
 }
