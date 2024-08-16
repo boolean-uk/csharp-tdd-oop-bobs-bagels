@@ -8,7 +8,7 @@ I'd like to know the total cost of items in my basket.`
 |----------|--------------------------------------------------------------------|----------------------------------|------------------------------------------------------------|---------|
 | `Bagel ` | `SKU, Name, Variant, Price, Filling`                               | `Just constructor?`              | Item added                                                 |         |
 | `Item`   | `SKU, Price, Name, Variant, Filling`                               | `GetShopItem()`                  | Creates an item with the customers selection               | item    |
-|          |                                                                    |                                  |                                                            |         |
+|          |                                                                    |  `Prompter()`                    | Makes user choose between choices                          |         |
 | `Basket` |  `List<Item> items`                                                | `List items`                     | Shows items                                                | itemlist|
 |          |                                                                    | `AddToBasket(item)`              | Adds item to the basket                                    |         |
 |          | `Subtotal`                                                         | `SubTotal(List<Item>)`           | Adds the cost of the items together                        | double total |
@@ -65,6 +65,7 @@ I'd like to know the cost of a bagel before I add it to my basket.`
 
 | Classes  | Members                                                            | Methods                             | Scenario                                                   | Outputs |
 |----------|--------------------------------------------------------------------|-------------------------------------|------------------------------------------------------------|---------|
+| `Item`   |                                                                    | `PromptConfirm()`                   | Lets user choose yes or no after displaying cost in terminal|        |
 
 `9.
 As a customer,
@@ -73,6 +74,7 @@ I'd like to know the cost of each filling before I add it to my bagel order.`
 
 | Classes  | Members                                                            | Methods                             | Scenario                                                   | Outputs |
 |----------|--------------------------------------------------------------------|-------------------------------------|------------------------------------------------------------|---------|
+| `Item`   |                                                                    | `FillPrompt()`                      | Lists the propmpts and their cost in terminal              |         | 
 
 `10.
 As the manager,
@@ -81,4 +83,6 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes  | Members                                                            | Methods                             | Scenario                                                   | Outputs |
 |----------|--------------------------------------------------------------------|-------------------------------------|------------------------------------------------------------|---------|
+| `Inventory` | `"Stockitem" ints: Bagelstock, coffeestock, fillingstock`       |                                     |                                                            |         |
+|          |                                                                    | bool InStock(int stockitem)         | Used when customer tries adding things to basket/making bagel| true/false |
 
