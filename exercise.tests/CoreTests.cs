@@ -27,8 +27,14 @@ public class Tests
         bool expected = false;
         bool result1 = basket.addItem("Bagel", "Leverpostei");
 
+        //for checking that something doesnt get added to a full basket
+        basket.addItem("Bagel", "Sesame");
+        basket.addItem("Bagel", "Sesame");
+        bool result2 = basket.addItem("Bagel", "Plain");
+
         Assert.That(basket.yourBasket.First().id == expectedItem.id);
         Assert.That(result1 == expected);
+        Assert.That(result2 == expected);
 
     }
 

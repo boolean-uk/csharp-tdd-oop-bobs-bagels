@@ -25,6 +25,7 @@ namespace exercise.main
             }
             if (item != null) { 
                 yourBasket.Add(item);
+                items_in_basket++;
                 return true;
             }
             else
