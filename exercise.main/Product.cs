@@ -92,5 +92,8 @@ namespace exercise.main
                     throw new NotSupportedException("Incorrect input");
             }
         }
+
+        public string Name { get { return name; } }
+        public float Cost { get { return cost; } }
     }
 }

@@ -1,4 +1,5 @@
 using exercise.main;
+using static NUnit.Framework.Internal.OSPlatform;
 
 namespace exercise.tests;
 
@@ -19,6 +20,21 @@ public class Tests
         p.addItemToBascet(productType.COFB);
         p.addItemToBascet(productType.COFB);
         Assert.False(p.addItemToBascet(productType.FILS));
+
+    }
+
+    [Test]
+    public void RemoveFromBasket()
+    {
+        Customer p = new Customer("Tom");
+        p.addItemToBascet(productType.BGLO);
+        p.addItemToBascet(productType.COFB);
+        p.addItemToBascet(productType.COFB);
+        Product item = new Product(productType.COFB);
+        p.addItemToBascet(item);
+        Assert.True(p.GetBasket().Count == 4);
+        Assert.True(p.removeItemFromBasket(item));
+        Assert.True(p.GetBasket().Count == 3);
 
     }
 }
