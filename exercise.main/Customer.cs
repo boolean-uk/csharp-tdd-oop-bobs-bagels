@@ -27,6 +27,10 @@ namespace exercise.main
 
         public bool Remove(Manager manager, string product)
         {
+            if(manager.RemoveProduct(this.basket, product))
+            {
+                return true;
+            }
             return false;
         }
     }

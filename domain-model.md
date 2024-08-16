@@ -69,8 +69,8 @@ I want customers to only be able to order things that we stock in our inventory.
 |             |                                                          | Could not afford everything                                                        | false   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------| //Spacing to improve readability
 | `Basket`    | `Basket(Manager mngr)`                                   | Create a basket that can hold products, refer to manager for size                  | ----    |
-|             | `Search(string product)`                                 | Search through a basket to check if it has the product                             | true    |
-|             |                                                          | Product does not exist in basket or basket is empty                                | false   |
+|             | `Search(string product)`                                 | Search through a basket to check if it has the product, return index               | int     |
+|             |                                                          | Product does not exist in basket or basket is empty, return -1                     | int     |
 |             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |

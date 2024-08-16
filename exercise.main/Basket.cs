@@ -15,5 +15,19 @@ namespace exercise.main
         {
             this.size = manager.allowedBasketSize; 
         }
+
+        public int Search(string product)
+        {
+            int index = 0;
+            foreach (var item in products)
+            {
+                if (item.info.key == product)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
     }
 }

@@ -25,5 +25,18 @@ namespace exercise.main
 
             return false;
         }
+
+        public bool RemoveProduct(Basket bskt, string product)
+        {
+            //Check if product exists in basket
+            int index = bskt.Search(product);
+            if (index > -1)
+            {
+                //Remove product from basket
+                bskt.products.RemoveAt(index);
+                return true;
+            }
+            return false;
+        }
     }
 }
