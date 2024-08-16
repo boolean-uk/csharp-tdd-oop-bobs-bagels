@@ -61,10 +61,10 @@ I'd like to know the total cost of items in my basket.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| `Customer`      | `Total(Basket basket )`                          | Basket is not empty                                              | gets the total of the items in the basket                                          |
+| `Basket`      | `TotalCost(Basket basket )`                          | Basket is not empty                                              | gets the total of the items in the basket                                          |
 |                 |                                                  |                                                                  |                                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
-| `Customer`      | `Total(Basket basket )`                          | Basket is empty                                                  | gets the 0 dollars out                                                              |
+| `Basket`      | `TotalCost(Basket basket )`                          | Basket is empty                                                  | gets the 0 dollars out                                                              |
 |                 |                                                  |                                                                  |                                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 
@@ -75,9 +75,22 @@ I'd like to know the cost of a bagel before I add it to my basket.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|`Bagel`          | Property: `decimal price`                        | Buy a bagel                                                      |gets out a price                                                                     |
+|`Inventory`      | `GetPrice(Bagel bagel)`                        | Buy a bagel                                                      |gets out a price                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
+
+8.
+As a customer,
+So I can shake things up a bit,
+I'd like to be able to choose fillings for my bagel.
+
+| Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
+|-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+|`Bagel`      | `ChooseFilling(Filling filling)`                        | Buy a bagel with a specific filling                                                      |adjust price                                                                     |
+|                 |                                                  |                                                                  |                                                                                     |
+|                 |                                                  |                                                                  |                                                                                     |
+
+
 
 9.
 
@@ -87,7 +100,7 @@ I'd like to know the cost of each filling before I add it to my bagel order.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|`BagelFilling`   | `price(Bagel bagel)`                             | Buy a bagel                                                      |gets out a price                                                                     |
+|`Inventory`      | `GetPrice(Filling filling)`                             | Buy a bagel                                                      |gets out a price                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 
@@ -98,6 +111,13 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|`Customer`       | `buy(Bagel bagel)`                               | Basket in the menu                                               |return true, assign bagel to Customer Basket                                         |
+|`Basket`         | `buy(Bagel bagel)`                               | Basket in the menu                                               |return true, assign bagel to Customer Basket                                         |
 |                 |                                                  |                                                                  |                                                                                     |
-|`Customer`       | `buy(Bagel bagel)`                               | Basket is not in the menu                                        |  returnfalse, assign bagel to Customer Basket                                       |
+|`Basket`         | `buy(Bagel bagel)`                               | Basket is not in the menu                                        |  returnfalse, assign bagel to Customer Basket                                       |
+
+
+
+
+| Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
+|-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+|`Inventory`      | `buy(Bagel bagel)`                               | Basket in the menu                                               |return true, assign bagel to Customer Basket                                         |
