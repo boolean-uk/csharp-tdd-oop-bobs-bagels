@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Items
 {
-    public class Coffee
+    public class Coffee : Item
     {
     }
 }

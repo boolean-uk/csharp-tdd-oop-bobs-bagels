@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Items
 {
-    public class Filling
+    public class Filling : Item
     {
     }
 }

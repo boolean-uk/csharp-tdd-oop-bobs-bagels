@@ -1,10 +1,22 @@
+using exercise.main.Items;
+using exercise.main.Persons;
+
 namespace exercise.tests;
 
 public class CustomerTests
 {
     [Test]
-    public void Test1()
+    public void AddItemToBasket()
     {
-        Assert.Fail();
+        // Setup
+        Customer customer = new Customer();
+
+        // Execute
+        Bagel bagel = new Bagel { Sku = "BGLO" };
+        Console.WriteLine("HELLO");
+        customer.Add(bagel);
+
+        // Verify
+        Assert.IsTrue(customer.Basket.ItemsInBasket.Contains(bagel));
     }
 }
