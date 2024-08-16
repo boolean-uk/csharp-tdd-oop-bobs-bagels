@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,11 @@ namespace exercise.main
             return false;
         }
 
-        public int ChangeCapacity(int c)
+        public int ChangeCapacity(int c, string adminPassword)
         {
-            capacity = c;
+            //Just returns the current capacity if not admin for now
+            if (adminPassword == "admin"){ capacity = c;}
+
             return capacity;
         }
 

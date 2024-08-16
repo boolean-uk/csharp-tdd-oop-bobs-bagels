@@ -44,7 +44,6 @@ public class Tests
     {
         Basket basket = new Basket();
         string product = "salmon";
-        int value = 90;
         basket.Add(product);
 
         bool result = basket.Remove(product);
@@ -66,9 +65,23 @@ public class Tests
     {
         Basket basket = new Basket();
         int newCapacity = 6;
+        string password = "admin";
 
-        int result = basket.ChangeCapacity(6);
+        int result = basket.ChangeCapacity(6, password);
 
         Assert.That(result, Is.EqualTo(newCapacity));
+    }
+
+    [Test]
+    public void ChangeCapacityFailed()
+    {
+        Basket basket = new Basket();
+        int newCapacity = 6;
+        int currentCApacity = 5;
+        string password = "admi";
+
+        int result = basket.ChangeCapacity(newCapacity, password);
+
+        Assert.That(result, Is.EqualTo(currentCApacity));
     }
 }
