@@ -77,5 +77,14 @@ public class CoreTests
         Assert.IsTrue(basket.GetTotalCost() == 2.28m);
     }
 
+    [Test]
+    public void GetPrice()
+    {
+        Basket basket = new Basket();
 
+        Assert.IsTrue(basket.GetPrice("COFC") == 1.29m);
+        Assert.IsTrue(basket.GetPrice("BGLP") == 0.39m);
+        Assert.IsTrue(basket.GetPrice("FILX") == 0.12m);
+        Assert.IsTrue(basket.GetPrice("COFW") == 1.19m);
+    }
 }
