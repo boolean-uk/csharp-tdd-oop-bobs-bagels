@@ -29,5 +29,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public double ShowCost()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

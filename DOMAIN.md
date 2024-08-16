@@ -60,7 +60,7 @@
 |          |                                         |NewCapacity is negative     |false   
 |__________|_________________________________________|____________________________|                                                                       
 |Basket    |                                         |                            |          
-|          | ShowCost()                              |Shows sum of bagels in order|string                                                                             
+|          | ShowCost()                              |Shows sum of bagels in order|double                                                                             
 |          |                                         |                            |         
 |          | Add(string name, string variant)        |order added to basket       |------                                                            
 |          |                                         |                            |                                          
