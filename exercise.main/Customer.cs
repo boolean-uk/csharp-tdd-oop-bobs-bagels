@@ -9,6 +9,7 @@ namespace exercise.main
     public class Customer : Person
     {
         private Basket _basket;
+        private BagelStore _bagelStore;
 
         public Customer(string firstName, string lastName)
             : base(firstName, lastName)
@@ -21,7 +22,12 @@ namespace exercise.main
             _basket = new Basket();
         }
 
-        public bool addProduct(string SKU) { _basket.addProduct(); return false; }
+        public void recieveProductInBasket()
+        {
+
+        }
+
+        public bool addProduct(string SKU) { _bagelStore.getManager().getProduct(SKU); return false; }
         public bool removeProduct(string SKU) { return false; }
 
         public List<Product> checkBasketContent() { return _basket.getProductsInBasket(); }
