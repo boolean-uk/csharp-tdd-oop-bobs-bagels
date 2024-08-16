@@ -6,6 +6,6 @@ public class Tests
     [Test]
     public void MakeBagelTest()
     {
-
+        Bagel bagel = new Bagel();
     }
 }
