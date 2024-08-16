@@ -13,7 +13,7 @@ namespace exercise.main
 
         public int SetBasketSize(int  size)
         {
-            
+            return 0;
         }
 
         

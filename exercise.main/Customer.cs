@@ -8,17 +8,40 @@ namespace exercise.main
 {
     public class Customer : Person
     {
-        private Basket basket;
+        private List<Product> basket;
 
         public Customer(string name) : base(name)
         {
-            this.basket = new Basket();
+            this.basket = new List<Product>();
         }
 
-        public bool addItemToBascet(Enum e)
+        public bool addItemToBascet(productType p)
         {
-            if (basket.C)
+            if (basket.Count >= Core.basketMaxSize)
+            {
+                return false;
+            }
+            else 
+            {
+                basket.Add(new Product(p));
+                return true;
+            }
         }
+
+        public bool removeItemFromBasket(productType p) {
+            if (basket.Contains(new Product(p))) 
+            {
+                basket.Remove(new Product(p));
+                return true;
+            } 
+            else 
+            { 
+                return false;  
+            }
+        }
+
+        public List<Product> GetBasket() { return basket; }
+
 
     }
 }

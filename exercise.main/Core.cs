@@ -9,10 +9,9 @@ namespace exercise.main
     public class Core
     {
 
-        private int basketMaxSize = 5;
+        public static int basketMaxSize = 5;
 
-
-        public int GetBasketMaxSize() {return basketMaxSize;}
+        
 
     }
 }
