@@ -106,6 +106,8 @@ public class Tests
 
         double result1 = basket.costOfBagel("BGLO");
         Assert.That(result1.Equals(0.49));
+        Assert.That(!result1.Equals(0.50));
+        Assert.That(!result1.Equals(0.491));
     }
 
     [Test]
