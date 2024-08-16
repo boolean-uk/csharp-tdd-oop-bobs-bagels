@@ -22,7 +22,7 @@ public class CoreTests
     {
         Assert.IsTrue(_inventory.Items[13].SKU == "FILH");
         Assert.IsTrue(_inventory.Items[13].Name == "Filling");
-        Assert.IsTrue(_inventory.Items[13].Price == 0.12);
+        Assert.IsTrue(_inventory.Items[13].Price == 0.12m);
     }
 
     [TestCase("FILB")]
@@ -55,6 +55,26 @@ public class CoreTests
         basket.AddProduct("COFB");
 
         Assert.IsTrue(basket.products.Count() == 3);
+    }
+
+    [Test]
+    public void GetTotalCost()
+    {
+        Basket basket = new Basket();
+        basket.AddProduct("FILE");
+        basket.AddProduct("BGLS");
+
+        Assert.IsTrue(basket.GetTotalCost() == 0.61m);
+    }
+
+    [Test]
+    public void GetTotalCost2()
+    {
+        Basket basket = new Basket();
+        basket.AddProduct("COFC"); //1.29
+        basket.AddProduct("COFB"); //0.99
+        Console.WriteLine(basket.GetTotalCost());
+        Assert.IsTrue(basket.GetTotalCost() == 2.28m);
     }
 
 
