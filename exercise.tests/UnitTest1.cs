@@ -129,7 +129,18 @@ public class Tests
         Assert.That(result1.Equals(0.12));
         Assert.That(!result1.Equals(0.50));
         Assert.That(!result1.Equals(0.122));
+    }
 
+    [Test]
+    public void Test10StockOnlyOrdering()
+    {
+        Basket basket = shop.grabBasket();
+
+        bool result1 = basket.add("BGLO");
+        Assert.IsTrue(result1);
+
+        bool result2 = basket.add("AAAAAAAAAAAA");
+        Assert.IsFalse(result2);
     }
 
     [Test]
