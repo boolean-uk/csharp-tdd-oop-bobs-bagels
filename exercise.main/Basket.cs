@@ -12,22 +12,25 @@ namespace exercise.main
         public int MAX_BASKET_SIZE { get; set; } = 3;
         public List<Item> yourBasket = new List<Item>();
         public int items_in_basket = 0;
-        public void addItem(string itemType, string variant)
+        
+        public bool addItem(string itemType, string variant)
         {
 
             Item item = inventory.findItemByName(variant);
-            Console.WriteLine(item.variant + " - " + itemType);
+            
             if (items_in_basket >= MAX_BASKET_SIZE)
             {
                 Console.WriteLine("Basket is full...");
-                return;
+                return false;
             }
             if (item != null) { 
                 yourBasket.Add(item);
+                return true;
             }
             else
             {
                 Console.WriteLine("No such item...");
+                return false;
             }
 
             //throw new NotImplementedException();

@@ -15,17 +15,24 @@ public class Tests
         Assert.That(expected.id == result.id);
     }
 
+
     [Test]
     public void addItemTest()
     {
         Inventory inventory = new Inventory();
         Basket basket = new Basket();
         Item expectedItem = new Item("BGLO", "Bagel", 0.49, "Onion");
-        List<Item> items = [expectedItem];
-
         basket.addItem("Bagel", "Onion");
+        //for checking that a non existant item doesnt get added to the basket
+        bool expected = false;
+        bool result1 = basket.addItem("Bagel", "Leverpostei");
 
         Assert.That(basket.yourBasket.First().id == expectedItem.id);
+        Assert.That(result1 == expected);
 
     }
+
+
+    
+
 }
