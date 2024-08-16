@@ -14,6 +14,7 @@ namespace exercise.main
             Price = price;
             Name = name;
             Variant = variant;
+            //Filling = filling;
 
         }
 
