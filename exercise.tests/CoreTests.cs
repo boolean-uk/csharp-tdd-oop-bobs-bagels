@@ -5,17 +5,27 @@ public class Tests
 
 
     [Test]
-    public void addItemTest()
+    public void findItemByNameTest()
     {
         Inventory inventory = new Inventory();
 
-        bool expected = true;
+        Item expected = new Item("BGLO", "Bagel", 0.49, "Onion");
+        Item result = inventory.findItemByName("Onion");
 
-        bool result = inventory.isAvaiable("BGLO");
+        Assert.That(expected.id == result.id);
+    }
 
-        Assert.That(expected ==  result);
-        
+    [Test]
+    public void addItemTest()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+        Item expectedItem = new Item("BGLO", "Bagel", 0.49, "Onion");
+        List<Item> items = [expectedItem];
 
-        Assert.Pass();
+        basket.addItem("Bagel", "Onion");
+
+        Assert.That(basket.yourBasket.First().id == expectedItem.id);
+
     }
 }

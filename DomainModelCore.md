@@ -61,6 +61,10 @@ Domain Model
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Inventory`	  |	Public List<Item> Inventory                                                         	| List over all of the available items      | List        |
 | 	         	  |	                                                                                    	| Can only order from the inventory         |             |
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Person`	      |	Public Person(string name, Role role)                                               	| Person can be a Manager or a Customer     | Person      |
 | 	         	  |	Public Enum Role {CUSTOMER, MANAGER}                                                	|                                           |             |

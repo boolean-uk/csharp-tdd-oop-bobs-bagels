@@ -30,9 +30,21 @@ namespace exercise.main
             return _inventory; 
         }
 
-        public bool isAvaiable(string v)
+        public Item findItemByName(string itemName)
         {
-            throw new NotImplementedException();
+
+            List<Item> items = getInventory();
+            foreach(var item in items)
+            {
+                if(item.variant == itemName)
+                {
+                    Console.WriteLine($"{itemName} is available");
+                    return item;
+                }
+            }
+            Console.WriteLine($"{itemName} is not available");
+            return null;
+ 
         }
     }
 }
