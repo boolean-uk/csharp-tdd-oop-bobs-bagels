@@ -23,15 +23,15 @@ namespace exercise.main
                 return false;
             }
 
-            Item? itemExists = FindItem(newItem.SKU);
-            if (itemExists == null)
+            Item? itemFound = FindItem(newItem.SKU);
+            if (itemFound == null)
             {
                 _items.Add(newItem, 1);
                 return true;
             }
             else
             {
-                _items[itemExists]++;
+                _items[itemFound]++;
                 return true;
             }
         }
@@ -43,9 +43,23 @@ namespace exercise.main
             return itemsFound[0];
         }
 
-        public bool RemoveItem(string sKU)
+        public bool RemoveItem(string sku)
         {
-            return false;
+            Item? itemFound = FindItem(sku);
+            if (itemFound == null)
+            {
+                return false;
+            }
+
+            if (_items[itemFound] > 1)
+            {
+                _items[itemFound]--;
+            }
+            else
+            {
+                _items.Remove(itemFound);
+            }
+            return true;
         }
 
         public int BasketCapacity { get { return _basketCapacity; } }
