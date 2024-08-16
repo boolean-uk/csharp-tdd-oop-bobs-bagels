@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.Basket">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Customer">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Inventory">
+    <Position X="15.75" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="exercise.main.Inventory.Base" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Inventory.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Manager">
+    <Position X="12.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Product">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
