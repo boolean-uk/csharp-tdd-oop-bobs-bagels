@@ -36,11 +36,14 @@ namespace exercise.main
 
         public bool exists(string v)
         {
-            throw new NotImplementedException();
+            Product value = BagelShop.Category[v];
+            return _products.Contains(value);
         }
 
         public List<Product> Products { get { return _products; } }
 
         public bool IsFull { get { return _capacity == _products.Count(); } }
+
+        public int SumOfItems { get; }
     }
 }

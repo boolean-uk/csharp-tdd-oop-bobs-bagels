@@ -24,9 +24,12 @@ public class Tests
     {
         Basket basket = shop.grabBasket();
         basket.add("BGLO");
+
         bool result1 = basket.remove("BGLO");
         Assert.IsTrue(result1);
+
         Assert.That(basket.Products.Count, Is.EqualTo(0));
+
         bool result2 = basket.remove("BGLO");
         Assert.IsFalse(result2);
     }
@@ -38,8 +41,10 @@ public class Tests
         basket.add("BGLO");
         basket.add("BGLP");
         basket.add("BGLE");
+
         bool result = basket.IsFull;
         Assert.IsTrue(result);
+
         bool result2 = basket.add("BGLS");
         Assert.IsFalse(result2);
     }
@@ -48,11 +53,14 @@ public class Tests
     public void Test4ChangeCapacity()
     {
         Basket basket = shop.grabBasket();
+
         bool result1 = basket.changeCapacity(4);
         Assert.IsTrue(result1);
+
         basket.add("BGLO");
         basket.add("BGLP");
         basket.add("BGLE");
+
         bool result2 = basket.add("BGLS");
         Assert.IsTrue(result2);
     }
@@ -61,10 +69,26 @@ public class Tests
     public void Test5ItemNotInBasket()
     {
         Basket basket = shop.grabBasket();
+
         bool result1 = basket.remove("BGLO");
         Assert.IsFalse(result1);
+
         bool result2 = basket.exists("BGLO");
         Assert.IsFalse(result2);
+
+        basket.add("BGLO");
+        bool result3 = basket.exists("BGLO");
+        Assert.IsTrue(result3);
+    }
+
+    [Test]
+    public void Test6TotalCostOfItems()
+    {
+        Basket basket = shop.grabBasket();
+
+        int sum = basket.SumOfItems;
+        Assert.That(sum.Equals(0));
+
     }
 
     [Test]
