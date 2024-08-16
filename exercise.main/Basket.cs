@@ -14,6 +14,7 @@ namespace exercise.main
         public bool add(string v)
         {
             Product value = BagelShop.Category[v];
+            if (this.IsFull) return false;
             _products.Add(value);
             return true;
         }
@@ -29,6 +30,6 @@ namespace exercise.main
 
         public List<Product> Products { get { return _products; } }
 
-        public bool IsFull { get { return _capacity >= _products.Count(); } }
+        public bool IsFull { get { return _capacity == _products.Count(); } }
     }
 }
