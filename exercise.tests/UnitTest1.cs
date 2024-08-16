@@ -123,6 +123,12 @@ public class Tests
     [Test]
     public void Test9CostOfFilling()
     {
+        Basket basket = shop.grabBasket();
+
+        double result1 = basket.costOfProduct("FILB");
+        Assert.That(result1.Equals(0.12));
+        Assert.That(!result1.Equals(0.50));
+        Assert.That(!result1.Equals(0.122));
 
     }
 
