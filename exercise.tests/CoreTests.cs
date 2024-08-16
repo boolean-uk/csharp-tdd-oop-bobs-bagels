@@ -6,11 +6,9 @@ using System.Runtime.CompilerServices;
 public class CoreTests
 {
     private Inventory _inventory;
-    private Basket _basket;
     public CoreTests()
     {
         _inventory = new Inventory();
-        _basket = new Basket();
     }
 
     [Test]
@@ -30,9 +28,20 @@ public class CoreTests
     [TestCase("FILB")]
     public void AddProductToBasket(string sku)
     {
-        _basket.AddProduct(sku);
+        Basket basket = new Basket();
+        basket.AddProduct(sku);
 
-        Assert.IsTrue(_basket.products.Count() == 1);
-        Assert.IsTrue(_basket.products[0].SKU == sku);
+        Assert.IsTrue(basket.products.Count() == 1);
+        Assert.IsTrue(basket.products[0].SKU == sku);
+    }
+
+    [TestCase("FILB")]
+    public void RemoveProductFromBasket(string sku)
+    {
+        Basket basket = new Basket();
+        basket.AddProduct(sku);
+        basket.RemoveProduct(sku);
+
+        Assert.IsTrue(basket.products.Count() == 0);
     }
 }
