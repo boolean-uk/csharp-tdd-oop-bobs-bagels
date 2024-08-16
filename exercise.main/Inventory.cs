@@ -8,7 +8,7 @@ namespace exercise
 {
     public class Inventory
     {
-        public List<Product> items { get; set; } = new List<Product>()
+        public List<Product> Items { get; set; } = new List<Product>()
         {
             new Product("BGLO", 0.49, "Bagel", "Onion"),
             new Product("BGLP", 0.39, "Bagel", "Plain"),
