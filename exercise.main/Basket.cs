@@ -18,7 +18,7 @@ namespace exercise.main
         
         public bool AddItem(Item newItem)
         {
-            if (_basketCapacity <= _items.Sum(item => item.Value))
+            if (_basketCapacity <= SumOfItems())
             {
                 return false;
             }
@@ -64,7 +64,7 @@ namespace exercise.main
 
         public int SumOfItems()
         {
-            return 0;
+            return _items.Sum(item => item.Value);
         }
     }
 }
