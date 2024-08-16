@@ -58,6 +58,16 @@ public class Tests
     }
 
     [Test]
+    public void Test5ItemNotInBasket()
+    {
+        Basket basket = shop.grabBasket();
+        bool result1 = basket.remove("BGLO");
+        Assert.IsFalse(result1);
+        bool result2 = basket.exists("BGLO");
+        Assert.IsFalse(result2);
+    }
+
+    [Test]
     public void InventoryTest()
     {
         List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];
