@@ -11,5 +11,10 @@ namespace exercise.main
         Inventory inventory = new Inventory();
         public int MAX_BASKET_SIZE { get; set; } = 3;
         public List<Item> yourBasket = new List<Item>();
+
+        public void addItem(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
