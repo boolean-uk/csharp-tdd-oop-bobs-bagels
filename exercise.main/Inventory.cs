@@ -25,7 +25,7 @@ namespace BobsBagels.main
             new ("FILS", 0.12f, "Filling", "Smoked Salmon"),
             new ("FILH", 0.12f, "Filling", "Ham")
         ];
-        public bool ContainsItem(Item item) { throw new NotImplementedException(); }
-        public Item SearchInventory(Item item) { throw new NotImplementedException(); }
+        public bool ContainsItem(string itemSKU) { throw new NotImplementedException(); }
+        public Item SearchInventory(string itemSKU) { throw new NotImplementedException(); }
     }
 }

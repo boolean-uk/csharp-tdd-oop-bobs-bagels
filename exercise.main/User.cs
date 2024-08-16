@@ -1,9 +1,9 @@
 ﻿
 namespace BobsBagels.main
 {
-    public class User
+    public class User(string role)
     {
-        private string _role;
+        private string _role = role;
         private Basket _basket = new();
 
         public bool ChangeCapacity(int capacity) { throw new NotImplementedException();}
