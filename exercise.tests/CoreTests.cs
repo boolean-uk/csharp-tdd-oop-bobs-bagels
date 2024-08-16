@@ -44,4 +44,18 @@ public class CoreTests
 
         Assert.IsTrue(basket.products.Count() == 0);
     }
+
+    [Test]
+    public void BasketIsFull()
+    {
+        Basket basket = new Basket();
+        basket.AddProduct("FILE");
+        basket.AddProduct("BGLS");
+        basket.AddProduct("FILH");
+        basket.AddProduct("COFB");
+
+        Assert.IsTrue(basket.products.Count() == 3);
+    }
+
+
 }
