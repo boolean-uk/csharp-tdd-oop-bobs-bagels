@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Manager
+    public class Inventory
     {
     }
 }

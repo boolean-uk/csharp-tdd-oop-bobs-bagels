@@ -18,7 +18,7 @@
 |          |                                         |                            |
 |          |AddToBasket(string bagel, int funds,     |Manager accepts order       |true            
 |          |int id)                                  |                            |
-|          |AddToBasket(string bagel, int funds,     |         |
+|          |AddToBasket(string bagel, int funds,     |                            |
 |          |int id, string filling)                  |                            |
 |          |                                         |                            |
 |          |                                         |                            |

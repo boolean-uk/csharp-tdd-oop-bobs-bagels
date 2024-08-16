@@ -1,4 +1,4 @@
-using exercise.main.tdd_bobs_bagels.CSharp.Main;
+using exercise.main;
 namespace BasketTest.tests;
 
 public class BasketTests

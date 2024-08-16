@@ -1,12 +1,13 @@
-﻿using System;
+﻿using exercise.main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace exercise.main
+namespace exercise.tests
 {
-    public class Manager
+    public class ManagerTest
     {
     }
 }
