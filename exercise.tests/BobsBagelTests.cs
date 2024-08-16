@@ -40,4 +40,21 @@ public class BobsBagelTests
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
+
+    [Test]
+    public void TestSumOfItemsInBasket()
+    {
+        Basket basket = new Basket();
+        Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
+        Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        Item item3 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        basket.AddItem(item1);
+        basket.AddItem(item2);
+        basket.AddItem(item3);
+        int expectedResult = 3;
+
+        int actualResult = basket.SumOfItems();
+
+        Assert.That(actualResult, Is.EqualTo(expectedResult));
+    }
 }

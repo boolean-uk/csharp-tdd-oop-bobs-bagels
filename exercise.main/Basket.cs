@@ -62,6 +62,9 @@ namespace exercise.main
             return true;
         }
 
-        public int BasketCapacity { get { return _basketCapacity; } }
+        public int SumOfItems()
+        {
+            return 0;
+        }
     }
 }
