@@ -71,7 +71,14 @@ namespace exercise.main
 
         public double GetPrice(string name, string variant)
         {
-            throw new NotImplementedException();
+            foreach (var product in stock)
+            {
+                if (product.Value.name == name && product.Value.variant == variant)
+                {
+                    return product.Value.price;
+                }
+            }
+            return -1;
         }
     }
 }
