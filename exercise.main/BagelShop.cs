@@ -8,7 +8,7 @@ namespace exercise.main
 {
     public class BagelShop
     {
-        private static Dictionary<string, Product> _category = new Dictionary<string, Product>();
+        private Dictionary<string, Product> _category = new Dictionary<string, Product>();
 
         public BagelShop()
         {
@@ -42,9 +42,9 @@ namespace exercise.main
         }
         public Basket grabBasket()
         {
-            return new Basket();
+            return new Basket(_category);
         }
 
-        public static Dictionary<string, Product> Category { get { return _category; } }
+        public Dictionary<string, Product> Category { get { return _category; } }
     }
 }

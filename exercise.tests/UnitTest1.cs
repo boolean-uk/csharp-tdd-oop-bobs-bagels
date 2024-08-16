@@ -4,11 +4,10 @@ namespace exercise.tests;
 
 public class Tests
 {
-    BagelShop shop = new BagelShop();
-
     [Test]
     public void Test1AddingBagel()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
         Assert.IsNotNull(basket);
 
@@ -22,6 +21,7 @@ public class Tests
     [Test]
     public void Test2RemovingBagel()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
         basket.add("BGLO");
 
@@ -37,6 +37,7 @@ public class Tests
     [Test]
     public void Test3BasketFull()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
         basket.add("BGLO");
         basket.add("BGLP");
@@ -52,6 +53,7 @@ public class Tests
     [Test]
     public void Test4ChangeCapacity()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         bool result1 = basket.changeCapacity(4);
@@ -68,6 +70,7 @@ public class Tests
     [Test]
     public void Test5ItemNotInBasket()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         bool result1 = basket.remove("BGLO");
@@ -84,6 +87,7 @@ public class Tests
     [Test]
     public void Test6TotalCostOfItems()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         double sum = basket.SumOfItems;
@@ -102,6 +106,7 @@ public class Tests
     [Test]
     public void Test7CostOfABagel()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         double result1 = basket.costOfProduct("BGLO");
@@ -113,6 +118,7 @@ public class Tests
     [Test]
     public void Test8ChooseFillingsForBagel()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         basket.add("BGLO");
@@ -123,6 +129,7 @@ public class Tests
     [Test]
     public void Test9CostOfFilling()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         double result1 = basket.costOfProduct("FILB");
@@ -134,6 +141,7 @@ public class Tests
     [Test]
     public void Test10StockOnlyOrdering()
     {
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
 
         bool result1 = basket.add("BGLO");
@@ -149,6 +157,7 @@ public class Tests
         }
         // basket should not be full, but there should be no more products left, as
         // we only had 10 of each product to begin with
+        Assert.IsFalse(basket.IsFull);
         bool result3 = basket.add("BGLO");
         Assert.IsFalse(result3);
     }
@@ -160,6 +169,7 @@ public class Tests
         List<string> coffee = ["COFB", "COFW", "COFC", "COFL"];
         List<string> fillings = ["FILB", "FILE", "FILC", "FILX", "FILS", "FILH"];
 
+        BagelShop shop = new BagelShop();
         Basket basket = shop.grabBasket();
         basket.changeCapacity(20);
         bagels.ForEach(bagel => {basket.add(bagel);});
