@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -43,6 +45,25 @@ namespace exercise.main
             _inventory.Add(new Item("FILX", 0.12f, "Filling", "Cream Cheese"));
             _inventory.Add(new Item("FILS", 0.12f, "Filling", "Smoked Salmon"));
             _inventory.Add(new Item("FILH", 0.12f, "Filling", "Ham"));
+        }
+
+        public bool ViewInventory()
+        {
+            Console.WriteLine("| SKU  | Price |   Name  |   Variant   |");
+            Console.WriteLine("|------|-------|---------|-------------|");
+            foreach (Item item in _inventory)
+            {
+                Console.Write($"| {item.SKU} ");
+                Console.Write("| {0:C2} ", item.Price.ToString("C", new CultureInfo("en-GB")));
+                Console.Write("| {0} ", item.Name.Length > 8 ? item.Name.Substring(0, 8) : item.Name);
+                int spacesAmount = 7 - item.Name.Length;
+                for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
+                Console.Write("| {0} ", item.Variant.Length > 11 ? item.Variant.Substring(0, 11) : item.Variant);
+                spacesAmount = 11 - item.Variant.Length;
+                for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
+                Console.Write("|\n");
+            }
+            return true;
         }
     }
 }

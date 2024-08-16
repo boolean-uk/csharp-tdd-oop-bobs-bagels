@@ -85,11 +85,22 @@ public class BobsBagelTests
 
         Item? actualResult = store.GetItem(sku);
         
-        // (actualResult == null) == expectedBoolResult
         Assert.That((actualResult != null) == expectedBoolResult);
         if (actualResult != null)
         {
             Assert.That(actualResult.SKU, Is.EqualTo(expectedStringResult));
         }
+    }
+
+    [Test]
+    public void TestViewInventory()
+    {
+        BobsBagelStore store = new BobsBagelStore();
+        store.StockUpInventory();
+        bool expectedResult = true;
+
+        bool acutalResult = store.ViewInventory();
+
+        Assert.That(acutalResult, Is.EqualTo(expectedResult));
     }
 }
