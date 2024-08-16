@@ -38,6 +38,12 @@ namespace exercise
             if (item == null)
                 return false;
 
+            if (!products.Contains(item))
+            {
+                Console.WriteLine($"Could not find {item.Variant} in your basket.");
+                return false;
+            }
+
             products.Remove(item);
             return true;
         }
