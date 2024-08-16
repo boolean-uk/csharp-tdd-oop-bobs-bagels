@@ -12,16 +12,14 @@ namespace exercise.main
         private double _price;
         private string _name;
         private string _variant;
-        private static int _stock;
-        private List<Product> _extra;
+        private int _stock;
 
-        public Product(string sku, double price, string name, string variant, List<Product> extra)
+        public Product(string sku, double price, string name, string variant)
         {
             _sku = sku;
             _price = price;
             _name = name;
             _variant = variant;
-            _extra = extra;
             _stock = 10; // default stock of 10
         }
 
@@ -29,9 +27,7 @@ namespace exercise.main
         public double Price { get => _price; set => _price = value; }
         public string Name { get => _name; set => _name = value; }
         public string Variant { get => _variant; set => _variant = value; }
-        public static int Stock { get => _stock; set => _stock = value; }
-        public List<Product> Extra { get => _extra; set => _extra = value; }
-
+        public int Stock { get => _stock; set => _stock = value; }
 
     }
 }

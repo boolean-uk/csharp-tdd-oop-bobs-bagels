@@ -116,10 +116,8 @@ public class Tests
         Basket basket = shop.grabBasket();
 
         basket.add("BGLO");
-        bool result1 = basket.addFilling("BGLO", "FILB");
-        Assert.That(result1.Equals(true));
-        Product extra = basket.Products[0].Extra[0];
-        Assert.That(extra.Sku.Equals("FILB"));
+        basket.add("FILB");
+        Assert.That(basket.Products[1].Sku.Equals("FILB"));
         
     }
 

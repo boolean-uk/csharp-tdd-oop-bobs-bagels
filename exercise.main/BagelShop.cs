@@ -38,7 +38,7 @@ namespace exercise.main
 
         private Product createProduct(string sku, double price, string name, string variant)
         {
-            return new Product(sku, price, name, variant, null);
+            return new Product(sku, price, name, variant);
         }
         public Basket grabBasket()
         {
