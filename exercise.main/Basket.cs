@@ -8,5 +8,7 @@ namespace exercise.main
 {
     public class Basket
     {
+        List<Product> products;
+        static int capacity;
     }
 }

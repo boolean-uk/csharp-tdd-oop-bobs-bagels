@@ -2,10 +2,10 @@
 
 | Class           | Members                 | Method/Property             | Scenario                  | Output     |
 |-----------------|-------------------------|-----------------------------|---------------------------|------------|
-| BagelShop       | `Dictionary<Product> category`| grabBasket()          | gives an empty basket     | Basket     |
+| BagelShop       | `Dictionary<int, Product> category`| Category {get;}  | category of products      | Dictionary |
+|                 |							| grabBasket()                | gives an empty basket     | Basket     |
 |                 |							| getProduct(int sku)         | get the product           | Product    |
-|                 |							| refillProduct(int sku)      | customer returns product  | nothing    |
-|                 |                         | Category {get;}             | category of products      | Dictionary |
+|                 |                         | refillProduct(int sku)      | customer returns product  | nothing    |
 |                 |                         |                             |                           |            |
 | Basket          | `List<Product> products`| add(int sku)                | item got added to basket  | true       |
 |				  | `static int capacity`   |                             | item did not get added    | false      |
