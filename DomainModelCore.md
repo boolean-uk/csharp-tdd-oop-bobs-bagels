@@ -56,7 +56,7 @@ Domain Model
 
 | Classes         | Methods																					| Scenario									| Outputs     |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
-| `Item`	      |	Public Item(string id, int price, string name, string variant)                      	| Can either be a bagel, coffee or fillings | Item        |
+| `Item`	      |	Public Item(string id, double price, string name, string variant)                      	| Can either be a bagel, coffee or fillings | Item        |
 | 	         	  |	                                                                                    	|                                           |             |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Inventory`	  |	Public List<Item> Inventory                                                         	| List over all of the available items      | List        |
@@ -66,18 +66,18 @@ Domain Model
 | 	         	  |	Public Enum Role {CUSTOMER, MANAGER}                                                	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
-|`Basket`		  | addBagel(Item bagel, Item filling?, Item coffee?)                                       | User ordered bagel based on the type		| bool        |
-|                 |																							| Bagel not in inventory					| bool        |
+| `Basket`		  | addItem(Item bagel, Item filling?, Item coffee?)                                        | User ordered bagel based on the type		| bool        |
+|                 |																							| Item not in inventory				    	| bool        |
 | 	         	  |	                                                                                    	| User adds filling and/or coffe to bagel   | bool        |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 |                 |																							|											|             |
 |				  |																							|                                           |             |
-|                 | removeBagels(String bagel)																| User removed bagel from basket			| string      |
-|                 |																							| The bagel didnt exist						| string   	  |
+|                 | removeBagels(Item item) 																| User removed item from basket		    	| string      |
+|                 |																							| The item didnt exist						| string   	  |
 |				  |																							|                                           |             |
 |                 | public int basketMaxSize																| Property to holding/setting the basket    | int         |
-|                 | Modify addBagel to check if full														|											| bool  	  |
+|                 | Modify addItem to check if full		    												|											| bool  	  |
 |                 |																							|                                           |             |
 |                 | changeCapasity(int capacity, Role role)                         						| Manager wants to change the basket size   | void (none) |
 |				  |																							|                                           |             |
