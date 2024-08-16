@@ -86,8 +86,17 @@ public class Tests
     {
         Basket basket = shop.grabBasket();
 
-        int sum = basket.SumOfItems;
+        double sum = basket.SumOfItems;
         Assert.That(sum.Equals(0));
+
+        basket.add("BGLO");
+        basket.add("BGLP");
+        basket.add("BGLE");
+
+        double realSum = 0.49 + 0.39 + 0.49;
+
+        double sum2 = basket.SumOfItems;
+        Assert.That(sum.Equals(realSum));
 
     }
 

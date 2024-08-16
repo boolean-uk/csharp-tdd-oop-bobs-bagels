@@ -15,7 +15,7 @@
 |                 |                         | changeCapacity(int size)    | capacity got changed      | true       |
 |                 |                         |                             | capacity didnt get changed| false      |
 |                 |                         | exists(string item)         | check if item is in basket| bool       |
-|                 |                         | SumOfItems {get;}           | get sum of items in cost  | int        |
+|                 |                         | SumOfItems {get;}           | get sum of items in cost  | double     |
 |                 |                         |                             |                           |            |
 | Product         | `string sku`            | SKU {get; set;}             | unique SKU for item       | string     |
 |                 | `int price`             | Price {get; set;}           | price for item            | int        |
