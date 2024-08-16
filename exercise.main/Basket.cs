@@ -12,8 +12,16 @@ namespace exercise
         private Inventory inventory = new Inventory();
         public List<Product> products { get; set; } = new List<Product>();
 
+        public int MaxCapacity { get; set; } = 3;
+
         public bool AddProduct(string sku)
         {
+            if (products.Count() == MaxCapacity)
+            {
+                Console.WriteLine("Basket is full, product not added");
+                return false;
+            }
+                
             Product? item = inventory.Items.Find(item => item.SKU == sku);
 
             if (item == null)
