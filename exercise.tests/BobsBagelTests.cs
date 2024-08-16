@@ -43,7 +43,7 @@ public class BobsBagelTests
     }
 
     [Test]
-    public void TestSumOfItemsInBasket()
+    public void TestSumOfItemsCostsInBasket()
     {
         Basket basket = new Basket();
         Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
@@ -52,19 +52,20 @@ public class BobsBagelTests
         basket.AddItem(item1);
         basket.AddItem(item2);
         basket.AddItem(item3);
-        int expectedResult = 3;
+        float expectedResult = 1.27f;
 
-        int actualResult = basket.SumOfItems();
+        float actualResult = basket.SumOfItemCosts();
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
 
-    [TestCase(2, true)]
-    [TestCase(1, false)]
-    public void TestChangeBasketCapacity(int basketCapacity, bool expectedResult)
+    [TestCase(Role.Manager, 2, true)]
+    [TestCase(Role.Manager, 1, false)]
+    [TestCase(Role.Customer, 2, false)]
+    public void TestChangeBasketCapacity(Role userRole, int basketCapacity, bool expectedResult)
     {
         Basket basket = new Basket(3);
-        User customer = new User(Role.Costumer);
+        User customer = new User(userRole);
         Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
         Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
         basket.AddItem(item1);

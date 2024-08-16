@@ -8,7 +8,7 @@ namespace exercise.main
 {
     public enum Role
     {
-        Costumer,
+        Customer,
         Manager
     }
 }

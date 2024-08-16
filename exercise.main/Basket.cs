@@ -18,8 +18,9 @@ namespace exercise.main
         
         public bool AddItem(Item newItem)
         {
-            if (_basketCapacity <= SumOfItems())
+            if (_basketCapacity <= _items.Sum(item => item.Value))
             {
+                Console.WriteLine("Basket capacity reached, can't add more items!");
                 return false;
             }
 
@@ -48,6 +49,7 @@ namespace exercise.main
             Item? itemFound = GetItem(sku);
             if (itemFound == null)
             {
+                Console.WriteLine("Item not found!");
                 return false;
             }
 
@@ -62,14 +64,28 @@ namespace exercise.main
             return true;
         }
 
-        public int SumOfItems()
+        public float SumOfItemCosts()
         {
-            return _items.Sum(item => item.Value);
+            float sum = 0f;
+            foreach (var item in _items)
+            {
+                sum += item.Key.Price * item.Value;
+            }
+            return sum;
         }
 
-        public bool ChangeCapacity(int basketCapacity, User customer)
+        public bool ChangeCapacity(int basketCapacity, User user)
         {
-            return false;
+            if (user.Role == Role.Customer)
+            {
+                return false;
+            }
+            if (basketCapacity < _items.Sum(item => item.Value))
+            {
+                return false;
+            }
+            _basketCapacity = basketCapacity;
+            return true;
         }
     }
 }
