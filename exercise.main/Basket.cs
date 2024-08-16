@@ -66,5 +66,10 @@ namespace exercise.main
         {
             return _items.Sum(item => item.Value);
         }
+
+        public bool ChangeCapacity(int basketCapacity, User customer)
+        {
+            return false;
+        }
     }
 }

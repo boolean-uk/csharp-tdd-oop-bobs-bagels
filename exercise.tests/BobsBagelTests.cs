@@ -1,4 +1,5 @@
 using exercise.main;
+using NUnit.Framework.Interfaces;
 
 namespace exercise.tests;
 
@@ -54,6 +55,22 @@ public class BobsBagelTests
         int expectedResult = 3;
 
         int actualResult = basket.SumOfItems();
+
+        Assert.That(actualResult, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(2, true)]
+    [TestCase(1, false)]
+    public void TestChangeBasketCapacity(int basketCapacity, bool expectedResult)
+    {
+        Basket basket = new Basket(3);
+        User customer = new User(Role.Costumer);
+        Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
+        Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        basket.AddItem(item1);
+        basket.AddItem(item2);
+
+        bool actualResult = basket.ChangeCapacity(basketCapacity, customer);
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
