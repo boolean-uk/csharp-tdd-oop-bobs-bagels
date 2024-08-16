@@ -38,7 +38,8 @@ namespace exercise.main
 
         public float TotalCost()
         {
-            throw new NotImplementedException();
+            //Check the basket for the total cost
+            return basket.TotalCost();
         }
     }
 }

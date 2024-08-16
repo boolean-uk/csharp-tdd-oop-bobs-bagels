@@ -30,5 +30,16 @@ namespace exercise.main
             }
             return -1;
         }
+
+        internal float TotalCost()
+        {
+            //Calculate the total cost of all products in basket
+            float totalCost = 0;
+            foreach (var item in products)
+            {
+                totalCost += item.Cost();
+            }
+            return totalCost;
+        }
     }
 }

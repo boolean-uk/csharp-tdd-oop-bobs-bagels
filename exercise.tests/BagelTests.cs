@@ -125,7 +125,7 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedSuccess));
     }
 
-    [TestCase("COFL", "COFW", "BGLE", 3.97f)]
+    [TestCase("COFL", "COFW", "BGLE", 2.97f)]
     [TestCase("BGLO", "BGLP", "BGLS", 1.37f)]
     [TestCase("COFB", "COFB", "COFB", 2.97f)]
     public void TotalCostTest(string product1, string product2, string product3, float sum)
@@ -133,6 +133,9 @@ public class Tests
         //arrange
         Manager manager = new Manager();
         Customer customer = new Customer(manager, 3.50f);
+        customer.Add(manager, product1);
+        customer.Add(manager, product2);
+        customer.Add(manager, product3);
 
         //act
         float totalSum = customer.TotalCost();

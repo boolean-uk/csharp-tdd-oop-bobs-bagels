@@ -15,5 +15,16 @@ namespace exercise.main
         {
             this.info = info;
         }
+
+        internal float Cost()
+        {
+            //Get the total cost of the product with all fillings
+            float cost = info.price;
+            foreach (Base filling in fillings)
+            {
+                cost += filling.price;
+            }
+            return cost;
+        }
     }
 }
