@@ -17,10 +17,10 @@ namespace exercise.main
             this.variants = variants;
         }
 
-        string SKU { get; set; }
-        string name { get; set; }
-        string variant { get; set; }
-        float price { get; set; }
+        public string SKU { get; set; }
+        public string name { get; set; }
+        public string variant { get; set; }
+        public float price { get; set; }
     }
 
     

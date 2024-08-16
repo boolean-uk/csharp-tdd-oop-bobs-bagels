@@ -8,11 +8,11 @@ namespace exercise.main
 {
     public class BagelStore
     {
-        private Manager manager = new Manager("Joseph", "Bagelsson");
+        private Manager _manager = new Manager("Joseph", "Bagelsson");
 
-        internal Manager? getManager()
+        public Manager getManager()
         {
-            throw new NotImplementedException();
+            return _manager;
         }
     }
 }

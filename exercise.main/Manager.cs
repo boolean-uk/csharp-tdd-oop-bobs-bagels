@@ -26,6 +26,24 @@ namespace exercise.main
 
         public int getCurrentBasketSize() { return _currentBasketCapacityInStore;}
 
+        public Product getProductReference(string SKU)
+        {
+            Product product = null;
+            if (SKU.Contains("BGL"))
+            {
+                return product = new Bagel(_bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+            }
+            else if (SKU.Contains("COF"))
+            {
+                return product = new Bagel(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+            }
+            else if (SKU.Contains("FIL"))
+            {
+                return product = new Bagel(_filling.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+            }
+            return null;
+        }
+
 
         public bool getProduct(string SKU, Customer customer) {
             //Tuple<string, string, string, float> bagel = _bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU);

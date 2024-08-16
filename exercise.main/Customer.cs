@@ -9,7 +9,7 @@ namespace exercise.main
     public class Customer : Person
     {
         private Basket _basket;
-        private BagelStore _bagelStore;
+        private BagelStore _bagelStore = new BagelStore();
 
         public Customer(string firstName, string lastName)
             : base(firstName, lastName)
@@ -35,7 +35,12 @@ namespace exercise.main
         public bool addProduct(string SKU) { return _bagelStore.getManager().getProduct(SKU, this);} //done
         public bool removeProduct(string SKU) 
         {
-
+            Product product = _bagelStore.getManager().getProductReference(SKU);
+            if (product != null)
+            {
+                _basket.getProductsInBasket().Remove(product); //might not remove intended object, might have to go with if SKU == SKU remove or something
+                return true;
+            }
             return false;
         }
 
