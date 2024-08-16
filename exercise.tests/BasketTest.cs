@@ -53,6 +53,31 @@ public class BasketTest
         Assert.That(removed2, Is.True);
         Assert.That(removed3, Is.True);
         Assert.That(removed4, Is.False);
+    }
+
+    [Test]
+    public void GetPriceTest()
+    {
+        Bagel bagel = new Bagel("BGLO", 0.49, "Bagel", "Onion");
+        Coffee coffee = new Coffee("COFB", 0.99, "Coffee", "Black");
+        Filling filling = new Filling("FILB", 0.12, "Filling", "Bacon");
+        Bagel bagel1 = new Bagel("BGLP", 0.39, "Bagel", "Plain");
+        Basket basket = new Basket(4);
+
+        double price1 = basket.GetPrice(bagel);
+        double price2 = basket.GetPrice(coffee);
+        double price3 = basket.GetPrice(filling);
+        double price4 = basket.GetPrice(bagel1);
+
+        double actual1 = 0.49;
+        double actual2 = 0.99;
+        double actual3 = 0.12;
+        double actual4 = 0.39;
+
+        Assert.That(price1 == actual1);
+        Assert.That(price2 == actual2);
+        Assert.That(price3 == actual3);
+        Assert.That(price4 == actual4);
 
     }
 }

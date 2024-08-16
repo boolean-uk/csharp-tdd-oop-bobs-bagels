@@ -39,5 +39,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public double GetPrice(Item item)
+        {
+            return item.Price;
+        }
     }
 }

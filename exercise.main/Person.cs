@@ -8,6 +8,12 @@ namespace exercise.main
 {
     public class Person
     {
+        private int _id;
+        private bool _manager;
 
+        public Person(int id, bool manager) {
+            this._id = id;
+            this._manager = manager;
+        }
     }
 }
