@@ -24,5 +24,14 @@ namespace exercise.main
             _extra = extra;
             _stock = 10; // default stock of 10
         }
+
+        public string Sku { get => _sku; set => _sku = value; }
+        public double Price { get => _price; set => _price = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Variant { get => _variant; set => _variant = value; }
+        public static int Stock { get => _stock; set => _stock = value; }
+        public List<Product> Extra { get => _extra; set => _extra = value; }
+
+
     }
 }

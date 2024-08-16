@@ -8,8 +8,8 @@ namespace exercise.main
 {
     public class Basket
     {
-        List<Product> products;
-        static int capacity;
+        private List<Product> _products;
+        private static int _capacity;
 
         public bool add(string v)
         {
@@ -22,5 +22,7 @@ namespace exercise.main
             Product value = BagelShop.Category[v];
             return true;
         }
+
+        public List<Product> Products { get { return _products; } }
     }
 }

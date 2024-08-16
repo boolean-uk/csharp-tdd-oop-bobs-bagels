@@ -14,6 +14,9 @@ public class Tests
 
         bool result1 = basket.add("BGLO");
         Assert.IsTrue(result1);
+
+        Product product = basket.Products[0];
+        Assert.That(product.Sku.Equals("BGLO"));
     }
 
     [Test]
