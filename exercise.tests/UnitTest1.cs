@@ -104,7 +104,7 @@ public class Tests
     {
         Basket basket = shop.grabBasket();
 
-        double result1 = basket.costOfBagel("BGLO");
+        double result1 = basket.costOfProduct("BGLO");
         Assert.That(result1.Equals(0.49));
         Assert.That(!result1.Equals(0.50));
         Assert.That(!result1.Equals(0.491));
@@ -118,7 +118,12 @@ public class Tests
         basket.add("BGLO");
         basket.add("FILB");
         Assert.That(basket.Products[1].Sku.Equals("FILB"));
-        
+    }
+
+    [Test]
+    public void Test9CostOfFilling()
+    {
+
     }
 
     [Test]

@@ -40,7 +40,7 @@ namespace exercise.main
             return _products.Contains(value);
         }
 
-        public double costOfBagel(string v)
+        public double costOfProduct(string v)
         {
             Product product = BagelShop.Category[v];
             return product.Price;
