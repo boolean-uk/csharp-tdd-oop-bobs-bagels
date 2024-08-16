@@ -9,12 +9,11 @@ namespace exercise.main
     public class User
     {
         private Role _role;
-        private Basket _assignedBasket;
         public User(Role role)
         {
             _role = role;
         }
-        public Role Role { get; }
-        public Basket AssignedBasket { get;  }
+        public Role Role { get { return _role; } }
+        public Basket AssignedBasket { get; set; }
     }
 }

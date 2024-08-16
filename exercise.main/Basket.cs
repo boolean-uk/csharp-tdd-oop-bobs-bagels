@@ -8,17 +8,19 @@ namespace exercise.main
 {
     public class Basket
     {
-        private int _basketID;
-        private int _basketCapacity = 3;
+        private int _basketCapacity;
         private Dictionary<Item, int> _items = new Dictionary<Item, int>();
 
-        public Basket(int basketID, int basketCapacity)
+        public Basket(int basketCapacity = 3)
         {
-            _basketID = basketID;
             _basketCapacity = basketCapacity;
         }
 
-        public int BasketID { get { return _basketID; } }
+        public bool AddItem(Item item)
+        {
+            return false;
+        }
+
         public int BasketCapacity { get { return _basketCapacity; } }
     }
 }

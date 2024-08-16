@@ -14,16 +14,13 @@
 
 | **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |
 |:--:|:--:|:--:|:--:|:--:|
-| `Basket` | `Dictionary<Item, int> items (value is num of same item in basket)` | `AddItemToBasket(Item item)` | Add item to basket | `true` |
-| `Basket` | `Dictionary<Item, int> items` | `RemoveItemFromBasket(Item item)` | Remove item from basket | `true` |
-| `Basket` | `Dictionary<Item, int> items` | `RemoveItemFromBasket(Item item)` | Remove item from basket that doesn't exist in basket | `false` |
-| `Basket` | `Dictionary<Item, int> items, int basketCapacity` | `AddItemToBasket(Item item)` | Add item to basket when basket is full | `false` |
-| `Basket, User` | `Dictionary<Item, int> items, int basketCapacity` | `ChangeCapacity(int capacity)` | As manager(admin) change basket capacity | `true` |
-| `Basket` | `Dictionary<Item, int> items` | `Sum()` | Get sum of total cost of items in basket | `float` |
+| `Basket` | `Dictionary<Item, int> _items (value is num of same item in basket)` | `AddItem(Item item)` | Add item to basket | `true` |
+| `Basket` | `Dictionary<Item, int> _items, int basketCapacity` | `AddItem(Item item)` | Add item to basket when basket is full | `false` |
+| `Basket` | `Dictionary<Item, int> _items` | `RemoveItem(Item item)` | Remove item from basket | `true` |
+| `Basket` | `Dictionary<Item, int> _items` | `RemoveItem(Item item)` | Remove item from basket that doesn't exist in basket | `false` |
+| `Basket` | `int basketCapacity` | `ChangeCapacity(int capacity, User user)` | As manager(admin) change basket capacity | `true` |
+| `Basket` | `Dictionary<Item, int> _items` | `Sum()` | Get sum of total cost of items in basket | `float` |
+| `Basket` | `List<Item> _inventory` | `GetItem(Item item)` | Get item from inventory | `true` |
+| `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products in store to choose wanted name and variant | `Console + bool` |
+| `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products with prices | `Console + bool` |
 | `Item` | float price |  | Get price of item | `float` |
-| `BobsBagelStore` | `Dictionary<Item, int> inventory` | `ViewInventory()` | View products in store to choose wanted name and variant | `Console + bools` |
-| `BobsBagelStore` | `Dictionary<Item, int> inventory` | `ViewInventory()` | View products with prices | `Console + bools` |
-| `BobsBagelStore` | `Dictionary<Item, int> inventory` | `AddItemToBasket(Item item, Basket basket)` | Get item from inventory in stock | `true` |
-| `BobsBagelStore` | `Dictionary<Item, int> inventory` | `AddItemToBasket(Item item, Basket basket)` | Get item from inventory that is not in stock | `true` |
-
-

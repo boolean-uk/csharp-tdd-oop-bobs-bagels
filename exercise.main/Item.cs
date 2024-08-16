@@ -21,9 +21,9 @@ namespace exercise.main
             _variant = variant;
         }
 
-        public string SKU { get; }
-        public string Price { get; }
-        public string Name { get; }
-        public string Variant { get; }
+        public string SKU { get { return _sku; } }
+        public float Price { get { return _price; } }
+        public string Name { get { return _name; } }
+        public string Variant { get { return _variant; } }
     }
 }

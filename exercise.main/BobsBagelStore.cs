@@ -12,8 +12,18 @@ namespace exercise.main
     {
         private List<Item> _inventory = new List<Item>();
         private List<Basket> _baskets = new List<Basket>();
-        public BobsBagelStore()
+
+        public bool AddBasket(Basket basket)
         {
+            if (basket == null) return false;
+            if (_baskets.Contains(basket)) return false;
+            _baskets.Add(basket);
+            return true;
+        }
+
+        public void StockUpInventory()
+        {
+            _inventory = new List<Item>();
             _inventory.Add(new Item("BGLO", 0.49f, "Bagel", "Onion"));
             _inventory.Add(new Item("BGLP", 0.39f, "Bagel", "Plain"));
             _inventory.Add(new Item("BGLE", 0.49f, "Bagel", "Everything"));
@@ -29,5 +39,9 @@ namespace exercise.main
             _inventory.Add(new Item("FILS", 0.12f, "Filling", "Smoked Salmon"));
             _inventory.Add(new Item("FILH", 0.12f, "Filling", "Ham"));
         }
+
+        public List<Item> Inventory { get { return _inventory; } }
+
+        public List<Basket> Baskets { get { return _baskets; } }
     }
 }
