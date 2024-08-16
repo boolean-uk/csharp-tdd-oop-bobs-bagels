@@ -43,6 +43,11 @@ namespace exercise.main
             return itemsFound[0];
         }
 
+        public bool RemoveItem(string sKU)
+        {
+            return false;
+        }
+
         public int BasketCapacity { get { return _basketCapacity; } }
     }
 }
