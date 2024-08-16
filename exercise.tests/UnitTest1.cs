@@ -26,5 +26,6 @@ public class Tests
         basket.add("BGLO");
         bool result1 = basket.remove("BGLO");
         Assert.IsTrue(result1);
+        Assert.That(basket.Products.Count, Is.EqualTo(0));
     }
 }
