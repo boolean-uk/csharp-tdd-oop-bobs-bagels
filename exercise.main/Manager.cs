@@ -8,5 +8,9 @@ namespace exercise.main
 {
     internal class Manager
     {
+        internal int getCurrentBasketSize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
