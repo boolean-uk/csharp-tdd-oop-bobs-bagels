@@ -44,7 +44,8 @@ namespace exercise.main
 
         public float HowMuch(Manager manager, string product)
         {
-            throw new NotImplementedException();
+            //Ask the manager how much it costs
+            return manager.HowMuchProduct(product);
         }
     }
 }

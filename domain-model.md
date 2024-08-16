@@ -92,7 +92,7 @@ I want customers to only be able to order things that we stock in our inventory.
 |             |                                                          | This product does not exist                                                        | false   |
 |             | `RemoveProduct(Basket bskt, string product)`             | Remove this type of product from the customer's basket                             | true    |
 |             |                                                          | This product does not exist or basket is empty                                     | false   |
-|             | `HowMuchProduct(Basket bskt, string product)`            | Return the cost of the selected product if it exists, otherwise return 0           | float   |
+|             | `HowMuchProduct(string product)`                         | Return the cost of the selected product if it exists, otherwise return 0           | float   |
 |             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to the bagel                                                       | true    |
 |             |                                                          | Bagel or filling does not exist                                                    | false   |
 |             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it                                      | true    |

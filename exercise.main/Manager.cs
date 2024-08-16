@@ -51,5 +51,15 @@ namespace exercise.main
             }
             return false;
         }
+
+        public float HowMuchProduct(string product)
+        {
+            //Check the inventory for the price of the item
+            if(inv.Find(product))
+            {
+                return inv.GetProduct(product).info.price;
+            }
+            return 0.0f;
+        }
     }
 }

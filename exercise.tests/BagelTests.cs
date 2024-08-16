@@ -145,7 +145,7 @@ public class Tests
     }
 
     [TestCase("BGLO", 0.49f)]
-    [TestCase("BGLE", 0.39f)]
+    [TestCase("BGLP", 0.39f)]
     [TestCase("BGLB", 0.0f)]
     public void SingleCostTest(string product, float cost)
     {
