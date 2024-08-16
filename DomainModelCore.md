@@ -53,7 +53,7 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes         | Methods                                            | Scenario											| Outputs    |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
-| `Item`          | `Public Item(string id, int price, `               | Item can be either Bagel, Coffe or Filling	        | Item       |
+| `Item`          | `Public Item(string id, double price, `            | Item can be either Bagel, Coffe or Filling	        | Double     |
 |                 | `string name, string variant)`                     |								                    |            |
 |                 |                                                    |								                    |            |
 | `Person`        | `Public Person(string name, Role role)`            | Person can be a Manager or Customer                | Person     |
@@ -80,9 +80,9 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 | `ChangeBasketCapacity(int capacity, Role role)`    | If Role is Manager the basket capacity can 	    | int        |
 |                 |                                                    | be changed								            |            |
 |                 |                                                    |								                    |            |
-|                 | `TotalCost()`                                      | Sum of all the items in the basket	                | int        |
+|                 | `TotalCost()`                                      | Sum of all the items in the basket	                | Double     |
 |                 |                                                    |								                    |            |
-|                 | `GetPriceOfItem(Item item)`                        | User can see the price of a specific item          | int        |
+|                 | `GetPriceOfItem(Item item)`                        | User can see the price of a specific item          | Double     |
 |                 |                                                    |								                    |            |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
 
