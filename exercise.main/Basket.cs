@@ -32,7 +32,12 @@ namespace exercise.main
 
         public double ShowCost()
         {
-            throw new NotImplementedException();
+            double retCost = 0.0;
+            foreach (var sku in basket)
+            {
+                retCost += inventory.GetPrice(sku);
+            }
+            return retCost;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace exercise.main
 
         public Inventory()
         {
-            Product product = new Product(0.49, "Bagel", "onion");
+            Product product = new Product(0.49, "Bagel", "Onion");
             stock.Add("BGLO", product);
             product = new Product(0.39, "Bagel", "Plain");
             stock.Add("BGLP", product);
@@ -74,6 +74,18 @@ namespace exercise.main
             foreach (var product in stock)
             {
                 if (product.Value.name == name && product.Value.variant == variant)
+                {
+                    return product.Value.price;
+                }
+            }
+            return -1;
+        }
+
+        public double GetPrice(string sku)
+        {
+            foreach (var product in stock)
+            {
+                if (product.Key == sku)
                 {
                     return product.Value.price;
                 }
