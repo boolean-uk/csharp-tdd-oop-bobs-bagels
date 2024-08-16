@@ -11,7 +11,7 @@ Basket basket = new Basket();
 Item wrongBagel = new Item("BGLW", 0.40, "Cake", "Wrong");
 Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
 
-basket.addItem(plainBagel);
+basket.addItem(wrongBagel);
 
 
 Console.WriteLine("Hello, World!");

@@ -49,5 +49,10 @@ namespace exercise.main
                 return false;
 
         }
+
+        public bool removeItemOrItems(Item plainBagel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

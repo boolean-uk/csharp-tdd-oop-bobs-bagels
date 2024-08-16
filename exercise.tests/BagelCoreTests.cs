@@ -38,4 +38,26 @@ public class Tests
        // Assert.That(expectedFalse == resultWrong);
 
     }
+
+
+    [Test]
+    public void RemoveBagelTest()
+    {
+        Basket basket = new Basket();
+
+        Inventory inventory = new Inventory();
+
+        Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+
+        Item wrongBagel = new Item("BGLW", 0.40, "Cake", "Wrong");
+
+        basket.addItem(plainBagel);
+        
+        bool expectedTrue = true;
+        bool expectedFalse = false;
+
+        bool result = basket.removeItemOrItems(plainBagel);
+
+        Assert.That(expectedTrue == result);
+    }
 }
