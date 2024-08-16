@@ -112,6 +112,31 @@ namespace exercise.tests
 
             int result = basket.MaxCapacity;
 
+            //assert
+            Assert.That(expected == result);
+        }
+
+        [Test]
+        public void RemoveNonExistentTest()
+        {
+            //arrange
+
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Product product1 = inventory.Products[0];
+            Product product2 = inventory.Products[1];
+
+            basket.Product.Add(product1);
+
+            bool expected = false;
+
+            //act
+            //Remove item 2 which has not been added to basket
+            bool removed = basket.Remove(product2);
+
+            bool result = removed;
+
 
             //assert
             Assert.That(expected == result);
