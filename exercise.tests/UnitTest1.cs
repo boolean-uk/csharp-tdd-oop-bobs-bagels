@@ -45,6 +45,14 @@ public class Tests
     }
 
     [Test]
+    public void Test4ChangeCapacity()
+    {
+        Basket basket = shop.grabBasket();
+        bool result1 = basket.changeCapacity(4);
+        Assert.IsTrue(result1);
+    }
+
+    [Test]
     public void InventoryTest()
     {
         List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];

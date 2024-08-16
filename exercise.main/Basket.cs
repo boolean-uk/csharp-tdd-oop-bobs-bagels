@@ -28,6 +28,11 @@ namespace exercise.main
             return true;
         }
 
+        public bool changeCapacity(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> Products { get { return _products; } }
 
         public bool IsFull { get { return _capacity == _products.Count(); } }
