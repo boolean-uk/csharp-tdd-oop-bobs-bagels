@@ -8,5 +8,8 @@ namespace exercise.main
 {
     public class Manager
     {
+        private int capacity = 5;
+
+
     }
 }

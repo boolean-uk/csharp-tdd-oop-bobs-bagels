@@ -62,20 +62,13 @@
 |Basket    |                                         |                            |          
 |          | ShowCost()                              |Shows sum of bagels in order|string                                                                             
 |          |                                         |                            |         
-|          | Add(string bagel, int funds,            |order added to basket       |------                                                            
+|          | Add(string name, string variant)        |order added to basket       |------                                                            
 |          |                                         |                            |                                          
-|          | Add(string bagel, int funds,   		 |order added to basket       |------
-|          | string filling)                         |							  |
-|          |										 |                            |
-|          |Remove(string bagel)                     |Item exists in basket       |true
+|          |                                         |							  |
+|          |Remove(string name, string variant)      |Item exists in basket       |true
 |          |                                         |							  |
 |          |                                         |Item does not exists in 	  |false
 |          |                                         |basket.					  |
-|          |										 |                            |
-|          |Remove(string bagel,                     |Item exists in basket       |true
-|          |string filling)                          |							  |
-|          |                                         |Item does not exists in 	  |false
-|          |										 |basket.					  |
 |__________|_________________________________________|____________________________|                                                                       
 |Inventory |  									     |							  |
 |          |IsInInventory(string name, string variant)|Item exists in inventory    |true                                                                                                              

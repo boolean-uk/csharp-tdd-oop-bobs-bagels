@@ -9,5 +9,14 @@ namespace exercise.tests
 {
     public class ManagerTest
     {
+
+        //[TestCase(2)]
+        //public void ChangeCapacity(int newCapacity)
+        //{
+        //    Manager manager = new Manager();
+
+        //    manager.ChangeCapcity(newCapacity);
+
+        //}
     }
 }
