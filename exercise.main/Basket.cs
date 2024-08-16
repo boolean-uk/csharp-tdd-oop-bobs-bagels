@@ -21,6 +21,8 @@ namespace exercise.main
         public bool remove(string v)
         {
             Product value = BagelShop.Category[v];
+            if (!_products.Contains(value)) return false;
+
             _products.Remove(value);
             return true;
         }
