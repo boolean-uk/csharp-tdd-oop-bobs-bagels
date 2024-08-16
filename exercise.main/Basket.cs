@@ -8,14 +8,26 @@ namespace exercise.main
 {
     public class Basket
     {
+        Inventory inventory = new Inventory();
+        private List<string> basket = new List<string>();
         public void Add(string name, string variant)
         {
-            throw new NotImplementedException();
+            basket.Add(inventory.GetCode(name, variant));
         }
 
         public bool OrderInBasket(string name, string variant)
         {
-            throw new NotImplementedException();
+            
+            foreach (var order in basket)
+            {
+                if(name == inventory.GetNameAndVariant(order).name &&
+                   variant == inventory.GetNameAndVariant(order).variant)
+                {
+                return true; 
+                }
+                
+            }
+            return false;
         }
     }
 }

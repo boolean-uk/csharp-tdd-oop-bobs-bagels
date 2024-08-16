@@ -80,5 +80,22 @@ namespace exercise.main
             }
             return -1;
         }
+
+        public string GetCode(string name, string variant)
+        {
+            foreach (var product in stock)
+            {
+                if (product.Value.name == name && product.Value.variant == variant)
+                {
+                    return product.Key;
+                }
+            }
+            return string.Empty;
+        }
+
+        public Product GetNameAndVariant(string sku)
+        {
+            return stock[sku];
+        }
     }
 }
