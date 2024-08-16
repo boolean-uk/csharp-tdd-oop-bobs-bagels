@@ -15,10 +15,32 @@ namespace exercise.main
         {
             _basketCapacity = basketCapacity;
         }
-
-        public bool AddItem(Item item)
+        
+        public bool AddItem(Item newItem)
         {
-            return false;
+            if (_basketCapacity <= _items.Sum(item => item.Value))
+            {
+                return false;
+            }
+
+            Item? itemExists = FindItem(newItem.SKU);
+            if (itemExists == null)
+            {
+                _items.Add(newItem, 1);
+                return true;
+            }
+            else
+            {
+                _items[itemExists]++;
+                return true;
+            }
+        }
+
+        private Item? FindItem(string sku)
+        {
+            List<Item> itemsFound = _items.Where(item => item.Key.SKU == sku).Select(item => item.Key).ToList();
+            if (itemsFound.Count == 0) return null;
+            return itemsFound[0];
         }
 
         public int BasketCapacity { get { return _basketCapacity; } }

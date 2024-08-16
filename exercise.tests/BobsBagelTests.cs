@@ -14,7 +14,7 @@ public class BobsBagelTests
     public void TestAddItemToBasken(int basketCapacity, bool expectedResult)
     {
         BobsBagelStore store = new BobsBagelStore();
-        Basket basket = new Basket();
+        Basket basket = new Basket(basketCapacity);
         store.AddBasket(basket);
         Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
         Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
