@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Basket
+    public class Basket
     {
     }
 }
