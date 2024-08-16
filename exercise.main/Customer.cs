@@ -41,5 +41,10 @@ namespace exercise.main
             //Check the basket for the total cost
             return basket.TotalCost();
         }
+
+        public float HowMuch(Manager manager, string product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

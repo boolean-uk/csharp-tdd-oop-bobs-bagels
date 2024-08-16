@@ -143,4 +143,20 @@ public class Tests
         //assert
         Assert.That(totalSum, Is.EqualTo(sum));
     }
+
+    [TestCase("BGLO", 0.49f)]
+    [TestCase("BGLE", 0.39f)]
+    [TestCase("BGLB", 0.0f)]
+    public void SingleCostTest(string product, float cost)
+    {
+        //arrange
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+        
+        //act
+        float sum = customer.HowMuch(manager, product);
+
+        //assert
+        Assert.That(sum, Is.EqualTo(cost));
+    }
 }

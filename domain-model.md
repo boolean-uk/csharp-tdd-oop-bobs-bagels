@@ -58,10 +58,10 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Customer`  | `Customer(Manager mngr, float allowance)`                | Create a customer with their own basket and wallet                                 | ----    |
 |             | `Add(Manager mngr, string product)`                      | Request to add a product of this type                                              | true    |
 |             |                                                          | This product does not exist or basket is too full                                  | false   |
-|             | `Remove(Manager, string product)`                        | Request to remove a product of this type from basket                               | true    |
+|             | `Remove(Manager mngr, string product)`                   | Request to remove a product of this type from basket                               | true    |
 |             |                                                          | This product does not exist in basket                                              | false   |
 |             | `TotalCost()`                                            | Request to know the total cost of everything currently in the basket               | float   |
-|             | `HowMuch(string product)`                                | Request to know how much this product costs                                        | float   |
+|             | `HowMuch(Manager mngr, string product)`                  | Request to know how much this product costs                                        | float   |
 |             | `AddFilling(Manager mngr, string filling, string bagel)` | Request to add a filling of a certain type                                         | true    |
 |             |                                                          | Filling does not exist or bagel is not in basket                                   | false   |
 |             | `HowMuchFillings(Manager mngr)`                          | Request to know how much every filling costs                                       | float   | //Could expand this to a string that lists all fillings and individual prices, but all fillings cost 0.12
@@ -92,6 +92,7 @@ I want customers to only be able to order things that we stock in our inventory.
 |             |                                                          | This product does not exist                                                        | false   |
 |             | `RemoveProduct(Basket bskt, string product)`             | Remove this type of product from the customer's basket                             | true    |
 |             |                                                          | This product does not exist or basket is empty                                     | false   |
+|             | `HowMuchProduct(Basket bskt, string product)`            | Return the cost of the selected product if it exists, otherwise return 0           | float   |
 |             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to the bagel                                                       | true    |
 |             |                                                          | Bagel or filling does not exist                                                    | false   |
 |             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it                                      | true    |
