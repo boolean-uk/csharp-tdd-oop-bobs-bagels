@@ -20,7 +20,7 @@ namespace exercise.main
         string SKU { get; set; }
         string name { get; set; }
         string variant { get; set; }
-        int price { get; set; }
+        float price { get; set; }
     }
 
     
@@ -34,18 +34,27 @@ namespace exercise.main
                 
         }
 
-        Tuple<string, string, string, float>[] variants =
+        public Bagel(Tuple<string, string, string, float> variant) 
+            : base(null)
         {
-            Tuple.Create("BGLO", "Bagel", "Onion", 0.49f),
-            Tuple.Create("BGLP", "Bagel", "Plain", 0.39f),
-            Tuple.Create("BGLE", "Bagel", "Everything", 0.49f),
-            Tuple.Create("BGLS", "Bagel", "Sesame", 0.49f),
-        };
+            this.SKU = variant.Item1;
+            this.name = variant.Item2;
+            this.variant = variant.Item3;
+            this.price = variant.Item4;
+        }
+
+        //Tuple<string, string, string, float>[] variants =
+        //{
+        //    Tuple.Create("BGLO", "Bagel", "Onion", 0.49f),
+        //    Tuple.Create("BGLP", "Bagel", "Plain", 0.39f),
+        //    Tuple.Create("BGLE", "Bagel", "Everything", 0.49f),
+        //    Tuple.Create("BGLS", "Bagel", "Sesame", 0.49f),
+        //};
 
         public string SKU { get ; set; }
         public string name { get ; set ; }
         public string variant { get ; set ; }
-        public int price { get ; set ; }
+        public float price { get ; set ; }
 
     }
     public class Coffee : Product
@@ -56,18 +65,28 @@ namespace exercise.main
         {
 
         }
-        Tuple<string, string, string, float>[] variants =
+
+        public Coffee(Tuple<string, string, string, float> variant)
+    : base(null)
         {
-            Tuple.Create("COFB", "Coffee", "Black", 0.99f),
-            Tuple.Create("COFW", "Coffee", "White", 1.19f),
-            Tuple.Create("COFC", "Coffee", "Capuccino", 1.29f),
-            Tuple.Create("COFL", "Coffee", "Latte", 1.29f),
-        };
+            this.SKU = variant.Item1;
+            this.name = variant.Item2;
+            this.variant = variant.Item3;
+            this.price = variant.Item4;
+        }
+
+        //Tuple<string, string, string, float>[] variants =
+        //{
+        //    Tuple.Create("COFB", "Coffee", "Black", 0.99f),
+        //    Tuple.Create("COFW", "Coffee", "White", 1.19f),
+        //    Tuple.Create("COFC", "Coffee", "Capuccino", 1.29f),
+        //    Tuple.Create("COFL", "Coffee", "Latte", 1.29f),
+        //};
 
         public string SKU { get ; set ; }
         public string name { get ; set ; }
         public string variant { get ; set ; }
-        public int price { get ; set ; }
+        public float price { get ; set ; }
     }
     public class Filling : Product
     {
@@ -77,19 +96,28 @@ namespace exercise.main
 
         }
 
-        Tuple<string, string, string, float>[] variants =
+        public Filling(Tuple<string, string, string, float> variant)
+    : base(null)
         {
-            Tuple.Create("FILB", "Filling", "Bacon", 0.12f),
-            Tuple.Create("FILE", "Filling", "Egg", 0.12f),
-            Tuple.Create("FILC", "Filling", "Cheese", 0.12f),
-            Tuple.Create("FILX", "Filling", "Cream Cheese", 0.12f),
-            Tuple.Create("FILS", "Filling", "Smoked Salmon", 0.12f),
-            Tuple.Create("FILH", "Filling", "Ham", 0.12f),
-        };
+            this.SKU = variant.Item1;
+            this.name = variant.Item2;
+            this.variant = variant.Item3;
+            this.price = variant.Item4;
+        }
+
+        //Tuple<string, string, string, float>[] variants =
+        //{
+        //    Tuple.Create("FILB", "Filling", "Bacon", 0.12f),
+        //    Tuple.Create("FILE", "Filling", "Egg", 0.12f),
+        //    Tuple.Create("FILC", "Filling", "Cheese", 0.12f),
+        //    Tuple.Create("FILX", "Filling", "Cream Cheese", 0.12f),
+        //    Tuple.Create("FILS", "Filling", "Smoked Salmon", 0.12f),
+        //    Tuple.Create("FILH", "Filling", "Ham", 0.12f),
+        //};
 
         public string SKU { get ; set ; }
         public string name { get ; set ; }
         public string variant { get ; set ; }
-        public int price { get ; set ; }
+        public float price { get ; set ; }
     }
 }
