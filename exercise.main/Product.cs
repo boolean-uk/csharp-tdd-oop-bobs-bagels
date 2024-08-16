@@ -23,12 +23,13 @@ namespace exercise.main
             Tuple.Create("BGLE", "Bagel", "Everything", 0.49f),
             Tuple.Create("BGLS", "Bagel", "Sesame", 0.49f),
         };
-        public string SKU { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        //Tuple<string, string, string, float>[] Product.variants => throw new NotImplementedException();
+        public Tuple<string, string, string, float>[] getVarants () { return variants; }
+        public string SKU { get ; set; }
+        public string name { get ; set ; }
+        public string variant { get ; set ; }
+        public int price { get ; set ; }
+
     }
     public class Coffee : Product
     {
@@ -39,11 +40,12 @@ namespace exercise.main
             Tuple.Create("COFC", "Coffee", "Capuccino", 1.29f),
             Tuple.Create("COFL", "Coffee", "Latte", 1.29f),
         };
+        public Tuple<string, string, string, float>[] getVarants() { return variants; }
 
-        public string SKU { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SKU { get ; set ; }
+        public string name { get ; set ; }
+        public string variant { get ; set ; }
+        public int price { get ; set ; }
     }
     public class Filling : Product
     {
@@ -56,10 +58,11 @@ namespace exercise.main
             Tuple.Create("FILS", "Filling", "Smoked Salmon", 0.12f),
             Tuple.Create("FILH", "Filling", "Ham", 0.12f),
         };
+        public Tuple<string, string, string, float>[] getVarants() { return variants; }
 
-        public string SKU { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SKU { get ; set ; }
+        public string name { get ; set ; }
+        public string variant { get ; set ; }
+        public int price { get ; set ; }
     }
 }
