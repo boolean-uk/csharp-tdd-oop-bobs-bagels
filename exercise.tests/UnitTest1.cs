@@ -1,3 +1,6 @@
+using exercise.main;
+
+
 namespace exercise.tests;
 
 public class Tests
@@ -7,9 +10,5 @@ public class Tests
     {
     }
 
-    [Test]
-    public void Test1()
-    {
-        Assert.Pass();
-    }
+
 }
