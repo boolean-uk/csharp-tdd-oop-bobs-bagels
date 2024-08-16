@@ -1,15 +1,7 @@
 namespace exercise.tests;
+using exercise.main;
 
 public class Tests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
-    [Test]
-    public void Test1()
-    {
-        Assert.Pass();
-    }
+    
 }

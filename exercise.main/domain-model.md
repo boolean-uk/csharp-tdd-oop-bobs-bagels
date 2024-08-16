@@ -7,7 +7,7 @@ I'd like to know the total cost of items in my basket.`
 | Classes  | Members                                                            | Methods                          | Scenario                                                   | Outputs |
 |----------|--------------------------------------------------------------------|----------------------------------|------------------------------------------------------------|---------|
 | `Bagel ` | `SKU, Name, Variant, Price, Filling`                               | `Just constructor?`              | Item added                                                 |         |
-| `Item`   | `SKU, Price, Name, Variant, Filling`                               | `GetShopItem()`                  | Creates an item with the customers selection               | item    |
+| `Item`   | `SKU, Price, Name, Variant, Filling`                               | `CreateItem()`                   | Creates an item with the customers selection               | item    |
 |          |                                                                    |  `Prompter()`                    | Makes user choose between choices                          |         |
 | `Basket` |  `List<Item> items`                                                | `List items`                     | Shows items                                                | itemlist|
 |          |                                                                    | `AddToBasket(item)`              | Adds item to the basket                                    |         |
