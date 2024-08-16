@@ -97,7 +97,15 @@ public class Tests
 
         double sum2 = basket.SumOfItems;
         Assert.That(sum2.Equals(realSum));
+    }
 
+    [Test]
+    public void Test7CostOfABagel()
+    {
+        Basket basket = shop.grabBasket();
+
+        double result1 = basket.costOfBagel("BGLO");
+        Assert.That(result1.Equals(0.49));
     }
 
     [Test]

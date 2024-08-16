@@ -40,6 +40,11 @@ namespace exercise.main
             return _products.Contains(value);
         }
 
+        public double costOfBagel(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> Products { get { return _products; } }
 
         public bool IsFull { get { return _capacity == _products.Count(); } }
