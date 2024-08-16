@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Manager
+    public class Manager : Person
     {
-        internal int getCurrentBasketSize()
-        {
-            throw new NotImplementedException();
+        private int _currentBasketCapacityInStore;
+        public Manager(string firstName, string lastName)
+            :base(firstName, lastName)
+        { 
+            _currentBasketCapacityInStore = 3;
         }
+        public int getCurrentBasketSize() { return _currentBasketCapacityInStore;}
+
     }
 }
