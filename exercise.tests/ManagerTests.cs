@@ -1,15 +1,10 @@
 namespace exercise.tests;
 
-public class BagelTests
+public class ManagerTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void Test1()
     {
-        Assert.Pass();
+        Assert.Fail();
     }
 }
