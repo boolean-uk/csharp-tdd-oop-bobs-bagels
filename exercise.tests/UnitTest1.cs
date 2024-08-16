@@ -96,7 +96,7 @@ public class Tests
         double realSum = 0.49 + 0.39 + 0.49;
 
         double sum2 = basket.SumOfItems;
-        Assert.That(sum.Equals(realSum));
+        Assert.That(sum2.Equals(realSum));
 
     }
 
