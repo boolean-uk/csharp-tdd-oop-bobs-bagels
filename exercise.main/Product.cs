@@ -9,11 +9,11 @@ namespace exercise
     public class Product
     {
         public string SKU { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public string Name { get; set; }
         public string Variant { get; set; }
 
-        public Product(string sku, double price, string name, string variant) 
+        public Product(string sku, decimal price, string name, string variant) 
         {
             SKU = sku;
             Price = price;

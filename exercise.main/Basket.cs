@@ -48,5 +48,13 @@ namespace exercise
             return true;
         }
 
+        public decimal GetTotalCost()
+        {
+            decimal total = 0;
+            products.ForEach(product => total += product.Price);
+
+            return total;
+        }
+
     }
 }
