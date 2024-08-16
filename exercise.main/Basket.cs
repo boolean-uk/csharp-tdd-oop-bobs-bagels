@@ -11,14 +11,22 @@ namespace exercise.main
 
         public decimal GetTotalCost()
         {
-            throw new NotImplementedException();
+            decimal totalCost = 0M;
+
+            foreach(Product Product in ProductList)
+            {
+                totalCost += Product.Price;
+            }
+
+            return totalCost;
+                
         }
 
         public bool Remove(Product removableItem)
         {
-            if (Product.Contains(removableItem))
+            if (ProductList.Contains(removableItem))
             {
-                Product.Remove(removableItem);
+                ProductList.Remove(removableItem);
                 return true;
             }
 
@@ -26,7 +34,7 @@ namespace exercise.main
         }
 
         public int MaxCapacity { get; set; } = 5;
-        public List<Product> Product { get; set; } = new List<Product>();
+        public List<Product> ProductList { get; set; } = new List<Product>();
         public int totalCost { get; set; }
     }
 }

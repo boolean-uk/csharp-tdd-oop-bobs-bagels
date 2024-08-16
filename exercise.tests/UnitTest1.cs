@@ -25,9 +25,9 @@ namespace exercise.tests
             int expected = ex;
 
             //act
-            basket.Product.Add(product1); 
+            basket.ProductList.Add(product1); 
 
-            int prodCount = basket.Product.Count;
+            int prodCount = basket.ProductList.Count;
 
             bool result = expected == prodCount;
 
@@ -46,15 +46,15 @@ namespace exercise.tests
 
             Product product1 = inventory.Products[0];
             Product product2 = inventory.Products[1];
-            basket.Product.Add(product1);
-            basket.Product.Add(product1);
+            basket.ProductList.Add(product1);
+            basket.ProductList.Add(product1);
 
             int expected = 1;
 
             //act
-            basket.Product.Remove(product1);
+            basket.ProductList.Remove(product1);
 
-            int result = basket.Product.Count;
+            int result = basket.ProductList.Count;
 
 
             //assert
@@ -78,14 +78,14 @@ namespace exercise.tests
             Product product4 = inventory.Products[3];
             Product product5 = inventory.Products[4];
             Product product6 = inventory.Products[5];
-            basket.Product.Add(product1);
-            basket.Product.Add(product2);
-            basket.Product.Add(product3);
-            basket.Product.Add(product4);
-            basket.Product.Add(product5);
+            basket.ProductList.Add(product1);
+            basket.ProductList.Add(product2);
+            basket.ProductList.Add(product3);
+            basket.ProductList.Add(product4);
+            basket.ProductList.Add(product5);
 
             //add over capacity
-            basket.Product.Add(product6);
+            basket.ProductList.Add(product6);
 
             
 
@@ -127,7 +127,7 @@ namespace exercise.tests
             Product product1 = inventory.Products[0];
             Product product2 = inventory.Products[1];
 
-            basket.Product.Add(product1);
+            basket.ProductList.Add(product1);
 
             bool expected = false;
 
@@ -152,11 +152,11 @@ namespace exercise.tests
 
             Product product1 = inventory.Products[0];
             Product product2 = inventory.Products[1];
-            Product product3 = inventory.Products[1];
+            Product product3 = inventory.Products[2];
 
-            basket.Product.Add(product1);
-            basket.Product.Add(product2);
-            basket.Product.Add(product3);
+            basket.ProductList.Add(product1);
+            basket.ProductList.Add(product2);
+            basket.ProductList.Add(product3);
 
             decimal expected = 0.49M + 0.49M + 0.39M;
 
