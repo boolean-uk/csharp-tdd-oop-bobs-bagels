@@ -9,7 +9,10 @@ namespace exercise.main
 {
     public class Basket
     {
-        public Basket() { }
+        public Basket() 
+        {
+            addDiscounts();
+        }
 
         public string Add(string productID)
         {
@@ -66,6 +69,22 @@ namespace exercise.main
             new Product("FILS", 0.12, "filling", "smoked salmon"),
             new Product("FILB", 0.12, "filling", "ham"),
         };
+
+        //For the extension 1
+        //I will come back to it later =)
+        public void addDiscounts()
+        {
+            GetFromInventory("BGLO").Discount = new Discount(new Dictionary<string, int>() { { "BGLO", 6 } }, 2.49);
+            GetFromInventory("BGLP").Discount = new Discount(new Dictionary<string, int>() { { "BGLP", 12 } }, 3.99);
+            GetFromInventory("BGLE").Discount = new Discount(new Dictionary<string, int>() { { "BGLE", 6 } }, 2.49);
+            GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
+        }
+
+        public void getTotalCost()
+        {
+
+        }
+
         public int capacity { get; set; } = 5;
         public int productCount { get { return _basket.Count; } }
         public List<Product> _basket { get; set; } = new List<Product>();

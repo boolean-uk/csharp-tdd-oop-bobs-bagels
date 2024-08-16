@@ -13,6 +13,8 @@ namespace exercise.main
 
         public string Name { get; set; }
         public string Variant {  get; set; }
+
+        public Discount ?Discount { get; set; } 
         
         //For bagels, before we get into inheritance
         //public List<Product> fillings { get; set; } = new List<Product>();
@@ -24,5 +26,15 @@ namespace exercise.main
             this.Name = name;
             this.Variant = variant;
         }
+
+        public Product(string SKU, double price, string name, string variant, Discount discount)
+        {
+            this.SKU = SKU;
+            this.Price = price;
+            this.Name = name;
+            this.Variant = variant;
+            this.Discount = discount;
+        }
+
     }
 }
