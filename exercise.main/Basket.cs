@@ -13,6 +13,9 @@ namespace exercise.main
 
         public List<Item> basketItems = new List<Item>();
 
-        
+        public bool addItem(Item? plainBagel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
