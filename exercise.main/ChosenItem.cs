@@ -8,12 +8,13 @@ namespace exercise.main
 {
     public class ChosenItem
     {
-        public Bagel ChosenBagel;
-        public Coffee ChosenCoffee;
+        //public Bagel ChosenBagel;
+        //public Coffee ChosenCoffee;
 
-        public string MakeBagel()
+        public Bagel MakeBagel(string sku, double price, string name, string variant)
         {
-            return "Nothing";
+            Bagel newBagel = new Bagel(sku, price, name, variant);
+            return newBagel;
         }
 
         public string MakeCoffee() 

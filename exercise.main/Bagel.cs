@@ -14,11 +14,15 @@ namespace exercise.main
             Price = price;
             Name = name;
             Variant = variant;
-            //Filling = filling;
-
+            //Filling = filling; Price can be calculated within each bagel.
         }
 
-        private string Filling {  get; set; }
+        public string PrintBagel() 
+        {
+            return $"{Sku} {Price} {Name} {Variant}";
+        }
+
+        //private string Filling {  get; set; }
 
         
     }
