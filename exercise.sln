@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exercise.tests", "exercise.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{825CCFE7-4F2E-4770-8393-FEB732F66EE4}"
 	ProjectSection(SolutionItems) = preProject
+		DomainModel.md = DomainModel.md
 		extension1.md = extension1.md
 		extension2.md = extension2.md
 		extension3.md = extension3.md
@@ -33,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6C89D44-0A24-443C-99CE-7EAAE4508BA9}
 	EndGlobalSection
 EndGlobal
