@@ -43,14 +43,6 @@ namespace exercise.main
             this.price = variant.Item4;
         }
 
-        //Tuple<string, string, string, float>[] variants =
-        //{
-        //    Tuple.Create("BGLO", "Bagel", "Onion", 0.49f),
-        //    Tuple.Create("BGLP", "Bagel", "Plain", 0.39f),
-        //    Tuple.Create("BGLE", "Bagel", "Everything", 0.49f),
-        //    Tuple.Create("BGLS", "Bagel", "Sesame", 0.49f),
-        //};
-
         public string SKU { get ; set; }
         public string name { get ; set ; }
         public string variant { get ; set ; }
@@ -75,14 +67,6 @@ namespace exercise.main
             this.price = variant.Item4;
         }
 
-        //Tuple<string, string, string, float>[] variants =
-        //{
-        //    Tuple.Create("COFB", "Coffee", "Black", 0.99f),
-        //    Tuple.Create("COFW", "Coffee", "White", 1.19f),
-        //    Tuple.Create("COFC", "Coffee", "Capuccino", 1.29f),
-        //    Tuple.Create("COFL", "Coffee", "Latte", 1.29f),
-        //};
-
         public string SKU { get ; set ; }
         public string name { get ; set ; }
         public string variant { get ; set ; }
@@ -104,16 +88,6 @@ namespace exercise.main
             this.variant = variant.Item3;
             this.price = variant.Item4;
         }
-
-        //Tuple<string, string, string, float>[] variants =
-        //{
-        //    Tuple.Create("FILB", "Filling", "Bacon", 0.12f),
-        //    Tuple.Create("FILE", "Filling", "Egg", 0.12f),
-        //    Tuple.Create("FILC", "Filling", "Cheese", 0.12f),
-        //    Tuple.Create("FILX", "Filling", "Cream Cheese", 0.12f),
-        //    Tuple.Create("FILS", "Filling", "Smoked Salmon", 0.12f),
-        //    Tuple.Create("FILH", "Filling", "Ham", 0.12f),
-        //};
 
         public string SKU { get ; set ; }
         public string name { get ; set ; }

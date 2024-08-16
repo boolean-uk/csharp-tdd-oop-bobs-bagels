@@ -25,23 +25,30 @@ namespace exercise.main
 
 
         public int getCurrentBasketSize() { return _currentBasketCapacityInStore;}
-        public void getProduct(string SKU) {
+
+
+        public bool getProduct(string SKU, Customer customer) {
             //Tuple<string, string, string, float> bagel = _bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU);
             
             Product product = null;
             if (SKU.Contains("BGL"))
             {
-                Tuple<string, string, string, float> bagel = _bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU);
-                product = new Bagel(bagel);
-
                 product = new Bagel(_bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU));
-            } else if (SKU.Contains("COF")) {
-            
+                bool productAdded = customer.recieveProductInBasket(product);
+                return productAdded;
+            } else if (SKU.Contains("COF")) 
+            {
+                product = new Bagel(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+                bool productAdded = customer.recieveProductInBasket(product);
+                return productAdded;
             }
             else if (SKU.Contains("FIL"))
             {
-                 
+                product = new Bagel(_filling.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+                bool productAdded = customer.recieveProductInBasket(product);
+                return productAdded;
             }
+            return false;
         }
 
         private Tuple<string, string, string, float>[] getBagelMenu()

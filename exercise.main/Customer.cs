@@ -22,13 +22,22 @@ namespace exercise.main
             _basket = new Basket();
         }
 
-        public void recieveProductInBasket()
+        public bool recieveProductInBasket(Product product)
         {
-
+            if (product != null)
+            {
+                _basket.addProduct(product);
+                return true;
+            }
+            return false;
         }
 
-        public bool addProduct(string SKU) { _bagelStore.getManager().getProduct(SKU); return false; }
-        public bool removeProduct(string SKU) { return false; }
+        public bool addProduct(string SKU) { return _bagelStore.getManager().getProduct(SKU, this);} //done
+        public bool removeProduct(string SKU) 
+        {
+
+            return false;
+        }
 
         public List<Product> checkBasketContent() { return _basket.getProductsInBasket(); }
     }
