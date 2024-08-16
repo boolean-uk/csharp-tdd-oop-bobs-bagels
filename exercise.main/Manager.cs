@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Person
+    public class Manager : Person
     {
-        private string name;
+        public Manager(string name) : base(name)
+        { } 
 
-        public Person(string name) { 
-            this.name = name;
+        public int SetBasketSize(int  size)
+        {
+            
         }
 
+        
     }
 }

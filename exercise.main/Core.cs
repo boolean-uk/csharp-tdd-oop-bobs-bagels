@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Person
+    public class Core
     {
-        private string name;
 
-        public Person(string name) { 
-            this.name = name;
-        }
+        private int basketMaxSize = 5;
+
+
+        public int GetBasketMaxSize() {return basketMaxSize;}
 
     }
 }

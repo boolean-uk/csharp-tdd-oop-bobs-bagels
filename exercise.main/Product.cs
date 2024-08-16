@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Person
+    public class Product
     {
-        private string name;
-
-        public Person(string name) { 
-            this.name = name;
-        }
-
+        public Product() { }
     }
 }
