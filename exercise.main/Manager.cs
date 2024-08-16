@@ -18,11 +18,13 @@ namespace exercise.main
             //Check if product exists in inventory
             if(inv.Find(product))
             {
-                //Add product to basket
-                bskt.products.Add(inv.GetProduct(product));
-                return true;
+                //Add product to basket if it fits
+                if (bskt.products.Count < bskt.size)
+                {
+                    bskt.products.Add(inv.GetProduct(product));
+                    return true;
+                }
             }
-
             return false;
         }
 
