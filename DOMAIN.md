@@ -78,12 +78,12 @@
 |          |										 |basket.					  |
 |__________|_________________________________________|____________________________|                                                                       
 |Inventory |  									     |							  |
-|          |IsInInventory(string sku)                |Item exists in inventory    |true                                                                                                              
+|          |IsInInventory(string name, string variant)|Item exists in inventory    |true                                                                                                              
 |          |                                         |                            |                                     
 |          |                                         |Item does not exist in      |false                                                           
 |          |                                         |inventory                   |                                              
 |          |                                         |                            |                                     
-|          |GetPrice(string sku)                     |Item exists in inventory    |int cost                                                                                      
+|          |GetPrice(string name, string variant)    |Item exists in inventory    |double cost                                                                                      
 |          |                                         |                            |                                                                      
 |          |                                         |Item does not exist in      |-1                                                                 
 |          |                                         |inventory                   |                                                                      

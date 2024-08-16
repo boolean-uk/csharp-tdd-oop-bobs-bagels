@@ -68,5 +68,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public double GetPrice(string name, string variant)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

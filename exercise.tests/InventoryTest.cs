@@ -19,7 +19,7 @@ namespace exercise.tests
         [TestCase("Bagel", "Plain", true)]
         [TestCase("A lie", "Ham", false)]
         [TestCase("Coffee", "Latte", true)]
-        public void IsInInventory(string name, string variant, bool expected)
+        public void TestIsInInventory(string name, string variant, bool expected)
         {
             Inventory inventory = new Inventory();
 
@@ -27,5 +27,22 @@ namespace exercise.tests
             
             Assert.That(result == expected);
         }
+
+        [TestCase("BOGUS", "fake", -1)]
+        [TestCase("Bagel", "Everything", 0.49)]
+        [TestCase("Coffee", "Rainbow", -1)]
+        [TestCase("Filling", "Bacon", 0.12)]
+        [TestCase("Filling", "Smoked Salmon", 0.12)]
+        [TestCase("Bagel", "Plain", 0.39)]
+        [TestCase("A lie", "Ham", -1)]
+        [TestCase("Coffee", "Latte", 1.29)]
+        public void TestGetPrice(string name, string variant, double expected)
+        {
+            Inventory inventory = new Inventory();
+            double result = inventory.GetPrice(name, variant);
+            
+            Assert.That(result == expected);
+        }
+
     }
 }
