@@ -69,7 +69,7 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 |                                                    | If Bagel/Coffe/filling not in inventory (message)	| bool       |
 |                 |                                                    | If basket is full (message)	                    | bool       |
 |                 |                                                    |								                    |            |
-|                 | `RemoveBagelOrItems(Item item)`					   | User can remove bagel from basket					| bool       |
+|                 | `RemoveBagelOrItem(Item item)`					   | User can remove bagel from basket					| bool       |
 |                 |													   | No bagel found to remove (message)					| bool       |
 |                 |                                                    |								                    |            |
 |                 | `public bool basketIsFull`                         | Property to check if basket is full				| bool       |

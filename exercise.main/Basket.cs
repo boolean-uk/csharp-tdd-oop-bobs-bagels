@@ -50,9 +50,18 @@ namespace exercise.main
 
         }
 
-        public bool removeItemOrItems(Item plainBagel)
+        public bool removeBagelOrItem(Item item)
         {
-            throw new NotImplementedException();
+            if (!basketItems.Any(x => Equals(x, item)))
+            {
+                Console.WriteLine($"{item.name} {item.variant} not in basket!");
+                return false;
+            }
+
+            basketItems.Remove(item);
+
+            Console.WriteLine("Removed: " + item.variant);
+            return true;
         }
     }
 }

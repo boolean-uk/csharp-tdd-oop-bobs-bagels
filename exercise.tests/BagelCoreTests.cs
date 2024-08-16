@@ -41,7 +41,7 @@ public class Tests
 
 
     [Test]
-    public void RemoveBagelTest()
+    public void RemoveBagelOrItemTest()
     {
         Basket basket = new Basket();
 
@@ -56,7 +56,7 @@ public class Tests
         bool expectedTrue = true;
         bool expectedFalse = false;
 
-        bool result = basket.removeItemOrItems(plainBagel);
+        bool result = basket.removeBagelOrItem(plainBagel);
 
         Assert.That(expectedTrue == result);
     }
