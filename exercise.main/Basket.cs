@@ -56,5 +56,16 @@ namespace exercise
             return total;
         }
 
+        public decimal GetPrice(string sku)
+        {
+            Product? item = inventory.Items.Find(item => item.SKU == sku);
+
+            if (item == null)
+                return 0;
+
+            return item.Price;
+        }
+
+
     }
 }
