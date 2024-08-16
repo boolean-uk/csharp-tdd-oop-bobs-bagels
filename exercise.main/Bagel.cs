@@ -20,12 +20,12 @@ namespace csharp_tdd_bobs_bagels.tests
             if (_allowedFlavor.Contains(filling))
                 this.CurrentFlavor = filling;
             else
-                this.CurrentFlavor = "TheFlavor does not exsist";
+                this.CurrentFlavor = "TheFlavor does not exist";
         }
 
         public string GetAssignedFlavor()
         {
-            throw new NotImplementedException();
+            return _currentFlavor;
         }
     }
 }

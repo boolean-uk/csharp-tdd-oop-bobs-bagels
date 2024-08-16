@@ -120,4 +120,4 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|`Inventory`      | `buy(Bagel bagel)`                               | Basket in the menu                                               |return true, assign bagel to Customer Basket                                         |
+|`Bagel`          |                                                  | initiate bagel object with a specific filling                    |object assigned with a specific filling                                     |
