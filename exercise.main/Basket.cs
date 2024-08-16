@@ -23,6 +23,16 @@ namespace exercise
             return true;
         }
 
+        public bool RemoveProduct(string sku)
+        {
+            Product? item = inventory.Items.Find(item => item.SKU == sku);
+
+            if (item == null)
+                return false;
+
+            products.Remove(item);
+            return true;
+        }
 
     }
 }
