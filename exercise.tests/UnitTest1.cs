@@ -142,6 +142,33 @@ namespace exercise.tests
             Assert.That(expected == result);
         }
 
+        [Test]
+        public void TotalCostTest()
+        {
+            //arrange
+
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Product product1 = inventory.Products[0];
+            Product product2 = inventory.Products[1];
+            Product product3 = inventory.Products[1];
+
+            basket.Product.Add(product1);
+            basket.Product.Add(product2);
+            basket.Product.Add(product3);
+
+            decimal expected = 0.49M + 0.49M + 0.39M;
+
+            //act
+            //Remove item 2 which has not been added to basket
+            decimal result = basket.GetTotalCost();
+            
+
+            //assert
+            Assert.That(expected == result);
+        }
+
     }
 }
 

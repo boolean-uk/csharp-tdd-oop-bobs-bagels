@@ -9,9 +9,10 @@ namespace exercise.main
     public class Basket
     {
 
-        public int MaxCapacity { get; set; } = 5;
-        public List<Product> Product { get; set; } = new List<Product>();
-        public int totalCost { get; set; }
+        public decimal GetTotalCost()
+        {
+            throw new NotImplementedException();
+        }
 
         public bool Remove(Product removableItem)
         {
@@ -23,5 +24,9 @@ namespace exercise.main
 
             return false;
         }
+
+        public int MaxCapacity { get; set; } = 5;
+        public List<Product> Product { get; set; } = new List<Product>();
+        public int totalCost { get; set; }
     }
 }
