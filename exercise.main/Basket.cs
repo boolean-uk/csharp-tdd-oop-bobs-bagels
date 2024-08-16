@@ -13,14 +13,19 @@ namespace exercise.main
 
         public bool add(string v)
         {
+            if (!BagelShop.Category.ContainsKey(v)) return false;
+
             Product value = BagelShop.Category[v];
             if (this.IsFull) return false;
+
             _products.Add(value);
             return true;
         }
 
         public bool remove(string v)
         {
+            if (!BagelShop.Category.ContainsKey(v)) return false;
+
             Product value = BagelShop.Category[v];
             if (!_products.Contains(value)) return false;
 
