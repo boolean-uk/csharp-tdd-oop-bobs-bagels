@@ -23,6 +23,23 @@ namespace exercise.main
             _stock = 10; // default stock of 10
         }
 
+        public bool DecreaseStock()
+        {
+            if (_stock > 0)
+            {
+                _stock--;
+                return true;
+            }
+            return false;
+        }
+
+        public bool IncreaseStock()
+        {
+            _stock++;
+            return true;
+        }
+            
+
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }
         public string Name { get => _name; set => _name = value; }

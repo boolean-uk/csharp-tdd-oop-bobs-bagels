@@ -139,8 +139,18 @@ public class Tests
         bool result1 = basket.add("BGLO");
         Assert.IsTrue(result1);
 
-        bool result2 = basket.add("AAAAAAAAAAAA");
+        bool result2 = basket.add("imnotabagel");
         Assert.IsFalse(result2);
+
+        basket.changeCapacity(11);
+        foreach (var i in Enumerable.Range(0, 9))
+        {
+            basket.add("BGLO");
+        }
+        // basket should not be full, but there should be no more products left, as
+        // we only had 10 of each product to begin with
+        bool result3 = basket.add("BGLO");
+        Assert.IsFalse(result3);
     }
 
     [Test]

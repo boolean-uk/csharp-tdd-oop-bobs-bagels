@@ -16,7 +16,10 @@ namespace exercise.main
             if (!BagelShop.Category.ContainsKey(v)) return false;
 
             Product value = BagelShop.Category[v];
+
             if (this.IsFull) return false;
+
+            bool result = value.DecreaseStock();
 
             _products.Add(value);
             return true;
@@ -28,6 +31,8 @@ namespace exercise.main
 
             Product value = BagelShop.Category[v];
             if (!_products.Contains(value)) return false;
+
+            value.IncreaseStock();
 
             _products.Remove(value);
             return true;

@@ -4,8 +4,6 @@
 |-----------------|-------------------------|-----------------------------|---------------------------|------------|
 | BagelShop       | `Dictionary<string, Product> category`| Category {get;}  | category of products      | Dictionary |
 |                 |							| grabBasket()                | gives an empty basket     | Basket     |
-|                 |							| getProduct(int sku)         | get the product           | Product    |
-|                 |                         | refillProduct(int sku)      | customer returns product  | nothing    |
 |                 |                         |                             |                           |            |
 | Basket          | `List<Product> products`| add(int sku)                | item got added to basket  | true       |
 |				  | `int capacity`          |                             | item did not get added    | false      |
@@ -24,3 +22,5 @@
 |                 | `string name`           | Name {get; set}             | name of item              | string     |
 |                 | `string variant`        | Variant {get; set;}         | variant of item           | string     |
 |                 | `int stock`             | Stock {get; set;}           | amount of product in shop | int        |
+|                 |                         | DecreaseStock()             | returns true if stock not 0 | bool     |
+|                 |                         | IncreaseStock()             | returns true              | bool       |
