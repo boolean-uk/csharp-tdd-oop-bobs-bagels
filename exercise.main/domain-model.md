@@ -6,12 +6,13 @@ I'd like to know the total cost of items in my basket.`
 
 | Classes  | Members                                                            | Methods                          | Scenario                                                   | Outputs |
 |----------|--------------------------------------------------------------------|----------------------------------|------------------------------------------------------------|---------|
-| `Bagel ` | `SKU, Name, Variant, Price, Filling`                               | `Just constructor?`              | Item added                                                 |         |
-| `Item`   | `SKU, Price, Name, Variant, Filling`                               | `CreateItem()`                   | Creates an item with the customers selection               | item    |
+| `Bagel implements Item ` | `SKU, Name, Variant, Price, Filling`                               | `Just constructor?`              | Item added                                                 |         |
+| `BasketItem`   | `SKU, Name, Variant, Price, Filling`                                               | `CreateItem()`                   | Creates an item with the customers selection               | item    |
 |          |                                                                    |  `Prompter()`                    | Makes user choose between choices                          |         |
 | `Basket` |  `List<Item> items`                                                | `List items`                     | Shows items                                                | itemlist|
-|          |                                                                    | `AddToBasket(item)`              | Adds item to the basket                                    |         |
-|          | `Subtotal`                                                         | `SubTotal(List<Item>)`           | Adds the cost of the items together                        | double total |
+| `BasketItem` |                                                                    | `AddToBasket(item)`              | Adds item to the basket                                    |         |
+| `Basket` | `Subtotal`                                                         | `SubTotal(List<Item>)`           | Adds the cost of the items together                        | double total |
+| `Interface Item` | `string sku, double price, string name, string variant`      |                                  |                                                            |          |  
 
 `2.
 As a member of the public,

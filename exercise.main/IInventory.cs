@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Item
+    public interface IInventory
     {
+        public bool InStock()
+        {
+            return false; 
+        }
     }
 }

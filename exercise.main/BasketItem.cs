@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Basket
+    public class BasketItem : IInventory
     {
-
+        public bool InStock()
+        {
+            return false;
+        }
     }
 }
