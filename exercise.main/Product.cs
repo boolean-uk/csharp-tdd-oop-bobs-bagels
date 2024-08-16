@@ -8,11 +8,21 @@ namespace exercise.main
 {
     public class Product
     {
-        string sku;
-        int price;
-        string name;
-        string variant;
-        static int stock;
-        List<Product> extra;
+        private string _sku;
+        private double _price;
+        private string _name;
+        private string _variant;
+        private static int _stock;
+        private List<Product> _extra;
+
+        public Product(string sku, double price, string name, string variant, List<Product> extra)
+        {
+            _sku = sku;
+            _price = price;
+            _name = name;
+            _variant = variant;
+            _extra = extra;
+            _stock = 10; // default stock of 10
+        }
     }
 }

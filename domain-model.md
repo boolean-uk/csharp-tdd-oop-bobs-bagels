@@ -2,7 +2,7 @@
 
 | Class           | Members                 | Method/Property             | Scenario                  | Output     |
 |-----------------|-------------------------|-----------------------------|---------------------------|------------|
-| BagelShop       | `Dictionary<int, Product> category`| Category {get;}  | category of products      | Dictionary |
+| BagelShop       | `Dictionary<string, Product> category`| Category {get;}  | category of products      | Dictionary |
 |                 |							| grabBasket()                | gives an empty basket     | Basket     |
 |                 |							| getProduct(int sku)         | get the product           | Product    |
 |                 |                         | refillProduct(int sku)      | customer returns product  | nothing    |

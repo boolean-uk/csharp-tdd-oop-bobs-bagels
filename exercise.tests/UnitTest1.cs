@@ -5,12 +5,20 @@ namespace exercise.tests;
 public class Tests
 {
     BagelShop shop = new BagelShop();
-    [SetUp] // Initial setup before each test starts
 
     [Test]
-    public void Test1()
+    public void Test1AddingBagel()
     {
         Basket basket = shop.grabBasket();
         Assert.IsNotNull(basket);
+
+        bool result1 = basket.add("BGLO");
+        Assert.IsTrue(result1);
+    }
+
+    [Test]
+    public void Test2RemovingBagel()
+    {
+        Basket basket = shop.grabBasket();
     }
 }

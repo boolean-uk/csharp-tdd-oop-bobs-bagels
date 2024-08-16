@@ -10,5 +10,11 @@ namespace exercise.main
     {
         List<Product> products;
         static int capacity;
+
+        public bool add(string v)
+        {
+            Product value = BagelShop.Category[v];
+            return true;
+        }
     }
 }
