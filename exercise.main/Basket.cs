@@ -14,7 +14,7 @@ namespace exercise.main
         public string Add(string productID)
         {
             if (capacity <= productCount) { return "your basket is full"; }
-            if (!inventoryProductIds.Contains(productID)) { return "product does not exist inventory"; }
+            if (!inventoryProductIds.Contains(productID)) { return "product does not exist in the inventory"; }
 
             Product product = GetFromInventory(productID);
             _basket.Add(product);

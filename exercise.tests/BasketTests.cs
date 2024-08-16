@@ -38,6 +38,17 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedMSG));
     }
 
+    public void AddNonExistingItem()
+    {
+        Basket basket = new Basket();
+        string expectedMSG = "product does not exist in the inventory";
+        string product = "AAAA";
+
+        string result = basket.Add(product);
+
+        Assert.That(result, Is.EqualTo(expectedMSG));
+    }
+
     [Test]
     public void RemoveExistingItem()
     {
