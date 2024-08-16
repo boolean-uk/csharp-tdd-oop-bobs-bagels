@@ -8,6 +8,19 @@ namespace exercise.main
 {
     public class ChosenItem
     {
-        StringBuilder sb = new StringBuilder();
+        public Bagel ChosenBagel;
+        public Coffee ChosenCoffee;
+
+        public string MakeBagel()
+        {
+            return "Nothing";
+        }
+
+        public string MakeCoffee() 
+        {
+            return "Nothing";
+        }
+
+        
     }
 }

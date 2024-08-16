@@ -29,9 +29,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.ChosenItem">
-    <Position X="7" Y="1.25" Width="1.5" />
+    <Position X="7" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ChosenItem.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -3,5 +3,9 @@ using exercise.main;
 
 public class Tests
 {
-    
+    [Test]
+    public void MakeBagelTest()
+    {
+
+    }
 }
