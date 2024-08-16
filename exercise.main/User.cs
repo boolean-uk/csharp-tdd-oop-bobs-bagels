@@ -9,9 +9,15 @@ namespace exercise.main
     public class User
     {
         public Basket UserBasket = new Basket();
-        public void AddToBasket(string sku)
+        public bool AddToBasket(string sku)
         {
-            UserBasket.Add(sku);
+            return UserBasket.Add(sku);
+
+        }
+
+        public void RemoveFromBasket(string sku)
+        {
+            UserBasket.Remove(sku);
         }
     }
 }
