@@ -62,13 +62,13 @@ I want customers to only be able to order things that we stock in our inventory.
 |				  |																		|										|							|
 |				  | `change_capacity(int capacity, string adminPassword)`			    |										| int						|
 |				  |																		|										|							|
-|				  | `totalCost()`													    |										| int						|
+|				  | `totalCost()`													    |										| double					|
 |				  |																		|										|							|
 |				  | `getCost(string bagelVariant)`									    |										| int						|
 |				  |																		|										|							|
-|				  | `addFilling(string fillingVariant, string SKU)`						| product exists in basket				| true						|
-|				  |																		| product does not exist in basket		| false						|
-|				  |																		|										|							|
-|				  | `getFillingCosts()`													|										| Dictionary<string, int>	|
+|				  | `getFillingCosts()`													|										| Dictionary<string, double>|
 
 
+#Note
+I assume before we get into inheritance that Fillings just get added to the basket, instead of added to
+a list in the bagel class.
