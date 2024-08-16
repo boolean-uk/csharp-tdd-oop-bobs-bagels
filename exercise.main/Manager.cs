@@ -9,7 +9,8 @@ namespace exercise.main
     public class Manager : Person
     {
         public Manager(string name) : base(name)
-        { } 
-        
+        { }
+        public void SetMaxSize(int max, Customer c) => c.SetBasketMaxSize(max);
     }
+    
 }

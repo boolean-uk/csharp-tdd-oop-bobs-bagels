@@ -9,7 +9,7 @@ namespace exercise.main
     public class Customer : Person
     {
         private List<Product> basket;
-        private int basketMaxSize;
+        protected int basketMaxSize;
 
         public Customer(string name) : base(name)
         {
@@ -53,16 +53,7 @@ namespace exercise.main
         public List<Product> GetBasket() { return basket; }
 
         public int GetBasketMaxSize() { return basketMaxSize; }
-        public void SetBasketMaxSize(int max, Person isManager) {
-            if (isManager.GetType() == typeof(Manager))
-            {
-                this.basketMaxSize = max;
-            }
-            else
-            {
-                throw new Exception("Not accesed by manager");
-            }
-        }
+        public void SetBasketMaxSize(int basketMaxSize) { this.basketMaxSize = basketMaxSize; };
 
         public float GetCost()
         {
