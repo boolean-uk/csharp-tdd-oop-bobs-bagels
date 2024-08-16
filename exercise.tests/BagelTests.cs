@@ -99,4 +99,29 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedFailure));
         Assert.That(changeToNegative, Is.EqualTo(expectedFailure));
     }
+
+    [TestCase("BGLS")]
+    public void RemoveNothingTest(string product)
+    {
+        //arrange
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+        bool expectedFailure = false;
+
+        //act
+        bool result = customer.Remove(manager, product);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedFailure));
+
+        //arrange
+        customer.Add(manager, product);
+        bool expectedSuccess = true;
+
+        //act
+        result = customer.Remove(manager, product);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedSuccess));
+    }
 }

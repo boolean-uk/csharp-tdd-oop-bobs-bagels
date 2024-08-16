@@ -19,6 +19,7 @@ namespace exercise.main
         public int Search(string product)
         {
             int index = 0;
+            //Loop through all products and try to find the index of the selected one
             foreach (var item in products)
             {
                 if (item.info.key == product)

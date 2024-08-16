@@ -8,8 +8,8 @@ namespace exercise.main
 {
     public class Customer
     {
-        public Basket basket;
-        public float wallet { get; set; }
+        public Basket basket; //Basket containing all products the customer wants to buy
+        public float wallet { get; set; } //Money that the customer can spend
         public Customer(Manager manager, float allowance)
         {
             this.basket = new Basket(manager);
@@ -18,6 +18,7 @@ namespace exercise.main
 
         public bool Add(Manager manager, string product)
         {
+            //Ask the manager to add a product to our basket
             if (manager.AddProduct(this.basket, product))
             {
                 return true;
@@ -27,6 +28,7 @@ namespace exercise.main
 
         public bool Remove(Manager manager, string product)
         {
+            //Ask the manager to remove a product from our basket
             if(manager.RemoveProduct(this.basket, product))
             {
                 return true;

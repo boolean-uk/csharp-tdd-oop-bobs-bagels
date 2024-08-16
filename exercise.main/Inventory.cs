@@ -31,6 +31,7 @@ namespace exercise.main
 
         public bool Find(string product)
         {
+            //Attempt to find a product with the same key
             foreach(Product p in baseProducts)
             {
                 if(p.info.key == product) return true;
@@ -40,6 +41,7 @@ namespace exercise.main
 
         public Product GetProduct(string product)
         {
+            //Attempt to find a product with the same key
             foreach (Product p in baseProducts)
             {
                 if (p.info.key == product)
@@ -47,7 +49,7 @@ namespace exercise.main
                     return p;
                 }
             }
-
+            //Throw Exception as this part should not be reached unless a big mistake happened
             throw new Exception();
         }
     }

@@ -8,12 +8,12 @@ namespace exercise.main
 {
     public struct Base //The base of a product
     {
-        public string key;
-        public float price;
-        public string name;
-        public string variant;
+        public string key; //Example: BGLO
+        public float price; //Example: 0.49f
+        public string name; //Example: Bagel
+        public string variant; //Example: Onion
 
-        public Base(string key, float price, string name, string variant)
+        public Base(string key, float price, string name, string variant) //Construct the base product
         {
             this.key = key;
             this.price = price;

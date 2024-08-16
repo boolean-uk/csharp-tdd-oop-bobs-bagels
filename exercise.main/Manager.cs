@@ -9,9 +9,9 @@ namespace exercise.main
 {
     public class Manager
     {
-        public int allowedBasketSize = 3;
+        public int allowedBasketSize = 3; //Maximum basket size for all newly created baskets
 
-        Inventory inv = new Inventory();
+        Inventory inv = new Inventory(); //Inventory containing all products in the store
 
         public bool AddProduct(Basket bskt, string product)
         {
@@ -30,6 +30,7 @@ namespace exercise.main
 
         public bool ChangeBasketSize(int newSize)
         {
+            //If newSize is a positive integer
             if(newSize >= 0)
             {
                 this.allowedBasketSize = newSize;
