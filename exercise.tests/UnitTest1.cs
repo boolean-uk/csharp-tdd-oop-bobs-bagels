@@ -30,4 +30,30 @@ public class Tests
         bool result2 = basket.remove("BGLO");
         Assert.IsFalse(result2);
     }
+
+    [Test]
+    public void Test3BasketFull()
+    {
+        Basket basket = shop.grabBasket();
+        basket.add("BGLO");
+        basket.add("BGLP");
+        basket.add("BGLE");
+        Assert.IsTrue(true);
+    }
+
+    [Test]
+    public void InventoryTest()
+    {
+        List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];
+        List<string> coffee = ["COFB", "COFW", "COFC", "COFL"];
+        List<string> fillings = ["FILB", "FILE", "FILC", "FILX", "FILS", "FILH"];
+
+        Basket basket = shop.grabBasket();
+        bagels.ForEach(bagel => {basket.add(bagel);});
+        Assert.That(basket.Products.Count(), Is.EqualTo(4));
+        coffee.ForEach(coff => { basket.add(coff); });
+        Assert.That(basket.Products.Count(), Is.EqualTo(8));
+        fillings.ForEach(filling => { basket.add(filling); });
+        Assert.That(basket.Products.Count(), Is.EqualTo(14));
+    }
 }

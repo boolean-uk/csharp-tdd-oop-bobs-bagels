@@ -9,7 +9,7 @@ namespace exercise.main
     public class Basket
     {
         private List<Product> _products = new List<Product>();
-        private static int _capacity;
+        private static int _capacity = 3;
 
         public bool add(string v)
         {
