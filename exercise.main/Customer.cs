@@ -24,5 +24,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public bool Remove(Manager manager, string product)
+        {
+            return false;
+        }
     }
 }
