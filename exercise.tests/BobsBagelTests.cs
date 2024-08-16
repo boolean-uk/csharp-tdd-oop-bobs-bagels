@@ -75,4 +75,16 @@ public class BobsBagelTests
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
+
+    [TestCase("BLGO", false)]
+    [TestCase("BGLO", true)]
+    public void TestGetItemFromInventory(string sku, bool expectedResult)
+    {
+        BobsBagelStore store = new BobsBagelStore();
+        store.StockUpInventory();
+
+        bool actualResult = store.GetItem(sku);
+
+        Assert.That(actualResult, Is.EqualTo(expectedResult));
+    }
 }

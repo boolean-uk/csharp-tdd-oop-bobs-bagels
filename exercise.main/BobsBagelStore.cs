@@ -21,6 +21,11 @@ namespace exercise.main
             return true;
         }
 
+        public bool GetItem(string sku)
+        {
+            return false;
+        }
+
         public void StockUpInventory()
         {
             _inventory = new List<Item>();
@@ -39,9 +44,5 @@ namespace exercise.main
             _inventory.Add(new Item("FILS", 0.12f, "Filling", "Smoked Salmon"));
             _inventory.Add(new Item("FILH", 0.12f, "Filling", "Ham"));
         }
-
-        public List<Item> Inventory { get { return _inventory; } }
-
-        public List<Basket> Baskets { get { return _baskets; } }
     }
 }
