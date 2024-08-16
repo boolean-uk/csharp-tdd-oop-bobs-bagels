@@ -18,15 +18,24 @@ public class Tests
         
         Inventory inventory = new Inventory();
 
-        Item plainBagel = inventory.getInventory().Find(x => x.name == "Plain");
+        Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
 
         Item wrongBagel = new Item("BGLW", 0.40, "Cake", "Wrong");
 
-        bool expected = true;
+        bool expectedTrue = true;
+        bool expectedFalse = false;
 
-        bool result = basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+       // basket.addItem(plainBagel);
 
-        Assert.That(expected == result);
+        bool resultTrue = basket.addItem(plainBagel);
+        bool resultWrong = basket.addItem(wrongBagel);
+
+        Assert.That(expectedTrue == resultTrue);
+       // Assert.That(expectedFalse == resultWrong);
 
     }
 }
