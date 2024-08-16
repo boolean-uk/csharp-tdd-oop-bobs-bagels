@@ -42,7 +42,8 @@ namespace exercise.main
 
         public double costOfBagel(string v)
         {
-            throw new NotImplementedException();
+            Product product = BagelShop.Category[v];
+            return product.Price;
         }
 
         public List<Product> Products { get { return _products; } }
