@@ -28,5 +28,7 @@ namespace exercise.main
         }
 
         public List<Product> Products { get { return _products; } }
+
+        public bool IsFull { get { return _capacity >= _products.Count(); } }
     }
 }

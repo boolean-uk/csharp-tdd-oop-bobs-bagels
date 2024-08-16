@@ -38,7 +38,8 @@ public class Tests
         basket.add("BGLO");
         basket.add("BGLP");
         basket.add("BGLE");
-        Assert.IsTrue(true);
+        bool result = basket.IsFull;
+        Assert.IsTrue(result);
     }
 
     [Test]
