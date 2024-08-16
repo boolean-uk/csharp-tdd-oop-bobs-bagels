@@ -11,14 +11,21 @@ namespace exercise.tests
     public class InventoryTest
     {
         
-        [TestCase("BOGUS", false)]
-        public void IsInInventory(string sku, bool expected)
+        [TestCase("BOGUS", "fake", false)]
+        [TestCase("Bagel", "Everything", true)]
+        [TestCase("Coffee", "Rainbow", false)]
+        [TestCase("Filling", "Bacon", true)]
+        [TestCase("Filling", "Smoked Salmon", true)]
+        [TestCase("Bagel", "Plain", true)]
+        [TestCase("A lie", "Ham", false)]
+        [TestCase("Coffee", "Latte", true)]
+        public void IsInInventory(string name, string variant, bool expected)
         {
             Inventory inventory = new Inventory();
 
-            //bool result = inventory.isInInventory(sku);
+            bool result = inventory.IsInInventory(name, variant);
             
-            Assert.That(/*result*/true == expected);
+            Assert.That(result == expected);
         }
     }
 }
