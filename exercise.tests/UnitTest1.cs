@@ -111,6 +111,19 @@ public class Tests
     }
 
     [Test]
+    public void Test8ChooseFillingsForBagel()
+    {
+        Basket basket = shop.grabBasket();
+
+        basket.add("BGLO");
+        bool result1 = basket.addFilling("BGLO", "FILB");
+        Assert.That(result1.Equals(true));
+        Product extra = basket.Products[0].Extra[0];
+        Assert.That(extra.Sku.Equals("FILB"));
+        
+    }
+
+    [Test]
     public void InventoryTest()
     {
         List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];
