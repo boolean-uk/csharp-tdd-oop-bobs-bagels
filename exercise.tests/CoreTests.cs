@@ -87,18 +87,18 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsTrue(returnResult == false);
             }
-            [Test]
-            public void BagelTest()
+            [TestCase("Onion")]
+            public void BagelTest(string expectedFlavour)
             {
                 //arrange
-                Bagel bagel = new Bagel();
+                Bagel bagel = new Bagel("Onion");
 
                 //act
-                bool bagelWithFlavor = bagel.AssignFlavor("Onion");
+                string bagelWithFlavor = bagel.GetAssignedFlavor();
 
 
                 //assert
-                Assert.IsTrue(bagelWithFlavor);
+                Assert.IsTrue(bagelWithFlavor == expectedFlavour);
 
             }
             /*
