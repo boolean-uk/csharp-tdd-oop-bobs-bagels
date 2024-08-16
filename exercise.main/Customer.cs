@@ -35,5 +35,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public float TotalCost()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
