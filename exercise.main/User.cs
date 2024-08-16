@@ -8,11 +8,13 @@ namespace exercise.main
 {
     public class User
     {
-        private bool _isManager = false;
-        public User(bool isManager = false)
+        private Role _role;
+        private Basket _assignedBasket;
+        public User(Role role)
         {
-            _isManager = isManager;
+            _role = role;
         }
-        public bool IsManager { get { return _isManager; } }
+        public Role Role { get; }
+        public Basket AssignedBasket { get;  }
     }
 }
