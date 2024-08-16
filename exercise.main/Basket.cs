@@ -9,7 +9,7 @@ namespace exercise.main
     public class Basket
     {
         private List<Product> _products = new List<Product>();
-        private static int _capacity = 3;
+        private int _capacity = 3;
 
         public bool add(string v)
         {
@@ -30,7 +30,8 @@ namespace exercise.main
 
         public bool changeCapacity(int v)
         {
-            throw new NotImplementedException();
+            _capacity = v;
+            return true;
         }
 
         public List<Product> Products { get { return _products; } }

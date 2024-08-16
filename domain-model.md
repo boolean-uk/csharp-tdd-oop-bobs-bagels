@@ -8,7 +8,7 @@
 |                 |                         | refillProduct(int sku)      | customer returns product  | nothing    |
 |                 |                         |                             |                           |            |
 | Basket          | `List<Product> products`| add(int sku)                | item got added to basket  | true       |
-|				  | `static int capacity`   |                             | item did not get added    | false      |
+|				  | `int capacity`          |                             | item did not get added    | false      |
 |                 |                         | remove(int sku)             | item got removed          | true       |
 |                 |                         |                             | item did not get removed  | false      |
 |                 |                         | IsFull {get;}               | check if basket is full   | bool       |

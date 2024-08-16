@@ -50,6 +50,11 @@ public class Tests
         Basket basket = shop.grabBasket();
         bool result1 = basket.changeCapacity(4);
         Assert.IsTrue(result1);
+        basket.add("BGLO");
+        basket.add("BGLP");
+        basket.add("BGLE");
+        bool result2 = basket.add("BGLS");
+        Assert.IsTrue(result2);
     }
 
     [Test]
@@ -60,6 +65,7 @@ public class Tests
         List<string> fillings = ["FILB", "FILE", "FILC", "FILX", "FILS", "FILH"];
 
         Basket basket = shop.grabBasket();
+        basket.changeCapacity(20);
         bagels.ForEach(bagel => {basket.add(bagel);});
         Assert.That(basket.Products.Count(), Is.EqualTo(4));
         coffee.ForEach(coff => { basket.add(coff); });
