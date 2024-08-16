@@ -19,7 +19,7 @@ namespace exercise.tests
             basket.addItem(item1);
 
             //assert
-            Assert.IsTrue(basket.item.Contains(item1));
+            Assert.IsTrue(basket.Item.Contains(item1));
         }
     
 

@@ -10,13 +10,17 @@ namespace exercise.main
 {
     public class Basket
     {
-        public List<Item> item {  get; set; }  = new List<Item> { };
+        public List<Item> Item { get; set; } = new List<Item> { };
 
         public int _max_capasity { get; set; } = 5;
 
         public void addItem(Item item)
         {
-            throw new NotImplementedException();
+            if (Item.Count() < _max_capasity)
+            {
+                Item.Add(item);
+            }
+            return;
         }
     }
     
