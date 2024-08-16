@@ -23,7 +23,7 @@ namespace exercise.main
  
         public bool Remove(string productID)
         {
-            if (!inventoryProductIds.Contains(productID)) { return false; }
+            if (!basketProductIds.Contains(productID)) { return false; }
             
             Product product = GetFromInventory(productID);
             _basket.Remove(product);
@@ -73,7 +73,7 @@ namespace exercise.main
         public List<string> basketProductIds { get { return _basket.Select(item => item.SKU).ToList(); } }
 
         public List<string> inventoryProductIds { get { return _inventory.Select(item => item.SKU).ToList();  } }
-        public double totalCost { get { return _basket.Select(item => item.Price).ToList().Sum(); } }
+        public double totalCost { get { return _basket.Select(item => item.Price).Sum(); } }
 
         public Dictionary<string, double> priceList { get { return _inventory.ToDictionary(item => item.Variant, item => item.Price); } }
         public Dictionary<string, double> fillingPriceList { get { return  _inventory.Where(item => item.Name == "filling").ToDictionary(item => item.Variant, item => item.Price); } }
