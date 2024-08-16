@@ -11,10 +11,26 @@ namespace exercise.main
         Inventory inventory = new Inventory();
         public int MAX_BASKET_SIZE { get; set; } = 3;
         public List<Item> yourBasket = new List<Item>();
-
-        public void addItem(string v1, string v2)
+        public int items_in_basket = 0;
+        public void addItem(string itemType, string variant)
         {
-            throw new NotImplementedException();
+
+            Item item = inventory.findItemByName(variant);
+            Console.WriteLine(item.variant + " - " + itemType);
+            if (items_in_basket >= MAX_BASKET_SIZE)
+            {
+                Console.WriteLine("Basket is full...");
+                return;
+            }
+            if (item != null) { 
+                yourBasket.Add(item);
+            }
+            else
+            {
+                Console.WriteLine("No such item...");
+            }
+
+            //throw new NotImplementedException();
         }
     }
 }
