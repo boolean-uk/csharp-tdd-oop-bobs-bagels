@@ -110,4 +110,15 @@ public class Tests
 
         Assert.That(result, Is.EqualTo(cost));
     }
+
+    public void fillingPriceListTest()
+    {
+        Basket basket = new Basket();
+        double expectedPrice = 0.12;
+
+        Dictionary<string, double> priceList = basket.fillingPriceList;
+        double price = priceList.First().Value;
+
+        Assert.That(price, Is.EqualTo(expectedPrice));
+    }
 }

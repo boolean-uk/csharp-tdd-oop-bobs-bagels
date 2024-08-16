@@ -51,20 +51,20 @@ namespace exercise.main
 
         private List<Product> _inventory { get; set; } = new List<Product>()
         {
-            new Product("BGLO", 0.49, "onion"),
-            new Product("BGLP", 0.39, "plain"),
-            new Product("BGLE", 0.49, "everything"),
-            new Product("BGLS", 0.49, "sesame"),
-            new Product("COFB", 0.99, "black"),
-            new Product("COFW", 1.19, "white"),
-            new Product("COFC", 1.29, "capuccino"),
-            new Product("COFL", 1.29, "latte"),
-            new Product("FILB", 0.12, "bacon"),
-            new Product("FILE", 0.12, "egg"),
-            new Product("FILC", 0.12, "cheese"),
-            new Product("FILX", 0.12, "cream cheese"),
-            new Product("FILS", 0.12, "smoked salmon"),
-            new Product("FILB", 0.12, "ham"),
+            new Product("BGLO", 0.49, "bagel","onion"),
+            new Product("BGLP", 0.39, "bagel","plain"),
+            new Product("BGLE", 0.49, "bagel", "everything"),
+            new Product("BGLS", 0.49, "bagel", "sesame"),
+            new Product("COFB", 0.99, "coffee", "black"),
+            new Product("COFW", 1.19, "coffee", "white"),
+            new Product("COFC", 1.29, "coffee", "capuccino"),
+            new Product("COFL", 1.29, "coffee", "latte"),
+            new Product("FILB", 0.12, "filling", "bacon"),
+            new Product("FILE", 0.12, "filling", "egg"),
+            new Product("FILC", 0.12, "filling", "cheese"),
+            new Product("FILX", 0.12, "filling", "cream cheese"),
+            new Product("FILS", 0.12, "filling", "smoked salmon"),
+            new Product("FILB", 0.12, "filling", "ham"),
         };
         public int capacity { get; set; } = 5;
         public int productCount { get { return _basket.Count; } }
@@ -74,5 +74,8 @@ namespace exercise.main
 
         public List<string> inventoryProductIds { get { return _inventory.Select(item => item.SKU).ToList();  } }
         public double totalCost { get { return _basket.Select(item => item.Price).ToList().Sum(); } }
+
+        public Dictionary<string, double> priceList { get { return _inventory.ToDictionary(item => item.Variant, item => item.Price); } }
+        public Dictionary<string, double> fillingPriceList { get { return  _inventory.Where(item => item.Name == "filling").ToDictionary(item => item.Variant, item => item.Price); } }
     }
 }
