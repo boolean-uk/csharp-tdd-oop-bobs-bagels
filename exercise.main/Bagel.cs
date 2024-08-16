@@ -6,21 +6,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Bagel : IItem
+    public class Bagel : Item
     {
-        public Bagel(string sKU, double price, string name, string variant)
-        {
-            SKU = sKU;
-            Price = price;
-            Name = name;
-            Variant = variant;
-        }
-
-        public string SKU { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Variant { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        
+        private string Filling {  get; set; }
     }
 }
