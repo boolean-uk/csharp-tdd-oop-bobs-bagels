@@ -20,5 +20,8 @@ public class Tests
     public void Test2RemovingBagel()
     {
         Basket basket = shop.grabBasket();
+        basket.add("BGLO");
+        bool result1 = basket.remove("BGLO");
+        Assert.IsTrue(result1);
     }
 }

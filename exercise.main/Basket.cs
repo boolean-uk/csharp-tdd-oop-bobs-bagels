@@ -16,5 +16,11 @@ namespace exercise.main
             Product value = BagelShop.Category[v];
             return true;
         }
+
+        public bool remove(string v)
+        {
+            Product value = BagelShop.Category[v];
+            return true;
+        }
     }
 }
