@@ -26,6 +26,11 @@ namespace BobsBagels.main
             new ("FILH", 0.12f, "Filling", "Ham")
         ];
         public bool ContainsItem(string itemSKU) { throw new NotImplementedException(); }
-        public Item SearchInventory(string itemSKU) { throw new NotImplementedException(); }
+        public Item SearchInventory(string itemSKU) 
+        {
+            var result = _stock.Where(item => item.SKU == itemSKU);
+
+            return result.First();
+        }
     }
 }

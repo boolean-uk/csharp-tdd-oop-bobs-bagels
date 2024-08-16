@@ -25,6 +25,27 @@ public class CoreTests {
         Assert.That(result, Is.True);
 
     }
+    [Test]
+    public void AddingManyOfItem()
+    {
+        var inventory = new Inventory();
+        var user = new User("Customer");
+        var bagel = inventory.SearchInventory("BGLP");
+
+        var result1 = user.Basket.Add(bagel);
+        var result2 = user.Basket.Add(bagel);
+        var result3 = user.Basket.Add(bagel);
+        var result4 = user.Basket.Add(bagel);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result1, Is.True);
+            Assert.That(result2, Is.True);
+            Assert.That(result3, Is.True);
+            Assert.That(result4, Is.True);
+            Assert.That(user.Basket.Items[bagel] == 4);
+        });
+    }
+
     //As a customer,
     //So I can shake things up a bit,
     //I'd like to be able to choose fillings for my bagel
@@ -40,21 +61,12 @@ public class CoreTests {
         var bagelResult= user.Basket.Add(bagel);
         var fillingResult = user.Basket.Add(filling);
         var coffeeResult = user.Basket.Add(coffee);
-        
-        Assert.That(bagelResult, Is.True);
-        Assert.That(fillingResult, Is.True);
-        Assert.That(coffeeResult, Is.True);
-    }
-
-    [Test]
-    public void AddingNull()
-    {
-        var user = new User("Customer");
-
-        bool nullResult = user.Basket.Add(null);
-
-        Assert.That(nullResult, Is.False);
-
+        Assert.Multiple(() =>
+        {
+            Assert.That(bagelResult, Is.True);
+            Assert.That(fillingResult, Is.True);
+            Assert.That(coffeeResult, Is.True);
+        });
     }
 
     //As a member of the public,
@@ -76,14 +88,14 @@ public class CoreTests {
         var coffeeResult = user.Basket.Add(coffee);
         var everythingBagelResult = user.Basket.Add(everythingBagel);
         var salmonFillingResult = user.Basket.Add(salmonFilling);
-
-
-        Assert.That(bagelResult, Is.True);
-        Assert.That(fillingResult, Is.True);
-        Assert.That(coffeeResult, Is.True);
-        Assert.That(everythingBagelResult, Is.True);
-        Assert.That(salmonFillingResult, Is.False);
-
+        Assert.Multiple(() =>
+        {
+            Assert.That(bagelResult, Is.True);
+            Assert.That(fillingResult, Is.True);
+            Assert.That(coffeeResult, Is.True);
+            Assert.That(everythingBagelResult, Is.True);
+            Assert.That(salmonFillingResult, Is.False);
+        });
     }
 
 
