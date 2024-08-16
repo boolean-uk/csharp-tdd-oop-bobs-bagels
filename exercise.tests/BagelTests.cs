@@ -52,4 +52,30 @@ public class Tests
         //assert
         Assert.That(result, Is.EqualTo(expectedSuccess));
     }
+
+    [TestCase("BGLO", "BGLP", "BGLE")]
+    public void OverfillTest(string product1, string product2, string product3)
+    {
+        //arrange
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+        bool expectedSuccess = true;
+        customer.Add(manager, product1);
+        customer.Add(manager, product2);
+
+        //act
+        bool result = customer.Add(manager, product3);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedSuccess));
+
+        //arrange
+        bool expectedFailure = false;
+
+        //act
+        result = customer.Add(manager, product3);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedFailure));
+    }
 }
