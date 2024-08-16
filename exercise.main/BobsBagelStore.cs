@@ -21,9 +21,9 @@ namespace exercise.main
             return true;
         }
 
-        public bool GetItem(string sku)
+        public Item? GetItem(string sku)
         {
-            return false;
+            return _inventory.Find(item => item.SKU == sku);
         }
 
         public void StockUpInventory()
