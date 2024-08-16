@@ -1,6 +1,6 @@
 namespace exercise.tests;
 
-public class Tests
+public class BagelTests
 {
     [SetUp]
     public void Setup()
