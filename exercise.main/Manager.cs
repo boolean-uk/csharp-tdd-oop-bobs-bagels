@@ -30,7 +30,12 @@ namespace exercise.main
 
         public bool ChangeBasketSize(int newSize)
         {
-            throw new NotImplementedException();
+            if(newSize >= 0)
+            {
+                this.allowedBasketSize = newSize;
+                return true;
+            }
+            return false;
         }
 
         public bool RemoveProduct(Basket bskt, string product)
