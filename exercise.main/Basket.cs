@@ -24,8 +24,18 @@ namespace tdd_bobs_bagels.CSharp.Main
             if (_amount < _capacity)
             {
                 _items.Add(bagelName);
-                _amount++;
+                _amount ++;
             }
+        }
+
+        public bool Remove(Bagel bagelName)
+        {
+            if (_items.Contains(bagelName))
+            {
+                _items.Remove(bagelName);
+                return true;
+            }
+            return false;
         }
 
         public List<Bagel> Items { get => _items; set => _items = value; }
