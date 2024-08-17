@@ -25,21 +25,23 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.That(basket.Items, Does.Contain(bagel));
             }
-            /*
-            [TestCase("cremeCheese")]
+            
+            [TestCase("onion")]
             // Test for story 2
-            public void Test2(string bagelName)
+            public void Test2(string filling)
             {
                 //arrange 
                 Basket basket = new Basket();
-                basket.add(bagelName);
+                Bagel bagelName = new Bagel(filling);
+                basket.Add(bagelName);
 
                 //act
-                basket.remove(bagelName);
+                basket.Remove(bagelName);
 
                 //assert
                 Assert.That(basket.Items, Does.Not.Contain(bagelName));
             }
+            /*
             [TestCase("cremeCheese", 4)]
             // Test for story 3
             public void Test3(string bagelName, int length)
