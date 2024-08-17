@@ -78,7 +78,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
 
                 //act
-                basket.changeCap(100);
+                basket.ChangeCapacity(100);
 
                 int resultingCapacity = basket.Capacity;
 

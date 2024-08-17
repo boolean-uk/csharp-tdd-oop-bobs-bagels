@@ -29,7 +29,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public bool Add(Bagel bagelName)
         {
-            if ((_amount < _capacity) )
+            if ((_amount < Capacity) )
             {
                 _items.Add(bagelName);
                 _amount++;
@@ -50,7 +50,13 @@ namespace tdd_bobs_bagels.CSharp.Main
             return false;
         }
 
+        public void ChangeCapacity(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Bagel> Items { get => _items; set => _items = value; }
+        public int Capacity { get => _capacity; set => _capacity = value; }
     }
 
 }
