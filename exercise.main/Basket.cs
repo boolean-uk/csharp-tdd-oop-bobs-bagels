@@ -52,7 +52,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public void ChangeCapacity(int v)
         {
-            throw new NotImplementedException();
+            _capacity = v;
         }
 
         public List<Bagel> Items { get => _items; set => _items = value; }
