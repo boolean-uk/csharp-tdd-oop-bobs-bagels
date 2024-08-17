@@ -68,7 +68,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsFalse(result);
             }
-            /*
+            
             [TestCase(100)]
             // Test for story 4
             public void Test4(int capacity)
@@ -85,6 +85,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsTrue(resultingCapacity == capacity);
             }
+            /*
             [TestCase("cremeCheese")]
             public void Test5(string bagelName)
             {
