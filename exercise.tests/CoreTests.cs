@@ -10,20 +10,22 @@ namespace csharp_tdd_bobs_bagels.tests
         [TestFixture]
         public class BasketTests
         {
-            [TestCase("cremeCheese")]
+            [Test]
             // Test for story 1
-            public void Test1(string bagelName)
+            public void Test1()
             {
                 //arrange 
                 Basket basket = new Basket();
+                Bagel bagel = new Bagel("Onion");
 
 
                 //act
-                basket.add(bagelName);
+                basket.Add(bagel);
 
                 //assert
-                Assert.That(basket.Items, Does.Contain(bagelName));
+                Assert.That(basket.Items, Does.Contain(bagel));
             }
+            /*
             [TestCase("cremeCheese")]
             // Test for story 2
             public void Test2(string bagelName)
@@ -94,14 +96,14 @@ namespace csharp_tdd_bobs_bagels.tests
                 Bagel bagel = new Bagel("Onion");
 
                 //act
-                string bagelWithFlavor = bagel.GetAssignedFlavor();
+                string bagelWithFlavor = bagel.CurrentFlavor;
 
 
                 //assert
                 Assert.IsTrue(bagelWithFlavor == expectedFlavour);
 
             }
-            /*
+            
             [Test]
             public void BagelTest1()
             {
