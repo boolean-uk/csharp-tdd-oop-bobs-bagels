@@ -7,6 +7,13 @@ namespace csharp_tdd_bobs_bagels.tests
         private float _price;
         private string _sku;
         private string _id;
+        private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()  
+        {
+            {"onion",0.49f},
+            {"plain",0.39f},
+            {"everything",0.49f},
+            {"sesame",0.49f}            
+        };
 
 
         public Bagel(string filling) 
@@ -26,13 +33,6 @@ namespace csharp_tdd_bobs_bagels.tests
 
         }
 
-        private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()  
-        {
-            {"onion",0.49f},
-            {"plain",0.39f},
-            {"everything",0.49f},
-            {"sesame",0.49f}            
-        };
 
         #region
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }

@@ -13,19 +13,30 @@ namespace tdd_bobs_bagels.CSharp.Main
         private List<Bagel> _items = new List<Bagel>();
         private int _capacity = 5;
         private int _amount = 0;
+        private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()
+        {
+            {"onion",0.49f},
+            {"plain",0.39f},
+            {"everything",0.49f},
+            {"sesame",0.49f}
+        };
+
 
         public Basket()
         {
 
         }
 
-        public void Add(Bagel bagelName)
+        public bool Add(Bagel bagelName)
         {
-            if (_amount < _capacity)
+            if ((_amount < _capacity) )
             {
                 _items.Add(bagelName);
-                _amount ++;
+                _amount++;
+
+                return true;
             }
+            return false;
         }
 
         public bool Remove(Bagel bagelName)
@@ -33,6 +44,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             if (_items.Contains(bagelName))
             {
                 _items.Remove(bagelName);
+                _amount--;
                 return true;
             }
             return false;

@@ -41,26 +41,34 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.That(basket.Items, Does.Not.Contain(bagelName));
             }
-            /*
-            [TestCase("cremeCheese", 4)]
+            [TestCase("sesame","Onion","Plain")]
             // Test for story 3
-            public void Test3(string bagelName, int length)
+            public void Test3(string filling1, string filling2, string filling3)
             {
                 //arrange 
                 Basket basket = new Basket();
-                basket.add(bagelName);
-                basket.add(bagelName);
-                basket.add(bagelName);
-                basket.add(bagelName);
-                basket.add(bagelName);
+                Bagel bagel1 = new(filling1);
+                Bagel bagel2 = new(filling2);
+                Bagel bagel3 = new(filling3);
+                Bagel bagel4 = new(filling3);
+                Bagel bagel5 = new(filling3);
+                Bagel bagel6 = new(filling3);
+
+
+
 
                 //act
-                basket.remove(bagelName);
-                int resultingLength = basket.Items.Count;
+                basket.Add(bagel1);
+                basket.Add(bagel2);
+                basket.Add(bagel3);
+                basket.Add(bagel4);
+                basket.Add(bagel5);
+                bool result = basket.Add(bagel6);
 
                 //assert
-                Assert.IsTrue(length == resultingLength);
+                Assert.IsFalse(result);
             }
+            /*
             [TestCase(100)]
             // Test for story 4
             public void Test4(int capacity)
