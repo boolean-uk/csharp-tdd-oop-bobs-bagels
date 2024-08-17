@@ -27,8 +27,8 @@ namespace csharp_tdd_bobs_bagels.tests
 
             else
             {
-                this.CurrentFlavor = "Plain";
-                this._price = _allowedFlavor["Plain"];
+                this.CurrentFlavor = "plain";
+                this._price = _allowedFlavor["plain"];
             }
 
         }

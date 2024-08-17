@@ -116,22 +116,22 @@ namespace csharp_tdd_bobs_bagels.tests
                 Assert.IsTrue(bagelWithFlavor == expectedFlavour);
 
             }
-            /*
+            
             [Test]
             public void BagelTest1()
             {
                 //arrange
-                Bagel bagel = new Bagel();
 
                 //act
-                bool bagelWithFlavor = bagel.assignFlavour("NonExistence");
+                Bagel bagel = new Bagel("NonExsistant");
+                
 
 
                 //assert
-                Assert.IsTrue(!bagelWithFlavor);
+                Assert.IsTrue(bagel.CurrentFlavor == "plain");
 
             }
-            */
+            
             
         }
 
