@@ -8,6 +8,6 @@ namespace exercise.main
 {
     public class Basket
     {
-        public List<ChosenItem> items;
+        //public List<ChosenItem> items;
     }
 }

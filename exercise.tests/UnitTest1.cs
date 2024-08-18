@@ -3,6 +3,7 @@ using exercise.main;
 
 public class Tests
 {
+    // Bagel creation test cases
     [TestCase("BGLO", 0.49, "Bagel", "Onion")]
     public void MakeBagelTest(string sku, double price, string name, string variant)
     {
@@ -17,9 +18,6 @@ public class Tests
 
         //assert
         Assert.IsTrue(expected == testBagel.PrintBagel());
-
-
-
 
     }
 }
