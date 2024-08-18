@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class ChosenItem
+    public static class ChosenItem
     {
         //public Bagel ChosenBagel;
         //public Coffee ChosenCoffee;
 
-        public Bagel MakeBagel(string sku, double price, string name, string variant)
+        public static Bagel MakeBagel(string sku, double price, string name, string variant)
         {
             Bagel newBagel = new Bagel(sku, price, name, variant);
             return newBagel;
         }
 
-        public string MakeCoffee() 
+        public static string MakeCoffee() 
         {
             return "Nothing";
         }
