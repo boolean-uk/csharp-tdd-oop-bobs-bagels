@@ -39,8 +39,19 @@ So we don't get any weird requests,\
 I want customers to only be able to order things that we stock in our inventory.
 
 11. Extension 1 - Discounts \
-Add 6 for 2.40 and 12 for 3.99 discount to bagels \
-Add coffee and bagel for 1.25 deal
+As a manager,
+So we can attract more customers, \
+I want to offer a discount on bagels when they purchase 6 for £2.49 and 12 for £3.99 
+
+11. Extension 1 - Discounts \
+As a manager,
+So we can attract even more customers, \
+I want to offer a discount when customers purchase a coffee and bagel together for £1.25 
+	 
+12. Extension 2 - Printing Receipt \
+As a manager, \
+So customers can see a clear summary of their purchase \
+I want to be able to print a detailed receipt of each purchase
 
 | Classes   | Methods                                     | Scenario                                              | Outputs                 |
 |-----------|---------------------------------------------|-------------------------------------------------------|-------------------------|
@@ -57,3 +68,6 @@ Add coffee and bagel for 1.25 deal
 |           | string Name {get;set;}                      | store type of product e.g Bagel, Coffee, Filling      | string ItemType         |
 |           | string SKU {get; set; }                     | store SKU of product                                  | string SKU              |
 |           | string Variant {get; set;}                  | store product variant                                 | string Variant          |
+| Receipt   | DateTime Date { get; set; } = DateTime.Now; | store the date and time of receipt creation           |   Datetime  date        |
+|           | string Header { get; set; } = "~~~ Bob's Bagels ~~~";| store receipt header                         |   string header        |
+|           | PrintReceipt(List\<Product> items, decimal total)| print a formatted receipt of the customers purchase |    void      |
