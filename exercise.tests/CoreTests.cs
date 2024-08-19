@@ -60,7 +60,12 @@ public class Tests
 
         Assert.That(basket.MAX_BASKET_SIZE == 4);
 
-    }   
+        Person notManager = new Person("Dennis", Role.CUSTOMER);
+        basket.changeCapacity(3, notManager);
+        Assert.That(basket.MAX_BASKET_SIZE == 4);
+
+
+    }
 
 
 }
