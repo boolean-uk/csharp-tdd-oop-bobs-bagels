@@ -13,7 +13,6 @@ public class CustomerTests
 
         // Execute
         Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
-        Console.WriteLine("HELLO");
         customer.Add(bagel);
 
         // Verify
@@ -29,8 +28,22 @@ public class CustomerTests
         // Execute
         Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
         customer.Basket.Capacity = 0;
-        Console.WriteLine("HELLO");
+        bool result = customer.Add(bagel);
+
+        // Verify
+        Assert.IsFalse(customer.Basket.ItemsInBasket.Contains(bagel) & result == false);
+    }
+
+    [Test]
+    public void RemoveItemFromBasket()
+    {
+        // Setup
+        Customer customer = new Customer();
+
+        // Execute
+        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
         customer.Add(bagel);
+        customer.Remove(bagel);
 
         // Verify
         Assert.IsFalse(customer.Basket.ItemsInBasket.Contains(bagel));

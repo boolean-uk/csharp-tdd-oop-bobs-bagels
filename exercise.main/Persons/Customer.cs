@@ -26,5 +26,10 @@ namespace exercise.main.Persons
                 return true;
             }
         }
+
+        public void Remove(Bagel bagel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
