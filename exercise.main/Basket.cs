@@ -20,7 +20,12 @@ namespace exercise.main
             {
                 Item.Add(item);
             }
-            return;
+            
+        }
+
+        public void removeItem(Item item)
+        {
+            throw new NotImplementedException();
         }
     }
     

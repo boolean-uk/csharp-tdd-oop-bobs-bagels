@@ -8,21 +8,28 @@ namespace exercise.main
 {
     public class Item
     {
-        public string sku {  get; set; }
-        public double price { get; set; }
-        public string name { get; set; }
-        public string variant { get; set; }
+        
+
+        private string _sku;
+        private double _price;
+        private string _name;
+        public string _variant;
 
         public Item() { }
 
         public Item(string sku, double price, string name, string variant) {
 
-            sku = sku;
-            price = price;
-            name = name;
-            variant = variant;
+            _sku = sku;
+            _price = price;
+            _name = name;
+            _variant = variant;
         
         }
+        public string Sku { get { return _sku; } }
+        public double Price { get { return _price; } }
+        public string Name { get { return _name; } }
+
+        public string Variant { get { return _variant; } }
 
     }
    

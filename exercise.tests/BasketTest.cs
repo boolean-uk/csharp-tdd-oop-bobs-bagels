@@ -12,16 +12,48 @@ namespace exercise.tests
         [Test]
         public void TestAddingBagel()
         {
+
+            //arrange
+
+            Inventory inventory = new Inventory();
+
+            Item item1 = inventory.GetItembySku("BGLO");
+
             Basket basket = new Basket();
 
-            Item item1 = new Item("bfu", 0.49, "ali", "coffee");
+            //act
 
             basket.addItem(item1);
 
-            //assert
-            Assert.IsTrue(basket.Item.Contains(item1));
-        }
-    
+            //arrange
 
+            Assert.That(basket.Item.Contains(item1));
+
+
+        }
+        [Test]
+
+        public void TestRemoveBagel()
+        {
+
+            //arrange
+
+            Inventory inventory = new Inventory();
+
+            Item item1 = inventory.GetItembySku("BGLP");
+
+            Basket basket = new Basket();
+
+            //act
+
+            basket.removeItem(item1);
+
+            //assert
+
+            Assert.IsFalse(basket.Item.Contains(item1));
+
+
+
+        }
     }
 }
