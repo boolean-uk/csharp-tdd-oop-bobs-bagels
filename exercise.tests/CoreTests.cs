@@ -17,7 +17,7 @@ public class CoreTests {
     public void AddSingleBagel()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
+        var user = new Shopper();
         var bagel = inventory.SearchInventory("BGLP");
 
         var result = user.Basket.Add(bagel);
@@ -29,7 +29,7 @@ public class CoreTests {
     public void AddingManyOfItem()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
+        var user = new Shopper();
         var bagel = inventory.SearchInventory("BGLP");
 
         var result1 = user.Basket.Add(bagel);
@@ -43,6 +43,7 @@ public class CoreTests {
             Assert.That(result3, Is.True);
             Assert.That(result4, Is.True);
             Assert.That(user.Basket.Items[bagel] == 4);
+            Assert.That(user.Basket.Count == 4);
         });
     }
 
@@ -50,16 +51,16 @@ public class CoreTests {
     //So I can shake things up a bit,
     //I'd like to be able to choose fillings for my bagel
     [Test]
-    public void AddSeveralItems()
+    public void AddFilledBagelWithCoffee()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
-        var bagel = inventory.SearchInventory("BGLP");
-        var filling = inventory.SearchInventory("FILX");
+        var user = new Shopper();
+        var bagel = (Bagel)inventory.SearchInventory("BGLP");
+        var filling = (Filling)inventory.SearchInventory("FILX");
         var coffee = inventory.SearchInventory("COFB");
 
+        var fillingResult = bagel.AddFilling(filling);
         var bagelResult= user.Basket.Add(bagel);
-        var fillingResult = user.Basket.Add(filling);
         var coffeeResult = user.Basket.Add(coffee);
         Assert.Multiple(() =>
         {
@@ -76,25 +77,30 @@ public class CoreTests {
     public void AddingOverCapacity()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
-        var bagel = inventory.SearchInventory("BGLP");
-        var filling = inventory.SearchInventory("FILX");
-        var everythingBagel = inventory.SearchInventory("BGLE");
-        var salmonFilling = inventory.SearchInventory("FILS");
+        var user = new Shopper();
+        var bagel = (Bagel) inventory.SearchInventory("BGLP");
+        var filling = (Filling)inventory.SearchInventory("FILX");
+        var everythingBagel = (Bagel) inventory.SearchInventory("BGLE");
+        var salmonFilling = (Filling)inventory.SearchInventory("FILS");
         var coffee = inventory.SearchInventory("COFB");
 
+        var fillingResult = bagel.AddFilling(filling);
         var bagelResult = user.Basket.Add(bagel);
-        var fillingResult = user.Basket.Add(filling);
         var coffeeResult = user.Basket.Add(coffee);
+        var salmonFillingResult = everythingBagel.AddFilling(salmonFilling);
         var everythingBagelResult = user.Basket.Add(everythingBagel);
-        var salmonFillingResult = user.Basket.Add(salmonFilling);
+        
+        
         Assert.Multiple(() =>
         {
             Assert.That(bagelResult, Is.True);
             Assert.That(fillingResult, Is.True);
             Assert.That(coffeeResult, Is.True);
-            Assert.That(everythingBagelResult, Is.True);
-            Assert.That(salmonFillingResult, Is.False);
+            Assert.That(salmonFillingResult, Is.True);
+            // Filling increases quantity
+            Assert.That(everythingBagelResult, Is.False);
+            Assert.That(!user.Basket.Items.ContainsKey(everythingBagel));
+            Assert.That(!user.Basket.Items.ContainsKey(salmonFilling));
         });
     }
 
@@ -106,7 +112,7 @@ public class CoreTests {
     public void RemovingSingleItem() 
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
+        var user = new Shopper();
         var bagel = inventory.SearchInventory("BGLP");
 
         user.Basket.Add(bagel);
@@ -119,7 +125,7 @@ public class CoreTests {
     public void RemovingFromEmptyBasket()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
+        var user = new Shopper();
         var bagel = inventory.SearchInventory("BGLP");
 
         var result = user.Basket.Remove(bagel);
@@ -135,14 +141,33 @@ public class CoreTests {
     public void RemovingWrongItem()
     {
         var inventory = new Inventory();
-        var user = new User("Customer");
+        var user = new Shopper();
         var bagel = inventory.SearchInventory("BGLP");
         var filling = inventory.SearchInventory("FILX");
 
         user.Basket.Add(bagel);
-        var result = user.Basket.Remove(filling);
+        user.Basket.Remove(filling);
+        var result = user.Basket.Count;
 
         Assert.That(result, Is.False);
+    }
+    [Test]
+    public void RemovingBagelShouldRemoveFilling()
+    {
+        var inventory = new Inventory();
+        var user = new Shopper();
+        var bagel = (Bagel)inventory.SearchInventory("BGLP");
+        var filling = (Filling)inventory.SearchInventory("FILX");
+
+        bagel.AddFilling(filling);
+        user.Basket.Add(bagel);
+        var result = user.Basket.Remove(bagel);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(user.Basket.Count == 0);
+            Assert.That(result, Is.True);
+        });
     }
 
     //As a Bob's Bagels manager,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BobsBagels.main
 {
-    public class Shopper
+    public class Shopper : User
     {
         private Basket _basket = new();
 

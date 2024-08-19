@@ -8,6 +8,7 @@ namespace BobsBagels.main
 {
     public class Manager : User
     {
+
         public bool ChangeCapacity(int capacity)
         {
             throw new NotImplementedException();
