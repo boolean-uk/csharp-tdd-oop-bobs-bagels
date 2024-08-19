@@ -7,25 +7,27 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Persons
 {
-    public class Customer
+    public class Customer : Person
     {
+        /*
         #region
         private Basket _basket;
         public Basket Basket { get => _basket; }
         #endregion
+        */
 
         public Customer() 
-        { 
-            _basket = new Basket(); 
+        {
+            IsManager = false;
         }
         public bool AddItemToBasket(Item item)
         {
-            return _basket.Add(item);
+            return Basket.Add(item);
         }
 
         public bool RemoveItemFromBasket(Item bagel)
         {
-            return _basket.Remove(bagel);
+            return Basket.Remove(bagel);
         }
 
         public double GetTotalSumOfBasket()
@@ -35,7 +37,7 @@ namespace exercise.main.Persons
             List<Bagel> bagelList = new List<Bagel>();
             List<Item> itemList = new List<Item>();
 
-            foreach (var item in _basket.ItemsInBasket)
+            foreach (var item in Basket.ItemsInBasket)
             {
                 if (item.GetType() == typeof(Bagel))
                 {
@@ -72,7 +74,7 @@ namespace exercise.main.Persons
 
         public bool AddFillingToBagel(Bagel bagel, Filling filling)
         {
-            return _basket.AddFillingToBagel(bagel, filling);
+            return Basket.AddFillingToBagel(bagel, filling);
         }
     }
 }

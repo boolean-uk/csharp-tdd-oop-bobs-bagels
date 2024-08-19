@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Persons
 {
-    public class Manager
+    public class Manager : Person
     {
+        public Manager() 
+        {
+            IsManager = true;
+        }
+
+        public bool ChangeBasketCapacity(int capacity)
+        {
+            Basket.Capacity = capacity;
+
+            return true;
+        }
     }
 }
