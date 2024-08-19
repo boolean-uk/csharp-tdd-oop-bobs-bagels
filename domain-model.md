@@ -38,6 +38,10 @@ I'd like to know the cost of each filling before I add it to my bagel order.
 So we don't get any weird requests,\
 I want customers to only be able to order things that we stock in our inventory.
 
+11. Extension 1 - Discounts \
+Add 6 for 2.40 and 12 for 3.99 discount to bagels \
+Add coffee and bagel for 1.25 deal
+
 | Classes   | Methods                                     | Scenario                                              | Outputs                 |
 |-----------|---------------------------------------------|-------------------------------------------------------|-------------------------|
 | Basket    | List\<Product> products {get; set;}          | Store all products currently in basket                | List\<Product> products  |
