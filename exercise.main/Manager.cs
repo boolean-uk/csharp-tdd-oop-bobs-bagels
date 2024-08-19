@@ -15,6 +15,7 @@ namespace exercise.main
         private List<Product> _products = new List<Product>(); //menu item
         private List<Tuple<string, string, float, int>> _discountList = new List<Tuple<string, string, float, int>>(); 
 
+
         public Manager(string firstName, string lastName)
             :base(firstName, lastName)
         { 

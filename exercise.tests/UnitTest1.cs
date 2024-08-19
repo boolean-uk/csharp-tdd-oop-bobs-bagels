@@ -294,4 +294,15 @@ public class Tests
 
         Assert.That(totalCost == 0.39f * 2.0f + 2.49f + 3.99f);
     }
+
+    [Test]
+    public void PrintCurrentTimeTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.GetBagelStore().getManager().changeBasketCapacity(8);
+        customer.grabBasket();
+        addBagel(customer, 4, "BGLP");
+        customer.printReceipt();
+        Assert.Pass();
+    }
 }

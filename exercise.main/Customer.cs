@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace exercise.main
     {
         private Basket _basket;
         private BagelStore _bagelStore = new BagelStore();
+        private Reciept _receipt;
 
         public Customer(string firstName, string lastName)
             : base(firstName, lastName)
@@ -65,7 +67,14 @@ namespace exercise.main
         public float checkout() //with discounts
         {
             float totalCost = _bagelStore.getManager().checkout(_basket);
+            //printReceipt();
             return totalCost = (float)Math.Round(totalCost,2);
+        }
+
+        public void printReceipt() //non discount receipt
+        {
+            _receipt = new();
+            _receipt.print(_basket.getProductsInBasket());
         }
 
         //add lamdas to experiment
