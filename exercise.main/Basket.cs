@@ -76,6 +76,6 @@ namespace exercise.main
 
         public bool IsFull { get { return _capacity == _products.Count(); } }
 
-        public double SumOfItems { get { return (_products.Sum(product => product.Price)); } }
+        public double SumOfItems { get { return _products.Sum(product => product.Price); } }
     }
 }
