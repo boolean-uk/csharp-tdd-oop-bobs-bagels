@@ -97,7 +97,7 @@ public class CustomerTests
         // Execute
         Item bagel = inventoryClass.GetItemBySkuID("BGLO");
 
-        double result = customer.GetCostOfItem();
+        double result = customer.GetCostOfItem(bagel);
 
         // Verify
         Assert.IsTrue(result == inventoryClass.GetItemBySkuID("BGLO").Price);
