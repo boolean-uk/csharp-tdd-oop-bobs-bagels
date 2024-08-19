@@ -50,6 +50,7 @@ namespace exercise.main
 
         public int checkBasketCapacity() { return _basket.getCapacity(); }
 
+        public List<Product> checkMenu() { return _bagelStore.getManager().getMenu(); }
 
         //add lamdas to experiment
         //public bool addProductCool => (string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done

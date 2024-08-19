@@ -12,6 +12,7 @@ namespace exercise.main
         private Product _bagel;
         private Product _coffee;
         private Product _filling;
+        private List<Product> _products = new List<Product>(); //menu item
 
         public Manager(string firstName, string lastName)
             :base(firstName, lastName)
@@ -20,6 +21,9 @@ namespace exercise.main
             _bagel = new Bagel(getBagelMenu());
             _coffee = new Coffee(getCoffeeMenu());
             _filling = new Filling(getFillingMenu());
+            _products.Add(_bagel);
+            _products.Add(_coffee);
+            _products.Add(_filling);
         }
 
         public void changeBasketCapacity(int newBasketCapacity)
@@ -115,6 +119,9 @@ namespace exercise.main
 
         public void basketOverflowWarning() { Console.WriteLine("I am sorry but you basket is full. I cannot add anymore to it!"); }
 
-
+        public List<Product> getMenu() // either print here or return list with products
+        {
+            return _products;
+        }
     }
 }

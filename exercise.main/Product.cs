@@ -55,6 +55,7 @@ namespace exercise.main
         public List<Filling> getFillings() { return fillings; }
 
         //adds filling to bagel filling list and returns true or false
+        //maybe in future, need bagel select otherwise
         public bool addFilling(Filling filling) { int fillingCount = fillings.Count; fillings.Add(filling); if (fillingCount < fillings.Count) { return true; }; return false; }
 
     }

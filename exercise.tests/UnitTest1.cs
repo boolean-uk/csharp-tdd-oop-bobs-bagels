@@ -24,7 +24,7 @@ public class Tests
     //
     //test total cost of basket
     //
-    //test menu check
+    //test menu check verified working
     //
     //change so that fillings are attribute of bagel
     //
@@ -210,18 +210,46 @@ public class Tests
     [Test]
     public void checkMenuTest()
     {
+        Customer customer = getCustomerAndBasket();
+        foreach (var product in customer.checkMenu())
+        {
+            for (int i = 0; i < product.getVariants().Length; i++)
+            {
+                Console.WriteLine(product.getVariants()[i]);
+            }
+
+        }
         Assert.Pass();
     }
 
     [Test]
     public void checkBasketTotalCostTest()
     {
-        Assert.Pass();
+        Customer customer = getCustomerAndBasket();
+        bool productAdded = customer.addProduct("BGLP");
+
+        List<Product> products = customer.checkBasketContent();
+        
+        float totalCost = 0;
+
+        foreach (var product in products) { totalCost += product.price; }
+
+        Assert.That (totalCost == 0.39f);
+
+        productAdded = customer.addProduct("BGLP");
+        productAdded = customer.addProduct("BGLP");
+
+        products = customer.checkBasketContent();
+        totalCost = 0;
+        foreach (var product in products) { totalCost += product.price; }
+
+        Assert.That(totalCost == 0.39f * 3);
     }
 
-    [Test]
-    public void addFillingsToBagelTest()
-    {
-        Assert.Pass();
-    }
+    //[Test]
+    //public void addFillingsToBagelTest()
+    //{
+
+    //    Assert.Pass();
+    //}
 }
