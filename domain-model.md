@@ -44,9 +44,10 @@ I want customers to only be able to order things that we stock in our inventory.
 |           | GetPrice(String SKU)                        | Check cost of something e.g before adding to basket   | decimal cost            |
 |           | AddProduct(String SKU)                      | customer adds product to their basket if not full     | bool                    |
 |           | RemoveProduct(String SKU)                   | removes product if exists                             | bool                    |
-|           | int MaxCapacity {set(isManager)); get;} = 3 | sets bax capacity for baskets                         | int maxCapacity         |
-|           | GetTotalCost()                              | uses products list to get current basket cost         | int cost                |
+|           | int MaxCapacity {set; get;} = 3 | sets max capacity for baskets                         | int maxCapacity         |
+|           | GetTotalCost()                              | uses products list to get current basket cost         | decimal cost                |
 | Inventory | List\<Product> inventory {get; set;}         | Store all products that should be available for order | List\<Product> inventory |
+|			| Dictionary<String, Decimal> GetFillingsPriceList() | Use to get prices of just the fillings | Dictionary\<String, Decimal> fillingPrices |
 | Product   | decimal Price {get; set;}                   | store a price for each bagel                          | decimal cost            |
 |           | string Name {get;set;}                      | store type of product e.g Bagel, Coffee, Filling      | string ItemType         |
 |           | string SKU {get; set; }                     | store SKU of product                                  | string SKU              |
