@@ -50,7 +50,18 @@ public class Tests
     [Test]
     public void BasketIsFullTest()
     {
-        Assert.Fail();
+        string variant1 = "Onion";
+        string variant2 = "Black";
+        string variant3 = "Egg";
+
+        Basket basket = new Basket();
+        basket.AddItem(variant1);
+        basket.AddItem(variant2);
+        basket.AddItem(variant3);
+
+        bool IsBasketFull = basket.IsBasketFull;
+
+        Assert.That(IsBasketFull, Is.True);
     }
 
 

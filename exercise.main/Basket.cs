@@ -12,8 +12,8 @@ namespace exercise.main
         private List<InventoryItem> _Basket = new List<InventoryItem>();
 
         private BobsInventory BobsInventory = new BobsInventory();
-        private int BasketCapacity { get; set; } = 5;
-        private bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
+        private int BasketCapacity { get; set; } = 3;
+        public bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
         
 
         public bool AddItem(string variant)
@@ -47,5 +47,7 @@ namespace exercise.main
             }
             return false;
         }
+
+
     }
 }
