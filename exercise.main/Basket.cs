@@ -18,7 +18,7 @@ namespace exercise.main
             _category = category;
         }
 
-        private bool _add(string sku, int amount)
+        private bool AddItem(string sku, int amount)
         {
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
@@ -48,12 +48,12 @@ namespace exercise.main
 
         public bool Add(string v)
         {
-            return _add(v, 1);
+            return AddItem(v, 1);
         }
 
         public bool Add(string v1, int v2)
         {
-            return _add(v1, v2);   
+            return AddItem(v1, v2);   
         }
 
         public bool Remove(string v)

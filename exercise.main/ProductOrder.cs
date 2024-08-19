@@ -16,6 +16,17 @@ namespace exercise.main
         {
             _product = prod;
             _amount = amt;
+            SetDiscount();
+        }
+
+        private void SetDiscount()
+        {
+            int div = _amount / 12;
+            int mod = _amount % 12;
+            double newDiscount = 0;
+            newDiscount = div * (12 * _product.Price - 3.99);
+            if (mod >= 6) { newDiscount += 6 * _product.Price - 2.49; }
+            _discount = newDiscount;
         }
 
         public Product Product { get { return _product; } }
@@ -23,22 +34,6 @@ namespace exercise.main
         public double Discount { get { return _discount; } }
 
         public int Amount { get { return _amount; }
-            set
-            {
-                _amount = value;
-
-                if (_product.GetType() == typeof(Bagel))
-                {
-                    int div = _amount / 12;
-                    int mod = _amount % 12;
-                    double newDiscount = 0;
-                    newDiscount = div * (12 * _product.Price - 3.99);
-                    if (mod >= 6) { newDiscount += 6 * _product.Price - 2.49; }
-                    _discount = newDiscount;
-                }
-            } }
-
-
-
+                            set { _amount = value; if (_product.GetType() == typeof(Bagel)) SetDiscount(); } }
     }
 }
