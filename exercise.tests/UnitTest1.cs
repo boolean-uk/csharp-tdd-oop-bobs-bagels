@@ -150,16 +150,34 @@ public class Tests
         bool result2 = basket.Add("imnotabagel");
         Assert.IsFalse(result2);
 
-        basket.ChangeCapacity(11);
-        foreach (var i in Enumerable.Range(0, 9))
+        basket.ChangeCapacity(150);
+        foreach (var i in Enumerable.Range(0, 99))
         {
             basket.Add("BGLO");
         }
         // basket should not be full, but there should be no more products left, as
-        // we only had 10 of each product to begin with
+        // we only had 100 of each product to begin with
         Assert.IsFalse(basket.IsFull);
         bool result3 = basket.Add("BGLO");
         Assert.IsFalse(result3);
+    }
+
+    [Test]
+    public void Test11DiscountOrder()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(100);
+
+        bool result1 = basket.Add("BGLO", 2);
+        bool result2 = basket.Add("BGLP", 12);
+        bool result3 = basket.Add("BGLE", 6);
+        bool result4 = basket.Add("COFB", 3);
+
+        Assert.IsTrue(result1);
+        Assert.IsTrue(result2);
+        Assert.IsTrue(result3);
+        Assert.IsTrue(result4);
     }
 
     [Test]

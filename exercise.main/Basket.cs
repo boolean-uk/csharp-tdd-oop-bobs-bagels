@@ -46,6 +46,11 @@ namespace exercise.main
             return true;
         }
 
+        public bool Add(string v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Remove(string v)
         {
             // Check if the product exists in the category
@@ -83,12 +88,13 @@ namespace exercise.main
             return product.Price;
         }
 
+
         public List<ProductOrder> Products { get { return _products.Values.ToList(); } }
 
         public int Capacity { get { return _capacity; } }
 
         public bool IsFull { get { return _capacity == _count; } }
 
-        public double SumOfItems { get { return _products.Sum(product => product.Value.Amount * product.Value.Product.Price); } }
+        public double SumOfItems { get { return _products.Sum(product => (product.Value.Amount * product.Value.Product.Price) - product.Value.Discount); } }
     }
 }

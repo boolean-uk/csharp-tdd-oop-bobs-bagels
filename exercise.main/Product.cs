@@ -20,7 +20,7 @@ namespace exercise.main
             _price = price;
             _name = name;
             _variant = variant;
-            _stock = 10; // default stock of 10
+            _stock = 100; // default stock of 100
         }
 
         public bool DecreaseStock()
