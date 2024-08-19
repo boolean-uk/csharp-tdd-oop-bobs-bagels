@@ -34,5 +34,5 @@
 | **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |
 |:--:|:--:|:--:|:--:|:--:|
 | `BobsBagelStore` | `List<Receipt> _receipts` | `GenerateReceipt(Basket basket)` | Generate receipt from items in basket | `Receipt?` |
-| `Receipt` | `Basket _relatedBasket` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console + bool` |
-| `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + bool` |
+| `Receipt` | `Basket _relatedBasket` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console` |
+| `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + float` |
