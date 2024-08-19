@@ -19,12 +19,9 @@ namespace exercise.main
             BasketItems.Add(id, item);
         }
 
-        public void RemoveFromBasket(Item item)
+        public void RemoveFromBasket(int id)
         {
-            if (item is Bagel bagel && bagel.Filling != "")
-            {
-
-            }
+            BasketItems.Remove(id);
             //BasketItems.Remove(item);
         }
 

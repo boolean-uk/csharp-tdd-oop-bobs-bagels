@@ -150,7 +150,7 @@ public class Tests
         selections.Add(BaconBagel); selections.Add(Bacon);
         Basket.AddToBasket(0, selections);
 
-        Basket.RemoveFromBasket(BaconBagel);
+        Basket.RemoveFromBasket(0);
 
         string expected = "Basket is empty";
 
