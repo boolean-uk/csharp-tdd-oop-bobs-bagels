@@ -30,7 +30,7 @@ namespace exercise.tests
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
             PoppulateBaskets(6, p, productType.BGLO);
-            Assert.That(p.GetCost() == 2.49f);
+            Assert.That(p.ImplementDiscount() == 2.49f);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace exercise.tests
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
             PoppulateBaskets(12, p, productType.BGLP);
-            Assert.That(p.GetCost() == 3.99f);
+            Assert.That(p.ImplementDiscount() == 3.99f);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace exercise.tests
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
             PoppulateBaskets(6, p, productType.BGLE);
-            Assert.That(p.GetCost() == 2.49f);
+            Assert.That(p.ImplementDiscount() == 2.49f);
         }
 
         [Test]
@@ -58,7 +58,17 @@ namespace exercise.tests
             SetBsketSizeToTwenty(p);
             p.addItemToBascet(productType.BGLO);
             p.addItemToBascet(productType.COFB);
-            Assert.That(p.GetCost() == 1.25f);
+            Assert.That(p.ImplementDiscount() == 1.25f);
+        }
+
+        [Test]
+        public void comboTest_1()
+        {
+            Customer p = new Customer("Tom");
+            SetBsketSizeToTwenty(p);
+            PoppulateBaskets(6, p, productType.BGLE);
+            PoppulateBaskets(6, p, productType.BGLO);
+            Assert.That(p.ImplementDiscount() == (2.49f + 2.49f));
         }
     }
 }
