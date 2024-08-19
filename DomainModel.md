@@ -104,6 +104,9 @@ I want be able to see potencial discounts on my reciept
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  |string       |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts                     |
+| 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts        |             |
 |                 |																							|											|             |
-|				  |																							|                                           |             |																		
+|				  |																							|                                           |             |	
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |

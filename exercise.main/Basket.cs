@@ -94,6 +94,8 @@ namespace exercise.main
                             itemCount++;
                         }
                     }
+
+
                     totalPriceForSpecifiedItem = itemCount * item.price;
                     reciept += $"{item.name}: {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
                     allreadyCountedItems.Add(item.id);
@@ -169,6 +171,9 @@ namespace exercise.main
             Console.WriteLine(reciept);
             return reciept;
         }
+
+
+
     }
 }
 
