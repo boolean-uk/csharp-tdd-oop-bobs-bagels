@@ -11,7 +11,7 @@ namespace exercise.main
     {
         public int allowedBasketSize = 3; //Maximum basket size for all newly created baskets
 
-        Inventory inv = new Inventory(); //Inventory containing all products in the store
+        private Inventory inv = new Inventory(); //Inventory containing all products in the store
 
         public bool AddProduct(Basket bskt, string product)
         {

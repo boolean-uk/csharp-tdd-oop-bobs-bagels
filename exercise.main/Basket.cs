@@ -31,7 +31,7 @@ namespace exercise.main
             return -1;
         }
 
-        internal float TotalCost()
+        public float TotalCost()
         {
             //Calculate the total cost of all products in basket
             float totalCost = 0;

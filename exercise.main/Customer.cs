@@ -47,5 +47,10 @@ namespace exercise.main
             //Ask the manager how much it costs
             return manager.HowMuchProduct(product);
         }
+
+        public bool AddFilling(Manager manager, string filling, string product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

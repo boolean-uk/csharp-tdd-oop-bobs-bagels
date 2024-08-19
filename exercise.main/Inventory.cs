@@ -9,7 +9,7 @@ namespace exercise.main
     public class Inventory
     {
         //List with all base products
-        public List<Product> baseProducts = new List<Product>();
+        private List<Product> baseProducts = new List<Product>();
 
         public Inventory() 
         {
