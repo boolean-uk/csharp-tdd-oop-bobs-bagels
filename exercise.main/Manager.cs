@@ -8,6 +8,7 @@ namespace BobsBagels.main
 {
     public class Manager : User
     {
+        public static int Capacity = 4;
 
         public bool ChangeCapacity(int capacity)
         {

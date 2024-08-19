@@ -3,7 +3,7 @@
     public class Basket
     {
         private Dictionary<Item, int> _items { get; } = new();
-        private int _capacity { get; set; } = 4;
+        private int _capacity { get { return Manager.Capacity; } }
         private int _count { get; set; } = 0;
 
         public bool Add(Item item)
@@ -41,7 +41,9 @@
 
         public Dictionary<Item, int> Items { get { return _items; } }
         public int Count {get { return _count; } }
+        public int Capacity { get { return _capacity; } }
 
-        
+
+
     }
 }

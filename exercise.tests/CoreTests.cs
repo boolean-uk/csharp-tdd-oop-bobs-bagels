@@ -177,22 +177,111 @@ public class CoreTests {
     //As a Bob's Bagels manager,
     //So that I can expand my business,
     //I’d like to change the capacity of baskets.
+    [Test]
+    public void ManagerChangeCapacity() 
+    {
+        var manager = new Manager();
+        var shopper = new Shopper();
 
+        var change = manager.ChangeCapacity(3);
+        var result = shopper.Basket.Capacity;
 
-
-    //As a customer,
-    //So I know how much money I need,
-    //I'd like to know the total cost of items in my basket.
-
-
+        Assert.Multiple(() =>
+        { 
+            Assert.That(result, Is.EqualTo(3));
+            Assert.That(change, Is.True);
+        }
+        );
+    }
 
     //As a customer,
     //So I know what the damage will be,
     //I'd like to know the cost of a bagel before I add it to my basket.
 
+    [Test]
+    public void CalculateSimpleBagel()
+    {
+        var inventory = new Inventory();
+        var bagel = inventory.SearchInventory("BGLP");
 
+        var price = bagel.Price;
+
+        Assert.That(price, Is.EqualTo(0.39f));
+    }
+
+    [Test]
+    public void CalculateMaxFilledBagel()
+    {
+        var inventory = new Inventory();
+        Bagel bagel = (Bagel) inventory.SearchInventory("BGLE");
+        var filling1 = (Filling)inventory.SearchInventory("FILX");
+        var filling2 = (Filling)inventory.SearchInventory("FILS");
+        var filling3 = (Filling)inventory.SearchInventory("FILE");
+
+        bagel.AddFilling(filling1);
+        bagel.AddFilling(filling2);
+        bagel.AddFilling(filling3);
+        var price = bagel.Price;
+
+        Assert.That(price, Is.EqualTo(0.49f+ 0.12f*3));
+    }
+
+    //As a customer,
+    //So I know how much money I need,
+    //I'd like to know the total cost of items in my basket.
+    [Test]
+    public void CalculateTotal() 
+    {
+        
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        Bagel bagel = (Bagel)inventory.SearchInventory("BGLE");
+        var filling1 = (Filling)inventory.SearchInventory("FILX");
+        var filling2 = (Filling)inventory.SearchInventory("FILS");
+        var filling3 = (Filling)inventory.SearchInventory("FILE");
+
+        bagel.AddFilling(filling1);
+        bagel.AddFilling(filling2);
+        bagel.AddFilling(filling3);
+        shopper.Basket.Add(bagel);
+        var price = shopper.Basket.Total();
+
+        Assert.That(price, Is.EqualTo(0.49f + 0.12f * 3));
+
+    }
+
+    [Test]
+    public void CalculateEmptyBasket()
+    {
+
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+
+        var price = shopper.Basket.Total();
+
+        Assert.That(price, Is.EqualTo(0));
+    }
 
     //As a customer,
     //So I don't over-spend,
     //I'd like to know the cost of each filling before I add it to my bagel order.
+    [Test]
+    public void FillingPrice()
+    {
+        var inventory = new Inventory();
+
+        var filling1 = (Filling)inventory.SearchInventory("FILX");
+        var filling2 = (Filling)inventory.SearchInventory("FILS");
+        var filling3 = (Filling)inventory.SearchInventory("FILE");
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(filling1.Price, Is.EqualTo(0.12f));
+            Assert.That(filling2.Price, Is.EqualTo(0.12f));
+            Assert.That(filling3.Price, Is.EqualTo(0.12f));
+
+        });
+
+    }
+
 }
