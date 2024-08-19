@@ -221,7 +221,42 @@ namespace exercise.tests
             Assert.That(expected == result);
         }
 
+        [Test]
+        //Get cost of all the fillings
+        public void GetFillingPriceTest()
+        {
+            //arrange
 
+            Inventory inventory = new Inventory();
+
+            //Get all the fillings from inventory
+
+            int expectedFillingsListSize = 6;
+
+            //act
+
+            List<Product> fillings = inventory.Products.Where(x => x.Name == "Filling").ToList();
+            int resultFillingListSize = fillings.Count;
+
+
+            List<Decimal> fillingPrices = new List<Decimal>();
+
+            foreach (var filling in fillings)
+            {
+                fillingPrices.Add(filling.Price);
+            }
+
+            Decimal totalCostExpected = 0.12M * 6;
+
+            //all fillings cost the same so i'll just multiply by 6
+            Decimal totalCostResult = fillingPrices[0] * 6;
+
+            
+
+            //assert
+            Assert.That(expectedFillingsListSize == resultFillingListSize);
+            Assert.That(totalCostExpected == totalCostResult);
+        }
 
 
 

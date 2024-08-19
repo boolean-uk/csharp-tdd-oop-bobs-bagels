@@ -14,9 +14,10 @@ namespace exercise.main
         //adds item to list if there is room
         public bool Add(Product product)
         {
-            //int count = _productList.Count;
+            Inventory inventory = new Inventory();
 
-            if(_productList.Count < MaxCapacity)
+            //ugly but works
+            if (_productList.Count < MaxCapacity && inventory.Products.Find(p => p.SKU == product.SKU).SKU == product.SKU) 
             {
                 _productList.Add(product);
                 return true;
