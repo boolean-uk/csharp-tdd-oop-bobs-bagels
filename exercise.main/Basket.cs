@@ -111,6 +111,8 @@ namespace exercise.main
 
         private List<Product> _basket { get; set; } = new List<Product>();
 
+        public List<Product> basket { get => _basket; }
+
         private List<Product> _inventory = new Inventory().inventory; 
         private int _capacity { get; set; } = 50;
 
