@@ -13,14 +13,16 @@ namespace exercise.main
     {
         public List<Item> Item { get; set; } = new List<Item> { };
 
-        public int max_capasity { get; set; } 
+        public int max_capasity { get; set; }
 
-        public void addItem(Item item)
+        public bool addItem(Item item)
         {
             if (Item.Count() <= max_capasity)
             {
                 Item.Add(item);
+                return true;
             }
+            return false;
 
         }
         public bool removeItem(Item item)
@@ -53,8 +55,20 @@ namespace exercise.main
             return false;
 
         }
+        public string removingNotExisting(Item item)
+        {
+            if (!Item.Contains(item))
+            {
+                return "Item does not exists";
+            }
+            return "";
+        }
 
-        
+        public double getTotalCost()
+        {
+            return Item.Sum(item => item.Price);
+            
+        }
     }
 
 }

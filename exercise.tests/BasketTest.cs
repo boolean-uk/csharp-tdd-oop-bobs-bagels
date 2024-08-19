@@ -64,12 +64,15 @@ namespace exercise.tests
             Item item1 = inventory.GetItembySku("BGLE");
             Item item2 = inventory.GetItembySku("BGLS");
             Item item3 = inventory.GetItembySku("COFB");
+            Item item4 = inventory.GetItembySku("FILB");
 
+            
             basket.addItem(item1);
             basket.addItem(item2);
             basket.addItem(item3);
+            basket.addItem(item4);
 
-            basket.max_capasity = 2;
+            basket.max_capasity = 3;
 
             bool expected = basket.isFull();
 
@@ -84,13 +87,13 @@ namespace exercise.tests
             Basket basket = new Basket();
 
             //act
-            int newcapasity = 5;
+            int newcapasity = 10;
             
             bool expected = basket.changecapacity(newcapasity);
 
             //assert
             Assert.That(expected, Is.True);
-            Assert.That(basket.max_capasity == 5);
+            Assert.That(basket.max_capasity == 10);
 
 
         }
@@ -108,7 +111,33 @@ namespace exercise.tests
             bool notexisting = basket.removeItem(item2);
 
             //assert
-            Assert.IsFalse(notexisting);
+            Assert.IsFalse(basket.Item.Contains(item2));
+
+        }
+        [Test]
+
+        public void TestTotalCostOfItems()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            //act
+            Item item1 = inventory.GetItembySku("BGLO");
+            Item item2 = inventory.GetItembySku("BGLP");
+
+            basket.changecapacity(4);
+
+            basket.addItem(item1);
+            basket.addItem(item2);
+            
+            
+            double expected = 0.88d;
+            double totalcost = basket.getTotalCost();
+            
+            //assert
+            Assert.IsTrue(expected == totalcost);
+            
 
         }
     }
