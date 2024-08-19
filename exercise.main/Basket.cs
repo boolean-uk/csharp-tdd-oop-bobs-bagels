@@ -20,12 +20,6 @@ namespace exercise.main
 
         private bool AddItem(string sku, int amount)
         {
-            // Since we have a coffee + bagel special offer, we create a special item for it
-            // Assuming this offer only applies for Black Coffee (ask customer?!)
-            if (sku.StartsWith("COFB") && sku.Length == 8)
-            {
-
-            }
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
 
@@ -48,7 +42,8 @@ namespace exercise.main
                 ProductOrder po = new ProductOrder(value, amount);
                 _products.Add(sku, po);
             }
-            _count++;
+            int worth = sku.Length / 4;
+            _count += worth;
             return true;
         }
 
@@ -60,6 +55,19 @@ namespace exercise.main
         public bool Add(string v1, int v2)
         {
             return AddItem(v1, v2);   
+        }
+
+        // This is to add a bagel & coffee order, not sure how to handle adding a specific filling
+        // to a bagel yet...
+        public bool Add(string v1, string v2)
+        {
+            if (!_category.ContainsKey(v1) || !_category.ContainsKey(v2)) return false;
+            Product p1 = _category[v1];
+            Product p2 = _category[v2];
+
+            if (p1.GetType() == typeof(Bagel) && p2.Variant == "Black" && p2.Name == "Coffee") return AddItem(p2.Sku + p1.Sku, 1);
+            if (p2.GetType() == typeof(Bagel) && p1.Variant == "Black" && p1.Name == "Coffee") return AddItem(p1.Sku + p2.Sku, 1);
+            else return false;
         }
 
         public bool Remove(string v)
@@ -77,7 +85,8 @@ namespace exercise.main
             if (_products[v].Amount > 1) _products[v].Amount--;
             else _products.Remove(v);
 
-            _count--;
+            int worth = v.Length / 4;
+            _count -= worth;
             return true;
         }
 
@@ -99,10 +108,6 @@ namespace exercise.main
             return product.Price;
         }
 
-        public bool Add(string v1, string v2)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<ProductOrder> Products { get { return _products.Values.ToList(); } }
 

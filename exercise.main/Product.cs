@@ -8,14 +8,16 @@ namespace exercise.main
 {
     public abstract class Product
     {
+        private BagelShop _shop;
         private string _sku;
         private double _price;
         private string _name;
         private string _variant;
         private int _stock;
 
-        public Product(string sku, double price, string name, string variant)
+        public Product(BagelShop shop,  string sku, double price, string name, string variant)
         {
+            _shop = shop;
             _sku = sku;
             _price = price;
             _name = name;
@@ -23,7 +25,7 @@ namespace exercise.main
             _stock = 100; // default stock of 100
         }
 
-        public bool DecreaseStock()
+        public virtual bool DecreaseStock()
         {
             if (_stock > 0)
             {
@@ -33,18 +35,23 @@ namespace exercise.main
             return false;
         }
 
-        public bool IncreaseStock()
+        public virtual bool IncreaseStock()
         {
             _stock++;
             return true;
         }
-            
+
+        public override string ToString()
+        {
+            return $"{_variant} {_name}";
+        }
+
 
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }
         public string Name { get => _name; set => _name = value; }
         public string Variant { get => _variant; set => _variant = value; }
         public int Stock { get => _stock; set => _stock = value; }
-
+        public BagelShop Shop { get => _shop; set => _shop = value; }
     }
 }

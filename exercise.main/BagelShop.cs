@@ -29,6 +29,11 @@ namespace exercise.main
             _category.Add("FILX", CreateProduct("FILX", 0.12, "Filling", "Cream Cheese"));
             _category.Add("FILS", CreateProduct("FILS", 0.12, "Filling", "Smoked Salmon"));
             _category.Add("FILH", CreateProduct("FILH", 0.12, "Filling", "Ham"));
+
+            _category.Add("COFBBGLO", CreateProduct("COFBBGLO", 0.99+0.49, "Bagel", "Onion"));
+            _category.Add("COFBBGLP", CreateProduct("COFBBGLP", 0.99+0.39, "Bagel", "Plain"));
+            _category.Add("COFBBGLE", CreateProduct("COFBBGLE", 0.99+0.49, "Bagel", "Everything"));
+            _category.Add("COFBBGLS", CreateProduct("COFBBGLS", 0.99+0.49, "Bagel", "Sesame"));
         }
 
         // Maybe add terminal interaction to main
@@ -59,7 +64,7 @@ namespace exercise.main
             double discount = 0;
 
             foreach (var (sku, po) in orders) {
-                string orderName = $"{po.Product.Variant} {po.Product.Name}".PadRight(18);
+                string orderName = po.Product.ToString().PadRight(18);
                 string orderAmount = $"{po.Amount}".PadRight(5);
                 string orderPrice = $"£{Math.Round(po.Cost - po.Discount, 2)}";
                 sb.AppendLine(orderName + orderAmount + orderPrice);
@@ -87,14 +92,19 @@ namespace exercise.main
 
         private Product CreateProduct(string sku, double price, string name, string variant)
         {
+            // Special case for BagelCoffee I guess, not sure if making a new class for this was the best idea...
+            if (sku.Length == 8)
+            {
+                return new BagelCoffee(this, sku, price, name, variant);
+            }
             switch (name)
             {
                 case "Bagel":
-                    return new Bagel(sku, price, name, variant);
+                    return new Bagel(this, sku, price, name, variant);
                 case "Coffee":
-                    return new Coffee(sku, price, name, variant);
+                    return new Coffee(this, sku, price, name, variant);
                 case "Filling":
-                    return new Filling(sku, price, name, variant);
+                    return new Filling(this, sku, price, name, variant);
             }
             return null;
         }

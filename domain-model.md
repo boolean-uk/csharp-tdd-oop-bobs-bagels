@@ -34,3 +34,4 @@
 | Bagel           | inherits from Product   |                             |                           |            |
 | Coffee          | inherits from Product   |                             |                           |            |
 | Filling         | inherits from Product   |                             |                           |            |
+| BagelCoffee     | inherits from Product   |                             |                           |            |
