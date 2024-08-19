@@ -61,5 +61,34 @@ namespace exercise.main
             }
             return retCost;
         }
+
+        public bool RemoveFromBasket(string name, string variant)
+        {
+            string code = inventory.GetCode(name, variant);
+            if(name == "Coffee" || name == "Bagel")
+            {
+                for(int i = 0; i < basket.Count; i++)
+                {
+                    if (basket[i].coffeeOrBagel == code)
+                    {
+                        basket.RemoveAt(i);
+                        return true;
+                    }
+                }
+            }
+            if (name == "Filling")
+            {
+                for (int i = 0; i < basket.Count; i++)
+                {
+                    if (basket[i].filling == code)
+                    {
+                        BasketItem replaceItem = basket[i];
+                        replaceItem.filling = string.Empty;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

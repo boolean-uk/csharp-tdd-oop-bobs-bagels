@@ -50,7 +50,7 @@ namespace exercise.main
 
         public bool RemoveItem(string name, string variant)
         {
-            throw new NotImplementedException();
+            return basket.RemoveFromBasket(name, variant); 
         }
 
         public double ShowCost()
