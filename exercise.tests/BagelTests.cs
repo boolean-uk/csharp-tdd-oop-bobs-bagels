@@ -278,4 +278,24 @@ public class Tests
         //assert
         Assert.That(receipt, !Is.EqualTo("Insufficient Funds"));
     }
+
+    [TestCase("BGLO", "BGLE", "COFE", "COFC", 19, 23, 5, 10)]
+    public void PrintDiscountReceiptTest(string product1, string product2, string product3, string product4, int amount1, int amount2, int amount3, int amount4)
+    {
+        //arrange
+        Manager manager = new Manager();
+        manager.ChangeBasketSize(50);
+        Customer customer = new Customer(manager, 40.0f);
+        customer.Add(manager, product1, amount1);
+        customer.Add(manager, product2, amount2);
+        customer.Add(manager, product3, amount3);
+        customer.Add(manager, product4, amount4);
+
+        //act
+        string receipt = customer.Purchase(manager);
+
+        //assert
+        Assert.That(receipt, !Is.EqualTo("Insufficient Funds"));
+        Assert.That(receipt.Contains("-£"), Is.True);
+    }
 }
