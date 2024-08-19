@@ -43,9 +43,23 @@ public class CustomerTests
         // Execute
         Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
         customer.AddItemToBasket(bagel);
-        customer.RemoveItemFromBasket(bagel);
+        bool result = customer.RemoveItemFromBasket(bagel);
 
         // Verify
-        Assert.IsFalse(customer.Basket.ItemsInBasket.Contains(bagel));
+        Assert.IsTrue(!customer.Basket.ItemsInBasket.Contains(bagel) & result == true);
+    }
+
+    [Test]
+    public void RemoveItemFromBasketWhenItemDoesNotExist()
+    {
+        // Setup
+        Customer customer = new Customer();
+
+        // Execute
+        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
+        bool result = customer.RemoveItemFromBasket(bagel);
+
+        // Verify
+        Assert.IsTrue(!customer.Basket.ItemsInBasket.Contains(bagel) & result == false);
     }
 }

@@ -18,16 +18,30 @@ namespace exercise.main
 
         public bool Add(Item item)
         {
-            _itemsInBasket.Add(item);
-            _capacity -= 1;
-            return true;
+            if (_capacity <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                _itemsInBasket.Add(item);
+                _capacity--;
+                return true;
+            }
         }
 
         public bool Remove(Item item)
         {
-            _itemsInBasket.Remove(item);
-            _capacity += 1;
-            return true;
+            if (_itemsInBasket.Contains(item))
+            {
+                _itemsInBasket.Remove(item);
+                _capacity++;
+                return true;
+            } else
+            {
+                return false;
+            }
+            
         }
     }
 }

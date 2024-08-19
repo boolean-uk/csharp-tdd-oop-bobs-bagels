@@ -17,20 +17,12 @@ namespace exercise.main.Persons
         }
         public bool AddItemToBasket(Item item)
         {
-            if (_basket.Capacity <= 0)
-            {
-                return false;
-            } else
-            {
-                _basket.Add(item);
-                return true;
-            }
+            return _basket.Add(item);
         }
 
         public bool RemoveItemFromBasket(Item bagel)
         {
-            _basket.Remove(bagel);
-            return true;
+            return _basket.Remove(bagel);
         }
     }
 }
