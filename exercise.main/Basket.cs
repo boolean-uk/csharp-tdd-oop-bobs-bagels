@@ -79,7 +79,10 @@ namespace exercise.main
 
         public void ChangeCap(int newcap)
         {
-
+            if (IsAdmin == true) 
+            {
+                Cap = newcap;
+            }
         }
 
         public double Total { get => _total; set => _total = value; }
