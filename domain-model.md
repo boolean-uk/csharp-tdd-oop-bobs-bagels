@@ -4,20 +4,21 @@
 |-----------------|-------------------------|-----------------------------|---------------------------|------------|
 | BagelShop       | `Dictionary<string, Product> category`| Category {get;}  | category of products      | Dictionary |
 |                 |							| GrabBasket()                | gives an empty basket     | Basket     |
-|                 |                         | static ReceiptPrinter()     | prints a receipt          | nothing    |
+|                 |                         | ReceiptPrinter()            | builds a receipt          | StringBuilder|
 |                 |                         |                             |                           |            |
 | ProductOrder    | `Product product`       | Product {get;}              | get the product           | Product    |
 |                 | `int amount`            | Amount {get; set;}          | get or set the amount     | int        |
+|                 |                         | Cost {get;}                 | get the cost of the order | double     |
 |                 | `double discount`       | SetDiscount()               | set discount for order    | nothing    |
 |                 |                         |                             |                           |            |
-| Basket          | `List<Product> products`| Add(int sku)                | item got added to basket  | true       |
-|				  | `int capacity`          |                             | item did not get added    | false      |
-|                 |		                    | Remove(int sku)             | item got removed          | true       |
+| Basket          | `List<Product> products`| Add(string sku)             | item got added to basket  | true       |
+|				  | `int capacity`          | Add(string sku, int amount) | item did not get added    | false      |
+|                 |		                    | Remove(string sku)          | item got removed          | true       |
 |                 |                         |                             | item did not get removed  | false      |
 |                 |                         | ChangeCapacity(int size)    | capacity got changed      | true       |
 |                 |                         |                             | capacity didnt get changed| false      |
 |                 |                         | Exists(string item)         | check if item is in basket| bool       |
-|                 |                         | CostOfBagel(int sku)        | get cost of a bagel       | double     |
+|                 |                         | CostOfBagel(string sku)     | get cost of a bagel       | double     |
 |                 |                         | Products {get;}             | get products in basket    | list       |
 |                 |                         | Capacity {get;}             | get the capacity          | int        |
 |                 |                         | IsFull {get;}               | check if basket is full   | bool       |
