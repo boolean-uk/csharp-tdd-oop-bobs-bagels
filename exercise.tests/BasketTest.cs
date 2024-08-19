@@ -69,7 +69,7 @@ namespace exercise.tests
             basket.addItem(item2);
             basket.addItem(item3);
 
-            basket._max_capasity = 2;
+            basket.max_capasity = 2;
 
             bool expected = basket.isFull();
 
@@ -84,12 +84,11 @@ namespace exercise.tests
             Basket basket = new Basket();
 
             //act
-            int newcapacity = 5;
-
-            bool expected = basket.changecapacity();
+            
+            bool expectednewcapasity = basket.changecapacity(5);
 
             //assert
-            Assert.That(expected, Is.True);
+            Assert.That(expectednewcapasity, Is.True);
 
 
         }

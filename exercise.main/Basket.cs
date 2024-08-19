@@ -13,11 +13,11 @@ namespace exercise.main
     {
         public List<Item> Item { get; set; } = new List<Item> { };
 
-        public int _max_capasity { get; set; } 
+        public int max_capasity { get; set; } 
 
         public void addItem(Item item)
         {
-            if (Item.Count() <= _max_capasity)
+            if (Item.Count() <= max_capasity)
             {
                 Item.Add(item);
             }
@@ -25,7 +25,7 @@ namespace exercise.main
         }
         public void removeItem(Item item)
         {
-            if (Item.Count() > _max_capasity)
+            if (Item.Count() > max_capasity)
             {
                 Item.Remove(item);
             }
@@ -33,17 +33,26 @@ namespace exercise.main
         }
         public bool isFull()
         {
-          if (Item.Count() <= _max_capasity)
+          if (Item.Count() <= max_capasity)
             {
                 return true;
             }
              return false;
         }
 
-        public bool changecapacity()
+        public bool changecapacity(int newcapasity)
         {
-            throw new NotImplementedException();
+            
+            if (newcapasity > 0)
+            {
+                max_capasity = newcapasity;
+                return true;
+            }
+            return false;
+
         }
+
+        
     }
 
 }
