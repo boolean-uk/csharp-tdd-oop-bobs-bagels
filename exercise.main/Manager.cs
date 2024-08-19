@@ -53,17 +53,20 @@ namespace exercise.main
             {
                 product = new Bagel(_bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
+                if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
             } else if (SKU.Contains("COF")) 
             {
                 product = new Bagel(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
+                if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
             }
             else if (SKU.Contains("FIL"))
             {
                 product = new Bagel(_filling.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
+                if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
             }
             return false;
@@ -106,6 +109,9 @@ namespace exercise.main
         };
             return variants;
         }
+
+        public void basketOverflowWarning() { Console.WriteLine("I am sorry but you basket is full. I cannot add anymore to it!"); }
+
 
     }
 }

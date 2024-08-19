@@ -12,6 +12,64 @@ public class Tests
         customer.grabBasket();
     }
 
+    //adding products verified working
+    //
+    //removing products verified working
+    //
+    //test overflow warning
+    //
+    //test remove warning
+    //
+    //test basket capacity change
+    //
+    //test total cost of basket
+    //
+    //test menu check
+    //
+    //change so that fillings are attribute of bagel
+    //
+    //
+    //
+    //
+
+    //gives customer without basket
+    private Customer getCustomer() { return new Customer("test", "testsson"); }
+
+    //gives customer and instanciated basket
+    private Customer getCustomerAndBasket() { Customer customer = new Customer("test", "testsson"); customer.grabBasket(); return customer; }
+
+    private Customer addBagel(Customer customer, int amount)
+    {
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("BGLP", customer); }
+        return customer;
+    }
+
+    private Customer addCoffee(Customer customer, int amount)
+    {
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("COFB", customer); }
+        return customer;
+    }
+
+    private Customer addFilling(Customer customer, int amount)
+    {
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("FILB", customer); }
+        return customer;
+    }
+
+    [Test]
+    public void FunctionsInTestFileTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer = addBagel(customer, 1);
+        List<Product> products = customer.checkBasketContent();
+
+        Assert.IsTrue(products.Count == 1);
+        Assert.That(products.First().SKU == "BGLP");
+        Assert.That(products.First().name == "Bagel");
+        Assert.That(products.First().variant == "Plain");
+        Assert.That(products.First().price == 0.39f);
+    }
+
     [Test]
     public void AddOneProductToBasketTest()
     {

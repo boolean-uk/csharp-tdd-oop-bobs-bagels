@@ -23,11 +23,17 @@ namespace exercise.main
 
         public List<Product> getProductsInBasket() { return _products; }
 
-        public bool addProduct(Product product) { _products.Add(product); return true; }
+        public bool addProduct(Product product) { 
+            _products.Add(product);
+            foreach (var item in _products)
+            {
+                if (item == product) { return true; }
+            }
+            return false;
+        } //change so it does not always add true
 
-        public bool removeProduct(string SKU) { _products.Remove(_products.FirstOrDefault(product => product.SKU == SKU)); return true; }
+        public bool removeProduct(string SKU) { return _products.Remove(_products.FirstOrDefault(product => product.SKU == SKU));} //this also
 
-        public void basketOverflowWarning() { Console.WriteLine("This is your basket speaking. I am at max capacity!"); }
         public void productNotInBasketWarning() { Console.WriteLine("This is your basket speaking. The product you are trying to remove does not exist, please cease you action!"); }
     }
 }

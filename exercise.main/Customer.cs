@@ -22,9 +22,9 @@ namespace exercise.main
             _basket = new Basket();
         }
 
-        public bool recieveProductInBasket(Product product)
+        public bool recieveProductInBasket(Product product) //TODO: check for basket overflow
         {
-            if (product != null)
+            if (product != null && _basket != null && _basket.getProductsInBasket().Count < _basket.getCapacity())
             {
                 _basket.addProduct(product);
                 return true;
@@ -35,15 +35,15 @@ namespace exercise.main
         public bool addProduct(string SKU) { return _bagelStore.getManager().getProduct(SKU, this);} //done
         public bool removeProduct(string SKU) 
         {
-            Product product = _bagelStore.getManager().getProductReference(SKU);
-            if (product != null)
-            {
-                _basket.getProductsInBasket().Remove(product); //might not remove intended object, might have to go with if SKU == SKU remove or something
-                return true;
-            }
-            return false;
+            return _basket.getProductsInBasket().Remove(_basket.getProductsInBasket().FirstOrDefault(product => product.SKU == SKU));
         }
 
         public List<Product> checkBasketContent() { return _basket.getProductsInBasket(); }
+
+        public BagelStore GetBagelStore() { return _bagelStore; }
+        //add lamdas to experiment
+        //public bool addProductCool => (string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done
+
+
     }
 }
