@@ -12,6 +12,7 @@ namespace exercise.main
         Inventory inventory = new Inventory();
         public int MAX_BASKET_SIZE { get; set; } = 3;
         public List<Item> yourBasket = new List<Item>();
+        public Dictionary<Item, int> itemCount = new Dictionary<Item, int>();
         public int items_in_basket = 0;
         
         public bool addItem(string itemType, string variant)
@@ -173,7 +174,31 @@ namespace exercise.main
         }
 
 
+        //this function is not finished
+        public void Discount()
+        {
+            foreach (Item item in yourBasket)
+            {
+                if (itemCount.ContainsKey(item))
+                {
+                    int count = itemCount[item] + 1;
+                    itemCount[item] = count;
+                }
+                else
+                {
+                    itemCount.Add(item, 1);
+                }
 
+            }
+
+
+            foreach (var item in itemCount)
+            {
+                Console.WriteLine($"{item.Key.variant},  {item.Value}x");
+            }
+             
+
+        } 
     }
 }
 

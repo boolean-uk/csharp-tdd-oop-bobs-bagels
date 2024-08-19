@@ -18,4 +18,9 @@ basket.addItem("Bagel", "Onion");
 basket.addItem("Coffee", "White");
 basket.addItem("Coffee", "Black");
 
-basket.recieptWithDiscount();
+//basket.recieptWithDiscount();
+
+basket.Discount();
+Dictionary<Item, int> itemCount = basket.itemCount;
+
+

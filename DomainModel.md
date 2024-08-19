@@ -87,7 +87,7 @@ I want be able to see potencial discounts on my reciept
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Basket`		  | addItem(Item bagel, Item filling?, Item coffee?)                                        | User ordered bagel based on the type		| bool        |
 |                 |																							| Item not in inventory				    	| bool        |
-| 	         	  |	                                                                                    	| User adds filling and/or coffe to bagel   | bool        |
+| 	         	  |	                                                                                    	| User adds filling and/or coffee           | bool        |
 | 	         	  |	                                                                                    	|                                           |             |
 |                 | removeBagels(Item item) 																| User removed item from basket		    	| string      |
 |                 |																							| The item didnt exist						| string   	  |
@@ -102,11 +102,11 @@ I want be able to see potencial discounts on my reciept
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	checkTotal()                                                                        	| Customer wants to see the total basket cost|double      |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  |string       |
+| 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  | string      |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts        |             |
 |                 |																							|											|             |
-|				  |																							|                                           |             |	
+|				  |	discount(int count)																		|                                           | void        |	
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
