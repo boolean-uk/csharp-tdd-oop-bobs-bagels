@@ -70,7 +70,13 @@ public class Tests
     [Test]
     public void CanChangeCapacityTest()
     {
-        Assert.Fail();
+        bool manager = true;
+        Basket basket = new Basket();
+
+        bool CanChangeCap = basket.ChangeCapacity();
+
+        Assert.That(CanChangeCap, Is.True);
+
     }
 
 
