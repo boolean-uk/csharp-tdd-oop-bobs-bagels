@@ -33,7 +33,7 @@ public class Tests
         Basket.AddToBasket(NewBagel);
 
         bool expected = true;
-        bool result = Basket.Items.Contains(NewBagel);
+        bool result = Basket.BasketItems.Contains(NewBagel);
 
         Assert.IsTrue(result);
     }

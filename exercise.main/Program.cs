@@ -8,3 +8,8 @@ if (bagel.Filling != "")
 {
     Console.WriteLine(bagel.Filling);
 }
+
+Basket basket = new Basket();
+basket.AddToBasket (bagel);
+bool check = basket.BasketItems.Contains (bagel);
+Console.WriteLine (check);
