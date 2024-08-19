@@ -191,4 +191,19 @@ public class Tests
         //assert
         Assert.That(result, Is.EqualTo(expectedCost));
     }
+
+    [TestCase("BGLO", true)]
+    [TestCase("FAKE", false)]
+    public void InStockTest(string product, bool expectedOutcome)
+    {
+        //arrange
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+        
+        //act
+        bool result = customer.Add(manager, product);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedOutcome));
+    }
 }
