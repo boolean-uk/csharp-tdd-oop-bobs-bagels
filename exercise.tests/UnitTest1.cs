@@ -109,6 +109,8 @@ public class Tests
 
         ThisBasket.AddToBasket (FilledBaconBagel);
         ThisBasket.AddToBasket(PlainBagel);
+        ThisBasket.AddToBasket(Bacon);
+        ThisBasket.AddToBasket(Egg);
 
         double expected = 1.22;
 

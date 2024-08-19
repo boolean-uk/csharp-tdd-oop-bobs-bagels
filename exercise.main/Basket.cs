@@ -43,7 +43,7 @@ namespace exercise.main
             {
                 Total += item.Price;
             }
-            return Total;
+            return Math.Round(Total, 2);
         }
 
         public double Total { get => _total; set => _total = value; }
