@@ -54,7 +54,8 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes       | Methods			     	  |  Scenario								 | Outputs      |
 | ------------- | -------------	     		  |  ------------							 | -----------  |
-| `Basket`		| AddItem(Item item)	      |  Adds item to basket					 | true			|
+| `Basket`		| AddItem(string sku)	      |  Adds item to basket by sku				 | true			|
+|				|							  |  Item is not in inventory		         | false		|
 |				|							  |  Basket is full					         | false		|
 
 | `Basket`      | RemoveItem(Item item)       |  Removes item from basket			     | true         |
@@ -70,8 +71,9 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Item`        | CheckItemCost()		      |  Checks cost of item 			    	 | int          
 |               |                             |                                          |	            |
 | `Bagel`       | AddFilling()				  |  Adds filling to bagel			    	 | true         |
+|               |           				  |  Filling is not in inventory	    	 | false         |
 |               |                             |                                          |	            |
-| `Bagel`       | RemoveFilling(Filling f)	  |  Removes filling from bagel			   	 | true         |
+| `Bagel`       | RemoveFilling(string sku)	  |  Removes filling by filling sku		   	 | true         |
 |               |                             |                                          |	            |
 
 
