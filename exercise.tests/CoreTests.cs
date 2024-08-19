@@ -168,6 +168,21 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsTrue(expected == computed);
             }
+            [Test]
+            public void fillingTest()
+            {
+                //init
+                Bagel bagel = new("onion");
+                float priceBefore = bagel.GetPrice();
+
+                //run
+                bagel.AddFilling("Bacon");
+                float priceAfter = bagel.GetPrice();
+                //assert
+
+                Assert.GreaterOrEqual(priceAfter, priceBefore);
+
+            }
         }
     }
 }

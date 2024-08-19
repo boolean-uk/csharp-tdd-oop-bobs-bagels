@@ -13,6 +13,7 @@ namespace csharp_tdd_bobs_bagels.tests
             {"everything",0.49f},
             {"sesame",0.49f}            
         };
+        private string _sku; 
         
 
 
@@ -21,8 +22,9 @@ namespace csharp_tdd_bobs_bagels.tests
             if (Flavors.Contains(breadType.ToLower().Trim()))
             {
                 breadType = breadType.ToLower().Trim();
-                this.CurrentFlavor = breadType;
-                this.Price = _allowedFlavor[breadType];
+                this._currentFlavor = breadType;
+                this._price = _allowedFlavor[breadType];
+                this._sku = "BGL" + breadType.ToUpper().Substring(0, 1);
                 
             }
 
@@ -30,6 +32,7 @@ namespace csharp_tdd_bobs_bagels.tests
             {
                 this.CurrentFlavor = "plain";
                 this._price = _allowedFlavor["plain"];
+                this._sku = "BGL" + "P";
             }
 
         }
@@ -40,10 +43,16 @@ namespace csharp_tdd_bobs_bagels.tests
             return Price;
         }
 
+        public void AddFilling(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         #region
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }
         public float Price { get => _price; set => _price = value; }
+        public string SKU { get => _sku;  }
 
 
         #endregion
