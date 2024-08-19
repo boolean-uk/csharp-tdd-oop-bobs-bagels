@@ -71,7 +71,7 @@ public class CustomerTests
     }
 
     [Test]
-    public void GetTotalSumOfBasket()
+    public void GetTotalSumOfBasketWithoutBagelFillings()
     {
         // Setup
         Customer customer = new Customer();
@@ -88,6 +88,32 @@ public class CustomerTests
 
         // Verify
         Assert.IsTrue(result == (bagel.Price + coffee.Price));
+    }
+
+    [Test]
+    public void GetTotalSumOfBasketWithBagelFillings()
+    {
+        // Setup
+        Customer customer = new Customer();
+        ShopInventory shopInventory = new ShopInventory();
+
+        // Execute
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
+        Coffee coffee = shopInventory.GetCoffeeBySkuID("COFB");
+        Filling filling = shopInventory.GetFillingBySkuID("FILX");
+        Filling filling2 = shopInventory.GetFillingBySkuID("FILS");
+
+        customer.AddItemToBasket(bagel);
+        customer.AddItemToBasket(coffee);
+        customer.AddFillingToBagel(bagel, filling);
+        customer.AddFillingToBagel(bagel, filling2);
+
+        double result = customer.GetTotalSumOfBasket();
+        double expected = (bagel.Price + coffee.Price + filling.Price + filling2.Price);
+        expected = Math.Round(expected, 2);
+
+        // Verify
+        Assert.IsTrue(result == expected);
     }
 
     [Test]
