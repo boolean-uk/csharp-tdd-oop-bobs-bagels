@@ -15,8 +15,15 @@ namespace exercise.main
         private int _cap;
         private string? _capnotice;
         private string? _notfoundnotice;
+        private string? _outofstocknotice;
 
         public Dictionary<int, List<Item>> BasketItems = new();
+        public List<Item> Selections = new List<Item>();
+
+        public void AddToSelection(Item item)
+        {
+            Selections.Add(item);
+        }
 
         public void AddToBasket(int id, List<Item> item) 
         {
@@ -100,6 +107,8 @@ namespace exercise.main
         public bool IsAdmin { get => _isAdmin; set => _isAdmin = value; }
 
         public string NotFoundNotice { get => _notfoundnotice; set => _notfoundnotice = value; }
+
+        public string OutOfStockNotice { get => _outofstocknotice; set => _outofstocknotice = value; }
     
     }
 }

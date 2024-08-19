@@ -8,8 +8,14 @@ namespace exercise.main
 {
     public class Inventory
     {
-        private int BagelStock {  get; set; }
-        private int FillingStock { get; set; }
-        private int CoffeStock { get; set; }
+        private int _bagelstock;
+        private int _fillingstock { get; set; }
+        private int _coffestock { get; set; }
+
+        public int BagelStock { get => _bagelstock; set => _bagelstock = value; }
+        public int FillingStock { get => _fillingstock; set => _fillingstock = value; }
+        public int CoffeeStock { get => _coffestock; set => _coffestock = value; }
+
+
     }
 }

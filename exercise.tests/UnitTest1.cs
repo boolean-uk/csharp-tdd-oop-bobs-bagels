@@ -14,7 +14,7 @@ public class Tests
     public void MakeBagelTest(string sku, double price, string name, string variant, string filling)
     {
         //arrange
-        Bagel bagel = new Bagel (sku, price, name, variant, filling);
+        Bagel bagel = new Bagel(sku, price, name, variant, filling);
         string expected = bagel.PrintItem();
 
         //ChosenItem chosenItem = new ChosenItem (); If I make the class static and its methods, I dont need to instance it everytime
@@ -28,11 +28,11 @@ public class Tests
     }
 
     [Test]
-    public void AddToBasketTest() 
+    public void AddToBasketTest()
     {
         selections.Clear();
 
-        Basket Basket = new Basket ();
+        Basket Basket = new Basket();
         Basket.Cap = 4;
 
         Bagel NewBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
@@ -48,13 +48,13 @@ public class Tests
     }
 
     //Bagel with 1 filling
-   [TestCase("BGLO", 0.49, "Bagel", "Onion", "", "FILB", 0.12, "Filling", "Bacon")]
+    [TestCase("BGLO", 0.49, "Bagel", "Onion", "", "FILB", 0.12, "Filling", "Bacon")]
     public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant)
     {
         // arrange
         selections.Clear();
 
-        Basket Basket = new Basket ();
+        Basket Basket = new Basket();
         Basket.Cap = 4;
 
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
@@ -137,7 +137,7 @@ public class Tests
         selections.Add(Bacon);
         selections.Add(Egg);
 
-        ThisBasket.AddToBasket (1, selections);
+        ThisBasket.AddToBasket(1, selections);
 
 
         double expected = 1.22;
@@ -209,8 +209,8 @@ public class Tests
 
         Basket.ChangeCap(10);
 
-        int result = Basket.Cap; 
-        
+        int result = Basket.Cap;
+
         Assert.IsTrue(expected == result);
     }
 
@@ -222,9 +222,53 @@ public class Tests
 
         Basket.RemoveFromBasket(id);
 
-        string result = Basket.NotFoundNotice; 
-        
+        string result = Basket.NotFoundNotice;
+
+        Assert.IsTrue(expected == result);
+    }
+
+    [Test]
+    public void PriceBeforeBagelAddedToBasketTest()
+    {
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+
+        double expected = 0.49;
+
+        double result = BaconBagel.Price;
+
+        Assert.IsTrue(expected == result);
+    }
+
+    [Test]
+    public void PriceBeforeFillingAddedToBasketTest()
+    {
+        List<Filling> fillings = new List<Filling>();
+        Filling Bacon = new Filling("FILB", 0.12, "Filling", "Bacon");
+
+        double expected = 0.12;
+
+        double result = Bacon.Price;
+
+        Assert.IsTrue(expected == result);
+    }
+
+    [Test]
+    public void EnsureStockTest()
+    {
+        Inventory Stock = new Inventory();
+        Stock.BagelStock = 0;
+
+        Basket Basket = new Basket();
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+        Basket.AddToSelection(BaconBagel);
+
+        string expected = "Sorry, out of stock";
+
+        string result = Basket.OutOfStockNotice;
+
+
         Assert.IsTrue(expected == result);
 
     }
+
 }
