@@ -31,7 +31,9 @@ namespace exercise.main
         {
             if (_inventory.ItemInventory.ContainsKey(sku))
             {
-                return Items.Remove(_inventory.ItemInventory[sku]);
+                ShopItem shopItem = _inventory.ItemInventory[sku];
+                _totalCost -= shopItem.Price;
+                return Items.Remove(shopItem);
             }
             return false;
         }
