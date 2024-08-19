@@ -92,4 +92,29 @@ public class Tests
         Assert.IsTrue(expected == result);
     }
 
+    //Basket total amount Test
+    [Test]
+    public void BasketTotalTest()
+    {
+        Basket ThisBasket = new Basket();
+
+        Bagel PlainBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+
+        List<Filling> fillings = new List<Filling>();
+        Filling Bacon = new Filling("FILB", 0.12, "Filling", "Bacon");
+        Filling Egg = new Filling("FILE", 0.12, "Filling", "Egg");
+
+        Bagel FilledBaconBagel = ChosenItem.AddFillings(BaconBagel, fillings);
+
+        ThisBasket.AddToBasket (FilledBaconBagel);
+        ThisBasket.AddToBasket(PlainBagel);
+
+        double expected = 1.22;
+
+        double result = ThisBasket.BasketTotal();
+
+        Assert.IsTrue(expected == result);
+    }
+
 }
