@@ -178,6 +178,8 @@ public class Tests
         Assert.IsTrue(result2);
         Assert.IsTrue(result3);
         Assert.IsTrue(result4);
+
+        Assert.That(basket.SumOfItems == 10.43);
     }
 
     [Test]
