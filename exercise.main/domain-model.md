@@ -46,7 +46,7 @@ User Stories
 | Basket		|										| ChangeCapacity(int capacity, bool IsManager)							| if IsManager is true set new capacity		| BasketCapacity
 | Basket		|										|																		| if IsManager is false	don't change		| BasketCapacity
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| double TotalCost{ get; set; }			| 																		| property to get cost of basket			| TotalCost
+| Basket		| double TotalCost { get; set; }		| 																		| property to get cost of basket			| TotalCost
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Basket		|										| TotalCostofBasket()													| adds up cost of items in basket			| TotalCost
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

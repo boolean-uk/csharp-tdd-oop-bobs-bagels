@@ -105,7 +105,7 @@ public class Tests
         basket.AddItem("Black");
         basket.AddItem("Egg");
 
-        double actualTotal = basket.TotalCostofBasket();
+        double actualTotal = basket.TotalCost;
 
         Assert.That(actualTotal, Is.EqualTo(expectedTotal));
 

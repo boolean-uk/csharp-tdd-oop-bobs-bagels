@@ -14,7 +14,6 @@ namespace exercise.main
         private BobsInventory BobsInventory = new BobsInventory();
         private int BasketCapacity { get; set; } = 3;
         
-        
 
         public bool AddItem(string variant)
         {
@@ -58,12 +57,10 @@ namespace exercise.main
             return false;
         }
 
-        public double TotalCostofBasket()
-        {
-            throw new NotImplementedException();
-        }
 
         public bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
+
+        public double TotalCost { get { return _Basket.Sum(item => item.Price); } }
 
 
     }
