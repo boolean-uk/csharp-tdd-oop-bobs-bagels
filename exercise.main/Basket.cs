@@ -17,7 +17,7 @@ namespace exercise.main
             _category = category;
         }
 
-        public bool add(string v)
+        public bool Add(string v)
         {
             // Check if the product exists in the category
             if (!_category.ContainsKey(v)) return false;
@@ -35,7 +35,7 @@ namespace exercise.main
             return true;
         }
 
-        public bool remove(string v)
+        public bool Remove(string v)
         {
             // Check if the product exists in the category
             if (!_category.ContainsKey(v)) return false;
@@ -51,20 +51,20 @@ namespace exercise.main
             return true;
         }
 
-        public bool changeCapacity(int v)
+        public bool ChangeCapacity(int v)
         {
             // Here we could do stuff about checking manager rights etc
             _capacity = v;
             return true;
         }
 
-        public bool exists(string v)
+        public bool Exists(string v)
         {
             Product value = _category[v];
             return _products.Contains(value);
         }
 
-        public double costOfProduct(string v)
+        public double CostOfProduct(string v)
         {
             Product product = _category[v];
             return product.Price;
