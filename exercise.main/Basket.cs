@@ -18,14 +18,13 @@ namespace exercise
         {
             if (products.Count() == MaxCapacity)
             {
-                Console.WriteLine("Basket is full, product not added");
-                return false;
+                return false; //Basket is full
             }
                 
             Product? item = inventory.Items.Find(item => item.SKU == sku);
 
             if (item == null)
-                return false;
+                return false; //Product doesn't exist
             
             products.Add(item);
             return true;
@@ -65,7 +64,6 @@ namespace exercise
 
             return item.Price;
         }
-
 
     }
 }

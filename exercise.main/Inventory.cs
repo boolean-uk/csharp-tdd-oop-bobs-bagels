@@ -25,7 +25,20 @@ namespace exercise
             new Product("FILS", 0.12m, "Filling", "Smoked Salmon"),
             new Product("FILH", 0.12m, "Filling", "Ham")
         };
+ 
+        public Dictionary<String, Decimal> GetFillingsPriceList()
+        {
+            List<Product> fillings = Items.FindAll(item => item.Name == "Filling");
 
+            var priceList = new Dictionary<String, Decimal>();
+
+            foreach(var filling in fillings)
+            {
+                priceList.Add(filling.Variant, filling.Price);
+            }
+
+            return priceList;
+        }
 
     }
 }
