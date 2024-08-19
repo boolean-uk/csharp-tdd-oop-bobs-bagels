@@ -69,6 +69,11 @@ namespace exercise.main
             return Item.Sum(item => item.Price);
             
         }
+
+        public double getBagelPrice()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

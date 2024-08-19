@@ -138,7 +138,24 @@ namespace exercise.tests
             //assert
             Assert.IsTrue(expected == totalcost);
             
+        }
+        [Test]
+        
+        public void TestCostOfBagel()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
 
+            //act
+            Item item1 = inventory.GetItembySku("BGLO");
+
+            double bagelprice = basket.getBagelPrice();
+
+            double expected = 0.49d;
+
+            //assert
+            Assert.AreEqual(expected, bagelprice);
         }
     }
 }
