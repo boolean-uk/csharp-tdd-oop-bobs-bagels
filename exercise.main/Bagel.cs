@@ -8,39 +8,56 @@ namespace exercise.main
 {
     public class Bagel : Item
     {
-        private string _sku;
-        private double _price;
-        private string _name;
-        private string _variant;
 
         private List<Filling> _fillings;
 
-        public Bagel(string sku, double price, string name, string variant)
+        public Bagel(string sku, double price, string name, string variant) : base(sku, price, name, variant)
         {
-            this._sku = sku;
-            this._price = price;    
-            this._name = name;
-            this._variant = variant;
+            this._fillings = new List<Filling>();
+
         }
 
-        public int CheckItemCost()
+        public override double CheckItemCost()
         {
-            return 0;
+            double fillingsSum = _fillings.Select((a) => a.CheckItemCost()).Sum();
+            return Math.Round(fillingsSum + Price, 2);
         }
 
-        public bool AddFilling(Filling f)
+        public bool AddFilling(string sku)
         {
-            throw new NotImplementedException();
+            Filling f = (Filling) Inventory.InventoryItems.Find(i => i.Sku == sku);
+            if (f != null && f.GetType() == typeof(Filling))
+            {
+                this._fillings.Add(f);
+                return true;
+
+            }
+            return false;
         }
-        public bool RemoveFilling(Filling f)
-        { 
-            throw new NotImplementedException(); 
+        public bool RemoveFilling(string sku)
+        {
+            Filling f = this._fillings.First(i => i.Sku == sku);
+
+            if (f!=null)
+            {
+                this._fillings.Remove(f);
+                return true;
+            }
+            return false;
         }
 
-        public string Sku { get => _sku; set => _sku = value; }
-        public double Price { get => _price; set => _price = value; }
-        public string Name { get => _name; set => _name = value; }
-        public string Variant { get => _variant; set => _variant = value; }
+        public override string ToString()
+        {
+            string output = "";
+            output += $"{Sku} - {Variant} {Name} : {Price}\n";
+            foreach (Filling f in _fillings) 
+            {
+                output += $"{f.Variant} : {f.Price}\n";
+
+            }
+            return output;
+        }
+
         public List<Filling> Fillings { get => _fillings; set => _fillings = value; }
     }
 }

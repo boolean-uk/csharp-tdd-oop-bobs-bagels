@@ -34,7 +34,7 @@
   <Class Name="exercise.main.BagelShop" Collapsed="true">
     <Position X="1.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAACAAAAAAA=</HashCode>
       <FileName>BagelShop.cs</FileName>
     </TypeIdentifier>
   </Class>

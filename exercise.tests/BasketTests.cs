@@ -15,40 +15,58 @@ public class BasketTests
     public void TestAddItem()
     {
         Basket basket = new Basket(5);
-        Item bagel = new Bagel("BGLO", 0.49d, "Bagel", "Onion");
-        Item coffee = new Coffee("COFB", 0.99d, "Coffee", "Black");
-        Item filling = new Filling("FILB", 0.12d, "Filling", "Bacon");
 
-        bool addedBagel = basket.AddItem(bagel);
-        bool addedCoffee = basket.AddItem(coffee);
-        bool addedFilling = basket.AddItem(filling);
-        Assert.That(addedBagel == addedCoffee ==  addedFilling, Is.EqualTo(true));
-        Assert.That(basket.Items.Count(), Is.EqualTo(3));
-
+        bool addedBagel1 = basket.AddItem("BGLO");
+        bool addedBagel2 = basket.AddItem("BINGO");
+        Assert.That(addedBagel1, Is.True);
+        Assert.That(addedBagel2, Is.False);
+        Assert.That(basket.Items.Count(), Is.EqualTo(1));
+        Assert.That(basket.Items[0].Sku == "BGLO");
     }
 
     [Test]
     public void TestRemoveItem()
     {
+        
         Basket basket = new Basket(5);
-        Item bagel = new Bagel("BGLO", 0.49d, "Bagel", "Onion");
-        Item coffee = new Coffee("COFB", 0.99d, "Coffee", "Black");
-        Item filling = new Filling("FILB", 0.12d, "Filling", "Bacon");
 
-        basket.AddItem(bagel);
-        basket.AddItem(coffee);
-        basket.AddItem(filling);
+        basket.AddItem("BGLO");
+        basket.AddItem("COFB");
+        basket.AddItem("FILB");
 
-        bool removedBagel = basket.RemoveItem(bagel);
+        bool removedBagel = basket.RemoveItem(basket.Items[0]);
 
         Assert.That(removedBagel, Is.EqualTo(true));
         Assert.That(basket.Items.Count() == 2);
+        
+    }
+
+    [Test]
+    public void TestFindItem()
+    {
+        Basket basket = new Basket(5);
+        Assert.That(basket.FindItem("blabla").Count(), Is.EqualTo(0));
+
+        basket.AddItem("BGLO");
+        basket.AddItem("COFB");
+        basket.AddItem("FILB");
+
+        List<Item> foundItems = basket.FindItem("BGLO");
+
+        Assert.That(foundItems[0].Sku == "BGLO", Is.EqualTo(true));
+        Assert.That(foundItems.Count(), Is.EqualTo(1));
+
+        basket.AddItem("BGLO");
+        List<Item> foundItems2 = basket.FindItem("BGLO");
+        Assert.That(foundItems2.Count(), Is.EqualTo(2));
+
 
     }
 
     [Test]
     public void TestExtendBasket()
     {
+        
         Basket basket = new Basket(3);
 
         Assert.That(basket.ExtendBasket(-10) == false);
@@ -61,10 +79,10 @@ public class BasketTests
 
         Item coffee3 = new Coffee("COFB", 0.99d, "Coffee", "Black");
 
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel2);
-        basket.AddItem(coffee1);
-        basket.AddItem(coffee2);
+        basket.AddItem("BGLO");
+        basket.AddItem("BGLP");
+        basket.AddItem("COFW");
+        basket.AddItem("COFB");
 
         int bagelCount = basket.Items.Count();
         Assert.That(basket.ExtendBasket(bagelCount - 1) == false);
@@ -74,28 +92,30 @@ public class BasketTests
 
         // Checks that new bagels can be added after extending capacity
         basket.ExtendBasket(6);
-        Assert.That(basket.AddItem(coffee3) == true);
-
+        Assert.That(basket.AddItem("BGLO") == true);
+        
     }
 
 
     [Test]
     public void TestCheckBasketCost()
     {
-        Basket basket = new Basket(5);
-        Item bagel1 = new Bagel("BGLO", 0.49d, "Bagel", "Onion");
-        Item bagel2 = new Bagel("BGLP", 0.39d, "Bagel", "Plain");
-        Item coffee1 = new Coffee("COFW", 1.19d, "Coffee", "White");
-        Item coffee2 = new Coffee("COFB", 0.99d, "Coffee", "Black");
 
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel2);
-        basket.AddItem(coffee1);
-        basket.AddItem(coffee2);
+        
+        Basket basket = new Basket(5);
+
+        basket.AddItem("BGLO");
+
+        Bagel b = (Bagel)basket.Items[0];
+        b.AddFilling("FILB");
+
+        basket.AddItem("BGLP");
+        basket.AddItem("COFW");
+        basket.AddItem("COFB");
 
         double cost = basket.CheckBasketCost();
 
-        Assert.That(Math.Round(cost, 2), Is.EqualTo(3.06d));
-
+        Assert.That(Math.Round(cost, 2), Is.EqualTo(3.18d));
+        
     }
 }

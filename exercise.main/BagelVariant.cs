@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class BagelShop
+    public enum BagelVariant
     {
-        private List<Basket> _baskets;
 
-        public BagelShop() 
-        {
-           
-        }
     }
 }
