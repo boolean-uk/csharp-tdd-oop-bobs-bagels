@@ -63,5 +63,10 @@ namespace exercise.main
             Console.WriteLine("Removed: " + item.variant);
             return true;
         }
+
+        public int changeBasketCapacity(int v, Role role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

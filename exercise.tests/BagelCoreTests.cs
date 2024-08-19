@@ -60,4 +60,21 @@ public class Tests
 
         Assert.That(expectedTrue == result);
     }
+
+    [Test]
+    public void ChangeBasketCapacity()
+    {
+        Basket basket = new Basket();
+
+        Inventory inventory = new Inventory();
+
+        Person bob = new Person("Bob", Role.MANAGER);
+        Person customer = new Person("Jimmy", Role.CUSTOMER);
+
+
+        int expectedCapacity = 7;
+        int result = basket.changeBasketCapacity(7, bob.role);
+
+        Assert.That(expectedCapacity == result);
+    }
 }
