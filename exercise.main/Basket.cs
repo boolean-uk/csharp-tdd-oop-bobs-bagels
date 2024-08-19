@@ -11,7 +11,7 @@ namespace exercise.main
         // Does the basket need to contain the actual objects, or will "printouts" suffice?
         //public List<ChosenItem> items;
         private double _total;
-
+        private bool _isAdmin;
         private int _cap;
         private string? _capnotice;
 
@@ -77,11 +77,18 @@ namespace exercise.main
             return Math.Round(Total, 2);
         }
 
+        public void ChangeCap(int newcap)
+        {
+
+        }
+
         public double Total { get => _total; set => _total = value; }
 
         public int Cap { get => _cap; set => _cap = value;}
 
         public string CapNotice { get => _capnotice; set => _capnotice = value; }
+
+        public bool IsAdmin { get => _isAdmin; set => _isAdmin = value; }
     
     }
 }

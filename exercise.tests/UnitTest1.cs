@@ -199,4 +199,18 @@ public class Tests
 
         Assert.IsTrue(expected == result);
     }
+
+    [TestCase(10)]
+    public void ChangeCapTest(int newcap)
+    {
+        Basket Basket = new Basket();
+        Basket.IsAdmin = true;
+        int expected = 10;
+
+        Basket.ChangeCap(10);
+
+        int result = Basket.Cap; 
+        
+        Assert.IsTrue(expected == result);
+    }
 }
