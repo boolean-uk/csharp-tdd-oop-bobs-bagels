@@ -97,5 +97,5 @@ public class CoreTests
         Assert.IsTrue(fillingsPrices["Ham"] == 0.12m);
     }
 
-
+    
 }
