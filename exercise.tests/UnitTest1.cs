@@ -16,9 +16,9 @@ public class Tests
     //
     //removing products verified working
     //
-    //test overflow warning
+    //test overflow warning verified working
     //
-    //test remove warning
+    //test remove warning verified working
     //
     //test basket capacity change
     //
@@ -54,6 +54,12 @@ public class Tests
     {
         for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("FILB", customer); }
         return customer;
+    }
+
+    //good idea?
+    private void isAllTrue(bool[] bools)
+    {
+        foreach (bool b in bools) { Assert.IsTrue(b); }
     }
 
     [Test]
@@ -119,6 +125,24 @@ public class Tests
         Assert.That(basketCount == 3);
     }
 
+    [Test] 
+    public void overflowTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer = addBagel(customer, 4); //standard capacity is 3
+
+        Assert.That(customer.checkBasketContent().Count == 3);
+    }
+
+    [Test]
+    public void removeFromEmptyBasketTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.removeProduct("BGLP");
+
+        Assert.That(customer.checkBasketContent().Count == 0);
+    }
+
     [Test]
     public void RemoveOneItemFromBasketTest()
     {
@@ -143,8 +167,60 @@ public class Tests
         Assert.That(basketCount == 0);
     }
 
+    [Test]//probably works wrongly
+    public void changeBasketCapacityWithoutNewBasketTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        int basketCapacity = customer.checkBasketCapacity();
+
+        customer = addBagel(customer, 4);
+
+        Assert.That(customer.checkBasketContent().Count == 3);
+
+        customer.GetBagelStore().getManager().changeBasketCapacity(5);
+
+        customer = addBagel(customer, 1);
+
+        Assert.That(customer.checkBasketContent().Count == 3);
+        Assert.That(customer.checkBasketCapacity() == 3);
+
+
+    }
+
     [Test]
-    public void Test4()
+    public void changeBasketCapacityWithNewBasketTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        int basketCapacity = customer.checkBasketCapacity();
+
+        customer = addBagel(customer, 4);
+
+        Assert.That(customer.checkBasketContent().Count == 3);
+
+        customer.GetBagelStore().getManager().changeBasketCapacity(5);
+
+        customer.grabBasket();
+
+        customer = addBagel(customer, 5);
+
+        Assert.That(customer.checkBasketContent().Count == 5);
+        Assert.That(customer.checkBasketCapacity() == 5);
+    }
+
+    [Test]
+    public void checkMenuTest()
+    {
+        Assert.Pass();
+    }
+
+    [Test]
+    public void checkBasketTotalCostTest()
+    {
+        Assert.Pass();
+    }
+
+    [Test]
+    public void addFillingsToBagelTest()
     {
         Assert.Pass();
     }

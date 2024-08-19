@@ -35,6 +35,7 @@ namespace exercise.main
 
     public class Bagel : Product
     {
+        private List<Filling> fillings = new List<Filling>();
 
         public Bagel(Tuple<string, string, string, float>[] variants) 
             :base(variants)
@@ -51,10 +52,10 @@ namespace exercise.main
             //this.price = variant.Item4;
         }
 
-        //public string SKU { get;}
-        //public string name { get; set; }
-        //public string variant { get; set; }
-        //public float price { get; set; }
+        public List<Filling> getFillings() { return fillings; }
+
+        //adds filling to bagel filling list and returns true or false
+        public bool addFilling(Filling filling) { int fillingCount = fillings.Count; fillings.Add(filling); if (fillingCount < fillings.Count) { return true; }; return false; }
 
     }
     public class Coffee : Product

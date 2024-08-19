@@ -22,7 +22,10 @@ namespace exercise.main
             _filling = new Filling(getFillingMenu());
         }
 
-
+        public void changeBasketCapacity(int newBasketCapacity)
+        {
+            _currentBasketCapacityInStore = newBasketCapacity;
+        }
 
         public int getCurrentBasketSize() { return _currentBasketCapacityInStore;}
 
