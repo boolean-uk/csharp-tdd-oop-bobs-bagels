@@ -36,11 +36,17 @@ namespace exercise.main
             GetFromInventory("BGLP").Discount = new Discount(new Dictionary<string, int>() { { "BGLP", 12 } }, 3.99);
             GetFromInventory("BGLE").Discount = new Discount(new Dictionary<string, int>() { { "BGLE", 6 } }, 2.49);
             GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
+            GetListFromInventory("BGL").ForEach(item => item.Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25));
         }
 
         public Product GetFromInventory(string productID)
         {
             return _inventory.First(item => item.SKU == productID);
+        }
+
+        public List<Product> GetListFromInventory(string productID)
+        {
+            return _inventory.Where(item =>  item.SKU == productID).ToList();
         }
 
         public List<Product> inventory { get { return _inventory; } }

@@ -26,7 +26,7 @@ public class Tests
     {
         Basket basket = new Basket();
         string expectedMSG = "your basket is full";
-        for (int i = 0; i < basket.capacity; i++)
+        for (int i = 0; i < basket.Capacity; i++)
         {
             basket.Add("FILB");
         }
@@ -104,7 +104,7 @@ public class Tests
 
         basket.Add(coffee);
         basket.Add(bagel);
-        double result = basket.totalCost;
+        double result = basket.TotalCost;
 
         Assert.That(result, Is.EqualTo(expectedCost));
     }
@@ -127,7 +127,7 @@ public class Tests
         Basket basket = new Basket();
         double expectedPrice = 0.12;
 
-        Dictionary<string, double> priceList = basket.fillingPriceList;
+        Dictionary<string, double> priceList = basket.FillingPriceList;
         double price = priceList.First().Value;
 
         Assert.That(price, Is.EqualTo(expectedPrice));
