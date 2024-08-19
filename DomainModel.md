@@ -1,5 +1,8 @@
+For both core and extensions!
+
 User Stories
 
+# Core
 1.
 As a member of the public,
 So I can order a bagel before work,
@@ -50,8 +53,12 @@ As the manager,
 So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 
+# Extension 2
 
-
+11. 
+As a customer,
+So I can show my wife what I bouht,
+I want to see a reciept of what I bought
 Domain Model
 
 | Classes         | Methods																					| Scenario									| Outputs     |
@@ -74,9 +81,6 @@ Domain Model
 |                 |																							| Item not in inventory				    	| bool        |
 | 	         	  |	                                                                                    	| User adds filling and/or coffe to bagel   | bool        |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	                                                                                    	|                                           |             |
-|                 |																							|											|             |
-|				  |																							|                                           |             |
 |                 | removeBagels(Item item) 																| User removed item from basket		    	| string      |
 |                 |																							| The item didnt exist						| string   	  |
 |				  |																							|                                           |             |
@@ -90,6 +94,8 @@ Domain Model
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	checkTotal()                                                                        	| Customer wants to see the total basket cost|double      |
 | 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  |string       |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
-																		
+|                 |																							|											|             |
+|				  |																							|                                           |             |																		

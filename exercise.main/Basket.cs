@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,6 +70,39 @@ namespace exercise.main
         public double checkPriceForType(string type)
         {
             return inventory.findItemByName(type).price;
+        }
+
+        public string reciept()
+        {
+            string reciept = $"----     Reciept     ----\n";
+            double totalPrice = checkTotal();
+            List<string> allreadyCountedItems = [];
+            foreach (Item item in yourBasket)
+            {
+                double totalPriceForSpecifiedItem = 0;
+                double itemCount = 0;
+
+                if (!allreadyCountedItems.Contains(item.id))
+                {
+
+                    foreach (Item specificItem in yourBasket)
+                    {
+                        if (specificItem.variant == item.variant)
+                        {
+                            itemCount++;
+
+                        }
+
+                    }
+                    totalPriceForSpecifiedItem = itemCount * item.price;
+                    reciept += $"{item.name}: {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
+                    allreadyCountedItems.Add(item.id);
+                }
+            }
+            reciept += $"-------------------------\ntotal:            {totalPrice}";
+
+            Console.WriteLine(reciept);
+            return reciept;
         }
     }
 }
