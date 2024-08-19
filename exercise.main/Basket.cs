@@ -84,7 +84,12 @@ namespace exercise.main
 
         public double totalCost()
         {
-            return basketItems.Sum(x => x.price);
+            return basketItems.Sum(item => item.price);
+        }
+
+        public double getPriceOfItem(Item blackCoffe)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -98,4 +98,24 @@ public class Tests
 
         Assert.That(expected == result);
     }
+
+    [Test]
+    public void GetPriceOfItem()
+    {
+        Basket basket = new Basket();
+
+        Inventory inventory = new Inventory();
+
+        Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+        Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
+
+        basket.addItem(plainBagel);
+        basket.addItem(blackCoffe);
+
+        double expected = blackCoffe.price;
+
+        double result = basket.getPriceOfItem(blackCoffe);
+       
+        Assert.That(expected == result);
+    }
 }
