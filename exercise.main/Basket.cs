@@ -31,6 +31,11 @@ namespace exercise.main
             basket.Add(item);
         }
 
+        public int GetSize()
+        {
+            return basket.Count;
+        }
+
         public bool OrderInBasket(string name, string variant)
         {
             

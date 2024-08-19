@@ -11,13 +11,18 @@ namespace exercise.tests
     {
 
         [TestCase("Bagel", "Plain", 2.0, new bool[] {true, true})]
-        public void TestAddToBasket(string name, string variant, double remainingFunds,bool[] expected)
+        [TestCase("Fish", "Plain", 2.0, new bool[] { false, false })]
+        [TestCase("Bagel", "Kangeroo", 2.0, new bool[] { false, false })]
+        [TestCase("Bagel", "Plain", 0.6, new bool[] { true, false })]
+        [TestCase("Bagel", "Plain", 222.0, new bool[] { true, true, true, true, true, false, false })]
+        [TestCase("Coffee", "White", 2.0, new bool[] { true, false })]
+        public void TestAddToBasket(string name, string variant, double funds,bool[] expected)
         {
-            Customer customer = new Customer(remainingFunds);
+            Customer customer = new Customer(funds);
 
             for(int i = 0; i < expected.Length; i++)
             {
-                bool result = customer.AddToBasket(name, variant, remainingFunds);
+                bool result = customer.AddToBasket(name, variant, funds);
                 Assert.That(result == expected[i]);
             }
         }
@@ -25,13 +30,18 @@ namespace exercise.tests
 
 
         [TestCase("Bagel", "Plain", 2.0, "Bacon", new bool[] { true, true })]
-        public void TestAddToBasket(string name, string variant, double remainingFunds, string filling, bool[] expected)
+        [TestCase("Fish", "Plain", 2.0, "Bacon", new bool[] { false, false })]
+        [TestCase("Bagel", "Kangeroo", 2.0, "Bacon", new bool[] { false, false })]
+        [TestCase("Bagel", "Plain", 0.7, "Egg", new bool[] { true, false })]
+        [TestCase("Bagel", "Plain", 222.0, "Cheese", new bool[] { true, true, true, true, true, false, false })]
+        [TestCase("Coffee", "White", 2.0, "Bacon", new bool[] { false, false })]
+        public void TestAddToBasketWithFilling(string name, string variant, double funds, string filling, bool[] expected)
         {
-            Customer customer = new Customer(remainingFunds);
+            Customer customer = new Customer(funds);
 
             for (int i = 0; i < expected.Length; i++)
             {
-                bool result = customer.AddToBasket(name, variant, remainingFunds, filling);
+                bool result = customer.AddToBasket(name, variant, funds, filling);
                 Assert.That(result == expected[i]);
             }
         }

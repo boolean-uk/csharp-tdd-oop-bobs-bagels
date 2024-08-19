@@ -10,6 +10,7 @@ namespace exercise.main
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
+        Manager manager = new Manager();
         double funds = 0;
         public Customer(double funds)
         {
@@ -19,11 +20,32 @@ namespace exercise.main
 
         public bool AddToBasket(string name, string variant, double remainingFunds)
         {
-            throw new NotImplementedException();
+            if(manager.ConfirmOrder(name, variant, funds - basket.ShowCost(), basket.GetSize()))
+            {
+                //manager says yes
+                // funds OK! Capcity OK! Item exists OK!
+                Basket.BasketItem basketItem = new Basket.BasketItem(inventory.GetCode(name, variant));
+                basket.Add(basketItem);
+                return true;
+            }
+            return false;
         }
         public bool AddToBasket(string name, string variant, double remainingFunds, string filling)
         {
-            throw new NotImplementedException();
+            if (manager.ConfirmOrder(name, variant, funds - basket.ShowCost(), basket.GetSize()))
+            {
+                //manager says yes
+                // funds OK! Capcity OK! Item exists OK!
+
+                //now we check filling 
+                if (manager.ConfirmOrder("Filling", filling, funds - basket.ShowCost(), basket.GetSize()) && name == "Bagel")
+                {
+                    Basket.BasketItem basketItem = new Basket.BasketItem(inventory.GetCode(name, variant), inventory.GetCode("Filling", filling));
+                    basket.Add(basketItem);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void ViewMenu()
