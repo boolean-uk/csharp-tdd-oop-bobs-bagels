@@ -60,7 +60,8 @@ namespace exercise.main
 
         public float HowMuchFillings(Manager manager)
         {
-            throw new NotImplementedException();
+            //Ask the manager how much all fillings cost
+            return manager.HowMuchFillings();
         }
     }
 }

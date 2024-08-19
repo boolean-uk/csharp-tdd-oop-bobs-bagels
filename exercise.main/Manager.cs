@@ -82,5 +82,11 @@ namespace exercise.main
             }
             return false;
         }
+
+        internal float HowMuchFillings()
+        {
+            //Return the cost of a filling (Can add a function in inventory that returns a string consisting of all products starting with key "F---")
+            return inv.GetProduct("FILB").Cost();
+        }
     }
 }
