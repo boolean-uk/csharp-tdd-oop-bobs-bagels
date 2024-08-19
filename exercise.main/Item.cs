@@ -8,17 +8,29 @@ namespace exercise.main
 {
     public abstract class Item
     {
-        public string Sku { get; set; }
-        public double Price { get; set; }
-        public string Name { get; set; }
-        public string Variant { get; set; }
+        private string _sku;
+        private double _price;
+        private string _name;
+        private string _variant;
 
-        public Item (string sku, double price, string name, string variant)
+        protected Item (string sku, double price, string name, string variant)
         {
             Sku = sku;
             Price = price;
             Name = name;
             Variant = variant;
+        }
+
+        public string Sku { get => _sku; set => _sku = value; }
+        public double Price { get => _price; set => _price = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Variant { get => _variant; set => _variant = value; }
+
+
+
+        public string PrintItem()
+        {
+            return $"{Sku}\n {Price}\n {Name},  {Variant}";
         }
     }
 }
