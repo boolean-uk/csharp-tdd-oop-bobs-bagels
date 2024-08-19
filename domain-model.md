@@ -7,6 +7,7 @@
 |                 |                         |                             |                           |            |
 | ProductOrder    | `Product product`       | Product {get;}              | get the product           | Product    |
 |                 | `int amount`            | Amount {get; set;}          | get or set the amount     | int        |
+|                 | `double discount`       | SetDiscount()               | set discount for order    | nothing    |
 |                 |                         |                             |                           |            |
 | Basket          | `List<Product> products`| Add(int sku)                | item got added to basket  | true       |
 |				  | `int capacity`          |                             | item did not get added    | false      |

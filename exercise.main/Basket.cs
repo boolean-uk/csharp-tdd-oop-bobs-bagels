@@ -100,6 +100,6 @@ namespace exercise.main
 
         public bool IsFull { get { return _capacity == _count; } }
 
-        public double SumOfItems { get { return _products.Sum(product => (product.Value.Amount * product.Value.Product.Price) - product.Value.Discount); } }
+        public double SumOfItems { get { return Math.Round(_products.Sum(product => (product.Value.Amount * product.Value.Product.Price) - product.Value.Discount), 2, MidpointRounding.AwayFromZero); } }
     }
 }

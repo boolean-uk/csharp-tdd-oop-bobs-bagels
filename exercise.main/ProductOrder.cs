@@ -26,7 +26,7 @@ namespace exercise.main
             double newDiscount = 0;
             newDiscount = div * (12 * _product.Price - 3.99);
             if (mod >= 6) { newDiscount += 6 * _product.Price - 2.49; }
-            _discount = newDiscount;
+            _discount = Math.Round(newDiscount, 2, MidpointRounding.AwayFromZero);
         }
 
         public Product Product { get { return _product; } }
