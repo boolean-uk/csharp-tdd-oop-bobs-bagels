@@ -38,13 +38,32 @@ public class Tests
         Assert.IsTrue(result);
     }
 
-    // Bagel with filling
-    //[TestCase("BGLO", 0.49, "Bagel", "Onion", "", "FILB", 0.12, "Filling", "Bacon")]
-    //public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant) 
-    //{
-    //    // arrange
-    //    Bagel Bagel = new Bagel(sku, price, name, variant, filling);
-    //    Bagel.Filling = fillingvariant; //Should say Bacon
-    //}
+    //Bagel with filling
+   [TestCase("BGLO", 0.49, "Bagel", "Onion", "", "FILB", 0.12, "Filling", "Bacon")]
+    public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant)
+    {
+        // arrange
+        Basket Basket = new Basket ();
+        Bagel Bagel = new Bagel(sku, price, name, variant, filling);
+
+        List<string> fillings = new List<string>();
+        fillings.Add(fillingvariant);
+
+        Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
+        TestBagel.Filling = fillingvariant;
+
+        string expected = $"{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling}";
+
+        // act
+        Bagel filledBagel = ChosenItem.AddFillings(Bagel, fillings);
+        Basket.AddToBasket(filledBagel);
+
+        string result = Basket.PrintBasket();
+
+        Assert.IsTrue(expected == result);
+
+
+
+    }
 
 }

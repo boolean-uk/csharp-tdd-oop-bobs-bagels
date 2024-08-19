@@ -19,7 +19,8 @@ namespace exercise.main
 
         public string PrintBasket()
         {
-            return "Nothing";
+            string printout = "";
+            return printout;
         }
     
     }
