@@ -22,7 +22,7 @@
         {
             return _items.Remove(item);
         }
-        public bool ChangeCapacity(string userRole, int capacity) { throw new NotImplementedException(); }
+        public bool ChangeCapacity(User user, int capacity) { throw new NotImplementedException(); }
         public float Total() { throw new NotImplementedException(); }
 
         public Dictionary<Item, int> Items

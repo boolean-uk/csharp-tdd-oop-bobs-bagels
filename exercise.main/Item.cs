@@ -2,7 +2,7 @@
 
 namespace BobsBagels.main
 {
-    public class Item(string sku, float price, string name, string variant)
+    public abstract class Item(string sku, float price, string name, string variant)
     {
         private string _sku { get; } = sku;
         private float _price { get; } = price;

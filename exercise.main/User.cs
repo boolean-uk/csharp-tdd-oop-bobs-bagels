@@ -1,7 +1,7 @@
 ﻿
 namespace BobsBagels.main
 {
-    public class User(string role)
+    public abstract class User(string role)
     {
         private string _role = role;
         private Basket _basket = new();
