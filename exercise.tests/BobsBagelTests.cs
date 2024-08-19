@@ -137,4 +137,21 @@ public class BobsBagelTests
             Assert.That(store.Baskets[0], Is.EqualTo(expectedBasketResult));
         }
     }
+
+    [Test]
+    public void TestViewTodaysStoreProfits()
+    {
+        BobsBagelStore store = new BobsBagelStore();
+        Basket basket = new Basket(3);
+        Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
+        Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        basket.AddItem(item1);
+        basket.AddItem(item2);
+        store.GenerateReceipt(basket);
+        float expectedResult = 0.88f;
+
+        float actualResult = store.ViewProfits();
+
+        Assert.That(actualResult, Is.EqualTo(expectedResult));
+    }
 }

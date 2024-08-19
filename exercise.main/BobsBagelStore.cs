@@ -81,7 +81,7 @@ namespace exercise.main
             foreach (Item item in _inventory)
             {
                 Console.Write($"| {item.SKU} ");
-                Console.Write("| {0:C2} ", item.Price.ToString("C", new CultureInfo("en-GB")));
+                Console.Write("| {0:C2}£ ", item.Price.ToString("C", new CultureInfo("en-GB")));
 
                 Console.Write("| {0} ", item.Name.Length > 8 ? item.Name.Substring(0, 8) : item.Name);
                 int spacesAmount = 7 - item.Name.Length;
@@ -94,6 +94,20 @@ namespace exercise.main
                 Console.Write("|\n");
             }
             return true;
+        }
+
+        public float ViewProfits()
+        {
+            float profits = 0;
+            foreach (Receipt receipt in _receipts)
+            {
+                foreach (Item item in receipt.RelatedBasket.Items.Keys)
+                {
+                    profits += item.Price * receipt.RelatedBasket.Items[item];
+                }
+            }
+            Console.WriteLine($"Todays profits came to a total of {profits}£");
+            return profits;
         }
 
         public List<Basket> Baskets { get { return _baskets; } }
