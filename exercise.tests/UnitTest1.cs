@@ -213,4 +213,18 @@ public class Tests
         
         Assert.IsTrue(expected == result);
     }
+
+    [TestCase(3)]
+    public void RemoveExistingItemTest(int id)
+    {
+        Basket Basket = new Basket();
+        string expected = "Item does not exist";
+
+        Basket.RemoveFromBasket(id);
+
+        string result = Basket.NotFoundNotice; 
+        
+        Assert.IsTrue(expected == result);
+
+    }
 }

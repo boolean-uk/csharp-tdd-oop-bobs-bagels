@@ -14,6 +14,7 @@ namespace exercise.main
         private bool _isAdmin;
         private int _cap;
         private string? _capnotice;
+        private string? _notfoundnotice;
 
         public Dictionary<int, List<Item>> BasketItems = new();
 
@@ -92,6 +93,8 @@ namespace exercise.main
         public string CapNotice { get => _capnotice; set => _capnotice = value; }
 
         public bool IsAdmin { get => _isAdmin; set => _isAdmin = value; }
+
+        public string NotFoundNotice { get => _notfoundnotice; set => _notfoundnotice = value; }
     
     }
 }
