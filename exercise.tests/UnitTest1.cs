@@ -195,6 +195,18 @@ public class Tests
     }
 
     [Test]
+    public void Test13CoffeeAndBagelDiscount()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", "COFB");
+        Assert.IsTrue(result1);
+        Assert.That(basket.SumOfItems == 1.25);
+        Assert.That(basket.IsFull);
+    }
+
+    [Test]
     public void ReceiptPrinterTest()
     {
         BagelShop shop = new BagelShop();

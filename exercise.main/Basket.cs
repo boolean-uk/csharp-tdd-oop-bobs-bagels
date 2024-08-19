@@ -20,6 +20,12 @@ namespace exercise.main
 
         private bool AddItem(string sku, int amount)
         {
+            // Since we have a coffee + bagel special offer, we create a special item for it
+            // Assuming this offer only applies for Black Coffee (ask customer?!)
+            if (sku.StartsWith("COFB") && sku.Length == 8)
+            {
+
+            }
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
 
@@ -93,6 +99,10 @@ namespace exercise.main
             return product.Price;
         }
 
+        public bool Add(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<ProductOrder> Products { get { return _products.Values.ToList(); } }
 
