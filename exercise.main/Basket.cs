@@ -81,5 +81,10 @@ namespace exercise.main
             Console.WriteLine(basketItems.Capacity);
             return basketItems.Capacity;  
         }
+
+        public double totalCost()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -77,4 +77,23 @@ public class Tests
 
         Assert.That(expectedCapacity == result);
     }
+
+    [Test]
+    public void TotalCostTest() 
+    { 
+        Basket basket = new Basket();
+
+        Inventory inventory = new Inventory();
+
+        Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+
+        double expected = plainBagel.price + plainBagel.price;
+
+        double result = basket.totalCost();
+
+        Assert.That(expected == result);
+    }
 }
