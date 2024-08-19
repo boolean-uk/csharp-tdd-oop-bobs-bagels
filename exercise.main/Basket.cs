@@ -97,5 +97,38 @@ namespace exercise.main
 
             return item.price;
         }
+
+        public void Receipt()
+        { 
+           
+            List<string> itemsCounted = [];
+
+            string receipt = "~~~ Bob's Bagels ~~~" + "\n\n" +
+                DateTime.Now.ToString() + "\n\n" +
+                "------------------------" + "\n\n";
+
+
+            basketItems.ForEach(item => {
+
+                if (!itemsCounted.Contains(item.id))
+                {
+                    int itemCount = 0;
+                    foreach (var copy in basketItems)
+                    {
+                        if (copy.id == item.id)
+                        {
+                            itemCount++;
+                        }
+                    }
+                 receipt += $"{item.name} {item.variant}   {itemCount}  £{item.price * itemCount} \n\n";
+                 itemsCounted.Add(item.id);
+                }            
+            });
+
+            receipt += $"------------------------ \n\nTotal             £{totalCost()} \n\nThank you for your order!";
+
+            Console.WriteLine(receipt);
+        }
+
     }
 }

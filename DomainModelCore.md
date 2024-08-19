@@ -53,7 +53,12 @@ I want customers to only be able to order things that we stock in our inventory.
 -----------------------------------------------------
 ## EXTENSIONS
 
-1. 
+1. Discount
+
+2.
+As a customer,
+So I can see what i bought,
+I want customers to get a receipt of what items they bought
 
 
 | Classes         | Methods                                            | Scenario											| Outputs    |
@@ -90,9 +95,9 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 |                                                    |								                    |            |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
 |                 |                                                    |								                    |            |
+| `Basket`        | `Discount`                                         | xxx			                        		    | x          |
 |                 |                                                    |								                    |            |
-|                 |                                                    |								                    |            |
-|                 |                                                    |								                    |            |
+|                 | `Receipt()`                                        | Displays all the items a customer has bought       | void       |
 |                 |                                                    |								                    |            |
 |                 |                                                    |								                    |            |
 |                 |                                                    |								                    |            |

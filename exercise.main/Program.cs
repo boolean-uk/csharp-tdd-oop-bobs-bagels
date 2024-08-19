@@ -10,6 +10,8 @@ Basket basket = new Basket();
 
 Item wrongBagel = new Item("BGLW", 0.40, "Cake", "Wrong");
 Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
+
 
 basket.changeBasketCapacity(7, person.role);
 basket.addItem(plainBagel);
@@ -22,10 +24,12 @@ basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
-basket.addItem(plainBagel);
-basket.addItem(plainBagel);
-basket.addItem(plainBagel);
+basket.addItem(blackCoffe);
+//basket.addItem(plainBagel);
+//basket.addItem(plainBagel);
 
+Console.WriteLine( "TOTALT:  " + basket.totalCost());
 
+Console.WriteLine("");
+basket.Receipt();
 
-Console.WriteLine("Hello, World!");
