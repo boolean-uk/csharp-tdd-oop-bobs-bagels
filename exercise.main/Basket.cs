@@ -55,6 +55,11 @@ namespace tdd_bobs_bagels.CSharp.Main
             _capacity = v;
         }
 
+        public float Total()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Bagel> Items { get => _items; set => _items = value; }
         public int Capacity { get => _capacity; set => _capacity = value; }
     }
