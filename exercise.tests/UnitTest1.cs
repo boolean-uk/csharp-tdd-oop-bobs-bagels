@@ -272,6 +272,25 @@ public class Tests
 
         customer = addBagel(customer, 1, "COFB");
 
+        customer = addBagel(customer, 12, "BGLP");
+        customer.addProduct("FILX");
+
+        customer = addBagel(customer, 6, "BGLO");
+
+        customer.checkout();
+
+        Assert.Pass();
+    }
+
+    [Test]
+    public void CheckDiscountFunctionalityCheckoutFullTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.GetBagelStore().getManager().changeBasketCapacity(20);
+        customer.grabBasket();
+
+        customer = addBagel(customer, 18, "BGLP");
+
         customer.checkout();
 
         Assert.Pass();

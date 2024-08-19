@@ -127,10 +127,10 @@ namespace exercise.main
             //Tuple.Create("BGLE", "", 2.49f, 6),
             //Tuple.Create("COFB", "BGL", 1.25f, 1),
 
-            _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 2.49f, 6));
-            _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 3.99f, 12));
-            _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
-            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGL", 1.25f, 1));
+            _discountList.Add(new Tuple<string, string, float, int>("BGL", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGL", "", 3.99f, 12));
+            //_discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGL", 1.25f, 1)); //must be bought separately and cannot be mixed with other discounts
 
         }
 
@@ -149,12 +149,83 @@ namespace exercise.main
 
             //due to it being BGL in discount and not four letters
             var productsThatMatch = (from discount in _discountList
-                                     where basket.getProductsInBasket().Any(product => (discount.Item1 == product.SKU) &&
-                                     (discount.Item4 == basket.getProductsInBasket().FindAll(item => item.SKU == discount.Item1).Count) ||
-                                     (discount.Item1 == product.SKU && discount.Item2 == basket.getProductsInBasket().Find(item => item.SKU.Contains(discount.Item2)).SKU))
+                                     where basket.getProductsInBasket().Any(product => (product.SKU.Contains(discount.Item1)) &&
+                                        (discount.Item4 <= basket.getProductsInBasket().FindAll(item => item.SKU.Contains(discount.Item1)).Count) ||
+                                     (product.SKU.Contains(discount.Item1) && discount.Item2 == basket.getProductsInBasket().Find(item => item.SKU.Contains(discount.Item2)).SKU))
                                      select discount).ToList();
 
-            productsThatMatch.ForEach(product => Console.WriteLine(product));
+            //productsThatMatch.ForEach(product => basket.getProductsInBasket().Remove(basket.getProductsInBasket().Any(item => product.Item1 == item.name));
+
+            int amountOfBagelsToRemove = 0;
+            int amountOfCoffeeToRemove = 0;
+
+            //should work
+            foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
+            {
+                if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains("BGL")).Count - amountOfBagelsToRemove >= product.Item4)
+                {
+                    amountOfBagelsToRemove += product.Item4;
+                } else
+                {
+                    break;
+                }
+
+
+            }
+
+            //if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains("COF")).Count - amountOfCoffeeToRemove >= product.Item4)
+            //{
+            //    amountOfBagelsToRemove += product.Item4;
+            //}
+            //else
+            //{
+            //    break;
+            //}
+
+            //productsThatMatch.ForEach(product => {
+
+            //    if (product.Item1.Contains("BGL"))
+            //    {
+            //        amountOfBagelsToRemove += product.Item4;
+            //    } else if (product.Item1.Contains("COF"))
+            //    {
+            //        amountOfCoffeeToRemove += product.Item4;
+            //    }
+
+            //});
+
+            List<Product> copyList = basket.getProductsInBasket();
+
+            for (int i = 0; i < amountOfBagelsToRemove; i++)
+            {
+                copyList.Remove(copyList.Find(item => item.SKU.Contains("BGL")));
+            }
+
+            for (int i = 0; i < amountOfBagelsToRemove; i++)
+            {
+                copyList.Remove(copyList.Find(item => item.SKU.Contains("COF")));
+            }
+
+            for (int i = 0; i < amountOfBagelsToRemove; i++)
+            {
+                copyList.Remove(copyList.Find(item => item.SKU.Contains("FIL")));
+            }
+
+            copyList.Count();
+
+
+            if (basket.getProductsInBasket().Count > 0) { 
+            
+
+            }
+
+            basket.getProductsInBasket().ForEach(product => totalCost += product.price);
+
+            productsThatMatch.ForEach(product => totalCost += product.Item3);
+
+
+
+
 
             return 0f;
         }
