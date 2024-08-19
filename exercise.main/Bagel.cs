@@ -14,6 +14,7 @@ namespace csharp_tdd_bobs_bagels.tests
             {"sesame",0.49f}            
         };
         private string _sku; 
+        private List<Filling> _fillings = new();
         
 
 
@@ -45,7 +46,9 @@ namespace csharp_tdd_bobs_bagels.tests
 
         public void AddFilling(string v)
         {
-            throw new NotImplementedException();
+            Filling filling = new Filling(v);
+            _fillings.Add(filling);
+            _price += filling.Price;
         }
 
         #region
