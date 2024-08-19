@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 
 public class Tests
 {
+    List<Item> selections = new List<Item>();
+
     // Bagel creation test cases
     // Bagel without filling
     [TestCase("BGLO", 0.49, "Bagel", "Onion", "")]
@@ -30,12 +32,15 @@ public class Tests
         Basket Basket = new Basket ();
         Bagel NewBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
-        Basket.AddToBasket(NewBagel);
+        selections.Add(NewBagel);
+
+        Basket.AddToBasket(0, selections);
 
         bool expected = true;
-        bool result = Basket.BasketItems.Contains(NewBagel);
+        bool result = Basket.BasketItems.ContainsKey(0);
 
         Assert.IsTrue(result);
+        selections.Clear();
     }
 
     //Bagel with 1 filling
@@ -56,12 +61,16 @@ public class Tests
         string expected = $"{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} ";
 
         // act
-        Bagel filledBagel = ChosenItem.AddFillings(Bagel, fillings);
-        Basket.AddToBasket(filledBagel);
+        Bagel FilledBagel = ChosenItem.AddFillings(Bagel, fillings);
+        selections.Add(Bacon);
+        selections.Add(FilledBagel);
+
+        Basket.AddToBasket(0, selections);
 
         string result = Basket.PrintBasket();
 
         Assert.IsTrue(expected == result);
+        selections.Clear();
     }
 
     //Bagel with several fillings
@@ -85,11 +94,15 @@ public class Tests
 
         // act
         Bagel filledBagel = ChosenItem.AddFillings(Bagel, fillings);
-        Basket.AddToBasket(filledBagel);
+        selections.Add(filledBagel);
+        selections.Add(Bacon);
+        selections.Add(Egg);
+        Basket.AddToBasket(0, selections);
 
         string result = Basket.PrintBasket();
 
         Assert.IsTrue(expected == result);
+        selections.Clear();
     }
 
     //Basket total amount Test
@@ -107,16 +120,20 @@ public class Tests
 
         Bagel FilledBaconBagel = ChosenItem.AddFillings(BaconBagel, fillings);
 
-        ThisBasket.AddToBasket (FilledBaconBagel);
-        ThisBasket.AddToBasket(PlainBagel);
-        ThisBasket.AddToBasket(Bacon);
-        ThisBasket.AddToBasket(Egg);
+        selections.Add(FilledBaconBagel);
+        selections.Add(PlainBagel);
+        selections.Add(Bacon);
+        selections.Add(Egg);
+
+        ThisBasket.AddToBasket (1, selections);
+
 
         double expected = 1.22;
 
         double result = ThisBasket.BasketTotal();
 
         Assert.IsTrue(expected == result);
+        selections.Clear();
     }
 
     [Test]
@@ -130,8 +147,8 @@ public class Tests
         fillings.Add(Bacon); // Remember to populate the fillings list!
         BaconBagel = ChosenItem.AddFillings(BaconBagel, fillings); // I dont really need to instance a new object I think. Can just modify this one.
 
-        Basket.AddToBasket(BaconBagel);
-        Basket.AddToBasket(Bacon);
+        selections.Add(BaconBagel); selections.Add(Bacon);
+        Basket.AddToBasket(0, selections);
 
         Basket.RemoveFromBasket(BaconBagel);
 
