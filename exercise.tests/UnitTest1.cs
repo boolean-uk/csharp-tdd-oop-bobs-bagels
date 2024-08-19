@@ -139,7 +139,7 @@ public class Tests
 
         string result = Basket.PrintBasket();
 
-        Assert.IsTrue(expected == result);
+        Assert.IsTrue(expected == result); // Ok, need to make sure the filling gets removed as well when removing the Bagel....
 
 
     }

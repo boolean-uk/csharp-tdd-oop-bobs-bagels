@@ -21,7 +21,8 @@ namespace exercise.main
 
         public void RemoveFromBasket(Item item)
         {
-            
+
+            BasketItems.Remove(item);
         }
 
         public string PrintBasket()
