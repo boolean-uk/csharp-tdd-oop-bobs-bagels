@@ -118,4 +118,33 @@ public class BasketTests
         Assert.That(Math.Round(cost, 2), Is.EqualTo(3.18d));
         
     }
+
+    [TestCase(4,1, 2, 2.96d)] // 4 Bagels - 1 Coffee - 2 Fillings
+    [TestCase(6,1, 2, 3.72d)] // 6 Bagels - 1 Coffee - 2 Fillings
+    [TestCase(12,0, 0, 3.99d)] // 12 Bagels - 0 Coffee - 0 Fillings
+    [TestCase(18,0, 0, 6.48d)] // 18 Bagels - 0 Coffee - 0 Fillings
+    [TestCase(19,0, 0, 6.97d)] // 19 Bagels - 0 Coffee - 0 Fillings
+    [TestCase(19,0, 1, 7.73d)] // 19 Bagels - 1 Coffee - 0 Fillings
+    public void TestCheckBasketCostDiscounted(int bagelamount, int coffeeamount, int fillingamount, double expected)
+    {
+        Basket basket = new Basket(10);
+        for(int i = 0; i < bagelamount; i++)
+        {
+            basket.AddItem("BGLO");
+        }
+        Bagel b = (Bagel)basket.Items[0];
+
+        for (int i = 0; i < fillingamount; i++)
+        {
+            b.AddFilling("FILB");
+        }
+
+        for(int i = 0; i < coffeeamount; i++)
+        {
+            basket.AddItem("COFB");
+        }
+
+
+        Assert.That(basket.CheckBasketCostDiscounted(), Is.EqualTo(expected));
+    }
 }

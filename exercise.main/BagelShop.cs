@@ -12,7 +12,7 @@ namespace exercise.main
 
         public BagelShop() 
         {
-           
+
         }
     }
 }

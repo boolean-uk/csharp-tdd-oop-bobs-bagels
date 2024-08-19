@@ -24,6 +24,8 @@ namespace exercise.main
 
             if (this._items.Count() < this._capacity && i != null)
             {
+                Type t = i.GetType();
+                Item newItem = (Item)Activator.CreateInstance(t, i.Sku, i.Price, i.Name, i.Variant);
                 this._items.Add(i);
                 return true;
             }
@@ -63,6 +65,12 @@ namespace exercise.main
         public double CheckBasketCost()
         {
             return this._items.Select((i) => i.CheckItemCost()).Sum();
+        }
+
+        public double CheckBasketCostDiscounted()
+        {
+
+            return 0.0d;
         }
 
         public override string ToString()
