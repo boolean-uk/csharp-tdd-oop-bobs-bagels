@@ -59,7 +59,15 @@ I want customers to only be able to order things that we stock in our inventory.
 As a customer,
 So I can show my wife what I bouht,
 I want to see a reciept of what I bought
-Domain Model
+
+# Extension 1/3
+
+12.
+As a customer,
+So I can see if I saved money,
+I want be able to see potencial discounts on my reciept
+
+# Domain Model
 
 | Classes         | Methods																					| Scenario									| Outputs     |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
@@ -96,6 +104,6 @@ Domain Model
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  |string       |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts                     |
 |                 |																							|											|             |
 |				  |																							|                                           |             |																		

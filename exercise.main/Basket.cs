@@ -72,10 +72,13 @@ namespace exercise.main
             return inventory.findItemByName(type).price;
         }
 
+
+
+        //extension 2
         public string reciept()
         {
             string reciept = $"----     Reciept     ----\n";
-            double totalPrice = checkTotal();
+            double totalPrice = 0;
             List<string> allreadyCountedItems = [];
             foreach (Item item in yourBasket)
             {
@@ -87,12 +90,10 @@ namespace exercise.main
 
                     foreach (Item specificItem in yourBasket)
                     {
-                        if (specificItem.variant == item.variant)
+                        if (specificItem.id == item.id)
                         {
                             itemCount++;
-
                         }
-
                     }
                     totalPriceForSpecifiedItem = itemCount * item.price;
                     reciept += $"{item.name}: {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
@@ -104,5 +105,73 @@ namespace exercise.main
             Console.WriteLine(reciept);
             return reciept;
         }
+
+
+
+        //extension 1 and 3 made into one method. Not pretty. Next time Ill add an internal counter inside item, should make everything much easier
+        public string recieptWithDiscount()
+        {
+            string reciept = $"----     Reciept     ----\n\n";
+            reciept += $"    {DateTime.Now.ToString()}    \n";
+            reciept += $"-------------------------\n";
+            double totalPrice = 0;
+            List<string> allreadyCountedItems = [];
+            foreach (Item item in yourBasket)
+            {
+                double totalPriceForSpecifiedItem = 0;
+                double discountedPrice = 0;
+                double itemCount = 0;
+                double discount = 0;
+
+                if (!allreadyCountedItems.Contains(item.id))
+                {
+
+                    foreach (Item specificItem in yourBasket)
+                    {
+                        if (specificItem.id == item.id)
+                        {
+                            itemCount++;
+                        }
+                    }
+                    if (itemCount == 6)
+                    {
+                        totalPriceForSpecifiedItem = itemCount * item.price;
+                        discountedPrice = 2.49;
+                        discount = totalPriceForSpecifiedItem - discount;
+                        totalPrice += discountedPrice;
+                        reciept += $"{item.name}: {item.variant}  {itemCount}x - {discountedPrice}\n";
+                        reciept += $"          discount ({ discount })\n";
+                        allreadyCountedItems.Add(item.id);
+                    }
+                    else if (itemCount == 12)
+                    {
+                        totalPriceForSpecifiedItem = itemCount * item.price;
+                        discountedPrice = 3.99;
+                        discount = totalPriceForSpecifiedItem - discount;
+                        totalPrice += discountedPrice;
+                        reciept += $"{item.name}: {item.variant}  {itemCount}x - {discountedPrice}\n";
+                        reciept += $"          discount ({discount})\n";
+                        allreadyCountedItems.Add(item.id);
+                    }
+                    else
+                    {
+                        totalPriceForSpecifiedItem = itemCount * item.price;
+                        reciept += $"{item.name}: {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
+                        totalPrice += totalPriceForSpecifiedItem;
+                        allreadyCountedItems.Add(item.id);
+                    }
+                    
+                }
+            }
+            
+
+            reciept += $"-------------------------\ntotal:            {totalPrice}";
+
+            Console.WriteLine(reciept);
+            return reciept;
+        }
     }
 }
+
+
+
