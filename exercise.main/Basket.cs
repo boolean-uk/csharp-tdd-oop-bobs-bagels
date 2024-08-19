@@ -37,7 +37,23 @@
             return _items.Remove(item);
         }
         public bool ChangeCapacity(User user, int capacity) { throw new NotImplementedException(); }
-        public float Total() { throw new NotImplementedException(); }
+        public float Total() 
+        {
+            float total = 0;
+
+            foreach (var item in _items)
+            {
+                if (item.Key is Bagel bagel)
+                {
+                    total += bagel.Price;
+                }
+                else
+                {
+                    total += item.Key.Price;
+                }
+            }
+            return total;
+        }
 
         public Dictionary<Item, int> Items { get { return _items; } }
         public int Count {get { return _count; } }

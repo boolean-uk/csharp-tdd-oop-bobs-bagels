@@ -4,7 +4,16 @@
     {
         private List<Filling> _fillings = [];
         private float _price { get { return CalculatePrice(); } }
-        private static float CalculatePrice() { throw new NotImplementedException();}
+        private float CalculatePrice() 
+        {
+            float count = 0;
+
+            foreach (var filling in _fillings)
+            {
+                count += filling.Price;
+            }
+            return count + base.Price;
+        }
 
         public bool AddFilling(Filling filling) 
         {
@@ -16,5 +25,6 @@
         public bool RemoveFilling(Filling filling) { throw new NotImplementedException(); }
 
         public List<Filling> Fillings { get { return _fillings; } }
+        public float Price { get { return _price; } }
     }
 }

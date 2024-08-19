@@ -12,7 +12,9 @@ namespace BobsBagels.main
 
         public bool ChangeCapacity(int capacity)
         {
-            throw new NotImplementedException();
+            Capacity = capacity;
+
+            return true;
         }
     }
 }
