@@ -1,6 +1,7 @@
 namespace exercise.tests;
 using exercise.main;
 using NUnit.Framework.Internal;
+using System.Security.Cryptography;
 
 public class Tests
 {
@@ -23,11 +24,27 @@ public class Tests
 
     }
 
-    // Bagel with filling
-    [TestCase("BGLO", 0.49, "Bagel", "Onion", "FILB", 0.12, "Filling", "Bacon")]
-    public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string fillingsku, double fillingprice, string fillingname, string fillingvariant) 
+    [Test]
+    public void AddToBasketTest() 
     {
+        Basket Basket = new Basket ();
+        Bagel NewBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
+        Basket.AddToBasket(NewBagel);
+
+        bool expected = true;
+        bool result = Basket.Items.Contains(NewBagel);
+
+        Assert.IsTrue(result);
     }
+
+    // Bagel with filling
+    //[TestCase("BGLO", 0.49, "Bagel", "Onion", "", "FILB", 0.12, "Filling", "Bacon")]
+    //public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant) 
+    //{
+    //    // arrange
+    //    Bagel Bagel = new Bagel(sku, price, name, variant, filling);
+    //    Bagel.Filling = fillingvariant; //Should say Bacon
+    //}
 
 }

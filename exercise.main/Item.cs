@@ -30,7 +30,7 @@ namespace exercise.main
 
         public string PrintItem()
         {
-            return $"{Sku}\n {Price}\n {Name},  {Variant}";
+            return $"{Sku}, {Price}\n{Name}, {Variant}";
         }
     }
 }

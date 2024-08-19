@@ -14,6 +14,7 @@ namespace exercise.main
         public static Bagel AddFillings(Bagel thisBagel, List<string> fillings) 
         {
             Bagel filledBagel = thisBagel;
+            return filledBagel;
         }
         public static Filling ChooseFillings(string sku, double price, string name, string variant)
         {
