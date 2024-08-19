@@ -48,14 +48,7 @@
 |          | 										 |order or item is not on menu|
 |          | 										 |or capacity is full         |
 |          |                                         |                            |
-|          |ChangeCapacity(int newCapacity)          |NewCapacity is non-negative |true     
-|          |                                         |and no customer basket is   |
-|          |                                         |is affected.                |                
-|          | 										 |                            |
-|          |                                         |NewCapacity is non-negative |true   
-|          |                                         |and at least one customer   |   
-|          |                                         |basket is now overfull and  |   
-|          |                                         |therefore emptied.          |   
+|          |ChangeCapacity(int newCapacity)          |NewCapacity is non-negative |true   
 |          |                                         |                            |   
 |          |                                         |NewCapacity is negative     |false   
 |__________|_________________________________________|____________________________|                                                                       

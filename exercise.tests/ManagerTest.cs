@@ -11,6 +11,13 @@ namespace exercise.tests
     {
 
         [TestCase(2)]
+        [TestCase(-2)]
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(27)]
+        [TestCase(38)]
+        [TestCase(8)]
+        [TestCase(-444)]
         public void ChangeCapacity(int newCapacity)
         {
             Manager manager = new Manager();

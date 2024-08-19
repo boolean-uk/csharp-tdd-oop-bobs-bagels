@@ -12,7 +12,13 @@ namespace exercise.main
 
         public bool ChangeCapcity(int newCapacity)
         {
-            throw new NotImplementedException();
+            if(newCapacity < 0)
+            {
+                return false;
+            }
+            capacity = newCapacity; 
+            return true;
+            
         }
     }
 }
