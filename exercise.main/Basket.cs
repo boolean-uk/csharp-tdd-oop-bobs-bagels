@@ -65,5 +65,10 @@ namespace exercise.main
         {
             return yourBasket.Sum(item => item.price);
         }
+
+        public string checkPriceForType(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

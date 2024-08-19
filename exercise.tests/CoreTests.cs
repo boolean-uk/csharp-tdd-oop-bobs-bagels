@@ -84,10 +84,11 @@ public class Tests
     }
 
     [Test]
-    public void checkPriceForType()
+    public void checkPriceForTypeTest()
     {
         Basket basket = new Basket();
 
+        string fillings = basket.checkPriceForType("Filling");
 
     }
 
