@@ -88,7 +88,15 @@ public class Tests
     {
         Basket basket = new Basket();
 
-        string fillings = basket.checkPriceForType("Filling");
+        //check bagel price
+        double expectedPrice1 = 0.39;
+        double resultPrice1 = basket.checkPriceForType("Plain");
+        Assert.That(expectedPrice1 == resultPrice1);
+
+        //check filling price
+        double expectedPrice2 = 0.12;
+        double resultPrice2 = basket.checkPriceForType("Egg");
+        Assert.That(expectedPrice2 == resultPrice2);
 
     }
 

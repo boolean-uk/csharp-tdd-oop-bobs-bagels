@@ -10,3 +10,7 @@ basket.addItem("Bagel", "Onion");
 Console.WriteLine(basket.yourBasket.First().ToString());
 basket.removeItem("Onion");
 Console.WriteLine(basket.yourBasket.Count());
+
+basket.checkPriceForType("Filling");
+basket.checkPriceForType("Coffee");
+basket.checkPriceForType("Bagel");

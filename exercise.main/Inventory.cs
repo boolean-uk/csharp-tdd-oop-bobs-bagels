@@ -12,6 +12,10 @@ namespace exercise.main
         
         public List<Item> getInventory() 
         { 
+            if (_inventory.Count != 0)
+            {
+                return _inventory;
+            }
             _inventory.Add(new Item("BGLO", "Bagel", 0.49, "Onion"));
             _inventory.Add(new Item("BGLP", "Bagel", 0.39, "Plain"));
             _inventory.Add(new Item("BGLE", "Bagel", 0.49, "Everything"));

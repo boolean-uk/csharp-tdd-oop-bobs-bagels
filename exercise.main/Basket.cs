@@ -66,9 +66,9 @@ namespace exercise.main
             return yourBasket.Sum(item => item.price);
         }
 
-        public string checkPriceForType(string v)
+        public double checkPriceForType(string type)
         {
-            throw new NotImplementedException();
+            return inventory.findItemByName(type).price;
         }
     }
 }
