@@ -38,7 +38,15 @@ public class Tests
 
     }
 
+    [Test]
 
-    
+    public void removeItemTest()
+    {
+        Basket basket = new Basket();
+        basket.removeItem("Onion");
 
+
+        Assert.That(basket.yourBasket.Count == 0);
+
+    }
 }

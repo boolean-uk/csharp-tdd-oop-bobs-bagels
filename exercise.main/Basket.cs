@@ -33,8 +33,11 @@ namespace exercise.main
                 Console.WriteLine("No such item...");
                 return false;
             }
+        }
 
-            //throw new NotImplementedException();
+        public void removeItem(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
