@@ -15,13 +15,13 @@ namespace csharp_tdd_bobs_bagels.tests
         };
 
 
-        public Bagel(string filling) 
+        public Bagel(string breadType) 
         {
-            if (Flavors.Contains(filling.ToLower().Trim()))
+            if (Flavors.Contains(breadType.ToLower().Trim()))
             {
-                filling = filling.ToLower().Trim();
-                this.CurrentFlavor = filling;
-                this.Price = _allowedFlavor[filling];
+                breadType = breadType.ToLower().Trim();
+                this.CurrentFlavor = breadType;
+                this.Price = _allowedFlavor[breadType];
                 
             }
 

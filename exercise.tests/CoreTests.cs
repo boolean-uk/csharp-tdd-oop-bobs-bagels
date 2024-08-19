@@ -131,8 +131,8 @@ namespace csharp_tdd_bobs_bagels.tests
                 Assert.IsTrue(bagel.CurrentFlavor == "plain");
 
             }
-            [Test]
-            public void TotalTest()
+            [TestCase(1.37f)]
+            public void TotalTest(float expected)
             {
                 //init
                 Basket basket = new Basket();
@@ -148,9 +148,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 {
                     basket.Add(bagel);
                 }
-
-                float expected = 1.37f;
-
+          
                 //run
                 float resulted = basket.Total();
 

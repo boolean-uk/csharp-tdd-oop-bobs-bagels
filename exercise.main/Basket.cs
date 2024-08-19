@@ -13,6 +13,7 @@ namespace tdd_bobs_bagels.CSharp.Main
         private List<Bagel> _items = new List<Bagel>();
         private int _capacity = 5;
         private int _amount = 0;
+        private float _totalPrice = 0;
         private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()
         {
             {"onion",0.49f},
@@ -33,6 +34,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             {
                 _items.Add(bagelName);
                 _amount++;
+                _totalPrice += bagelName.Price;
 
                 return true;
             }
@@ -57,7 +59,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public float Total()
         {
-            throw new NotImplementedException();
+            return _totalPrice;
         }
 
         public List<Bagel> Items { get => _items; set => _items = value; }
