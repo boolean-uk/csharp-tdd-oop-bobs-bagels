@@ -18,7 +18,6 @@ namespace exercise.main
             Console.WriteLine("basket const" + copyOfPrice);
 
             copyOfPrice = CheckForBGLOdiscount();
-            copyOfPrice = CheckForBGLEdiscount();
         }
 
     
@@ -29,43 +28,36 @@ namespace exercise.main
 
         private float CheckForBGLOdiscount() 
         {
-            int disc = loop(6, productType.BGLO);
+            int disc = loop(6);
+            Console.WriteLine("Mod : " + disc % 12);
             copyOfPrice -= (float)Math.Round((disc * 6 * 0.49f), 2);
             copyOfPrice += (float)Math.Round((2.49f * disc), 2);
             return (float)Math.Round(copyOfPrice, 2);
         }
 
-        private float CheckForBGLEdiscount()
-        {
-            int disc = loop(6, productType.BGLE);
-            copyOfPrice -= (float) Math.Round((disc * 6 * 0.49f), 2);
-            copyOfPrice += (float)Math.Round((2.49f * disc), 2);
-            return (float)Math.Round(copyOfPrice, 2);
-        }
 
-        private int loop(int i, productType productType)
+        private int loop(int i)
         {
             int cnt = 0;
             int c = copyOfBasket.Count;
 
             for (int j = 0; j <= c; j++)
             {
-                Product product = GetProductFromBasket(productType);
+                Product product = GetProductFromBasket();
                 if (product == null)
                 {
                     break;
                 }
                 if (copyOfBasket.Remove(product)) { 
                     cnt++;
-                    Console.WriteLine($"Removed from basket {productType}  cnt: {cnt}");
                 };
             }
             return (cnt/i) ;
         }
 
-        private Product GetProductFromBasket(productType p)
+        private Product GetProductFromBasket()
         {
-            return copyOfBasket.FirstOrDefault(Product => Product.Type == p);
+            return copyOfBasket.FirstOrDefault(new Bagle(bagleType.BGLO));
         }
     }
 }

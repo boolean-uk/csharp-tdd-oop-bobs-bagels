@@ -14,10 +14,10 @@ public class Tests
     public Customer createCustomerAndItems()
     {
         Customer p = new Customer("Tom");
-        p.addItemToBascet(productType.BGLO);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.FILS);
+        p.addItemToBascet(bagleType.BGLO);
+        p.addItemToBascet(drinkType.COFB);
+        p.addItemToBascet(drinkType.COFB);
+        p.addItemToBascet(fillingType.FILS);
         return p;
     }
 
@@ -25,8 +25,8 @@ public class Tests
     public void AddToBasket()
     {
         Customer p = createCustomerAndItems();
-        Assert.True(p.addItemToBascet(productType.BGLE));
-        Assert.False(p.addItemToBascet(productType.FILS));
+        Assert.True(p.addItemToBascet(bagleType.BGLE));
+        Assert.False(p.addItemToBascet(fillingType.FILS));
 
     }
 
@@ -34,7 +34,7 @@ public class Tests
     public void RemoveFromBasket()
     {
         Customer p = createCustomerAndItems();
-        Product item = new Product(productType.COFB);
+        Product item = new Drink(drinkType.COFB);
         p.addItemToBascet(item);
         Assert.True(p.GetBasket().Count == 5);
         Assert.True(p.removeItemFromBasket(item));
@@ -46,9 +46,9 @@ public class Tests
     public void GetTotalCostOfBasket()
     {
         Customer p = new Customer("Tom");
-        p.addItemToBascet(productType.BGLO);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
+        p.addItemToBascet(bagleType.BGLO);
+        p.addItemToBascet(drinkType.COFB);
+        p.addItemToBascet(drinkType.COFB);
         Assert.True(p.GetCost() == 2.47f);
 
 

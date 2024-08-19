@@ -15,8 +15,9 @@ namespace exercise.tests
             M.SetMaxSize(20, p);
         }
 
-        public void PoppulateBaskets(int i, Customer p,productType productType)
+        public void PoppulateBaskets(int i, Customer p,bagleType productType)
         {
+
             for (int j = 0; j < i; j++)
             {
                 p.addItemToBascet(productType);
@@ -29,7 +30,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
-            PoppulateBaskets(6, p, productType.BGLO);
+            PoppulateBaskets(6, p,bagleType.BGLO);
             Assert.That(p.ImplementDiscount() == 2.49f);
         }
 
@@ -38,7 +39,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
-            PoppulateBaskets(12, p, productType.BGLP);
+            PoppulateBaskets(12, p, bagleType.BGLP);
             Assert.That(p.ImplementDiscount() == 3.99f);
         }
 
@@ -47,7 +48,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
-            PoppulateBaskets(6, p, productType.BGLE);
+            PoppulateBaskets(6, p, bagleType.BGLE);
             Assert.That(p.ImplementDiscount() == 2.49f);
         }
 
@@ -56,8 +57,8 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
-            p.addItemToBascet(productType.BGLO);
-            p.addItemToBascet(productType.COFB);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(drinkType.COFB);
             Assert.That(p.ImplementDiscount() == 1.25f);
         }
 
@@ -66,8 +67,8 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
-            PoppulateBaskets(6, p, productType.BGLE);
-            PoppulateBaskets(6, p, productType.BGLO);
+            PoppulateBaskets(6, p, bagleType.BGLE);
+            PoppulateBaskets(6, p, bagleType.BGLO);
             Assert.That(p.ImplementDiscount() == (2.49f + 2.49f));
         }
     }

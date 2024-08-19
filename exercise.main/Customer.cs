@@ -21,7 +21,7 @@ namespace exercise.main
             this.name = name;
         }
 
-        public bool addItemToBascet(productType p)
+        public bool addItemToBascet(drinkType p)
         {
             if (basket.Count >= basketMaxSize)
             {
@@ -29,8 +29,34 @@ namespace exercise.main
             }
             else 
             {
-                Console.WriteLine($"Added {new Product(p).Name} to basket, it costs: {new Product(p).Cost} ");
-                basket.Add(new Product(p));
+                Console.WriteLine($"Added {new Drink(p).Name} to basket, it costs: {new Drink(p).Cost} ");
+                basket.Add(new Drink(p));
+                return true;
+            }
+        }
+        public bool addItemToBascet(fillingType p)
+        {
+            if (basket.Count >= basketMaxSize)
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine($"Added {new Fillings(p).Name} to basket, it costs: {new Fillings(p).Cost} ");
+                basket.Add(new Fillings(p));
+                return true;
+            }
+        }
+        public bool addItemToBascet(bagleType p)
+        {
+            if (basket.Count >= basketMaxSize)
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine($"Added {new Bagle(p).Name} to basket, it costs: {new Bagle(p).Cost} ");
+                basket.Add(new Bagle(p));
                 return true;
             }
         }
