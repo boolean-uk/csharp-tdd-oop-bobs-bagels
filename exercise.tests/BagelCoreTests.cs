@@ -62,7 +62,7 @@ public class Tests
     }
 
     [Test]
-    public void ChangeBasketCapacity()
+    public void ChangeBasketCapacityTest()
     {
         Basket basket = new Basket();
 

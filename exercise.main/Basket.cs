@@ -10,6 +10,7 @@ namespace exercise.main
     public class Basket
     {
         Inventory inventory = new Inventory();
+        //Person person = new Person("Bob", Role.MANAGER);
         private int MAX_BASKET_SIZE { get; set; } = 5;
 
         public List<Item> basketItems = new List<Item>();
@@ -49,7 +50,7 @@ namespace exercise.main
                 return false;
 
         }
-
+        
         public bool removeBagelOrItem(Item item)
         {
             if (!basketItems.Any(x => Equals(x, item)))
@@ -64,9 +65,21 @@ namespace exercise.main
             return true;
         }
 
-        public int changeBasketCapacity(int v, Role role)
+        public int changeBasketCapacity(int newCapacity, Role role)
         {
-            throw new NotImplementedException();
+  
+            if (role != Role.MANAGER)
+            {
+                Console.WriteLine("Only the manager can change capacity!");
+                return -1;
+            }
+
+            MAX_BASKET_SIZE = newCapacity;
+
+            basketItems.Capacity = MAX_BASKET_SIZE;
+
+            Console.WriteLine(basketItems.Capacity);
+            return basketItems.Capacity;  
         }
     }
 }
