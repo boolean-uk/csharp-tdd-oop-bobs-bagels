@@ -29,12 +29,14 @@ namespace exercise.main.Persons
         {
             double total = 0;
 
-            foreach (var item in _basket.ItemsInBasket)
-            {
-                total += item.Price;
-            }
+            total = _basket.ItemsInBasket.Sum(item => item.Price);
 
             return total;
+        }
+
+        public double GetCostOfItem()
+        {
+            throw new NotImplementedException();
         }
     }
 }

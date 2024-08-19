@@ -86,4 +86,22 @@ public class CustomerTests
         // Verify
         Assert.IsTrue(result == (bagel.Price + coffee.Price));
     }
+
+    [Test]
+    public void GetCostOfItem()
+    {
+        // Setup
+        Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
+
+        // Execute
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
+
+        double result = customer.GetCostOfItem();
+
+        // Verify
+        Assert.IsTrue(result == inventoryClass.GetItemBySkuID("BGLO").Price);
+    }
+
+
 }
