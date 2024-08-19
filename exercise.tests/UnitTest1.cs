@@ -226,24 +226,20 @@ public class Tests
     public void checkBasketTotalCostTest() //TODO insert gettotalcost method insted of wth this is
     {
         Customer customer = getCustomerAndBasket();
-        bool productAdded = customer.addProduct("BGLP");
+        customer.GetBagelStore().getManager().changeBasketCapacity(8);
+        customer.grabBasket();
+        addBagel(customer, 4, "BGLP");
 
         List<Product> products = customer.checkBasketContent();
         
-        float totalCost = 0;
 
-        foreach (var product in products) { totalCost += product.price; }
+        Assert.That (customer.getTotalCost() == 0.39f * 4.00f);
 
-        Assert.That (totalCost == 0.39f);
-
-        productAdded = customer.addProduct("BGLP");
-        productAdded = customer.addProduct("BGLP");
+        addBagel(customer, 4, "BGLE");
 
         products = customer.checkBasketContent();
-        totalCost = 0;
-        foreach (var product in products) { totalCost += product.price; }
 
-        Assert.That(totalCost == 0.39f * 3);
+        Assert.That(customer.getTotalCost() == 0.39f * 4.00f + 0.49f * 4.00f);
     }
 
     [Test]
@@ -257,16 +253,16 @@ public class Tests
 
         customer = addBagel(customer, 6, "BGLO");
 
-        customer.checkout();
+        float totalCost = customer.checkout();
 
-        Assert.Pass();
+        Assert.That(totalCost == 3.99f + 2.49f + 0.12f);
     }
 
     [Test]
     public void CheckDiscountFunctionalityTwoTest()
     {
         Customer customer = getCustomerAndBasket();
-        customer.GetBagelStore().getManager().changeBasketCapacity(20);
+        customer.GetBagelStore().getManager().changeBasketCapacity(21);
         customer.grabBasket();
         customer = addBagel(customer, 1, "BGLP");
 
@@ -277,9 +273,9 @@ public class Tests
 
         customer = addBagel(customer, 6, "BGLO");
 
-        customer.checkout();
+        float totalCost = customer.checkout();
 
-        Assert.Pass();
+        Assert.That(totalCost == 3.99f + 2.49f + 0.12f + 1.25f);
     }
 
     [Test]

@@ -143,7 +143,6 @@ namespace exercise.main
 
         public float checkout(Basket basket) //might work
         {
-            //List<Product> elligebleForDiscount = (List<Product>)basket.getProductsInBasket().Where(item => basket.getProductsInBasket().Any(z => z.SKU == item.SKU));
 
 
             //due to it being BGL in discount and not four letters
@@ -153,7 +152,6 @@ namespace exercise.main
                                      (product.SKU.Contains(discount.Item1) && discount.Item2 == basket.getProductsInBasket().Find(item => item.SKU.Contains(discount.Item2)).SKU))
                                      select discount).ToList();
 
-            //productsThatMatch.ForEach(product => basket.getProductsInBasket().Remove(basket.getProductsInBasket().Any(item => product.Item1 == item.name));
 
             int amountOfBagelsToRemove = 0;
             int amountOfCoffeeToRemove = 0;
@@ -166,32 +164,21 @@ namespace exercise.main
                     amountOfBagelsToRemove += product.Item4;
                 } else
                 {
-                    break;
+                    continue; //think this should be continue and nod break, otherwise use break...
                 }
-
-
             }
 
-            //if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains("COF")).Count - amountOfCoffeeToRemove >= product.Item4)
-            //{
-            //    amountOfBagelsToRemove += product.Item4;
-            //}
-            //else
-            //{
-            //    break;
-            //}
-
-            //productsThatMatch.ForEach(product => {
-
-            //    if (product.Item1.Contains("BGL"))
-            //    {
-            //        amountOfBagelsToRemove += product.Item4;
-            //    } else if (product.Item1.Contains("COF"))
-            //    {
-            //        amountOfCoffeeToRemove += product.Item4;
-            //    }
-
-            //});
+            foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
+            {
+                if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains("COF")).Count - amountOfCoffeeToRemove >= product.Item4)
+                {
+                    amountOfCoffeeToRemove += product.Item4;
+                }
+                else
+                {
+                    continue;
+                }
+            }
 
             List<Product> copyList = basket.getProductsInBasket();
 
@@ -200,15 +187,15 @@ namespace exercise.main
                 copyList.Remove(copyList.Find(item => item.SKU.Contains("BGL")));
             }
 
-            for (int i = 0; i < amountOfBagelsToRemove; i++)
+            for (int i = 0; i < amountOfCoffeeToRemove; i++)
             {
                 copyList.Remove(copyList.Find(item => item.SKU.Contains("COF")));
             }
 
-            for (int i = 0; i < amountOfBagelsToRemove; i++)
-            {
-                copyList.Remove(copyList.Find(item => item.SKU.Contains("FIL")));
-            }
+            //for (int i = 0; i < amountOfBagelsToRemove; i++)
+            //{
+            //    copyList.Remove(copyList.Find(item => item.SKU.Contains("FIL")));
+            //}
 
             copyList.Count();
 
@@ -217,15 +204,7 @@ namespace exercise.main
             productsThatMatch.ForEach(product => totalCost += product.Item3);
             copyList.ForEach(product => totalCost += product.price);
 
-            //basket.getProductsInBasket().ForEach(product => totalCost += product.price);
-
-            //productsThatMatch.ForEach(product => totalCost += product.Item3);
-
-            Console.WriteLine(totalCost);
-
-
-
-            return 0f;
+            return totalCost;
         }
     }
 }

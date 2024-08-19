@@ -62,9 +62,10 @@ namespace exercise.main
             return totalCost;
         }
 
-        public void checkout() //with discounts
+        public float checkout() //with discounts
         {
             float totalCost = _bagelStore.getManager().checkout(_basket);
+            return totalCost;
         }
 
         //add lamdas to experiment
