@@ -51,9 +51,9 @@ namespace exercise.main
 
         public void changeCapacity(int newCapacity, Person person)
         {
-            if ((newCapacity <= 0))
+            if ((newCapacity <= 0) || (person.role == Role.CUSTOMER))
             {
-                Console.WriteLine("Cannot change capacity to 0 or lower...");
+                Console.WriteLine("Cannot change capacity to 0 or lower or you do not have the permission to do this action...");
             }
             else
             {
