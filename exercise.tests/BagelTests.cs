@@ -206,4 +206,22 @@ public class Tests
         //assert
         Assert.That(result, Is.EqualTo(expectedOutcome));
     }
+
+    //Extension: 1
+
+    [TestCase("BGLO", 5, 2.45f)]
+    public void AddMultipleTest(string product, int amount, float expectedPrice)
+    {
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+        customer.Add(manager, product, amount);
+
+        //act
+        float result = customer.TotalCost();
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedPrice));
+
+    }
+
 }

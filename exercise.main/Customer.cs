@@ -16,7 +16,7 @@ namespace exercise.main
             this.wallet = allowance;
         }
 
-        public bool Add(Manager manager, string product)
+        public bool Add(Manager manager, string product, int amount = 1)
         {
             //Ask the manager to add a product to our basket
             if (manager.AddProduct(this.basket, product))
