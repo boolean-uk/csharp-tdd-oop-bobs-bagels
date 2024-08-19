@@ -10,9 +10,10 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
 
         // Execute
-        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
         customer.AddItemToBasket(bagel);
 
         // Verify
@@ -24,9 +25,10 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
 
         // Execute
-        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
         customer.Basket.Capacity = 0;
         bool result = customer.AddItemToBasket(bagel);
 
@@ -39,9 +41,10 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
 
         // Execute
-        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
         customer.AddItemToBasket(bagel);
         bool result = customer.RemoveItemFromBasket(bagel);
 
@@ -54,12 +57,32 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
 
         // Execute
-        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
         bool result = customer.RemoveItemFromBasket(bagel);
 
         // Verify
         Assert.IsTrue(!customer.Basket.ItemsInBasket.Contains(bagel) & result == false);
     }
+
+    [Test]
+    public void GetTotalSumOfBasket()
+    {
+        // Setup
+        Customer customer = new Customer();
+        InventoryClass inventoryClass = new InventoryClass();
+
+        // Execute
+        Item bagel = inventoryClass.GetItemBySkuID("BGLO");
+        Item coffee = inventoryClass.GetItemBySkuID("COFB");
+
+        customer.AddItemToBasket(bagel);
+        customer.AddItemToBasket(coffee);
+
+        // Verify
+        Assert.IsTrue(customer.GetTotalSumOfBasket() == 1.48f);
+    }
+
 }

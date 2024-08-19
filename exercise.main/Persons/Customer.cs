@@ -24,5 +24,10 @@ namespace exercise.main.Persons
         {
             return _basket.Remove(bagel);
         }
+
+        public double GetTotalSumOfBasket()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
