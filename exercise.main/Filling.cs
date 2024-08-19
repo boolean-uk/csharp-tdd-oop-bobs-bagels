@@ -7,12 +7,15 @@ namespace exercise.main
 {
     public class Filling : Item
     {
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public float Price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void GetItemCost()
+        public Filling(string sku, float price, string name) : base(sku, price, name)
         {
-            throw new NotImplementedException();
+
         }
+
+        public override float GetItemCost()
+        {
+            return Price;
+        }
+
     }
 }

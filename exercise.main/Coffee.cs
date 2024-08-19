@@ -7,12 +7,12 @@ namespace exercise.main
 {
     public class Coffee : Item
     {
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public float Price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
+        public Coffee(string sku, float price, string name) : base(sku, price, name) { }
 
-        public void GetItemCost()
+        public override float GetItemCost()
         {
-            throw new NotImplementedException();
+            return Price;
         }
     }
 }

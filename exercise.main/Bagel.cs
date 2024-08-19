@@ -7,21 +7,40 @@ namespace exercise.main
 {
     public class Bagel : Item
     {
-        private string v1;
-        private double v2;
+        //private string v1;
+        //private double v2;
+        private List<Filling> _fillings;
 
-        public Bagel(string name, float price)
+        public List<Filling> Fillings { get { return _fillings; } }
+
+        public Bagel(string sku, float price, string name) : base(sku, price, name)
         {
-            this.Name = name;
-            this.Price = price;
+            _fillings = new List<Filling>();
         }
 
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public float Price { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void GetItemCost()
+        public bool AddFilling(Filling filling)
         {
-            throw new NotImplementedException();
+            if (Inventory.inventory.Where(x => x.GetType() == typeof(Filling)).Contains(filling)) 
+            { 
+                _fillings.Add(filling);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveFilling(Filling filling)
+        {
+            if (_fillings.Contains(filling))
+            {
+                _fillings.Remove(filling);
+                return true;
+            }
+            return false;
+        }
+
+        public override float GetItemCost()
+        {
+            return this.Price + _fillings.Sum(x => x.Price);
         }
     }
 }

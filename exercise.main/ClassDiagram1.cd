@@ -3,47 +3,51 @@
   <Class Name="exercise.main.BobsBagel">
     <Position X="13" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABBAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>BobsBagel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Basket">
     <Position X="15.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAACAAgAAAAAAQCgBAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Bagel">
     <Position X="18.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAEAAAAAAAAgAAAAAAAABAAAAAAAAAQAABAAAAA=</HashCode>
       <FileName>Bagel.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.103" />
   </Class>
   <Class Name="exercise.main.Coffee">
     <Position X="23" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>Coffee.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="exercise.main.Filling">
     <Position X="25.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>Filling.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="exercise.main.Item">
-    <Position X="20.75" Y="3" Width="1.5" />
+  <Class Name="exercise.main.Item" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAIAAAAQAIAAAAAAAAAAQAAAAAAAAAEAAAABAAAAQ=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="exercise.main.Inventory" Collapsed="true">
+    <Position X="21.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

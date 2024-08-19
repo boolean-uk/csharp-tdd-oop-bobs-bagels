@@ -5,11 +5,33 @@ using System.Text;
 
 namespace exercise.main
 {
-    public interface Item
+    public abstract class Item
     {
-        string Name { get; set; }
-        float Price { get; set; }
+        private string _name;
 
-        void GetItemCost();
+        public string Name { get { return _name; } }
+
+        private float _price;
+
+        public float Price { get { return _price; } }
+
+        private string _sku;
+
+        public string Sku { get { return _sku; } }
+
+        protected Item(string sku, float price, string name) 
+        { 
+            _sku = sku;
+            _name = name;
+            _price = price;
+        }
+
+        public string GetItemName()
+        {
+            return Name;
+        }
+
+        public abstract float GetItemCost();
+
     }
 }

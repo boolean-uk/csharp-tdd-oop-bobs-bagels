@@ -7,22 +7,25 @@ namespace exercise.main
 {
     public class BobsBagel
     {
+        private int _basketCapacity;
         public int BasketCapasity
         {
-            get => default;
-            set
-            {
-            }
+            get => _basketCapacity;
         }
 
-        public void ChangeBasketCapasity()
+        public BobsBagel(int basketCapacity)
         {
-            throw new System.NotImplementedException();
+            _basketCapacity = basketCapacity;
+        }
+
+        public void ChangeBasketCapasity(int newCapacity)
+        {
+            _basketCapacity = newCapacity;
         }
 
         public Basket NewBasket()
         {
-            throw new NotImplementedException();
+            return new Basket(_basketCapacity);
         }
     }
 }
