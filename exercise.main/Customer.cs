@@ -57,5 +57,10 @@ namespace exercise.main
             }
             return false;
         }
+
+        public float HowMuchFillings(Manager manager)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

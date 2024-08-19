@@ -83,8 +83,6 @@ I want customers to only be able to order things that we stock in our inventory.
 |             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |
 |             |                                                          | Product does not exist                                                             | false   |
 |             | `GetProduct(string product)`                             | Returns selected product                                                           | Product |
-|             | `IsFilling(string filling)`                              | Check if the filling exists                                                        | true    |
-|             |                                                          | Filling does not exist                                                             | false   |
 |             | `HowMuchFillings()`                                      | Return the cost of each filling in the inventory                                   | float   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Manager`   | `Manager()`                                              | Create a manager that takes requests from the customer                             | ----    |
@@ -95,6 +93,7 @@ I want customers to only be able to order things that we stock in our inventory.
 |             | `RemoveProduct(Basket bskt, string product)`             | Remove this type of product from the customer's basket                             | true    |
 |             |                                                          | This product does not exist or basket is empty                                     | false   |
 |             | `HowMuchProduct(string product)`                         | Return the cost of the selected product if it exists, otherwise return 0           | float   |
+|             | `HowMuchFillings()`                                      | Return the cost of all fillings                                                    | float   |
 |             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to the bagel                                                       | true    |
 |             |                                                          | Bagel or filling does not exist                                                    | false   |
 |             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it                                      | true    |

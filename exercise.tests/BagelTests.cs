@@ -177,4 +177,18 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedOutcome));
         Assert.That(actualPrice, Is.EqualTo(expectedPrice));
     }
+
+    [TestCase(0.12f)]
+    public void FillingCostTest(float expectedCost)
+    {
+        //arrange
+        Manager manager = new Manager();
+        Customer customer = new Customer(manager, 3.50f);
+
+        //act
+        float result = customer.HowMuchFillings(manager);
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedCost));
+    }
 }
