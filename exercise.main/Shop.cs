@@ -26,6 +26,6 @@ namespace exercise.main
             new Filling {Sku = "FILS", Price = 0.12d, Variant = "Smoked Salmon"},
             new Filling {Sku = "FILH", Price = 0.12d, Variant = "Ham"}
         };
-        public List<Item> Inventory { get { return _inventory; } }
+        public List<Item> Inventory { get => _inventory; }
     }
 }

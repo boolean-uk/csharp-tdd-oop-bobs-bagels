@@ -10,17 +10,14 @@ namespace exercise.main.Persons
     public class Customer
     {
         private Basket _basket;
-        public Basket Basket { 
-            get {  return this._basket; }
-        }
+        public Basket Basket { get => _basket; }
         public Customer() 
         { 
-            this._basket = new Basket(); 
+            _basket = new Basket(); 
         }
         public bool Add(Item item)
         {
-            _basket.AddItemToBasket(item);
-            return true;
+            return _basket.AddItemToBasket(item);
         }
     }
 }

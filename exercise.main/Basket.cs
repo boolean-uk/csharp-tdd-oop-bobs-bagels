@@ -12,14 +12,8 @@ namespace exercise.main
         #region Properties
         private List<Item> _itemsInBasket = new List<Item>();
         private int _capacity = 5;
-        public List<Item> ItemsInBasket 
-        { 
-            get { return this._itemsInBasket; } 
-        }
-        public int Capacity { 
-            get { return this._capacity; } 
-            set { this._capacity = value; }
-        }
+        public List<Item> ItemsInBasket { get => _itemsInBasket; }
+        public int Capacity { get => _capacity; set => _capacity = value;  }
         #endregion
 
         public bool AddItemToBasket(Item item)

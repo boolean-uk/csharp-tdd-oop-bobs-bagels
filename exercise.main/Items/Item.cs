@@ -6,25 +6,16 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Items
 {
-    public class Item
+    public abstract class Item
     {
         #region Properties
         private string _sku;
         private double _price;
         private string _variant;
 
-        public string Sku { 
-            get { return this._sku; }
-            set { this._sku = value; }
-        }
-        public double Price { 
-            get { return this._price; } 
-            set { this._price = value; }
-        }
-        public string Variant { 
-            get { return this._variant; }
-            set { this._variant = value; }
-        }
+        public string Sku { get => _sku; set => _sku = value; }
+        public double Price { get => _price; set => _price = value; }
+        public string Variant { get => _variant; set => _variant = value; }
 
         private List<Item> _inventory = new List<Item>()
         {
@@ -43,17 +34,24 @@ namespace exercise.main.Items
             new Filling {Sku = "FILS", Price = 0.12d, Variant = "Smoked Salmon"},
             new Filling {Sku = "FILH", Price = 0.12d, Variant = "Ham"}
         };
-        public List<Item> Inventory { get { return this._inventory; } }
+
+        public List<Item> Inventory { get => _inventory; }
         #endregion
 
-        public Item()
+        protected Item()
         {
         }
-
-        public Item(string skuID) 
+        
+        protected Item(string skuID, double price, string variant)
         {
-            if (_inventory[skuID].)
-            foreach (var item in Inventory)
+            _sku = skuID;
+            _price = price;
+            _variant = variant;
+        }
+
+        protected Item(string skuID) 
+        {
+            foreach (var item in _inventory)
             {
                 if (skuID == item.Sku)
                 {
