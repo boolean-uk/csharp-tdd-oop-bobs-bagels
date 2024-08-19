@@ -84,7 +84,7 @@ namespace exercise.main
 
         public double totalCost()
         {
-            throw new NotImplementedException();
+            return basketItems.Sum(x => x.price);
         }
     }
 }

@@ -86,11 +86,13 @@ public class Tests
         Inventory inventory = new Inventory();
 
         Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+        Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
 
         basket.addItem(plainBagel);
         basket.addItem(plainBagel);
+        basket.addItem(blackCoffe);
 
-        double expected = plainBagel.price + plainBagel.price;
+        double expected = plainBagel.price + plainBagel.price + blackCoffe.price;
 
         double result = basket.totalCost();
 
