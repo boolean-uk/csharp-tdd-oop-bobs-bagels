@@ -35,9 +35,18 @@ namespace exercise.main
             }
         }
 
-        public void removeItem(string v)
+        public void removeItem(string itemName)
         {
-            throw new NotImplementedException();
+            Item item = inventory.findItemByName(itemName);
+            if (!yourBasket.Contains(item))
+            {
+                Console.WriteLine("Your basket does not contain this item...");
+                return;
+            }
+            else
+            {
+                yourBasket.Remove(item);
+            }
         }
     }
 }

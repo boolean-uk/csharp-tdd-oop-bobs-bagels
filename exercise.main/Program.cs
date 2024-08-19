@@ -8,3 +8,5 @@ Item expectedItem = new Item("BGLO", "Bagel", 0.49, "Onion");
 
 basket.addItem("Bagel", "Onion");
 Console.WriteLine(basket.yourBasket.First().ToString());
+basket.removeItem("Onion");
+Console.WriteLine(basket.yourBasket.Count());
