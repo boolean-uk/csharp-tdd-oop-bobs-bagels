@@ -81,8 +81,9 @@ public class CustomerTests
         customer.AddItemToBasket(bagel);
         customer.AddItemToBasket(coffee);
 
-        // Verify
-        Assert.IsTrue(customer.GetTotalSumOfBasket() == 1.48f);
-    }
+        double result = customer.GetTotalSumOfBasket();
 
+        // Verify
+        Assert.IsTrue(result == (bagel.Price + coffee.Price));
+    }
 }

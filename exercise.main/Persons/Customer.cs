@@ -27,7 +27,14 @@ namespace exercise.main.Persons
 
         public double GetTotalSumOfBasket()
         {
-            throw new NotImplementedException();
+            double total = 0;
+
+            foreach (var item in _basket.ItemsInBasket)
+            {
+                total += item.Price;
+            }
+
+            return total;
         }
     }
 }
