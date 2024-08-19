@@ -42,8 +42,8 @@ public class CoreTests {
             Assert.That(result2, Is.True);
             Assert.That(result3, Is.True);
             Assert.That(result4, Is.True);
-            Assert.That(user.Basket.Items[bagel] == 4);
-            Assert.That(user.Basket.Count == 4);
+            Assert.That(user.Basket.Items[bagel], Is.EqualTo(4));
+            Assert.That(user.Basket.Count, Is.EqualTo(4));
         });
     }
 
@@ -62,11 +62,13 @@ public class CoreTests {
         var fillingResult = bagel.AddFilling(filling);
         var bagelResult= user.Basket.Add(bagel);
         var coffeeResult = user.Basket.Add(coffee);
+        var quantity = user.Basket.Count;
         Assert.Multiple(() =>
         {
             Assert.That(bagelResult, Is.True);
             Assert.That(fillingResult, Is.True);
             Assert.That(coffeeResult, Is.True);
+            Assert.That(quantity, Is.EqualTo(3));
         });
     }
 
@@ -89,8 +91,11 @@ public class CoreTests {
         var coffeeResult = user.Basket.Add(coffee);
         var salmonFillingResult = everythingBagel.AddFilling(salmonFilling);
         var everythingBagelResult = user.Basket.Add(everythingBagel);
-        
-        
+        var containsBagel = user.Basket.Items.ContainsKey(everythingBagel);
+        var containsFilling = user.Basket.Items.ContainsKey(salmonFilling);
+
+
+
         Assert.Multiple(() =>
         {
             Assert.That(bagelResult, Is.True);
@@ -99,8 +104,8 @@ public class CoreTests {
             Assert.That(salmonFillingResult, Is.True);
             // Filling increases quantity
             Assert.That(everythingBagelResult, Is.False);
-            Assert.That(!user.Basket.Items.ContainsKey(everythingBagel));
-            Assert.That(!user.Basket.Items.ContainsKey(salmonFilling));
+            Assert.That(containsBagel, Is.False);
+            Assert.That(containsFilling, Is.False);
         });
     }
 
@@ -146,8 +151,7 @@ public class CoreTests {
         var filling = inventory.SearchInventory("FILX");
 
         user.Basket.Add(bagel);
-        user.Basket.Remove(filling);
-        var result = user.Basket.Count;
+        var result =  user.Basket.Remove(filling);
 
         Assert.That(result, Is.False);
     }
@@ -165,7 +169,7 @@ public class CoreTests {
 
         Assert.Multiple(() =>
         {
-            Assert.That(user.Basket.Count == 0);
+            Assert.That(user.Basket.Count, Is.EqualTo(0));
             Assert.That(result, Is.True);
         });
     }

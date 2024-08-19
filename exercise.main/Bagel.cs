@@ -12,8 +12,15 @@ namespace BobsBagels.main
         private List<Filling> _fillings = [];
         private float _price = price;
         private static void CalculatePrice() { throw new NotImplementedException();}
-        public bool AddFilling(Filling filling) { throw new NotImplementedException(); }
+        public bool AddFilling(Filling filling) 
+        {
+            if (_fillings.Contains(filling)) return false;
+            _fillings.Add(filling);
+            return true;
+        }
 
-        public bool RemoveFilling(Filling filling) { throw new NotImplementedException (); }
+        public bool RemoveFilling(Filling filling) { throw new NotImplementedException(); }
+
+        public List<Filling> Fillings { get { return _fillings; } }
     }
 }

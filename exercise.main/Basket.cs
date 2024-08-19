@@ -12,15 +12,28 @@
             if (_items.TryGetValue(item, out var value))
             {
                 _count += 1;
-                _items[item] = value + 1;
+                _items[item]++;
                 return true;
             }
+
+            if (item is Bagel bagel)
+                {
+                if (_count + 1 + bagel.Fillings.Count > _capacity) return false;
+                _count += bagel.Fillings.Count;
+
+            }
+
             _items[item] = 1;
-            _count += 1;
+            _count++;
             return true;
         }
         public bool Remove(Item item)
         {
+            if (item is Bagel bagel)
+            {
+                _count -= bagel.Fillings.Count;
+            }
+            _count--;
             return _items.Remove(item);
         }
         public bool ChangeCapacity(User user, int capacity) { throw new NotImplementedException(); }
