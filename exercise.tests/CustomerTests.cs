@@ -12,7 +12,7 @@ public class CustomerTests
         Customer customer = new Customer();
 
         // Execute
-        Bagel bagel = new Bagel { Sku = "BGLO" };
+        Bagel bagel = new Bagel { Sku = "BGLO", Price = 0.49d, Variant = "Onion" };
         Console.WriteLine("HELLO");
         customer.Add(bagel);
 

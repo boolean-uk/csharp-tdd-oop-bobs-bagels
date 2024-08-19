@@ -17,6 +17,7 @@ namespace exercise.main.Items
         public double Price { get => _price; set => _price = value; }
         public string Variant { get => _variant; set => _variant = value; }
 
+        /* MAKES STACK OVERFLOW ERROR
         private List<Item> _inventory = new List<Item>()
         {
             new Bagel {Sku = "BGLO", Price = 0.49d, Variant = "Onion"},
@@ -36,6 +37,7 @@ namespace exercise.main.Items
         };
 
         public List<Item> Inventory { get => _inventory; }
+        */
         #endregion
 
         protected Item()
@@ -51,6 +53,7 @@ namespace exercise.main.Items
 
         protected Item(string skuID) 
         {
+            /*
             foreach (var item in _inventory)
             {
                 if (skuID == item.Sku)
@@ -60,6 +63,7 @@ namespace exercise.main.Items
                     _variant = item.Variant;
                 }
             }
+            */
         }
     }
 }

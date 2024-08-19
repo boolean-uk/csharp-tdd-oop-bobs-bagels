@@ -17,7 +17,8 @@ namespace exercise.main.Persons
         }
         public bool Add(Item item)
         {
-            return _basket.AddItemToBasket(item);
+            bool result = _basket.AddItemToBasket(item);
+            return result;
         }
     }
 }

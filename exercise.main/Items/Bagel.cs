@@ -8,6 +8,7 @@ namespace exercise.main.Items
 {
     public class Bagel : Item
     {
+        
         public Bagel() 
         {
             
