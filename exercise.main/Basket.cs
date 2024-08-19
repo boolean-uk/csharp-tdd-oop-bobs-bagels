@@ -15,6 +15,12 @@ namespace exercise.main
 
         private List<Item> _items;
 
+        public List<Item> Items
+        {
+            get { return _items; }
+  
+        }
+
       
         public Basket(int capacity) { 
             this._items = new List<Item>();
@@ -40,9 +46,15 @@ namespace exercise.main
             return false;
         }
 
-        public double GetPrice(Item item)
+        public double GetPrice()
         {
-            return item.Price;
+            double price = 0;
+            foreach(var product in _items)
+            {
+                price += product.Price;
+            }
+            price = Math.Round(price, 2);
+            return price;
         }
 
         public bool ChangeCapacity(Person person, int newCapacity)
@@ -54,5 +66,7 @@ namespace exercise.main
             }
             return false;
         }
+
+       
     }
 }

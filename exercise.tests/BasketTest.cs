@@ -58,21 +58,19 @@ public class BasketTest
         Filling filling = new Filling("FILB", 0.12, "Filling", "Bacon");
         Bagel bagel1 = new Bagel("BGLP", 0.39, "Bagel", "Plain");
         Basket basket = new Basket(4);
+        basket.AddItem(bagel);
+        basket.AddItem(coffee);
+        basket.AddItem(filling);
+        basket.AddItem(bagel1);
 
-        double price1 = basket.GetPrice(bagel);
-        double price2 = basket.GetPrice(coffee);
-        double price3 = basket.GetPrice(filling);
-        double price4 = basket.GetPrice(bagel1);
+        double price1 = basket.GetPrice();
 
-        double actual1 = 0.49;
-        double actual2 = 0.99;
-        double actual3 = 0.12;
-        double actual4 = 0.39;
+        double actual1 = 0.49 + 0.99 + 0.12 + 0.39;
+        actual1 = Math.Round(actual1, 2);
 
-        Assert.That(price1 == actual1);
-        Assert.That(price2 == actual2);
-        Assert.That(price3 == actual3);
-        Assert.That(price4 == actual4);
+
+        Assert.That(price1, Is.EqualTo(actual1));
+
 
     }
 
@@ -89,5 +87,39 @@ public class BasketTest
 
         Assert.That(changed1 == true);
         Assert.That(changed2 == false);
+    }
+
+    [Test]
+    public void AddDiscountTest()
+    {
+        Bagel bagel1 = new Bagel("BGLE", 0.49, "Bagel", "Everything");
+
+        Basket basket = new Basket(6);
+
+        basket.AddItem(bagel1);
+        basket.AddItem(bagel1);
+        basket.AddItem(bagel1);
+        basket.AddItem(bagel1);
+        basket.AddItem(bagel1);
+        basket.AddItem(bagel1);
+
+        Basket basket1 = new Basket(12);
+
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1); basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+        basket1.AddItem(bagel1);
+
+
+
+        Assert.That(basket.GetPrice, Is.EqualTo(2.49));
+        Assert.That(basket1.GetPrice, Is.EqualTo(3.99));
     }
 }
