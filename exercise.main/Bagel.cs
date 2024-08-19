@@ -74,8 +74,18 @@ namespace exercise.main
                     return true;
                 }
             }
-            return false;
-            
+            return false;  
+        }
+
+        public double GetPrice()
+        {
+            double price = this._price;
+
+            foreach (var item in _fillings)
+            {
+                price += item.Price;
+            }
+            return price;
         }
     }
 }

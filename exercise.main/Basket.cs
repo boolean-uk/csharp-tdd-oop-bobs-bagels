@@ -38,6 +38,7 @@ namespace exercise.main
 
         public bool RemoveItem(Item item)
         {
+
             if (_items.Contains(item))
             {
                 _items.Remove(item);
@@ -49,12 +50,30 @@ namespace exercise.main
         public double GetPrice()
         {
             double price = 0;
+            
             foreach(var product in _items)
             {
                 price += product.Price;
+
             }
             price = Math.Round(price, 2);
+
+            
             return price;
+        }
+
+        public double GetDiscountPrice(Basket basket)
+        {
+            List<Item> bagels = new List<Item>();
+            bagels = _items.Where(x => x.GetType() == typeof(Bagel)).ToList();
+
+            int numberOfBagels = bagels.Count;
+            int numberOfTwelves = numberOfBagels / 12;
+            int numberOfSix = numberOfBagels / 6;
+
+
+            return 0.0;
+
         }
 
         public bool ChangeCapacity(Person person, int newCapacity)

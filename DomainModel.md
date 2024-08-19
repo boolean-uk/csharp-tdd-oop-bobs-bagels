@@ -62,7 +62,7 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Basket		` | `ChangeCapacity()						`	| If manager, change capacity		 |(bool) Returns true if changed, false if not		|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `PrintCost(Item item)					`	| Prints price of item				 |(void) Prints cost of Bagel						|
+| `Basket		` | `GetPrice()								`	| returns price of basket			 |(void) Cost of basket								|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
 | `Basket		` | `AddFilling(Item item)					`	| Print cost, Add filling to bagel	 |(void) Prints a statement that it was added		|
@@ -75,3 +75,14 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
 
+Extension: 
+
+
+| Classes         | Methods                                     | Scenario							 |			  Outputs								|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Receipt		` | `GetReceipt(Basket basket)				`	| Prints a receipt of items			 |(void)											|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Basket		` | `GetPrice()								`	| returns price of basket			 |(void) Cost of basket, with discount				|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|

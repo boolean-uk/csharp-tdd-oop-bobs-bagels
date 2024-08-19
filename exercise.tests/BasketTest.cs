@@ -89,37 +89,35 @@ public class BasketTest
         Assert.That(changed2 == false);
     }
 
-    [Test]
-    public void AddDiscountTest()
+    [TestCase (6, 0, 0, 2.49)] //6 Bagels, 0 Coffees, 50Fillings
+    public void AddDiscountTest(int numberOfBagels, int numberOfCoffee, int numberOfFilling, double expected)
     {
+
+
         Bagel bagel1 = new Bagel("BGLE", 0.49, "Bagel", "Everything");
+        Coffee coffee = new Coffee("COFB", 0.99, "Coffee", "Black");
+        Filling filling = new Filling("FILB", 0.12, "Filling", "Bacon");
+        Basket basket = new Basket(100);
 
-        Basket basket = new Basket(6);
+        for (int i = 0; i < numberOfBagels; i++)
+        {
+            basket.AddItem(bagel1);
+        }
 
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel1);
-        basket.AddItem(bagel1);
+        for (int i = 0; i < numberOfCoffee; i++)
+        {
+            basket.AddItem(coffee);
+        }
 
-        Basket basket1 = new Basket(12);
+        for (int i = 0; i < numberOfFilling; i++)
+        {
+            bagel1.AddFilling(filling.Name);
+        }
 
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1); basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
-        basket1.AddItem(bagel1);
+        double actualPrice = basket.GetDiscountPrice(basket);
 
 
 
-        Assert.That(basket.GetPrice, Is.EqualTo(2.49));
-        Assert.That(basket1.GetPrice, Is.EqualTo(3.99));
+        Assert.That(actualPrice, Is.EqualTo(expected));
     }
 }
