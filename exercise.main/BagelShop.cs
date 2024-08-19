@@ -43,11 +43,11 @@ namespace exercise.main
             bool result3 = basket.Add("BGLE", 6);
             bool result4 = basket.Add("COFB", 3);
 
-            var sb = ReceiptPrinter(basket);
+            var sb = shop.ReceiptPrinter(basket);
             Console.WriteLine(sb);
         }
 
-        public static StringBuilder ReceiptPrinter(Basket basket)
+        public StringBuilder ReceiptPrinter(Basket basket)
         {
             var sb = new StringBuilder();
             Dictionary<string, ProductOrder> orders = basket.ProductOrders;

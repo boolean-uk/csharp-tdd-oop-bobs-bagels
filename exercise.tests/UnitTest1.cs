@@ -206,7 +206,7 @@ public class Tests
         bool result3 = basket.Add("BGLE", 6);
         bool result4 = basket.Add("COFB", 3);
 
-        var sb = BagelShop.ReceiptPrinter(basket);
+        var sb = shop.ReceiptPrinter(basket);
 
         Assert.That(sb.ToString().Contains("Bob's Bagels"));
         Assert.That(sb.ToString().Contains("Onion Bagel"));
@@ -228,7 +228,7 @@ public class Tests
         bool result3 = basket.Add("BGLE", 6);
         bool result4 = basket.Add("COFB", 3);
 
-        var sb = BagelShop.ReceiptPrinter(basket);
+        var sb = shop.ReceiptPrinter(basket);
 
         Assert.That(sb.ToString().Contains("(-£"));
         Assert.That(sb.ToString().Contains("You saved a total of £"));
