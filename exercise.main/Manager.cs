@@ -143,7 +143,6 @@ namespace exercise.main
 
         public float checkout(Basket basket) //might work
         {
-            float totalCost = 0;
             //List<Product> elligebleForDiscount = (List<Product>)basket.getProductsInBasket().Where(item => basket.getProductsInBasket().Any(z => z.SKU == item.SKU));
 
 
@@ -213,17 +212,16 @@ namespace exercise.main
 
             copyList.Count();
 
-
-            if (basket.getProductsInBasket().Count > 0) { 
-            
-
-            }
-
-            basket.getProductsInBasket().ForEach(product => totalCost += product.price);
+            float totalCost = 0;
 
             productsThatMatch.ForEach(product => totalCost += product.Item3);
+            copyList.ForEach(product => totalCost += product.price);
 
+            //basket.getProductsInBasket().ForEach(product => totalCost += product.price);
 
+            //productsThatMatch.ForEach(product => totalCost += product.Item3);
+
+            Console.WriteLine(totalCost);
 
 
 

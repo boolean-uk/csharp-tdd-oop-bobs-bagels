@@ -289,7 +289,7 @@ public class Tests
         customer.GetBagelStore().getManager().changeBasketCapacity(20);
         customer.grabBasket();
 
-        customer = addBagel(customer, 18, "BGLP");
+        customer = addBagel(customer, 20, "BGLP");
 
         customer.checkout();
 
