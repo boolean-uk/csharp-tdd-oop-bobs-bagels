@@ -53,7 +53,7 @@ namespace exercise.main
         public List<Product> GetBasket() { return basket; }
 
         public int GetBasketMaxSize() { return basketMaxSize; }
-        public void SetBasketMaxSize(int basketMaxSize) { this.basketMaxSize = basketMaxSize; };
+        public void SetBasketMaxSize(int basketMaxSize) { this.basketMaxSize = basketMaxSize; }
 
         public float GetCost()
         {

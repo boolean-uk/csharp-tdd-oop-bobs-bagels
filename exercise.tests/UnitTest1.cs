@@ -1,4 +1,5 @@
 using exercise.main;
+using System.Xml.Serialization;
 using static NUnit.Framework.Internal.OSPlatform;
 
 namespace exercise.tests;
@@ -10,15 +11,21 @@ public class Tests
     {
     }
 
-    [Test]
-    public void AddToBasket()
+    public Customer createCustomerAndItems()
     {
         Customer p = new Customer("Tom");
         p.addItemToBascet(productType.BGLO);
+        p.addItemToBascet(productType.COFB);
+        p.addItemToBascet(productType.COFB);
+        p.addItemToBascet(productType.FILS);
+        return p;
+    }
+
+    [Test]
+    public void AddToBasket()
+    {
+        Customer p = createCustomerAndItems();
         Assert.True(p.addItemToBascet(productType.BGLE));
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
         Assert.False(p.addItemToBascet(productType.FILS));
 
     }
@@ -26,15 +33,12 @@ public class Tests
     [Test]
     public void RemoveFromBasket()
     {
-        Customer p = new Customer("Tom");
-        p.addItemToBascet(productType.BGLO);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
+        Customer p = createCustomerAndItems();
         Product item = new Product(productType.COFB);
         p.addItemToBascet(item);
-        Assert.True(p.GetBasket().Count == 4);
+        Assert.True(p.GetBasket().Count == 5);
         Assert.True(p.removeItemFromBasket(item));
-        Assert.True(p.GetBasket().Count == 3);
+        Assert.True(p.GetBasket().Count == 4);
 
     }
 
