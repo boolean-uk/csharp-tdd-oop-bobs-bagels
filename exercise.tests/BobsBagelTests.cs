@@ -103,4 +103,16 @@ public class BobsBagelTests
 
         Assert.That(acutalResult, Is.EqualTo(expectedResult));
     }
+
+    [Test]
+    public void TestGetPriceFromItem()
+    {
+        Item item = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        
+        float expectedResult = 0.39f;
+
+        float acutalResult = item.Price;
+
+        Assert.That(acutalResult, Is.EqualTo(expectedResult));
+    }
 }

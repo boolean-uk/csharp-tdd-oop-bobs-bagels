@@ -55,12 +55,15 @@ namespace exercise.main
             {
                 Console.Write($"| {item.SKU} ");
                 Console.Write("| {0:C2} ", item.Price.ToString("C", new CultureInfo("en-GB")));
+
                 Console.Write("| {0} ", item.Name.Length > 8 ? item.Name.Substring(0, 8) : item.Name);
                 int spacesAmount = 7 - item.Name.Length;
                 for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
+                
                 Console.Write("| {0} ", item.Variant.Length > 11 ? item.Variant.Substring(0, 11) : item.Variant);
                 spacesAmount = 11 - item.Variant.Length;
                 for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
+
                 Console.Write("|\n");
             }
             return true;

@@ -23,4 +23,4 @@
 | `BobsBagelStore` | `List<Item> _inventory` | `GetItem(string sku)` | Get item from inventory | `true` |
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products in store to choose wanted name and variant | `Console + bool` |
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products with prices | `Console + bool` |
-| `Item` | float price |  | Get price of item | `float` |
+| `Item` | float Price |  | Get price of item | `float` |
