@@ -233,6 +233,7 @@ public class Tests
         Manager manager = new Manager();
         manager.ChangeBasketSize(15);
         Customer customer = new Customer(manager, 3.50f);
+        customer.Add(manager, product, amount);
 
         //act
         float result = customer.TotalCost();
