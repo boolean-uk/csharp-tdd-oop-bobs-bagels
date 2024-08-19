@@ -50,6 +50,11 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory. 
 
 
+-----------------------------------------------------
+## EXTENSIONS
+
+1. 
+
 
 | Classes         | Methods                                            | Scenario											| Outputs    |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
@@ -72,7 +77,6 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 | `RemoveBagelOrItem(Item item)`					   | User can remove bagel from basket					| bool       |
 |                 |													   | No bagel found to remove (message)					| bool       |
 |                 |                                                    |								                    |            |
-|                 | `public bool basketIsFull`                         | Property to check if basket is full				| bool       |
 |                 | `public int MaxBasketSize { get; set; } = int`     | Property for holding and setting full basket value | int        |
 |                 |                                                    |								                    |            |
 |                 |                                                    |								                    |            |
@@ -85,4 +89,16 @@ I want customers to only be able to order things that we stock in our inventory.
 |                 | `GetPriceOfItem(Item item)`                        | User can see the price of a specific item          | Double     |
 |                 |                                                    |								                    |            |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|                 |                                                    |								                    |            |
+|-----------------|----------------------------------------------------|----------------------------------------------------|------------|
+
 
