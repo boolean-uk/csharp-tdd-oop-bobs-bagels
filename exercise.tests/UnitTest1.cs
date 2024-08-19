@@ -217,6 +217,24 @@ public class Tests
     }
 
     [Test]
+    public void ReceiptDiscountTest()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(100);
+
+        bool result1 = basket.Add("BGLO", 2);
+        bool result2 = basket.Add("BGLP", 12);
+        bool result3 = basket.Add("BGLE", 6);
+        bool result4 = basket.Add("COFB", 3);
+
+        var sb = BagelShop.ReceiptPrinter(basket);
+
+        Assert.That(sb.ToString().Contains("(-£"));
+        Assert.That(sb.ToString().Contains("You saved a total of £"));
+    }
+
+    [Test]
     public void InventoryTest()
     {
         List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];
