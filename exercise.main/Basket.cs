@@ -63,7 +63,7 @@ namespace exercise.main
 
         public double checkTotal()
         {
-            throw new NotImplementedException();
+            return yourBasket.Sum(item => item.price);
         }
     }
 }
