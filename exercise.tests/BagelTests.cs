@@ -247,6 +247,7 @@ public class Tests
     [TestCase("BGLS", 5, "COFC", 5, 7.75f)]
     public void CombinationTest(string product1, int amount1, string product2, int amount2, float expectedPrice)
     {
+        //arrange
         Manager manager = new Manager();
         manager.ChangeBasketSize(20);
         Customer customer = new Customer(manager, 3.50f);
