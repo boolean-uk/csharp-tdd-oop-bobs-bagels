@@ -52,7 +52,39 @@ namespace exercise.main
             return false;
         }
 
-        public int MaxCapacity { get; set; } = 5;
+        public void PrintReceipt()
+        {
+
+            List<Product> uniqueProduct = _productList.Distinct().ToList();
+
+
+            Console.WriteLine("    ~~~ Bob's Bagels ~~~    ");
+            Console.WriteLine("");
+            Console.WriteLine($"   {DateTime.Now}");
+            Console.WriteLine($"");
+            Console.WriteLine($"----------------------------");
+            Console.WriteLine($"");
+
+            int numOfItems = 0;
+            decimal totalCost = 0;
+            //Loop that prints items in basket
+            foreach(Product p in uniqueProduct)
+            {
+                numOfItems = _productList.Where(prod => p.SKU == prod.SKU).Count();
+                Console.WriteLine($"{p.Variant} {p.Name}\t{numOfItems}\t{p.Price * (numOfItems)}$");
+                totalCost += p.Price;
+            }
+
+            Console.WriteLine($"");
+            Console.WriteLine($"----------------------------");
+            Console.WriteLine($"Total\t\t\t{totalCost}$");
+            Console.WriteLine($"        Thank you        ");
+            Console.WriteLine($"      for your order!      ");
+            
+        }
+
+        public int MaxCapacity { get; set; } = 10;
+        
 
         public List<Product> ProductList { get { return _productList; } }
 
