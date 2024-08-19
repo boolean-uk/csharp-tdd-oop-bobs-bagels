@@ -73,7 +73,7 @@ public class CoreTests
         Basket basket = new Basket();
         basket.AddProduct("COFC"); //1.29
         basket.AddProduct("COFB"); //0.99
-        Console.WriteLine(basket.GetTotalCost());
+
         Assert.IsTrue(basket.GetTotalCost() == 2.28m);
     }
 
@@ -87,4 +87,15 @@ public class CoreTests
         Assert.IsTrue(basket.GetPrice("FILX") == 0.12m);
         Assert.IsTrue(basket.GetPrice("COFW") == 1.19m);
     }
+
+    [Test]
+    public void GetFillingsPrice()
+    {
+        var fillingsPrices = _inventory.GetFillingsPriceList();
+
+        Assert.IsTrue(fillingsPrices.Count() == 6);
+        Assert.IsTrue(fillingsPrices["Ham"] == 0.12m);
+    }
+
+
 }
