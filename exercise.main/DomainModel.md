@@ -6,7 +6,7 @@
 |            |                                                     | Item is not in basket | bool (false) |
 |            | GetItemPrice(string sku)	                           |                       | float        |
 |            | GetTotalCost()                                      |                       | float        |
-|            | changeBasketCapacity(int newCapacity)               | User is manager       | bool (true)  |
+|            | ChangeBasketCapacity(int newCapacity)               | User is manager       | bool (true)  |
 |            |                                                     | User is not manager   | bool (false) |
 | Basket	 | int BasketCapacity                                  |                       |              |
 |            | int TotalCost                                       |                       |              |
