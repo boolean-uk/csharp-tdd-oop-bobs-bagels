@@ -17,8 +17,14 @@ namespace exercise.main.Persons
         }
         public bool Add(Item item)
         {
-            bool result = _basket.AddItemToBasket(item);
-            return result;
+            if (_basket.Capacity <= 0)
+            {
+                return false;
+            } else
+            {
+                _basket.AddItemToBasket(item);
+                return true;
+            }
         }
     }
 }
