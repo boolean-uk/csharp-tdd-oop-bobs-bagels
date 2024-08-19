@@ -100,7 +100,7 @@ public class Tests
     }
 
     [Test]
-    public void GetPriceOfItem()
+    public void GetPriceOfItemTest()
     {
         Basket basket = new Basket();
 
@@ -109,12 +109,11 @@ public class Tests
         Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
         Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
 
-        basket.addItem(plainBagel);
-        basket.addItem(blackCoffe);
+        Item wrongBagel = new Item("BGLW", 0.40, "Cake", "Wrong");
 
-        double expected = blackCoffe.price;
+        double expected = plainBagel.price;
 
-        double result = basket.getPriceOfItem(blackCoffe);
+        double result = basket.getPriceOfItem(plainBagel);
        
         Assert.That(expected == result);
     }

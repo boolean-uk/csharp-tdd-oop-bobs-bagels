@@ -87,9 +87,15 @@ namespace exercise.main
             return basketItems.Sum(item => item.price);
         }
 
-        public double getPriceOfItem(Item blackCoffe)
+        public double getPriceOfItem(Item item)
         {
-            throw new NotImplementedException();
+            if (!inventory.getInventory().Any(x => Equals(x, item)))
+            {
+                Console.WriteLine($"{item.name} {item.variant} not in Bobs inventory");
+                return -1;
+            }
+
+            return item.price;
         }
     }
 }
