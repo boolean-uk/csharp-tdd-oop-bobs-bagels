@@ -8,6 +8,8 @@ namespace exercise.main.Items
 {
     public class Bagel : Item
     {
+        private List<Filling> _fillings =  new List<Filling>();
+        public List<Filling> Fillings { get => _fillings; }
         
         public Bagel() 
         {

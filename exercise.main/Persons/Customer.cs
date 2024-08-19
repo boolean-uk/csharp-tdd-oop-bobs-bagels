@@ -34,5 +34,10 @@ namespace exercise.main.Persons
         {
             return item.Price;
         }
+
+        public bool AddFillingToBagel(Bagel bagel, Filling filling)
+        {
+            return _basket.AddFillingToBagel(bagel, filling);
+        }
     }
 }

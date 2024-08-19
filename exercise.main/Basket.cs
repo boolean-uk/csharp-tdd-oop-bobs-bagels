@@ -43,5 +43,19 @@ namespace exercise.main
             }
             
         }
+
+        public bool AddFillingToBagel(Bagel bagel, Filling filling)
+        {
+            foreach (var item in _itemsInBasket)
+            {
+                if (item.Sku == bagel.Sku)
+                {
+                    bagel.Fillings.Add(filling);
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

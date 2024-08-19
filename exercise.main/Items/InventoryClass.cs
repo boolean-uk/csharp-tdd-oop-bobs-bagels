@@ -28,9 +28,19 @@ namespace exercise.main.Items
 
         public List<Item> Inventory { get => _inventory; }
 
-        public Item GetItemBySkuID (string skuID)
+        public Filling GetFillingBySkuID (string skuID)
         {
-            return _inventory.First(i => i.Sku == skuID);
+            return (Filling)_inventory.First(i => i.Sku == skuID);
+        }
+
+        public Bagel GetBagelBySkuID(string skuID)
+        {
+            return (Bagel)_inventory.First(i => i.Sku == skuID);
+        }
+
+        public Coffee GetCoffeeBySkuID(string skuID)
+        {
+            return (Coffee)_inventory.First(i => i.Sku == skuID);
         }
     }
 }
