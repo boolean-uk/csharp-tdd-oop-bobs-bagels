@@ -73,7 +73,7 @@ public class Tests
         bool manager = true;
         Basket basket = new Basket();
 
-        bool CanChangeCap = basket.ChangeCapacity();
+        bool CanChangeCap = basket.ChangeCapacity(5, manager);
 
         Assert.That(CanChangeCap, Is.True);
 

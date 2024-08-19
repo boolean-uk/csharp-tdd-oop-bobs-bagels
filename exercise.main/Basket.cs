@@ -48,9 +48,14 @@ namespace exercise.main
             return false;
         }
 
-        public bool ChangeCapacity()
+        public bool ChangeCapacity(int capacity, bool isManager)
         {
-            throw new NotImplementedException();
+            if (isManager) 
+            { 
+                BasketCapacity = capacity;
+                return true;
+            }
+            return false;
         }
 
         public bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
