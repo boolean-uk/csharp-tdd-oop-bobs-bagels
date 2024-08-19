@@ -65,7 +65,7 @@ namespace exercise.main
         public float checkout() //with discounts
         {
             float totalCost = _bagelStore.getManager().checkout(_basket);
-            return totalCost;
+            return totalCost = (float)Math.Round(totalCost,2);
         }
 
         //add lamdas to experiment

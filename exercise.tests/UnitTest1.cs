@@ -287,8 +287,11 @@ public class Tests
 
         customer = addBagel(customer, 20, "BGLP");
 
-        customer.checkout();
+        float totalCost = customer.checkout();
 
-        Assert.Pass();
+        //Console.WriteLine(totalCost);
+        //Console.WriteLine(0.39f * 2.0f + 2.49f + 3.99f);
+
+        Assert.That(totalCost == 0.39f * 2.0f + 2.49f + 3.99f);
     }
 }
