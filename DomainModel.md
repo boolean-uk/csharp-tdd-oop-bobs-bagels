@@ -1,4 +1,4 @@
-# Domain Model
+# Domain Model - Core
 
 - As a member of the public, So I can order a bagel before work, I'd like to add a specific type of bagel to my basket.
 - As a member of the public, So I can change my order, I'd like to remove a bagel from my basket.
@@ -24,3 +24,15 @@
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products in store to choose wanted name and variant | `Console + bool` |
 | `BobsBagelStore` | `List<Item> _inventory` | `ViewInventory()` | View products with prices | `Console + bool` |
 | `Item` | float Price |  | Get price of item | `float` |
+
+
+# Domain Model - Extension 2: Receipts
+- As a customer, So i know which items im paying for, I'd like to get a receipt when checking out with the items in my basket.
+- As a customer, So i know how much money i need to pay, I'd like get a total sum of the cost of all the items in my receipt.
+- As a manager, So i know how the business of the store is going, I'd like to view total profit from customers today.
+
+| **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |
+|:--:|:--:|:--:|:--:|:--:|
+| `Receipt` | `List<Tuple<string, int, float>> _items (string=nameOfItem, int=amountOfItems, float=costOfItem` | `AddItem(Item item)` | Add item to receipt | `true` |
+| `Receipt` | `List<Tuple<string, int, float>> _items (string=nameOfItem, int=amountOfItems, float=costOfItem` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console + bool` |
+| `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + bool` |

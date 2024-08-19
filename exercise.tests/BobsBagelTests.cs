@@ -84,7 +84,7 @@ public class BobsBagelTests
         store.StockUpInventory();
 
         Item? actualResult = store.GetItem(sku);
-        
+
         Assert.That((actualResult != null) == expectedBoolResult);
         if (actualResult != null)
         {

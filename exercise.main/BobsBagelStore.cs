@@ -49,8 +49,9 @@ namespace exercise.main
 
         public bool ViewInventory()
         {
-            Console.WriteLine("| SKU  | Price |   Name  |   Variant   |");
-            Console.WriteLine("|------|-------|---------|-------------|");
+            Console.WriteLine("| SKU  | Price |   Name  |    Variant    |");
+            Console.WriteLine("|------|-------|---------|---------------|");
+
             foreach (Item item in _inventory)
             {
                 Console.Write($"| {item.SKU} ");
@@ -60,8 +61,8 @@ namespace exercise.main
                 int spacesAmount = 7 - item.Name.Length;
                 for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
                 
-                Console.Write("| {0} ", item.Variant.Length > 11 ? item.Variant.Substring(0, 11) : item.Variant);
-                spacesAmount = 11 - item.Variant.Length;
+                Console.Write("| {0} ", item.Variant.Length > 13 ? item.Variant.Substring(0, 13) : item.Variant);
+                spacesAmount = 13 - item.Variant.Length;
                 for (int i = 0; i < spacesAmount; i++) { Console.Write(" "); }
 
                 Console.Write("|\n");

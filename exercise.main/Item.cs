@@ -8,10 +8,10 @@ namespace exercise.main
 {
     public class Item
     {
-        private string _sku = string.Empty;
+        private string _sku;
         private float _price;
-        private string _name = string.Empty;
-        private string _variant = string.Empty;
+        private string _name;
+        private string _variant;
 
         public Item(string sku, float price, string name, string variant)
         {
