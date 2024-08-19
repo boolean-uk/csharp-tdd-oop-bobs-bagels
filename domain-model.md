@@ -41,11 +41,12 @@
 ### Overview of Classes
 | **Classes** | Properties |
 |:---:|:---:|
-|`Shop`| List\<Item> _inventory_, List\<Person> _people_ |
+|`Shop`| ShopInventory _shopInventory_, List\<Person> _people_ |
+|`ShopInventory`| List\<Item> _inventory_ |
 |`Person`| string _name_, bool _isManager_ |
 |`Manager : Person`|  |
 |`Customer : Person`| Basket _basket_ |
-|`Basket`| List\<Item> _itemsInBasket_ |
+|`Basket`| List\<Item> _itemsInBasket_, int _capacity_ |
 |`Item`| string _SKU_, int _price_, string _variant_ |
 |`Bagel : Item`| List\<Filling> _bagelFillings_ |
 |`Filling : Item`|  |
