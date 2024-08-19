@@ -32,17 +32,17 @@ namespace exercise.main.Items
 
         public Filling GetFillingBySkuID (string skuID)
         {
-            return (Filling)_inventory.First(i => i.Sku == skuID);
+            return (Filling)_inventory.First(item => item.Sku == skuID);
         }
 
         public Bagel GetBagelBySkuID(string skuID)
         {
-            return (Bagel)_inventory.First(i => i.Sku == skuID);
+            return (Bagel)_inventory.First(item => item.Sku == skuID);
         }
 
         public Coffee GetCoffeeBySkuID(string skuID)
         {
-            return (Coffee)_inventory.First(i => i.Sku == skuID);
+            return (Coffee)_inventory.First(item => item.Sku == skuID);
         }
     }
 }
