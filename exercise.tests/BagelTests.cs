@@ -224,4 +224,21 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedPrice));
     }
 
+    [TestCase("BGLO", 6, 2.49f)]
+    [TestCase("BGLE", 12, 3.99f)]
+    [TestCase("BGLO", 13, 4.48f)]
+    public void DiscountTest(string product, int amount, float expectedPrice)
+    {
+        //arrange
+        Manager manager = new Manager();
+        manager.ChangeBasketSize(15);
+        Customer customer = new Customer(manager, 3.50f);
+
+        //act
+        float result = customer.TotalCost();
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedPrice));
+    }
+
 }
