@@ -26,7 +26,7 @@ User Stories
 
 | BobsInventory | List<InventoryItem> BobsInventory		| 																		| list of available inventory items			| BobsInventory
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| BobsInventory | double CostofItem { get; set;}		| 																		| property to get cost of item				| CostofItem
+| BobsInventory | double CostofItem { get; set; }		| 																		| property to get cost of item				| CostofItem
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 | Basket		| List<InventoryItem> Basket			| AddItem(InventoryItem)												| if basket is not full add bagel			| True
@@ -46,7 +46,7 @@ User Stories
 | Basket		|										| ChangeCapacity(int capacity, bool IsManager)							| if IsManager is true set new capacity		| BasketCapacity
 | Basket		|										|																		| if IsManager is false	don't change		| BasketCapacity
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| double TotalCost{ get; set;}			| 																		| property to get cost of basket			| TotalCost
+| Basket		| double TotalCost{ get; set; }			| 																		| property to get cost of basket			| TotalCost
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Basket		|										| TotalCostofBasket()													| adds up cost of items in basket			| TotalCost
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

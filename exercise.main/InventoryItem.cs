@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class InventoryItem(string sku, double price, string name, string variant)
+    public class InventoryItem
     {
-        public string SKU { get; set; } = sku;
 
-        public double Price { get; set; } = price;
+        public InventoryItem(string sku, double price, string name, string variant)
+        {
+            SKU = sku;
+            Price = price;
+            Name = name;
+            Variant = variant;
 
-        public string Name { get; set; } = name;
+        }
 
-        public string Variant { get; set; } = variant;
+        public string SKU { get; set; }
+
+        public double Price { get; set; }
+
+        public string Name { get; set; }
+
+        public string Variant { get; set; }
+
     }
 }

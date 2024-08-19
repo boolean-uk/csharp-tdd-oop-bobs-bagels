@@ -17,7 +17,14 @@ public class Tests
     [Test]
     public void AddItemToBasketTest()
     {
-        Assert.Pass();
+        string variant = "Onion";
+        bool expected = true;
+        Basket basket = new Basket();
+
+        bool actuallyAdded = basket.AddItem(variant);
+
+        Assert.That(actuallyAdded, Is.EqualTo(expected));
+
     }
 
     //2. As a member of the public, So I can change my order, I'd like to remove a bagel from my basket.
@@ -25,7 +32,7 @@ public class Tests
     [Test]
     public void RemoveItemFromBasketTest()
     {
-
+        Assert.Fail();
     }
 
     //3. As a member of the public, So that I can not overfill my small bagel basket, I'd like to know when my  basket is full when I try adding an item beyond my basket capacity.
@@ -33,7 +40,7 @@ public class Tests
     [Test]
     public void BasketIsFullTest()
     {
-
+        Assert.Fail();
     }
 
 
@@ -42,7 +49,7 @@ public class Tests
     [Test]
     public void CanChangeCapacityTest()
     {
-
+        Assert.Fail();
     }
 
 
@@ -51,7 +58,7 @@ public class Tests
     [Test]
     public void ItemIsNotInBasketTest()
     {
-
+        Assert.Fail();
     }
     
 
@@ -60,7 +67,7 @@ public class Tests
     [Test]
     public void TotalCostofBasketTest()
     {
-
+        Assert.Fail();
     }
 
     //7. As a customer, So I know what the damage will be, I'd like to know the cost of a bagel before I add it to my basket.
@@ -69,7 +76,7 @@ public class Tests
     [Test]
     public void GetCostofItemTest()
     {
-
+        Assert.Fail();
     }
 
     //10. As a manager, So we don't get any weird requests, I want customer to only be able to order things that we stock in our inventory.
@@ -77,7 +84,7 @@ public class Tests
     [Test]
     public void CanOrderFromInventoryTest()
     {
-
+        Assert.Fail();
     }
    
 }
