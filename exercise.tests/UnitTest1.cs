@@ -57,15 +57,11 @@ public class Tests
     [Test]
     public void ChangeCapacityOfBasket()
     {
-        Customer p = new Customer("Tom");
-        p.addItemToBascet(productType.BGLO);
-        p.addItemToBascet(productType.COFB);
-        p.addItemToBascet(productType.COFB);
+        Customer p = createCustomerAndItems();
         Assert.True(p.GetBasketMaxSize() == 5);
         Manager M = new Manager("Manager");
         M.SetMaxSize(10, p);
         Assert.True(p.GetBasketMaxSize() == 10);
-
 
     }
 }   

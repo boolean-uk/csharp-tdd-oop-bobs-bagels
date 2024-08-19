@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Manager : Person
+    public class Manager
     {
-        public Manager(string name) : base(name)
-        { }
+        private int id;
+        private string name;
+        public Manager(string name)
+        {
+            this.id = GetHashCode();
+            this.name = name;
+                       
+        }
         public void SetMaxSize(int max, Customer c) => c.SetBasketMaxSize(max);
     }
     

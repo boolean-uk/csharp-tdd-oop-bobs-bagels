@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Customer : Person
+    public class Customer 
     {
         private List<Product> basket;
         protected int basketMaxSize;
+        private string name;
 
-        public Customer(string name) : base(name)
+        public Customer(string name)
         {
             this.basket = new List<Product>();
             this.basketMaxSize = 5;
+            this.name = name;
         }
 
         public bool addItemToBascet(productType p)
@@ -65,7 +68,5 @@ namespace exercise.main
 
             return cost;
         }
-
-
     }
 }
