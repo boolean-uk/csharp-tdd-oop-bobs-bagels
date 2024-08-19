@@ -18,7 +18,7 @@ namespace exercise.main
 
         public bool AddItem(string variant)
         {
-            bool IsInInventory = BobsInventory._Bobsinventory.Any(x => x.Variant == variant);
+            bool IsInInventory = BobsInventory._Bobsinventory.Any(item => item.Variant == variant);
 
             if (!IsInInventory) 
             {
@@ -38,7 +38,14 @@ namespace exercise.main
 
         public bool RemoveItem(string variant)
         {
-            throw new NotImplementedException();
+            bool IsInBasket = _Basket.Any(item => item.Variant == variant);
+
+            if (IsInBasket) 
+            {
+                _Basket.Remove(_Basket.First(item => item.Variant == variant));
+                return true;
+            }
+            return false;
         }
     }
 }
