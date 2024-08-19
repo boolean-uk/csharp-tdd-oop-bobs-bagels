@@ -12,11 +12,14 @@ namespace exercise.main
         //public List<ChosenItem> items;
         private double _total;
 
+        private int _cap;
+        private string? _capnotice;
+
         public Dictionary<int, List<Item>> BasketItems = new();
 
         public void AddToBasket(int id, List<Item> item) 
         {
-            BasketItems.Add(id, item);
+                BasketItems.Add(id, item);
         }
 
         public void RemoveFromBasket(int id)
@@ -68,6 +71,10 @@ namespace exercise.main
         }
 
         public double Total { get => _total; set => _total = value; }
+
+        public int Cap { get => _cap; set => _cap = value;}
+
+        public string CapNotice { get => _capnotice; set => _capnotice = value; }
     
     }
 }

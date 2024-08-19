@@ -29,6 +29,8 @@ public class Tests
     [Test]
     public void AddToBasketTest() 
     {
+        selections.Clear();
+
         Basket Basket = new Basket ();
         Bagel NewBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
@@ -40,7 +42,6 @@ public class Tests
         bool result = Basket.BasketItems.ContainsKey(0);
 
         Assert.IsTrue(result);
-        selections.Clear();
     }
 
     //Bagel with 1 filling
@@ -48,6 +49,8 @@ public class Tests
     public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant)
     {
         // arrange
+        selections.Clear();
+
         Basket Basket = new Basket ();
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
@@ -70,7 +73,6 @@ public class Tests
         string result = Basket.PrintBasket();
 
         Assert.IsTrue(expected == result);
-        selections.Clear();
     }
 
     //Bagel with several fillings
@@ -78,6 +80,8 @@ public class Tests
     public void MakeBagelTestWithSeveralFillings(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant, string fillingsku2, double fillingprice2, string fillingname2, string fillingvariant2)
     {
         // arrange
+        selections.Clear();
+
         Basket Basket = new Basket();
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
@@ -102,13 +106,14 @@ public class Tests
         string result = Basket.PrintBasket();
 
         Assert.IsTrue(expected == result);
-        selections.Clear();
     }
 
     //Basket total amount Test
     [Test]
     public void BasketTotalTest()
     {
+        selections.Clear();
+
         Basket ThisBasket = new Basket();
 
         Bagel PlainBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
@@ -133,12 +138,12 @@ public class Tests
         double result = ThisBasket.BasketTotal();
 
         Assert.IsTrue(expected == result);
-        selections.Clear();
     }
 
     [Test]
     public void RemoveBagelTest()
     {
+        selections.Clear();
         Basket Basket = new Basket();
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
@@ -158,7 +163,36 @@ public class Tests
 
         Assert.IsTrue(expected == result);
 
+    }
+
+    [Test]
+    public void CapTest()
+    {
+        //arrange
+        Basket Basket = new Basket();
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+        List<Filling> fillings = new List<Filling>();
+        Filling Bacon = new Filling("FILB", 0.12, "Filling", "Bacon");
+        fillings.Add(Bacon);
+        BaconBagel = ChosenItem.AddFillings(BaconBagel, fillings);
+
+        string expected = "Your basket is full";
+        Basket.Cap = 4;
+
+        //act
+        selections.Add(BaconBagel); selections.Add(Bacon);
+        Basket.AddToBasket(0, selections);
+        Basket.AddToBasket(1, selections);
+        Basket.AddToBasket(2, selections);
+        Basket.AddToBasket(3, selections);
+        Basket.AddToBasket(4, selections);
+
+        string result = Basket.CapNotice;
+
+        Assert.IsTrue(expected == result);
+
 
     }
+
 
 }
