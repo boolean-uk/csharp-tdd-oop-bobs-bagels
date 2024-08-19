@@ -115,4 +115,18 @@ public class BobsBagelTests
 
         Assert.That(acutalResult, Is.EqualTo(expectedResult));
     }
+
+    [Test]
+    public void TestAddItemToReceipt()
+    {
+        Receipt receipt = new Receipt();
+        Item item = new Item("BGLP", 0.39f, "Bagel", "Plain");
+
+
+        bool expectedResult = true;
+
+        bool acutalResult = receipt.AddItem(item);
+
+        Assert.That(acutalResult, Is.EqualTo(expectedResult));
+    }
 }
