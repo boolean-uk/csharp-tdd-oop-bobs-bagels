@@ -60,12 +60,27 @@ public class Tests
 
         Assert.That(basket.MAX_BASKET_SIZE == 4);
 
+        //someone who isnt the manager tries to change the basket properties
         Person notManager = new Person("Dennis", Role.CUSTOMER);
         basket.changeCapacity(3, notManager);
         Assert.That(basket.MAX_BASKET_SIZE == 4);
 
-
     }
 
+    [Test]
+    public void checkTotalTest()
+    {
+        Basket basket = new Basket();
+
+        basket.addItem("Coffee", "Black");
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Filling", "Ham");
+
+        double expected = 1.50;
+        double result = basket.checkTotal();
+
+        Assert.That(expected == result);
+
+    }
 
 }

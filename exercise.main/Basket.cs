@@ -61,8 +61,9 @@ namespace exercise.main
             }
         }
 
-
-
-
+        public double checkTotal()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

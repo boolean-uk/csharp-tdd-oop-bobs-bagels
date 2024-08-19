@@ -63,7 +63,7 @@ Domain Model
 | 	         	  |	                                                                                    	| Can only order from the inventory         |             |
 | 	         	  |	List<Item> getInventory()                                                           	| Returns the full inventory                | List        |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	findItemByName(string itemName)                                                     	| Lets the user find item using only its name  Item       |
+| 	         	  |	findItemByName(string itemName)                                                     	| Lets the user find item using only its name|Item        |
 | 	         	  |	                                                                                    	|                                           |             |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Person`	      |	Public Person(string name, Role role)                                               	| Person can be a Manager or a Customer     | Person      |
@@ -85,9 +85,9 @@ Domain Model
 |                 |																							|                                           |             |
 |                 | changeCapacity(int capacity, Role role)                         						| Manager wants to change the basket size   | void (none) |
 |				  |																							|                                           |             |
-| 	         	  |	checkPrice(string type)                                                             	| Customers wants to see prices             | List        |
+| 	         	  |	checkPriceForType(string type)                                                        	| Customers wants to see prices             | List        |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	checkTotal()                                                                        	| Customer wants to see the total basket cost|double      |
 | 	         	  |	                                                                                    	|                                           |             |
 						
