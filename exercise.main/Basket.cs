@@ -10,6 +10,8 @@ namespace exercise.main
     {
         // Does the basket need to contain the actual objects, or will "printouts" suffice?
         //public List<ChosenItem> items;
+        private double _total;
+
         public List<Item> BasketItems = new List<Item>();
 
         public void AddToBasket(Item item) 
@@ -37,8 +39,14 @@ namespace exercise.main
 
         public double BasketTotal()
         {
-            return 0;
+            foreach (Item item in BasketItems)
+            {
+                Total += item.Price;
+            }
+            return Total;
         }
+
+        public double Total { get => _total; set => _total = value; }
     
     }
 }
