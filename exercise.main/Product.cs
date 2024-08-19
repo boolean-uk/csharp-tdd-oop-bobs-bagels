@@ -49,37 +49,58 @@ namespace exercise.main
             //Get the total cost of the product with all fillings
             float cost = info.price * (float)amount;
 
-            //Check if it is a bagel
-            if (this.IsBagel())
-            {
-                //reset price
-                cost = 0.0f;
-
-                //Calculate the rest of modulus 12
-                int rest = amount % 12;
-                
-                //Calculate how many 12 bagel discounts should be added
-                int discounts12 = (int)Math.Floor((decimal)(amount / 12));
-
-                //Add the number of 12 bagel discounts
-                cost += (float)discounts12 * 3.99f;
-
-                //Check if a 6 discount should be added
-                if (rest >= 6)
-                {
-                    cost += 2.49f;
-                    rest -= 6;
-                }
-
-                //Add the rest of the price
-                cost += info.price * (float)rest;
-            }
-
             foreach (Base filling in fillings)
             {
                 cost += filling.price * (float)amount;
             }
-            return cost;
+
+            //Apply bagel discount
+            if (IsBagel())
+            {
+                cost -= BagelDiscount();
+            }
+
+            return (float)Math.Round(cost, 2);
+        }
+
+        public float BagelDiscount()
+        {
+            float bagelDiscount = 0.0f;
+
+            //Calculate the rest of modulus 12
+            int rest = amount % 12;
+
+            //Calculate how many 12 bagel discounts should be added
+            int discounts12 = (int)Math.Floor((decimal)(amount / 12));
+
+            //Add the number of 12 bagel discounts
+            bagelDiscount += (float)discounts12 * 3.99f;
+
+            //Check if a 6 discount should be added
+            if (rest >= 6)
+            {
+                bagelDiscount += 2.49f;
+                rest -= 6;
+            }
+
+            //Add the rest of the price
+            bagelDiscount += info.price * (float)rest;
+
+            //Price of fillings
+            foreach (Base filling in fillings)
+            {
+                bagelDiscount += filling.price * (float)amount;
+            }
+
+            //Calculate the base price
+            float basePrice = info.price * (float)amount;
+
+            foreach (Base filling in fillings)
+            {
+                basePrice += filling.price * (float)amount;
+            }
+
+            return (float)Math.Round(Math.Abs(basePrice - bagelDiscount), 2);
         }
 
         public bool IsBagel()

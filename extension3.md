@@ -78,6 +78,7 @@ I'd like them to know how much money they are saving from their discounts.
 |             |                                                          | Product does not exist in basket or basket is empty, return -1                     | int     |
 |             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
 |             | `Empty()`                                                | Empty the current basket                                                           | void    |
+|             | `CoffeeDiscounts()`                                      | Return the amount of coffee discounts to apply                                     | int     |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |
 |             | `AddFilling(Product filling)`                            | Update a product by adding a filling to it                                         | void    |
@@ -88,6 +89,7 @@ I'd like them to know how much money they are saving from their discounts.
 |             | `DecreaseAmount(int amount)`                             | Decrease the amount of the product by the given amount                             | void    |
 |             | `GetAmount()`                                            | Return the amount of the product                                                   | int     |
 |             | `GetExcessBagelAmount()`                                 | Return the amount of bagels left after the bagel discounts have been applied       | int     |
+|             | `BagelDiscount()`                                        | Return the total cost
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----    |
 |             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |
