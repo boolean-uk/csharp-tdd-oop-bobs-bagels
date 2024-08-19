@@ -15,7 +15,7 @@ namespace exercise.main
         {
             foreach (var filling in fillings) 
             {
-                thisBagel.Filling += filling.Variant;
+                thisBagel.Filling += $"{filling.Variant} ";
             }
             return thisBagel;
         }

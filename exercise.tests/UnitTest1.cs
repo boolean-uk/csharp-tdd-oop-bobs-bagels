@@ -79,7 +79,7 @@ public class Tests
         fillings.Add(Egg);
 
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
-        TestBagel.Filling = $"{fillingvariant}, {fillingvariant2}";
+        TestBagel.Filling = $"{fillingvariant} {fillingvariant2}";
 
         string expected = $"{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} ";
 
