@@ -242,4 +242,20 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedPrice));
     }
 
+    [TestCase("BGLO", 14, "COFB", 2, 6.49f)]
+    [TestCase("BGLE", 1, "COFW", 1, 1.25f)]
+    public void CombinationTest(string product1, int amount1, string product2, int amount2, float expectedPrice)
+    {
+        Manager manager = new Manager();
+        manager.ChangeBasketSize(20);
+        Customer customer = new Customer(manager, 3.50f);
+        customer.Add(manager, product1, amount1);
+        customer.Add(manager, product2, amount2);
+
+        //act
+        float result = customer.TotalCost();
+
+        //assert
+        Assert.That(result, Is.EqualTo(expectedPrice));
+    }
 }
