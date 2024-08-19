@@ -15,6 +15,7 @@
 |          |                                         |bagels and                  | 
 |          |                                         |fillings.                   |    
 |          |                                         |                            |
+|          |EXTENTION 1: Showcost                    |Presents specials in menu   |
 |          |                                         |                            |
 |          |AddToBasket(string name, string variant  |Manager accepts order       |true            
 |          | double remainingfunds)                  |                            |
@@ -32,6 +33,16 @@
 |          |                                         |                            |
 |          |ShowCost()                               |Calls basket to output cost |double
 |          |										 |of items in basket		  |
+|          |										 |							  |
+|          |EXTENTION 1: Showcost                    |Discounts oppertunities     |double
+|          |										 |discovered and applied      |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
 |          |										 |							  |
 |          |										 |							  |
 |__________|_________________________________________|____________________________|                                                                       

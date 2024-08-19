@@ -22,6 +22,7 @@ namespace exercise.tests
 
             for(int i = 0; i < expected.Length; i++)
             {
+                customer.ShowCost();
                 bool result = customer.AddToBasket(name, variant);
                 Assert.That(result == expected[i]);
             }
@@ -41,6 +42,7 @@ namespace exercise.tests
 
             for (int i = 0; i < expected.Length; i++)
             {
+                customer.ShowCost();
                 bool result = customer.AddToBasket(name, variant, filling);
                 Assert.That(result == expected[i]);
             }
