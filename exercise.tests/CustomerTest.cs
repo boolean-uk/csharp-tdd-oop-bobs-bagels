@@ -47,21 +47,22 @@ namespace exercise.tests
         }
 
 
-        //[TestCase("Bagel", "Plain", 2.0, new bool[] { true, true })]
-        //[TestCase("Fish", "Plain", 2.0, new bool[] { false, false })]
-        //[TestCase("Bagel", "Kangeroo", 2.0, new bool[] { false, false })]
-        //[TestCase("Bagel", "Plain", 0.6, new bool[] { true, false })]
-        //[TestCase("Bagel", "Plain", 222.0, new bool[] { true, true, true, true, true, false, false })]
-        //[TestCase("Coffee", "White", 2.0, new bool[] { true, false })]
-        //public void TestShowCost(string name, string variant, double funds)
-        //{
-        //    Customer customer = new Customer(funds);
+        [TestCase("Bagel", "Plain", 222.0, 2, 0.78)]
+        [TestCase("Fish", "Plain", 222.0, 4, 0.0)]
+        [TestCase("Bagel", "Kangeroo", 222.0, 2, 0.0)]
+        [TestCase("Bagel", "Everything", 0.6, 4, 0.49)]
+        [TestCase("Bagel", "Everything", 222.0, 7, 3.43)]
+        [TestCase("Coffee", "White", 222.0, 1, 1.19)]
+        public void TestShowCost(string name, string variant, double funds, int iterations, double expectedCost)
+        {
+            Customer customer = new Customer(funds);
 
-        //    for (int i = 0; i < expected.Length; i++)
-        //    {
-        //        bool result = customer.AddToBasket(name, variant, funds);
-        //        Assert.That(result == expected[i]);
-        //    }
-        //}
+            for (int i = 0; i < iterations; i++)
+            {
+                bool result = customer.AddToBasket(name, variant);
+            }
+
+            Assert.That(customer.ShowCost() == expectedCost);
+        }
     }
-}
+} 

@@ -48,6 +48,11 @@ namespace exercise.main
             return false;
         }
 
+        public double ShowCost()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ViewMenu()
         {
             foreach (var item in inventory.stock)

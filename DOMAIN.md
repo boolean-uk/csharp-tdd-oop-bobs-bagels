@@ -30,7 +30,7 @@
 |          |                                         |                            |
 |          |                                         | Itemn does not exist        |false
 |          |                                         |                            |
-|          |ShowCost()                               |Calls basket to output cost |string
+|          |ShowCost()                               |Calls basket to output cost |double
 |          |										 |of items in basket		  |
 |          |										 |							  |
 |          |										 |							  |
