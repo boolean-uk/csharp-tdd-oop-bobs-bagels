@@ -147,10 +147,11 @@ namespace exercise.main
             //List<Product> elligebleForDiscount = (List<Product>)basket.getProductsInBasket().Where(item => basket.getProductsInBasket().Any(z => z.SKU == item.SKU));
 
 
-
+            //due to it being BGL in discount and not four letters
             var productsThatMatch = (from discount in _discountList
                                      where basket.getProductsInBasket().Any(product => (discount.Item1 == product.SKU) &&
-                                     (discount.Item4 == basket.getProductsInBasket().FindAll(item => item.SKU == discount.Item1).Count))
+                                     (discount.Item4 == basket.getProductsInBasket().FindAll(item => item.SKU == discount.Item1).Count) ||
+                                     (discount.Item1 == product.SKU && discount.Item2 == basket.getProductsInBasket().Find(item => item.SKU.Contains(discount.Item2)).SKU))
                                      select discount).ToList();
 
             productsThatMatch.ForEach(product => Console.WriteLine(product));

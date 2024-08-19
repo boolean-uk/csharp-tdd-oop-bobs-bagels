@@ -38,9 +38,9 @@ public class Tests
     //gives customer and instanciated basket
     private Customer getCustomerAndBasket() { Customer customer = new Customer("test", "testsson"); customer.grabBasket(); return customer; }
 
-    private Customer addBagel(Customer customer, int amount)
+    private Customer addBagel(Customer customer, int amount, string type)
     {
-        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("BGLP", customer); }
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct(type, customer); }
         return customer;
     }
 
@@ -66,7 +66,7 @@ public class Tests
     public void FunctionsInTestFileTest()
     {
         Customer customer = getCustomerAndBasket();
-        customer = addBagel(customer, 1);
+        customer = addBagel(customer, 1, "BGLP");
         List<Product> products = customer.checkBasketContent();
 
         Assert.IsTrue(products.Count == 1);
@@ -129,7 +129,7 @@ public class Tests
     public void overflowTest()
     {
         Customer customer = getCustomerAndBasket();
-        customer = addBagel(customer, 4); //standard capacity is 3
+        customer = addBagel(customer, 4, "BGLP"); //standard capacity is 3
 
         Assert.That(customer.checkBasketContent().Count == 3);
     }
@@ -173,13 +173,13 @@ public class Tests
         Customer customer = getCustomerAndBasket();
         int basketCapacity = customer.checkBasketCapacity();
 
-        customer = addBagel(customer, 4);
+        customer = addBagel(customer, 4, "BGLP");
 
         Assert.That(customer.checkBasketContent().Count == 3);
 
         customer.GetBagelStore().getManager().changeBasketCapacity(5);
 
-        customer = addBagel(customer, 1);
+        customer = addBagel(customer, 1, "BGLP");
 
         Assert.That(customer.checkBasketContent().Count == 3);
         Assert.That(customer.checkBasketCapacity() == 3);
@@ -193,7 +193,7 @@ public class Tests
         Customer customer = getCustomerAndBasket();
         int basketCapacity = customer.checkBasketCapacity();
 
-        customer = addBagel(customer, 4);
+        customer = addBagel(customer, 4, "BGLP");
 
         Assert.That(customer.checkBasketContent().Count == 3);
 
@@ -201,7 +201,7 @@ public class Tests
 
         customer.grabBasket();
 
-        customer = addBagel(customer, 5);
+        customer = addBagel(customer, 5, "BGLP");
 
         Assert.That(customer.checkBasketContent().Count == 5);
         Assert.That(customer.checkBasketCapacity() == 5);
@@ -250,10 +250,27 @@ public class Tests
     public void CheckDiscountFunctionalityTest()
     {
         Customer customer = getCustomerAndBasket();
-        customer.GetBagelStore().getManager().changeBasketCapacity(13);
+        customer.GetBagelStore().getManager().changeBasketCapacity(20);
         customer.grabBasket();
-        customer = addBagel(customer, 11);
+        customer = addBagel(customer, 12, "BGLP");
         customer.addProduct("FILX");
+
+        customer = addBagel(customer, 6, "BGLO");
+
+        customer.checkout();
+
+        Assert.Pass();
+    }
+
+    [Test]
+    public void CheckDiscountFunctionalityTwoTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.GetBagelStore().getManager().changeBasketCapacity(20);
+        customer.grabBasket();
+        customer = addBagel(customer, 1, "BGLP");
+
+        customer = addBagel(customer, 1, "COFB");
 
         customer.checkout();
 
