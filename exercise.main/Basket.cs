@@ -44,5 +44,15 @@ namespace exercise.main
         {
             return item.Price;
         }
+
+        public bool ChangeCapacity(Person person, int newCapacity)
+        {
+            if (person.Manager == true)
+            {
+                _capacity = newCapacity;
+                return true;
+            }
+            return false;
+        }
     }
 }

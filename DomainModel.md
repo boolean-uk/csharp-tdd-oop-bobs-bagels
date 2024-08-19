@@ -71,7 +71,7 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Basket		` | `RemoveFilling(Item item)				`	| Removes filling from bagel		 |(void) Prints a statement that it was removed		|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `CheckStock()							`	| Method for checking avaliable stock|(List<Item>) returns list with stock of items	    |
+| `Inventory	` | `GetInventory()							`	| Method for checking avaliable stock|(List<Item>) returns list with stock of items	    |
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
 

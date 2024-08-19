@@ -10,6 +10,14 @@ namespace exercise.main
     {
         private int _id;
         private bool _manager;
+        private List<Basket> _basket = new List<Basket>();
+
+        public bool Manager {
+
+            get { return _manager; } set { _manager = value; }
+
+            }
+
 
         public Person(int id, bool manager) {
             this._id = id;

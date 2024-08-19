@@ -44,5 +44,13 @@ namespace exercise.main
             this._variant = variant;
         }
 
+        public enum CoffeeVariant
+        {
+            Black,
+            White,
+            Capuccino,
+            Latte
+        }
+
     }
 }

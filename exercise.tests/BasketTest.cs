@@ -4,11 +4,6 @@ using exercise.main;
 [TestFixture]
 public class BasketTest
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void AddItemTest()
     {
@@ -19,10 +14,10 @@ public class BasketTest
         Bagel bagel1 = new Bagel("BGLP", 0.39, "Bagel", "Plain");
         Basket basket = new Basket(3);
 
-        bool added1 = basket.AddItem(bagel); 
-        bool added2 = basket.AddItem(coffee); 
-        bool added3 = basket.AddItem(filling); 
-        bool added4 = basket.AddItem(bagel1); 
+        bool added1 = basket.AddItem(bagel);
+        bool added2 = basket.AddItem(coffee);
+        bool added3 = basket.AddItem(filling);
+        bool added4 = basket.AddItem(bagel1);
 
         Assert.That(added1, Is.True);
         Assert.That(added2, Is.True);
@@ -79,5 +74,20 @@ public class BasketTest
         Assert.That(price3 == actual3);
         Assert.That(price4 == actual4);
 
+    }
+
+    [Test]
+    public void ChangeCapacityTest()
+    {
+        Person manager = new Person(1, true);
+        Person customer = new Person(1, false);
+
+        Basket basket = new Basket(4);
+
+        bool changed1 = basket.ChangeCapacity(manager, 5);
+        bool changed2 = basket.ChangeCapacity(customer, 5);
+
+        Assert.That(changed1 == true);
+        Assert.That(changed2 == false);
     }
 }

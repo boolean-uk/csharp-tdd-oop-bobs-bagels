@@ -2,6 +2,13 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="exercise.main.Coffee">
     <Position X="20.5" Y="8" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="exercise.main.Coffee.CoffeeVariant" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Coffee.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AhACIAAAAQAIAAAAAABAAAQAAACAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Coffee.cs</FileName>
@@ -11,7 +18,7 @@
   <Class Name="exercise.main.Bagel">
     <Position X="23.25" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AhACIAAAAQAIAAAAAABAAAQAAACAAAAAEAAAAAAAAAA=</HashCode>
+      <HashCode>AhACIAEAAQAIAAAAAABAAAQABACAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Bagel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -19,14 +26,14 @@
   <Class Name="exercise.main.Basket">
     <Position X="29.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAABAAAQCgBAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAEABAAAQCgBAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Person" Collapsed="true">
     <Position X="27.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>

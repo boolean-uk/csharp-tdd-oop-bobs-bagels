@@ -8,5 +8,9 @@ namespace exercise.main
 {
     public class BobsBagel
     {
+
+        Person person = new Person(1, true);
+
+
     }
 }

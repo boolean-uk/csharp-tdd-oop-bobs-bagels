@@ -35,8 +35,10 @@ namespace exercise.main
         {
             get => _variant; set => _variant = value;
         }
+        private List<string> _fillings = new List<string>();
+        
 
-        public Filling(string sku, double price, string name, string variant)
+        public Filling(string sku, double price, string variant, string name)
         {
             this._sku = sku;
             this._name = name;
