@@ -20,7 +20,15 @@ namespace exercise.main
             _basket.Add(product);
             return "product added to basket";
         }
- 
+
+        public void AddMultible(string productID, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Add(productID);
+            }
+
+        }
         public bool Remove(string productID)
         {
             if (!BasketProductIds.Contains(productID)) { return false; }
@@ -57,7 +65,7 @@ namespace exercise.main
             if (!_basket.Any()) {  return 0; }
             if (_basket.All(product => product.Discount == null)) { return TotalCost; }
 
-            int sum = 0;
+            double sum = 0;
 
             List<Product> productsWithDiscount = _basket.Where(product => product.Discount != null).ToList();
             List<string> usedDiscounts = new List<string>(); 
@@ -71,19 +79,29 @@ namespace exercise.main
                 {
                     int discountProductCount = _basket.Select(item => item.SKU).Where(item => item.Contains(discount.Key)).Count();
 
-                    if(discountProductCount >= discount.Value) { validDiscount = false; }
+                    if(discountProductCount < discount.Value) { validDiscount = false; }
+                    if (usedDiscounts.Where(item => item == product.SKU).Count() >= discount.Value)
+                    {
+                        validDiscount = false;
+                    }
                 }
 
+                //Changes the discount price
                 if (validDiscount)
                 {
-                    product.Price = product.Discount.price;
-
-
+                    sum += product.Discount.price / product.Discount.TotalAmountDiscounts;
+                    usedDiscounts.Add(product.SKU);
                 }
-
+                else
+                {
+                    sum += product.Price;
+                }
             }
 
-            return 0;
+            //The rest
+            sum += _basket.Where(product => product.Discount == null).Select(product => product.Price).Sum();
+
+            return sum;
         }
 
         public int GetProductCount(string product)
@@ -94,7 +112,7 @@ namespace exercise.main
         private List<Product> _basket { get; set; } = new List<Product>();
 
         private List<Product> _inventory = new Inventory().inventory; 
-        private int _capacity { get; set; } = 5;
+        private int _capacity { get; set; } = 50;
 
         public int Capacity { get => _capacity; }
         public int ProductCount { get { return _basket.Count; } }

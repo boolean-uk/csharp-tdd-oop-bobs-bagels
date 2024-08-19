@@ -30,13 +30,15 @@ namespace exercise.main
             new Product("FILB", 0.12, "filling", "ham"),
         };
 
+        //The coffee and bagel discount was quite difficult, will do that later
+        // Will probably have a list of discounts instead of adding them to the product
         public void addDiscounts()
         {
             GetFromInventory("BGLO").Discount = new Discount(new Dictionary<string, int>() { { "BGLO", 6 } }, 2.49);
             GetFromInventory("BGLP").Discount = new Discount(new Dictionary<string, int>() { { "BGLP", 12 } }, 3.99);
             GetFromInventory("BGLE").Discount = new Discount(new Dictionary<string, int>() { { "BGLE", 6 } }, 2.49);
-            GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
-            GetListFromInventory("BGL").ForEach(item => item.Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25));
+            //GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
+            //GetListFromInventory("BGL").ForEach(item => item.Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25));
         }
 
         public Product GetFromInventory(string productID)
@@ -51,5 +53,11 @@ namespace exercise.main
 
         public List<Product> inventory { get { return _inventory; } }
 
+        public double GetCostOfProduct(string productId)
+        {
+            return GetFromInventory(productId).Price;
+        }
     }
+        
+
 }

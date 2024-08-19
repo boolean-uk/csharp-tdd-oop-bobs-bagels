@@ -8,6 +8,7 @@ namespace exercise.main
 {
     public class Discount
     {
+        public int TotalAmountDiscounts { get { return DiscountProducts.Values.Sum(); } }
         public Dictionary<string, int> DiscountProducts { get; set; }
         public double price { get; set; }
         
