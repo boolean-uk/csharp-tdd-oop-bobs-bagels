@@ -125,7 +125,7 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedSuccess));
     }
 
-    [TestCase("COFL", "COFW", "BGLE", 2.97f)]
+    [TestCase("COFL", "COFW", "COFB", 3.47f)]
     [TestCase("BGLO", "BGLP", "BGLS", 1.37f)]
     [TestCase("COFB", "COFB", "COFB", 2.97f)]
     public void TotalCostTest(string product1, string product2, string product3, float sum)
@@ -242,8 +242,9 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedPrice));
     }
 
-    [TestCase("BGLO", 14, "COFB", 2, 6.49f)]
-    [TestCase("BGLE", 1, "COFW", 1, 1.25f)]
+    [TestCase("BGLO", 13, "COFB", 2, 6.23f)]
+    [TestCase("BGLE", 1, "COFW", 1, 1.45f)]
+    [TestCase("BGLS", 5, "COFC", 5, 7.75f)]
     public void CombinationTest(string product1, int amount1, string product2, int amount2, float expectedPrice)
     {
         Manager manager = new Manager();

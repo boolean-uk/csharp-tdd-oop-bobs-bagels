@@ -32,6 +32,12 @@ namespace exercise.main
             return this.amount;
         }
 
+        public int GetExcessBagelAmount()
+        {
+            //Get the amount of bagels left after the bagel discount has been applied
+            return this.amount % 6;
+        }
+
         public void AddFilling(Product filling)
         {
             //Add filling
@@ -41,13 +47,13 @@ namespace exercise.main
         public float Cost()
         {
             //Get the total cost of the product with all fillings
-            float cost = info.price * amount;
+            float cost = info.price * (float)amount;
 
             //Check if it is a bagel
             if (this.IsBagel())
             {
                 //reset price
-                cost = 0;
+                cost = 0.0f;
 
                 //Calculate the rest of modulus 12
                 int rest = amount % 12;
@@ -56,7 +62,7 @@ namespace exercise.main
                 int discounts12 = (int)Math.Floor((decimal)(amount / 12));
 
                 //Add the number of 12 bagel discounts
-                cost += discounts12 * 3.99f;
+                cost += (float)discounts12 * 3.99f;
 
                 //Check if a 6 discount should be added
                 if (rest >= 6)
@@ -66,12 +72,12 @@ namespace exercise.main
                 }
 
                 //Add the rest of the price
-                cost += info.price * rest;
+                cost += info.price * (float)rest;
             }
 
             foreach (Base filling in fillings)
             {
-                cost += filling.price * amount;
+                cost += filling.price * (float)amount;
             }
             return cost;
         }

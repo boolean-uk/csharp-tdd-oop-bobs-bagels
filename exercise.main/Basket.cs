@@ -34,11 +34,46 @@ namespace exercise.main
         public float TotalCost()
         {
             //Calculate the total cost of all products in basket
-            float totalCost = 0;
+            float totalCost = 0.0f;
             foreach (var item in products)
             {
                 totalCost += item.Cost();
             }
+
+            //Calculate the 0.23 discount for every coffee and excess bagel that exists
+            int coffees = 0;
+            int excessBagels = 0;
+
+            //Find how many of each exists
+            foreach (var item in products)
+            {
+                //Add Coffee
+                if (item.info.key[0] == 'C')
+                {
+                    coffees += item.GetAmount();
+                }
+
+                //Add Bagel
+                if (item.info.key[0] == 'B')
+                {
+                    excessBagels += item.GetExcessBagelAmount();
+                }
+            }
+
+            //Apply the discount
+            for(int i = 0; i < coffees; i++)
+            {
+                if(excessBagels > 0) //If there are more bagels left
+                {
+                    totalCost -= 0.23f;
+                    excessBagels--;
+                }
+                else //Exit the loop
+                {
+                    break;
+                }
+            }
+
             return totalCost;
         }
     }

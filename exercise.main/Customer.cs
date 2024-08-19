@@ -39,7 +39,7 @@ namespace exercise.main
         public float TotalCost()
         {
             //Check the basket for the total cost
-            return basket.TotalCost();
+            return (float)Math.Round(basket.TotalCost(), 2);
         }
 
         public float HowMuch(Manager manager, string product)

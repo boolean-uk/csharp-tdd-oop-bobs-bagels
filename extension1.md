@@ -81,6 +81,8 @@ I'd like to be able to calculate if a combination of items result in a special o
 |             |                                                          | Return false if it is not a bagel                                                  | false   |
 |             | `IncreaseAmount(int amount)`                             | Increase the amount of the product by the given amount                             | void    |
 |             | `DecreaseAmount(int amount)`                             | Decrease the amount of the product by the given amount                             | void    |
+|             | `GetAmount()`                                            | Return the amount of the product                                                   | int     |
+|             | `GetExcessBagelAmount()`                                 | Return the amount of bagels left after the bagel discounts have been applied       | int     |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----    |
 |             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |
