@@ -19,17 +19,17 @@ namespace exercise.main
         public bool Add(Manager manager, string product, int amount = 1)
         {
             //Ask the manager to add a product to our basket
-            if (manager.AddProduct(this.basket, product))
+            if (manager.AddProduct(this.basket, product, amount))
             {
                 return true;
             }
             return false;
         }
 
-        public bool Remove(Manager manager, string product)
+        public bool Remove(Manager manager, string product, int amount = 1)
         {
             //Ask the manager to remove a product from our basket
-            if(manager.RemoveProduct(this.basket, product))
+            if(manager.RemoveProduct(this.basket, product, amount))
             {
                 return true;
             }

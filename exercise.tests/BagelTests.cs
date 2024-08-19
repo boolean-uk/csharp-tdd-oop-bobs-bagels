@@ -213,6 +213,7 @@ public class Tests
     public void AddMultipleTest(string product, int amount, float expectedPrice)
     {
         Manager manager = new Manager();
+        manager.ChangeBasketSize(5);
         Customer customer = new Customer(manager, 3.50f);
         customer.Add(manager, product, amount);
 
@@ -221,7 +222,6 @@ public class Tests
 
         //assert
         Assert.That(result, Is.EqualTo(expectedPrice));
-
     }
 
 }

@@ -13,16 +13,27 @@ namespace exercise.main
 
         private Inventory inv = new Inventory(); //Inventory containing all products in the store
 
-        public bool AddProduct(Basket bskt, string product)
+        public bool AddProduct(Basket bskt, string product, int amount = 1)
         {
             //Check if product exists in inventory
             if(inv.Find(product))
             {
-                //Add product to basket if it fits
-                if (bskt.products.Count < bskt.size)
+                //Check if the added amount of the product will fit in the basket
+                if (bskt.products.Count + amount <= bskt.size)
                 {
-                    bskt.products.Add(inv.GetProduct(product));
-                    return true;
+                    //Check if the product is already in the basket
+                    int index = bskt.Search(product);
+                    if(index != -1)
+                    {
+                        //Update the basket to have the new amount of the product
+                        bskt.products[index].IncreaseAmount(amount);
+                    }
+                    else //Add new product to basket if it fits
+                    {
+                        bskt.products.Add(inv.GetProduct(product));
+                        bskt.products.Last().IncreaseAmount(amount - 1);
+                        return true;
+                    }
                 }
             }
             return false;
@@ -39,14 +50,21 @@ namespace exercise.main
             return false;
         }
 
-        public bool RemoveProduct(Basket bskt, string product)
+        public bool RemoveProduct(Basket bskt, string product, int amount = 1)
         {
             //Check if product exists in basket
             int index = bskt.Search(product);
             if (index > -1)
             {
-                //Remove product from basket
-                bskt.products.RemoveAt(index);
+                //Remove product from basket if the amount to remove would take away all of a product
+                if (bskt.products[index].GetAmount() <= amount)
+                {
+                    bskt.products.RemoveAt(index);
+                }
+                else //Otherwise just remove x amount of the product
+                {
+                    bskt.products[index].DecreaseAmount(amount);
+                }
                 return true;
             }
             return false;
