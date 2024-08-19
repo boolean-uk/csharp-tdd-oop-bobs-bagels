@@ -18,12 +18,12 @@ namespace exercise.main
             _category = category;
         }
 
-        public bool Add(string v)
+        private bool _add(string sku, int amount)
         {
             // Check if the product exists in the category
-            if (!_category.ContainsKey(v)) return false;
+            if (!_category.ContainsKey(sku)) return false;
 
-            Product value = _category[v];
+            Product value = _category[sku];
 
             // Check if the basket is full
             if (this.IsFull) return false;
@@ -33,22 +33,27 @@ namespace exercise.main
             if (!result) return false;
 
             // Check if order already exists, in this case, just increment it by 1
-            if (_products.ContainsKey(v))
+            if (_products.ContainsKey(sku))
             {
-                _products[v].Amount++;
+                _products[sku].Amount++;
             }
             else
             {
-                ProductOrder po = new ProductOrder(value, 1);
-                _products.Add(v, po);
+                ProductOrder po = new ProductOrder(value, amount);
+                _products.Add(sku, po);
             }
             _count++;
             return true;
         }
 
+        public bool Add(string v)
+        {
+            return _add(v, 1);
+        }
+
         public bool Add(string v1, int v2)
         {
-            throw new NotImplementedException();
+            return _add(v1, v2);   
         }
 
         public bool Remove(string v)
