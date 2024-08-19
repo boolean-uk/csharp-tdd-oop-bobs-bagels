@@ -10,7 +10,6 @@ namespace exercise.main
     public class Inventory 
     {
 
-        private bool _isManager;
 
         private List<InventoryProducts> _products = new List<InventoryProducts> {
 
@@ -35,81 +34,13 @@ namespace exercise.main
         private List<Basket> _baskets;
         private Basket _basket;
 
+      
+
         public Inventory() { }
 
 
-        public bool AddToBasket(string name, string variant)
-        {
-            bool added = false;
-            InventoryProducts bagel = new InventoryProducts();
-
-            if (_basket.Capacity > 0)
-            {
-                foreach (var prod in _products)
-                {
-                    if (prod.Name == name && prod.Variant == variant)
-                    {
-                        bagel.Variant = variant;
-                        bagel.Price = prod.Price;
-                        bagel.Name = prod.Name;
-                        bagel.SKU = prod.SKU;
-
-                        _basket.Items.Add(bagel);
-                        _basket.Capacity--;
-
-                        added = true;
-                    }
-                }
-
-            }
 
 
-            return added;
-        }
-
-        public bool RemoveFromBasket(string name, string variant)
-        {
-            bool removed = false;
-            InventoryProducts bagel = new InventoryProducts();
-
-                foreach (var prod in _products)
-                {
-                    if (prod.Name == name && prod.Variant == variant)
-                    {
-                        bagel.Variant = variant;
-                        bagel.Price = prod.Price;
-                        bagel.Name = prod.Name;
-                        bagel.SKU = prod.SKU;
-                    }
-                }
-
-            if (_basket.Items.Contains(bagel))
-            {
-                removed = true;
-            }
-            
-
-            
-
-            
-            return removed;
-        }
-
-
-        public void ChooseFilling(string variant)
-        {
-            
-
-            foreach (var product in _products)
-            {
-                if(product.Name == "Filling")
-                {
-                   _basket.AddToBasket(product.Name,  variant);
-
-                }
-            }
-    
-        }
 
         public double BagelPrice(string variant)
         {
@@ -143,17 +74,7 @@ namespace exercise.main
 
 
 
-        public void ChangeBasketCapacity(int capacity)
-        {
-            
-            if (_isManager){
-                foreach (var basket in _baskets)
-                {
-                    basket.Capacity = capacity;
-                }
-            }
-            
-        }
+    
 
         public List<InventoryProducts> ShowList()
         {
@@ -161,6 +82,7 @@ namespace exercise.main
 
             return _products;
         }
+
         public List<InventoryProducts> Products { get { return _products; } }
         public List<Basket> Baskets { get { return _baskets; } set { _baskets = value; } }
         public Basket Basket { get { return _basket; } set { _basket = value; } }
