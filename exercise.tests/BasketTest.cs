@@ -12,7 +12,7 @@ namespace exercise.tests
         [Test]
         public void TestAddingBagel()
         {
-
+            
             //arrange
 
             Inventory inventory = new Inventory();
