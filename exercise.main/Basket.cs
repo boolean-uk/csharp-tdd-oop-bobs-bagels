@@ -49,9 +49,20 @@ namespace exercise.main
             }
         }
 
-        public void changeCapacity(int v, Person manager)
+        public void changeCapacity(int newCapacity, Person person)
         {
-            throw new NotImplementedException();
+            if ((newCapacity <= 0))
+            {
+                Console.WriteLine("Cannot change capacity to 0 or lower...");
+            }
+            else
+            {
+                MAX_BASKET_SIZE = newCapacity;
+            }
         }
+
+
+
+
     }
 }
