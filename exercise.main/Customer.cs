@@ -64,9 +64,16 @@ namespace exercise.main
             return manager.HowMuchFillings();
         }
 
-        public bool Purchase(Manager manager)
+        public string Purchase(Manager manager)
         {
-            throw new NotImplementedException();
+            //Check if customer has enough money to purchase everything
+            if(this.TotalCost() > wallet)
+            {
+                return "Insufficient Funds";
+            }
+
+            //Ask the manager to finalize the purchase
+            return manager.Purchase(this.basket);
         }
     }
 }

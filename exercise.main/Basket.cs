@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,6 +76,35 @@ namespace exercise.main
             }
 
             return totalCost;
+        }
+
+        public string Receipt()
+        {
+            //Masterfully construct the receipt
+            string receipt = $"      ~~~Bob's Bagels~~~\n\n     {DateTime.Now.ToString("G")}\n\n-------------------------------\n\n";
+
+            //For each item, add the name, amount and total cost
+            foreach (var item in products)
+            {
+                if(item.info.key == "BGLE" || item.info.key == "COFC")
+                {
+                    receipt += $"{item.info.variant} {item.info.name}\t\t{item.GetAmount()}\t{item.Cost()}\n";
+                }
+                else
+                {
+                    receipt += $"{item.info.variant} {item.info.name}\t\t\t{item.GetAmount()}\t{item.Cost()}\n";
+                }
+            }
+
+            //Spacing and total cost
+            receipt += $"\n-------------------------------\nTotal\t\t\t\t\t{this.TotalCost()}";
+
+            return receipt;
+        }
+
+        public void Empty()
+        {
+            this.products.Clear();
         }
     }
 }

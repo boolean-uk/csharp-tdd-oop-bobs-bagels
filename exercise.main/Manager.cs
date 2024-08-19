@@ -101,10 +101,25 @@ namespace exercise.main
             return false;
         }
 
-        internal float HowMuchFillings()
+        public float HowMuchFillings()
         {
             //Return the cost of a filling (Can add a function in inventory that returns a string consisting of all products starting with key "F---")
             return inv.GetProduct("FILB").Cost();
+        }
+
+        public string Purchase(Basket basket)
+        {
+            //Get the receipt
+            string receipt = basket.Receipt();
+            
+            //Print it
+            Console.WriteLine(receipt);
+
+            //Clear the basket
+            basket.Empty();
+
+            //Return the receipt
+            return receipt;
         }
     }
 }

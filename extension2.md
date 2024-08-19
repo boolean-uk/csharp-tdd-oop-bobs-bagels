@@ -65,12 +65,12 @@ I'd like to recieve a reciept for my purchase.
 |             |                                                          | Filling does not exist or bagel is not in basket                                   | false   |
 |             | `HowMuchFillings(Manager mngr)`                          | Request to know how much every filling costs                                       | float   | //Could expand this to a string that lists all fillings and individual prices, but all fillings cost 0.12
 |             | `Purchase(Manager manager)`                              | Request to purchase everything in the basket                                       | string  |
-|             |                                                          | Could not afford everything                                                        | false   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------| //Spacing to improve readability
 | `Basket`    | `Basket(Manager mngr)`                                   | Create a basket that can hold products, refer to manager for size                  | ----    |
 |             | `Search(string product)`                                 | Search through a basket to check if it has the product, return index               | int     |
 |             |                                                          | Product does not exist in basket or basket is empty, return -1                     | int     |
 |             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
+|             | `Empty()`                                                | Empty the current basket                                                           | void    |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |
 |             | `AddFilling(Product filling)`                            | Update a product by adding a filling to it                                         | void    |
@@ -99,6 +99,5 @@ I'd like to recieve a reciept for my purchase.
 |             | `HowMuchFillings()`                                      | Return the cost of all fillings                                                    | float   |
 |             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to all bagels of this type                                         | true    |
 |             |                                                          | Bagel or filling does not exist                                                    | false   |
-|             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket, print receipt and empty it                       | true    |
-|             |                                                          | Could not afford                                                                   | false   |
+|             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it, then give a receipt                 | string  |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|

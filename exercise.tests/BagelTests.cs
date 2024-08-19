@@ -273,9 +273,9 @@ public class Tests
         customer.Add(manager, product3, amount3);
 
         //act
-        bool receipt = customer.Purchase(manager);
+        string receipt = customer.Purchase(manager);
 
         //assert
-        Assert.That(receipt, Is.True);
+        Assert.That(receipt, !Is.EqualTo("Insufficient Funds"));
     }
 }
