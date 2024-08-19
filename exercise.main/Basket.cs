@@ -22,7 +22,39 @@ namespace exercise.main
 
         public void AddToSelection(Item item)
         {
-            Selections.Add(item);
+            if (item is Bagel)
+            {
+                if (Inventory.BagelStock > 0)
+                {
+                    Selections.Add(item);
+                }
+                else 
+                {
+                    OutOfStockNotice = "Sorry, out of stock";
+                }
+            }
+            if (item is Filling)
+            {
+                if (Inventory.FillingStock > 0)
+                {
+                    Selections.Add(item);
+                }
+                else
+                {
+                    OutOfStockNotice = "Sorry, out of stock";
+                }
+            }
+            if (item is Coffee)
+            {
+                if (Inventory.CoffeeStock > 0)
+                {
+                    Selections.Add(item);
+                }
+                else
+                {
+                    OutOfStockNotice = "Sorry, out of stock";
+                }
+            }
         }
 
         public void AddToBasket(int id, List<Item> item) 

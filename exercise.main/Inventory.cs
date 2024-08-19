@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Inventory
+    public static class Inventory
     {
-        private int _bagelstock;
-        private int _fillingstock { get; set; }
-        private int _coffestock { get; set; }
+        private static int _bagelstock;
+        private static int _fillingstock { get; set; }
+        private static int _coffestock { get; set; }
 
-        public int BagelStock { get => _bagelstock; set => _bagelstock = value; }
-        public int FillingStock { get => _fillingstock; set => _fillingstock = value; }
-        public int CoffeeStock { get => _coffestock; set => _coffestock = value; }
-
+        public static int BagelStock { get => _bagelstock; set => _bagelstock = value; }
+        public static int FillingStock { get => _fillingstock; set => _fillingstock = value; }
+        public static int CoffeeStock { get => _coffestock; set => _coffestock = value; }
 
     }
 }

@@ -255,8 +255,7 @@ public class Tests
     [Test]
     public void EnsureStockTest()
     {
-        Inventory Stock = new Inventory();
-        Stock.BagelStock = 0;
+        Inventory.BagelStock = 0;
 
         Basket Basket = new Basket();
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
