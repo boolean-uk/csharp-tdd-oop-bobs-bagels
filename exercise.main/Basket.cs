@@ -8,11 +8,27 @@ namespace exercise.main
 {
     public class Basket
     {
-        Inventory inventory = new Inventory();
-        private List<string> basket = new List<string>();
-        public void Add(string name, string variant)
+        public struct BasketItem
         {
-            basket.Add(inventory.GetCode(name, variant));
+            public string coffeeOrBagel = string.Empty;
+            public string filling = string.Empty;
+
+            public BasketItem(string coffeeOrBagel)
+            {
+                this.coffeeOrBagel = coffeeOrBagel;
+            }
+            public BasketItem(string coffeeOrBagel, string filling)
+            {
+                this.coffeeOrBagel = coffeeOrBagel;
+                this.filling = filling;
+            }
+        }
+   
+        Inventory inventory = new Inventory();
+        private List<BasketItem> basket = new List<BasketItem>();
+        public void Add(BasketItem item)
+        {
+            basket.Add(item);
         }
 
         public bool OrderInBasket(string name, string variant)
@@ -20,10 +36,10 @@ namespace exercise.main
             
             foreach (var order in basket)
             {
-                if(name == inventory.GetNameAndVariant(order).name &&
-                   variant == inventory.GetNameAndVariant(order).variant)
+                if(name == inventory.GetNameAndVariant(order.coffeeOrBagel).name &&
+                   variant == inventory.GetNameAndVariant(order.coffeeOrBagel).variant)
                 {
-                return true; 
+                    return true; 
                 }
                 
             }
@@ -33,9 +49,10 @@ namespace exercise.main
         public double ShowCost()
         {
             double retCost = 0.0;
-            foreach (var sku in basket)
+            foreach (var item in basket)
             {
-                retCost += inventory.GetPrice(sku);
+                retCost += inventory.GetPrice(item.coffeeOrBagel);
+                retCost += inventory.GetPrice(item.filling);
             }
             return retCost;
         }

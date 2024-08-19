@@ -90,7 +90,7 @@ namespace exercise.main
                     return product.Value.price;
                 }
             }
-            return -1;
+            return 0;
         }
 
         public string GetCode(string name, string variant)

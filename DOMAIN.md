@@ -7,19 +7,17 @@
 
 |Classes   |Methods                                  |Scenarios                   |output
 |__________|_________________________________________|____________________________|______________________________
-|Customer  |Customer(int funds, int id)              |Create a new customer with  |--------
-|          |                                         |funds to spend and a        |
-|          |                                         |customer ID.                |
+|Customer  |Customer(int funds)                      |Create a new customer with  |--------
+|          |                                         |funds to spend              |
+|          |                                         |                            |
 |          |                                         |                            |
 |          |ViewMenu()                               |Present a menu with         |--------- 
 |          |                                         |bagels and                  | 
 |          |                                         |fillings.                   |    
 |          |                                         |                            |
 |          |                                         |                            |
-|          |AddToBasket(string bagel, int funds,     |Manager accepts order       |true            
-|          |int id)                                  |                            |
-|          |AddToBasket(string bagel, int funds,     |                            |
-|          |int id, string filling)                  |                            |
+|          |AddToBasket(string name, string variant  |Manager accepts order       |true            
+|          | int remainingfunds, int basketSize)     |                            |
 |          |                                         |                            |
 |          |                                         |                            |
 |          |                                         |Manager declines order.     |false
@@ -27,10 +25,10 @@
 |          |                                         |                            |         
 |          |                                         |                            |                              
 |          |                                         |                            |
-|          |RemoveBagel(string)                      |Removes bagel if it exists  |true
+|          |RemoveItem(string name, string variant)  |Removes  item if it exists  |true
 |          |                                         |and manager updates capcaity|
 |          |                                         |                            |
-|          |                                         |Bagel does not exist        |false
+|          |                                         | Itemn does not exist        |false
 |          |                                         |                            |
 |          |ShowCost()                               |Calls basket to output cost |string
 |          |										 |of items in basket		  |

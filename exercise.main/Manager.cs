@@ -9,6 +9,7 @@ namespace exercise.main
     public class Manager
     {
         private int capacity = 5;
+        Inventory inventory = new Inventory();
 
         public bool ChangeCapcity(int newCapacity)
         {
@@ -23,7 +24,6 @@ namespace exercise.main
 
         public bool ConfirmOrder(string name, string variant, double remainingFunds, int basketSize)
         {
-            Inventory inventory = new Inventory();
             if(!inventory.IsInInventory(name, variant))
             {
                 return false; // item does not exist on menu
