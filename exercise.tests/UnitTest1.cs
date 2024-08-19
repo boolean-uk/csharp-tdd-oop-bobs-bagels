@@ -14,7 +14,7 @@ public class Tests
         bool result1 = basket.Add("BGLO");
         Assert.IsTrue(result1);
 
-        Product product = basket.Products[0];
+        Product product = basket.Products[0].Product;
         Assert.That(product.Sku.Equals("BGLO"));
     }
 
@@ -123,7 +123,7 @@ public class Tests
 
         basket.Add("BGLO");
         basket.Add("FILB");
-        Assert.That(basket.Products[1].Sku.Equals("FILB"));
+        Assert.That(basket.Products[1].Product.Sku.Equals("FILB"));
     }
 
     [Test]

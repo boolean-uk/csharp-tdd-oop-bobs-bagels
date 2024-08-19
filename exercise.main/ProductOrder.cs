@@ -19,7 +19,7 @@ namespace exercise.main
 
         public Product Product { get { return _product; } }
 
-        public int Amount { get { return _amount; } set { _amount = value; }
+        public int Amount { get { return _amount; } set { _amount = value; } }
 
 
 

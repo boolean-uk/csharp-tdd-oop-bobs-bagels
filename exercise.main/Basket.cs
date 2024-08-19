@@ -8,9 +8,10 @@ namespace exercise.main
 {
     public class Basket
     {
-        Dictionary<string, Product> _category;
-        private List<Product> _products = new List<Product>();
+        private Dictionary<string, Product> _category;
+        private Dictionary<string, ProductOrder> _products = new Dictionary<string, ProductOrder>();
         private int _capacity = 3;
+        private int _count = 0;
 
         public Basket(Dictionary<string, Product> category)
         {
@@ -31,7 +32,17 @@ namespace exercise.main
             bool result = value.DecreaseStock();
             if (!result) return false;
 
-            _products.Add(value);
+            // Check if order already exists, in this case, just increment it by 1
+            if (_products.ContainsKey(v))
+            {
+                _products[v].Amount++;
+            }
+            else
+            {
+                ProductOrder po = new ProductOrder(value, 1);
+                _products.Add(v, po);
+            }
+            _count++;
             return true;
         }
 
@@ -40,14 +51,17 @@ namespace exercise.main
             // Check if the product exists in the category
             if (!_category.ContainsKey(v)) return false;
 
-            Product value = _category[v];
-
             // Check if the product exists in the basket before removing
-            if (!_products.Contains(value)) return false;
+            if (!_products.ContainsKey(v)) return false;
 
+            Product value = _category[v];
             value.IncreaseStock();
 
-            _products.Remove(value);
+            // Either remove 1, or if order only consists of one, remove the whole order
+            if (_products[v].Amount > 1) _products[v].Amount--;
+            else _products.Remove(v);
+
+            _count--;
             return true;
         }
 
@@ -60,8 +74,7 @@ namespace exercise.main
 
         public bool Exists(string v)
         {
-            Product value = _category[v];
-            return _products.Contains(value);
+            return _products.ContainsKey(v);
         }
 
         public double CostOfProduct(string v)
@@ -70,12 +83,12 @@ namespace exercise.main
             return product.Price;
         }
 
-        public List<Product> Products { get { return _products; } }
+        public List<ProductOrder> Products { get { return _products.Values.ToList(); } }
 
         public int Capacity { get { return _capacity; } }
 
-        public bool IsFull { get { return _capacity == _products.Count(); } }
+        public bool IsFull { get { return _capacity == _count; } }
 
-        public double SumOfItems { get { return _products.Sum(product => product.Price); } }
+        public double SumOfItems { get { return _products.Sum(product => product.Value.Amount * product.Value.Product.Price); } }
     }
 }
