@@ -9,8 +9,11 @@ namespace exercise.main.Persons
 {
     public class Customer
     {
+        #region
         private Basket _basket;
         public Basket Basket { get => _basket; }
+        #endregion
+
         public Customer() 
         { 
             _basket = new Basket(); 

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Items
 {
-    public class InventoryClass
+    public class ShopInventory
     {
+        #region Properties
         private List<Item> _inventory = new List<Item>()
         {
             new Bagel {Sku = "BGLO", Price = 0.49d, Variant = "Onion"},
@@ -27,6 +28,7 @@ namespace exercise.main.Items
         };
 
         public List<Item> Inventory { get => _inventory; }
+        #endregion
 
         public Filling GetFillingBySkuID (string skuID)
         {

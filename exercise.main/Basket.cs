@@ -26,6 +26,7 @@ namespace exercise.main
             {
                 _itemsInBasket.Add(item);
                 _capacity--;
+
                 return true;
             }
         }
@@ -36,6 +37,7 @@ namespace exercise.main
             {
                 _itemsInBasket.Remove(item);
                 _capacity++;
+
                 return true;
             } else
             {

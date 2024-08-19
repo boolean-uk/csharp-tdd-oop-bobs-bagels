@@ -8,9 +8,11 @@ namespace exercise.main.Items
 {
     public class Bagel : Item
     {
+        #region Properties
         private List<Filling> _fillings =  new List<Filling>();
         public List<Filling> Fillings { get => _fillings; }
-        
+        #endregion
+
         public Bagel() 
         {
             

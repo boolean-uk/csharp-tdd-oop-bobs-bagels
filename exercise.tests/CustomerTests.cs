@@ -10,10 +10,10 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
         customer.AddItemToBasket(bagel);
 
         // Verify
@@ -25,11 +25,12 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
         customer.Basket.Capacity = 0;
+
         bool result = customer.AddItemToBasket(bagel);
 
         // Verify
@@ -41,11 +42,12 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
         customer.AddItemToBasket(bagel);
+
         bool result = customer.RemoveItemFromBasket(bagel);
 
         // Verify
@@ -57,10 +59,11 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
+
         bool result = customer.RemoveItemFromBasket(bagel);
 
         // Verify
@@ -72,11 +75,11 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
-        Coffee coffee = inventoryClass.GetCoffeeBySkuID("COFB");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
+        Coffee coffee = shopInventory.GetCoffeeBySkuID("COFB");
 
         customer.AddItemToBasket(bagel);
         customer.AddItemToBasket(coffee);
@@ -92,15 +95,15 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
 
         double result = customer.GetCostOfItem(bagel);
 
         // Verify
-        Assert.IsTrue(result == inventoryClass.GetBagelBySkuID("BGLO").Price);
+        Assert.IsTrue(result == shopInventory.GetBagelBySkuID("BGLO").Price);
     }
 
     [Test]
@@ -108,11 +111,11 @@ public class CustomerTests
     {
         // Setup
         Customer customer = new Customer();
-        InventoryClass inventoryClass = new InventoryClass();
+        ShopInventory shopInventory = new ShopInventory();
 
         // Execute
-        Bagel bagel = inventoryClass.GetBagelBySkuID("BGLO");
-        Filling filling = inventoryClass.GetFillingBySkuID("FILX");
+        Bagel bagel = shopInventory.GetBagelBySkuID("BGLO");
+        Filling filling = shopInventory.GetFillingBySkuID("FILX");
 
         customer.AddItemToBasket(bagel);
 
