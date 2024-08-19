@@ -63,5 +63,10 @@ namespace exercise.main
             //Ask the manager how much all fillings cost
             return manager.HowMuchFillings();
         }
+
+        public bool Purchase(Manager manager)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
