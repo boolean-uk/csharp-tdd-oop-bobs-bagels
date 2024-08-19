@@ -76,5 +76,22 @@ namespace exercise.tests
             //assert
             Assert.That(expected, Is.True);
         }
+        [Test]
+        public void TestChangingCapacity()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            //act
+            int newcapacity = 5;
+
+            bool expected = basket.changecapacity();
+
+            //assert
+            Assert.That(expected, Is.True);
+
+
+        }
     }
 }

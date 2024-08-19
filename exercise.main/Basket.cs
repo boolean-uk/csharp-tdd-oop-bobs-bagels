@@ -40,7 +40,10 @@ namespace exercise.main
              return false;
         }
 
-
+        public bool changecapacity()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
