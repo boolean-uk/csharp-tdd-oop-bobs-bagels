@@ -7,6 +7,7 @@ public class Tests
 {
     List<Item> selections = new List<Item>();
 
+
     // Bagel creation test cases
     // Bagel without filling
     [TestCase("BGLO", 0.49, "Bagel", "Onion", "")]
@@ -32,6 +33,8 @@ public class Tests
         selections.Clear();
 
         Basket Basket = new Basket ();
+        Basket.Cap = 4;
+
         Bagel NewBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
         selections.Add(NewBagel);
@@ -52,6 +55,8 @@ public class Tests
         selections.Clear();
 
         Basket Basket = new Basket ();
+        Basket.Cap = 4;
+
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
         List<Filling> fillings = new List<Filling>();
@@ -83,6 +88,8 @@ public class Tests
         selections.Clear();
 
         Basket Basket = new Basket();
+        Basket.Cap = 4;
+
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
         List<Filling> fillings = new List<Filling>();
@@ -115,7 +122,7 @@ public class Tests
         selections.Clear();
 
         Basket ThisBasket = new Basket();
-
+        ThisBasket.Cap = 4;
         Bagel PlainBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
@@ -145,6 +152,7 @@ public class Tests
     {
         selections.Clear();
         Basket Basket = new Basket();
+        Basket.Cap = 4;
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
 
         List<Filling> fillings = new List<Filling>();
@@ -170,6 +178,7 @@ public class Tests
     {
         //arrange
         Basket Basket = new Basket();
+        Basket.Cap = 4;
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
         List<Filling> fillings = new List<Filling>();
         Filling Bacon = new Filling("FILB", 0.12, "Filling", "Bacon");
@@ -177,7 +186,6 @@ public class Tests
         BaconBagel = ChosenItem.AddFillings(BaconBagel, fillings);
 
         string expected = "Your basket is full";
-        Basket.Cap = 4;
 
         //act
         selections.Add(BaconBagel); selections.Add(Bacon);
@@ -190,9 +198,5 @@ public class Tests
         string result = Basket.CapNotice;
 
         Assert.IsTrue(expected == result);
-
-
     }
-
-
 }

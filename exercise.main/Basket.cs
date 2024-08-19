@@ -19,7 +19,14 @@ namespace exercise.main
 
         public void AddToBasket(int id, List<Item> item) 
         {
+            if (BasketItems.Count < Cap)
+            {
                 BasketItems.Add(id, item);
+            }
+            else 
+            {
+                CapNotice = "Your basket is full";
+            }
         }
 
         public void RemoveFromBasket(int id)
