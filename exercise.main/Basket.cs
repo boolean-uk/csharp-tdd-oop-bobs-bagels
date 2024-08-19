@@ -19,22 +19,34 @@ namespace exercise.main
             BasketItems.Add(item);
         }
 
+        public void RemoveFromBasket(Item item)
+        {
+            
+        }
+
         public string PrintBasket()
         {
             string printout = "";
-            foreach (Item item in BasketItems)
+            if (BasketItems.Count > 0)
             {
-                if (item is Bagel bagel) 
+                foreach (Item item in BasketItems)
                 {
-                    printout += item.PrintItem();
-                    printout += $"\nWith: {bagel.Filling}";
+                    if (item is Bagel bagel)
+                    {
+                        printout += item.PrintItem();
+                        printout += $"\nWith: {bagel.Filling}";
+                    }
+                    else
+                    {
+                        printout += item.PrintItem();
+                    }
                 }
-                else
-                {
-                    printout += item.PrintItem();
-                }
+                return printout;
             }
-            return printout;
+            else
+            {
+                return "Basket is empty";
+            }
         }
 
         public double BasketTotal()

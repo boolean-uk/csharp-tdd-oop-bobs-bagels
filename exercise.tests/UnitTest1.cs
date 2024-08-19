@@ -119,4 +119,29 @@ public class Tests
         Assert.IsTrue(expected == result);
     }
 
+    [Test]
+    public void RemoveBagelTest()
+    {
+        Basket Basket = new Basket();
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+
+        List<Filling> fillings = new List<Filling>();
+        Filling Bacon = new Filling("FILB", 0.12, "Filling", "Bacon");
+        fillings.Add(Bacon); // Remember to populate the fillings list!
+        BaconBagel = ChosenItem.AddFillings(BaconBagel, fillings); // I dont really need to instance a new object I think. Can just modify this one.
+
+        Basket.AddToBasket(BaconBagel);
+        Basket.AddToBasket(Bacon);
+
+        Basket.RemoveFromBasket(BaconBagel);
+
+        string expected = "Basket is empty";
+
+        string result = Basket.PrintBasket();
+
+        Assert.IsTrue(expected == result);
+
+
+    }
+
 }
