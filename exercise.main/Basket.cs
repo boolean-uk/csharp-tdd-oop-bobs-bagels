@@ -25,7 +25,7 @@ namespace exercise.main
                 if (item is Bagel bagel) 
                 {
                     printout += item.PrintItem();
-                    printout += $"\nWith: {bagel.Filling}";
+                    printout += $"\nWith: {bagel.Filling} ";
                 }
                 else
                 {
@@ -33,6 +33,11 @@ namespace exercise.main
                 }
             }
             return printout;
+        }
+
+        public double BasketTotal()
+        {
+            return 0;
         }
     
     }
