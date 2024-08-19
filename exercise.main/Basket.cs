@@ -32,7 +32,12 @@ namespace exercise.main
 
         public void RemoveFromBasket(int id)
         {
-            BasketItems.Remove(id);
+            if (BasketItems.ContainsKey(id)) {
+                BasketItems.Remove(id);
+            }
+            else {
+                NotFoundNotice = "Item does not exist";
+            }
             //BasketItems.Remove(item);
         }
 
