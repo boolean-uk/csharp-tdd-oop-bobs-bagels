@@ -85,7 +85,12 @@ public class Tests
     [Test]
     public void ItemIsNotInBasketTest()
     {
-        Assert.Fail();
+        bool expected = false;
+        Basket basket = new Basket();
+
+        bool isInBasket = basket.RemoveItem("Black");
+
+        Assert.That(isInBasket, Is.EqualTo(expected));
     }
     
 
