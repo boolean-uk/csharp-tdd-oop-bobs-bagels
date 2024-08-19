@@ -18,7 +18,7 @@ namespace exercise.main
         }
 
 
-        public bool AddToBasket(string name, string variant, double remainingFunds)
+        public bool AddToBasket(string name, string variant)
         {
             if(manager.ConfirmOrder(name, variant, funds - basket.ShowCost(), basket.GetSize()))
             {
@@ -30,7 +30,7 @@ namespace exercise.main
             }
             return false;
         }
-        public bool AddToBasket(string name, string variant, double remainingFunds, string filling)
+        public bool AddToBasket(string name, string variant, string filling)
         {
             if (manager.ConfirmOrder(name, variant, funds - basket.ShowCost(), basket.GetSize()))
             {

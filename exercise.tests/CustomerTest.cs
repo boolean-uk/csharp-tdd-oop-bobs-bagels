@@ -22,7 +22,7 @@ namespace exercise.tests
 
             for(int i = 0; i < expected.Length; i++)
             {
-                bool result = customer.AddToBasket(name, variant, funds);
+                bool result = customer.AddToBasket(name, variant);
                 Assert.That(result == expected[i]);
             }
         }
@@ -41,9 +41,27 @@ namespace exercise.tests
 
             for (int i = 0; i < expected.Length; i++)
             {
-                bool result = customer.AddToBasket(name, variant, funds, filling);
+                bool result = customer.AddToBasket(name, variant, filling);
                 Assert.That(result == expected[i]);
             }
         }
+
+
+        //[TestCase("Bagel", "Plain", 2.0, new bool[] { true, true })]
+        //[TestCase("Fish", "Plain", 2.0, new bool[] { false, false })]
+        //[TestCase("Bagel", "Kangeroo", 2.0, new bool[] { false, false })]
+        //[TestCase("Bagel", "Plain", 0.6, new bool[] { true, false })]
+        //[TestCase("Bagel", "Plain", 222.0, new bool[] { true, true, true, true, true, false, false })]
+        //[TestCase("Coffee", "White", 2.0, new bool[] { true, false })]
+        //public void TestShowCost(string name, string variant, double funds)
+        //{
+        //    Customer customer = new Customer(funds);
+
+        //    for (int i = 0; i < expected.Length; i++)
+        //    {
+        //        bool result = customer.AddToBasket(name, variant, funds);
+        //        Assert.That(result == expected[i]);
+        //    }
+        //}
     }
 }
