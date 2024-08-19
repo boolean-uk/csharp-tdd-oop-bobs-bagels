@@ -131,6 +131,32 @@ namespace csharp_tdd_bobs_bagels.tests
                 Assert.IsTrue(bagel.CurrentFlavor == "plain");
 
             }
+            [Test]
+            public void TotalTest()
+            {
+                //init
+                Basket basket = new Basket();
+
+                List<Bagel> bagels = new List<Bagel>()
+                {
+                    new Bagel("Onion"),
+                    new Bagel("Plain"),
+                    new Bagel("Sesame")
+                };
+                
+                foreach (Bagel bagel in bagels)
+                {
+                    basket.Add(bagel);
+                }
+
+                float expected = 1.37f;
+
+                //run
+                float resulted = basket.Total();
+
+                //assert
+                Assert.IsTrue(expected == resulted);
+            }
             
             
         }
