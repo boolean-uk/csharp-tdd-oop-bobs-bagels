@@ -32,10 +32,10 @@ namespace exercise.main
             bool result = value.DecreaseStock();
             if (!result) return false;
 
-            // Check if order already exists, in this case, just increment it by 1
+            // Check if order already exists, in this case, just increment it by amount
             if (_products.ContainsKey(sku))
             {
-                _products[sku].Amount++;
+                _products[sku].Amount += amount;
             }
             else
             {

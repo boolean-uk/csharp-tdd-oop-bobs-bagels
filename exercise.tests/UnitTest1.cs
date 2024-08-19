@@ -183,6 +183,17 @@ public class Tests
     }
 
     [Test]
+    public void Test12DiscountOrder()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(100);
+
+        bool result1 = basket.Add("BGLP", 16);
+        Assert.That(basket.SumOfItems == 5.55);
+    }
+
+    [Test]
     public void InventoryTest()
     {
         List<string> bagels = ["BGLO", "BGLP", "BGLE", "BGLS"];
