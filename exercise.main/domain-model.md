@@ -57,17 +57,17 @@ I want customers to only be able to order things that we stock in our inventory.
  
 | Classes   | Methods | Scenario | Outputs |
 |-----------|---------|----------|---------|
-| `Inventory` |AddToBasket(string name, string variant);|Adds a bagel to the customers basket| true if added, false if not |  
-|				|RemoveBagel(Bagel bagel)|If the bagel is in the basket, the bagel gets removed|true if removed, false if not|
-|			|ChooseFilling(string variant)|Choose filling for the bagel| void|
-|          |BagelPrice(string variant)|Checks the price of a bagel|double| 
+|`Inventory` |BagelPrice(string variant)|Checks the price of a bagel|double| 
 |          |FillingPrice(string variant)|Checks the price of a filling|double|   
-|		|ChangeBasketCapacity(int capacity)|Changes the capacity of baskets| void  |     
 |		   |ShowInventory()| Show a list of what the customers can order from the bagelshop|List<InventoryProducts,> | 
 |`InventoryProducts`|        |         |           
 |	`Basket`	   |IsFull()| If the basket is full | true|
 |		   |        | If the basket is not full| false |
 |		   |TotalCost()| Finds the total cost of items in the basket| double|
+|  |AddToBasket(string name, string variant);|Adds a bagel to the customers basket| true if added, false if not |  
+|				|RemoveBagel(Bagel bagel)|If the bagel is in the basket, the bagel gets removed|true if removed, false if not|
+|			|ChooseFilling(string variant)|Choose filling for the bagel| void|
+|		|ChangeBasketCapacity(int capacity)|Changes the capacity of baskets| void  |     
 
 
 
