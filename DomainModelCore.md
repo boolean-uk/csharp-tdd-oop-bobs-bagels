@@ -61,9 +61,9 @@ Domain Model
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Inventory`	  |	Public List<Item> Inventory                                                         	| List over all of the available items      | List        |
 | 	         	  |	                                                                                    	| Can only order from the inventory         |             |
+| 	         	  |	List<Item> getInventory()                                                           	| Returns the full inventory                | List        |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	findItemByName(string itemName)                                                     	| Lets the user find item using only its name  Item       |
 | 	         	  |	                                                                                    	|                                           |             |
 |-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|-------------|
 | `Person`	      |	Public Person(string name, Role role)                                               	| Person can be a Manager or a Customer     | Person      |
