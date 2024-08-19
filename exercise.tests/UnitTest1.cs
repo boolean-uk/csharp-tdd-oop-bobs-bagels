@@ -1,4 +1,5 @@
 using exercise.main;
+
 namespace exercise.tests
 {
     public class BasketTests
@@ -65,7 +66,7 @@ namespace exercise.tests
         //SKIP FOR NOW ASK FOR HELP LATER 
             //Possible to add condition to property instead of method?
         [Test]
-        public void Test()
+        public void BasketIsFullTest()
         {
             //arrange
 
@@ -78,21 +79,27 @@ namespace exercise.tests
             Product product4 = inventory.Products[3];
             Product product5 = inventory.Products[4];
             Product product6 = inventory.Products[5];
-            basket.ProductList.Add(product1);
-            basket.ProductList.Add(product2);
-            basket.ProductList.Add(product3);
-            basket.ProductList.Add(product4);
-            basket.ProductList.Add(product5);
+            basket.Add(product2);
+            basket.Add(product3);
+            basket.Add(product4);
+            basket.Add(product5);
+            basket.Add(product1);
+
+            bool expected = false;
+            bool expected2 = true;
 
             //add over capacity
-            basket.ProductList.Add(product6);
+            bool result = basket.Add(product6);
 
-            
+            basket.Remove(product5);
+
+            bool result2 = basket.Add(product5);
 
             //act
             
             //assert
-            //Assert.That(expected == result);
+            Assert.That(expected == result);
+            Assert.That(expected2 == result2);
         }
         
         [Test]
@@ -161,13 +168,62 @@ namespace exercise.tests
             decimal expected = 0.49M + 0.49M + 0.39M;
 
             //act
-            //Remove item 2 which has not been added to basket
             decimal result = basket.GetTotalCost();
             
 
             //assert
             Assert.That(expected == result);
         }
+
+        [Test]
+        public void GetBagelPriceTest()
+        {
+            //arrange
+
+            Inventory inventory = new Inventory();
+            
+            decimal expected = 0.39M;
+
+            string variant = "Plain";
+            //act
+            //Maybe get price directly from inventory?
+            //decimal result = basket.GetBagelPrice(variant);
+            //decimal result = inventory.Products.Find(x => x.Variant == product1.Variant);
+
+            var result = inventory.Products.Where(x => x.Variant == variant).First().Price;
+            
+
+            //assert
+            Assert.That(expected == result);
+        }
+
+        [Test]
+        //Same as the regular product add. Create a smart solution for this later
+        public void AddFillingTest()
+        {
+            //arrange
+
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            //add a filling to the basket
+            Product product1 = inventory.Products.Where(x => x.Name == "Filling").First();
+
+            int expected = 1;
+            
+            //act
+            basket.ProductList.Add(product1);
+
+            int result = basket.ProductList.Count;
+
+
+            //assert
+            Assert.That(expected == result);
+        }
+
+
+
+
 
     }
 }
