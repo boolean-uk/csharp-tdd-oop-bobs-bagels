@@ -15,21 +15,22 @@ namespace exercise.main.Persons
         { 
             _basket = new Basket(); 
         }
-        public bool Add(Item item)
+        public bool AddItemToBasket(Item item)
         {
             if (_basket.Capacity <= 0)
             {
                 return false;
             } else
             {
-                _basket.AddItemToBasket(item);
+                _basket.Add(item);
                 return true;
             }
         }
 
-        public void Remove(Bagel bagel)
+        public bool RemoveItemFromBasket(Item bagel)
         {
-            throw new NotImplementedException();
+            _basket.Remove(bagel);
+            return true;
         }
     }
 }
