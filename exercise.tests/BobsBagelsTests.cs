@@ -99,7 +99,17 @@ public class Tests
     [Test]
     public void TotalCostofBasketTest()
     {
-        Assert.Fail();
+        double expectedTotal = 0.49 + 0.99 + 0.12;
+        Basket basket = new Basket();
+        basket.AddItem("Onion");
+        basket.AddItem("Black");
+        basket.AddItem("Egg");
+
+        double actualTotal = basket.TotalCostofBasket();
+
+        Assert.That(actualTotal, Is.EqualTo(expectedTotal));
+
+
     }
 
     //7. As a customer, So I know what the damage will be, I'd like to know the cost of a bagel before I add it to my basket.
