@@ -50,7 +50,7 @@ namespace exercise.main
 
         public double ShowCost()
         {
-            throw new NotImplementedException();
+            return basket.ShowCost(); 
         }
 
         public void ViewMenu()
