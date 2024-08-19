@@ -31,6 +31,8 @@ namespace exercise.main
 
         public Product Product { get { return _product; } }
 
+        public double Cost { get { return Math.Round(_product.Price * _amount, 2, MidpointRounding.AwayFromZero); } }
+
         public double Discount { get { return _discount; } }
 
         public int Amount { get { return _amount; }

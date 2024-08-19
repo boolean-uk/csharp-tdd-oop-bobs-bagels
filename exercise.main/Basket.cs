@@ -96,6 +96,8 @@ namespace exercise.main
 
         public List<ProductOrder> Products { get { return _products.Values.ToList(); } }
 
+        public Dictionary<string, ProductOrder> ProductOrders { get { return _products; } }
+
         public int Capacity { get { return _capacity; } }
 
         public bool IsFull { get { return _capacity == _count; } }

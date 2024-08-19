@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,7 +34,42 @@ namespace exercise.main
         // Maybe add terminal interaction to main
         public static void Main(string[] args)
         {
+            BagelShop shop = new BagelShop();
+            Basket basket = shop.GrabBasket();
+            basket.ChangeCapacity(100);
 
+            bool result1 = basket.Add("BGLO", 2);
+            bool result2 = basket.Add("BGLP", 12);
+            bool result3 = basket.Add("BGLE", 6);
+            bool result4 = basket.Add("COFB", 3);
+
+            var sb = ReceiptPrinter(basket);
+            Console.WriteLine(sb);
+        }
+
+        public static StringBuilder ReceiptPrinter(Basket basket)
+        {
+            var sb = new StringBuilder();
+            Dictionary<string, ProductOrder> orders = basket.ProductOrders;
+
+            sb.AppendLine("    ~~~ Bob's Bagels~~~    \n");
+            sb.AppendLine($"    {DateTime.Now.ToString()}    \n");
+            sb.AppendLine("----------------------------\n");
+
+            foreach (var (sku, po) in orders) {
+                string orderName = $"{po.Product.Variant} {po.Product.Name}".PadRight(18);
+                string orderAmount = $"{po.Amount}".PadRight(5);
+                string orderPrice = $"£{Math.Round(po.Cost - po.Discount, 2)}";
+                sb.AppendLine(orderName + orderAmount + orderPrice);
+            }
+            sb.AppendLine("----------------------------\n");
+
+            string total = "Total" + $"£{basket.SumOfItems}".PadLeft(23);
+            sb.AppendLine(total + "\n");
+
+            sb.AppendLine("".PadRight(9) + "Thank you");
+            sb.AppendLine("".PadRight(6) + "for your order!");
+            return sb;
         }
 
         private Product CreateProduct(string sku, double price, string name, string variant)

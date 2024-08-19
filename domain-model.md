@@ -4,6 +4,7 @@
 |-----------------|-------------------------|-----------------------------|---------------------------|------------|
 | BagelShop       | `Dictionary<string, Product> category`| Category {get;}  | category of products      | Dictionary |
 |                 |							| GrabBasket()                | gives an empty basket     | Basket     |
+|                 |                         | static ReceiptPrinter()     | prints a receipt          | nothing    |
 |                 |                         |                             |                           |            |
 | ProductOrder    | `Product product`       | Product {get;}              | get the product           | Product    |
 |                 | `int amount`            | Amount {get; set;}          | get or set the amount     | int        |

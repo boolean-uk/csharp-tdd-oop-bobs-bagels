@@ -1,4 +1,5 @@
 using exercise.main;
+using System.Text;
 
 namespace exercise.tests;
 
@@ -191,6 +192,28 @@ public class Tests
 
         bool result1 = basket.Add("BGLP", 16);
         Assert.That(basket.SumOfItems == 5.55);
+    }
+
+    [Test]
+    public void ReceiptPrinterTest()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(100);
+
+        bool result1 = basket.Add("BGLO", 2);
+        bool result2 = basket.Add("BGLP", 12);
+        bool result3 = basket.Add("BGLE", 6);
+        bool result4 = basket.Add("COFB", 3);
+
+        var sb = BagelShop.ReceiptPrinter(basket);
+
+        Assert.That(sb.ToString().Contains("Bob's Bagels"));
+        Assert.That(sb.ToString().Contains("Onion Bagel"));
+        Assert.That(sb.ToString().Contains("Plain Bagel"));
+        Assert.That(sb.ToString().Contains("Everything Bagel"));
+        Assert.That(sb.ToString().Contains("Coffee"));
+        Assert.That(sb.ToString().Contains("for your order!"));
     }
 
     [Test]
