@@ -83,7 +83,7 @@ Domain Model
 |                 | public int basketMaxSize																| Property to holding/setting the basket    | int         |
 |                 | Modify addItem to check if full		    												|											| bool  	  |
 |                 |																							|                                           |             |
-|                 | changeCapasity(int capacity, Role role)                         						| Manager wants to change the basket size   | void (none) |
+|                 | changeCapacity(int capacity, Role role)                         						| Manager wants to change the basket size   | void (none) |
 |				  |																							|                                           |             |
 | 	         	  |	checkPrice(string type)                                                             	| Customers wants to see prices             | List        |
 | 	         	  |	                                                                                    	|                                           |             |

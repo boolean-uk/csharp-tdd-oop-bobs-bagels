@@ -39,7 +39,6 @@ public class Tests
     }
 
     [Test]
-
     public void removeItemTest()
     {
         Basket basket = new Basket();
@@ -49,4 +48,19 @@ public class Tests
         Assert.That(basket.yourBasket.Count == 0);
 
     }
+
+
+    [Test]
+    public void changeCapacityTest()
+    {
+        Basket basket = new Basket();
+        Person manager = new Person("Flier", Role.MANAGER);
+
+        basket.changeCapacity(4, manager);
+
+        Assert.That(basket.MAX_BASKET_SIZE == 4);
+
+    }   
+
+
 }

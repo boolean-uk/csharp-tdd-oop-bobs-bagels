@@ -48,5 +48,10 @@ namespace exercise.main
                 yourBasket.Remove(item);
             }
         }
+
+        public void changeCapacity(int v, Person manager)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
