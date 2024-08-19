@@ -74,8 +74,10 @@ I want customers to only be able to order things that we stock in our inventory.
 |             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |
-|             | `AddFilling(string name, float price)`                   | Update a product by adding a filling to it                                         | void    |
+|             | `AddFilling(Product filling)`                            | Update a product by adding a filling to it                                         | void    |
 |             | `Cost()`                                                 | Return the cost of this product                                                    | float   |
+|             | `IsBagel()`                                              | Return true if it is a bagel                                                       | true    |
+|             |                                                          | Return false if it is not a bagel                                                  | false   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----    |
 |             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |

@@ -16,7 +16,13 @@ namespace exercise.main
             this.info = info;
         }
 
-        internal float Cost()
+        public void AddFilling(Product filling)
+        {
+            //Add filling
+            fillings.Add(filling.info);
+        }
+
+        public float Cost()
         {
             //Get the total cost of the product with all fillings
             float cost = info.price;
@@ -25,6 +31,15 @@ namespace exercise.main
                 cost += filling.price;
             }
             return cost;
+        }
+
+        public bool IsBagel()
+        {
+            if (info.key[0] == 'B')
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

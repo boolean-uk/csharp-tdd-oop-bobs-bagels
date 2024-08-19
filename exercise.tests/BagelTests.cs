@@ -160,18 +160,21 @@ public class Tests
         Assert.That(sum, Is.EqualTo(cost));
     }
 
-    [TestCase("BGLO", "FILB", true)]
-    [TestCase("COFB", "FILE", false)]
-    public void FillingTest(string product, string filling, bool expectedOutcome)
+    [TestCase("BGLO", "FILB", true, 0.61f)]
+    [TestCase("COFB", "FILE", false, 0.99f)]
+    public void FillingTest(string product, string filling, bool expectedOutcome, float expectedPrice)
     {
         //arrange
         Manager manager = new Manager();
         Customer customer = new Customer(manager, 3.50f);
+        customer.Add(manager, product);
 
         //act
         bool result = customer.AddFilling(manager, filling, product);
+        float actualPrice = customer.TotalCost();
 
         //assert
         Assert.That(result, Is.EqualTo(expectedOutcome));
+        Assert.That(actualPrice, Is.EqualTo(expectedPrice));
     }
 }

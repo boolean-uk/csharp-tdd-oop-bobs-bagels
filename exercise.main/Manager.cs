@@ -61,5 +61,26 @@ namespace exercise.main
             }
             return 0.0f;
         }
+
+        public bool AddFilling(Basket basket, string filling, string product)
+        {
+            //Check if the product exists in the basket
+            int index = basket.Search(product);
+            if (index != -1)
+            {
+                //Check if the product is a bagel
+                if (basket.products[index].IsBagel())
+                {
+                    //Check if filling exists in inventory
+                    if (inv.Find(filling))
+                    {
+                        //Add the filling to donut 
+                        basket.products[index].AddFilling(inv.GetProduct(filling));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

@@ -50,7 +50,12 @@ namespace exercise.main
 
         public bool AddFilling(Manager manager, string filling, string product)
         {
-            throw new NotImplementedException();
+            //Ask the manager to add the filling
+            if(manager.AddFilling(this.basket, filling, product))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
