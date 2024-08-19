@@ -46,8 +46,9 @@ public class Tests
         Basket Basket = new Basket ();
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
-        List<string> fillings = new List<string>();
-        fillings.Add(fillingvariant);
+        List<Filling> fillings = new List<Filling>();
+        Filling Bacon = new Filling(fillingsku, fillingprice, fillingname, fillingvariant);
+        fillings.Add(Bacon);
 
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
         TestBagel.Filling = fillingvariant;

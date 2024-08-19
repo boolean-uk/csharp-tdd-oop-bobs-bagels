@@ -11,10 +11,13 @@ namespace exercise.main
     {
         //public Bagel ChosenBagel;
         //public Coffee ChosenCoffee;
-        public static Bagel AddFillings(Bagel thisBagel, List<string> fillings) 
+        public static Bagel AddFillings(Bagel thisBagel, List<Filling> fillings) 
         {
-            Bagel filledBagel = thisBagel;
-            return filledBagel;
+            foreach (var filling in fillings) 
+            {
+                thisBagel.Filling += filling.Variant;
+            }
+            return thisBagel;
         }
         public static Filling ChooseFillings(string sku, double price, string name, string variant)
         {

@@ -20,6 +20,18 @@ namespace exercise.main
         public string PrintBasket()
         {
             string printout = "";
+            foreach (Item item in BasketItems)
+            {
+                if (item is Bagel bagel) 
+                {
+                    printout += item.PrintItem();
+                    printout += $"\nWith: {bagel.Filling}";
+                }
+                else
+                {
+                    printout += item.PrintItem();
+                }
+            }
             return printout;
         }
     
