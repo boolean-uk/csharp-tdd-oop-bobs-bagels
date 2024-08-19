@@ -85,9 +85,11 @@ Domain Model
 |                 |																							|                                           |             |
 |                 | changeCapacity(int capacity, Role role)                         						| Manager wants to change the basket size   | void (none) |
 |				  |																							|                                           |             |
-| 	         	  |	checkPriceForType(string type)                                                        	| Customers wants to see prices             | List        |
+| 	         	  |	checkPriceForType(string type)                                                        	| Customers wants to see prices             | string      |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	checkTotal()                                                                        	| Customer wants to see the total basket cost|double      |
 | 	         	  |	                                                                                    	|                                           |             |
-						
+| 	         	  |	                                                                                    	|                                           |             |
+| 	         	  |	                                                                                    	|                                           |             |
+																		

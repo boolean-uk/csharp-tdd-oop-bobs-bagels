@@ -83,4 +83,12 @@ public class Tests
 
     }
 
+    [Test]
+    public void checkPriceForType()
+    {
+        Basket basket = new Basket();
+
+
+    }
+
 }
