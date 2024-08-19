@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,11 +10,6 @@ namespace exercise.main
 {
     public class Basket
     {
-        public Basket() 
-        {
-            addDiscounts();
-        }
-
         public string Add(string productID)
         {
             if (capacity <= productCount) { return "your basket is full"; }
@@ -52,39 +48,35 @@ namespace exercise.main
             return GetFromInventory(productId).Price;
         }
 
-        private List<Product> _inventory { get; set; } = new List<Product>()
-        {
-            new Product("BGLO", 0.49, "bagel","onion"),
-            new Product("BGLP", 0.39, "bagel","plain"),
-            new Product("BGLE", 0.49, "bagel", "everything"),
-            new Product("BGLS", 0.49, "bagel", "sesame"),
-            new Product("COFB", 0.99, "coffee", "black"),
-            new Product("COFW", 1.19, "coffee", "white"),
-            new Product("COFC", 1.29, "coffee", "capuccino"),
-            new Product("COFL", 1.29, "coffee", "latte"),
-            new Product("FILB", 0.12, "filling", "bacon"),
-            new Product("FILE", 0.12, "filling", "egg"),
-            new Product("FILC", 0.12, "filling", "cheese"),
-            new Product("FILX", 0.12, "filling", "cream cheese"),
-            new Product("FILS", 0.12, "filling", "smoked salmon"),
-            new Product("FILB", 0.12, "filling", "ham"),
-        };
-
         //For the extension 1
         //I will come back to it later =)
-        public void addDiscounts()
+
+        public double GetTotalCost()
         {
-            GetFromInventory("BGLO").Discount = new Discount(new Dictionary<string, int>() { { "BGLO", 6 } }, 2.49);
-            GetFromInventory("BGLP").Discount = new Discount(new Dictionary<string, int>() { { "BGLP", 12 } }, 3.99);
-            GetFromInventory("BGLE").Discount = new Discount(new Dictionary<string, int>() { { "BGLE", 6 } }, 2.49);
-            GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
+            if (!_basket.Any()) {  return 0; }
+            if (_basket.All(product => product.Discount == null)) { return totalCost; }
+
+            foreach (var product in _basket)
+            {
+                if (product.Discount == null) { continue; }
+                foreach (var discount in product.Discount.DiscountProducts)
+                {
+                    int discountProductCount = _basket.Select(item => item.SKU).Where(item => item.Contains(discount.Key)).Count();
+                    if(discountProductCount >= discount.Value)
+                    {
+                        //Gjør om til tilbudet
+                    }
+                }
+            }
+            return 0;
         }
 
-        public void getTotalCost()
+        public int GetProductCount(string product)
         {
-
+            return _basket.Count(product => product.Name == product.Name);
         }
 
+        private List<Product> _inventory = new Inventory().inventory; 
         public int capacity { get; set; } = 5;
         public int productCount { get { return _basket.Count; } }
         public List<Product> _basket { get; set; } = new List<Product>();
