@@ -10,13 +10,19 @@ namespace exercise.tests
     public class ManagerTest
     {
 
-        //[TestCase(2)]
-        //public void ChangeCapacity(int newCapacity)
-        //{
-        //    Manager manager = new Manager();
+        [TestCase(2)]
+        public void ChangeCapacity(int newCapacity)
+        {
+            Manager manager = new Manager();
+            bool expected = true;
+            if(newCapacity < 0)
+            {
+                expected = false;
+            }
+ 
+            bool result = manager.ChangeCapcity(newCapacity);
 
-        //    manager.ChangeCapcity(newCapacity);
-
-        //}
+            Assert.That(result == expected);
+        }
     }
 }

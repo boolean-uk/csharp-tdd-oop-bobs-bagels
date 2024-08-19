@@ -10,6 +10,9 @@ namespace exercise.main
     {
         private int capacity = 5;
 
-
+        public bool ChangeCapcity(int newCapacity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

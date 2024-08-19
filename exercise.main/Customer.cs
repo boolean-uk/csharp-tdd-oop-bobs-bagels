@@ -8,5 +8,6 @@ namespace exercise.main
 {
     public class Customer
     {
+        Basket basket = new Basket();
     }
 }
