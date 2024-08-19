@@ -21,9 +21,9 @@ public class Tests
         bool expected = true;
         Basket basket = new Basket();
 
-        bool actuallyAdded = basket.AddItem(variant);
+        bool HasBeenAdded = basket.AddItem(variant);
 
-        Assert.That(actuallyAdded, Is.EqualTo(expected));
+        Assert.That(HasBeenAdded, Is.EqualTo(expected));
 
     }
 
@@ -32,7 +32,15 @@ public class Tests
     [Test]
     public void RemoveItemFromBasketTest()
     {
-        Assert.Fail();
+        string variant = "Onion";
+        bool expected = true;
+        Basket basket = new Basket();
+        basket.AddItem(variant);
+        basket.AddItem("Black");
+
+        bool hasBeenRemoved = basket.RemoveItem(variant);
+
+        Assert.That(hasBeenRemoved, Is.EqualTo(expected));
     }
 
     //3. As a member of the public, So that I can not overfill my small bagel basket, I'd like to know when my  basket is full when I try adding an item beyond my basket capacity.

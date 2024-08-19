@@ -36,7 +36,9 @@ namespace exercise.main
             
         }
 
-        
-
+        public bool RemoveItem(string variant)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
