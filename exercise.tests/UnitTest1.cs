@@ -223,7 +223,7 @@ public class Tests
     }
 
     [Test]
-    public void checkBasketTotalCostTest()
+    public void checkBasketTotalCostTest() //TODO insert gettotalcost method insted of wth this is
     {
         Customer customer = getCustomerAndBasket();
         bool productAdded = customer.addProduct("BGLP");
@@ -246,10 +246,17 @@ public class Tests
         Assert.That(totalCost == 0.39f * 3);
     }
 
-    //[Test]
-    //public void addFillingsToBagelTest()
-    //{
+    [Test]
+    public void CheckDiscountFunctionalityTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.GetBagelStore().getManager().changeBasketCapacity(13);
+        customer.grabBasket();
+        customer = addBagel(customer, 11);
+        customer.addProduct("FILX");
 
-    //    Assert.Pass();
-    //}
+        customer.checkout();
+
+        Assert.Pass();
+    }
 }

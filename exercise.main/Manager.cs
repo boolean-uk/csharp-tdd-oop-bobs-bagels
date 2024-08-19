@@ -13,6 +13,7 @@ namespace exercise.main
         private Product _coffee;
         private Product _filling;
         private List<Product> _products = new List<Product>(); //menu item
+        private List<Tuple<string, string, float, int>> _discountList = new List<Tuple<string, string, float, int>>(); 
 
         public Manager(string firstName, string lastName)
             :base(firstName, lastName)
@@ -24,6 +25,7 @@ namespace exercise.main
             _products.Add(_bagel);
             _products.Add(_coffee);
             _products.Add(_filling);
+            addDiscount(); 
         }
 
         public void changeBasketCapacity(int newBasketCapacity)
@@ -117,11 +119,43 @@ namespace exercise.main
             return variants;
         }
 
+        private void addDiscount()
+        {
+            //List<Tuple<string, string, float, int>> variants =
+            //Tuple("BGLO", "", 2.49f, 6),
+            //Tuple.Create("BGLP", "", 3.99f, 12),
+            //Tuple.Create("BGLE", "", 2.49f, 6),
+            //Tuple.Create("COFB", "BGL", 1.25f, 1),
+
+            _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 3.99f, 12));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGL", 1.25f, 1));
+
+        }
+
         public void basketOverflowWarning() { Console.WriteLine("I am sorry but you basket is full. I cannot add anymore to it!"); }
 
         public List<Product> getMenu() // either print here or return list with products
         {
             return _products;
+        }
+
+        public float checkout(Basket basket) //might work
+        {
+            float totalCost = 0;
+            //List<Product> elligebleForDiscount = (List<Product>)basket.getProductsInBasket().Where(item => basket.getProductsInBasket().Any(z => z.SKU == item.SKU));
+
+
+
+            var productsThatMatch = (from discount in _discountList
+                                     where basket.getProductsInBasket().Any(product => (discount.Item1 == product.SKU) &&
+                                     (discount.Item4 == basket.getProductsInBasket().FindAll(item => item.SKU == discount.Item1).Count))
+                                     select discount).ToList();
+
+            productsThatMatch.ForEach(product => Console.WriteLine(product));
+
+            return 0f;
         }
     }
 }

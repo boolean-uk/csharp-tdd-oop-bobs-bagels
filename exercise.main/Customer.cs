@@ -52,6 +52,21 @@ namespace exercise.main
 
         public List<Product> checkMenu() { return _bagelStore.getManager().getMenu(); }
 
+        public float getTotalCost() //without discounts
+        {
+            float totalCost = 0f;
+            foreach (var item in _basket.getProductsInBasket())
+            {
+                totalCost += item.price;
+            }
+            return totalCost;
+        }
+
+        public void checkout() //with discounts
+        {
+            float totalCost = _bagelStore.getManager().checkout(_basket);
+        }
+
         //add lamdas to experiment
         //public bool addProductCool => (string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done
 
