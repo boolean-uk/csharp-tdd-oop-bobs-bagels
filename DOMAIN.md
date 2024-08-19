@@ -39,7 +39,7 @@
 |__________|_________________________________________|____________________________|                                                                       
 |          |                                         |                            |
 |          |ConfirmOrder(string namne, string variant|                            |
-|          |, double funds,    int basketSize)       |                            |
+|          |, double remainingFunds, int basketSize) |                            |
 |          |                                         |Funds are sufficient for 	  |true
 |          |                                         |order, items is on the menu |
 |          |                                         |and capcaity no full        |

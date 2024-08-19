@@ -35,15 +35,21 @@ namespace exercise.tests
 
 
         [TestCase("Bagel", "Onion", 5.0, 2, true)]
-        public void ConfirmOrder(string name, string variant, double funds, int basketSize, bool expected)
+        [TestCase("Bagol", "Onion", 5.0, 2, false)]
+        [TestCase("Bagel", "Pineapple", 5.0, 2, false)]
+        [TestCase("Bagel", "Onion", 0.1, 2, false)]
+        [TestCase("Bagel", "Onion", 5.0, 22, false)]
+        [TestCase("Coffee", "Black", 5.0, 2, true)]
+        [TestCase("Filling", "Bacon", 5.0, 2, true)]
+        [TestCase("Filling", "Egg", 5.0, 0, true)]
+        public void ConfirmOrder(string name, string variant, double remainingFunds, int basketSize, bool expected)
         {
             Manager manager = new Manager();
             //if no filling, string filling = string.empty
 
-            bool result = manager.ConfirmOrder(name, variant, funds, basketSize);
+            bool result = manager.ConfirmOrder(name, variant, remainingFunds, basketSize);
 
             Assert.That(result == expected);
-
         }
     }
 }

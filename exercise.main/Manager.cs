@@ -21,9 +21,24 @@ namespace exercise.main
             
         }
 
-        public bool ConfirmOrder(string name, string variant, double funds, int basketSize)
+        public bool ConfirmOrder(string name, string variant, double remainingFunds, int basketSize)
         {
-            throw new NotImplementedException();
+            Inventory inventory = new Inventory();
+            if(!inventory.IsInInventory(name, variant))
+            {
+                return false; // item does not exist on menu
+            }
+            if(inventory.GetPrice(name, variant) > remainingFunds)
+            {
+                return false; //insufficient funds
+            }
+            if(basketSize >= capacity && name != "Filling")
+            {
+                return false; // basket cannot exceed capacity
+                // note that fillings do not take up space, they are included in the bagel
+            }
+
+            return true;
         }
     }
 }
