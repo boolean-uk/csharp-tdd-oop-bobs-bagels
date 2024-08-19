@@ -20,13 +20,15 @@ namespace exercise
             {
                 return false; //Basket is full
             }
-                
+
             Product? item = inventory.Items.Find(item => item.SKU == sku);
 
             if (item == null)
                 return false; //Product doesn't exist
+
+            Product productClone = new Product(item.SKU, item.Price, item.Name, item.Variant);
             
-            products.Add(item);
+            products.Add(productClone);
             return true;
         }
 
@@ -35,22 +37,27 @@ namespace exercise
             Product? item = inventory.Items.Find(item => item.SKU == sku);
 
             if (item == null)
-                return false;
+                return false; //Such item does not exist
 
-            if (!products.Contains(item))
+            Product? toRemove = products.Find(item => item.SKU == sku);
+
+            if (toRemove == null)
             {
                 Console.WriteLine($"Could not find {item.Variant} in your basket.");
                 return false;
             }
 
-            products.Remove(item);
+            products.Remove(toRemove);
             return true;
         }
 
         public decimal GetTotalCost()
         {
+            var discountedCart = ApplyDiscounts(products);
+
             decimal total = 0;
-            products.ForEach(product => total += product.Price);
+           
+            discountedCart.ForEach(product => total += product.Price);
 
             return total;
         }
@@ -65,5 +72,70 @@ namespace exercise
             return item.Price;
         }
 
+        //Applies discounts to the basket.
+        //Assumption: All bagels and coffees included.
+        public List<Product> ApplyDiscounts(List<Product> basketItems)
+        {
+            List<string> bagelTypes = new List<string> { "BGLO", "BGLP", "BGLE", "BGLS" };
+            List<Product>? extraBagels = new List<Product>(); //Pair with coffee, if not part of x bagel discount so they don't stack
+
+            foreach (string bagelType in bagelTypes)
+            {
+                var bagels = basketItems.FindAll(product => product.SKU.StartsWith(bagelType));
+                if (bagels == null) continue; //No bagels of that type found
+
+                int bagelCount = bagels.Count();
+                int index = 0;
+                var remainder = bagels;
+
+                //Check for 12 discount first
+                if (bagelCount / 12 > 0)
+                {
+                    //Calculate amount of times to apply the discount
+                    int multiplier = bagelCount / 12;
+
+                    while (index < (12 * multiplier))
+                    {
+                        bagels[index].Price = 0.3325m; //individual price 12 for 3.99
+                        index++;
+                    }
+
+                    if (bagelCount % 12 == 0)
+                        continue; //No more bagels, don't check for 6
+                    else
+                        remainder = bagels.Slice(index, bagels.Count - 1);
+                }
+
+                //check for any remaining 6 discounts in the sliced list
+                if (remainder.Count / 6 > 0)
+                {
+                    int times = 0;
+
+                    while (times < 6)
+                    {
+                        bagels[times].Price = 0.415m; //individual price 12 for 3.
+                        times++;
+                    }
+                }
+                else
+                    extraBagels.AddRange(remainder);
+            }
+
+            //Coffee and bagel discount
+            List<Product> coffees = basketItems.FindAll(product => product.SKU.StartsWith("COF"));
+            if (coffees == null || extraBagels.Count == 0)
+                return basketItems;
+
+            while (coffees.Count() > 0 && extraBagels.Count() > 0)
+            {
+                coffees[0].Price = 0.625m;
+                extraBagels[0].Price = 0.625m;
+
+                coffees.RemoveAt(0);
+                extraBagels.RemoveAt(0);
+            }
+
+            return basketItems;
+        }
     }
 }
