@@ -87,5 +87,7 @@ namespace exercise.main
             _basketCapacity = basketCapacity;
             return true;
         }
+
+        public Dictionary<Item, int> Items { get { return _items; } }
     }
 }

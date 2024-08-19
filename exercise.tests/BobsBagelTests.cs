@@ -119,14 +119,22 @@ public class BobsBagelTests
     [Test]
     public void TestAddItemToReceipt()
     {
-        Receipt receipt = new Receipt();
-        Item item = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        BobsBagelStore store = new BobsBagelStore();
+        Basket basket = new Basket(3);
+        Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
+        Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        basket.AddItem(item1);
+        basket.AddItem(item2);
+        bool expectedBoolResult = true;
+        Basket expectedBasketResult = basket;
 
+        Receipt? actualResult = store.GenerateReceipt(basket);
 
-        bool expectedResult = true;
-
-        bool acutalResult = receipt.AddItem(item);
-
-        Assert.That(acutalResult, Is.EqualTo(expectedResult));
+        Assert.That((actualResult != null) == expectedBoolResult);
+        if (actualResult != null)
+        {
+            Assert.That(actualResult.RelatedBasket, Is.EqualTo(expectedBasketResult));
+            Assert.That(store.Baskets[0], Is.EqualTo(expectedBasketResult));
+        }
     }
 }

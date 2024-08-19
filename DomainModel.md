@@ -33,6 +33,6 @@
 
 | **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |
 |:--:|:--:|:--:|:--:|:--:|
-| `Receipt` | `List<Tuple<string, int, float>> _items (string=nameOfItem, int=amountOfItems, float=costOfItem` | `AddItem(Item item)` | Add item to receipt | `true` |
-| `Receipt` | `List<Tuple<string, int, float>> _items (string=nameOfItem, int=amountOfItems, float=costOfItem` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console + bool` |
+| `BobsBagelStore` | `List<Receipt> _receipts` | `GenerateReceipt(Basket basket)` | Generate receipt from items in basket | `Receipt?` |
+| `Receipt` | `Basket _relatedBasket` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console + bool` |
 | `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + bool` |
