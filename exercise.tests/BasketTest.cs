@@ -84,12 +84,31 @@ namespace exercise.tests
             Basket basket = new Basket();
 
             //act
+            int newcapasity = 5;
             
-            bool expectednewcapasity = basket.changecapacity(5);
+            bool expected = basket.changecapacity(newcapasity);
 
             //assert
-            Assert.That(expectednewcapasity, Is.True);
+            Assert.That(expected, Is.True);
+            Assert.That(basket.max_capasity == 5);
 
+
+        }
+        [Test]
+        public void TestRemovingNotExistingItem()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            //act
+            Item item1 = inventory.GetItembySku("FILH");
+            Item item2 = inventory.GetItembySku("FILS");
+            basket.addItem(item1);
+            bool notexisting = basket.removeItem(item2);
+
+            //assert
+            Assert.IsFalse(notexisting);
 
         }
     }

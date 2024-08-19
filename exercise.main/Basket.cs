@@ -23,12 +23,14 @@ namespace exercise.main
             }
 
         }
-        public void removeItem(Item item)
+        public bool removeItem(Item item)
         {
             if (Item.Count() > max_capasity)
             {
                 Item.Remove(item);
+                return true;
             }
+            return false;
 
         }
         public bool isFull()
@@ -43,7 +45,7 @@ namespace exercise.main
         public bool changecapacity(int newcapasity)
         {
             
-            if (newcapasity > 0)
+            if (newcapasity > 0 && newcapasity != max_capasity)
             {
                 max_capasity = newcapasity;
                 return true;
