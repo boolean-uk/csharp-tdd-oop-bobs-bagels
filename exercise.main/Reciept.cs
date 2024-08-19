@@ -25,22 +25,18 @@ namespace exercise.main
             {
                 int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
                 productsString.Append(Environment.NewLine);
-                productsString.Append(product.Variant);
-                productsString.Append(" ");
-                productsString.Append(product.Name);
-                productsString.Append("     ");
-                productsString.Append(productAmount);
-                productsString.Append(" £");
+                productsString.Append(String.Format("{0, -20}", product.Name + " " + product.Variant));
+                productsString.Append(String.Format("{0, -4}", productAmount));
                 productsString.Append(Math.Round(product.Price*productAmount, 2));
             }
 
-
+            Console.WriteLine();
             Console.WriteLine(_TITLE);
             Console.WriteLine(_date);
-            Console.WriteLine("------------------------");
+            Console.WriteLine("----------------------------");
             Console.WriteLine(productsString);
-            Console.WriteLine("------------------------");
-            Console.WriteLine("Total            £" + total ); 
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("Total                 £" + total ); 
             return this;
         }
 
