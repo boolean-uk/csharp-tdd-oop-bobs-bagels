@@ -56,13 +56,26 @@ namespace exercise.main
             sb.AppendLine($"    {DateTime.Now.ToString()}    \n");
             sb.AppendLine("----------------------------\n");
 
+            double discount = 0;
+
             foreach (var (sku, po) in orders) {
                 string orderName = $"{po.Product.Variant} {po.Product.Name}".PadRight(18);
                 string orderAmount = $"{po.Amount}".PadRight(5);
                 string orderPrice = $"£{Math.Round(po.Cost - po.Discount, 2)}";
                 sb.AppendLine(orderName + orderAmount + orderPrice);
+                if (po.Discount > 0)
+                {
+                    sb.AppendLine($"(-£{po.Discount})".PadLeft(29));
+                    discount += po.Discount;
+                }
             }
             sb.AppendLine("----------------------------\n");
+
+            if (discount > 0)
+            {
+                sb.AppendLine($" You saved a total of £{discount}");
+                sb.AppendLine("".PadRight(6) + "on this purchase!\n");
+            }
 
             string total = "Total" + $"£{basket.SumOfItems}".PadLeft(23);
             sb.AppendLine(total + "\n");
