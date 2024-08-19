@@ -37,16 +37,18 @@
 |          |										 |							  |
 |          |										 |							  |
 |__________|_________________________________________|____________________________|                                                                       
-|Manager   |                                         |                            |
-|          |                                         | 							  |
-|          |ConfirmOrder(string bagel, int funds, int|Funds are sufficient for 	  |true
-|          |id)                                      |order, items is on the menu |
-|          |ConfirmOrder(string bagel, int funds, int|and basket capacity not full|
-|          |id, string filling)                    	 |                            |
+|          |                                         |                            |
+|          |ConfirmOrder(string namne, string variant|                            |
+|          |, double funds,    int basketSize)       |                            |
+|          |                                         |Funds are sufficient for 	  |true
+|          |                                         |order, items is on the menu |
+|          |                                         |and capcaity no full        |
 |          |                                         |                            |
 |          | 										 |Funds are insufficient for  |false
 |          | 										 |order or item is not on menu|
 |          | 										 |or capacity is full         |
+|Manager   |                                         |                            |
+|          |                                         | 							  |
 |          |                                         |                            |
 |          |ChangeCapacity(int newCapacity)          |NewCapacity is non-negative |true   
 |          |                                         |                            |   

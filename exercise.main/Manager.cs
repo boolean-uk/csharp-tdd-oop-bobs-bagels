@@ -20,5 +20,10 @@ namespace exercise.main
             return true;
             
         }
+
+        public bool ConfirmOrder(string name, string variant, double funds, int basketSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

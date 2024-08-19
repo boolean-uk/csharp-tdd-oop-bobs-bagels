@@ -31,5 +31,19 @@ namespace exercise.tests
 
             Assert.That(result == expected);
         }
+
+
+
+        [TestCase("Bagel", "Onion", 5.0, 2, true)]
+        public void ConfirmOrder(string name, string variant, double funds, int basketSize, bool expected)
+        {
+            Manager manager = new Manager();
+            //if no filling, string filling = string.empty
+
+            bool result = manager.ConfirmOrder(name, variant, funds, basketSize);
+
+            Assert.That(result == expected);
+
+        }
     }
 }
