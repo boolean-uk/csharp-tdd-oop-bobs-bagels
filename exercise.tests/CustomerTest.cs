@@ -49,22 +49,32 @@ namespace exercise.tests
         }
 
 
-        [TestCase("Bagel", "Plain", 222.0, 2, 0.78)]
-        [TestCase("Fish", "Plain", 222.0, 4, 0.0)]//does not exist
-        [TestCase("Bagel", "Kangeroo", 222.0, 2, 0.0)]  //does not exist
+        [TestCase("Bagel", "Plain", 222.0, 2, 2.5)]
+        [TestCase("Fish", "Plain", 222.0, 4, 2.28)]//does not exist
+        [TestCase("Bagel", "Kangeroo", 222.0, 2, 2.28)]  //does not exist
         [TestCase("Bagel", "Everything", 0.6, 4, 0.49)]  //fund issue
-        [TestCase("Bagel", "Everything", 222.0, 7, 2.45)] //basket overfill
-        [TestCase("Coffee", "White", 222.0, 1, 1.19)]
+        [TestCase("Bagel", "Everything", 2222.0, 28, 11.46)]
+        [TestCase("Bagel", "Plain", 2222.0, 19, 8.44)] 
+        [TestCase("Coffee", "White", 222.0, 1, 3.47)]
         public void TestShowCost(string name, string variant, double funds, int iterations, double expectedCost)
         {
             Customer customer = new Customer(funds);
+
+            
 
             for (int i = 0; i < iterations; i++)
             {
                 customer.AddToBasket(name, variant);
             }
 
-            Assert.That(customer.ShowCost() == expectedCost);
+            // FOR EXTENSION TESTS
+            //_____________________________________
+            customer.AddToBasket("Coffee", "Black");
+            customer.AddToBasket("Coffee", "Latte");
+            //________________________________
+
+            double cost = customer.ShowCost();
+            Assert.That(cost == expectedCost);
         }
 
 

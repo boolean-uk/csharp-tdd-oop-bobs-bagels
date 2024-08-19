@@ -25,7 +25,7 @@ public class BasketTests
 
     [TestCase("Bagel", "Everything", 0.49)]
     [TestCase("Bagel", "Plain", 0.39)]
-    [TestCase("Coffee", "Latte", 1.29)]
+    [TestCase("Coffee", "Latte", 0.86)] //cost because discount
     public void TestShowCost(string name, string variant, double cost)
     {
         Basket basket = new Basket();
@@ -34,17 +34,10 @@ public class BasketTests
         basket.Add(item);
         item = new BasketItem(inventory.GetCode("Bagel", "Plain"));
         basket.Add(item);
-        item = new BasketItem(inventory.GetCode("Bagel", "Everything"));
-        basket.Add(item);
-        item = new BasketItem(inventory.GetCode("Bagel", "Sesame"));
-        basket.Add(item);
-        item = new BasketItem(inventory.GetCode("Coffee", "White"));
-        basket.Add(item);
-        item = new BasketItem(inventory.GetCode("Bagel", "Plain"), inventory.GetCode("Filling", "Bacon"));
-        basket.Add(item);
         item = new BasketItem(inventory.GetCode(name, variant));
         basket.Add(item);
-        double expectedCost = 3.56 + cost;
+
+        double expectedCost = 0.88 + cost;
 
 
         double result = basket.ShowCost();
