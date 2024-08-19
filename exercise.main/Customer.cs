@@ -48,6 +48,11 @@ namespace exercise.main
             return false;
         }
 
+        public bool RemoveItem(string name, string variant)
+        {
+            throw new NotImplementedException();
+        }
+
         public double ShowCost()
         {
             return basket.ShowCost(); 

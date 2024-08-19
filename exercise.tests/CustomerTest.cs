@@ -64,5 +64,22 @@ namespace exercise.tests
 
             Assert.That(customer.ShowCost() == expectedCost);
         }
+
+
+        [TestCase("Bagel", "Plain", true)]
+        [TestCase("Fish", "Plain", false)]
+        [TestCase("Bagel", "Kangeroo", false)]
+        [TestCase("Bagel", "Plain", true)]
+        [TestCase("Bagel", "Plain", true)]
+        [TestCase("Coffee", "White", true)]
+        public void TestRemoveFromBasket(string name, string variant, bool expected)
+        {
+            Customer customer = new Customer(222.0);
+            customer.AddToBasket(name, variant);
+
+            bool result = customer.RemoveItem(name, variant);
+
+            Assert.That(result == expected);    
+        }
     }
 } 
