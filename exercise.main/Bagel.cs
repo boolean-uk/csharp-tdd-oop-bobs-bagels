@@ -13,6 +13,7 @@ namespace csharp_tdd_bobs_bagels.tests
             {"everything",0.49f},
             {"sesame",0.49f}            
         };
+        
 
 
         public Bagel(string breadType) 
@@ -34,11 +35,17 @@ namespace csharp_tdd_bobs_bagels.tests
         }
 
 
+        public float GetPrice()
+        {
+            return Price;
+        }
+
         #region
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }
         public float Price { get => _price; set => _price = value; }
-        
+
+
         #endregion
 
     }

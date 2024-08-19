@@ -25,7 +25,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.That(basket.Items, Does.Contain(bagel));
             }
-            
+
             [TestCase("onion")]
             // Test for story 2
             public void Test2(string filling)
@@ -41,7 +41,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.That(basket.Items, Does.Not.Contain(bagelName));
             }
-            [TestCase("sesame","Onion","Plain")]
+            [TestCase("sesame", "Onion", "Plain")]
             // Test for story 3
             public void Test3(string filling1, string filling2, string filling3)
             {
@@ -68,7 +68,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsFalse(result);
             }
-            
+
             [TestCase(100)]
             // Test for story 4
             public void Test4(int capacity)
@@ -85,7 +85,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsTrue(resultingCapacity == capacity);
             }
-            
+
             [TestCase("onion")]
             public void Test5(string bagelName)
             {
@@ -101,7 +101,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.IsTrue(returnResult == false);
             }
-            
+
             [TestCase("onion")]
             public void BagelFlavorAssignTest(string expectedFlavour)
             {
@@ -116,7 +116,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 Assert.IsTrue(bagelWithFlavor == expectedFlavour);
 
             }
-            
+
             [Test]
             public void BagelTest1()
             {
@@ -124,7 +124,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 //act
                 Bagel bagel = new Bagel("NonExsistant");
-                
+
 
 
                 //assert
@@ -143,21 +143,31 @@ namespace csharp_tdd_bobs_bagels.tests
                     new Bagel("Plain"),
                     new Bagel("Sesame")
                 };
-                
+
                 foreach (Bagel bagel in bagels)
                 {
                     basket.Add(bagel);
                 }
-          
+
                 //run
                 float resulted = basket.Total();
 
                 //assert
                 Assert.IsTrue(expected == resulted);
             }
-            
-            
-        }
+            [Test]
+            public void GetPriceTest()
+            {
+                //init
+                Bagel bagel = new("onion");
+                float expected = 0.49f;
 
+                //run
+                float computed = bagel.GetPrice();
+
+                //assert
+                Assert.IsTrue(expected == computed);
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Class1
+    public class Filling
     {
     }
 }

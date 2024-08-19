@@ -75,7 +75,7 @@ I'd like to know the cost of a bagel before I add it to my basket.
 
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|`Inventory`      | `GetPrice(Bagel bagel)`                        | Buy a bagel                                                      |gets out a price                                                                     |
+|`Bagel`      | `GetPrice(Bagel bagel)`                        | Buy a bagel                                                      |gets out a price                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 |                 |                                                  |                                                                  |                                                                                     |
 
