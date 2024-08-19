@@ -53,7 +53,10 @@ I want customers to only be able to order things that we stock in our inventory.
 -----------------------------------------------------
 ## EXTENSIONS
 
-1. Discount
+1.
+As a customer,
+So I can choose special offers,
+I want customers to be able to see special offers and get discount on the receipt
 
 2.
 As a customer,
@@ -95,7 +98,8 @@ I want customers to get a receipt of what items they bought
 |                 |                                                    |								                    |            |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|
 |                 |                                                    |								                    |            |
-| `Basket`        | `Discount`                                         | xxx			                        		    | x          |
+| `Basket`        | `Discount()`                                       | If special offer decided by count of items it      | double     |
+|                 |                                                    | gives a discount				                    |            |
 |                 |                                                    |								                    |            |
 |                 | `Receipt()`                                        | Displays all the items a customer has bought       | void       |
 |                 |                                                    |								                    |            |

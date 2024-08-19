@@ -117,4 +117,26 @@ public class Tests
        
         Assert.That(expected == result);
     }
+
+    [Test]
+    public void DiscountTest()
+    {
+        Basket basket = new Basket();
+
+        Inventory inventory = new Inventory();
+
+        Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
+        Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
+
+        basket.addItem(blackCoffe);
+        basket.addItem(plainBagel);
+
+        double expected = 1.25;
+        double result = basket.discount();
+
+        Assert.That(expected == result);
+
+
+    }
+
 }

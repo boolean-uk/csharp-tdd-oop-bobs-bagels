@@ -130,5 +130,9 @@ namespace exercise.main
             Console.WriteLine(receipt);
         }
 
+        public double discount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
