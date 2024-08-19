@@ -17,10 +17,10 @@
 |          |                                         |                            |
 |          |                                         |                            |
 |          |AddToBasket(string name, string variant  |Manager accepts order       |true            
-|          | int remainingfunds, int basketSize)     |                            |
+|          | double remainingfunds)                  |                            |
 |          |                                         |                            |
-|          |                                         |                            |
-|          |                                         |Manager declines order.     |false
+|          | AddToBasket(string name, string variant |                            |
+|          |double remainingfunds,string filling)    |Manager declines order.     |false
 |          |                                         |                            |
 |          |                                         |                            |         
 |          |                                         |                            |                              

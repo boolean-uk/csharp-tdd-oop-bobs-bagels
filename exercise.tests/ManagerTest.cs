@@ -18,7 +18,7 @@ namespace exercise.tests
         [TestCase(38)]
         [TestCase(8)]
         [TestCase(-444)]
-        public void ChangeCapacity(int newCapacity)
+        public void TestChangeCapacity(int newCapacity)
         {
             Manager manager = new Manager();
             bool expected = true;
@@ -42,7 +42,7 @@ namespace exercise.tests
         [TestCase("Coffee", "Black", 5.0, 2, true)]
         [TestCase("Filling", "Bacon", 5.0, 2, true)]
         [TestCase("Filling", "Egg", 5.0, 0, true)]
-        public void ConfirmOrder(string name, string variant, double remainingFunds, int basketSize, bool expected)
+        public void TestConfirmOrder(string name, string variant, double remainingFunds, int basketSize, bool expected)
         {
             Manager manager = new Manager();
             //if no filling, string filling = string.empty

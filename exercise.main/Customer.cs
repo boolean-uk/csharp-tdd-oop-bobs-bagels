@@ -10,15 +10,29 @@ namespace exercise.main
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        int funds = 0;
-        public Customer(int funds)
+        double funds = 0;
+        public Customer(double funds)
         {
             this.funds = funds;
         }
 
+
+        public bool AddToBasket(string name, string variant, double remainingFunds)
+        {
+            throw new NotImplementedException();
+        }
+        public bool AddToBasket(string name, string variant, double remainingFunds, string filling)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ViewMenu()
         {
-            
+            foreach (var item in inventory.stock)
+            {
+                Console.WriteLine(item.Value.name + " " + item.Value.variant
+                    + " " + item.Value.price);
+            }
         }
     }
 }

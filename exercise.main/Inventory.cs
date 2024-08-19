@@ -22,7 +22,7 @@ namespace exercise.main
                 this.variant = variant;
             }
         }
-        Dictionary<string, Product> stock = new Dictionary<string, Product>();
+        public Dictionary<string, Product> stock = new Dictionary<string, Product>();
 
 
         public Inventory()
