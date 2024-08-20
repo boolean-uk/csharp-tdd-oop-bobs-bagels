@@ -26,7 +26,7 @@ namespace exercise.tests
         }
 
         [Test]
-        public void BGLO_DiscountTest()
+        public void SixBagles_DiscountTest()
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
@@ -35,7 +35,7 @@ namespace exercise.tests
         }
 
         [Test]
-        public void BGLP_DiscountTest()
+        public void Twelve_DiscountTest()
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToTwenty(p);
@@ -69,7 +69,18 @@ namespace exercise.tests
             SetBsketSizeToTwenty(p);
             PoppulateBaskets(6, p, bagleType.BGLE);
             PoppulateBaskets(6, p, bagleType.BGLO);
-            Assert.That(p.ImplementDiscount() == (2.49f + 2.49f));
+            Assert.That(p.ImplementDiscount() == (3.99f));
+        }
+
+        [Test]
+        public void comboTest_2()
+        {
+            Customer p = new Customer("Tom");
+            SetBsketSizeToTwenty(p);
+            PoppulateBaskets(6, p, bagleType.BGLE);
+            PoppulateBaskets(6, p, bagleType.BGLO);
+            PoppulateBaskets(6, p, bagleType.BGLO);
+            Assert.That(p.ImplementDiscount() == (float)Math.Round((3.99f + 2.49f),2));
         }
     }
 }

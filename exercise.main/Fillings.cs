@@ -19,7 +19,7 @@ namespace exercise.main
 
     public class Fillings : Product
     {
-        private float cost;
+        private readonly float cost;
         private string name;
         private fillingType type;
 
@@ -65,5 +65,7 @@ namespace exercise.main
         public override string Name { get { return name; } }
         public fillingType Type { get { return type; } }
         public override float Cost { get { return cost; } }
+
+        public override bool IsBagle { get { return false; } }
     }
 }

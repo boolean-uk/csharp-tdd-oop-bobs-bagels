@@ -15,9 +15,7 @@ namespace exercise.main
 
             this.copyOfBasket = basket;
             this.copyOfPrice = (float)Math.Round((price), 2);
-            Console.WriteLine("basket const" + copyOfPrice);
-
-            copyOfPrice = CheckForBGLOdiscount();
+            CheckForBGLOdiscount();
         }
 
     
@@ -26,13 +24,29 @@ namespace exercise.main
             return copyOfPrice;        
         }
 
-        private float CheckForBGLOdiscount() 
+        private void CheckForBGLOdiscount() 
         {
-            int disc = loop(6);
-            Console.WriteLine("Mod : " + disc % 12);
-            copyOfPrice -= (float)Math.Round((disc * 6 * 0.49f), 2);
-            copyOfPrice += (float)Math.Round((2.49f * disc), 2);
-            return (float)Math.Round(copyOfPrice, 2);
+            int divisor = copyOfBasket.Count(p => p.IsBagle == true);
+            while (divisor >= 12)
+            {
+
+                int disc = loop(12);
+                copyOfPrice += (float)Math.Round((3.99f * disc), 2);
+                copyOfPrice = (float)Math.Round(copyOfPrice, 2);
+                Console.WriteLine("Price 12 : " + copyOfPrice);
+                divisor = copyOfBasket.Count(p => p.IsBagle == true);
+            }
+            while (divisor >= 6)
+            {
+                int disc = loop(6);
+
+                //copyOfPrice -= (float)Math.Round((disc * 6 * 0.49f), 2);
+                copyOfPrice += (float)Math.Round((2.49f * disc), 2);
+                copyOfPrice = (float)Math.Round(copyOfPrice, 2);
+                Console.WriteLine("Price 6 : " + copyOfPrice);
+                divisor = copyOfBasket.Count(p => p.IsBagle == true);
+            }
+
         }
 
 
@@ -40,6 +54,7 @@ namespace exercise.main
         {
             int cnt = 0;
             int c = copyOfBasket.Count;
+            float tempTestCost = 0f;
 
             for (int j = 0; j <= c; j++)
             {
@@ -48,16 +63,28 @@ namespace exercise.main
                 {
                     break;
                 }
-                if (copyOfBasket.Remove(product)) { 
+                if (copyOfBasket.Remove(product)) {
+                    tempTestCost += product.Cost;
+
+                   
                     cnt++;
+                    Console.WriteLine($"Cnt: {cnt} i {i}  Mod: {cnt % i}");
+                    if (cnt % i == 0) { 
+                        copyOfPrice -= tempTestCost; 
+                        if (copyOfBasket.Count(p => p.IsBagle == true)  < 12)
+                        {
+                            break;
+                        }
+                    }            
                 };
             }
+            
             return (cnt/i) ;
         }
 
         private Product GetProductFromBasket()
         {
-            return copyOfBasket.FirstOrDefault(new Bagle(bagleType.BGLO));
+            return copyOfBasket.FirstOrDefault(p => p.IsBagle == true);
         }
     }
 }

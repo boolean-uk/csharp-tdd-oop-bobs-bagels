@@ -52,7 +52,9 @@ namespace exercise.main
         public override string Name { get { return name; } }
         public bagleType Type { get { return type; } }
         public override float Cost {  get { return cost; } }
-     }
+
+        public override bool IsBagle { get { return true; } }
+    }
  }
    
 

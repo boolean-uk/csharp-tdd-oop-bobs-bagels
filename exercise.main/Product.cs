@@ -13,5 +13,7 @@ namespace exercise.main
         public abstract string Name { get; }
         public abstract float Cost { get; }
 
+        public abstract bool IsBagle { get; }
+
     }
 }
