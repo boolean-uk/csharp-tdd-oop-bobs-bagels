@@ -29,8 +29,28 @@ namespace exercise.main
             _shopName = shopName;
             _shopInventory = shopInventory;
 
-            _persons.Add(new Manager("manager1", true));
-            _persons.Add(new Customer("customer1", false));
+            _persons.Add(new Manager("John the First Bob's Bagels Manager", true));
+            _persons.Add(new Customer("John the First Bob's Bagels Customer", false));
+        }
+
+        public List<Manager> GetShopManagers()
+        {
+            return (List<Manager>)_persons.Where(person => person.GetType() == typeof(Manager));
+        }
+        
+        public List<Customer> GetShopCustomers()
+        {
+            return (List<Customer>)_persons.Where(person => person.GetType() == typeof(Customer));
+        }
+
+        public void AddShopManager(string name)
+        {
+            _persons.Add(new Manager(name, true));
+        }
+
+        public void AddShopCustomer(string name)
+        {
+            _persons.Add(new Customer(name, false));
         }
 
         public bool ChangeBasketCapacity(Manager manager, int capacity)
