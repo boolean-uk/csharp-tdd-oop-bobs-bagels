@@ -112,7 +112,7 @@ I want be able to see potencial discounts on my reciept
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts        | string      |
 |                 |																							|											|             |
-|				  |	discount()      																		|                                           | double      |	
+|				  |	discount()      																		| Customer wants to see discount            | double      |	
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |

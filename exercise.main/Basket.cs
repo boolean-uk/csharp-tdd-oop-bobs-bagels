@@ -75,10 +75,12 @@ namespace exercise.main
 
 
         //extension 2
-        public string reciept()
+        public string Reciept()
         {
-            string reciept = $"----     Reciept     ----\n";
-            double totalPrice = 0;
+            string reciept = $"\n\n\n----     Reciept     ----\n";
+            reciept += $"    {DateTime.Now.ToString()}    \n\n";
+            reciept += $"-------------------------\n\n";
+            double totalPrice = checkTotal();
             List<string> allreadyCountedItems = [];
             foreach (Item item in yourBasket)
             {
@@ -98,20 +100,130 @@ namespace exercise.main
 
 
                     totalPriceForSpecifiedItem = itemCount * item.price;
-                    reciept += $"{item.name}: {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
+                    reciept += $"{item.name}, {item.variant}  {itemCount}x - {totalPriceForSpecifiedItem}\n";
                     allreadyCountedItems.Add(item.id);
                 }
             }
             reciept += $"-------------------------\ntotal:            {totalPrice}";
 
-            Console.WriteLine(reciept);
+            //Console.WriteLine(reciept);
             return reciept;
         }
 
 
+        public double Discount()
+        {
+            foreach (Item item in yourBasket)
+            {
+                if (itemCount.ContainsKey(item))
+                {
+                    int count = itemCount[item] + 1;
+                    itemCount[item] = count;
+                }
+                else
+                {
+                    itemCount.Add(item, 1);
+                }
 
-        //extension 1 and 3 made into one method. Not pretty. Next time Ill add an internal counter inside item, should make everything much easier
+            }
+
+            double coffeeDeal = 1.25;
+            double sixBagels = 2.49;
+            double twelveBagels = 3.99;
+
+            List<Item> coffee = inventory._inventory.Where(item => item.id.Contains("BGL")).ToList();
+            List<Item> bagel = inventory._inventory.Where(item => item.id.Contains("COF")).ToList();
+
+            //my assumption here is that the coffee + bagel discounts only counts if those are the only things a customer is buying
+            if(yourBasket.Count == 2 && (coffee.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id) 
+            && (bagel.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id))))))
+            {
+                return coffeeDeal;
+            }
+
+            foreach(var item in itemCount)
+            {
+                if(item.Key.name == "Bagel" && item.Value == 6)
+                {
+                    return sixBagels;
+                }
+                else if (item.Key.name == "Bagel" && item.Value == 12)
+                {
+                    return twelveBagels;
+                }
+             
+            }
+            return 0;
+                
+            
+
+        }
+
         public string recieptWithDiscount()
+        {
+
+            double coffeeDeal = 1.25;
+            double sixBagels = 2.49;
+            double twelveBagels = 3.99;
+
+            double moneys = Discount();
+            double moneySaved = 0;
+            if (moneys == 0)
+            {
+                return Reciept();
+            }
+
+            string reciept = $"\n\n\n----     Reciept     ----\n\n";
+            reciept += $"    {DateTime.Now.ToString()}    \n\n";
+            reciept += $"-------------------------\n\n";
+            double totalPrice = 0;
+
+            if (moneys == sixBagels || moneys == twelveBagels)
+            {
+                
+                
+                foreach(var item in itemCount)
+                {
+                    double usualTotal = (Math.Round((item.Key.price * item.Value), 2));
+                    if (item.Value == 6 || item.Value == 12)
+                    {
+                        reciept += $"{item.Key.name}, {item.Key.variant}  {item.Value}x - {moneys}\n";
+                       
+                        double moneySavedOnTheseItems = Math.Round((usualTotal - moneys), 2);
+                        reciept += $"        discount: ({moneySavedOnTheseItems})\n\n";
+                        moneySaved += moneySavedOnTheseItems;
+                        totalPrice += moneys;
+
+                    }
+                    else
+                    {
+                        reciept += $"{item.Key.name}, {item.Key.variant}  {item.Value}x - {usualTotal}\n\n";
+                        totalPrice += usualTotal;
+                    }
+                }
+                
+                
+            }
+            else if (moneys == coffeeDeal){
+                reciept += $"coffeeNbagelDeal!    {moneys} \n{itemCount.First().Key.name}, {itemCount.First().Key.variant}\n{itemCount.Last().Key.name}, {itemCount.Last().Key.variant}\n\n";
+                double usualTotal = itemCount.First().Key.price + itemCount.Last().Key.price;
+                double moneySavedOnTheseItems = usualTotal - moneys;
+                moneySaved += moneySavedOnTheseItems;
+                totalPrice += moneys;
+            }
+            reciept += $"-------------------------\ntotal:               {Math.Round(totalPrice, 2)}\n";
+            reciept += $"money saved:         {Math.Round(moneySaved,2)}\n";
+
+
+            //Console.WriteLine(reciept);
+            return reciept;
+        }
+
+
+        // LEGACY CODE
+
+        //old method - extension 1 and 3 made into one method. Not pretty :)
+        public string oldRecieptWithDiscount()
         {
             string reciept = $"----     Reciept     ----\n\n";
             reciept += $"    {DateTime.Now.ToString()}    \n";
@@ -142,7 +254,7 @@ namespace exercise.main
                         discount = totalPriceForSpecifiedItem - discount;
                         totalPrice += discountedPrice;
                         reciept += $"{item.name}: {item.variant}  {itemCount}x - {discountedPrice}\n";
-                        reciept += $"          discount ({ discount })\n";
+                        reciept += $"          discount ({discount})\n";
                         allreadyCountedItems.Add(item.id);
                     }
                     else if (itemCount == 12)
@@ -162,66 +274,16 @@ namespace exercise.main
                         totalPrice += totalPriceForSpecifiedItem;
                         allreadyCountedItems.Add(item.id);
                     }
-                    
+
                 }
             }
-            
+
 
             reciept += $"-------------------------\ntotal:            {totalPrice}";
 
             Console.WriteLine(reciept);
             return reciept;
         }
-
-
-        public double Discount()
-        {
-            foreach (Item item in yourBasket)
-            {
-                if (itemCount.ContainsKey(item))
-                {
-                    int count = itemCount[item] + 1;
-                    itemCount[item] = count;
-                }
-                else
-                {
-                    itemCount.Add(item, 1);
-                }
-
-            }
-
-
-            double coffeeDeal = 1.25;
-            double sixBagels = 2.49;
-            double twelveBagels = 3.99;
-
-            List<Item> coffee = inventory._inventory.Where(item => item.id.Contains("BGL")).ToList();
-            List<Item> bagel = inventory._inventory.Where(item => item.id.Contains("COF")).ToList();
-
-            
-            if(yourBasket.Count == 2 && (coffee.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id) 
-            && (bagel.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id))))))
-            {
-                return coffeeDeal;
-            }
-
-            foreach(var item in itemCount)
-            {
-                if(item.Key.name == "Bagel" && item.Value == 6)
-                {
-                    return sixBagels;
-                }
-                else if (item.Key.name == "Bagel" && item.Value == 12)
-                {
-                    return twelveBagels;
-                }
-             
-            }
-            return 0;
-                
-            
-
-        } 
     }
 }
 
