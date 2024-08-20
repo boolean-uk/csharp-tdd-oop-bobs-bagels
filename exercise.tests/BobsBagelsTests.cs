@@ -45,7 +45,7 @@ public class Tests
 
     }
 
-    //3. As a member of the public, So that I can not overfill my small bagel basket, I'd like to know when my  basket is full when I try adding an item beyond my basket capacity.
+    //3. As a member of the public, So that I can not overfill my small bagel basket, I'd like to know when my basket is full when I try adding an item beyond my basket capacity.
     
     [Test]
     public void BasketIsFullTest()
@@ -134,17 +134,16 @@ public class Tests
     public void CanOnlyOrderFromInventoryTest()
     {
         Basket basket = new Basket();
-        
 
+        //Try to order item in stock
         bool isInInventory = basket.AddItem("Egg");
 
         Assert.That(isInInventory, Is.True);
 
-
+        //Try to order item not in stock
         bool isInInventory2 = basket.AddItem("bolle");
 
         Assert.That(isInInventory2, Is.False);
-
 
     }
    

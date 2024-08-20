@@ -38,6 +38,5 @@ namespace exercise.main
         public string ItemVariant { get { return _itemVariant; } set { _itemVariant = value; } }
         public double GetCostofItem { get { return _Bobsinventory.First(item => item.Variant == ItemVariant).Price ; } }
 
-        //{ return _Bobsinventory.Price.Where(item => item.Variant == variant); }
     }
 }

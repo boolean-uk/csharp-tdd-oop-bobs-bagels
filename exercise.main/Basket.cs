@@ -13,11 +13,13 @@ namespace exercise.main
 
         private BobsInventory BobsInventory = new BobsInventory();
         private int BasketCapacity { get; set; } = 3;
+
+        private string _variant;
         
 
         public bool AddItem(string variant)
         {
-            bool IsInInventory = BobsInventory._Bobsinventory.Any(item => item.Variant == variant);
+            _variant = variant;
 
             if (!IsInInventory) 
             {
@@ -32,12 +34,11 @@ namespace exercise.main
             }
             return false;
 
-            
         }
 
         public bool RemoveItem(string variant)
         {
-            bool IsInBasket = _Basket.Any(item => item.Variant == variant);
+            _variant = variant;
 
             if (IsInBasket) 
             {
@@ -59,6 +60,10 @@ namespace exercise.main
 
 
         public bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
+
+        public bool IsInBasket { get { return _Basket.Any(item => item.Variant == _variant); } }
+
+        public bool IsInInventory { get { return BobsInventory._Bobsinventory.Any(item => item.Variant == _variant); } }
 
         public double TotalCost { get { return _Basket.Sum(item => item.Price); } }
 

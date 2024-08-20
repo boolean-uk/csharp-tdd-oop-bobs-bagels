@@ -24,29 +24,34 @@ User Stories
 | InventoryItem	|										| InventoryItem(string sku, double price, string name, string variant)	| constructor 								| InventoryItem
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-| BobsInventory | List<InventoryItem> BobsInventory		| 																		| list of available inventory items			| BobsInventory
+| BobsInventory | List<InventoryItem> BobsInventory		| 																		| list of available inventory items			| 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| BobsInventory | double CostofItem { get; set; }		| 																		| property to get cost of item				| CostofItem
+| BobsInventory | 										| BobsInventory()														| constructor								| BobsInventory
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| BobsInventory | double GetCostofItem { get; set; }	| 																		| property to get cost of item				| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| BobsInventory | string ItemVariant { get; set; }		| 																		| property to set variant of item			| string
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-| Basket		| List<InventoryItem> Basket			| AddItem(InventoryItem)												| if basket is not full add bagel			| True
-| Basket		|										|																		| if basket is full							| False
+| Basket		| List<InventoryItem> Basket			| 																		| list of inventory items in basket			| 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| 										| RemoveItem(InventoryItem)												| if bagel is not in basket					| False
-| Basket		|										|																		| if bagel is in basket						| True
+| Basket		|										| AddItem(string variant)												| if basket is not full add bagel			| true
+| Basket		|										|																		| if basket is full							| false
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| bool IsInInventory					|																		| property to check if item is in inventory	| True
+| Basket		| 										| RemoveItem(string variant)											| if bagel is not in basket					| false
+| Basket		|										|																		| if bagel is in basket						| true
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| int BasketCapacity { get; set; }		|																		| property to set maximum number 			| int
+| Basket		|										| ChangeCapacity(int capacity, bool IsManager)							| if IsManager is true set new capacity		| true
+| Basket		|										|																		| if IsManager is false	don't change		| false
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| bool IsBasketFull { get; set; }		|																		| property to check if basket is full 		| bool
+| Basket		| int BasketCapacity { get; set; }		|																		| property to set maximum capacity 			| int
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Basket		| bool IsInInventory { get; set; }		|																		| property to check if item is in inventory	| bool
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Basket		| bool IsManager { get; set; }			| 																		| property to check for manager				| bool
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		|										| ChangeCapacity(int capacity, bool IsManager)							| if IsManager is true set new capacity		| BasketCapacity
-| Basket		|										|																		| if IsManager is false	don't change		| BasketCapacity
+| Basket		| bool IsInBasket { get; set; }			| 																		| property to check if item is in basket	| bool
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		| double TotalCost { get; set; }		| 																		| property to get cost of basket			| TotalCost
+| Basket		| double TotalCost { get; set; }		| 																		| property to get cost of basket			| double
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		|										| TotalCostofBasket()													| adds up cost of items in basket			| TotalCost
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
