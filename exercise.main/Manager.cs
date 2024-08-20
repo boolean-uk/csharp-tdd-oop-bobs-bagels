@@ -67,14 +67,14 @@ namespace exercise.main
                 return productAdded;
             } else if (SKU.Contains("COF")) 
             {
-                product = new Bagel(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+                product = new Coffee(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
                 if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
             }
             else if (SKU.Contains("FIL"))
             {
-                product = new Bagel(_filling.getVariants().FirstOrDefault(item => item.Item1 == SKU));
+                product = new Filling(_filling.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
                 if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
@@ -169,6 +169,35 @@ namespace exercise.main
             int amountOfBagelsToRemove = 0;
             int amountOfCoffeeToRemove = 0;
 
+            //implement check so that duplicate matches for same bagel type is not possible
+
+            int productNumCheck = 0;
+            string oldSKU = "";
+
+            foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
+            {
+                if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count > productNumCheck)
+                {
+                    productNumCheck += product.Item4;
+                    oldSKU = product.Item1;
+                }
+                else if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count <= productNumCheck && oldSKU == product.Item1)
+                {
+                    productsThatMatch.Remove(product);
+                }
+            }
+
+            //productsThatMatch.ForEach(product =>
+            //{
+            //    if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count < productNumCheck + product.Item4)
+            //    {
+            //        productNumCheck += product.Item4;
+            //    } else if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count > productNumCheck + product.Item4)
+            //    {
+            //        productsThatMatch.Remove(product);
+            //    }
+            //});
+
             //should work
             foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
             {
@@ -226,6 +255,7 @@ namespace exercise.main
             return checkoutList;
         }
 
+        //does not merge filling for some reason
         private List<Tuple<string, string, float, int, bool>> checkoutListMerge(List<Tuple<string, string, float, int>> productsThatMatch, List<Product> copyList)
         {
             List<Tuple<string, string, float, int, bool>> checkoutList = new List<Tuple<string, string, float, int, bool>>();
@@ -245,7 +275,10 @@ namespace exercise.main
             {
                 checkoutList.Add(new Tuple<string, string, float, int, bool>(discount.Item1, discount.Item2, discount.Item3, discount.Item4, true));
             }
-
+            foreach (var product in copyList)
+            {
+                checkoutList.Add(new Tuple<string, string, float, int, bool>(product.SKU, product.name, product.price, 1, false));
+            }
             //checkoutList.ForEach(item => Console.WriteLine(item));
 
             return checkoutList;

@@ -74,30 +74,11 @@ namespace exercise.main
                     actualDiscount = ((float)item.Item4 * productsList.FirstOrDefault(product => product.Item1.Contains(item.Item1)).Item4) - item.Item3;
                 }
             });
-            //products.ForEach(product => {
-            //    actualDiscount = product.price - 
-            //totalDiscounted = (totalCost - (totalCost - ))
-
-            //Console.WriteLine($"total cost {totalCost}\nactual discount {Math.Round(actualDiscount, 2)}");
-
 
             costAndDiscount[0] = totalCost;
             costAndDiscount[1] = actualDiscount;
 
-
-
-
-            //return costAndDiscount[totalCost, 0f];
             return costAndDiscount;
-            //List<Product> setOfItems = new List<Product> ();
-            //setOfItems.Add(purchase.FirstOrDefault(x => x.SKU.Contains("BGL")));
-            //setOfItems.Add(purchase.FirstOrDefault(x => x.SKU.Contains("COf")));
-            //setOfItems.Add(purchase.FirstOrDefault(x => x.SKU.Contains("FIL")));
-            //foreach (var item in setOfItems)
-            
-                //Console.WriteLine(($"{item.name}    {purchase.FindAll(product => product.SKU == item.SKU).Count}    {item.price * purchase.FindAll(product => product.SKU == item.SKU).Count}"));
-                //setOfItems.ForEach(item => Console.WriteLine($"{item.name}    {purchase.FindAll(product => product.SKU == item.SKU).Count}    {item.price * purchase.FindAll(product => product.SKU == item.SKU).Count}"));
-            
         }
 
         private void printBottom(float[] cost)

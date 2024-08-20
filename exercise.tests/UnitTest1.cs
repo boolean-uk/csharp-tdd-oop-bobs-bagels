@@ -311,10 +311,12 @@ public class Tests
     public void PrintCheckoutNewListTest()
     {
         Customer customer = getCustomerAndBasket();
-        customer.GetBagelStore().getManager().changeBasketCapacity(10);
+        customer.GetBagelStore().getManager().changeBasketCapacity(12);
         customer.grabBasket();
         addBagel(customer, 6, "BGLP");
         addBagel(customer, 4, "BGLO");
+        addBagel(customer, 1, "BGLE");
+        addBagel(customer, 1, "COFB");
         customer.checkout();
         Assert.Pass();
     }
