@@ -11,6 +11,14 @@ namespace exercise.main
 {
     public class Basket
     {
+
+        public Basket() 
+        { 
+            Inventory inventory = new Inventory();
+            _inventory = inventory.inventory;
+            _discounts = inventory.Discounts;
+        }
+
         public string Add(string productID)
         {
             if (_capacity <= ProductCount) { return "your basket is full"; }
@@ -124,10 +132,10 @@ namespace exercise.main
 
         public List<Product> basket { get => _basket; }
 
-        //I know theese are bad
-        private List<Product> _inventory = new Inventory().inventory; 
+        //I know theese are bad, but I do not want to change every basket constructor atm
+        private List<Product> _inventory; 
 
-        private List<Discount> _discounts = new Inventory().Discounts;
+        private List<Discount> _discounts;
         private int _capacity { get; set; } = 50;
 
         public int Capacity { get => _capacity; }
