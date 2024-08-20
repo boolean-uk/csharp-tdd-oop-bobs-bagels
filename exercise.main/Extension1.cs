@@ -11,13 +11,13 @@ namespace exercise.main
 
         private List<Product> copyOfBasket;
         private float copyOfPrice;
-        private Dictionary<string, string> productDiscount;
+        private Dictionary<string, int> productDiscount;
         private List<Product> permanentBasketCopy;
         private int MaxDepth;
 
         public Extension1(List<Product> basket, float price) 
         {
-            productDiscount = new Dictionary<string, string>() {};
+            productDiscount = new Dictionary<string, int>() {};
 
             this.copyOfBasket = basket;
             this.permanentBasketCopy = basket.ToList();
@@ -32,7 +32,7 @@ namespace exercise.main
             return copyOfPrice;        
         }
 
-        public Dictionary<string, string> GetRecieptDiscount()
+        public Dictionary<string, int> GetRecieptDiscount()
         {
             return productDiscount;
         }
@@ -43,10 +43,10 @@ namespace exercise.main
             {
                 if (!productDiscount.ContainsKey(product.Name)) 
                 {
-                    productDiscount.Add(product.Name, "");
+                    productDiscount.Add(product.Name, 0);
                 }
             }
-            foreach (KeyValuePair<string, string> kvp in productDiscount)
+            foreach (KeyValuePair<string, int> kvp in productDiscount)
             {
                 int divisor = copyOfBasket.Count(p => p.Name == kvp.Key);
 
@@ -90,7 +90,7 @@ namespace exercise.main
                         tempTestCost = 0f;
                         copyOfPrice += (float)Math.Round((3.99f), 2);
                         Console.WriteLine("12 : " + copyOfPrice);
-                        productDiscount[key] = $"{i}";
+                        productDiscount[key]++;
                     }
                     else if (i == 6)
                     {
@@ -98,7 +98,7 @@ namespace exercise.main
                         tempTestCost = 0f;
                         copyOfPrice += (float)Math.Round((2.49f), 2);
                         Console.WriteLine("6: " + copyOfPrice);
-                        productDiscount[key] = $"{i}";
+                        productDiscount[key]++;
                     }
                 } else
                 {
@@ -121,13 +121,11 @@ namespace exercise.main
                 copyOfBasket.Remove(drink);
                 copyOfBasket.Remove(bagle);
                 copyOfPrice += 1.25f;
-                if (productDiscount.ContainsKey("coffe"))
+                if (productDiscount.ContainsKey($"{drink.Name}"))
                 {
-                    productDiscount[$"{drink.Name}"] = $"{discount}";
-                }
-                else
-                {
-                    productDiscount.Add($"{drink.Name}", $"{discount}");
+                    productDiscount[$"{drink.Name}"]++;
+                } else {
+                    productDiscount.Add($"{drink.Name}", 1);
                 }
                 CoffeDiscount(discount);
             }

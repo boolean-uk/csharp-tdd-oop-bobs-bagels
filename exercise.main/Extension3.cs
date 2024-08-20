@@ -29,7 +29,7 @@ namespace exercise.main
             this.combined = date.Add(time);
             Extension1 discount = new Extension1(basketCopy, v);
 
-            Dictionary<string, string> discounts = discount.GetRecieptDiscount();
+            Dictionary<string, int> discounts = discount.GetRecieptDiscount();
 
 
 
@@ -60,7 +60,12 @@ namespace exercise.main
                 if (discounts.ContainsKey(i.Key))
                 {
                     ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
-                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                    Console.WriteLine("Value: " + i.Value);
+                    if ((12>i.Value) && (i.Value >= 6))
+                    {
+                        ReceiptString += $"            (- £{ (float)Math.Round((permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost * i.Value)-2.49f,2)})\n";
+                    }
+                    
                 } else
                 {
                     ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
