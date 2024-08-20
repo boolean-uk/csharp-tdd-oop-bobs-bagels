@@ -127,11 +127,13 @@ namespace exercise.main
         public string PrintReciept()
         {
             List<Product> uniqueProducts = _basket.Distinct().ToList();
+            List<Product> tempProducts = _basket;
             StringBuilder recieptString = new StringBuilder();
-            string title = "~~~ Bob's Bagels ~~~";
-            string date = DateTime.Now.ToString();
+            string title = String.Format("{0, 25}", "~~~ Bob's Bagels ~~~");
+            string date = String.Format("{0, 24}" , DateTime.Now.ToString());
             string lineBreak = "------------------------------";
             double total = GetTotalCost(_basket);
+            double totalNoDisc = TotalCost;
 
             recieptString.AppendLine(title);
             recieptString.AppendLine();
@@ -144,29 +146,64 @@ namespace exercise.main
             foreach (Product product in uniqueProducts)
             {
                 int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
-                recieptString.Append(String.Format("{0, -21}", product.Name + " " + product.Variant));
-                recieptString.Append(String.Format("{0, -5}", productAmount));
+                recieptString.Append(String.Format("{0, -19}", product.Name + " " + product.Variant));
+                recieptString.Append(String.Format("{0, -7}", productAmount));
                 double price = Math.Round(product.Price * productAmount, 2);
                 recieptString.AppendLine(price.ToString());
 
                 List<Product> toBeDiscounted = _basket.Where(item => item.SKU == product.SKU).ToList();
                 double newPrice = Math.Round(GetTotalCost(toBeDiscounted), 2);
-                double discountedPrice = Math.Round(newPrice - price, 2);
+                double discountedPrice = Math.Round(price - newPrice, 2);
 
-                if (discountedPrice < 0) 
+                if (discountedPrice > 0) 
                 {
-                    recieptString.AppendLine(String.Format("{0, 30}", discountedPrice));
+                    recieptString.AppendLine(String.Format("{0, 30}", "(-£" + discountedPrice + ")"));
+
+                    for (int i = 0; i < toBeDiscounted.Count; i++)
+                    {
+                        tempProducts.Remove(toBeDiscounted[i]);
+                    }
                 }
 
                 recieptString.AppendLine();
             }
 
             //Check for coffee and bagel combo
+            double moneySaved = 0;
+            while (tempProducts.Count > 0)
+            {   
+                if (tempProducts.Any(item => item.SKU.Contains("BGL")) && tempProducts.Any(item => item.SKU.Contains("COFB")))
+                {
+                    Product bagel = tempProducts.First(item => item.SKU.Contains("BGL"));
+                    Product coffee = tempProducts.First(item => item.SKU.Contains("COF"));
+
+                    tempProducts.Remove(bagel);
+                    tempProducts.Remove(coffee);
+
+                    double oldPrice = bagel.Price + coffee.Price;
+                    double newPrice = GetTotalCost(new List<Product>() { bagel, coffee });
+
+                    moneySaved += Math.Round(oldPrice - newPrice, 2);
+                }
+                else break;
+            }
+            
+            if (moneySaved > 0)
+            {
+                recieptString.AppendLine();
+                recieptString.Append(String.Format("{0, -22}", "coffe + bagel combo"));
+                recieptString.AppendLine("(-£" + moneySaved + ")");
+            }
+
 
             recieptString.AppendLine();
             recieptString.AppendLine(lineBreak);
             recieptString.Append(String.Format("{0, -25}", "Total"));
-            recieptString.Append("£" + total);
+            recieptString.AppendLine("£" + total);
+            recieptString.AppendLine();
+            recieptString.AppendLine(String.Format("{0, 28}", "You saved a total of £" + Math.Round(totalNoDisc-total, 2)));
+            recieptString.AppendLine(String.Format("{0, 23}", "with discounts"));
+
             Console.WriteLine(recieptString.ToString());
 
             return recieptString.ToString();
