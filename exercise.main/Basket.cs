@@ -91,7 +91,7 @@ namespace exercise.main
         // This is to add a bagel with toppings/coffee order
         public bool Add(string v1, string[] v2)
         {
-            if (!_category.ContainsKey(v1)) return false;
+            if (!_category.ContainsKey(v1) && _category[v1].GetType() != typeof(Bagel)) return false;
 
             string[] orderKey = new string[1 + v2.Length];
             orderKey[0] = v1;
