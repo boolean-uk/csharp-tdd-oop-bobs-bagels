@@ -165,8 +165,7 @@ namespace exercise.main
 
         //public async Task sendReceiptAsSms()
         //{
-        //    string accountId = "";
-        //    string authToken = "";
+        
 
         //    TwilioClient.Init(accountId, authToken);
         //    var message = await MessageResource.CreateAsync(
@@ -182,9 +181,8 @@ namespace exercise.main
         //public string getLogs()
         //{
         //    StringBuilder sb = new StringBuilder();
-        //    string accountId = "";
-        //    string authToken = "";
-        //    TwilioClient.Init(accountId, authToken);
+
+
 
         //    var messages = MessageResource.Read(dateSentAfter : DateTime.UtcNow.AddDays(-30));
 
@@ -198,8 +196,7 @@ namespace exercise.main
 
         //public async Task sendLogsinSms()
         //{
-        //    string accountId = "";
-        //    string authToken = "";
+
 
         //    TwilioClient.Init(accountId, authToken);
         //    var message = await MessageResource.CreateAsync(
