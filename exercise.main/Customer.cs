@@ -107,5 +107,11 @@ namespace exercise.main
             Extension2 receipt = new Extension2(basket);
             return receipt.Receipt(GetCost());
         }
+
+        public string GetReceiptWithDiiscount()
+        {
+            Extension3 receipt = new Extension3(basket);
+            return receipt.ReciptWithDiscount(GetCost());
+        }
     }
 }
