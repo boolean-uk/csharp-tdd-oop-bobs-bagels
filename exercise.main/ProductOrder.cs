@@ -38,16 +38,15 @@ namespace exercise.main
                 int div = _amount / 12;
                 int mod = _amount % 12;
                 newDiscount = div * (12 * _product.Price - 3.99);
-                if (mod >= 6) { newDiscount += 6 * _product.Price - 2.49; }
+                if (mod >= 6) newDiscount += 6 * _product.Price - 2.49;
                 _discount = Math.Round(newDiscount, 2, MidpointRounding.AwayFromZero);
             }
             if (_coffee != null)
             {
+                // We only allow one of the discounts to be added, we will add the highest
+                // discount available
                 double coffeeDiscount = _amount * (_product.Price + _coffee.Price - 1.25);
-                if (coffeeDiscount > newDiscount)
-                {
-                    _discount = Math.Round(coffeeDiscount, 2, MidpointRounding.AwayFromZero);
-                }
+                if (coffeeDiscount > newDiscount) _discount = Math.Round(coffeeDiscount, 2, MidpointRounding.AwayFromZero);
             }
         }
 

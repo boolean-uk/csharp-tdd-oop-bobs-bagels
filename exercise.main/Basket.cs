@@ -21,8 +21,8 @@ namespace exercise.main
         // Private helper method for adding items to basket
         private bool AddItem(string[] skus, int amount)
         {
-            string sku = skus[0];
-            string skuKey = string.Join("", skus);
+            string sku = skus[0]; // SKU for the bagel
+            string skuKey = string.Join("", skus); // SKU Key for the products dictionary
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
 
@@ -113,8 +113,8 @@ namespace exercise.main
 
         private bool RemoveItem(string[] skus)
         {
-            string sku = skus[0];
-            string skuKey = string.Join("", skus);
+            string sku = skus[0]; // SKU for the bagel
+            string skuKey = string.Join("", skus); // SKU Key for the products dictionary
             // Check if the product exists in the basket before removing
             if (!_products.ContainsKey(skuKey)) return false;
 
