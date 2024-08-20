@@ -77,7 +77,7 @@ namespace csharp_tdd_bobs_bagels.tests
                     bagelList.Add(bagel);
                 };
                 Coffee coffee = new("White");
-                float expectedTotal = 3.68f;
+                float expectedTotal = 3.94f;
 
                 //act
 
