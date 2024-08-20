@@ -110,7 +110,7 @@ namespace exercise.main
         
         //Extension Task 2
       
-        public List<Purchase> ShouldListItems()
+        public List<Purchase> ListItems()
 
         { 
 
@@ -146,24 +146,15 @@ namespace exercise.main
 
             return receipt;      
         }
-
-        public Receipt PrintReceipt()
+        public Receipt CreateReceipt()
         {
-            Receipt receipt = new Receipt();
-           
-            Console.WriteLine($"~~~ {StoreName}~~~\n" +
-                $"{DateTime.Now} \n" +
-                "---------------------------- \n");
-            foreach (var item in Products)
-            {
-                Console.WriteLine($"{item.Variant} {item.Name} {item.Quantity} £{item.Price}");
-            }
-            Console.WriteLine("---------------------------- \n" +
-               $"Total                  £{TotalCost}\n" +
-               "Thank you \n for your order!");
+            return new Receipt(_inventory.GetStoreName(), ListItems(), TotalCost());
 
-
-            return receipt;
+        }
+        public string PrintReceipt()
+        {
+            Receipt receipt = new Receipt(_inventory.GetStoreName(), ListItems(), TotalCost());
+            return receipt.ReceiptToString(); 
         }
 
         public List<InventoryProducts> Items { get { return _items; } }

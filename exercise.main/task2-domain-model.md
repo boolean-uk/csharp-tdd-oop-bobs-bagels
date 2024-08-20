@@ -32,10 +32,10 @@ So that I feel appreciated for my purchase
  
 | Classes   | Methods | Scenario | Outputs |
 |-----------|---------|----------|---------|
-|`Receipt` |
+|`Receipt` |ReceiptToString()| Converts the receipt to a string | string|
+| `Basket` |ListItems()|Makes a list of all the items in the customers basket (name, qty, price)|List<Purchase,>|
+||CreateReceipt() | Creates a receipt based on store name, a list purchased products and total cost| Receipt|
 ||PrintReceipt() |Prints the customers receipt in the terminal| string | 
-| `Basket` |ListItems()|Prints out all the items in the customers basket (name, qty, price)|List<Purchase,>|
-||TotalCost()|Returns the total cost of the basket|double|
 |`Inventory`| GetStoreName()| Returns the name of the store | string|
 |`Purchase`|
 

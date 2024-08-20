@@ -10,7 +10,7 @@ namespace exercise.tests
     {
 
         [Test]
-        public void ShouldPrintReceipt()
+        public void ShouldCreateReceipt()
         {
             //SetUp
             Basket basket = new Basket();
@@ -23,9 +23,10 @@ namespace exercise.tests
             basket.Items.Add(bagelSesame);
             basket.Items.Add(coffeeWhite);
             basket.Items.Add(bagelSesame);
-
+           
             //Execute
-            Receipt receipt = basket.PrintReceipt();
+            
+            Receipt receipt = basket.CreateReceipt();
             
             //Verify
             Assert.IsTrue(receipt.StoreName == "Bob's Bagels" );
@@ -57,7 +58,7 @@ namespace exercise.tests
             basket.Items.Add(bagelSesame);
 
             //Execute
-            List<Purchase> result = basket.ShouldListItems();
+            List<Purchase> result = basket.ListItems();
 
             //Verify
            Assert.IsTrue(result.Any(p => p.Variant == "Onion" && p.Name == "Bagel" && p.Price == 0.49d && p.Quantity == 1));
