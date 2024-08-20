@@ -103,8 +103,8 @@ I want customers to get a receipt of what items they bought
 |                 |                                                    |								                    |            |
 |                 | `Receipt()`                                        | Displays all the items a customer has bought       | void       |
 |                 |                                                    |								                    |            |
-|                 |                                                    |								                    |            |
-|                 |                                                    |								                    |            |
+|                 | `ReceiptWithDiscount()`                            | Displays the items bought with discount	        | void       |
+|                 |                                                    | (if discount)							            |            |
 |                 |                                                    |								                    |            |
 |                 |                                                    |								                    |            |
 |                 |                                                    |								                    |            |

@@ -19,11 +19,10 @@ basket.changeBasketCapacity(15, person.role);
 //basket.removeBagelOrItem(plainBagel);
 
 basket.addItem(plainBagel);
-//basket.addItem(plainBagel);
+// basket.addItem(plainBagel);
 basket.addItem(blackCoffe);
 
-
-
+/*
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
@@ -39,12 +38,15 @@ basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
+*/
 
-
-Console.WriteLine(basket.discount());
+// Console.WriteLine(basket.discount());
 
 Console.WriteLine( "TOTALT:  " + basket.totalCost());
 
 Console.WriteLine("\n");
-basket.Receipt();
+// basket.Receipt();
+
+Console.WriteLine($"\n New receipt \n");
+basket.ReceiptWithDiscount();
 

@@ -40,16 +40,9 @@ namespace exercise.main
                 basketItems.Add(plainBagel);
                 return true;
             }
-/*
-            if (basketItems.Count < MAX_BASKET_SIZE && inventory.getInventory().Any(x => 
-                x.id == plainBagel.id && x.price == plainBagel.price && x.name == plainBagel.name && x.variant == plainBagel.variant))
-            {
-                basketItems.Add(plainBagel);
-                return true;
-            }
-*/
-                Console.WriteLine("Basket is full or not in our inventory!");
-                return false;
+
+            Console.WriteLine("Basket is full or not in our inventory!");
+            return false;
 
         }
         
@@ -86,7 +79,7 @@ namespace exercise.main
 
         public double totalCost()
         {
-            return basketItems.Sum(item => item.price);
+            return Math.Round(basketItems.Sum(item => item.price), 2);
         }
 
         public double getPriceOfItem(Item item)
@@ -190,6 +183,64 @@ namespace exercise.main
             }
 
             return 0;
+        }
+
+        public void ReceiptWithDiscount()
+        {
+
+            double bagAndCof = 1.25;
+            double sixBagels = 2.49;
+            double twelBagels = 3.99;
+
+            double discountVal = discount();
+            double totalBagelPrice = 0;
+
+            string receipt = "~~~ Bob's Bagels ~~~" + "\n\n" +
+                     DateTime.Now.ToString() + "\n\n" +
+                     "------------------------" + "\n\n";
+
+            if (discountVal == bagAndCof)
+            {
+                foreach (var item in countOfItems)
+                {
+                    receipt += $"{item.Key.name} {item.Key.variant}   {item.Value}  £{item.Key.price * item.Value} \n\n";
+                }
+
+                receipt += $"Discount         (£{bagAndCof}) \n" +
+                 $"------------------------ \n\nTotal             £{bagAndCof} \n\n You saved a total of \n £{Math.Round(totalCost() - bagAndCof, 2)} on this shop " +
+                 $"\n\nThank you for your order! \n ";
+
+                Console.WriteLine(receipt);
+            }
+            else if (discountVal == sixBagels || discountVal == twelBagels)
+            {
+                //Plain Bagel is less than the discount for 6.. need to make a check in the BGL list in discount
+                foreach (var item in countOfItems)
+                {
+                    if (item.Value == 6 || item.Value == 12)
+                    {
+                        totalBagelPrice = (item.Key.price * item.Value);
+                        receipt += $"{item.Key.name} {item.Key.variant}   {item.Value}  £{totalBagelPrice} \n\n";
+                    } 
+                    else
+                    {
+                        receipt += $"{item.Key.name} {item.Key.variant}   {item.Value}  £{item.Key.price * item.Value} \n\n";
+                    }
+             }
+                Console.WriteLine(" TOTALT: " + totalBagelPrice);
+                double dis = Math.Round(totalBagelPrice - discountVal, 2);
+
+                receipt += $"Discount         (-£{dis}) \n" +
+                 $"------------------------ \n\nTotal             £{totalCost()-dis} \n\n You saved a total of \n £{dis} on this shop " +
+                 $"\n\nThank you for your order! \n ";
+
+                Console.WriteLine(receipt);
+
+            }
+            else
+            {
+                Receipt();
+            }
         }
     }
 }
