@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -68,12 +69,12 @@ namespace exercise.main
         //For the extension 1
         //I will come back to it later =)
 
-        public double GetTotalCost()
+        public double GetTotalCost(List<Product> basket)
         {
-            if (!_basket.Any()) {  return 0; }
+            if (!basket.Any()) {  return 0; }
 
-            List<string> discountProducts = _discounts.SelectMany(item => item.Products).ToList();
-            List<Product> productsWithDiscount = _basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
+            List<string> discountProducts = Discounts.SelectMany(item => item.Products).ToList();
+            List<Product> productsWithDiscount = basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
 
             if (!productsWithDiscount.Any()) { return TotalCost; }
 
@@ -118,11 +119,58 @@ namespace exercise.main
 
             //The rest
             sum += productsWithDiscount.Select(item => item.Price).Sum();
-            sum += _basket.Where(product => !discountProducts.Contains(product.SKU)).Select(product => product.Price).Sum();
+            sum += basket.Where(product => !discountProducts.Contains(product.SKU)).Select(product => product.Price).Sum();
 
             return sum;
         }
 
+        public string PrintReciept()
+        {
+            List<Product> uniqueProducts = _basket.Distinct().ToList();
+            StringBuilder recieptString = new StringBuilder();
+            string title = "~~~ Bob's Bagels ~~~";
+            string date = DateTime.Now.ToString();
+            string lineBreak = "------------------------------";
+            double total = GetTotalCost(_basket);
+
+            recieptString.AppendLine(title);
+            recieptString.AppendLine();
+            recieptString.AppendLine(date);
+            recieptString.AppendLine();
+            recieptString.AppendLine(lineBreak);
+            recieptString.AppendLine();
+
+            //Check for unique items
+            foreach (Product product in uniqueProducts)
+            {
+                int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
+                recieptString.Append(String.Format("{0, -21}", product.Name + " " + product.Variant));
+                recieptString.Append(String.Format("{0, -5}", productAmount));
+                double price = Math.Round(product.Price * productAmount, 2);
+                recieptString.AppendLine(price.ToString());
+
+                List<Product> toBeDiscounted = _basket.Where(item => item.SKU == product.SKU).ToList();
+                double newPrice = Math.Round(GetTotalCost(toBeDiscounted), 2);
+                double discountedPrice = Math.Round(newPrice - price, 2);
+
+                if (discountedPrice < 0) 
+                {
+                    recieptString.AppendLine(String.Format("{0, 30}", discountedPrice));
+                }
+
+                recieptString.AppendLine();
+            }
+
+            //Check for coffee and bagel combo
+
+            recieptString.AppendLine();
+            recieptString.AppendLine(lineBreak);
+            recieptString.Append(String.Format("{0, -25}", "Total"));
+            recieptString.Append("£" + total);
+            Console.WriteLine(recieptString.ToString());
+
+            return recieptString.ToString();
+        }
         public int GetProductCount(string product)
         {
             return _basket.Count(product => product.Name == product.Name);
@@ -136,6 +184,8 @@ namespace exercise.main
         private List<Product> _inventory; 
 
         private List<Discount> _discounts;
+
+        public List<Discount> Discounts { get { return _discounts; } }
         private int _capacity { get; set; } = 50;
 
         public int Capacity { get => _capacity; }

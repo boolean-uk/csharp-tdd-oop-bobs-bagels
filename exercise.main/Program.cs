@@ -14,9 +14,5 @@ basket.AddMultible(product2, 12);
 basket.AddMultible(product3, 6);
 basket.AddMultible(product4, 3);
 
-double totalPrice = basket.GetTotalCost();
-double totalPriceNoDiscount = basket.TotalCost;
+basket.PrintReciept();
 
-Reciept reciept = new Reciept(basket.basket, totalPrice, totalPriceNoDiscount);
-
-reciept.PrintReciept();
