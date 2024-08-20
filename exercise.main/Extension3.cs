@@ -29,9 +29,7 @@ namespace exercise.main
             this.combined = date.Add(time);
             Extension1 discount = new Extension1(basketCopy, v);
 
-            Dictionary<string, int> discounts = discount.GetRecieptDiscount();
-
-
+            Dictionary<string, string> discounts = discount.GetRecieptDiscount();
 
 
 
@@ -52,10 +50,38 @@ namespace exercise.main
             foreach (KeyValuePair<string, int> i in productAmount)
             {
 
-                ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+
+
+
+
+
+
+
+                if (discounts.ContainsKey(i.Key))
+                {
+                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                } else
+                {
+                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                }
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
-            ReceiptString += $"----------------------------\nTotal                 £{discount.ValidateDiscounts()}\n";
-            ReceiptString += $"  You saved a total of £{v - discount.ValidateDiscounts()} \n       on this shop\n\n         Thank you\n\n      for your order!\n";
+            ReceiptString += $"----------------------------\nTotal                 £{discount.ValidateDiscounts()}\n\n ";
+            ReceiptString += $"  You saved a total of £{(float)Math.Round(v - discount.ValidateDiscounts(), 2)} \n       on this shop\n\n         Thank you\n\n      for your order!\n";
 
             return ReceiptString;
             }

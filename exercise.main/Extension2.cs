@@ -57,7 +57,7 @@ namespace exercise.main
             this.combined = date.Add(time);
             Extension1 discount = new Extension1(basketCopy, v);
 
-            Dictionary<string, int> discounts = discount.GetRecieptDiscount();
+            Dictionary<string, string> discounts = discount.GetRecieptDiscount();
 
             string ReceiptString = $"    ~~~ Bob's Bagels ~~~ \n\n    {combined} \n\n----------------------------\n";
             foreach (Product product in basketCopy)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,17 @@ namespace exercise.main
 
         private List<Product> copyOfBasket;
         private float copyOfPrice;
-        private Dictionary<string, int> productDiscount;
+        private Dictionary<string, string> productDiscount;
+        private List<Product> permanentBasketCopy;
+        private int MaxDepth;
 
         public Extension1(List<Product> basket, float price) 
         {
-            productDiscount = new Dictionary<string, int>() {
-                {"Twelve",0 },
-                {"Six", 0 },
-                {"Coffe", 0 }
-            };
+            productDiscount = new Dictionary<string, string>() {};
 
             this.copyOfBasket = basket;
+            this.permanentBasketCopy = basket.ToList();
+
             this.copyOfPrice = (float)Math.Round((price), 2);
             CheckForBGLOdiscount();
         }
@@ -31,70 +32,88 @@ namespace exercise.main
             return copyOfPrice;        
         }
 
-        public Dictionary<string, int> GetRecieptDiscount()
+        public Dictionary<string, string> GetRecieptDiscount()
         {
             return productDiscount;
         }
 
         private void CheckForBGLOdiscount() 
         {
-            int divisor = copyOfBasket.Count(p => p.IsBagle == true);
-            while (divisor >= 12)
+            foreach (Product product in permanentBasketCopy.Where(product => product.IsBagle==true) )
             {
-                int disc = loop(12);
-                copyOfPrice += (float)Math.Round((3.99f * disc), 2);
-                copyOfPrice = (float)Math.Round(copyOfPrice, 2);
-                divisor = copyOfBasket.Count(p => p.IsBagle == true);
-                productDiscount["Twelve"] = disc;
-            }
-            while (divisor >= 6)
-            {
-                int disc = loop(6);
-                copyOfPrice += (float)Math.Round((2.49f * disc), 2);
-                copyOfPrice = (float)Math.Round(copyOfPrice, 2);
-                divisor = copyOfBasket.Count(p => p.IsBagle == true);
-                productDiscount["Six"] = disc;
-            }
-            coffeDiscount();
-
-        }
-
-
-        private int loop(int i)
-        {
-            int cnt = 0;
-            int c = copyOfBasket.Count;
-            float tempTestCost = 0f;
-
-            for (int j = 0; j <= c; j++)
-            {
-                Product product = copyOfBasket.FirstOrDefault(p => p.IsBagle == true);
-                if (product == null)
+                if (!productDiscount.ContainsKey(product.Name)) 
                 {
-                    break;
+                    productDiscount.Add(product.Name, "");
                 }
-                if (copyOfBasket.Remove(product)) {
-                    tempTestCost += product.Cost;
-                    cnt++;
-                    if (cnt % i == 0) { 
-                        copyOfPrice -= tempTestCost; 
-                        tempTestCost = 0f;
-                        if (copyOfBasket.Count(p => p.IsBagle == true)  < i)
-                        {
-                            break;
-                        }
-                    }            
-                };
             }
-            
-            return (cnt/i) ;
+            foreach (KeyValuePair<string, string> kvp in productDiscount)
+            {
+                int divisor = copyOfBasket.Count(p => p.Name == kvp.Key);
+
+                if (divisor >= 12)
+                {
+                    int MaxDepth = 1;
+                    float tempTestCost = 0f;
+                    DcDiscount(kvp.Key, 12, MaxDepth, tempTestCost);
+                    divisor = copyOfBasket.Count(p => p.Name == kvp.Key);
+                    copyOfPrice = (float)Math.Round(copyOfPrice, 2);
+                }
+                if (divisor >= 6)
+                {
+                    int MaxDepth = 1;
+                    float tempTestCost = 0f;
+                    DcDiscount(kvp.Key, 6, MaxDepth, tempTestCost);
+                    copyOfPrice = (float)Math.Round(copyOfPrice, 2);
+                }
+            }
+            int discount = 0; 
+            CoffeDiscount(discount);
         }
 
-        private void coffeDiscount()
+
+        private void DcDiscount(string key, int i, int MaxDepth, float tempTestCost)
+        {
+            Product product = copyOfBasket.FirstOrDefault(p => p.Name == key);
+            Console.WriteLine("MaxDepth: " + MaxDepth);
+            foreach (Product p in copyOfBasket)
+            {
+                Console.WriteLine(product.Name);
+            }
+            if (copyOfBasket.Remove(product))
+            {
+                tempTestCost += product.Cost;
+                if (MaxDepth - i == 0)
+                {                             
+                    if (i == 12)
+                    {
+                        copyOfPrice -= tempTestCost;
+                        tempTestCost = 0f;
+                        copyOfPrice += (float)Math.Round((3.99f), 2);
+                        Console.WriteLine("12 : " + copyOfPrice);
+                        productDiscount[key] = $"{i}";
+                    }
+                    else if (i == 6)
+                    {
+                        copyOfPrice -= tempTestCost;
+                        tempTestCost = 0f;
+                        copyOfPrice += (float)Math.Round((2.49f), 2);
+                        Console.WriteLine("6: " + copyOfPrice);
+                        productDiscount[key] = $"{i}";
+                    }
+                } else
+                {
+                    DcDiscount(product.Name, i, MaxDepth +1, tempTestCost);
+                }
+            };
+        }
+
+
+        private void CoffeDiscount(int discount)
         {
 
             if ((copyOfBasket.FirstOrDefault(p => p.IsBagle == true) != null) && (copyOfBasket.FirstOrDefault(p => p.IsDrink == true) != null))
             {
+                discount++;
                 Product bagle = copyOfBasket.FirstOrDefault(p => p.IsBagle==true);
                 Product drink = copyOfBasket.FirstOrDefault(predicate => predicate.IsDrink == true);
                 copyOfPrice -= bagle.Cost;
@@ -102,8 +121,15 @@ namespace exercise.main
                 copyOfBasket.Remove(drink);
                 copyOfBasket.Remove(bagle);
                 copyOfPrice += 1.25f;
-                productDiscount["Coffe"] += 1;
-               coffeDiscount();
+                if (productDiscount.ContainsKey("coffe"))
+                {
+                    productDiscount[$"{drink.Name}"] = $"{discount}";
+                }
+                else
+                {
+                    productDiscount.Add($"{drink.Name}", $"{discount}");
+                }
+                CoffeDiscount(discount);
             }
         }
     }

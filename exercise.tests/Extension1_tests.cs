@@ -49,7 +49,7 @@ namespace exercise.tests
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
             PoppulateBaskets(6, p, bagleType.BGLE);
-            Assert.That(p.ImplementDiscount() == 2.49f);
+            Assert.That(p.ImplementDiscount().Equals(2.49f));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace exercise.tests
             SetBsketSizeToThirty(p);
             PoppulateBaskets(6, p, bagleType.BGLE);
             PoppulateBaskets(6, p, bagleType.BGLO);
-            Assert.That(p.ImplementDiscount() == (3.99f));
+            Assert.That(p.ImplementDiscount() == (float)Math.Round((2.49f + 2.49f), 2));
         }
 
         [Test]
