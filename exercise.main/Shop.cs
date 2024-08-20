@@ -85,5 +85,29 @@ namespace exercise.main
 
             return true;
         }
+
+        /*
+        // PSEUDO CODE
+            Shop-class: GetReceipt(Customer customer, string shopName)
+                |--> customer.Checkout(string shopName);
+            
+            Customer-class: Checkout(string shopName);
+                |--> _basket.Checkout(string shopName);
+            
+            Basket-class: Checkout(string shopName);
+                |--> Receipt receipt = new Receipt(_itemsInBasket);
+                |--> return receipt? Most of the job can be done in Receipt class since we have access to basket? If Shop-class has the receipt it has access to its methods so we can do everything from Shop-class
+
+            Extra todo:
+                * Make quantity property inside Item-class
+                    |--> If you add an item quantity of that item++
+                    |--> When you remove an item, check if the basket contains this item and take quantity--
+                    
+                * Make Receipt-class that takes a List<Item> in constructor
+                    |--> Receipt-class has printReceipt()-method? 
+            
+            Tests:
+                * Receipt-class: Check if the values inside matches with the values given? For example: when you add 6 bagels the receipt should have 6 bagels
+        */
     }
 }
