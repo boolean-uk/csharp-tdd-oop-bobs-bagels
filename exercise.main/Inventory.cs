@@ -22,6 +22,7 @@ namespace exercise.main
             _inventory.Add(new Item("COFW", 1.19, "Coffee", "White"));
             _inventory.Add(new Item("COFC", 1.29, "Coffee", "Cappucino"));
             _inventory.Add(new Item("COFL", 1.29, "Coffee", "Latte"));
+            _inventory.Add(new Item("FILB", 0.12, "Filling", "Bacon"));
             _inventory.Add(new Item("FILE", 0.12, "Filling", "Egg"));
             _inventory.Add(new Item("FILC", 0.12, "Filling", "Cheese"));
             _inventory.Add(new Item("FILX", 0.12, "Filling", "Cream Cheese"));

@@ -84,6 +84,20 @@ namespace exercise.main
             return 0;
 
         }
+
+        public string getChosenFilling(string sku)
+        {
+            Inventory inventory = new Inventory();
+
+            Item bagelwithfilling = inventory.Items.Find(item => item.Sku == sku);
+
+            if (inventory.Items.Contains(bagelwithfilling))
+            {
+                return bagelwithfilling.Variant;
+            }
+            return "Not existing";
+        }
+
     }
 
 }

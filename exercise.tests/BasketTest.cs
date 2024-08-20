@@ -157,5 +157,22 @@ namespace exercise.tests
             //assert
             Assert.That(bagelprice == expected);
         }
+        [Test]
+        public void TestChoosingFilling()
+        {
+            //arrange
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Item item1 = inventory.GetItembySku("FILB");
+            basket.addItem(item1);
+
+            string choosenfilling = basket.getChosenFilling(item1.Sku);
+
+            Assert.That(choosenfilling, Is.EqualTo(item1.Variant));
+
+            
+            
+        }
     }
 }
