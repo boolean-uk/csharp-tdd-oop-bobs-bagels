@@ -9,13 +9,13 @@ namespace exercise.main
     public class Receipt
     {
         private int _id;
-        private Basket _relatedBasket;
-        public Basket RelatedBasket {  get { return _relatedBasket; } }
+        private Dictionary<Item, int> _items = new Dictionary<Item, int>();
+
         public int ID { get { return _id; } }
 
         public Receipt(Basket basket, int id)
         {
-            _relatedBasket = basket;
+            _items = basket.Items;
             _id = id;
         }
 
@@ -28,15 +28,17 @@ namespace exercise.main
             Console.WriteLine($"    {DateTime.Now}\n");
             Console.WriteLine("----------------------------\n");
 
-            foreach (Item item in _relatedBasket.Items.Keys)
+            foreach (Item item in _items.Keys)
             {
                 Console.Write($"{item.Name}\t\t");
-                Console.Write($"{_relatedBasket.Items[item]}".PadRight(5));
+                Console.Write($"{_items[item]}".PadRight(5));
 
-                itemTotal = item.Price * _relatedBasket.Items[item];
+                itemTotal = item.Price * _items[item];
                 Console.Write($"£{itemTotal}\n");
+
                 total += itemTotal;
             }
+
             Console.WriteLine("\n----------------------------");
             Console.Write($"Total\t\t".PadRight(12));
             Console.WriteLine($"£{total}\n");
