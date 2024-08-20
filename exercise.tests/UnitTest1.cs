@@ -302,7 +302,20 @@ public class Tests
         customer.GetBagelStore().getManager().changeBasketCapacity(8);
         customer.grabBasket();
         addBagel(customer, 4, "BGLP");
-        customer.printReceipt();
+        addBagel(customer, 4, "BGLO");
+        //customer.printReceipt();
+        Assert.Pass();
+    }
+
+    [Test]
+    public void PrintCheckoutNewListTest()
+    {
+        Customer customer = getCustomerAndBasket();
+        customer.GetBagelStore().getManager().changeBasketCapacity(10);
+        customer.grabBasket();
+        addBagel(customer, 6, "BGLP");
+        addBagel(customer, 4, "BGLO");
+        customer.checkout();
         Assert.Pass();
     }
 }

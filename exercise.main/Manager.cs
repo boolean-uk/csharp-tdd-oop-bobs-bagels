@@ -142,7 +142,7 @@ namespace exercise.main
             return _products;
         }
 
-        public float checkout(Basket basket) //might work
+        public List<Tuple<string, string, float, int, bool>> checkout(Basket basket) //might work
         {
 
 
@@ -198,14 +198,45 @@ namespace exercise.main
             //    copyList.Remove(copyList.Find(item => item.SKU.Contains("FIL")));
             //}
 
-            copyList.Count();
+            int stuffLeftInBasket = copyList.Count();
 
             float totalCost = 0;
 
             productsThatMatch.ForEach(product => totalCost += product.Item3);
             copyList.ForEach(product => totalCost += product.price);
 
-            return totalCost;
+            //we iterate through the copylist and increment int
+            //we then check the sku of those in copylist and concat that number and price to the ones in products that match and then make new list and return
+
+            List < Tuple<string, string, float, int, bool> > checkoutList = checkoutListMerge(productsThatMatch, copyList);
+
+
+            return checkoutList;
+        }
+
+        private List<Tuple<string, string, float, int, bool>> checkoutListMerge(List<Tuple<string, string, float, int>> productsThatMatch, List<Product> copyList)
+        {
+            List<Tuple<string, string, float, int, bool>> checkoutList = new List<Tuple<string, string, float, int, bool>>();
+
+            int numOfBagelType = 0;
+
+            foreach (var bagel in _bagel.getVariants())
+            {
+                numOfBagelType = copyList.FindAll(item => item.SKU == bagel.Item1).Count();
+                if (numOfBagelType != 0)
+                {
+                    checkoutList.Add(new Tuple<string, string, float, int, bool>(bagel.Item1, bagel.Item2, bagel.Item4, numOfBagelType, false));
+
+                }
+            }
+            foreach (var discount in productsThatMatch)
+            {
+                checkoutList.Add(new Tuple<string, string, float, int, bool>(discount.Item1, discount.Item2, discount.Item3, discount.Item4, true));
+            }
+
+            //checkoutList.ForEach(item => Console.WriteLine(item));
+
+            return checkoutList;
         }
     }
 }

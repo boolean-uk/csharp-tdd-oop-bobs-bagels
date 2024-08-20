@@ -64,19 +64,33 @@ namespace exercise.main
             return totalCost;
         }
 
+        public float getTotalCostWithDiscount() //without discounts
+        {
+            //= _bagelStore.getManager().checkout(_basket);
+            //fix logic so that list gets put in and float out
+            //return totalCost;
+            return 0f;
+        }
+
         public float checkout() //with discounts
         {
-            float totalCost = _bagelStore.getManager().checkout(_basket);
-            //printReceipt();
-            return totalCost = (float)Math.Round(totalCost,2);
+            List<Tuple<string, string, float, int, bool>> checkoutList = _bagelStore.getManager().checkout(_basket);
+            printReceipt(checkoutList);
+            //return totalCost = (float)Math.Round(totalCost,2);
+            return 0f;
         }
 
-        public void printReceipt() //non discount receipt
+        public void printReceipt(List<Tuple<string, string, float, int, bool>> checkoutList) //non discount receipt
         {
             _receipt = new();
-            _receipt.print(_basket.getProductsInBasket());
+            _receipt.print(checkoutList, _bagelStore.getManager());
         }
 
+        private float calculateCostOfWares(List<Tuple<string, string, float, int, bool>> list)
+        {
+            //calculate whatev
+            return 0f;
+        }
         //add lamdas to experiment
         //public bool addProductCool => (string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done
 
