@@ -14,12 +14,32 @@ namespace exercise.tests
         {
             //SetUp
             Basket basket = new Basket();
+            basket.Capacity = 10;
+            basket.IsPurchased = true;
+            InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
+            InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "Sesame");
+            InventoryProducts coffeeWhite = new InventoryProducts("COFW", 1.19d, "Coffee", "White");
+            basket.Items.Add(bagelOnion);
+            basket.Items.Add(bagelSesame);
+            basket.Items.Add(coffeeWhite);
+            basket.Items.Add(bagelSesame);
 
             //Execute
-
+            Receipt receipt = basket.PrintReceipt();
+            
             //Verify
-            Assert.Fail();
+            Assert.IsTrue(receipt.StoreName == "Bob's Bagels" );
+
+            Assert.IsTrue(receipt.Products.Any(p => p.Variant == "Onion" && p.Name == "Bagel" && p.Price == 0.49d && p.Quantity == 1));
+            Assert.IsTrue(receipt.Products.Any(p => p.Variant == "Sesame" && p.Name == "Bagel" && p.Price == 0.49d * 2 && p.Quantity == 2));  // Price is 0.49 * 2
+            Assert.IsTrue(receipt.Products.Any(p => p.Variant == "White" && p.Name == "Coffee" && p.Price == 1.19d && p.Quantity == 1));
+
+
+            Assert.IsTrue(receipt.TotalCost == basket.TotalCost());
+
+
         }
+
 
         [Test]
         public void ShouldListItems()
@@ -27,6 +47,7 @@ namespace exercise.tests
             //SetUp
             Basket basket = new Basket();
             basket.Capacity = 10;
+            basket.IsPurchased = true;
             InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
             InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "Sesame");
             InventoryProducts coffeeWhite = new InventoryProducts("COFW",1.19d,  "Coffee","White");
@@ -40,18 +61,11 @@ namespace exercise.tests
 
             //Verify
            Assert.IsTrue(result.Any(p => p.Variant == "Onion" && p.Name == "Bagel" && p.Price == 0.49d && p.Quantity == 1));
-          Assert.IsTrue(result.Any(p => p.Variant == "Sesame" && p.Name == "Bagel" && p.Price == 0.49d*2 && p.Quantity == 2));  // Price is 0.49 * 2
+           Assert.IsTrue(result.Any(p => p.Variant == "Sesame" && p.Name == "Bagel" && p.Price == 0.49d*2 && p.Quantity == 2));  // Price is 0.49 * 2
            Assert.IsTrue(result.Any(p => p.Variant == "White" && p.Name == "Coffee" && p.Price == 1.19d && p.Quantity == 1));
         }
 
-        [Test]
-        public void ShouldPrintPurchaseTime()
-        {
-            //SetUp
-            //Execute
-            //Verify
-            Assert.Fail();
-        }
+      
 
         [Test]
         public void ShouldGetStoreName()

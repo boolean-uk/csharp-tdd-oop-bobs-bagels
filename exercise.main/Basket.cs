@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace exercise.main
         private bool _isManager;
         private bool _isPurchased;
 
+        private DateTime _date = new DateTime();
         private int _capacity;
         private List<InventoryProducts> _items = new List<InventoryProducts>();
         private Inventory _inventory = new Inventory();
@@ -111,45 +113,64 @@ namespace exercise.main
         public List<Purchase> ShouldListItems()
 
         { 
+
             Dictionary<InventoryProducts, int> products = new Dictionary<InventoryProducts, int>();
             List<Purchase> receipt = new List<Purchase>();
-
-            //Go trhough _items in basket and add them as purchase objects
-            foreach (var item in _items)
+            if (_isPurchased = true)
             {
-                if (products.ContainsKey(item))
+                //Go trhough _items in basket and add them as purchase objects
+                foreach (var item in _items)
                 {
-                    products[item] += 1;
+                    if (products.ContainsKey(item))
+                    {
+                        products[item] += 1;
 
+                    }
+                    else
+                    {
+                        products.Add(item, 1);
+                    }
                 }
-                else
+
+                foreach (var prod in products)
                 {
-                    products.Add(item, 1);
+                    prod.Key.Price *= prod.Value;
                 }
-            }
 
-            foreach(var prod in products)
-            {
-                prod.Key.Price *= prod.Value;
-            }
-
-          foreach (var p in products)
-            {
-                receipt.Add(new Purchase(p.Key.Variant, p.Key.Name, p.Value, p.Key.Price));
+                foreach (var p in products)
+                {
+                    receipt.Add(new Purchase(p.Key.Variant, p.Key.Name, p.Value, p.Key.Price));
+                }
             }
 
 
             return receipt;      
         }
 
+        public Receipt PrintReceipt()
+        {
+            Receipt receipt = new Receipt();
+           
+            Console.WriteLine($"~~~ {StoreName}~~~\n" +
+                $"{DateTime.Now} \n" +
+                "---------------------------- \n");
+            foreach (var item in Products)
+            {
+                Console.WriteLine($"{item.Variant} {item.Name} {item.Quantity} £{item.Price}");
+            }
+            Console.WriteLine("---------------------------- \n" +
+               $"Total                  £{TotalCost}\n" +
+               "Thank you \n for your order!");
 
 
+            return receipt;
+        }
 
-        
         public List<InventoryProducts> Items { get { return _items; } }
         public int Capacity { get { return _capacity; } set { _capacity = value; } }
         public bool IsManager { get { return _isManager; } set { _isManager = value; } }
         public bool IsPurchased { get{ return _isPurchased; } set { _isPurchased = value; } }
         public Inventory Inventory { get { return _inventory; } }
+        public DateTime DateTime { get { return _date; } set { _date = value; } }
     }
 }
