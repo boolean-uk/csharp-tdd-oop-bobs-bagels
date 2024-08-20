@@ -54,6 +54,7 @@ namespace exercise.main
             public override float Cost { get { return cost; } }
 
             public override bool IsBagle { get { return false; } }
+             public override bool IsDrink { get { return true; } }
     }
     
 }

@@ -29,23 +29,19 @@ namespace exercise.main
             int divisor = copyOfBasket.Count(p => p.IsBagle == true);
             while (divisor >= 12)
             {
-
                 int disc = loop(12);
                 copyOfPrice += (float)Math.Round((3.99f * disc), 2);
                 copyOfPrice = (float)Math.Round(copyOfPrice, 2);
-                Console.WriteLine("Price 12 : " + copyOfPrice);
                 divisor = copyOfBasket.Count(p => p.IsBagle == true);
             }
             while (divisor >= 6)
             {
                 int disc = loop(6);
-
-                //copyOfPrice -= (float)Math.Round((disc * 6 * 0.49f), 2);
                 copyOfPrice += (float)Math.Round((2.49f * disc), 2);
                 copyOfPrice = (float)Math.Round(copyOfPrice, 2);
-                Console.WriteLine("Price 6 : " + copyOfPrice);
                 divisor = copyOfBasket.Count(p => p.IsBagle == true);
             }
+            coffeDiscount();
 
         }
 
@@ -58,20 +54,18 @@ namespace exercise.main
 
             for (int j = 0; j <= c; j++)
             {
-                Product product = GetProductFromBasket();
+                Product product = copyOfBasket.FirstOrDefault(p => p.IsBagle == true);
                 if (product == null)
                 {
                     break;
                 }
                 if (copyOfBasket.Remove(product)) {
                     tempTestCost += product.Cost;
-
-                   
                     cnt++;
-                    Console.WriteLine($"Cnt: {cnt} i {i}  Mod: {cnt % i}");
                     if (cnt % i == 0) { 
                         copyOfPrice -= tempTestCost; 
-                        if (copyOfBasket.Count(p => p.IsBagle == true)  < 12)
+                        tempTestCost = 0f;
+                        if (copyOfBasket.Count(p => p.IsBagle == true)  < i)
                         {
                             break;
                         }
@@ -82,9 +76,20 @@ namespace exercise.main
             return (cnt/i) ;
         }
 
-        private Product GetProductFromBasket()
+        private void coffeDiscount()
         {
-            return copyOfBasket.FirstOrDefault(p => p.IsBagle == true);
+
+            if ((copyOfBasket.FirstOrDefault(p => p.IsBagle == true) != null) && (copyOfBasket.FirstOrDefault(p => p.IsDrink == true) != null))
+            {
+                Product bagle = copyOfBasket.FirstOrDefault(p => p.IsBagle==true);
+                Product drink = copyOfBasket.FirstOrDefault(predicate => predicate.IsDrink == true);
+                copyOfPrice -= bagle.Cost;
+                copyOfPrice -= drink.Cost;
+                copyOfBasket.Remove(drink);
+                copyOfBasket.Remove(bagle);
+                copyOfPrice += 1.25f;
+                coffeDiscount();
+            }
         }
     }
 }

@@ -15,5 +15,7 @@ namespace exercise.main
 
         public abstract bool IsBagle { get; }
 
+        public abstract bool IsDrink { get; }
+
     }
 }
