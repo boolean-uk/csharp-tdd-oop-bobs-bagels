@@ -13,23 +13,34 @@ Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
 Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
 
 
-basket.changeBasketCapacity(7, person.role);
-basket.addItem(plainBagel);
+basket.changeBasketCapacity(15, person.role);
+// basket.addItem(plainBagel);
 
 //basket.removeBagelOrItem(plainBagel);
 
+basket.addItem(blackCoffe);
+basket.addItem(plainBagel);
+
+
+basket.addItem(plainBagel);
+basket.addItem(plainBagel);
+basket.addItem(plainBagel);
+basket.addItem(plainBagel);
+
+
 
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
-basket.addItem(blackCoffe);
-//basket.addItem(plainBagel);
-//basket.addItem(plainBagel);
+basket.addItem(plainBagel);
+basket.addItem(plainBagel);
+ 
+Console.WriteLine(basket.discount());
 
 Console.WriteLine( "TOTALT:  " + basket.totalCost());
 
-Console.WriteLine("");
+Console.WriteLine("\n");
 basket.Receipt();
 

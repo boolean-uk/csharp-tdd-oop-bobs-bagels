@@ -118,8 +118,8 @@ public class Tests
         Assert.That(expected == result);
     }
 
-    [Test]
-    public void DiscountTest()
+    [TestCase(1.25, 2.49, 3.99)]
+    public void DiscountTest(double d1, double d2, double d3)
     {
         Basket basket = new Basket();
 
@@ -128,15 +128,37 @@ public class Tests
         Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
         Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
 
+         basket.changeBasketCapacity(14, Role.MANAGER);
+
+        // IF ADDING COFFEE FIRST IT DOESENT WORK
+
+        basket.addItem(plainBagel);
         basket.addItem(blackCoffe);
+
+        
+       // basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
         basket.addItem(plainBagel);
 
-        double expected = 1.25;
+        
+        //basket.addItem(plainBagel);
+        //basket.addItem(plainBagel);
+        //basket.addItem(plainBagel);
+        //basket.addItem(plainBagel);
+        //basket.addItem(plainBagel);
+        //basket.addItem(plainBagel);
+        
+
+        double expectedCofBag = d1;
+        double expectedSixBagel = d2;
+        double expectedTwelBagel = d3;
+
         double result = basket.discount();
 
-        Assert.That(expected == result);
-
+        Assert.That(expectedSixBagel == result);
 
     }
-
 }

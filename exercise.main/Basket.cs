@@ -15,6 +15,8 @@ namespace exercise.main
 
         public List<Item> basketItems = new List<Item>();
 
+        public Dictionary<Item, int> countOfItems = new Dictionary<Item, int>();
+
         //Help method for not having to write the long condition check in the if statement in addItem :)
         public bool Equals(Item one, Item two)
         {
@@ -101,7 +103,7 @@ namespace exercise.main
         public void Receipt()
         { 
            
-            List<string> itemsCounted = [];
+            List<string> itemsCounted = new List<string>();
 
             string receipt = "~~~ Bob's Bagels ~~~" + "\n\n" +
                 DateTime.Now.ToString() + "\n\n" +
@@ -132,7 +134,66 @@ namespace exercise.main
 
         public double discount()
         {
-            throw new NotImplementedException();
+
+            List<string> itemsCounted = new List<string>();
+           
+            basketItems.ForEach((item) =>
+            {
+
+                if (!itemsCounted.Contains(item.id))
+                {
+                    int itemCount = 0;
+                    foreach (var copy in basketItems)
+                    {
+                        if (copy.id == item.id)
+                        {
+                            itemCount++;
+                        }
+                    }
+
+                    countOfItems.Add(item, itemCount);
+                    itemsCounted.Add(item.id);
+                }
+            });
+
+            // if (basketItems.Contains("COF") && basketItems.Contains("BGL")) ;
+
+            double bagAndCof = 1.25;
+            double sixBagels = 2.49;
+            double twelBagels = 3.99;
+
+            List<Item> cof = inventory.getInventory().Where(item => item.id.Contains("COF")).ToList();
+            List<Item> bgl = inventory.getInventory().Where(item => item.id.Contains("BGL")).ToList();
+
+            Console.WriteLine(basketItems.Count);
+
+            if (basketItems.Count == 2 && ((itemsCounted.Any().ToString() == cof.Any().ToString() && itemsCounted.Any().ToString() == bgl.Any().ToString())))
+            {
+                return bagAndCof;
+            }
+
+            if (countOfItems.Count > 0)
+            {
+
+                foreach (var item in countOfItems)
+                {
+                   
+                    if (item.Key.id.Contains("BGL") && item.Value == 6)
+                    {
+                        return sixBagels;
+                    }
+                    else if (item.Key.id.Contains("BGL") && item.Value == 12)
+                    {
+                        return twelBagels;
+                    }
+                    else
+                    { 
+                        return 0; 
+                    }
+                }
+            }
+
+            return 0;
         }
     }
 }
