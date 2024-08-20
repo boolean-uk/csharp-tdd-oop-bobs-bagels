@@ -70,9 +70,21 @@ namespace exercise.main
             
         }
 
-        public double getBagelPrice()
+        public double getBagelPrice(string sku)
         {
-            throw new NotImplementedException();
+            
+            double itemPrice = 0;
+            foreach (var item in Item)
+            {
+                if(item.Sku == sku)
+                {
+                    itemPrice = item.Price;
+                }
+                
+            }
+
+            return itemPrice;
+
         }
     }
 

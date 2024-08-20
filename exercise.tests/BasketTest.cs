@@ -147,15 +147,15 @@ namespace exercise.tests
             Inventory inventory = new Inventory();
             Basket basket = new Basket();
 
-            //act
             Item item1 = inventory.GetItembySku("BGLO");
+            
 
-            double bagelprice = basket.getBagelPrice();
-
+            //act
+            double bagelprice = basket.getBagelPrice(item1.Sku);
             double expected = 0.49d;
 
             //assert
-            Assert.AreEqual(expected, bagelprice);
+            Assert.That(bagelprice == expected);
         }
     }
 }
