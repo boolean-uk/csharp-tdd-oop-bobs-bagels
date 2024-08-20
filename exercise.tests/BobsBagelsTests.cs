@@ -133,7 +133,19 @@ public class Tests
     [Test]
     public void CanOnlyOrderFromInventoryTest()
     {
-        Assert.Fail(); //funksjonalitet ligger allerede i add
+        Basket basket = new Basket();
+        
+
+        bool isInInventory = basket.AddItem("Egg");
+
+        Assert.That(isInInventory, Is.True);
+
+
+        bool isInInventory2 = basket.AddItem("bolle");
+
+        Assert.That(isInInventory2, Is.False);
+
+
     }
    
 }
