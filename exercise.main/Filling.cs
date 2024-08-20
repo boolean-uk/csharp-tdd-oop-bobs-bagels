@@ -21,7 +21,7 @@ namespace exercise.main
             "smoked salmon",
             "ham"
         };
-        private bool _falseOrder;
+        private bool _falseOrder = false;
 
         public Filling(string fillingName)
         {
@@ -40,6 +40,5 @@ namespace exercise.main
         }
 
         public float Price { get => _price;}
-        public bool FalseOrder { get => _falseOrder; }
     }
 }

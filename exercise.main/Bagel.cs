@@ -53,9 +53,10 @@ namespace csharp_tdd_bobs_bagels.tests
         #region
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }
-        public float Price { get => _price; set => _price = value; }
         public string SKU { get => _sku;  }
-        public bool FalseOrder { get => _falseOrder;  }
+        public float Price { get => _price; }
+        public bool FalseOrder { get => _falseOrder; }
+
 
 
         #endregion

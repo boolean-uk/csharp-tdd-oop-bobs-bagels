@@ -13,6 +13,8 @@ namespace tdd_bobs_bagels.CSharp.Main
         private List<Bagel> _items = new List<Bagel>();
         private int _capacity = 5;
         private int _amount = 0;
+        private int _amountOfBagels = 0;
+        private int _amountOfCoffee = 0;
         private float _totalPrice = 0;
         private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()
         {
@@ -31,7 +33,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public bool Add(Bagel bagelName)
         {
-            if ((_amount < Capacity) )
+            if ((_amount < Capacity))
             {
                 _items.Add(bagelName);
                 _amount++;
@@ -68,3 +70,5 @@ namespace tdd_bobs_bagels.CSharp.Main
     }
 
 }
+
+

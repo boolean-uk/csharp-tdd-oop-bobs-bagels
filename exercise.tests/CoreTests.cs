@@ -129,7 +129,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
 
                 //assert
-                Assert.IsTrue(bagel.CurrentFlavor == "plain");
+                Assert.IsTrue(bagel.FalseOrder == true);
 
             }
             [TestCase(1.37f)]

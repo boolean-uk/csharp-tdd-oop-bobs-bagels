@@ -121,3 +121,8 @@ I want customers to only be able to order things that we stock in our inventory.
 | Classes         | Methods                                          | Scenario                                                         | Outputs                                                                             |
 |-----------------|--------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------------------------|
 |`Bagel`          |                                                  | initiate bagel object with a specific filling                    |object assigned with a specific filling                                     |
+
+
+
+Etension 1
+
