@@ -24,9 +24,11 @@ namespace exercise.main
                 this.filling = filling;
             }
         }
+
+        private double totalDiscount = 0.0;
    
         Inventory inventory = new Inventory();
-        private List<BasketItem> basket = new List<BasketItem>();
+        public List<BasketItem> basket = new List<BasketItem>();
         public void Add(BasketItem item)
         {
             basket.Add(item);
@@ -54,6 +56,7 @@ namespace exercise.main
 
         public double ShowCost()
         {
+            totalDiscount = 0.0;
             double retCost = 0.0;
             int bagleAmountTaste = 0;
             int bagleAmountPlain = 0;
@@ -93,14 +96,16 @@ namespace exercise.main
             int discount12 = bagleAmountTaste / 12; // int should just remove the decimals
             int spare6Taste = spare12Taste % 6;
             int discount6 = spare12Taste / 6;// int should just remove the decimals
+
+            totalDiscount += (double)discount12 * 1.89 + (double)discount6 * 0.45;
             retCost -= (double)discount12 * 1.89;
             retCost -= (double)discount6 * 0.45;
 
             //time to figure out bagel discount for plain
             int sparePlain = bagleAmountPlain % 12;
             discount12 = bagleAmountPlain / 12; // int should just remove the decimals
-            
-           
+
+            totalDiscount += (double)discount12 * 0.69;
             retCost -= (double)discount12 * 0.69;
             //retCost -= (double)discount6 * 0.45;
             // I will not implement a discount on 6 plain bagles as 
@@ -117,11 +122,13 @@ namespace exercise.main
                 {
                     sparePlain--;
                     retCost -= 0.13;
+                    totalDiscount += 0.13;
                 }
                 else if(spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.23;
+                    totalDiscount += 0.23;
                 }
             }
             for (int i = 0; i < cof2; i++)//white/
@@ -130,11 +137,13 @@ namespace exercise.main
                 {
                     sparePlain--;
                     retCost -= 0.33;
+                    totalDiscount += 0.33;
                 }
                 else if (spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.43;
+                    totalDiscount += 0.43;
                 }
             }
             for (int i = 0; i < cof3; i++)//   capuccino/latte
@@ -143,17 +152,23 @@ namespace exercise.main
                 {
                     sparePlain--;
                     retCost -= 0.43;
+                    totalDiscount += 0.43;
                 }
                 else if (spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.53;
+                    totalDiscount += 0.43;
                 }
             }
-
+            
             return Math.Round(retCost, 2);
         }
 
+        public double GetDiscount()
+        {
+            return Math.Round(this.totalDiscount, 2);
+        }
         public bool RemoveFromBasket(string name, string variant)
         {
             string code = inventory.GetCode(name, variant);
@@ -182,5 +197,12 @@ namespace exercise.main
             }
             return false;
         }
+
+        public void ClearBasket()
+        {
+            basket.Clear();
+        }
+
+        
     }
 }

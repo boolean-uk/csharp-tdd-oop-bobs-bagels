@@ -40,5 +40,16 @@ namespace exercise.main
 
             return true;
         }
+
+        public bool PrintReceipt(Basket basket)
+        {
+            if(basket.GetSize() > 0) // if basket is not empty
+            {
+                Receipt receipt = new Receipt();
+                receipt.PrintReceipt(basket);
+                return true;
+            }
+            return false;
+        }
     }
 }

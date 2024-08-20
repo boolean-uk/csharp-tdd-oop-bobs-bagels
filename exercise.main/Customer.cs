@@ -52,9 +52,16 @@ namespace exercise.main
             return false;
         }
 
+
         public bool Purchase()
         {
-            throw new NotImplementedException();
+            bool result = manager.PrintReceipt(basket);
+            if (result)
+            {
+                basket.ClearBasket();
+                return true;
+            }
+            return false;
         }
 
         public bool RemoveItem(string name, string variant)

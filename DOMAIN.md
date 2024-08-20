@@ -37,7 +37,7 @@
 |          |EXTENSION 1: Showcost()                  |Discounts oppertunities     |double
 |          |										 |discovered and applied      |
 |          |										 |							  |
-|          |EXTENSION 2: Purchase()            		 |Calls for a manager receipt.| true
+|          |EXTENSION 2+3: Purchase()          		 |Calls for a manager receipt.| true
 |          |										 |Basket is not empty         |
 |          |										 |	Then empties basket       |
 |          |										 |							  |
@@ -63,9 +63,9 @@
 |          |                                         |                            |   
 |          |                                         |NewCapacity is negative     |false   
 |          |                                         | 							  |
-|          |  EXTENSION 2                            | 							  |
+|          |  EXTENSION 2+3                          | 							  |
 |          | PrintReceipt(Basket basket)             |Calls Receipt.PrintReceipt  |-------
-|          |                                         | 							  |
+|          |                                         |                            |
 |          |                                         | 							  |
 |__________|_________________________________________|____________________________|                                                                       
 |Basket    |                                         |                            |          
@@ -90,7 +90,7 @@
 |          |                                         |Item does not exist in      |-1                                                                 
 |          |                                         |inventory                   |                                                                      
 |__________|_________________________________________|____________________________|       
-|Receipt   |EXTENSION2   							 |							  |
+|Receipt   |EXTENSION2+3 							 |							  |
 |          |										 |							  |
 |          |PrintReceipt(Basket)   					 |Prints receipt of items in  | string
 |          |										 |basket		         	  |
