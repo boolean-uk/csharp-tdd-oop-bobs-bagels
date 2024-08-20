@@ -121,6 +121,7 @@ public class Tests
         double expectedCost = 0.12;
         BobsInventory inventory = new BobsInventory();
 
+        inventory.ItemVariant = "Egg";
         double actualCost = inventory.GetCostofItem;
 
         Assert.That(actualCost, Is.EqualTo(expectedCost));

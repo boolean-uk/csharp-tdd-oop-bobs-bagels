@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace exercise.main
     public class BobsInventory
     {
         private List<InventoryItem> inventory = new List<InventoryItem>();
+        private string _itemVariant;
 
         public BobsInventory() 
         {
@@ -33,7 +35,9 @@ namespace exercise.main
         }
 
         public List<InventoryItem> _Bobsinventory { get { return inventory; } }
-        //public double CostofItem { get; set; }
-        public double GetCostofItem { get; set; }
+        public string ItemVariant { get { return _itemVariant; } set { _itemVariant = value; } }
+        public double GetCostofItem { get { return _Bobsinventory.First(item => item.Variant == ItemVariant).Price ; } }
+
+        //{ return _Bobsinventory.Price.Where(item => item.Variant == variant); }
     }
 }
