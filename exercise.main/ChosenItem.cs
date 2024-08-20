@@ -35,7 +35,5 @@ namespace exercise.main
         {
             return "Nothing";
         }
-
-        
     }
 }

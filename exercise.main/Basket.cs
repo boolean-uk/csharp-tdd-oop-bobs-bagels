@@ -18,16 +18,55 @@ namespace exercise.main
         private string? _notfoundnotice;
         private string? _outofstocknotice;
 
-        public Dictionary<int, List<Item>> BasketItems = new();
-        public List<Item> Selections = new List<Item>();
+        public List<Bagel> discountables = new List<Bagel>();
+        public List<Filling> fillings = new List<Filling>();
 
-        public void AddToSelection(Item item)
+        public Dictionary<int, List<Item>> BasketItems = new();
+
+        public Item [] sixDiscount = new Item [6];
+        public Item [] twelveDiscount = new Item [12];
+
+        //public List<Item> Selections = new List<Item>();
+
+        public List<Item> MakeNew()
+        {
+            return new List<Item>();
+        }
+
+        public void TrackDiscount ()
+        {
+            foreach (KeyValuePair<int, List<Item>> item in BasketItems)
+            {
+                int key = item.Key;
+                List<Item> list = item.Value;
+                foreach (Item thing in list) 
+                {
+                    if (thing is Bagel)
+                    {
+                        for (int i = 0; i < sixDiscount.Length; i++)
+                        {
+                            if (sixDiscount[i] == null)
+                            {
+                                sixDiscount[i] = thing;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            if (sixDiscount.Length == 6)
+            {
+
+            }
+        }
+
+        public void AddToSelection(List<Item> list, Item item)
         {
             if (item is Bagel)
             {
                 if (Inventory.BagelStock > 0)
                 {
-                    Selections.Add(item);
+                    list.Add(item);
                 }
                 else 
                 {
@@ -38,7 +77,7 @@ namespace exercise.main
             {
                 if (Inventory.FillingStock > 0)
                 {
-                    Selections.Add(item);
+                    list.Add(item);
                 }
                 else
                 {
@@ -49,7 +88,7 @@ namespace exercise.main
             {
                 if (Inventory.CoffeeStock > 0)
                 {
-                    Selections.Add(item);
+                    list.Add(item);
                 }
                 else
                 {
@@ -64,11 +103,13 @@ namespace exercise.main
             if (BasketItemCount < Cap)
             {
                 BasketItems.Add(id, item);
+                BasketItemCount++;
             }
             else 
             {
                 CapNotice = "Your basket is full";
             }
+            TrackDiscount();
         }
 
         public void UpdateCount(Dictionary<int, List<Item>> BasketItems)
@@ -80,9 +121,13 @@ namespace exercise.main
                 List<Item> items = item.Value;
                 foreach (Item thing in items)
                 {
-                    if (thing is Bagel bagel || thing is Coffee coffee)
+                    if (thing is Bagel || thing is Coffee)
                     {
                         Counter++;
+                    }
+                    if (thing is Bagel)
+                    {
+                        discountables.Add((Bagel)thing);
                     }
                 }
             }
@@ -112,14 +157,25 @@ namespace exercise.main
                     foreach (Item thing in items)
                     if (thing is Bagel bagel)
                     {
-                        printout += thing.PrintItem();
-                        printout += $"\nWith: {bagel.Filling}";
+                            if (bagel.Filling != "")
+                            {
+                                printout += thing.PrintItem();
+                                printout += $"\nWith: {bagel.Filling}\n\n";
+                            }
+                            else
+                            {
+                                printout += thing.PrintItem();
+                                printout += "\nNo Fillings\n";
+                            }
                     }
                     else
                     {
-                        //printout += thing.PrintItem();
-                    }
+                        printout += thing.PrintItem();
+                        printout += "\n\n";
+                        }
                 }
+                printout += "\nSubtotal: "+BasketTotal().ToString()+" quid\n";
+                printout += "Thanks for shopping at Bob's Bagels! ^_^";
                 return printout;
             }
             else

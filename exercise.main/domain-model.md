@@ -87,5 +87,10 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Basket`                 |                                                                    | Modified AddToSelection(Item item)  | Checks if stock int is larger than 0, adds to selection if true|   void   |
 |                          | `string OfOufStockNotice`                                          |                                     | To be used in userprompt when item out of stock            |         |
 
+`Extension usecase 1
+Basket should discount instances of 6 and 12 bagels, but not fillings.`
 
-
+| Classes                  | Members                                                            | Methods                             | Scenario                                                   | Outputs |
+|--------------------------|--------------------------------------------------------------------|-------------------------------------|------------------------------------------------------------|---------|
+| `Basket`                 |  `BagelCounter`                                                    |                                     |                                                            |         |
+|                          |                                                                    | 
