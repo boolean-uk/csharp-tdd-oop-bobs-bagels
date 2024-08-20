@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Filling
+    public class Filling : Merchandise
     {
         private float _price;
         private string _fillingName;
@@ -36,7 +36,7 @@ namespace exercise.main
             }
         }
 
-        public float Price { get => _price;  }
-        public string Sku { get => _sku; }
+        public float Price { get => _price;}
+    
     }
 }

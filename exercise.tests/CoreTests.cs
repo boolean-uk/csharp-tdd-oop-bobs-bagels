@@ -1,3 +1,4 @@
+using exercise.main;
 using NUnit.Framework;
 using System.ComponentModel;
 using tdd_bobs_bagels.CSharp.Main;
@@ -28,11 +29,11 @@ namespace csharp_tdd_bobs_bagels.tests
 
             [TestCase("onion")]
             // Test for story 2
-            public void Test2(string filling)
+            public void Test2(string type)
             {
                 //arrange 
                 Basket basket = new Basket();
-                Bagel bagelName = new Bagel(filling);
+                Bagel bagelName = new Bagel(type);
                 basket.Add(bagelName);
 
                 //act
@@ -182,6 +183,21 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 Assert.GreaterOrEqual(priceAfter, priceBefore);
 
+            }
+            [Test]
+            public void GetPriceFillingTest()
+            {
+                //init
+                Filling filling = new Filling("Smoked Salmon");
+                float expectedFillingPrice = 0.12f;
+
+
+                //run
+                float computedFillingPrice = filling.Price;
+
+
+                //assert
+                Assert.IsTrue(computedFillingPrice == expectedFillingPrice);
             }
         }
     }
