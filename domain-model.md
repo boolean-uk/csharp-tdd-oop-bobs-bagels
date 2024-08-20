@@ -53,6 +53,11 @@ As a manager, \
 So customers can see a clear summary of their purchase \
 I want to be able to print a detailed receipt of each purchase
 
+12. Extension 3 - Printing Receipt with discount \
+As a manager, \
+So customers can see the incredible amount of money they saved \
+I want the receipt to display all the discounts 
+
 | Classes   | Methods                                     | Scenario                                              | Outputs                 |
 |-----------|---------------------------------------------|-------------------------------------------------------|-------------------------|
 | Basket    | List\<Product> products {get; set;}          | Store all products currently in basket                | List\<Product> products  |
@@ -68,6 +73,7 @@ I want to be able to print a detailed receipt of each purchase
 |           | string Name {get;set;}                      | store type of product e.g Bagel, Coffee, Filling      | string ItemType         |
 |           | string SKU {get; set; }                     | store SKU of product                                  | string SKU              |
 |           | string Variant {get; set;}                  | store product variant                                 | string Variant          |
+|			| decimal Discount { get; set; } = 0m;        | store the amount saved to display in receipt          | decimal discount        |
 | Receipt   | DateTime Date { get; set; } = DateTime.Now; | store the date and time of receipt creation           |   Datetime  date        |
 |           | string Header { get; set; } = "~~~ Bob's Bagels ~~~";| store receipt header                         |   string header        |
 |           | PrintReceipt(List\<Product> items, decimal total)| print a formatted receipt of the customers purchase |    void      |
