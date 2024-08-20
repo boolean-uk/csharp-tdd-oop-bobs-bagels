@@ -26,7 +26,7 @@ public class Tests
     [TestCase(false, 30, 30)]
     public void AddItemTest(bool expResult, int basketCount, int basketCapacity)
     {
-        basket.ChangeCapasity(basketCapacity);
+        basket = new Basket(basketCapacity);
         for(int i = 0; i < basketCount; i++)
         {
             basket.AddItem(fillerItem);
@@ -49,7 +49,7 @@ public class Tests
         Assert.That(resultadd, Is.EqualTo(resultremove));
     }
 
-
+    /*
     [TestCase(12)]
     [TestCase(1)]
     [TestCase(122)]
@@ -59,7 +59,7 @@ public class Tests
         basket.ChangeCapasity(newCapacity);
         Assert.That(oldCapacity != newCapacity);
         Assert.That(basket.Capacity, Is.EqualTo(newCapacity));
-    }
+    }*/
 
 
     [TestCase(0.49f, 1.3f)]

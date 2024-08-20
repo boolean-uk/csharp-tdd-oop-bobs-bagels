@@ -38,10 +38,10 @@ namespace exercise.main
             _items.Remove(testItem);
         }
 
-        public void ChangeCapasity(int basketCapacity)
-        {
-            _capacity = basketCapacity;
-        }
+        //public void ChangeCapasity(int basketCapacity)
+        //{
+         //   _capacity = basketCapacity;
+        //}
 
         public float GetCost()
         {
