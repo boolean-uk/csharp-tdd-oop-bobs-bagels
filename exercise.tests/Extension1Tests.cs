@@ -43,7 +43,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 //arrange
                 Basket basket = new();
                 List<Bagel> bagelList = new();
-                for (int i = 0; i <= 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     Bagel bagel = new("onion");
                     bagelList.Add(bagel);
@@ -52,12 +52,14 @@ namespace csharp_tdd_bobs_bagels.tests
                 float expectedTotal = 3.68f;
 
                 //act
-                basket.Add(coffee, discount: true);
+               
 
                 foreach (Bagel bagel in bagelList)
                 {
                     basket.Add(bagel, discount:true);
                 }
+
+                basket.Add(coffee, discount: true);
                 float actualTotal = basket.Total();
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));

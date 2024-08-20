@@ -64,6 +64,11 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Add(bagel3);
                 basket.Add(bagel4);
                 basket.Add(bagel5);
+                basket.Add(bagel5);
+                basket.Add(bagel5);
+                basket.Add(bagel5);
+                basket.Add(bagel5);
+                basket.Add(bagel5);
                 bool result = basket.Add(bagel6);
 
                 //assert

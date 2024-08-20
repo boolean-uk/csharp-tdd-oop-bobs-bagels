@@ -13,7 +13,7 @@ namespace tdd_bobs_bagels.CSharp.Main
     {
         private List<Bagel> _bagels = new List<Bagel>();
         private List<Coffee> _coffee = new List<Coffee>();
-        private int _capacity = 5;
+        private int _capacity = 10;
         private int _amount = 0;
         private float _totalPrice = 0;
         
