@@ -82,7 +82,14 @@ namespace exercise.main
             float totalCost = 0f;
             checkoutList.ForEach(item =>
             {
-                totalCost += item.Item3;
+                if (item.Item5)
+                {
+                    totalCost += item.Item3;
+
+                } else
+                {
+                    totalCost += item.Item3 * (float)item.Item4;
+                }
             });
             return (float)Math.Round(totalCost, 2);
         }

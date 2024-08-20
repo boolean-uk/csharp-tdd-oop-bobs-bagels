@@ -261,6 +261,8 @@ namespace exercise.main
             List<Tuple<string, string, float, int, bool>> checkoutList = new List<Tuple<string, string, float, int, bool>>();
 
             int numOfBagelType = 0;
+            int numOfCoffeeType = 0;
+            int numOfFillingType = 0;
 
             foreach (var bagel in _bagel.getVariants())
             {
@@ -271,14 +273,32 @@ namespace exercise.main
 
                 }
             }
+            foreach (var bagel in _coffee.getVariants())
+            {
+                numOfCoffeeType = copyList.FindAll(item => item.SKU == bagel.Item1).Count();
+                if (numOfCoffeeType != 0)
+                {
+                    checkoutList.Add(new Tuple<string, string, float, int, bool>(bagel.Item1, bagel.Item2, bagel.Item4, numOfCoffeeType, false));
+
+                }
+            }
+            foreach (var bagel in _filling.getVariants())
+            {
+                numOfFillingType = copyList.FindAll(item => item.SKU == bagel.Item1).Count();
+                if (numOfFillingType != 0)
+                {
+                    checkoutList.Add(new Tuple<string, string, float, int, bool>(bagel.Item1, bagel.Item2, bagel.Item4, numOfFillingType, false));
+
+                }
+            }
             foreach (var discount in productsThatMatch)
             {
                 checkoutList.Add(new Tuple<string, string, float, int, bool>(discount.Item1, discount.Item2, discount.Item3, discount.Item4, true));
             }
-            foreach (var product in copyList)
-            {
-                checkoutList.Add(new Tuple<string, string, float, int, bool>(product.SKU, product.name, product.price, 1, false));
-            }
+            //foreach (var product in copyList)
+            //{
+            //    checkoutList.Add(new Tuple<string, string, float, int, bool>(product.SKU, product.name, product.price, 1, false));
+            //}
             //checkoutList.ForEach(item => Console.WriteLine(item));
 
             return checkoutList;
