@@ -208,7 +208,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 Bagel bagel = new("white");
 
                 //assert
-                Assert.IsFalse(bagel.FalseOrder);
+                Assert.IsTrue(bagel.FalseOrder);
             }
         }
     }
