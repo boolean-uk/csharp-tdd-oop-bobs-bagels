@@ -36,3 +36,13 @@
 | `BobsBagelStore` | `List<Receipt> _receipts` | `GenerateReceipt(Basket basket)` | Generate receipt from items in basket | `Receipt?` |
 | `Receipt` | `Basket _relatedBasket` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console` |
 | `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + float` |
+
+
+# Domain Model - Extension 1: Discounts
+- As a customer, So im able to save money, I'd like to take advantage of special offers available in the store.
+
+| **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |
+|:--:|:--:|:--:|:--:|:--:|
+| `Item` | `List<Receipt> _receipts` | `GenerateReceipt(Basket basket)` | Generate receipt from items in basket | `Receipt?` |
+| `Receipt` | `Basket _relatedBasket` | `PrintReceipt(Item item)` | Print out receipt to terminal | `Console` |
+| `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + float` |

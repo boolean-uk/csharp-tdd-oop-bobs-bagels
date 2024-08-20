@@ -8,41 +8,60 @@ namespace exercise.main
 {
     public class Receipt
     {
-        private int _id;
-        private Dictionary<Item, int> _items = new Dictionary<Item, int>();
+        private Dictionary<Item, int> _items;
+        private List<Discount> _discounts;
 
-        public int ID { get { return _id; } }
+        public int ID { get; set; }
 
-        public Receipt(Basket basket, int id)
+        public Receipt(Basket basket)
         {
             _items = basket.Items;
-            _id = id;
+            _discounts.Add(new Discount("BGLO", 6, 2.49f));
+            _discounts.Add(new Discount("BGLP", 12, 3.99f));
+            _discounts.Add(new Discount("BGLE", 6, 2.49f));
+            _discounts.Add(new Discount("COFB", 1, 1.25f));
         }
 
-        public void PrintReceipt()
+        public string PrintReceipt()
         {
             float total = 0;
             float itemTotal = 0;
+            StringBuilder message = new StringBuilder();
 
-            Console.WriteLine("    ~~~ Bob's Bagels ~~~\n");
-            Console.WriteLine($"    {DateTime.Now}\n");
-            Console.WriteLine("----------------------------\n");
+            if (_items.Count() == 0)
+            {
+                message.Append("No items in basket!");
+                Console.Write(message.ToString());
+                return message.ToString();
+            }
+
+            message.Append("    ~~~ Bob's Bagels ~~~\n\n");
+            message.Append($"    {DateTime.Now}\n\n");
+            message.Append("----------------------------\n\n");
 
             foreach (Item item in _items.Keys)
             {
-                Console.Write($"{item.Name}\t\t");
-                Console.Write($"{_items[item]}".PadRight(5));
-
-                itemTotal = item.Price * _items[item];
-                Console.Write($"£{itemTotal}\n");
-
-                total += itemTotal;
+                if (_items[item] > 0)
+                {
+                    message.Append($"{item.Name}\t\t");
+                    message.Append($"{_items[item]}".PadRight(5));
+                    itemTotal = item.Price * _items[item];
+                    message.Append($"£{itemTotal}\n");
+                    total += itemTotal;
+                }
             }
 
-            Console.WriteLine("\n----------------------------");
-            Console.Write($"Total\t\t".PadRight(12));
-            Console.WriteLine($"£{total}\n");
-            Console.WriteLine("\t  Thank you\n\tfor you order!");
+            message.Append("\n----------------------------\n");
+            message.Append($"Total\t\t".PadRight(12));
+            message.Append($"£{total}\n\n");
+            message.Append("\t  Thank you\n\tfor you order!\n");
+
+            Console.Write(message.ToString());
+
+            return message.ToString();
         }
+
+        public Dictionary<Item, int> Items { get { return _items; } }
+        public List<Discount> Discounts { get { return _discounts; } }
     }
 }

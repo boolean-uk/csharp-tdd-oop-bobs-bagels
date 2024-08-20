@@ -9,10 +9,11 @@ namespace exercise.main
     public class Basket
     {
         private int _basketCapacity;
-        private Dictionary<Item, int> _items = new Dictionary<Item, int>();
+        private Dictionary<Item, int> _items;
 
         public Basket(int basketCapacity = 3)
         {
+            _items = new Dictionary<Item, int>();
             _basketCapacity = basketCapacity;
         }
         
@@ -37,7 +38,7 @@ namespace exercise.main
             }
         }
 
-        private Item? GetItem(string sku)
+        public Item? GetItem(string sku)
         {
             List<Item> itemsFound = _items.Where(item => item.Key.SKU == sku).Select(item => item.Key).ToList();
             if (itemsFound.Count == 0) return null;

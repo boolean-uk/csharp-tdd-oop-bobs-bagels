@@ -13,7 +13,10 @@ basket.AddItem(item3);
 basket.AddItem(item3);
 basket.AddItem(item4);
 
-Receipt receipt = store.GenerateReceipt(basket);
+Receipt receipt = new Receipt(basket);
+
+store.AddReceipt(basket, receipt);
 
 receipt.PrintReceipt();
+
 
