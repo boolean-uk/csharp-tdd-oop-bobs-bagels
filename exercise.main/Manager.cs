@@ -128,10 +128,22 @@ namespace exercise.main
             //Tuple.Create("BGLE", "", 2.49f, 6),
             //Tuple.Create("COFB", "BGL", 1.25f, 1),
 
-            _discountList.Add(new Tuple<string, string, float, int>("BGL", "", 2.49f, 6));
-            _discountList.Add(new Tuple<string, string, float, int>("BGL", "", 3.99f, 12));
-            //_discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
-            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGL", 1.25f, 1)); //must be bought separately and cannot be mixed with other discounts
+            _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 3.99f, 12));
+
+            _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 3.99f, 12));
+            
+            _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 3.99f, 12));
+            
+            _discountList.Add(new Tuple<string, string, float, int>("BGLS", "", 2.49f, 6));
+            _discountList.Add(new Tuple<string, string, float, int>("BGLS", "", 3.99f, 12));
+            
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLP", 1.25f, 1));
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLE", 1.25f, 1));
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLO", 1.25f, 1));
+            _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLS", 1.25f, 1));
 
         }
 
