@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+
 
 
 namespace exercise.main
@@ -163,51 +166,54 @@ namespace exercise.main
 
         }
 
-        //public async Task sendReceiptAsSms()
-        //{
-        
+        public async Task sendReceiptAsSms()
+        {
+            string accountId = "";
+            string authToken = "";
 
-        //    TwilioClient.Init(accountId, authToken);
-        //    var message = await MessageResource.CreateAsync(
-        //        body: DiscountReceipt(),
-        //        from: new Twilio.Types.PhoneNumber("+"),
-        //        to: new Twilio.Types.PhoneNumber("+")
-        //    );
-            
-
-
-        //}
-
-        //public string getLogs()
-        //{
-        //    StringBuilder sb = new StringBuilder();
+            TwilioClient.Init(accountId, authToken);
+            var message = await MessageResource.CreateAsync(
+                body: DiscountReceipt(),
+                from: new Twilio.Types.PhoneNumber("+"),
+                to: new Twilio.Types.PhoneNumber("+")
+            );
 
 
 
-        //    var messages = MessageResource.Read(dateSentAfter : DateTime.UtcNow.AddDays(-30));
+        }
 
-        //    foreach (var message in messages)
-        //    {
-        //        sb.Append($"From: {message.From}, To: {message.To}, Body: {message.Body}, Date: {message.DateSent}");
-        //    }
-        //    return sb.ToString();
-            
-        //}
+    public string getLogs()
+    {
+        StringBuilder sb = new StringBuilder();
+        string accountId = "";
+        string authToken = "";
+        TwilioClient.Init(accountId, authToken);
 
-        //public async Task sendLogsinSms()
-        //{
+        var messages = MessageResource.Read(dateSentAfter: DateTime.UtcNow.AddDays(-30));
 
+        foreach (var message in messages)
+        {
+            sb.Append($"From: {message.From}, To: {message.To}, Body: {message.Body}, Date: {message.DateSent}");
+        }
+        return sb.ToString();
 
-        //    TwilioClient.Init(accountId, authToken);
-        //    var message = await MessageResource.CreateAsync(
-        //        body: getLogs(),
-        //        from: new Twilio.Types.PhoneNumber(""),
-        //        to: new Twilio.Types.PhoneNumber("")
-        //    );
+    }
 
-        //}
+    public async Task sendLogsinSms()
+    {
+        string accountId = "";
+        string authToken = "";
 
-        public string receiveSmsOrder(string fromNumber, string messageBody)
+        TwilioClient.Init(accountId, authToken);
+        var message = await MessageResource.CreateAsync(
+            body: getLogs(),
+            from: new Twilio.Types.PhoneNumber(""),
+            to: new Twilio.Types.PhoneNumber("")
+        );
+
+    }
+
+    public string receiveSmsOrder(string fromNumber, string messageBody)
         {
 
             string[] message = messageBody.Split(" ");
