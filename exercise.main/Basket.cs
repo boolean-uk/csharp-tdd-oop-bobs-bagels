@@ -67,6 +67,6 @@ namespace exercise.main
 
         public double TotalCost { get { return _Basket.Sum(item => item.Price); } }
 
-
+        public string PrintReceipt { get; set; }
     }
 }

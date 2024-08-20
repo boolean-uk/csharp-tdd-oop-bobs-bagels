@@ -149,5 +149,14 @@ public class Tests
 
     //extension2 Receipts
     //11. As a customer, So that I can track my spendings, I'd like to receive a receipt of my order.
-   
+    [Test]
+    public void PrintReceiptTest()
+    {
+        Basket basket = new Basket();
+        basket.AddItem("Onion");
+
+        string printedReceipt = basket.PrintReceipt;
+
+        Assert.That(printedReceipt.Contains("Onion Bagel"));
+    }
 }
