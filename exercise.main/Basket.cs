@@ -22,7 +22,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         }
 
-        public bool Add(Bagel bagelName, bool discount = false)
+        public bool Add(Bagel bagelName)
         {
             if ((_amount < Capacity))
             {
@@ -34,7 +34,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             }
             return false;
         }
-        public bool Add(Coffee coffeeName, bool discount = false)
+        public bool Add(Coffee coffeeName)
         {
             if ((_amount < Capacity))
             {
@@ -45,6 +45,29 @@ namespace tdd_bobs_bagels.CSharp.Main
                 return true;
             }
             return false;
+        }
+        public void Discount()
+        {
+            int discount6Bagels = _bagels.Count() /  6;
+
+            if (discount6Bagels > 0)
+            {
+                _totalPrice -= 0.45f * discount6Bagels;
+
+                int bagelCount = _bagels.Count - (discount6Bagels * 6);
+
+                if (bagelCount > 0 && _coffee.Count > 0)
+                {
+                    int coffeeCount = _coffee.Count(); 
+                    while (coffeeCount > 0 && bagelCount > 0)
+                    {
+                        _totalPrice -= 0.23f;
+                        coffeeCount -= 1;
+                        bagelCount -= 1;
+                    }
+                }
+            }
+            
         }
 
         public bool Remove(Bagel bagelName)

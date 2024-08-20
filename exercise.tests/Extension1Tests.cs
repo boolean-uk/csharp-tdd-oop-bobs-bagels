@@ -56,10 +56,11 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 foreach (Bagel bagel in bagelList)
                 {
-                    basket.Add(bagel, discount:true);
+                    basket.Add(bagel);
                 }
 
-                basket.Add(coffee, discount: true);
+                basket.Add(coffee);
+                basket.Discount();
                 float actualTotal = basket.Total();
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));
