@@ -1,4 +1,5 @@
 using exercise.main;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 
 namespace exercise.tests
 {
@@ -72,6 +73,8 @@ namespace exercise.tests
 
             Inventory inventory = new Inventory();
             Basket basket = new Basket();
+
+            basket.MaxCapacity = 5;
 
             Product product1 = inventory.Products[0];
             Product product2 = inventory.Products[1];
@@ -251,13 +254,57 @@ namespace exercise.tests
             //all fillings cost the same so i'll just multiply by 6
             Decimal totalCostResult = fillingPrices[0] * 6;
 
-            
-
             //assert
             Assert.That(expectedFillingsListSize == resultFillingListSize);
             Assert.That(totalCostExpected == totalCostResult);
         }
 
+        [Test]
+        //Same as the regular product add. Create a smart solution for this later
+        public void DiscountTest()
+        {
+            //arrange
+
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Product product1 = inventory.Products[0];
+            Product product2 = inventory.Products[1];
+            Product product3 = inventory.Products[2];
+            Product product4 = inventory.Products[3];
+            Product product5 = inventory.Products[4];
+            Product product6 = inventory.Products[5];
+            Product product7 = inventory.Products[6];
+            Product product8 = inventory.Products[7];
+            Product product9 = inventory.Products[8];
+
+            basket.Add(product1); //onion bagel * 6
+            basket.Add(product1);
+            basket.Add(product1);
+            basket.Add(product1);
+            basket.Add(product1);
+            basket.Add(product1);
+            basket.Add(product2); //plain bagel * 6
+            basket.Add(product2);
+            basket.Add(product2);
+            basket.Add(product2);
+            basket.Add(product2);
+            basket.Add(product2);
+            basket.Add(product3); //Everything bagel
+            basket.Add(product5); // coffee black
+            basket.Add(product8); // coffee latte
+
+
+            decimal expected = 2.49M + 2.49M + 1.25M + 1.29M;
+
+            //act
+            //get total cost with discounts applied
+            decimal result = basket.GetTotalCost();
+
+
+            //assert
+            Assert.That(expected == result);
+        }
 
 
     }

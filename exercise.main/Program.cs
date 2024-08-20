@@ -39,6 +39,7 @@ basket.Add(product8); // coffee latte
 */
 
 //example order 2 from github
+/*
 basket.Add(product2);
 basket.Add(product2);
 basket.Add(product2);
@@ -46,19 +47,47 @@ basket.Add(product2);
 basket.Add(product2);
 basket.Add(product2);
 basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
-basket.Add(product2);
+*/
+
+//test 2
+//basket.Add(product1); //onion bagel * 6
+//basket.Add(product1);
+//basket.Add(product1);
+//basket.Add(product1);
+//basket.Add(product1);
+//basket.Add(product1);
+//basket.Add(product2); //plain bagel * 6
+//basket.Add(product2);
+//basket.Add(product2);
+//basket.Add(product2);
+//basket.Add(product2);
+//basket.Add(product2);
+//basket.Add(product3); //Everything bagel
+//basket.Add(product5); // coffee black
+//basket.Add(product8); // coffee latte
+
+basket.Add(product1); //onion bagel * 6
+basket.Add(product1);
+basket.Add(product1);
+basket.Add(product1);
+basket.Add(product1);
+basket.Add(product1);
+basket.Add(product4); //Sesame bagel * 6
+basket.Add(product4);
+basket.Add(product4);
+basket.Add(product4);
+basket.Add(product4);
+basket.Add(product4);
+basket.Add(product2); //Plain bagel
+basket.Add(product5); // coffee black
+basket.Add(product8); // coffee latte
+
+
 
 
 
 basket.GetTotalCost();
 
-
-//basket.PrintReceipt();
+//receipt broken cus of discount! Fix
+string receipt = basket.PrintReceipt();
+Console.WriteLine(receipt);

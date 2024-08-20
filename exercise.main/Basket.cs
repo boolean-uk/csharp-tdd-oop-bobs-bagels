@@ -16,6 +16,8 @@ namespace exercise.main
         {
             Inventory inventory = new Inventory();
 
+            //pass in from ctor ^
+
             //ugly but works
             if (_productList.Count < MaxCapacity && inventory.Products.Find(p => p.SKU == product.SKU).SKU == product.SKU) 
             {
@@ -27,7 +29,7 @@ namespace exercise.main
             return false;
         }
 
-        //better add method for filling and stuff
+        //better add method for filling and stuff?
         /*
         public decimal GetTotalCost()
         {
@@ -55,7 +57,7 @@ namespace exercise.main
         public decimal GetTotalCost()
         {
             decimal totalCost = 0M;
-            //maybe take in total monaey saved for the receipt later?
+            //maybe take in total money saved for the receipt later?
             (List<Product> noDiscountList, decimal discontShmoney) = CheckForDiscount();
 
             totalCost += discontShmoney;
@@ -65,20 +67,20 @@ namespace exercise.main
                 totalCost += p.Price;
             }
 
-            //some random tests
-            Console.WriteLine($"total cost {totalCost}");
-            Console.WriteLine(discontShmoney);
-            Console.WriteLine(noDiscountList.Count());
             return totalCost;
         }
 
         public (List<Product> noDiscountList, decimal totalDiscount) CheckForDiscount()
         {
             //new temp list of all items in basket
-            List<Product> product = _productList;
+            List<Product> product = new List<Product>();
+            foreach(Product p  in _productList)
+            {
+                product.Add(p);
+            }
 
-            decimal totalDiscount = 0;
-            decimal totalMoneySaved = 0;
+            decimal totalDiscount = 0; //The new price for items added up
+            decimal totalMoneySaved = 0; //the actual savings (discount price - full price)
             bool discountsExist = true;
 
             //list of bagel SKU's, maybe change to get only the SKUs of bagels in the basket?
@@ -94,7 +96,8 @@ namespace exercise.main
                     if (product.Where(p => p.SKU == bagelSKU).Count() >= 12)
                     {
                         //price of product times 12 - discounted price
-                        totalMoneySaved += ((product.Where(p => p.SKU == bagelSKU).First().Price) * 12) - 3.99M;
+                        decimal moneySaved = ((product.Where(p => p.SKU == bagelSKU).First().Price) * 12) - 3.99M;
+                        totalMoneySaved += moneySaved;
 
                         //remove 12 bagels of said type
                         for (int i = 0; i < 12; i++)
@@ -103,13 +106,15 @@ namespace exercise.main
                         }
                         //add discount price to total
                         totalDiscount += 3.99M;
+                        DiscountDict[bagelSKU] += moneySaved;
                         discount = true;
 
                     }
                     if (product.Where(p => p.SKU == bagelSKU).Count() >= 6)
                     {
                         //price of product times 6 - discounted price
-                        totalMoneySaved += ((product.Where(p => p.SKU == bagelSKU).First().Price) * 6) - 2.49M;
+                        decimal moneySaved = ((product.Where(p => p.SKU == bagelSKU).First().Price) * 6) - 2.49M;
+                        totalMoneySaved += moneySaved;
 
                         //remove 6 bagels of same type
                         for (int i = 0; i < 6; i++)
@@ -118,6 +123,7 @@ namespace exercise.main
                         }
                         //add discount
                         totalDiscount += 2.49M;
+                        DiscountDict[bagelSKU] += moneySaved;
                         discount = true;
                         
                         continue; 
@@ -130,7 +136,8 @@ namespace exercise.main
                     //price of coffee + bagel - discounted price
                     decimal bagelPrice = product.Where(p => p.Name == "Bagel").First().Price;
                     decimal coffeePrice = product.Where(p => p.Name == "Coffee").First().Price;
-                    totalMoneySaved = bagelPrice + coffeePrice - 1.25M;
+                    decimal moneySaved = bagelPrice + coffeePrice - 1.25M;
+                    totalMoneySaved = moneySaved;
 
                     //remove one bagel and one coffee
                     product.Remove(product.Where(p => p.Name == "Bagel").First());
@@ -138,6 +145,7 @@ namespace exercise.main
 
                     //"add discount" aka replace items with discount price
                     totalDiscount += 1.25M;
+                    DiscountDict["Coffee and Bagel combo"] += moneySaved;
                     discount = true;
 
                     continue;
@@ -150,44 +158,74 @@ namespace exercise.main
             return (product, totalDiscount);
         }
 
-        public void PrintReceipt()
+
+        public string PrintReceipt() 
         {
             List<Product> uniqueProduct = _productList.Distinct().ToList();
 
-            Console.WriteLine("    ~~~ Bob's Bagels ~~~    ");
-            Console.WriteLine("");
-            Console.WriteLine($"   {DateTime.Now}");
-            Console.WriteLine($"");
-            Console.WriteLine($"----------------------------");
-            Console.WriteLine($"");
+            //stringbuilder
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("    ~~~ Bob's Bagels ~~~    ");
+            sb.AppendLine("");
+            sb.AppendLine($"   {DateTime.Now}");
+            sb.AppendLine($"");
+            sb.AppendLine($"----------------------------");
+            sb.AppendLine($"");
 
             int numOfItems = 0;
             decimal totalCost = 0;
-            //Loop that prints items in basket
-            foreach(Product p in uniqueProduct)
+            decimal totalDiscount = 0;
+
+            //Get total discount
+            foreach (KeyValuePair<string, decimal> kvp in DiscountDict)
             {
-                numOfItems = _productList.Where(prod => p.SKU == prod.SKU).Count();
-                Console.WriteLine($"{p.Variant} {p.Name}\t{numOfItems}\t{p.Price * (numOfItems)}$");
+                totalDiscount += kvp.Value;
+            }
+
+            //Loop that prints items in basket
+            foreach (Product p in uniqueProduct)
+            {
+                numOfItems = _productList.Where(prod => p.SKU == prod.SKU).Count(); //change
+                sb.AppendLine($"{p.Variant} {p.Name}\t{numOfItems}\t${p.Price * (numOfItems)}");
+                //if discount on curent item. Print discount
+                if (p.Name == "Bagel" && DiscountDict[p.SKU] != 0.0M)
+                {
+                    sb.AppendLine($"\t\t\t(-${DiscountDict[p.SKU]})");
+                }
+
                 totalCost += p.Price;
             }
+            sb.AppendLine($"");
+            sb.AppendLine($"Coffee and Bagel combo discount");
+            sb.AppendLine($"\t\t\t(-${DiscountDict["Coffee and Bagel combo"]})");
+           
+            sb.AppendLine($"");
+            sb.AppendLine($"----------------------------");
+            sb.AppendLine($"Total\t\t\t${totalCost}");
+            sb.AppendLine($"");
 
-            Console.WriteLine($"");
-            Console.WriteLine($"----------------------------");
-            Console.WriteLine($"Total\t\t\t{totalCost}$");
 
-            if(discount == true)
+            if (discount == true)
             {
-                Console.WriteLine($" You saved a total of {5}$ ");
+                sb.AppendLine($" You saved a total of ${totalDiscount} ");
             }
-            Console.WriteLine($"        Thank you        ");
-            Console.WriteLine($"      for your order!      ");
-            
+
+            sb.AppendLine($"");
+            sb.AppendLine($"        Thank you        ");
+            sb.AppendLine($"      for your order!      ");
+
+            return sb.ToString();
         }
 
         public int MaxCapacity { get; set; } = 20;
         
         public bool discount = false;
         public List<Product> ProductList { get { return _productList; } }
+
+        //static for now. maybe change later to add only SKUs from basket?
+        public Dictionary<string, decimal> DiscountDict = 
+            new Dictionary<string, decimal> { {"BGLO", 0 },{"BGLP", 0 },{"BGLE", 0 },{"BGLS", 0 }, { "Coffee and Bagel combo", 0 } };
 
         public int totalCost { get; set; }
 
