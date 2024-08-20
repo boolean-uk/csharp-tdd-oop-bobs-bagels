@@ -33,15 +33,15 @@
 |  | GetItemCostOf(Item) | Gets the cost of the Item provided | double | The GetItemCostOf(Item) checks the basket for the provided item and gets the cost of the item through the GetItem-method if it exists. Returns a double.|
 |  | ChooseFillingForBagel(Bagel, Filling) | Adds a filling to the provided bagel. | bool | When using the ChooseFillingForBagel(Bagel, Filling) it finds the provided Bagel and adds the provided Filling using an AddFilling()-method in Bagel. Returns a bool for confirmation. |
 |  | GetFillingCost(Filling) | Gets the cost of the Filling provided. | double | Gets the cost of the Filling provided using the inventory List inside Shop. Returns a double. |
-| `Manager` | SetBasketCapacity(int) | Changes the basket capacity to the provided integer. | bool | When using the SetBasketCapacity(int)-method it calls the set-method in Basket to set the capacity to the provided integer. Returns a bool for confirmation. |
-|  | GetAvailableItems(Item) | Gets all the available items in the Shop | List\<Item> | When using the GetAvailableItems(Item)-method it calls the get-method in the Shop-class. Returns a List\<Item>. |
+| `Shop` | ChangeBasketCapacity(Manager, int) | Changes the basket capacity to the provided integer. | bool | When using the SetBasketCapacity(int)-method it calls the set-method in Basket to set the capacity to the provided integer. Returns a bool for confirmation. |
+|  | ShopInventory | Gets all the available items in the Shop | ShopInventory | When using the ShopInventory get-method it returns the ShopInventory object which contains all the items in the shop |
 
 ***
 
 ### Overview of Classes
 | **Classes** | Properties |
 |:---:|:---:|
-|`Shop`| ShopInventory _shopInventory_, List\<Person> _people_ |
+|`Shop`| ShopInventory _shopInventory_, List\<Person> _people_, List\<Manager> _managers_, List\<Customer> _customers_, string _shopName_
 |`ShopInventory`| List\<Item> _inventory_ |
 |`Person`| string _name_, bool _isManager_ |
 |`Manager : Person`|  |
