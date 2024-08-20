@@ -45,6 +45,8 @@ public class Extension3Tests
         basket.AddProduct("FILS");
         basket.AddProduct("FILX");
         Receipt receipt = new Receipt();
+
+        //For manually checking output in test log
         var tot = basket.GetTotalCost();
         receipt.PrintReceipt(basket.products, tot);
 

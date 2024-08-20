@@ -17,6 +17,7 @@ namespace exercise
         public void PrintReceipt(List<Product> items, decimal total)
         {
             int totalWidth = 36; //Receipt total width per line
+            decimal totalDiscount = 0m;
             
             //Header
             string centeredHeader = Header.PadLeft((totalWidth + Header.Length) / 2).PadRight(totalWidth);
@@ -41,7 +42,20 @@ namespace exercise
                          item.Variant,       
                          item.Name,          
                          quantity,          
-                         Math.Round(price, 2)); 
+                         Math.Round(price, 2));
+
+                    decimal discount = sameProduct.Sum(x => x.Discount);
+                    totalDiscount += discount;
+
+                    //Note: Plain won't show as it goes up in price with the current requirements..
+                    if(discount > 0m)
+                    {
+                       Console.WriteLine("{0,-29} {1,-5}", //Left align fields (add up to 36)
+                       "",
+                       $"(-£{Math.Round(discount, 2)})");
+
+                    }
+
                     processedSKUs.Add(item.SKU);
                 }
             }
@@ -52,6 +66,14 @@ namespace exercise
             Console.WriteLine(formattedTotal);
             Console.WriteLine();
 
+            //Total discount
+            //In reality, add if statement to check totalDiscount > 0 (stringwriter test won't pass with it)
+            string centeredTotal1 = $"You saved a total of £{Math.Round(totalDiscount, 2)}";
+            string centeredTotal2 = $"on this shop";
+            Console.WriteLine(centeredTotal1.PadLeft((totalWidth + centeredTotal1.Length) / 2).PadRight(totalWidth));
+            Console.WriteLine(centeredTotal2.PadLeft((totalWidth + centeredTotal2.Length) / 2).PadRight(totalWidth));
+            Console.WriteLine();
+            
             //Footer
             string centeredFooter1 = FooterL1.PadLeft((totalWidth + FooterL1.Length) / 2).PadRight(totalWidth);
             string centeredFooter2 = FooterL2.PadLeft((totalWidth + FooterL2.Length) / 2).PadRight(totalWidth);

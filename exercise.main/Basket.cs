@@ -96,7 +96,10 @@ namespace exercise
 
                     while (index < (12 * multiplier))
                     {
-                        bagels[index].Price = 0.3325m; //individual price 12 for 3.99
+                        var currentBagel = bagels[index];
+                        currentBagel.Discount = (currentBagel.Price - 0.3325m); //set discount
+                        currentBagel.Price = 0.3325m; //individual price 12 for 3.99
+                        
                         index++;
                     }
 
@@ -113,7 +116,10 @@ namespace exercise
 
                     while (times < 6)
                     {
-                        bagels[times].Price = 0.415m; //individual price 12 for 3.
+                        var currentBagel = bagels[times];
+                        
+                        currentBagel.Discount =currentBagel.Price - 0.415m; //set discount
+                        currentBagel.Price = 0.415m; //individual price 12 for 3.
                         times++;
                     }
                 }
@@ -128,8 +134,12 @@ namespace exercise
 
             while (coffees.Count() > 0 && extraBagels.Count() > 0)
             {
-                coffees[0].Price = 0.625m;
-                extraBagels[0].Price = 0.625m;
+                var currentBagel = extraBagels[0];
+                var currentCoffee = coffees[0];
+                currentBagel.Discount = currentBagel.Price - 0.625m;
+                currentCoffee.Discount = currentCoffee.Price - 0.625m;
+                currentCoffee.Price = 0.625m;
+                currentBagel.Price = 0.625m;
 
                 coffees.RemoveAt(0);
                 extraBagels.RemoveAt(0);

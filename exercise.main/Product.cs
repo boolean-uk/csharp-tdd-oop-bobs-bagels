@@ -10,6 +10,7 @@ namespace exercise
     {
         public string SKU { get; set; }
         public decimal Price { get; set; }
+        public decimal Discount { get; set; } = 0m;
         public string Name { get; set; }
         public string Variant { get; set; }
 
