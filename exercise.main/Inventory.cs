@@ -8,10 +8,6 @@ namespace exercise.main
 {
     public class Inventory
     {
-        public Inventory() 
-        {
-            addDiscounts();
-        }
         private List<Product> _inventory { get; set; } = new List<Product>()
         {
             new Product("BGLO", 0.49, "bagel","onion"),
@@ -30,16 +26,16 @@ namespace exercise.main
             new Product("FILB", 0.12, "filling", "ham"),
         };
 
+        private List<Discount> _discounts = new List<Discount>()
+        {
+            new Discount(new List<string>() { "BGLO", "BGLO", "BGLO", "BGLO", "BGLO", "BGLO" }, 2.49),
+            new Discount(new List<string>() { "BGLP" , "BGLP" , "BGLP"  , "BGLP"  , "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP" }, 3.99),
+            new Discount(new List<string>() { "BGLE", "BGLE", "BGLE","BGLE", "BGLE", "BGLE" }, 2.49),
+            new Discount(new List<string>() { "COFB", "BGL" }, 1.25)
+        };
+
         //The coffee and bagel discount was quite difficult, will do that later
         // Will probably have a list of discounts instead of adding them to the product
-        public void addDiscounts()
-        {
-            GetFromInventory("BGLO").Discount = new Discount(new Dictionary<string, int>() { { "BGLO", 6 } }, 2.49);
-            GetFromInventory("BGLP").Discount = new Discount(new Dictionary<string, int>() { { "BGLP", 12 } }, 3.99);
-            GetFromInventory("BGLE").Discount = new Discount(new Dictionary<string, int>() { { "BGLE", 6 } }, 2.49);
-            //GetFromInventory("COFB").Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25);
-            //GetListFromInventory("BGL").ForEach(item => item.Discount = new Discount(new Dictionary<string, int>() { { "COFB", 1 }, { "BGL", 1 } }, 1.25));
-        }
 
         public Product GetFromInventory(string productID)
         {
@@ -51,12 +47,14 @@ namespace exercise.main
             return _inventory.Where(item =>  item.SKU == productID).ToList();
         }
 
-        public List<Product> inventory { get { return _inventory; } }
-
         public double GetCostOfProduct(string productId)
         {
             return GetFromInventory(productId).Price;
         }
+
+        public List<Product> inventory { get { return _inventory; } }
+
+        public List<Discount> Discounts { get { return _discounts; } }
     }
         
 

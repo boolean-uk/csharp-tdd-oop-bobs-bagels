@@ -16,14 +16,14 @@ public class BasketExtentionTests
         string product2 = "BGLP";
         string product3 = "BGLE";
         string product4 = "COFB";
-        double expectedPrice = 10.43;
+        double expectedPrice = 3.99 + 2.49 + 2.50 + 0.99;
 
         basket.AddMultible(product1, 2);
         basket.AddMultible(product2, 12);
         basket.AddMultible(product3, 6);
         basket.AddMultible(product4 , 3);
 
-        double result = basket.GetTotalCost(); 
+        double result = Math.Round(basket.GetTotalCost(), 2); 
         Assert.That(result, Is.EqualTo(expectedPrice));
     }
 

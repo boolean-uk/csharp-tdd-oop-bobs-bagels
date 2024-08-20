@@ -87,7 +87,7 @@ public class Tests
     {
         Basket basket = new Basket();
         int newCapacity = 6;
-        int currentCApacity = 5;
+        int currentCApacity = 50;
         string password = "admi";
 
         int result = basket.ChangeCapacity(newCapacity, password);

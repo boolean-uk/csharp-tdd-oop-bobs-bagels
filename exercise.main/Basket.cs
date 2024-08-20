@@ -40,7 +40,7 @@ namespace exercise.main
 
         public Product GetFromInventory(string productID)
         {
-            return _inventory.First(item => item.SKU == productID);
+            return _inventory.First(item => item.SKU.Contains(productID));
         }
 
 
@@ -63,43 +63,54 @@ namespace exercise.main
         public double GetTotalCost()
         {
             if (!_basket.Any()) {  return 0; }
-            if (_basket.All(product => product.Discount == null)) { return TotalCost; }
+
+            List<string> discountProducts = _discounts.SelectMany(item => item.Products).ToList();
+            List<Product> productsWithDiscount = _basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
+
+            if (!productsWithDiscount.Any()) { return TotalCost; }
 
             double sum = 0;
+            int c = 0;
 
-            List<Product> productsWithDiscount = _basket.Where(product => product.Discount != null).ToList();
-            List<string> usedDiscounts = new List<string>(); 
-
-            foreach (var product in productsWithDiscount) 
+            while (c < _discounts.Count) 
             {
+                //Checks for valid discount
+                Discount discount = _discounts[c];
+                List<string> requirement = discount.Products;
+                List<string> productSKUs = productsWithDiscount.Select(item => item.SKU).ToList();
+                List<string> uniqueItems = requirement.Distinct().ToList();
+
                 bool validDiscount = true;
 
-                //Checks for valid discount
-                foreach (var discount in product.Discount.DiscountProducts)
+                foreach (string item in uniqueItems) 
                 {
-                    int discountProductCount = _basket.Select(item => item.SKU).Where(item => item.Contains(discount.Key)).Count();
+                    int requirementCount = requirement.Where(x => x.Contains(item)).Count();
+                    int productWithDiscountCount = productSKUs.Where(x => x.Contains(item)).Count();
 
-                    if(discountProductCount < discount.Value) { validDiscount = false; }
-                    if (usedDiscounts.Where(item => item == product.SKU).Count() >= discount.Value)
+                    if (requirementCount > productWithDiscountCount)
                     {
                         validDiscount = false;
                     }
                 }
-
-                //Changes the discount price
+                
+                //Adds discount price
                 if (validDiscount)
                 {
-                    sum += product.Discount.price / product.Discount.TotalAmountDiscounts;
-                    usedDiscounts.Add(product.SKU);
+                    sum += discount.price;
+                    for (int i = 0; i < requirement.Count; i++)
+                    {
+                        productsWithDiscount.Remove(GetFromInventory(requirement[i]));
+                    }
                 }
                 else
                 {
-                    sum += product.Price;
+                    c++;
                 }
             }
 
             //The rest
-            sum += _basket.Where(product => product.Discount == null).Select(product => product.Price).Sum();
+            sum += productsWithDiscount.Select(item => item.Price).Sum();
+            sum += _basket.Where(product => !discountProducts.Contains(product.SKU)).Select(product => product.Price).Sum();
 
             return sum;
         }
@@ -113,7 +124,10 @@ namespace exercise.main
 
         public List<Product> basket { get => _basket; }
 
+        //I know theese are bad
         private List<Product> _inventory = new Inventory().inventory; 
+
+        private List<Discount> _discounts = new Inventory().Discounts;
         private int _capacity { get; set; } = 50;
 
         public int Capacity { get => _capacity; }

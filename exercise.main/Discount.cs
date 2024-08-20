@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,15 +9,16 @@ namespace exercise.main
 {
     public class Discount
     {
-        public int TotalAmountDiscounts { get { return DiscountProducts.Values.Sum(); } }
-        public Dictionary<string, int> DiscountProducts { get; set; }
+        private List<string> _products {  get; set; }
+
+        public List<string> Products { get {  return _products; } }
         public double price { get; set; }
         
         public string ?DiscountDescription { get; set; }
 
-        public Discount(Dictionary<string, int> products, double price)
+        public Discount (List<string> products, double price)
         {
-            this.DiscountProducts = products;
+            this._products= products;
             this.price = price;
         }
     }
