@@ -15,6 +15,7 @@ namespace csharp_tdd_bobs_bagels.tests
         };
         private string _sku; 
         private List<Filling> _fillings = new();
+        bool _falseOrder = false;
         
 
 
@@ -31,9 +32,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
             else
             {
-                this.CurrentFlavor = "plain";
-                this._price = _allowedFlavor["plain"];
-                this._sku = "BGL" + "P";
+                this._falseOrder = true;
             }
 
         }
@@ -56,6 +55,7 @@ namespace csharp_tdd_bobs_bagels.tests
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }
         public float Price { get => _price; set => _price = value; }
         public string SKU { get => _sku;  }
+        public bool FalseOrder { get => _falseOrder;  }
 
 
         #endregion

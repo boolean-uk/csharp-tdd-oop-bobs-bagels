@@ -21,6 +21,7 @@ namespace exercise.main
             "smoked salmon",
             "ham"
         };
+        private bool _falseOrder;
 
         public Filling(string fillingName)
         {
@@ -30,13 +31,15 @@ namespace exercise.main
                 this._price = 0.12f;
                 this._sku += fillingName.Substring(0, 1).ToUpper();
             }
+
             else
             {
-                throw new InvalidDataException("Non existent filling, please check the spelling of the filling");
+                this._falseOrder = true;
             }
+
         }
 
         public float Price { get => _price;}
-    
+        public bool FalseOrder { get => _falseOrder; }
     }
 }
