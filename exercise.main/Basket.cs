@@ -165,14 +165,14 @@ namespace exercise.main
 
         //public async Task sendReceiptAsSms()
         //{
-        //    string accountId = "AC65f18f36d1b61bc4c042d7ace005b09d";
-        //    string authToken = "62f5ffb16fa7fd8311352b851142243a";
+        //    string accountId = "";
+        //    string authToken = "";
 
         //    TwilioClient.Init(accountId, authToken);
         //    var message = await MessageResource.CreateAsync(
         //        body: DiscountReceipt(),
-        //        from: new Twilio.Types.PhoneNumber("+12563048439"),
-        //        to: new Twilio.Types.PhoneNumber("+4740336208")
+        //        from: new Twilio.Types.PhoneNumber("+"),
+        //        to: new Twilio.Types.PhoneNumber("+")
         //    );
             
 
@@ -182,8 +182,8 @@ namespace exercise.main
         //public string getLogs()
         //{
         //    StringBuilder sb = new StringBuilder();
-        //    string accountId = "AC65f18f36d1b61bc4c042d7ace005b09d";
-        //    string authToken = "62f5ffb16fa7fd8311352b851142243a";
+        //    string accountId = "";
+        //    string authToken = "";
         //    TwilioClient.Init(accountId, authToken);
 
         //    var messages = MessageResource.Read(dateSentAfter : DateTime.UtcNow.AddDays(-30));
@@ -198,14 +198,14 @@ namespace exercise.main
 
         //public async Task sendLogsinSms()
         //{
-        //    string accountId = "AC65f18f36d1b61bc4c042d7ace005b09d";
-        //    string authToken = "62f5ffb16fa7fd8311352b851142243a";
+        //    string accountId = "";
+        //    string authToken = "";
 
         //    TwilioClient.Init(accountId, authToken);
         //    var message = await MessageResource.CreateAsync(
         //        body: getLogs(),
-        //        from: new Twilio.Types.PhoneNumber("+12563048439"),
-        //        to: new Twilio.Types.PhoneNumber("+4740336208")
+        //        from: new Twilio.Types.PhoneNumber(""),
+        //        to: new Twilio.Types.PhoneNumber("")
         //    );
 
         //}
