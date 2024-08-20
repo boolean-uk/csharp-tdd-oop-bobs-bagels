@@ -44,15 +44,15 @@ public class Tests
         return customer;
     }
 
-    private Customer addCoffee(Customer customer, int amount)
+    private Customer addCoffee(Customer customer, int amount, string type)
     {
-        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("COFB", customer); }
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct(type, customer); }
         return customer;
     }
 
-    private Customer addFilling(Customer customer, int amount)
+    private Customer addFilling(Customer customer, int amount, string type)
     {
-        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct("FILB", customer); }
+        for (int i = 0; i < amount; i++) { customer.GetBagelStore().getManager().getProduct(type, customer); }
         return customer;
     }
 
@@ -266,7 +266,7 @@ public class Tests
         customer.grabBasket();
         customer = addBagel(customer, 1, "BGLP");
 
-        customer = addBagel(customer, 1, "COFB");
+        customer = addCoffee(customer, 1, "COFB");
 
         customer = addBagel(customer, 12, "BGLP");
         customer.addProduct("FILX");

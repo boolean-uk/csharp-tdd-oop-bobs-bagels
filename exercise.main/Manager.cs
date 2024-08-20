@@ -174,16 +174,20 @@ namespace exercise.main
             int productNumCheck = 0;
             string oldSKU = "";
 
-            foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
+            foreach (var product in productsThatMatch.OrderByDescending(item1 => item1.Item4))
             {
-                if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count > productNumCheck)
-                {
-                    productNumCheck += product.Item4;
-                    oldSKU = product.Item1;
-                }
-                else if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count <= productNumCheck && oldSKU == product.Item1)
+                if (basket.getProductsInBasket().FindAll(item => product.Item1 == item.SKU).Count() <= productNumCheck + product.Item4 && oldSKU == product.Item1)
                 {
                     productsThatMatch.Remove(product);
+                }
+                else if (basket.getProductsInBasket().FindAll(item => item.SKU == product.Item1).Count > productNumCheck + product.Item4 || oldSKU != product.Item1)
+                {
+                    if (oldSKU != product.Item1)
+                    {
+                        productNumCheck = 0;
+                    }
+                    productNumCheck += product.Item4;
+                    oldSKU = product.Item1;
                 }
             }
 
