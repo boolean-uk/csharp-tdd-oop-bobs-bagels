@@ -8,16 +8,11 @@ namespace exercise.main.Persons
 {
     public class Manager : Person
     {
-        public Manager() 
+        private bool _isManager;
+        public bool IsManager { get => _isManager; set => _isManager = value; }
+        public Manager(string name, bool isManager) : base(name, isManager) 
         {
             IsManager = true;
-        }
-
-        public bool ChangeBasketCapacity(int capacity)
-        {
-            Basket.Capacity = capacity;
-
-            return true;
         }
     }
 }

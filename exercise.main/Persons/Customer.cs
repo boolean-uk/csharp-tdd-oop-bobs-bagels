@@ -9,25 +9,23 @@ namespace exercise.main.Persons
 {
     public class Customer : Person
     {
-        /*
         #region
         private Basket _basket;
         public Basket Basket { get => _basket; }
         #endregion
-        */
 
-        public Customer() 
+        public Customer(string name, bool isManager) : base(name, isManager) 
         {
-            IsManager = false;
+            _basket = new Basket();
         }
         public bool AddItemToBasket(Item item)
         {
-            return Basket.Add(item);
+            return _basket.Add(item);
         }
 
         public bool RemoveItemFromBasket(Item bagel)
         {
-            return Basket.Remove(bagel);
+            return _basket.Remove(bagel);
         }
 
         public double GetTotalSumOfBasket()
@@ -37,7 +35,7 @@ namespace exercise.main.Persons
             List<Bagel> bagelList = new List<Bagel>();
             List<Item> itemList = new List<Item>();
 
-            foreach (var item in Basket.ItemsInBasket)
+            foreach (var item in _basket.ItemsInBasket)
             {
                 if (item.GetType() == typeof(Bagel))
                 {
@@ -74,7 +72,19 @@ namespace exercise.main.Persons
 
         public bool AddFillingToBagel(Bagel bagel, Filling filling)
         {
-            return Basket.AddFillingToBagel(bagel, filling);
+            return _basket.AddFillingToBagel(bagel, filling);
+        }
+
+        public bool ChangeBasketCapacity(Manager manager, int capacity) 
+        {
+            if (manager.IsManager)
+            {
+                _basket.Capacity = capacity;
+                
+                return true;
+            }
+
+            return false;
         }
     }
 }

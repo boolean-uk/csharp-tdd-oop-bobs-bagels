@@ -9,7 +9,7 @@ public class CustomerTests
     public void AddItemToBasket()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -24,7 +24,7 @@ public class CustomerTests
     public void AddItemToBasketWhenFull()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -41,7 +41,7 @@ public class CustomerTests
     public void RemoveItemFromBasket()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -58,7 +58,7 @@ public class CustomerTests
     public void RemoveItemFromBasketWhenItemDoesNotExist()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -74,7 +74,7 @@ public class CustomerTests
     public void GetTotalSumOfBasketWithoutBagelFillings()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -94,7 +94,7 @@ public class CustomerTests
     public void GetTotalSumOfBasketWithBagelFillings()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -120,7 +120,7 @@ public class CustomerTests
     public void GetCostOfItem()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute
@@ -136,7 +136,7 @@ public class CustomerTests
     public void AddFillingToBagel()
     {
         // Setup
-        Customer customer = new Customer();
+        Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
 
         // Execute

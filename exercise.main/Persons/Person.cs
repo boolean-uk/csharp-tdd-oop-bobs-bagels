@@ -8,14 +8,15 @@ namespace exercise.main.Persons
 {
     public class Person
     {
-        private Basket _basket;
         private bool _isManager;
-        public Basket Basket { get => _basket; }
+        private string _name;
         public bool IsManager;
+        public string Name { get => _name; set => _name = value; }
 
-        public Person() 
-        { 
-            _basket = new Basket(); 
+        public Person(string name, bool isManager) 
+        {
+            _name = name;
+            _isManager = isManager;
         }
     }
 }
