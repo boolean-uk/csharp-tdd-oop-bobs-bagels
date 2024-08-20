@@ -9,10 +9,12 @@ string product2 = "BGLP";
 string product3 = "BGLE";
 string product4 = "COFB";
 
-basket.AddMultible(product1, 2);
-basket.AddMultible(product2, 12);
-basket.AddMultible(product3, 6);
-basket.AddMultible(product4, 3);
+//basket.AddMultible(product1, 2);
+//basket.AddMultible(product2, 12);
+//basket.AddMultible(product3, 6);
+//basket.AddMultible(product4, 3);
+
+basket.AddMultible(product2, 14);
 
 basket.PrintReciept();
 

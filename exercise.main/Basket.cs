@@ -132,8 +132,8 @@ namespace exercise.main
             string title = String.Format("{0, 25}", "~~~ Bob's Bagels ~~~");
             string date = String.Format("{0, 24}" , DateTime.Now.ToString());
             string lineBreak = "------------------------------";
-            double total = GetTotalCost(_basket);
-            double totalNoDisc = TotalCost;
+            double total = Math.Round(GetTotalCost(_basket), 2);
+            double totalNoDisc = Math.Round(TotalCost, 2);
 
             recieptString.AppendLine(title);
             recieptString.AppendLine();
@@ -163,9 +163,9 @@ namespace exercise.main
                     {
                         tempProducts.Remove(toBeDiscounted[i]);
                     }
-                }
 
-                recieptString.AppendLine();
+                    recieptString.AppendLine();
+                }
             }
 
             //Check for coffee and bagel combo
@@ -195,13 +195,11 @@ namespace exercise.main
                 recieptString.AppendLine("(-£" + moneySaved + ")");
             }
 
-
-            recieptString.AppendLine();
             recieptString.AppendLine(lineBreak);
             recieptString.Append(String.Format("{0, -25}", "Total"));
             recieptString.AppendLine("£" + total);
             recieptString.AppendLine();
-            recieptString.AppendLine(String.Format("{0, 28}", "You saved a total of £" + Math.Round(totalNoDisc-total, 2)));
+            recieptString.AppendLine(String.Format("{0, 27}", "You saved a total of £" + Math.Round(totalNoDisc-total, 2)));
             recieptString.AppendLine(String.Format("{0, 23}", "with discounts"));
 
             Console.WriteLine(recieptString.ToString());
