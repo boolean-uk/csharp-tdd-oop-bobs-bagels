@@ -35,12 +35,26 @@ namespace exercise.main
 
         public List<Manager> GetShopManagers()
         {
-            return (List<Manager>)_persons.Where(person => person.GetType() == typeof(Manager));
+            List<Manager> managers = new List<Manager>();
+
+            foreach (var person in _persons.Where(person => person.GetType() == typeof(Manager)))
+            {
+                managers.Add((Manager)person);
+            }
+
+            return managers;
         }
         
         public List<Customer> GetShopCustomers()
         {
-            return (List<Customer>)_persons.Where(person => person.GetType() == typeof(Customer));
+            List<Customer> customers = new List<Customer>();
+
+            foreach (var person in _persons.Where(person => person.GetType() == typeof(Customer)))
+            {
+                customers.Add((Customer)person);
+            }
+
+            return customers;
         }
 
         public void AddShopManager(string name)
