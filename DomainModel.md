@@ -53,16 +53,22 @@ As the manager,
 So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 
+# Extension 1
+
+11.
+As a customer,
+So I can see if I saved money
+So I can see the discount in my basket
 # Extension 2
 
-11. 
+12. 
 As a customer,
 So I can show my wife what I bouht,
 I want to see a reciept of what I bought
 
-# Extension 1/3
+# Extension 3
 
-12.
+13.
 As a customer,
 So I can see if I saved money,
 I want be able to see potencial discounts on my reciept
@@ -104,9 +110,9 @@ I want be able to see potencial discounts on my reciept
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	reciept()                                                                           	| Customer wants to see what he/she bought  | string      |
 | 	         	  |	                                                                                    	|                                           |             |
-| 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts        |             |
+| 	         	  |	recieptWithDiscount()                                                               	| Cheaper total because of discounts        | string      |
 |                 |																							|											|             |
-|				  |	discount(int count)																		|                                           | void        |	
+|				  |	discount()      																		|                                           | double      |	
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |
 | 	         	  |	                                                                                    	|                                           |             |

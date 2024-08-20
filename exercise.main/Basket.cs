@@ -65,7 +65,7 @@ namespace exercise.main
 
         public double checkTotal()
         {
-            return yourBasket.Sum(item => item.price);
+            return Math.Round(yourBasket.Sum(item => item.price), 2);
         }
 
         public double checkPriceForType(string type)
@@ -174,8 +174,7 @@ namespace exercise.main
         }
 
 
-        //this function is not finished
-        public void Discount()
+        public double Discount()
         {
             foreach (Item item in yourBasket)
             {
@@ -192,11 +191,35 @@ namespace exercise.main
             }
 
 
-            foreach (var item in itemCount)
+            double coffeeDeal = 1.25;
+            double sixBagels = 2.49;
+            double twelveBagels = 3.99;
+
+            List<Item> coffee = inventory._inventory.Where(item => item.id.Contains("BGL")).ToList();
+            List<Item> bagel = inventory._inventory.Where(item => item.id.Contains("COF")).ToList();
+
+            
+            if(yourBasket.Count == 2 && (coffee.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id) 
+            && (bagel.Any(x => x.id.Contains(itemCount.First().Key.id) || x.id.Contains(itemCount.Last().Key.id))))))
             {
-                Console.WriteLine($"{item.Key.variant},  {item.Value}x");
+                return coffeeDeal;
             }
+
+            foreach(var item in itemCount)
+            {
+                if(item.Key.name == "Bagel" && item.Value == 6)
+                {
+                    return sixBagels;
+                }
+                else if (item.Key.name == "Bagel" && item.Value == 12)
+                {
+                    return twelveBagels;
+                }
              
+            }
+            return 0;
+                
+            
 
         } 
     }
