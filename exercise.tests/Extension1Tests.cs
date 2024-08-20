@@ -93,6 +93,25 @@ namespace csharp_tdd_bobs_bagels.tests
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));
             }
+            [Test]
+            public void DiscountTest2()
+            {
+                //init
+                Basket basket = new();
+                Bagel bagel = new("onion");
+                Coffee coffee = new("black");
+                basket.Add(bagel);
+                basket.Add(coffee);
+
+                float expectedPrice = 3.94f;
+                //run
+                basket.Discount();
+                float resultedPrice = basket.Total(); 
+
+                //assert
+                Assert.That(resultedPrice, Is.EqualTo(expectedPrice));
+            }
+
         }
     }
 }
