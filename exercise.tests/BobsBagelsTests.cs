@@ -146,5 +146,8 @@ public class Tests
         Assert.That(isInInventory2, Is.False);
 
     }
+
+    //extension2 Receipts
+    //11. As a customer, So that I can track my spendings, I'd like to receive a receipt of my order.
    
 }
