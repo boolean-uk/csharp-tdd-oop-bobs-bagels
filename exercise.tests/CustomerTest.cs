@@ -27,7 +27,7 @@ namespace exercise.tests
                 Assert.That(result == expected[i]);
             }
         }
-
+         
 
 
         [TestCase("Bagel", "Plain", 2.0, "Bacon", new bool[] { true, true })]
