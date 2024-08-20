@@ -3,6 +3,8 @@ using exercise.main;
 
 Basket basket = new Basket();
 basket.AddItem("Onion");
+basket.AddItem("Onion");
+basket.AddItem("Black");
 
 
 string printedReceipt = basket.PrintReceipt;

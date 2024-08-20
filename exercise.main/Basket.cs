@@ -25,16 +25,27 @@ namespace exercise.main
             _receipt.AppendLine();
             _receipt.AppendLine(DateTime.Now.ToString());
             _receipt.AppendLine();
-            _receipt.AppendLine("---------------------");
+            _receipt.AppendLine("--------------------------");
             _receipt.AppendLine();
 
+            int amount = 0;
 
-
-            foreach (var item in _Basket) 
+            foreach (var item in _Basket.Distinct()) 
             {
-                _receipt.AppendLine($"{item.Variant} {item.Name}");
+                amount = _Basket.Where(x => x.Variant == item.Variant).Count();
+                _receipt.AppendLine($"{item.Variant} {item.Name}\t{amount} £ {amount * item.Price}");
+                
             }
+
+            _receipt.AppendLine();
+            _receipt.AppendLine("--------------------------");
+
+            _receipt.AppendLine($"Total             £ {TotalCost}");
+            _receipt.AppendLine();
+            _receipt.AppendLine();
+            _receipt.AppendLine("Thank you for your order!");
             
+
             return _receipt;
             
         }
