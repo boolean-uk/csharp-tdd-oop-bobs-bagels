@@ -128,15 +128,13 @@ public class Tests
         Item plainBagel = new Item("BGLP", 0.39, "Bagel", "Plain");
         Item blackCoffe = new Item("COFB", 0.99, "Coffee", "Black");
 
-         basket.changeBasketCapacity(14, Role.MANAGER);
-
-        // IF ADDING COFFEE FIRST IT DOESENT WORK
+        basket.changeBasketCapacity(14, Role.MANAGER);
 
         basket.addItem(plainBagel);
         basket.addItem(blackCoffe);
 
-        
-       // basket.addItem(plainBagel);
+       /* 
+        basket.addItem(plainBagel);
         basket.addItem(plainBagel);
         basket.addItem(plainBagel);
         basket.addItem(plainBagel);
@@ -144,13 +142,13 @@ public class Tests
         basket.addItem(plainBagel);
 
         
-        //basket.addItem(plainBagel);
-        //basket.addItem(plainBagel);
-        //basket.addItem(plainBagel);
-        //basket.addItem(plainBagel);
-        //basket.addItem(plainBagel);
-        //basket.addItem(plainBagel);
-        
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        basket.addItem(plainBagel);
+        */
 
         double expectedCofBag = d1;
         double expectedSixBagel = d2;
@@ -158,7 +156,7 @@ public class Tests
 
         double result = basket.discount();
 
-        Assert.That(expectedSixBagel == result);
+        Assert.That(expectedCofBag == result);
 
     }
 }

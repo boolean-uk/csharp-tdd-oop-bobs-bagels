@@ -156,8 +156,6 @@ namespace exercise.main
                 }
             });
 
-            // if (basketItems.Contains("COF") && basketItems.Contains("BGL")) ;
-
             double bagAndCof = 1.25;
             double sixBagels = 2.49;
             double twelBagels = 3.99;
@@ -165,9 +163,8 @@ namespace exercise.main
             List<Item> cof = inventory.getInventory().Where(item => item.id.Contains("COF")).ToList();
             List<Item> bgl = inventory.getInventory().Where(item => item.id.Contains("BGL")).ToList();
 
-            Console.WriteLine(basketItems.Count);
-
-            if (basketItems.Count == 2 && ((itemsCounted.Any().ToString() == cof.Any().ToString() && itemsCounted.Any().ToString() == bgl.Any().ToString())))
+            if (basketItems.Count == 2 && (cof.Any(i => i.id.Contains(countOfItems.First().Key.id) || i.id.Contains(countOfItems.Last().Key.id)) 
+                && (bgl.Any(i => i.id.Contains(countOfItems.First().Key.id) || i.id.Contains(countOfItems.Last().Key.id)))))      
             {
                 return bagAndCof;
             }
@@ -177,7 +174,6 @@ namespace exercise.main
 
                 foreach (var item in countOfItems)
                 {
-                   
                     if (item.Key.id.Contains("BGL") && item.Value == 6)
                     {
                         return sixBagels;
