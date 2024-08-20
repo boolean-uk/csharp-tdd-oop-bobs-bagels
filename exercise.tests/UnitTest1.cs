@@ -207,6 +207,75 @@ public class Tests
     }
 
     [Test]
+    public void Test14AddingFillingToBagel()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", ["FILB", "FILE", "FILC"]);
+        double price = 0.39 + 0.12 * 3;
+        Assert.That(basket.SumOfItems == price);
+        Assert.IsFalse(basket.IsFull);
+    }
+
+    [Test]
+    public void Test15AddingCoffeeAndFillingToBagel()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", ["COFB", "FILB", "FILE", "FILC"]);
+        double price = Math.Round(1.25 + 0.12 * 3, 2);
+        Assert.That(basket.SumOfItems == price);
+        Assert.IsTrue(basket.IsFull);
+    }
+
+    [Test]
+    public void Test16AddingBagelToBagel()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", ["BGLO"]);
+        Assert.IsFalse(result1);
+    }
+
+    [Test]
+    public void Test17AddingSeveralCoffeesToBagel()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", ["COFB", "COFW"]);
+        Assert.IsFalse(result1);
+    }
+
+    [Test]
+    public void Test18UniqueIDForFillingBagel()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(2);
+        bool result1 = basket.Add("BGLP", ["FILE", "FILC"]);
+        basket.Exists("BGLPFILEFILC");
+        basket.Add("BGLP");
+        Assert.IsTrue(basket.IsFull);
+    }
+
+    [Test]
+    public void Test19AddingAnExtraCoffeeOrder()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        basket.ChangeCapacity(4);
+        bool result1 = basket.Add("BGLP", "COFB");
+        bool result2 = basket.Add("BGLP", "COFB");
+        Assert.IsTrue(result2);
+        Assert.That(basket.SumOfItems == 2.5);
+
+    }
+
+    [Test]
     public void ReceiptPrinterTest()
     {
         BagelShop shop = new BagelShop();

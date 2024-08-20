@@ -18,8 +18,11 @@ namespace exercise.main
             _category = category;
         }
 
-        private bool AddItem(string sku, int amount)
+        // Private helper method for adding items to basket
+        private bool AddItem(string[] skus, int amount)
         {
+            string sku = skus[0];
+            string skuKey = string.Join("", skus);
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
 
@@ -33,61 +36,105 @@ namespace exercise.main
             if (!result) return false;
 
             // Check if order already exists, in this case, just increment it by amount
-            if (_products.ContainsKey(sku))
+            if (_products.ContainsKey(skuKey))
             {
-                _products[sku].Amount += amount;
+                _products[skuKey].Amount += amount;
             }
             else
             {
                 ProductOrder po = new ProductOrder(value, amount);
-                _products.Add(sku, po);
+                _products.Add(skuKey, po);
             }
-            int worth = sku.Length / 4;
-            _count += worth;
+
+            ProductOrder order = _products[skuKey];
+            for (int i = 1; i < skus.Length; i++)
+            {
+                // Currently you can only add a black coffee to an existing order,
+                // you could change this by just checking that the type is coffee, if u wanted to...
+                if (skus[i] == "COFB")
+                {
+                    order.Coffee = _category[skus[i]];
+                    amount *= 2;
+                }
+                if (_category[skus[i]].Name == "Filling") order.AddFilling(_category[skus[i]]);
+                _category[skus[i]].DecreaseStock();
+            }
+            _count += amount;
             return true;
         }
 
         public bool Add(string v)
         {
-            return AddItem(v, 1);
+            return AddItem([v], 1);
         }
 
         public bool Add(string v1, int v2)
         {
-            return AddItem(v1, v2);   
+            return AddItem([v1], v2);   
         }
 
-        // This is to add a bagel & coffee order, not sure how to handle adding a specific filling
-        // to a bagel yet...
+        // This is to add a bagel & coffee order
         public bool Add(string v1, string v2)
         {
             if (!_category.ContainsKey(v1) || !_category.ContainsKey(v2)) return false;
             Product p1 = _category[v1];
             Product p2 = _category[v2];
 
-            if (p1.GetType() == typeof(Bagel) && p2.Variant == "Black" && p2.Name == "Coffee") return AddItem(p2.Sku + p1.Sku, 1);
-            if (p2.GetType() == typeof(Bagel) && p1.Variant == "Black" && p1.Name == "Coffee") return AddItem(p1.Sku + p2.Sku, 1);
+            if (p1.GetType() == typeof(Bagel) && p2.Sku == "COFB") return AddItem([p1.Sku, p2.Sku], 1);
+            if (p2.GetType() == typeof(Bagel) && p1.Sku == "COFB") return AddItem([p2.Sku, p1.Sku], 1);
             else return false;
+        }
+
+        // This is to add a bagel with toppings/coffee order
+        public bool Add(string v1, string[] v2)
+        {
+            if (!_category.ContainsKey(v1)) return false;
+
+            string[] orderKey = new string[1 + v2.Length];
+            orderKey[0] = v1;
+            bool coffeeAdded = false; // can only add one coffee to a bagel
+
+            for (int i = 0; i < v2.Length; i++)
+            {
+                if (!_category.ContainsKey(v2[i])) return false; else orderKey[i + 1] = v2[i];
+                if (_category[v2[i]].GetType() == typeof(Bagel)) return false; // cant add bagel to bagel
+                if (_category[v2[i]].GetType() == typeof(Coffee))
+                {
+                    if (!coffeeAdded) coffeeAdded = true;
+                    else return false;
+                }
+            }
+
+            return AddItem(orderKey, 1);
+        }
+
+        private bool RemoveItem(string[] skus)
+        {
+            string sku = skus[0];
+            string skuKey = string.Join("", skus);
+            // Check if the product exists in the basket before removing
+            if (!_products.ContainsKey(skuKey)) return false;
+
+            Product value = _category[sku];
+            value.IncreaseStock();
+
+            // If the order had a coffee, we remove twice as many items...
+            if (_products[skuKey].Coffee != null) _count--;
+
+            // Loop through the array to increase the stock back on the shop!
+            for (int i = 1; i < skus.Length; i++) _category[skus[i]].IncreaseStock();
+
+            // Either remove 1, or if order only consists of one, remove the whole order
+            if (_products[skuKey].Amount > 1) _products[skuKey].Amount--;
+            else _products.Remove(skuKey);
+
+            _count--;
+            return true;
         }
 
         public bool Remove(string v)
         {
-            // Check if the product exists in the category
-            if (!_category.ContainsKey(v)) return false;
-
-            // Check if the product exists in the basket before removing
-            if (!_products.ContainsKey(v)) return false;
-
-            Product value = _category[v];
-            value.IncreaseStock();
-
-            // Either remove 1, or if order only consists of one, remove the whole order
-            if (_products[v].Amount > 1) _products[v].Amount--;
-            else _products.Remove(v);
-
-            int worth = v.Length / 4;
-            _count -= worth;
-            return true;
+            return RemoveItem([v]);
         }
 
         public bool ChangeCapacity(int v)
@@ -117,6 +164,6 @@ namespace exercise.main
 
         public bool IsFull { get { return _capacity == _count; } }
 
-        public double SumOfItems { get { return Math.Round(_products.Sum(product => (product.Value.Amount * product.Value.Product.Price) - product.Value.Discount), 2, MidpointRounding.AwayFromZero); } }
+        public double SumOfItems { get { return Math.Round(_products.Sum(product => product.Value.Cost - product.Value.Discount), 2, MidpointRounding.AwayFromZero); } }
     }
 }

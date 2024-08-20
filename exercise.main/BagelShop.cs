@@ -29,11 +29,6 @@ namespace exercise.main
             _category.Add("FILX", CreateProduct("FILX", 0.12, "Filling", "Cream Cheese"));
             _category.Add("FILS", CreateProduct("FILS", 0.12, "Filling", "Smoked Salmon"));
             _category.Add("FILH", CreateProduct("FILH", 0.12, "Filling", "Ham"));
-
-            _category.Add("COFBBGLO", CreateProduct("COFBBGLO", 0.99+0.49, "Bagel", "Onion"));
-            _category.Add("COFBBGLP", CreateProduct("COFBBGLP", 0.99+0.39, "Bagel", "Plain"));
-            _category.Add("COFBBGLE", CreateProduct("COFBBGLE", 0.99+0.49, "Bagel", "Everything"));
-            _category.Add("COFBBGLS", CreateProduct("COFBBGLS", 0.99+0.49, "Bagel", "Sesame"));
         }
 
         // Maybe add terminal interaction to main
@@ -47,6 +42,9 @@ namespace exercise.main
             bool result2 = basket.Add("BGLP", 12);
             bool result3 = basket.Add("BGLE", 6);
             bool result4 = basket.Add("COFB", 3);
+            bool result5 = basket.Add("BGLO", "COFB");
+            bool result6 = basket.Add("BGLO", "COFB");
+            bool result7 = basket.Add("BGLP", ["COFB", "FILB", "FILE", "FILC"]);
 
             var sb = shop.ReceiptPrinter(basket);
             Console.WriteLine(sb);
@@ -68,6 +66,14 @@ namespace exercise.main
                 string orderAmount = $"{po.Amount}".PadRight(5);
                 string orderPrice = $"£{Math.Round(po.Cost - po.Discount, 2)}";
                 sb.AppendLine(orderName + orderAmount + orderPrice);
+                if (po.Coffee != null)
+                {
+                    sb.AppendLine(" ~" + po.Coffee.ToString());
+                }
+                foreach (var filling in po.Fillings)
+                {
+                    sb.AppendLine(" ~" + filling.ToString());
+                }
                 if (po.Discount > 0)
                 {
                     sb.AppendLine($"(-£{po.Discount})".PadLeft(29));
@@ -78,7 +84,7 @@ namespace exercise.main
 
             if (discount > 0)
             {
-                sb.AppendLine($" You saved a total of £{discount}");
+                sb.AppendLine($" You saved a total of £{Math.Round(discount, 2)}");
                 sb.AppendLine("".PadRight(6) + "on this purchase!\n");
             }
 
@@ -92,11 +98,6 @@ namespace exercise.main
 
         private Product CreateProduct(string sku, double price, string name, string variant)
         {
-            // Special case for BagelCoffee I guess, not sure if making a new class for this was the best idea...
-            if (sku.Length == 8)
-            {
-                return new BagelCoffee(this, sku, price, name, variant);
-            }
             switch (name)
             {
                 case "Bagel":
