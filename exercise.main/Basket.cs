@@ -99,14 +99,59 @@ namespace exercise.main
             //For each item, add the name, amount and total cost
             foreach (var item in products)
             {
-                //Check if it's an everything bagel or capuccino (cause long names)
-                if(item.info.key == "BGLE" || item.info.key == "COFC")
+                //Check if it's an everything bagel (cause long name)
+                if(item.info.key == "BGLE")
                 {
                     receipt += $"{item.info.variant} {item.info.name}\t\t{item.GetAmount()}\t£{item.Cost()}\n";
                 }
-                else //Otherwise just add anything else
+                else if(item.info.key == "COFC") //Check if it's a capuccino (cause long name)
                 {
-                    receipt += $"{item.info.variant} {item.info.name}\t\t\t{item.GetAmount()}\t£{item.Cost()}\n";
+                    if (coffeeDiscounts > 0) //Check if discounts need to be applied
+                    {
+                        //If the coffee discounts exceed the amount of coffees of this type
+                        if (coffeeDiscounts > item.GetAmount())
+                        {
+                            receipt += $"{item.info.variant} {item.info.name}\t\t{item.GetAmount()}\t£{(float)Math.Round((item.Cost() - 0.23f * item.GetAmount()), 2)}\n";
+                            receipt += $"\t\t\t\t\t  (-£{0.23f * item.GetAmount()})\n";
+                            totalDiscount += 0.23f * item.GetAmount();
+                        }
+                        else //The amount of coffees of this type exceeds the amount of coffee discounts left
+                        {
+                            receipt += $"{item.info.variant} {item.info.name}\t\t{item.GetAmount()}\t£{(float)Math.Round((item.Cost() - 0.23f * coffeeDiscounts), 2)}\n";
+                            receipt += $"\t\t\t\t\t  (-£{0.23f * coffeeDiscounts})\n";
+                            totalDiscount += 0.23f * coffeeDiscounts;
+                        }
+                        coffeeDiscounts -= item.GetAmount();
+                    }
+                    else //No discounts, just add the capuccino
+                    {
+                        receipt += $"{item.info.variant} {item.info.name}\t\t{item.GetAmount()}\t£{item.Cost()}\n";
+                    }
+                }
+                else //Otherwise it doesn't have a long name and it's just the regular case
+                {
+                    if (item.info.key[0] == 'C' && coffeeDiscounts > 0) //Check if it's coffee and it needs a discount
+                    {
+                            //If the coffee discounts exceed the amount of coffees of this type
+                            if (coffeeDiscounts > item.GetAmount())
+                            {
+                                receipt += $"{item.info.variant} {item.info.name}\t\t\t{item.GetAmount()}\t£{item.Cost() - 0.23f * item.GetAmount()}\n";
+                                receipt += $"\t\t\t\t\t  (-£{0.23f * item.GetAmount()})\n";
+                                totalDiscount += 0.23f * item.GetAmount();
+                            }
+                            else //The amount of coffees of this type exceeds the amount of coffee discounts left
+                            {
+                                receipt += $"{item.info.variant} {item.info.name}\t\t\t{item.GetAmount()}\t£{item.Cost() - 0.23f * coffeeDiscounts}\n";
+                                receipt += $"\t\t\t\t\t  (-£{0.23f * coffeeDiscounts})\n";
+                                totalDiscount += 0.23f * coffeeDiscounts;
+                            }
+                            coffeeDiscounts -= item.GetAmount();
+                    }
+                    else //Otherwise just write the item down on the receipt
+                    {
+                        receipt += $"{item.info.variant} {item.info.name}\t\t\t{item.GetAmount()}\t£{item.Cost()}\n";
+                    }
+
                 }
 
                 //Check if any bagel discounts have been applied
@@ -115,25 +160,10 @@ namespace exercise.main
                     receipt += $"\t\t\t\t\t  (-£{item.BagelDiscount()})\n";
                     totalDiscount += item.BagelDiscount();
                 }
-                else if (item.info.key[0] == 'C' && coffeeDiscounts > 0) //Check if any coffee discounts have been applied
-                {
-                    //If the coffee discounts exceed the amount of coffees of this type
-                    if(coffeeDiscounts > item.GetAmount())
-                    {
-                        receipt += $"\t\t\t\t\t  (-£{0.23f * item.GetAmount()})\n";
-                        totalDiscount += 0.23f * item.GetAmount();
-                    }
-                    else //The amount of coffees of this type exceeds the amount of coffee discounts left
-                    {
-                        receipt += $"\t\t\t\t\t  (-£{0.23f * coffeeDiscounts})\n";
-                        totalDiscount += 0.23f * coffeeDiscounts;
-                    }
-                    coffeeDiscounts -= item.GetAmount();
-                }
             }
 
-            //Spacing and total cost
-            receipt += $"\n-------------------------------\nTotal\t\t\t\t\t£{this.TotalCost()}";
+            //Spacing, total cost, discount, and thank you
+            receipt += $"\n-------------------------------\nTotal\t\t\t\t\t£{this.TotalCost()}\n\n   You saved a total of £{totalDiscount}\n\t\t on this shop\n\n\t\t   Thank you\n\t\tfor your order!";
 
             return receipt;
         }
