@@ -34,18 +34,19 @@
 |          |ShowCost()                               |Calls basket to output cost |double
 |          |										 |of items in basket		  |
 |          |										 |							  |
-|          |EXTENTION 1: Showcost                    |Discounts oppertunities     |double
+|          |EXTENSION 1: Showcost                    |Discounts oppertunities     |double
 |          |										 |discovered and applied      |
 |          |										 |							  |
+|          |EXTENSION 2: Purchase             		 |Calls for a manager receipt.| true
+|          |										 | Cart is  not empty         |
+|          |										 |	Then empties cart         |
 |          |										 |							  |
-|          |										 |							  |
-|          |										 |							  |
-|          |										 |							  |
-|          |										 |							  |
-|          |										 |							  |
-|          |										 |							  |
+|          |										 |Calls for a manager receipt.| false
+|          |										 | Cart is  empty             |
+|          |										 |          				  |
 |          |										 |							  |
 |__________|_________________________________________|____________________________|                                                                       
+|Manager   |                                         |                            |
 |          |                                         |                            |
 |          |ConfirmOrder(string namne, string variant|                            |
 |          |, double remainingFunds, int basketSize) |                            |
@@ -56,12 +57,16 @@
 |          | 										 |Funds are insufficient for  |false
 |          | 										 |order or item is not on menu|
 |          | 										 |or capacity is full         |
-|Manager   |                                         |                            |
 |          |                                         | 							  |
 |          |                                         |                            |
 |          |ChangeCapacity(int newCapacity)          |NewCapacity is non-negative |true   
 |          |                                         |                            |   
 |          |                                         |NewCapacity is negative     |false   
+|          |                                         | 							  |
+|          |  EXTENSION 2                            | 							  |
+|          | PrintReceipt(Cart cart)                 |Calls Receipt.PrintReceipt  |-------
+|          |                                         | 							  |
+|          |                                         | 							  |
 |__________|_________________________________________|____________________________|                                                                       
 |Basket    |                                         |                            |          
 |          | ShowCost()                              |Shows sum of bagels in order|double                                                                             
@@ -84,5 +89,23 @@
 |          |                                         |                            |                                                                      
 |          |                                         |Item does not exist in      |-1                                                                 
 |          |                                         |inventory                   |                                                                      
+|__________|_________________________________________|____________________________|       
+|Receipt   |EXTENSION2   							 |							  |
+|          |										 |							  |
+|          |PrintReceipt(Cart)     					 |Prints receipt of items in  | string
+|          |										 |cart			         	  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
+|          |										 |							  |
 |__________|_________________________________________|____________________________|______________________________________                                                        
-                                                                                                                   
+                                                                                                           
+                                                                                                           
+
+
+Extension 2
+As a customer, I'd like to recieve a receipt, so that I know I was charged correctly.
