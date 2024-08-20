@@ -45,6 +45,7 @@ namespace tdd_bobs_bagels.CSharp.Main
                 return true;
             }
             return false;
+
         }
         public void Discount()
         {
@@ -58,7 +59,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
                 if (bagelCount > 0 && _coffee.Count > 0)
                 {
-                    int coffeeCount = _coffee.Count(); 
+                    int coffeeCount = _coffee.Count();
                     while (coffeeCount > 0 && bagelCount > 0)
                     {
                         _totalPrice -= 0.23f;
@@ -67,8 +68,23 @@ namespace tdd_bobs_bagels.CSharp.Main
                     }
                 }
             }
-            
-        }
+            else if (_bagels.Count() > 1 && _coffee.Count > 1)
+            {
+                int bagelCount = _bagels.Count;
+
+                if (bagelCount > 0 && _coffee.Count > 0)
+                {
+                    int coffeeCount = _coffee.Count();
+                    while (coffeeCount > 0 && bagelCount > 0)
+                    {
+                        _totalPrice -= 0.23f;
+                        coffeeCount -= 1;
+                        bagelCount -= 1;
+                    }
+                }
+            }
+
+            }
 
         public bool Remove(Bagel bagelName)
         {
