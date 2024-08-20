@@ -272,7 +272,28 @@ public class Tests
         bool result2 = basket.Add("BGLP", "COFB");
         Assert.IsTrue(result2);
         Assert.That(basket.SumOfItems == 2.5);
+    }
 
+    [Test]
+    public void Test20RemovingBagelFillingOrder()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        bool result1 = basket.Add("BGLP", ["FILE", "FILC"]);
+        bool result2 = basket.Remove("BGLPFILEFILC");
+        Assert.IsTrue(result2);
+        Assert.That(basket.Products.Count == 0);
+    }
+
+    [Test]
+    public void Test21RemoveBagelCoffeeOrder()
+    {
+        BagelShop shop = new BagelShop();
+        Basket basket = shop.GrabBasket();
+        bool result1 = basket.Add("BGLP", "COFB");
+        bool result2 = basket.Remove("BGLPCOFB");
+        Assert.IsTrue(result2);
+        Assert.That(basket.Products.Count == 0);
     }
 
     [Test]

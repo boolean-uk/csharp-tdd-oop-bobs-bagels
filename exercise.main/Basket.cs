@@ -47,6 +47,7 @@ namespace exercise.main
             }
 
             ProductOrder order = _products[skuKey];
+
             for (int i = 1; i < skus.Length; i++)
             {
                 // Currently you can only add a black coffee to an existing order,
@@ -56,7 +57,9 @@ namespace exercise.main
                     order.Coffee = _category[skus[i]];
                     amount *= 2;
                 }
+                // Add filling to the bagel!
                 if (_category[skus[i]].Name == "Filling") order.AddFilling(_category[skus[i]]);
+                // Decrease the stock from the store...
                 _category[skus[i]].DecreaseStock();
             }
             _count += amount;
@@ -134,7 +137,15 @@ namespace exercise.main
 
         public bool Remove(string v)
         {
-            return RemoveItem([v]);
+            string[] skus = new string[v.Length / 4];
+
+            int j = 0;
+            for (int i = 0; i < v.Length; i+=4)
+            {
+                skus[j] = v.Substring(i, 4);
+                j++;
+            }
+            return RemoveItem(skus);
         }
 
         public bool ChangeCapacity(int v)

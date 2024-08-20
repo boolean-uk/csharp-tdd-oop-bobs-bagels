@@ -14,7 +14,6 @@
 |                 | `List<Product> fillings`| Fillings {get;}             | get the fillings for bagel| list       |
 |                 |                         | AddFilling()                | if filling got added      | true       |
 |                 |                         |                             | if filling didnt get added| false      |
-
 |                 |                         |                             |                           |            |
 | Basket          | `List<Product> products`| Add(string sku)             | item got added to basket  | true       |
 |				  | `int capacity`          | Add(string sku, int amount) | item did not get added    | false      |
