@@ -23,6 +23,7 @@
 ***
 
 ### Bob's Bagels domain models
+
 | **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
 |:---:|:---:|:---:|:---:|
 | `Customer` | Add(Item) | Adds a bagel to the basket | bool | The Add(Item)-method calls the Add(Item)-method in basket to update the List inside the Basket-class. Returns a boolean for confirmation. |
@@ -39,6 +40,7 @@
 ***
 
 ### Overview of Classes
+
 | **Classes** | Properties |
 |:---:|:---:|
 |`Shop`| ShopInventory _shopInventory_, List\<Person> _people_, List\<Manager> _managers_, List\<Customer> _customers_, string _shopName_
