@@ -22,7 +22,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         }
 
-        public bool Add(Bagel bagelName)
+        public bool Add(Bagel bagelName, bool discount = false)
         {
             if ((_amount < Capacity))
             {
@@ -34,7 +34,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             }
             return false;
         }
-        public bool Add(Coffee coffeeName)
+        public bool Add(Coffee coffeeName, bool discount = false)
         {
             if ((_amount < Capacity))
             {

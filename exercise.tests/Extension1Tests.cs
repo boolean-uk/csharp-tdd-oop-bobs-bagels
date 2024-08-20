@@ -36,7 +36,32 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));
-            }  
+            }
+            [Test]
+            public void DiscountTest()
+            {
+                //arrange
+                Basket basket = new();
+                List<Bagel> bagelList = new();
+                for (int i = 0; i <= 6; i++)
+                {
+                    Bagel bagel = new("onion");
+                    bagelList.Add(bagel);
+                };
+                Coffee coffee = new("White");
+                float expectedTotal = 3.68f;
+
+                //act
+                basket.Add(coffee, discount: true);
+
+                foreach (Bagel bagel in bagelList)
+                {
+                    basket.Add(bagel, discount:true);
+                }
+                float actualTotal = basket.Total();
+                //assert
+                Assert.That(actualTotal, Is.EqualTo(expectedTotal));
+            }
         }
     }
 }
