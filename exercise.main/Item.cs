@@ -15,7 +15,7 @@ namespace exercise.main
         private string _name;
         public string _variant;
 
-        public Item() { }
+
 
         public Item(string sku, double price, string name, string variant) {
 

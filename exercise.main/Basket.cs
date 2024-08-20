@@ -11,19 +11,36 @@ namespace exercise.main
 {
     public class Basket
     {
-        public Inventory Inventory { get; set; }
+        private Inventory _inventory = new Inventory();
+        public Inventory Inventory { get => _inventory; }
         public List<Item> Item { get; set; } = new List<Item> { };
 
         public int max_capasity { get; set; }
 
         public bool addItem(Item item)
         {
-            if (Item.Count() <= max_capasity)
+            if (item == null)
+            {
+                return false;
+            } else if (Item.Count <= max_capasity)
             {
                 Item.Add(item);
                 return true;
+            } else
+            {
+                return false;
             }
-            return false;
+
+
+            //if (Item.Count() <= max_capasity)
+            //{
+            //    Item.Add(item);
+            //    return true;
+            //} else if (item == null)
+            //{
+            //    return false;
+            //}
+            //return false;
 
         }
         public bool removeItem(Item item)
@@ -38,16 +55,16 @@ namespace exercise.main
         }
         public bool isFull()
         {
-          if (Item.Count() <= max_capasity)
+            if (Item.Count() <= max_capasity)
             {
                 return true;
             }
-             return false;
+            return false;
         }
 
         public bool changecapacity(int newcapasity)
         {
-            
+
             if (newcapasity > 0 && newcapasity != max_capasity)
             {
                 max_capasity = newcapasity;
@@ -62,22 +79,22 @@ namespace exercise.main
             {
                 return "Item does not exists";
             }
-            return "";
+            return "Item exists";
         }
 
         public double getTotalCost()
         {
             return Item.Sum(item => item.Price);
-            
+
         }
 
         public double getBagelPrice(string sku)
         {
             Inventory inventory = new Inventory();
 
-            Item bagel = inventory.Items.Find(item => item.Sku == sku);
+            Item bagel = inventory.ShopInventory.Find(item => item.Sku == sku);
 
-            if (inventory.Items.Contains(bagel))
+            if (inventory.ShopInventory.Contains(bagel))
             {
                 return bagel.Price;
             }
@@ -89,15 +106,47 @@ namespace exercise.main
         {
             Inventory inventory = new Inventory();
 
-            Item bagelwithfilling = inventory.Items.Find(item => item.Sku == sku);
+            Item bagelwithfilling = inventory.ShopInventory.Find(item => item.Sku == sku);
 
-            if (inventory.Items.Contains(bagelwithfilling))
+            if (inventory.ShopInventory.Contains(bagelwithfilling))
             {
                 return bagelwithfilling.Variant;
             }
             return "Not existing";
         }
 
-    }
+        public double getFillingCost(string variant)
+        {
+            Inventory inventory = new Inventory();
+            double fillingprice = 0;
 
+            foreach (Item item in inventory.ShopInventory)
+            {
+                if (item.Variant == variant)
+                {
+                    fillingprice = item.Price;
+                    return fillingprice;
+                }
+            }
+            return 0.0d;
+
+        }
+
+        /* public bool checknonexistsing(string sku)
+        {
+            Inventory inventory = new Inventory();
+
+            foreach (Item item in Inventory.ShopInventory)
+            {
+                if (item.Sku == sku)
+                {
+                    return true;
+
+                }
+
+            }
+            return false;
+        }
+        */
+    }
 }

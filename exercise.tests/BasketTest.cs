@@ -169,10 +169,37 @@ namespace exercise.tests
 
             string choosenfilling = basket.getChosenFilling(item1.Sku);
 
-            Assert.That(choosenfilling, Is.EqualTo(item1.Variant));
+            Assert.That(choosenfilling, Is.EqualTo(item1.Variant));   
+            
+        }
+        [Test]
 
-            
-            
+        public void TestCostofFilling()
+        {
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Item item1 = inventory.GetItembySku("FILH");
+
+            double costoffilling = basket.getFillingCost("Ham");
+
+  
+      
+           Assert.IsTrue(costoffilling == item1.Price);
+
+
+        }
+        [Test]
+        public void TestNotOrderNotexisting()
+        {
+            Inventory inventory = new Inventory();
+            Basket basket = new Basket();
+
+            Item item1 = inventory.GetItembySku("ADHD");
+
+            bool expected = basket.addItem(item1);
+
+            Assert.IsFalse(expected);
         }
     }
 }
