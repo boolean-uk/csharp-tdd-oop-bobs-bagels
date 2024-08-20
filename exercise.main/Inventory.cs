@@ -30,7 +30,7 @@ namespace exercise.main
 
         };
 
-
+        private string _storeName = "Bob's Bagels";
         private List<Basket> _baskets;
         private Basket _basket;
 
@@ -81,6 +81,12 @@ namespace exercise.main
             
 
             return _products;
+        }
+
+        //Extension task 2
+        public string GetStoreName()
+        {
+            return _storeName;
         }
 
         public List<InventoryProducts> Products { get { return _products; } }
