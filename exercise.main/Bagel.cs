@@ -19,14 +19,6 @@ namespace exercise.main
         }
 
         public string Filling { get => _filling; set => _filling = value; }
-
-        //public string PrintBagel() 
-        //{
-        //    return $"{Sku}\n {Price}\n {Name},  {Variant}";
-        //}
-
-        //private string Filling {  get; set; }
-
         
     }
 }

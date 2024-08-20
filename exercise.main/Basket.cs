@@ -12,6 +12,7 @@ namespace exercise.main
         //public List<ChosenItem> items;
         private double _total;
         private bool _isAdmin;
+        private int _basketItemCount;
         private int _cap;
         private string? _capnotice;
         private string? _notfoundnotice;
@@ -59,7 +60,8 @@ namespace exercise.main
 
         public void AddToBasket(int id, List<Item> item) 
         {
-            if (BasketItems.Count < Cap)
+            UpdateCount(BasketItems);
+            if (BasketItemCount < Cap)
             {
                 BasketItems.Add(id, item);
             }
@@ -67,6 +69,24 @@ namespace exercise.main
             {
                 CapNotice = "Your basket is full";
             }
+        }
+
+        public void UpdateCount(Dictionary<int, List<Item>> BasketItems)
+        {
+            int Counter = 0;
+            foreach (KeyValuePair <int, List<Item>> item in BasketItems)
+            {
+                int key = item.Key;
+                List<Item> items = item.Value;
+                foreach (Item thing in items)
+                {
+                    if (thing is Bagel bagel || thing is Coffee coffee)
+                    {
+                        Counter++;
+                    }
+                }
+            }
+            BasketItemCount = Counter;
         }
 
         public void RemoveFromBasket(int id)
@@ -141,6 +161,8 @@ namespace exercise.main
         public string NotFoundNotice { get => _notfoundnotice; set => _notfoundnotice = value; }
 
         public string OutOfStockNotice { get => _outofstocknotice; set => _outofstocknotice = value; }
+
+        public int BasketItemCount { get => _basketItemCount; set => _basketItemCount = value; }
     
     }
 }
