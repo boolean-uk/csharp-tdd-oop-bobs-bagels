@@ -102,5 +102,10 @@ namespace exercise.main
             return discount.ValidateDiscounts();
         }
 
+        public string GetPlainReceipt()
+        {
+            Extension2 receipt = new Extension2(basket);
+            return receipt.Receipt(GetCost());
+        }
     }
 }

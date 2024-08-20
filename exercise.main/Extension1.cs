@@ -10,8 +10,15 @@ namespace exercise.main
 
         private List<Product> copyOfBasket;
         private float copyOfPrice;
+        private Dictionary<string, int> productDiscount;
 
-        public Extension1(List<Product> basket, float price) { 
+        public Extension1(List<Product> basket, float price) 
+        {
+            productDiscount = new Dictionary<string, int>() {
+                {"Twelve",0 },
+                {"Six", 0 },
+                {"Coffe", 0 }
+            };
 
             this.copyOfBasket = basket;
             this.copyOfPrice = (float)Math.Round((price), 2);
@@ -24,6 +31,11 @@ namespace exercise.main
             return copyOfPrice;        
         }
 
+        public Dictionary<string, int> GetRecieptDiscount()
+        {
+            return productDiscount;
+        }
+
         private void CheckForBGLOdiscount() 
         {
             int divisor = copyOfBasket.Count(p => p.IsBagle == true);
@@ -33,6 +45,7 @@ namespace exercise.main
                 copyOfPrice += (float)Math.Round((3.99f * disc), 2);
                 copyOfPrice = (float)Math.Round(copyOfPrice, 2);
                 divisor = copyOfBasket.Count(p => p.IsBagle == true);
+                productDiscount["Twelve"] = disc;
             }
             while (divisor >= 6)
             {
@@ -40,6 +53,7 @@ namespace exercise.main
                 copyOfPrice += (float)Math.Round((2.49f * disc), 2);
                 copyOfPrice = (float)Math.Round(copyOfPrice, 2);
                 divisor = copyOfBasket.Count(p => p.IsBagle == true);
+                productDiscount["Six"] = disc;
             }
             coffeDiscount();
 
@@ -88,7 +102,8 @@ namespace exercise.main
                 copyOfBasket.Remove(drink);
                 copyOfBasket.Remove(bagle);
                 copyOfPrice += 1.25f;
-                coffeDiscount();
+                productDiscount["Coffe"] += 1;
+               coffeDiscount();
             }
         }
     }
