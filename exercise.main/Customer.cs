@@ -22,7 +22,6 @@ namespace exercise.main
         public void grabBasket()
         {
             _basket = new Basket(_bagelStore);
-            //_bagelStore = _basket.GetBagelStore();
         }
 
         public bool recieveProductInBasket(Product product) //TODO: check for basket overflow
@@ -99,8 +98,5 @@ namespace exercise.main
             _receipt = new();
             _receipt.print(checkoutList, _bagelStore.getManager());
         }
-
-        //add lamdas to experiment
-        //public bool addProductCool => (string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done
     }
 }

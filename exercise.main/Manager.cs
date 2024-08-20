@@ -56,8 +56,7 @@ namespace exercise.main
 
 
         public bool getProduct(string SKU, Customer customer) {
-            //Tuple<string, string, string, float> bagel = _bagel.getVariants().FirstOrDefault(item => item.Item1 == SKU);
-            
+
             Product product = null;
             if (SKU.Contains("BGL"))
             {
@@ -122,12 +121,6 @@ namespace exercise.main
 
         private void addDiscount()
         {
-            //List<Tuple<string, string, float, int>> variants =
-            //Tuple("BGLO", "", 2.49f, 6),
-            //Tuple.Create("BGLP", "", 3.99f, 12),
-            //Tuple.Create("BGLE", "", 2.49f, 6),
-            //Tuple.Create("COFB", "BGL", 1.25f, 1),
-
             _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 2.49f, 6));
             _discountList.Add(new Tuple<string, string, float, int>("BGLP", "", 3.99f, 12));
 
@@ -191,17 +184,6 @@ namespace exercise.main
                 }
             }
 
-            //productsThatMatch.ForEach(product =>
-            //{
-            //    if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count < productNumCheck + product.Item4)
-            //    {
-            //        productNumCheck += product.Item4;
-            //    } else if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains(product.Item1)).Count > productNumCheck + product.Item4)
-            //    {
-            //        productsThatMatch.Remove(product);
-            //    }
-            //});
-
             //should work
             foreach (var product in productsThatMatch.OrderByDescending(item => item.Item4))
             {
@@ -237,11 +219,6 @@ namespace exercise.main
             {
                 copyList.Remove(copyList.Find(item => item.SKU.Contains("COF")));
             }
-
-            //for (int i = 0; i < amountOfBagelsToRemove; i++)
-            //{
-            //    copyList.Remove(copyList.Find(item => item.SKU.Contains("FIL")));
-            //}
 
             int stuffLeftInBasket = copyList.Count();
 
@@ -299,11 +276,6 @@ namespace exercise.main
             {
                 checkoutList.Add(new Tuple<string, string, float, int, bool>(discount.Item1, discount.Item2, discount.Item3, discount.Item4, true));
             }
-            //foreach (var product in copyList)
-            //{
-            //    checkoutList.Add(new Tuple<string, string, float, int, bool>(product.SKU, product.name, product.price, 1, false));
-            //}
-            //checkoutList.ForEach(item => Console.WriteLine(item));
 
             return checkoutList;
         }

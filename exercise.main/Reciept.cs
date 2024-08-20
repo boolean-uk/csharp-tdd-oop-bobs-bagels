@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace exercise.main
 {
@@ -25,7 +27,8 @@ namespace exercise.main
 
         private void printTop()
         {
-            Console.WriteLine($"~~~ Bob's Bagels ~~~\n\n{_currentDate}\n\n----------------------------\n\n");
+            Console.WriteLine("\n    ~~~ Bob's Bagels ~~~\n\n    {0, 15}", _currentDate);
+            Console.WriteLine("\n----------------------------\n");
         }
 
         private float[] printMid(List<Tuple<string, string, float, int, bool>> purchase, Manager manager)
@@ -54,16 +57,18 @@ namespace exercise.main
             purchase.ForEach(item => {
                 if (item.Item5)
                 {
-                    Console.WriteLine($"{item.Item1}  {item.Item4}  {item.Item3}");
+                    Console.WriteLine("      {0,-6} {1,-3} {2, -10}", item.Item1,  item.Item4,  item.Item3);
                     totalCost += item.Item3;
                     totalDiscounted += item.Item3;
                 }
                 else {
                     totalCost += item.Item3 * (float)item.Item4;
 
-                    Console.WriteLine($"{item.Item1}  {item.Item4}  {item.Item3 * (float)item.Item4}");
+                    Console.WriteLine("      {0,-6} {1,-3} {2, -10}", item.Item1, item.Item4, item.Item3 * (float)item.Item4);
 
-                }
+
+
+             }
             });
 
             
@@ -75,15 +80,22 @@ namespace exercise.main
                 }
             });
 
-            costAndDiscount[0] = totalCost;
-            costAndDiscount[1] = actualDiscount;
+            costAndDiscount[0] = (float)Math.Round(totalCost,2);
+            costAndDiscount[1] = (float)Math.Round(actualDiscount,2);
 
             return costAndDiscount;
         }
 
         private void printBottom(float[] cost)
         {
-            Console.WriteLine($"\r\n----------------------------\r\nTotal                 £{cost[0]}\r\n\r\n You saved a total of £{Math.Round(cost[1], 2)}\r\n       on this shop\r\n\r\n        Thank you\r\n      for your order!");
+            Console.WriteLine($"\r\n----------------------------\r\nTotal                 £{cost[0]}\r\n\r\n You saved a total of £{Math.Round(cost[1], 2)}\r\n       on this shop\r\n\r\n        Thank you\r\n      for your order!\n\n");
         }
+
+        //public string PrintMidSection
+        //{
+        //    get {
+        //        //return String.Format("{0,-10} - {1,-10}, {2, 10} - {3,5}"), );
+        //    }
+        //}
     }
 }

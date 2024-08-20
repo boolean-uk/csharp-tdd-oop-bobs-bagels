@@ -46,10 +46,7 @@ namespace exercise.main
         public Bagel(Tuple<string, string, string, float> variant) 
             : base(variant)
         {
-            //this.SKU = variant.Item1;
-            //this.name = variant.Item2;
-            //this.variant = variant.Item3;
-            //this.price = variant.Item4;
+
         }
 
         public List<Filling> getFillings() { return fillings; }
@@ -61,7 +58,6 @@ namespace exercise.main
     }
     public class Coffee : Product
     {
-
         public Coffee(Tuple<string, string, string, float>[] variants)
             :base (variants)
         {
@@ -71,16 +67,8 @@ namespace exercise.main
         public Coffee(Tuple<string, string, string, float> variant)
     : base(variant)
         {
-            //    this.SKU = variant.Item1;
-            //    this.name = variant.Item2;
-            //    this.variant = variant.Item3;
-            //    this.price = variant.Item4;
-        }
 
-        //public string SKU { get ; set ; }
-        //public string name { get ; set ; }
-        //public string variant { get ; set ; }
-        //public float price { get ; set ; }
+        }
     }
     public class Filling : Product
     {
@@ -93,15 +81,7 @@ namespace exercise.main
         public Filling(Tuple<string, string, string, float> variant)
     : base(variant)
         {
-            //this.SKU = variant.Item1;
-            //this.name = variant.Item2;
-            //this.variant = variant.Item3;
-            //this.price = variant.Item4;
-        }
 
-        //public string SKU { get ; set ; }
-        //public string name { get ; set ; }
-        //public string variant { get ; set ; }
-        //public float price { get ; set ; }
+        }
     }
 }
