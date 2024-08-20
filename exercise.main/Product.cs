@@ -9,7 +9,7 @@ namespace exercise.main
     public class Product
     {
         public Base info; //product information
-        private int amount = 1;
+        private int amount { get; set; } = 1;
         private List<Base> fillings = new List<Base>(); //product fillings
 
         public Product(Base info)

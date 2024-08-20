@@ -9,7 +9,7 @@ namespace exercise.main
 {
     public class Manager
     {
-        public int allowedBasketSize = 3; //Maximum basket size for all newly created baskets
+        public int allowedBasketSize { get; set; } = 3; //Maximum basket size for all newly created baskets
 
         private Inventory inv = new Inventory(); //Inventory containing all products in the store
 
