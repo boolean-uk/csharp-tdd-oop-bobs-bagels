@@ -11,6 +11,7 @@ namespace exercise.main
 {
     public class Basket
     {
+        public Inventory Inventory { get; set; }
         public List<Item> Item { get; set; } = new List<Item> { };
 
         public int max_capasity { get; set; }
@@ -72,18 +73,15 @@ namespace exercise.main
 
         public double getBagelPrice(string sku)
         {
-            
-            double itemPrice = 0;
-            foreach (var item in Item)
-            {
-                if(item.Sku == sku)
-                {
-                    itemPrice = item.Price;
-                }
-                
-            }
+            Inventory inventory = new Inventory();
 
-            return itemPrice;
+            Item bagel = inventory.Items.Find(item => item.Sku == sku);
+
+            if (inventory.Items.Contains(bagel))
+            {
+                return bagel.Price;
+            }
+            return 0;
 
         }
     }
