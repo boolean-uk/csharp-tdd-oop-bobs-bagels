@@ -15,6 +15,29 @@ namespace exercise.main
         private int BasketCapacity { get; set; } = 3;
 
         private string _variant;
+
+        private StringBuilder _receipt = new StringBuilder();
+
+
+        private StringBuilder AddToReceipt() 
+        {
+            _receipt.AppendLine("~~~ Bob's Bagels ~~~");
+            _receipt.AppendLine();
+            _receipt.AppendLine(DateTime.Now.ToString());
+            _receipt.AppendLine();
+            _receipt.AppendLine("---------------------");
+            _receipt.AppendLine();
+
+
+
+            foreach (var item in _Basket) 
+            {
+                _receipt.AppendLine($"{item.Variant} {item.Name}");
+            }
+            
+            return _receipt;
+            
+        }
         
 
         public bool AddItem(string variant)
@@ -67,6 +90,6 @@ namespace exercise.main
 
         public double TotalCost { get { return _Basket.Sum(item => item.Price); } }
 
-        public string PrintReceipt { get; set; }
+        public string PrintReceipt { get { return AddToReceipt().ToString(); } }
     }
 }
