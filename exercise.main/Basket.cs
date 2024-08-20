@@ -16,7 +16,7 @@ namespace tdd_bobs_bagels.CSharp.Main
         private int _capacity = 10;
         private int _amount = 0;
         private float _totalPrice = 0;
-        
+
         public Basket()
         {
 
@@ -49,7 +49,7 @@ namespace tdd_bobs_bagels.CSharp.Main
         }
         public void Discount()
         {
-            int discount6Bagels = _bagels.Count() /  6;
+            int discount6Bagels = _bagels.Count / 6;
 
             if (discount6Bagels > 0)
             {
@@ -59,7 +59,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
                 if (bagelCount > 0 && _coffee.Count > 0)
                 {
-                    int coffeeCount = _coffee.Count();
+                    int coffeeCount = _coffee.Count;
                     while (coffeeCount > 0 && bagelCount > 0)
                     {
                         _totalPrice -= 0.23f;
@@ -68,23 +68,20 @@ namespace tdd_bobs_bagels.CSharp.Main
                     }
                 }
             }
-            else if (_bagels.Count() > 1 && _coffee.Count > 1)
+            else if (_bagels.Count > 0 && _coffee.Count > 0)
             {
                 int bagelCount = _bagels.Count;
-
-                if (bagelCount > 0 && _coffee.Count > 0)
+                int coffeeCount = _coffee.Count;
+                while (coffeeCount > 0 && bagelCount > 0)
                 {
-                    int coffeeCount = _coffee.Count();
-                    while (coffeeCount > 0 && bagelCount > 0)
-                    {
-                        _totalPrice -= 0.23f;
-                        coffeeCount -= 1;
-                        bagelCount -= 1;
-                    }
+                    _totalPrice -= 0.23f;
+                    coffeeCount -= 1;
+                    bagelCount -= 1;
                 }
-            }
 
             }
+
+        }
 
         public bool Remove(Bagel bagelName)
         {

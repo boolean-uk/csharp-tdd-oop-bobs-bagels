@@ -103,7 +103,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Add(bagel);
                 basket.Add(coffee);
 
-                float expectedPrice = 3.94f;
+                float expectedPrice = 1.25f;
                 //run
                 basket.Discount();
                 float resultedPrice = basket.Total(); 
