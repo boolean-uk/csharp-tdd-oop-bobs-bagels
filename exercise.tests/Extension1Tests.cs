@@ -11,23 +11,32 @@ namespace csharp_tdd_bobs_bagels.tests
         [TestFixture]
         public class ExtensionTests
         {
-            [Test]
-            
-            public void Test1()
+          [TestCase("sesame", "Onion", "Plain","Black","White")]
+            // Test for story 3
+            public void PreExtensionTest(string filling1, string filling2, string filling3, string type, string type1)
             {
                 //arrange 
                 Basket basket = new Basket();
-                Bagel bagel = new Bagel("Onion");
-
-
+                Bagel bagel1 = new(filling1);
+                Bagel bagel2 = new(filling2);
+                Bagel bagel3 = new(filling3);
+                Bagel bagel4 = new(filling3);
+                Coffee coffee1 = new(type);
+                Coffee coffee2 = new(type1);
+                basket.ChangeCapacity(10);
+                basket.Add(bagel1);
+                basket.Add(bagel2);
+                basket.Add(bagel3);
+                basket.Add(bagel4);
+                basket.Add(coffee1);
+                basket.Add(coffee2);
+                float expectedTotal = 3.94f;
                 //act
-                basket.Add(bagel);
+                float actualTotal = basket.Total();
 
                 //assert
-                Assert.That(basket.Items, Does.Contain(bagel));
-            }
-
-            
+                Assert.That(actualTotal, Is.EqualTo(expectedTotal));
+            }  
         }
     }
 }

@@ -24,7 +24,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Add(bagel);
 
                 //assert
-                Assert.That(basket.Items, Does.Contain(bagel));
+                Assert.That(basket.AmountOfBagels, Does.Contain(bagel));
             }
 
             [TestCase("onion")]
@@ -40,7 +40,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Remove(bagelName);
 
                 //assert
-                Assert.That(basket.Items, Does.Not.Contain(bagelName));
+                Assert.That(basket.AmountOfBagels, Does.Not.Contain(bagelName));
             }
             [TestCase("sesame", "Onion", "Plain")]
             // Test for story 3

@@ -1,4 +1,5 @@
 ﻿using csharp_tdd_bobs_bagels.tests;
+using exercise.main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,12 @@ namespace tdd_bobs_bagels.CSharp.Main
 
     public class Basket
     {
-        private List<Bagel> _items = new List<Bagel>();
+        private List<Bagel> _bagels = new List<Bagel>();
+        private List<Coffee> _coffee = new List<Coffee>();
         private int _capacity = 5;
         private int _amount = 0;
-        private int _amountOfBagels = 0;
-        private int _amountOfCoffee = 0;
         private float _totalPrice = 0;
-        private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()
-        {
-            {"onion",0.49f},
-            {"plain",0.39f},
-            {"everything",0.49f},
-            {"sesame",0.49f}
-        };
-
-
-
+        
         public Basket()
         {
 
@@ -35,9 +26,21 @@ namespace tdd_bobs_bagels.CSharp.Main
         {
             if ((_amount < Capacity))
             {
-                _items.Add(bagelName);
+                _bagels.Add(bagelName);
                 _amount++;
                 _totalPrice += bagelName.Price;
+
+                return true;
+            }
+            return false;
+        }
+        public bool Add(Coffee coffeeName)
+        {
+            if ((_amount < Capacity))
+            {
+                _coffee.Add(coffeeName);
+                _amount++;
+                _totalPrice += coffeeName.Price;
 
                 return true;
             }
@@ -46,9 +49,9 @@ namespace tdd_bobs_bagels.CSharp.Main
 
         public bool Remove(Bagel bagelName)
         {
-            if (_items.Contains(bagelName))
+            if (_bagels.Contains(bagelName))
             {
-                _items.Remove(bagelName);
+                _bagels.Remove(bagelName);
                 _amount--;
                 return true;
             }
@@ -65,7 +68,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             return _totalPrice;
         }
 
-        public List<Bagel> Items { get => _items; set => _items = value; }
+        public List<Bagel> AmountOfBagels { get => _bagels; set => _bagels = value; }
         public int Capacity { get => _capacity; set => _capacity = value; }
     }
 

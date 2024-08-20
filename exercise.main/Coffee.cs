@@ -18,12 +18,13 @@ namespace exercise.main
         private bool _falseOrder = false;
         private string _type;
         private string _sku;
+        private float _price;
 
         public Coffee(string type)
         {
-            if (_allowedFlavor.ContainsKey(type))
+            if (_allowedFlavor.ContainsKey(type.ToLower().Trim()))
             {
-                this.Price = _allowedFlavor[type];
+                this._price = _allowedFlavor[type.ToLower().Trim()];
                 this._type = type;
                 this._sku = "COF" + type.Substring(0, 1).ToUpper();
             }
@@ -33,6 +34,6 @@ namespace exercise.main
             }
         }
 
-      
+        public float Price { get => _price; }
     }
 }

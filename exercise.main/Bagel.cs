@@ -50,6 +50,11 @@ namespace csharp_tdd_bobs_bagels.tests
             _price += filling.Price;
         }
 
+        public void Discount()
+        {
+            throw new NotImplementedException();
+        }
+
         #region
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }

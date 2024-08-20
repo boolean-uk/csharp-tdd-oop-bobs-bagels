@@ -11,7 +11,7 @@ namespace exercise.main
         private string _name;
         private string _sku;
         private string _id;
-        private float _price;
+        //private float _price;
         private List<string> _allowedFillings;
         private bool _falseOrder = false;
 
@@ -20,6 +20,6 @@ namespace exercise.main
         public string Id1 { get => _id; }
         public List<string> AllowedFillings { get => _allowedFillings; }
         public bool FalseOrder { get => _falseOrder; set => _falseOrder = value; }
-        public float Price { get => _price; set => _price = value; }
+        //public float Price { get => _price; set => _price = value; }
     }
 }
