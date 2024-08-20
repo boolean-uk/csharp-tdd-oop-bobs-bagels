@@ -52,6 +52,11 @@ namespace exercise.main
             return false;
         }
 
+        public bool Purchase()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool RemoveItem(string name, string variant)
         {
             return basket.RemoveFromBasket(name, variant); 

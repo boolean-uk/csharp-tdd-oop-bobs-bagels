@@ -34,15 +34,15 @@
 |          |ShowCost()                               |Calls basket to output cost |double
 |          |										 |of items in basket		  |
 |          |										 |							  |
-|          |EXTENSION 1: Showcost                    |Discounts oppertunities     |double
+|          |EXTENSION 1: Showcost()                  |Discounts oppertunities     |double
 |          |										 |discovered and applied      |
 |          |										 |							  |
-|          |EXTENSION 2: Purchase             		 |Calls for a manager receipt.| true
-|          |										 | Cart is  not empty         |
-|          |										 |	Then empties cart         |
+|          |EXTENSION 2: Purchase()            		 |Calls for a manager receipt.| true
+|          |										 |Basket is not empty         |
+|          |										 |	Then empties basket       |
 |          |										 |							  |
 |          |										 |Calls for a manager receipt.| false
-|          |										 | Cart is  empty             |
+|          |										 |Basket is empty             |
 |          |										 |          				  |
 |          |										 |							  |
 |__________|_________________________________________|____________________________|                                                                       
@@ -64,7 +64,7 @@
 |          |                                         |NewCapacity is negative     |false   
 |          |                                         | 							  |
 |          |  EXTENSION 2                            | 							  |
-|          | PrintReceipt(Cart cart)                 |Calls Receipt.PrintReceipt  |-------
+|          | PrintReceipt(Basket basket)             |Calls Receipt.PrintReceipt  |-------
 |          |                                         | 							  |
 |          |                                         | 							  |
 |__________|_________________________________________|____________________________|                                                                       
@@ -92,8 +92,8 @@
 |__________|_________________________________________|____________________________|       
 |Receipt   |EXTENSION2   							 |							  |
 |          |										 |							  |
-|          |PrintReceipt(Cart)     					 |Prints receipt of items in  | string
-|          |										 |cart			         	  |
+|          |PrintReceipt(Basket)   					 |Prints receipt of items in  | string
+|          |										 |basket		         	  |
 |          |										 |							  |
 |          |										 |							  |
 |          |										 |							  |
