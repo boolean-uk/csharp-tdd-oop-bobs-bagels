@@ -19,8 +19,11 @@ namespace exercise.tests
         [TestCase(15, 33, false)]
         public void TestPrintReceipt(int buyBagel, int buyCoffee, bool filling)
         {
-            Customer customer = new Customer(100000);
+            Customer customer = new Customer(2222.0);
             Basket basket = new Basket();
+
+            
+
             for(int i = 0; i < buyBagel; i++)
             {
                 customer.AddToBasket("Bagel", "Onion");

@@ -59,18 +59,35 @@ namespace exercise.main
                 {
                     receipt.Append(" ");
                 }
-                receipt.AppendLine($"£{cost * item.Value}");
-            }
-            // all products printed
+                receipt.AppendLine($"£{Math.Round(cost * item.Value, 2)}");
 
-            //Total                 £10.43
+                //here discounts are printed for each item.
+                if(basket.discounts.ContainsKey(item.Key) &&
+                    Math.Round(basket.discounts[item.Key], 2) > 0.0)
+                {
+                    //item is here and discount exists
+                    for(int i = 0; i < 25 - Math.Round(basket.discounts[item.Key], 2).ToString().Length; i++)
+                    {
+                        receipt.Append(" ");
+                    }
+                    receipt.AppendLine($"(-£{Math.Round(basket.discounts[item.Key], 2)})");
+                    
+                    //because of how discounts are applied, some need to be 0'd out
+                    if(item.Key == "BGLO" || item.Key == "BGLE" || item.Key == "BGLS")
+                    {
+                        basket.discounts["BGLO"] = 0.0;
+                        basket.discounts["BGLS"] = 0.0;
+                        basket.discounts["BGLE"] = 0.0;
+                    }
+                }
+            }
 
             receipt.AppendLine($"\n----------------------------");
             receipt.Append($"Total");
 
             double costTotal = basket.ShowCost();
             //turns out it already applies discouts so extension 2+3 at the same time it is
-            for (int i = 0; i < 22 - costTotal.ToString().Length; i++)
+            for (int i = 0; i < 23 - costTotal.ToString().Length; i++)
             {
                 receipt.Append(" ");
             }

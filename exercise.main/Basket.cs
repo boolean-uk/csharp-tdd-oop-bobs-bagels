@@ -9,6 +9,18 @@ namespace exercise.main
 {
     public class Basket
     {
+
+        public Basket()
+        {
+            discounts.Add("BGLP", 0.0);
+            discounts.Add("BGLE", 0.0);// BaGeL Taste
+            discounts.Add("BGLS", 0.0);// BaGeL Taste
+            discounts.Add("BGLO", 0.0);// BaGeL Taste
+            discounts.Add("COFB", 0.0);
+            discounts.Add("COFW", 0.0);
+            discounts.Add("COFC", 0.0); 
+            discounts.Add("COFL", 0.0);
+        }
         public struct BasketItem
         {
             public string coffeeOrBagel = string.Empty;
@@ -26,6 +38,7 @@ namespace exercise.main
         }
 
         private double totalDiscount = 0.0;
+        public Dictionary<string, double> discounts = new Dictionary<string, double>();
    
         Inventory inventory = new Inventory();
         public List<BasketItem> basket = new List<BasketItem>();
@@ -65,6 +78,11 @@ namespace exercise.main
             int cof1 = 0;
             int cof2 = 0;
             int cof3 = 0;
+            int cof4 = 0;
+            foreach(var item in discounts)
+            {
+                discounts[item.Key] = 0.0; //just a reset
+            }
 
             foreach (var item in basket)
             {
@@ -84,9 +102,13 @@ namespace exercise.main
                 {
                     cof2++; // middle
                 }
-                else if (item.coffeeOrBagel == "COFC" || item.coffeeOrBagel == "COFL")
+                else if (item.coffeeOrBagel == "COFC" )
                 {
                     cof3++;//expensive cof
+                }
+                else if (item.coffeeOrBagel == "COFL")
+                {
+                    cof4++;//expensive cof
                 }
                 retCost += inventory.GetPrice(item.coffeeOrBagel);
                 retCost += inventory.GetPrice(item.filling);
@@ -97,6 +119,7 @@ namespace exercise.main
             int spare6Taste = spare12Taste % 6;
             int discount6 = spare12Taste / 6;// int should just remove the decimals
 
+            discounts["BGLT"] = (double)discount12 * 1.89 + (double)discount6 * 0.45;
             totalDiscount += (double)discount12 * 1.89 + (double)discount6 * 0.45;
             retCost -= (double)discount12 * 1.89;
             retCost -= (double)discount6 * 0.45;
@@ -104,6 +127,7 @@ namespace exercise.main
             //time to figure out bagel discount for plain
             int sparePlain = bagleAmountPlain % 12;
             discount12 = bagleAmountPlain / 12; // int should just remove the decimals
+            discounts["BGLP"] = (double)discount12 * 0.69;
 
             totalDiscount += (double)discount12 * 0.69;
             retCost -= (double)discount12 * 0.69;
@@ -118,17 +142,19 @@ namespace exercise.main
             
             for(int i = 0; i < cof1; i++) //black
             {
-                if(sparePlain > 0)
+                if (sparePlain > 0)
                 {
                     sparePlain--;
                     retCost -= 0.13;
                     totalDiscount += 0.13;
+                    discounts["COFB"] += 0.13;
                 }
-                else if(spare6Taste > 0)
+                else if (spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.23;
                     totalDiscount += 0.23;
+                    discounts["COFB"] += 0.23;
                 }
             }
             for (int i = 0; i < cof2; i++)//white/
@@ -138,30 +164,60 @@ namespace exercise.main
                     sparePlain--;
                     retCost -= 0.33;
                     totalDiscount += 0.33;
+                    discounts["COFW"] += 0.33;
                 }
                 else if (spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.43;
                     totalDiscount += 0.43;
+                    discounts["COFW"] += 0.43;
                 }
             }
-            for (int i = 0; i < cof3; i++)//   capuccino/latte
+            for (int i = 0; i < cof3; i++)//   capuccino
             {
                 if (sparePlain > 0)
                 {
                     sparePlain--;
                     retCost -= 0.43;
                     totalDiscount += 0.43;
+                    discounts["COFC"] += 0.43;
                 }
                 else if (spare6Taste > 0)
                 {
                     spare6Taste--;
                     retCost -= 0.53;
-                    totalDiscount += 0.43;
+                    totalDiscount += 0.53;
+                    discounts["COFC"] += 0.53;
                 }
             }
-            
+            for (int i = 0; i < cof4; i++)//   latte
+            {
+                if (sparePlain > 0)
+                {
+                    sparePlain--;
+                    retCost -= 0.43;
+                    totalDiscount += 0.43;
+                    discounts["COFL"] += 0.43;
+                }
+                else if (spare6Taste > 0)
+                {
+                    spare6Taste--;
+                    retCost -= 0.53;
+                    totalDiscount += 0.53;
+                    discounts["COFL"] += 0.53;
+                }
+            }
+            discounts["BGLO"] = discounts["BGLT"];
+            discounts["BGLE"] = discounts["BGLT"];
+            discounts["BGLS"] = discounts["BGLT"];
+            discounts["BGLT"] = 0.0;
+
+            foreach (var item in discounts)
+            {
+                discounts[item.Key] = Math.Round(item.Value, 2);
+            }
+
             return Math.Round(retCost, 2);
         }
 

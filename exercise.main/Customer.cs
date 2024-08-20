@@ -17,7 +17,7 @@ namespace exercise.main
             this.funds = funds;
             if(funds == 2222.0)
             {
-                manager.ChangeCapcity(200); // this is for extension tests
+                manager.ChangeCapcity(400); // this is for extension tests
             }
         }
 
