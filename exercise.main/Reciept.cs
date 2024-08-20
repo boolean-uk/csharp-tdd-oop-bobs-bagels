@@ -52,10 +52,19 @@ namespace exercise.main
 
 
             purchase.ForEach(item => {
-                Console.WriteLine($"{item.Item1}  {item.Item4}  {item.Item3}");
-                totalCost += item.Item3;
-                if(item.Item5) { totalDiscounted += item.Item3; }
-                });
+                if (item.Item5)
+                {
+                    Console.WriteLine($"{item.Item1}  {item.Item4}  {item.Item3}");
+                    totalCost += item.Item3;
+                    totalDiscounted += item.Item3;
+                }
+                else {
+                    totalCost += item.Item3 * (float)item.Item4;
+
+                    Console.WriteLine($"{item.Item1}  {item.Item4}  {item.Item3 * (float)item.Item4}");
+
+                }
+            });
 
             
             purchase.ForEach(item =>
