@@ -69,7 +69,7 @@ namespace exercise.main
 
         public bool ChangeBasketCapacity(Manager manager, int capacity)
         {
-            // TODO: CHECK IF CUSTOMER ALREADY SUCCEEDS CHOSE CAPACITY
+            // TODO: CHECK IF CUSTOMER ALREADY SUCCEEDS GIVEN CAPACITY
             foreach (var person in _persons)
             {
                 if (person.GetType() == typeof(Customer))
