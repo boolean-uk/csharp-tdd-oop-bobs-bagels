@@ -33,7 +33,7 @@ namespace exercise.main
         }
 
         public List<InventoryItem> _Bobsinventory { get { return inventory; } }
-        public decimal CostofItem { get; set; }
-
+        //public double CostofItem { get; set; }
+        public double GetCostofItem { get; set; }
     }
 }

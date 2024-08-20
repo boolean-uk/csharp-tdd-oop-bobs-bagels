@@ -118,15 +118,21 @@ public class Tests
     [Test]
     public void GetCostofItemTest()
     {
-        Assert.Fail();
+        double expectedCost = 0.12;
+        BobsInventory inventory = new BobsInventory();
+
+        double actualCost = inventory.GetCostofItem;
+
+        Assert.That(actualCost, Is.EqualTo(expectedCost));
+        
     }
 
     //10. As a manager, So we don't get any weird requests, I want customer to only be able to order things that we stock in our inventory.
     
     [Test]
-    public void CanOrderFromInventoryTest()
+    public void CanOnlyOrderFromInventoryTest()
     {
-        Assert.Fail();
+        Assert.Fail(); //funksjonalitet ligger allerede i add
     }
    
 }
