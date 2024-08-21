@@ -44,5 +44,69 @@ namespace exercise.tests
             p.addItemToBascet(bagleType.BGLO);
             Console.WriteLine(p.GetReceiptWithDiiscount());
         }
+
+        [Test]
+        public void TestPlainReceipt_3()
+        {
+            Customer p = new Customer("Tom");
+            SetBsketSizeToThirty(p);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            Console.WriteLine(p.GetReceiptWithDiiscount());
+        }
+
+        [Test]
+        public void TestPlainReceipt_4()
+        {
+            Customer p = new Customer("Tom");
+            SetBsketSizeToThirty(p);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(drinkType.COFB);
+
+            Console.WriteLine(p.GetReceiptWithDiiscount());
+        }
+
+        [Test]
+        public void TestPlainReceipt_5()
+        {
+            Customer p = new Customer("Tom");
+            SetBsketSizeToThirty(p);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(bagleType.BGLO);
+
+            p.addItemToBascet(bagleType.BGLE);
+            p.addItemToBascet(bagleType.BGLE);
+            p.addItemToBascet(bagleType.BGLE);
+            p.addItemToBascet(bagleType.BGLE);
+            p.addItemToBascet(bagleType.BGLE);
+            p.addItemToBascet(bagleType.BGLE);
+
+            p.addItemToBascet(fillingType.FILB);
+
+            p.addItemToBascet(bagleType.BGLO);
+            p.addItemToBascet(drinkType.COFB);
+
+            Console.WriteLine(p.GetReceiptWithDiiscount());
+        }
     }
 }
