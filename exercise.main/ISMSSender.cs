@@ -18,6 +18,6 @@ namespace exercise.main
     public interface ISMSSender
     {
         public static abstract Task SendSMS(string message);
-        static abstract string SMSBuilder(Basket basket);
+        public static abstract string SMSBuilder(Basket basket);
     }
 }
