@@ -13,7 +13,7 @@ namespace exercise.main
         private BagelStore _bagelStore;
 
         public Basket(BagelStore bagelStore)
-        { //inject current bagelstore?
+        { //inject current bagelstore
             _products = new List<Product>();
             _bagelStore = bagelStore;
             _capacity = _bagelStore.getManager().getCurrentBasketSize();
