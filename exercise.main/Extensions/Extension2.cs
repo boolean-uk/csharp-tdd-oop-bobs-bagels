@@ -45,7 +45,7 @@ namespace exercise.main.Extensions
             foreach (KeyValuePair<string, int> i in productAmount)
             {
 
-                ReceiptString += $"{i.Key}   {i.Value}  £{basketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                ReceiptString += $"{i.Key}   {i.Value}  £{basketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost}\n";
             }
 
             ReceiptString += $"----------------------------\nTotal                 £{v}\n\n         Thank you\n\n      for your order!";
@@ -80,7 +80,7 @@ namespace exercise.main.Extensions
             foreach (KeyValuePair<string, int> i in productAmount)
             {
 
-                ReceiptString += $"{i.Key}   {i.Value}  £{basketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                ReceiptString += $"{i.Key}   {i.Value}  £{basketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost}\n";
             }
 
             return ReceiptString;

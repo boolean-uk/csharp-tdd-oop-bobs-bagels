@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,9 +110,9 @@ namespace exercise.main.Extensions
             if (copyOfBasket.FirstOrDefault(p => p is Bagle) != null && copyOfBasket.FirstOrDefault(p => p is Drink) != null)
             {
                 discount++;
-                Product bagle = copyOfBasket.FirstOrDefault(p => p is Bagle);
+                Product bagle = copyOfBasket.FirstOrDefault(p => p is Bagle)!;
           
-                Product drink = copyOfBasket.FirstOrDefault(predicate => predicate is Drink);
+                Product drink = copyOfBasket.FirstOrDefault(predicate => predicate is Drink)!;
                 copyOfPrice -= bagle.Cost;
                 copyOfPrice -= drink.Cost;
                 copyOfBasket.Remove(drink);

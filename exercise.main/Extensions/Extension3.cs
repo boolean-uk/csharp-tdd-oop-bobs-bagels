@@ -54,32 +54,32 @@ namespace exercise.main.Extensions
 
                 if (discounts.ContainsKey(i.Key))
                 {
-                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
+                    ReceiptString += $"{i.Key}   {i.Value}  £{permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost}\n";
                     Console.WriteLine("Value: " + i.Value);
                     if (12 > i.Value && i.Value >= 6)
                     {
-                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost * i.Value - 2.49f, 2)})\n";
+                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost * i.Value - 2.49f, 2)})\n";
 
                     }
                     else if (16 > i.Value && i.Value >= 12)
                     {
-                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost * i.Value - 3.99f, 2)})\n";
+                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost * i.Value - 3.99f, 2)})\n";
 
                     }
                     else if (16 <= i.Value)
                     {
-                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost * i.Value - 3.99f - 2.49f, 2)})\n";
+                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost * i.Value - 3.99f - 2.49f, 2)})\n";
 
                     }
                     else if (i.Key == "Black Coffe" || i.Key == "White Coffe")
                     {
-                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost * i.Value + 0.49 - 1.25f, 2)})\n";
+                        ReceiptString += $"            (- £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost * i.Value + 0.49 - 1.25f, 2)})\n";
                     }
 
                 }
                 else
                 {
-                    ReceiptString += $"{i.Key}   {i.Value}  £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost, 2)}\n";
+                    ReceiptString += $"{i.Key}   {i.Value}  £{(float)Math.Round(permanentBasketCopy.FirstOrDefault(p => p.Name.Equals(i.Key))!.Cost, 2)}\n";
                 }
 
             }
