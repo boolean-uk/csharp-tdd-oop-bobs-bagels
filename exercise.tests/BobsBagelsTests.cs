@@ -55,6 +55,7 @@ public class Tests
         string variant3 = "Egg";
 
         Basket basket = new Basket();
+        basket.BasketCapacity = 2;
         basket.AddItem(variant1);
         basket.AddItem(variant2);
         basket.AddItem(variant3);
@@ -167,6 +168,18 @@ public class Tests
     [Test]
     public void Get6BagelDiscountTest()
     {
+        Basket basket = new Basket();
+        basket.BasketCapacity = 6;
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+
+        double totalWithDiscount = basket.GetSpecialOffer();
+
+        Assert.That(totalWithDiscount, Is.EqualTo(2.49));
 
     }
 

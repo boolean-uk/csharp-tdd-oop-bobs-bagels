@@ -12,11 +12,17 @@ namespace exercise.main
         private List<InventoryItem> _Basket = new List<InventoryItem>();
 
         private BobsInventory BobsInventory = new BobsInventory();
-        private int BasketCapacity { get; set; } = 3;
+
+        private StringBuilder _receipt = new StringBuilder();
+
+        private int _capacity = 5;
 
         private string _variant;
 
-        private StringBuilder _receipt = new StringBuilder();
+        private int BagelCount;
+
+        private int CoffeeCount;
+        
 
 
         private StringBuilder AddToReceipt() 
@@ -63,7 +69,6 @@ namespace exercise.main
             if (!IsBasketFull && IsInInventory)
             {
                 _Basket.Add(BobsInventory._Bobsinventory.First(item => item.Variant == variant));
-
                 return true;
             }
             return false;
@@ -86,12 +91,31 @@ namespace exercise.main
         {
             if (isManager) 
             { 
-                BasketCapacity = capacity;
+                _capacity = capacity;
                 return true;
             }
             return false;
         }
 
+        public double GetSpecialOffer()
+        {
+            foreach(var item in _Basket)
+            {
+                BagelCount = _Basket.Where(item => item.Name == "Bagel").Count();
+                CoffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
+            }
+            //int bagelCount = basket.BagelCount; //_bagelCount = _Basket.Where(item  => item.Name == "Bagel").Count();
+            //int coffeeCount = basket.CoffeeCount; //_coffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
+
+            if(BagelCount == 6)
+            {
+                return BobsInventory.SixBagelDiscount;
+            }
+            else return TotalCost;
+            
+        }
+
+        public int BasketCapacity { get { return _capacity; } set { _capacity = value; } }
 
         public bool IsBasketFull { get { return _Basket.Count >= BasketCapacity ? true : false; } }
 

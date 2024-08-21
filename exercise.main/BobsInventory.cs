@@ -11,6 +11,9 @@ namespace exercise.main
     {
         private List<InventoryItem> inventory = new List<InventoryItem>();
         private string _itemVariant;
+        private double _6BagelDiscount = 2.49;
+        private double _12BagelDiscount = 3.99;
+        private double _coffeeAndBagel = 1.25;
 
         public BobsInventory() 
         {
@@ -37,6 +40,10 @@ namespace exercise.main
         public List<InventoryItem> _Bobsinventory { get { return inventory; } }
         public string ItemVariant { get { return _itemVariant; } set { _itemVariant = value; } }
         public double GetCostofItem { get { return _Bobsinventory.First(item => item.Variant == ItemVariant).Price ; } }
+
+        public double SixBagelDiscount { get { return _6BagelDiscount; } }
+        public double TwelveBagelDiscount { get { return _12BagelDiscount; } }
+        public double CoffeeAndBagel { get { return _coffeeAndBagel; } }
 
     }
 }
