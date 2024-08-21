@@ -105,7 +105,11 @@ namespace exercise.main
                 CoffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
             }
 
-            if(BagelCount == 6)
+            if (BagelCount == 12)
+            {
+                return BobsInventory.TwelveBagelDiscount;
+            }
+            else if (BagelCount == 6)
             {
                 return BobsInventory.SixBagelDiscount;
             }
