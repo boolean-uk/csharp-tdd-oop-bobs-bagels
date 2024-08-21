@@ -100,4 +100,27 @@ public class Tests
 
     }
 
+    [Test]
+    public void discountCheck()
+    {
+        Basket basket = new Basket();
+        Person flier = new Person("Flier", Role.MANAGER);
+        basket.changeCapacity(10, flier);
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Bagel", "Plain");
+        basket.addItem("Bagel", "Plain");
+
+        double expected = 2.49;
+
+        double result = basket.Discount();
+
+
+        Assert.That(expected == result);
+
+
+    }
+
 }
