@@ -10,7 +10,6 @@ public class Tests
 
     [TestCase("BGLP")]
     [TestCase("COFB")]
-    [TestCase("FILC")]
     public void AddItemBasket(string product)
     {
         Basket basket = new Basket();
@@ -28,7 +27,7 @@ public class Tests
         string expectedMSG = "your basket is full";
         for (int i = 0; i < basket.Capacity; i++)
         {
-            basket.Add("FILB");
+            basket.Add("COFB");
         }
 
         string product = "BGLS";
@@ -48,12 +47,25 @@ public class Tests
 
         Assert.That(result, Is.EqualTo(expectedMSG));
     }
+    [Test]
+    public void AddFillingToBagel()
+    {
+        Basket basket = new Basket();
+        string expectedMSG = "Filling added";
+        string filling = "FILX";
+        string bagel = "BGLO";
 
+        basket.Add(bagel);
+        string result = basket.AddAddition(bagel, filling);
+
+        Assert.That(result, Is.EqualTo(expectedMSG));
+
+    }
     [Test]
     public void RemoveExistingItem()
     {
         Basket basket = new Basket();
-        string product = "FILS";
+        string product = "COFB";
         basket.Add(product);
 
         bool result = basket.Remove(product);
@@ -104,7 +116,7 @@ public class Tests
 
         basket.Add(coffee);
         basket.Add(bagel);
-        double result = basket.TotalCost;
+        double result = basket.GetTotalCostNoDiscount();
 
         Assert.That(result, Is.EqualTo(expectedCost));
     }

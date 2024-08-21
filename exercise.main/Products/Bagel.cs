@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    internal class Bagel : IProduct
+    public class Bagel : IProduct
     {
         public string SKU { get; set; }
         public double Price { get; set; }
         public string Name { get; set; }
         public string Variant { get; set; }
 
-        public List<Filling> fillings { get; set; } = new List<Filling>();
+        public List<IAddition> Additions { get; set; } = new List<IAddition>();
 
         public Bagel(string SKU, double price, string name, string variant)
         {

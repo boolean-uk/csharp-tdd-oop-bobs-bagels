@@ -1,4 +1,5 @@
-﻿using exercise.main.Interfaces;
+﻿using exercise.main.Additions;
+using exercise.main.Interfaces;
 using exercise.main.Products;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace exercise.main
 {
@@ -20,16 +22,36 @@ namespace exercise.main
             Inventory inventory = new Inventory();
             _inventory = inventory.inventory;
             _discounts = inventory.Discounts;
+            _additions = inventory.Additions;
         }
 
         public string Add(string productID)
         {
             if (_capacity <= ProductCount) { return "your basket is full"; }
             if (!InventoryProductIds.Contains(productID)) { return "product does not exist in the inventory"; }
+            if (productID.Contains("FIL")) { return "Use own method for apllying filling"; }
 
             IProduct product = GetFromInventory(productID);
             _basket.Add(product);
             return "product added to basket";
+        }
+
+        public string AddAddition(string productId, string additionId)
+        {
+            if (!_basket.Select(item => item.SKU).Contains(productId)) { return "Product does not exist in basket";  }
+            if (!_additions.Select(item => item.SKU).Contains(additionId)) { return "Addition is not in inventory";  }
+
+            IProduct product = GetFromInventory(productId);
+            IAddition addition = GetFromAdditionInventory(additionId);
+
+            if(!(addition.AvailableToProduct == product.Name))
+            {
+                return "Addition cannot be added to selected product";
+            }
+
+            //Maybe a filling capacity
+            product.Additions.Add(addition);
+            return "Filling added";
         }
 
         public void AddMultible(string productID, int amount)
@@ -43,15 +65,21 @@ namespace exercise.main
         public bool Remove(string productID)
         {
             if (!BasketProductIds.Contains(productID)) { return false; }
-            
+               
             IProduct product = GetFromInventory(productID);
             _basket.Remove(product);
+
             return true;
         }
 
         public IProduct GetFromInventory(string productID)
         {
             return _inventory.First(item => item.SKU.Contains(productID));
+        }
+
+        public IAddition GetFromAdditionInventory(string additionId)
+        {
+            return _additions.First(item => item.SKU.Contains(additionId));
         }
 
 
@@ -65,11 +93,22 @@ namespace exercise.main
 
         public double GetCostOfProduct(string productId)
         {
-            return GetFromInventory(productId).Price;
+              return GetFromInventory(productId).Price;
         }
 
         //For the extension 1
         //I will come back to it later =)
+        public double GetTotalCostNoDiscount()
+        {
+            double sum = 0;
+            foreach (var product in _basket)
+            {
+                sum += product.Price;
+                sum += product.Additions.Select(a => a.Price).Sum();
+            }
+            return sum;
+        }
+
 
         public double GetTotalCost(List<IProduct> basket)
         {
@@ -78,7 +117,7 @@ namespace exercise.main
             List<string> discountProducts = Discounts.SelectMany(item => item.Products).ToList();
             List<IProduct> productsWithDiscount = basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
 
-            if (!productsWithDiscount.Any()) { return TotalCost; }
+            if (!productsWithDiscount.Any()) { return GetTotalCostNoDiscount(); }
 
             double sum = 0;
             int c = 0;
@@ -119,6 +158,12 @@ namespace exercise.main
                 }
             }
 
+            //Assumes the fillings are not on discount for now
+            foreach(var product in _basket)
+            {
+                sum += product.Additions.Select(item => item.Price).Sum();
+            }
+
             //The rest
             sum += productsWithDiscount.Select(item => item.Price).Sum();
             sum += basket.Where(product => !discountProducts.Contains(product.SKU)).Select(product => product.Price).Sum();
@@ -135,7 +180,7 @@ namespace exercise.main
             string date = String.Format("{0, 24}" , DateTime.Now.ToString());
             string lineBreak = "------------------------------";
             double total = Math.Round(GetTotalCost(_basket), 2);
-            double totalNoDisc = Math.Round(TotalCost, 2);
+            double totalNoDisc = Math.Round(GetTotalCostNoDiscount(), 2);
 
             recieptString.AppendLine(title);
             recieptString.AppendLine();
@@ -220,6 +265,8 @@ namespace exercise.main
         //I know theese are bad, but I do not want to change every basket constructor atm
         private List<IProduct> _inventory; 
 
+        private List<IAddition> _additions;
+
         private List<Discount> _discounts;
 
         public List<Discount> Discounts { get { return _discounts; } }
@@ -231,7 +278,6 @@ namespace exercise.main
         public List<string> BasketProductIds { get { return _basket.Select(item => item.SKU).ToList(); } }
 
         public List<string> InventoryProductIds { get { return _inventory.Select(item => item.SKU).ToList();  } }
-        public double TotalCost { get { return _basket.Select(item => item.Price).Sum(); } }
 
         public Dictionary<string, double> PriceList { get { return _inventory.ToDictionary(item => item.Variant, item => item.Price); } }
         public Dictionary<string, double> FillingPriceList { get { return  _inventory.Where(item => item.Name == "filling").ToDictionary(item => item.Variant, item => item.Price); } }

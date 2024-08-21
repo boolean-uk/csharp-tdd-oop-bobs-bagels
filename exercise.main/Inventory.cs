@@ -1,4 +1,5 @@
-﻿using exercise.main.Interfaces;
+﻿using exercise.main.Additions;
+using exercise.main.Interfaces;
 using exercise.main.Products;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,10 @@ namespace exercise.main
             new Coffee("COFW", 1.19, "coffee", "white"),
             new Coffee("COFC", 1.29, "coffee", "capuccino"),
             new Coffee("COFL", 1.29, "coffee", "latte"),
+        };
+
+        private List<IAddition> _addition { get; set; } = new List<IAddition>()
+        {
             new Filling("FILB", 0.12, "filling", "bacon"),
             new Filling("FILE", 0.12, "filling", "egg"),
             new Filling("FILC", 0.12, "filling", "cheese"),
@@ -30,8 +35,8 @@ namespace exercise.main
 
         private List<Discount> _discounts = new List<Discount>()
         {
-            new Discount(new List<string>() { "BGLO", "BGLO", "BGLO", "BGLO", "BGLO", "BGLO" }, 2.49),
             new Discount(new List<string>() { "BGLP" , "BGLP" , "BGLP"  , "BGLP"  , "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP", "BGLP" }, 3.99),
+            new Discount(new List<string>() { "BGLO", "BGLO", "BGLO", "BGLO", "BGLO", "BGLO" }, 2.49),
             new Discount(new List<string>() { "BGLE", "BGLE", "BGLE","BGLE", "BGLE", "BGLE" }, 2.49),
             new Discount(new List<string>() { "COFB", "BGL" }, 1.25)
         };
@@ -56,6 +61,7 @@ namespace exercise.main
 
         public List<IProduct> inventory { get { return _inventory; } }
 
+        public List<IAddition> Additions { get { return _addition; } }
         public List<Discount> Discounts { get { return _discounts; } }
     }
         

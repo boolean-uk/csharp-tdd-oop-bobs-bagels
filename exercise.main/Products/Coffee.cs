@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    internal class Coffee : IProduct
+    public class Coffee : IProduct
     {
         public string SKU { get; set; }
         public double Price { get; set; }
         public string Name { get; set; }
         public string Variant { get; set; }
 
+        public List<IAddition> Additions { get; set; } = new List<IAddition>();
         public Coffee(string SKU, double price, string name, string variant)
         {
             this.SKU = SKU;
