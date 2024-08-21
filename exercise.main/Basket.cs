@@ -99,6 +99,7 @@ namespace exercise.main
 
         public double GetSpecialOffer()
         {
+
             foreach(var item in _Basket)
             {
                 BagelCount = _Basket.Where(item => item.Name == "Bagel").Count();
@@ -113,7 +114,13 @@ namespace exercise.main
             {
                 return BobsInventory.SixBagelDiscount;
             }
+            else if(BagelCount == CoffeeCount)
+            {
+                return BobsInventory.CoffeeAndBagel * BagelCount;
+            }
             else return TotalCost;
+
+            
             
         }
 
