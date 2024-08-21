@@ -18,7 +18,8 @@ namespace exercise.main
         private string? _notfoundnotice;
         private string? _outofstocknotice;
 
-        public List<Bagel> discountables = new List<Bagel>();
+
+
         public List<Filling> fillings = new List<Filling>();
 
         public Dictionary<int, List<Item>> BasketItems = new();
@@ -33,73 +34,123 @@ namespace exercise.main
             return new List<Item>();
         }
 
-        public void TrackDiscount ()
+        public void TrackDiscountBagel (Bagel thing)
         {
-            foreach (KeyValuePair<int, List<Item>> item in BasketItems)
+            for (int i = 0; i < sixDiscount.Length; i++)
             {
-                int key = item.Key;
-                List<Item> list = item.Value;
-                foreach (Item thing in list) 
+                if (sixDiscount[i] == null)
                 {
-                    if (thing is Bagel)
+                    sixDiscount[i] = thing;
+                    break;
+                }
+            }
+
+            int sixcount = 0;
+            for (int i = 0; i < sixDiscount.Length; ++i)
+            {
+                if (sixDiscount[i] != null)
+                {
+                    sixcount++;
+                }
+            }
+            
+            int twelvecount = 0;
+
+            for (int i = 0; i < twelveDiscount.Length; i++)
+            {
+                if (twelveDiscount[i] != null)
+                {
+                    twelvecount++;
+                }
+            }
+
+            if (sixcount == 6)
+            {
+                for (int i = 0; i < sixDiscount.Length; i++)
+                {
+                    if (twelvecount >= 6 && twelvecount < 12)
                     {
-                        for (int i = 0; i < sixDiscount.Length; i++)
-                        {
-                            if (sixDiscount[i] == null)
-                            {
-                                sixDiscount[i] = thing;
-                            }
-                        }
+                        sixDiscount[i].Price = 0.415;
+                        twelveDiscount[twelvecount] = sixDiscount[i];
+                        twelvecount++;
+                    }
+                    else
+                    {
+                        sixDiscount[i].Price = 0.415;
+                        twelveDiscount[i] = sixDiscount[i];
+                        twelvecount++;
                     }
                 }
-                
-            }
-            if (sixDiscount.Length == 6)
+                for (int i = 0; i < sixDiscount.Length; i++)
+                {
+                    sixDiscount[i] = null;
+                }
+            }     
+            
+            if (twelvecount == 12)
             {
-
+                for (int i = 0; i < twelveDiscount.Length; i++)
+                {
+                    twelveDiscount[i].Price = 0.3325;
+                }
+                for (int i = 0; i < twelveDiscount.Length; i++)
+                {
+                    twelveDiscount[i] = null;
+                }
             }
         }
 
-        public void AddToSelection(List<Item> list, Item item)
+        public List<Item> AddToSelection(List<Item> selection)
         {
-            if (item is Bagel)
+            List<Item> selectedItems = new List<Item>();
+            foreach (Item item in selection)
             {
-                if (Inventory.BagelStock > 0)
+                if (item is Bagel)
                 {
-                    list.Add(item);
+                    if (Inventory.BagelStock > 0)
+                    {
+                        selectedItems.Add(item);
+                    }
+                    else
+                    {
+                        OutOfStockNotice = "Sorry, out of stock";
+                        return selectedItems;
+
+                    }
                 }
-                else 
+                if (item is Filling)
                 {
-                    OutOfStockNotice = "Sorry, out of stock";
+                    if (Inventory.FillingStock > 0)
+                    {
+                        selectedItems.Add(item);
+                    }
+                    else
+                    {
+                        OutOfStockNotice = "Sorry, out of stock";
+                        return selectedItems;
+
+                    }
+                }
+                if (item is Coffee)
+                {
+                    if (Inventory.CoffeeStock > 0)
+                    {
+                        selectedItems.Add(item);
+                    }
+                    else
+                    {
+                        OutOfStockNotice = "Sorry, out of stock";
+                        return selectedItems;
+
+                    }
                 }
             }
-            if (item is Filling)
-            {
-                if (Inventory.FillingStock > 0)
-                {
-                    list.Add(item);
-                }
-                else
-                {
-                    OutOfStockNotice = "Sorry, out of stock";
-                }
-            }
-            if (item is Coffee)
-            {
-                if (Inventory.CoffeeStock > 0)
-                {
-                    list.Add(item);
-                }
-                else
-                {
-                    OutOfStockNotice = "Sorry, out of stock";
-                }
-            }
+            return selectedItems;
         }
 
         public void AddToBasket(int id, List<Item> item) 
         {
-            UpdateCount(BasketItems);
+            //UpdateCount(BasketItems);
             if (BasketItemCount < Cap)
             {
                 BasketItems.Add(id, item);
@@ -109,34 +160,51 @@ namespace exercise.main
             {
                 CapNotice = "Your basket is full";
             }
-            TrackDiscount();
-        }
-
-        public void UpdateCount(Dictionary<int, List<Item>> BasketItems)
-        {
-            int Counter = 0;
-            foreach (KeyValuePair <int, List<Item>> item in BasketItems)
+            foreach (Item thing in item)
             {
-                int key = item.Key;
-                List<Item> items = item.Value;
-                foreach (Item thing in items)
+                if (thing is Bagel)
                 {
-                    if (thing is Bagel || thing is Coffee)
-                    {
-                        Counter++;
-                    }
-                    if (thing is Bagel)
-                    {
-                        discountables.Add((Bagel)thing);
-                    }
+                    TrackDiscountBagel((Bagel) thing);
                 }
             }
-            BasketItemCount = Counter;
         }
+
+        //public void UpdateCount(Dictionary<int, List<Item>> BasketItems)
+        //{
+        //    int Counter = 0;
+        //    foreach (KeyValuePair <int, List<Item>> item in BasketItems)
+        //    {
+        //        int key = item.Key;
+        //        List<Item> items = item.Value;
+        //        foreach (Item thing in items)
+        //        {
+        //            if (thing is Bagel || thing is Coffee)
+        //            {
+        //                Counter++;
+        //            }
+        //            if (thing is Bagel)
+        //            {
+        //                discountables.Add((Bagel)thing);
+        //            }
+        //        }
+        //    }
+        //    BasketItemCount = Counter;
+        //}
 
         public void RemoveFromBasket(int id)
         {
             if (BasketItems.ContainsKey(id)) {
+                foreach (Item thing in BasketItems[id])
+                {
+                    if (thing is Bagel)
+                    {
+                        TrackDiscountBagel((Bagel)thing);
+                    }
+                    else if (thing is Coffee)
+                    {
+                        //TrackDiscount((Coffee)thing);
+                    }
+                }
                 BasketItems.Remove(id);
             }
             else {
@@ -165,7 +233,7 @@ namespace exercise.main
                             else
                             {
                                 printout += thing.PrintItem();
-                                printout += "\nNo Fillings\n";
+                                printout += "\nNo Fillings\n\n";
                             }
                     }
                     else
@@ -197,6 +265,8 @@ namespace exercise.main
             }
             return Math.Round(Total, 2);
         }
+
+        //public decimal TotalExample { get { return BasketItems.Sum(x => x.Value.); } }
 
         public void ChangeCap(int newcap)
         {
