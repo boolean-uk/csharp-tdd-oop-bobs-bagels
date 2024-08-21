@@ -1,86 +1,83 @@
-## Extension 2: Receipts
+Old domain model:
+| Classes  | Methods                 | Scenario                                                        | Outputs                       |
+|----------|-------------------------|-----------------------------------------------------------------|-------------------------------|
+| `Basket` | `Add(string name)`      | Adding a bagel now checks if basket is full before proceeding   | Only add if basket isn't full |
+|          | `Remove()`              | If basket is empty                                              | false                         |
+|          |                         | If the basket has bagel/bagels, remove one                      | true                          |
+|          | `IsFull()`              | If the basket is not yet full                                   | false                         |
+|          |                         | If the basket is full and cannot handle more bagels             | true                          |
+|          | `SetCapacity(int size)` | If the basket cannot be decreased due to having too many bagels | false                         |
+|          |                         | If the basket can be decreased/increased                        | true                          |
+|          | `Remove(string name)`   | If that bagel doesn't exist in the basket                       | false                         |
+|          |                         | If that bagel exists in the basket, remove it                   | true                          |
 
-Receipts are important.
 
-## Task
+1. As a member of the public,
+So I can order a bagel before work,
+I'd like to add a specific type of bagel to my basket.
 
-Update and extend your program to handle printing receipts. These receipts should print to the terminal.
+2. As a member of the public,
+So I can change my order,
+I'd like to remove a bagel from my basket.
 
-Start with extracting useful stories and a functional domain model that represents these requirements.
+3. As a member of the public,
+So that I can not overfill my small bagel basket
+I'd like to know when my basket is full when I try adding an item beyond my basket capacity.
 
-Tip: Think about a Receipt as an object. What other objects are contained in a receipt?
+4. As a Bob's Bagels manager,
+So that I can expand my business,
+I�d like to change the capacity of baskets.
 
-#### Example Receipt
-```
-    ~~~ Bob's Bagels ~~~
+5. As a member of the public
+So that I can maintain my sanity
+I'd like to know if I try to remove an item that doesn't exist in my basket.
 
-    2021-03-16 21:38:44
+6. As a customer,
+So I know how much money I need,
+I'd like to know the total cost of items in my basket.
 
-----------------------------
+7. As a customer,
+So I know what the damage will be,
+I'd like to know the cost of a bagel before I add it to my basket.
 
-Onion Bagel        2   £0.98
-Plain Bagel        12  £3.99
-Everything Bagel   6   £2.49
-Coffee             3   £2.97
+8. As a customer,
+So I can shake things up a bit,
+I'd like to be able to choose fillings for my bagel.
 
-----------------------------
-Total                 £10.43
+9. As a customer,
+So I don't over-spend,
+I'd like to know the cost of each filling before I add it to my bagel order.
 
-        Thank you
-      for your order!
-```
-
-```
-    ~~~ Bob's Bagels ~~~
-
-    2021-03-16 21:40:12
-
-----------------------------
-
-Plain Bagel        16  £5.55
-
-----------------------------
-Total                  £5.55
-
-        Thank you
-      for your order!
-```
-
-User Story 14:
-As a customer,
-So I can check how much I spent,
-I'd like to recieve a reciept for my purchase.
+10. As the manager,
+So we don't get any weird requests,
+I want customers to only be able to order things that we stock in our inventory.
 
 
 | Classes     | Methods                                                  | Scenario                                                                           | Outputs |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Customer`  | `Customer(Manager mngr, float allowance)`                | Create a customer with their own basket and wallet                                 | ----    |
-|             | `Add(Manager mngr, string product, int amount)`          | Request to add x amount of a product of this type                                  | true    |
+|             | `Add(Manager mngr, string product)`                      | Request to add a product of this type                                              | true    |
 |             |                                                          | This product does not exist or basket is too full                                  | false   |
-|             | `Remove(Manager mngr, string product, int amount)`       | Request to remove x amount of a product of this type from basket                   | true    |
+|             | `Remove(Manager mngr, string product)`                   | Request to remove a product of this type from basket                               | true    |
 |             |                                                          | This product does not exist in basket                                              | false   |
 |             | `TotalCost()`                                            | Request to know the total cost of everything currently in the basket               | float   |
 |             | `HowMuch(Manager mngr, string product)`                  | Request to know how much this product costs                                        | float   |
 |             | `AddFilling(Manager mngr, string filling, string bagel)` | Request to add a filling of a certain type                                         | true    |
 |             |                                                          | Filling does not exist or bagel is not in basket                                   | false   |
 |             | `HowMuchFillings(Manager mngr)`                          | Request to know how much every filling costs                                       | float   | //Could expand this to a string that lists all fillings and individual prices, but all fillings cost 0.12
-|             | `Purchase(Manager manager)`                              | Request to purchase everything in the basket                                       | string  |
+|             | `Purchase(Manager manager)`                              | Request to purchase everything in the basket                                       | true    |
+|             |                                                          | Could not afford everything                                                        | false   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------| //Spacing to improve readability
 | `Basket`    | `Basket(Manager mngr)`                                   | Create a basket that can hold products, refer to manager for size                  | ----    |
 |             | `Search(string product)`                                 | Search through a basket to check if it has the product, return index               | int     |
 |             |                                                          | Product does not exist in basket or basket is empty, return -1                     | int     |
 |             | `TotalCost()`                                            | Return the cost of all products in the basket                                      | float   |
-|             | `Empty()`                                                | Empty the current basket                                                           | void    |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Product`   | `Product(Base information)`                              | Create a product with the given a "Base" struct with all information               | ----    |
 |             | `AddFilling(Product filling)`                            | Update a product by adding a filling to it                                         | void    |
 |             | `Cost()`                                                 | Return the cost of this product                                                    | float   |
 |             | `IsBagel()`                                              | Return true if it is a bagel                                                       | true    |
 |             |                                                          | Return false if it is not a bagel                                                  | false   |
-|             | `IncreaseAmount(int amount)`                             | Increase the amount of the product by the given amount                             | void    |
-|             | `DecreaseAmount(int amount)`                             | Decrease the amount of the product by the given amount                             | void    |
-|             | `GetAmount()`                                            | Return the amount of the product                                                   | int     |
-|             | `GetExcessBagelAmount()`                                 | Return the amount of bagels left after the bagel discounts have been applied       | int     |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
 | `Inventory` | `Inventory()`                                            | Create an inventory that keeps track of all items it has on sale                   | ----    |
 |             | `Find(string product)`                                   | Search for a product to see if it exists                                           | true    |
@@ -91,13 +88,16 @@ I'd like to recieve a reciept for my purchase.
 | `Manager`   | `Manager()`                                              | Create a manager that takes requests from the customer                             | ----    |
 |             | `ChangeBasketSize(int newSize)`                          | Update the standard size of baskets, but leave already existing baskets untouched  | true    |
 |             |                                                          | If the new size is not a positive number                                           | false   |
-|             | `AddProduct(Basket bskt, string product, int amount)`    | Add x amount of this type of product to the customer's basket                      | true    |
+|             | `AddProduct(Basket bskt, string product)`                | Add this type of product to the customer's basket                                  | true    |
 |             |                                                          | This product does not exist                                                        | false   |
-|             | `RemoveProduct(Basket bskt, string product, int amount)` | Remove x amount of this type of product from the customer's basket                 | true    |
+|             | `RemoveProduct(Basket bskt, string product)`             | Remove this type of product from the customer's basket                             | true    |
 |             |                                                          | This product does not exist or basket is empty                                     | false   |
 |             | `HowMuchProduct(string product)`                         | Return the cost of the selected product if it exists, otherwise return 0           | float   |
 |             | `HowMuchFillings()`                                      | Return the cost of all fillings                                                    | float   |
-|             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to all bagels of this type                                         | true    |
+|             | `AddFilling(Basket bskt, string filling, string bagel)`  | Add the filling to the bagel                                                       | true    |
 |             |                                                          | Bagel or filling does not exist                                                    | false   |
-|             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it, then give a receipt                 | string  |
+|             | `Purchase(Basket bskt)`                                  | Pay for everything in the basket and empty it                                      | true    |
+|             |                                                          | Could not afford                                                                   | false   |
 |-------------|----------------------------------------------------------|------------------------------------------------------------------------------------|---------|
+
+
