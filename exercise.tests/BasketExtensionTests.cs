@@ -41,6 +41,29 @@ public class BasketExtentionTests
         Assert.That(result, Is.EqualTo(expectedPrice));
     }
 
+    public void DiscountTotalPriceTestWithAdditions() 
+    {
+        Basket basket = new Basket();
+        string product1 = "BGLO";
+        string product2 = "BGLP";
+        string product3 = "BGLE";
+        string product4 = "COFB";
+
+        string addition1 = "FILX";
+        string addition2 = "FILE";
+
+        double expectedPrice = 3.99 + 2.49 + 2.50 + 0.99 + 0.24;
+
+        basket.AddMultible(product1, 2);
+        basket.AddMultible(product2, 12);
+        basket.AddMultible(product3, 6);
+        basket.AddMultible(product4, 3);
+        basket.AddAddition(product1, addition1);
+        basket.AddAddition(product2, addition2);
+
+        double result = Math.Round(basket.GetTotalCost(basket.basket), 2);
+        Assert.That(result, Is.EqualTo(expectedPrice));
+    }
     [Test]
     public void PrintRecieptTest()
     {

@@ -61,6 +61,20 @@ public class Tests
         Assert.That(result, Is.EqualTo(expectedMSG));
 
     }
+
+    public void AddFillingToCoffee()
+    {
+        Basket basket = new Basket();
+        string expectedMSG = "Addition cannot be added to selected product";
+        string filling = "FILX";
+        string coffee = "COFB";
+
+        basket.Add(coffee);
+        string result = basket.AddAddition(coffee, filling);
+
+        Assert.That(result, Is.EqualTo(expectedMSG));
+    }
+
     [Test]
     public void RemoveExistingItem()
     {

@@ -29,7 +29,6 @@ namespace exercise.main
         {
             if (_capacity <= ProductCount) { return "your basket is full"; }
             if (!InventoryProductIds.Contains(productID)) { return "product does not exist in the inventory"; }
-            if (productID.Contains("FIL")) { return "Use own method for apllying filling"; }
 
             IProduct product = GetFromInventory(productID);
             _basket.Add(product);
