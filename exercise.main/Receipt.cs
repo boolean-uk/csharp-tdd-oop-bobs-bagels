@@ -13,33 +13,33 @@ namespace exercise.main
         #region Properties
         private List<Item> _boughtItems;
         private string _shopName;
+        private double _total;
 
         public List<Item> BoughtItems { get => _boughtItems; }
         public string ShopName;
+        public double Total { get => _total; }
         #endregion
         
-        public Receipt(List<Item> boughtItems, string shopName)
+        public Receipt(List<Item> boughtItems, string shopName, double total)
         {
             _boughtItems = boughtItems;
             _shopName = shopName;
+            _total = total;
         }
 
         public void PrintReceipt()
         {
-            double total = 0;
-
             Console.WriteLine($"~~~ {_shopName} ~~~\n\n" +
                 $"{DateTime.Now:yyyy-mm-dd HH:mm:ss}\n\n" +
                 $"----------------------------\n");
 
             foreach (var item in _boughtItems)
             {
-                total += item.Price;
                 Console.WriteLine($"{item.Variant} {item.GetType().Name} {item.Quantity} £{Math.Round(item.Price, 2)}");
             }
 
             Console.WriteLine("\n----------------------------\n" +
-                $"Total: £{total}\n\n" +
+                $"Total: £{_total}\n\n" +
                 $"Thank you\n" +
                 $"for your order!");
         }

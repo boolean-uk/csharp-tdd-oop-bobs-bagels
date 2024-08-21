@@ -74,13 +74,6 @@ namespace exercise.main
             return false;
         }
 
-        public Receipt Checkout(string shopName)
-        {
-            Receipt receipt = new Receipt(_itemsInBasket, shopName);
-
-            return receipt;
-        }
-
         public double GetTotalSumOfBasket()
         {
             double total = 0;
@@ -115,7 +108,14 @@ namespace exercise.main
 
             double itemListSum = itemList.Sum(item => item.Price);
 
-            return total + itemListSum;
+            return Math.Round(total + itemListSum, 2);
+        }
+
+        public Receipt Checkout(string shopName)
+        {
+            Receipt receipt = new Receipt(_itemsInBasket, shopName, GetTotalSumOfBasket());
+
+            return receipt;
         }
     }
 }

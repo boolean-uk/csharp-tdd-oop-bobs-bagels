@@ -8,8 +8,13 @@ customer.Basket.Capacity = 50;
 
 // 2 onion Bagel
 Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
+
+Filling creamCheeseFilling = shopInventory.GetFillingBySkuID("FILX");
+customer.AddFillingToBagel(onionBagel, creamCheeseFilling);
+
 customer.AddItemToBasket(onionBagel);
 customer.AddItemToBasket(onionBagel);
+
 
 // 12 Plain Bagel
 Bagel plainBagel = shopInventory.GetBagelBySkuID("BGLP");
@@ -33,6 +38,6 @@ customer.AddItemToBasket(coffee);
 
 string shopName = "Bob's Bagels";
 
-Receipt receipt = new Receipt(customer.Basket.ItemsInBasket, shopName);
+Receipt receipt = new Receipt(customer.Basket.ItemsInBasket, shopName, customer.GetTotalSumOfBasket());
 
 receipt.PrintReceipt();
