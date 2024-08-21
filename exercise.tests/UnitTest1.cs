@@ -257,7 +257,8 @@ public class Tests
         Basket basket = shop.GrabBasket();
         basket.ChangeCapacity(2);
         bool result1 = basket.Add("BGLP", ["FILE", "FILC"]);
-        basket.Exists("BGLPFILEFILC");
+        bool result2 = basket.Exists("BGLPFILEFILC");
+        Assert.IsTrue(result2);
         basket.Add("BGLP");
         Assert.IsTrue(basket.IsFull);
     }
