@@ -51,6 +51,7 @@ namespace exercise.tests
             List<InventoryProducts> result = inventory.ShowList();
 
             //Verify
+            Assert.IsTrue(result.Any(p => p.SKU == "BGLO" && p.Price == 0.49d && p.Name == "Bagel" && p.Variant=="Onion" ));
             Assert.That(result == inventory.Products);
         }
     }

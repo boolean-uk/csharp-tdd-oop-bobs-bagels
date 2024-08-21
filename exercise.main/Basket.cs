@@ -116,6 +116,7 @@ namespace exercise.main
 
             Dictionary<InventoryProducts, int> products = new Dictionary<InventoryProducts, int>();
             List<Purchase> receipt = new List<Purchase>();
+
             if (_isPurchased = true)
             {
                 //Go trhough _items in basket and add them as purchase objects
@@ -151,10 +152,15 @@ namespace exercise.main
             return new Receipt(_inventory.GetStoreName(), ListItems(), TotalCost());
 
         }
-        public string PrintReceipt()
+
+        public bool CheckDiscount()
         {
-            Receipt receipt = new Receipt(_inventory.GetStoreName(), ListItems(), TotalCost());
-            return receipt.ReceiptToString(); 
+            throw new NotImplementedException();
+        }
+
+        public void AddDiscount()
+        {
+            throw new NotImplementedException();
         }
 
         public List<InventoryProducts> Items { get { return _items; } }
