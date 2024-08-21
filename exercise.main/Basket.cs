@@ -1,4 +1,6 @@
-﻿using System;
+﻿using exercise.main.Interfaces;
+using exercise.main.Products;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -25,7 +27,7 @@ namespace exercise.main
             if (_capacity <= ProductCount) { return "your basket is full"; }
             if (!InventoryProductIds.Contains(productID)) { return "product does not exist in the inventory"; }
 
-            Product product = GetFromInventory(productID);
+            IProduct product = GetFromInventory(productID);
             _basket.Add(product);
             return "product added to basket";
         }
@@ -42,12 +44,12 @@ namespace exercise.main
         {
             if (!BasketProductIds.Contains(productID)) { return false; }
             
-            Product product = GetFromInventory(productID);
+            IProduct product = GetFromInventory(productID);
             _basket.Remove(product);
             return true;
         }
 
-        public Product GetFromInventory(string productID)
+        public IProduct GetFromInventory(string productID)
         {
             return _inventory.First(item => item.SKU.Contains(productID));
         }
@@ -69,12 +71,12 @@ namespace exercise.main
         //For the extension 1
         //I will come back to it later =)
 
-        public double GetTotalCost(List<Product> basket)
+        public double GetTotalCost(List<IProduct> basket)
         {
             if (!basket.Any()) {  return 0; }
 
             List<string> discountProducts = Discounts.SelectMany(item => item.Products).ToList();
-            List<Product> productsWithDiscount = basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
+            List<IProduct> productsWithDiscount = basket.Where(product => discountProducts.Contains(product.SKU)).ToList();
 
             if (!productsWithDiscount.Any()) { return TotalCost; }
 
@@ -126,8 +128,8 @@ namespace exercise.main
 
         public string PrintReciept()
         {
-            List<Product> uniqueProducts = _basket.Distinct().ToList();
-            List<Product> tempProducts = _basket;
+            List<IProduct> uniqueProducts = _basket.Distinct().ToList();
+            List<IProduct> tempProducts = _basket;
             StringBuilder recieptString = new StringBuilder();
             string title = String.Format("{0, 25}", "~~~ Bob's Bagels ~~~");
             string date = String.Format("{0, 24}" , DateTime.Now.ToString());
@@ -143,7 +145,7 @@ namespace exercise.main
             recieptString.AppendLine();
 
             //Check for unique items
-            foreach (Product product in uniqueProducts)
+            foreach (IProduct product in uniqueProducts)
             {
                 int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
                 recieptString.Append(String.Format("{0, -19}", product.Name + " " + product.Variant));
@@ -151,7 +153,7 @@ namespace exercise.main
                 double price = Math.Round(product.Price * productAmount, 2);
                 recieptString.AppendLine(price.ToString());
 
-                List<Product> toBeDiscounted = _basket.Where(item => item.SKU == product.SKU).ToList();
+                List<IProduct> toBeDiscounted = _basket.Where(item => item.SKU == product.SKU).ToList();
                 double newPrice = Math.Round(GetTotalCost(toBeDiscounted), 2);
                 double discountedPrice = Math.Round(price - newPrice, 2);
 
@@ -174,14 +176,14 @@ namespace exercise.main
             {   
                 if (tempProducts.Any(item => item.SKU.Contains("BGL")) && tempProducts.Any(item => item.SKU.Contains("COFB")))
                 {
-                    Product bagel = tempProducts.First(item => item.SKU.Contains("BGL"));
-                    Product coffee = tempProducts.First(item => item.SKU.Contains("COF"));
+                    IProduct bagel = tempProducts.First(item => item.SKU.Contains("BGL"));
+                    IProduct coffee = tempProducts.First(item => item.SKU.Contains("COF"));
 
                     tempProducts.Remove(bagel);
                     tempProducts.Remove(coffee);
 
                     double oldPrice = bagel.Price + coffee.Price;
-                    double newPrice = GetTotalCost(new List<Product>() { bagel, coffee });
+                    double newPrice = GetTotalCost(new List<IProduct>() { bagel, coffee });
 
                     moneySaved += Math.Round(oldPrice - newPrice, 2);
                 }
@@ -211,12 +213,12 @@ namespace exercise.main
             return _basket.Count(product => product.Name == product.Name);
         }
 
-        private List<Product> _basket { get; set; } = new List<Product>();
+        private List<IProduct> _basket { get; set; } = new List<IProduct>();
 
-        public List<Product> basket { get => _basket; }
+        public List<IProduct> basket { get => _basket; }
 
         //I know theese are bad, but I do not want to change every basket constructor atm
-        private List<Product> _inventory; 
+        private List<IProduct> _inventory; 
 
         private List<Discount> _discounts;
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using exercise.main.Interfaces;
+using exercise.main.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +10,22 @@ namespace exercise.main
 {
     public class Inventory
     {
-        private List<Product> _inventory { get; set; } = new List<Product>()
+        private List<IProduct> _inventory { get; set; } = new List<IProduct>()
         {
-            new Product("BGLO", 0.49, "bagel","onion"),
-            new Product("BGLP", 0.39, "bagel","plain"),
-            new Product("BGLE", 0.49, "bagel", "everything"),
-            new Product("BGLS", 0.49, "bagel", "sesame"),
-            new Product("COFB", 0.99, "coffee", "black"),
-            new Product("COFW", 1.19, "coffee", "white"),
-            new Product("COFC", 1.29, "coffee", "capuccino"),
-            new Product("COFL", 1.29, "coffee", "latte"),
-            new Product("FILB", 0.12, "filling", "bacon"),
-            new Product("FILE", 0.12, "filling", "egg"),
-            new Product("FILC", 0.12, "filling", "cheese"),
-            new Product("FILX", 0.12, "filling", "cream cheese"),
-            new Product("FILS", 0.12, "filling", "smoked salmon"),
-            new Product("FILB", 0.12, "filling", "ham"),
+            new Bagel("BGLO", 0.49, "bagel","onion"),
+            new Bagel("BGLP", 0.39, "bagel","plain"),
+            new Bagel("BGLE", 0.49, "bagel", "everything"),
+            new Bagel("BGLS", 0.49, "bagel", "sesame"),
+            new Coffee("COFB", 0.99, "coffee", "black"),
+            new Coffee("COFW", 1.19, "coffee", "white"),
+            new Coffee("COFC", 1.29, "coffee", "capuccino"),
+            new Coffee("COFL", 1.29, "coffee", "latte"),
+            new Filling("FILB", 0.12, "filling", "bacon"),
+            new Filling("FILE", 0.12, "filling", "egg"),
+            new Filling("FILC", 0.12, "filling", "cheese"),
+            new Filling("FILX", 0.12, "filling", "cream cheese"),
+            new Filling("FILS", 0.12, "filling", "smoked salmon"),
+            new Filling("FILB", 0.12, "filling", "ham"),
         };
 
         private List<Discount> _discounts = new List<Discount>()
@@ -37,12 +39,12 @@ namespace exercise.main
         //The coffee and bagel discount was quite difficult, will do that later
         // Will probably have a list of discounts instead of adding them to the product
 
-        public Product GetFromInventory(string productID)
+        public IProduct GetFromInventory(string productID)
         {
             return _inventory.First(item => item.SKU == productID);
         }
 
-        public List<Product> GetListFromInventory(string productID)
+        public List<IProduct> GetListFromInventory(string productID)
         {
             return _inventory.Where(item =>  item.SKU == productID).ToList();
         }
@@ -52,7 +54,7 @@ namespace exercise.main
             return GetFromInventory(productId).Price;
         }
 
-        public List<Product> inventory { get { return _inventory; } }
+        public List<IProduct> inventory { get { return _inventory; } }
 
         public List<Discount> Discounts { get { return _discounts; } }
     }
