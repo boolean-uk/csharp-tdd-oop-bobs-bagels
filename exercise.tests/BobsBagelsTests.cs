@@ -219,8 +219,37 @@ public class Tests
 
     }
 
+    [Test]
     public void GetAllDiscountsTest()
     {
+        Basket basket = new Basket();
+        basket.BasketCapacity = 30;
+        basket.AddItem("Black");
+        basket.AddItem("Plain");
+
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        
+        double discount = basket.GetSpecialOffer();
+
+        Assert.That(discount, Is.EqualTo(2.49 + 3.99 + 1.25));
 
     }
 }
