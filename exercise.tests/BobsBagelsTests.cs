@@ -206,8 +206,16 @@ public class Tests
         Assert.That(totalWithDiscount, Is.EqualTo(3.99));
     }
 
+    [Test]
     public void GetCoffeeAndBagelDiscountTest()
     {
+        Basket basket = new Basket();
+        basket.AddItem("Black");
+        basket.AddItem("Plain");
+
+        double totalWithDiscount = basket.GetSpecialOffer();
+
+        Assert.That(totalWithDiscount, Is.EqualTo(1.25));
 
     }
 
