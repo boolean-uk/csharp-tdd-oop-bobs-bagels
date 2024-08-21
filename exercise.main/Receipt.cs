@@ -25,17 +25,18 @@ namespace exercise.main
         
         public string ReceiptToString()
         {
-            string receipt = $"~~~ {StoreName}~~~\\n\" +\r\n     " +
-                $"          $\"{DateTime.Now} \\n\" +\r\n        " +
-                $"       \"---------------------------- \\n\"";
+            string receipt = $"        ~~~{StoreName}~~~         \n" +
+                $"        {DateTime.Now:yyyy-MM-dd HH:mm:ss}           \n\n" +
+                $"----------------------------------- \n\n";
            
             foreach (var item in Products)
             {
-                receipt += $"{item.Variant} {item.Name} {item.Quantity} £{item.Price} \n";
+                string varName = $"{item.Variant} {item.Name}".PadRight(25);
+                receipt += $"{varName}{item.Quantity}   £{item.Price} \n";
             }
-            receipt += "---------------------------- \n" +
-               $"Total                  £{TotalCost}\n" +
-               "Thank you \n for your order!";
+            receipt += "----------------------------------- \n" +
+               $"Total{new string(' ', 24)}£{TotalCost:F2}\n\n" +
+               "            Thank you \n          for your order!\n";
 
             return receipt;
 
