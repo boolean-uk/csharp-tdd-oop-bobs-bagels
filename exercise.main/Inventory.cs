@@ -29,7 +29,5 @@ namespace exercise.main
 
             return _inventory;
         }
-
-
     }
 }

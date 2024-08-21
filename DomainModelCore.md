@@ -63,6 +63,17 @@ As a customer,
 So I can see what i bought,
 I want customers to get a receipt of what items they bought
 
+3.
+As a customer,
+So i can see the correct price,
+I want customers to see the discount if there is one on the items they bought
+
+4. Textmessage
+Part 1:
+- Users should receive a text message with their order summary, 
+  and delivery time when they complete their order.
+
+
 
 | Classes         | Methods                                            | Scenario											| Outputs    |
 |-----------------|----------------------------------------------------|----------------------------------------------------|------------|

@@ -19,7 +19,6 @@ basket.changeBasketCapacity(15, person.role);
 //basket.removeBagelOrItem(plainBagel);
 
 basket.addItem(plainBagel);
-// basket.addItem(plainBagel);
 basket.addItem(blackCoffe);
 
 /*
@@ -27,9 +26,7 @@ basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
-
-
-
+basket.addItem(plainBagel);
 
 basket.addItem(plainBagel);
 basket.addItem(plainBagel);
