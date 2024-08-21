@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,7 @@ namespace exercise.main
 
         public bool AddItem(Item item)
         {
+
             if (_items.Count >= _capacity){
                 return false;
             }
@@ -64,15 +66,49 @@ namespace exercise.main
 
         public double GetDiscountPrice(Basket basket)
         {
-            List<Item> bagels = new List<Item>();
-            bagels = _items.Where(x => x.GetType() == typeof(Bagel)).ToList();
+            
+            List<Item> bagels = this._items.Where(x => x.GetType() == typeof(Bagel)).ToList();
+            List<Item> coffee = this._items.Where(x => x.GetType() == typeof(Coffee)).ToList();
+            List<Item> filling = this._items.Where(x => x.GetType() == typeof(Filling)).ToList();
+            List<Filling> bagelFilling = new List<Filling>();
 
-            int numberOfBagels = bagels.Count;
-            int numberOfTwelves = numberOfBagels / 12;
-            int numberOfSix = numberOfBagels / 6;
 
+            foreach (var item in bagels)
+            {
+                Bagel bagel = (Bagel)item;
+               
+                bagelFilling.AddRange(bagel.GetFillings());    
+            }
+            //Getting discount on bagels
+            double price = 0;
+            int bagelsLeft = bagels.Count;
 
-            return 0.0;
+            price += (bagelsLeft / 12) * 3.99;
+            bagelsLeft = bagels.Count % 12;
+            price += (bagelsLeft / 6) * 2.49;
+            bagelsLeft = bagelsLeft % 6;
+            
+            price += bagelsLeft * 0.49;
+
+            //Adding fillings to price
+
+            foreach (var item in bagelFilling)
+            {
+                price += item.Price;
+            }
+
+            //Adding price of coffee items
+            foreach (var item in coffee)
+            {
+                price += item.Price;
+            }
+
+            //Adding price of fillings
+            foreach (var item in filling)
+            {
+                price += item.Price;
+            }
+            return Math.Round(price, 2);
 
         }
 

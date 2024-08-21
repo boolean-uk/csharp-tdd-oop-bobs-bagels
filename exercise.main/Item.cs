@@ -12,7 +12,7 @@ namespace exercise.main
         string Sku { get; set; }
         string Name { get; set; }
         double Price { get; set; }
-        enum Variant;
+        string Variant { get; set; }
 
 
         

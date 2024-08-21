@@ -37,18 +37,26 @@ namespace exercise.main
             get => _variant; set => _variant = value;
         }
 
-        private List<Item> _fillings;
+        private List<Filling> _fillings;
+        public List<Filling> Fillings
+        {
+            get => _fillings; set => _fillings = value;
+        }
 
-        public Bagel(string sku, double price, string name, string variant)
+        public Bagel(string sku, double price, string variant, string name)
         {
             this._sku = sku;
             this._name = name;
             this._price = price;
             this._variant = variant;
-            this._fillings = new List<Item>();
+            this._fillings = new List<Filling>();
         }
 
 
+        public List<Filling> GetFillings()
+        {
+            return this._fillings;
+        }
         public string AddFilling(string nameFilling)
         {
             List<Item> inventory = Inventory.GetInventory();
@@ -57,7 +65,8 @@ namespace exercise.main
             {
                 if (item.Name.Equals(nameFilling))
                 {
-                    _fillings.Add(item);
+                    Filling filling = (Filling)item;
+                    _fillings.Add(filling);
                     return "Filling added";
                 }
             }

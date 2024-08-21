@@ -89,7 +89,11 @@ public class BasketTest
         Assert.That(changed2 == false);
     }
 
-    [TestCase (6, 0, 0, 2.49)] //6 Bagels, 0 Coffees, 50Fillings
+    [TestCase (6, 0, 0, 2.49)] //6 Bagels, 0 Coffees, 0Fillings
+    [TestCase (6, 0, 1, 2.61)] //6 Bagels, 0 Coffees, 1Fillings
+    [TestCase (12, 0, 0, 3.99)] //12 Bagels, 0 Coffees, 0Fillings
+    [TestCase (11, 1, 0, 5.93)] //11 Bagels, 1 Coffees, 0Fillings
+    [TestCase (22, 0, 0, 8.44)] //22 Bagels, 0 Coffees, 0Fillings
     public void AddDiscountTest(int numberOfBagels, int numberOfCoffee, int numberOfFilling, double expected)
     {
 
@@ -97,11 +101,13 @@ public class BasketTest
         Bagel bagel1 = new Bagel("BGLE", 0.49, "Bagel", "Everything");
         Coffee coffee = new Coffee("COFB", 0.99, "Coffee", "Black");
         Filling filling = new Filling("FILB", 0.12, "Filling", "Bacon");
-        Basket basket = new Basket(100);
+        Basket basket = new Basket(30);
+        Bagel bagel;
 
         for (int i = 0; i < numberOfBagels; i++)
         {
-            basket.AddItem(bagel1);
+            bagel = new Bagel("BGLE", 0.49, "Bagel", "Everything");
+            basket.AddItem(bagel);
         }
 
         for (int i = 0; i < numberOfCoffee; i++)
@@ -111,7 +117,7 @@ public class BasketTest
 
         for (int i = 0; i < numberOfFilling; i++)
         {
-            bagel1.AddFilling(filling.Name);
+            basket.AddItem(filling);
         }
 
         double actualPrice = basket.GetDiscountPrice(basket);
