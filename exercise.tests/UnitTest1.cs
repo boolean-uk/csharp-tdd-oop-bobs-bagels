@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 public class Tests
 {
     List<Item> selections = new List<Item>();
-
+    public Basket basket = new Basket();
 
     // Bagel creation test cases
     // Bagel without filling
@@ -52,9 +52,14 @@ public class Tests
     public void MakeBagelTestWithFilling(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant)
     {
         // arrange
-        selections.Clear();
+        //Inventory.FillingStock = 20;
+        //Inventory.BagelStock = 20;
+        //Inventory.CoffeeStock = 20;
 
         Basket Basket = new Basket();
+
+        List<Item> preselection = Basket.MakeNew();
+
         Basket.Cap = 4;
 
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
@@ -66,14 +71,16 @@ public class Tests
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
         TestBagel.Filling = fillingvariant;
 
-        string expected = $"{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} ";
+        string expected = $"{fillingsku}, {fillingprice}\n{fillingname}, {fillingvariant}\n\n{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} \n\n\nSubtotal: 0,61 quid\nThanks for shopping at Bob's Bagels! ^_^";
 
         // act
         Bagel FilledBagel = ChosenItem.AddFillings(Bagel, fillings);
-        selections.Add(Bacon);
-        selections.Add(FilledBagel);
+        preselection.Add(Bacon);
+        preselection.Add(FilledBagel);
 
-        Basket.AddToBasket(0, selections);
+        List<Item> selectedItems = Basket.AddToSelection(preselection);
+
+        Basket.AddToBasket(0, preselection);
 
         string result = Basket.PrintBasket();
 
@@ -85,10 +92,12 @@ public class Tests
     public void MakeBagelTestWithSeveralFillings(string sku, double price, string name, string variant, string filling, string fillingsku, double fillingprice, string fillingname, string fillingvariant, string fillingsku2, double fillingprice2, string fillingname2, string fillingvariant2)
     {
         // arrange
-        selections.Clear();
-
         Basket Basket = new Basket();
         Basket.Cap = 4;
+
+        List<Item> preselection = Basket.MakeNew();
+
+        
 
         Bagel Bagel = new Bagel(sku, price, name, variant, filling);
 
@@ -101,14 +110,15 @@ public class Tests
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
         TestBagel.Filling = $"{fillingvariant} {fillingvariant2}";
 
-        string expected = $"{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} ";
+        string expected = $"{fillingsku}, {fillingprice}\n{fillingname}, {fillingvariant}\n\n{fillingsku2}, {fillingprice2}\n{fillingname2}, {fillingvariant2}\n\n{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} \n\n\nSubtotal: 0,73 quid\nThanks for shopping at Bob's Bagels! ^_^";
 
         // act
         Bagel filledBagel = ChosenItem.AddFillings(Bagel, fillings);
-        selections.Add(filledBagel);
-        selections.Add(Bacon);
-        selections.Add(Egg);
-        Basket.AddToBasket(0, selections);
+        preselection.Add(Bacon);
+        preselection.Add(Egg);
+        preselection.Add(filledBagel);
+
+        Basket.AddToBasket(0, preselection);
 
         string result = Basket.PrintBasket();
 
@@ -253,21 +263,138 @@ public class Tests
     }
 
     [Test]
-    public void EnsureStockTest()
+    public void EnsureNotStockTest()
     {
+        string expected = "Sorry, out of stock";
         Inventory.BagelStock = 0;
 
         Basket Basket = new Basket();
         Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
-        Basket.AddToSelection(BaconBagel);
+        List<Item> selection1 = Basket.MakeNew();
+        selection1.Add(BaconBagel);
+        Basket.AddToSelection(selection1);
 
-        string expected = "Sorry, out of stock";
+        
 
         string result = Basket.OutOfStockNotice;
 
 
         Assert.IsTrue(expected == result);
 
+    }
+
+    [Test]
+    public void EnsureStockTest()
+    {
+        Inventory.BagelStock = 10;
+
+        Basket Basket = new Basket();
+        Bagel BaconBagel = new Bagel("BGLO", 0.49, "Bagel", "Onion", "");
+        List<Item> selection1 = Basket.MakeNew();
+        selection1.Add(BaconBagel);
+        Basket.AddToSelection(selection1);
+
+        string expected = null;
+
+        string result = Basket.OutOfStockNotice;
+
+        Assert.IsTrue(expected == result);
+
+    }
+
+    [Test] //This tests for the occurence of 13 bagels, where 12 get the discount, and not the last one
+    public void BagelDiscountTest()
+    {
+        Basket basket = new Basket();
+        basket.Cap = 20;
+
+        Inventory.FillingStock = 20;
+        Inventory.BagelStock = 20;
+        Inventory.CoffeeStock = 20;
+
+        double expected = 4.48;
+
+        List<Item> preselection3 = basket.MakeNew();
+        Bagel bagel3 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection3.Add(bagel3);
+        List<Item> selectedItems3 = basket.AddToSelection(preselection3);
+        basket.AddToBasket(3, selectedItems3);
+
+        List<Item> preselection4 = basket.MakeNew();
+        Bagel bagel4 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection4.Add(bagel4);
+        List<Item> selectedItems4 = basket.AddToSelection(preselection4);
+        basket.AddToBasket(4, selectedItems4);
+
+        List<Item> preselection5 = basket.MakeNew();
+        Bagel bagel5 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection5.Add(bagel5);
+        List<Item> selectedItems5 = basket.AddToSelection(preselection5);
+        basket.AddToBasket(5, selectedItems5);
+
+        List<Item> preselection6 = basket.MakeNew();
+        Bagel bagel6 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection6.Add(bagel6);
+        List<Item> selectedItems6 = basket.AddToSelection(preselection6);
+        basket.AddToBasket(6, selectedItems6);
+
+        List<Item> preselection7 = basket.MakeNew();
+        Bagel bagel7 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection7.Add(bagel7);
+        List<Item> selectedItems7 = basket.AddToSelection(preselection7);
+        basket.AddToBasket(7, selectedItems7);
+
+        List<Item> preselection8 = basket.MakeNew();
+        Bagel bagel8 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection8.Add(bagel8);
+        List<Item> selectedItems8 = basket.AddToSelection(preselection8);
+        basket.AddToBasket(8, selectedItems8);
+
+        List<Item> preselection9 = basket.MakeNew();
+        Bagel bagel9 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection9.Add(bagel9);
+        List<Item> selectedItems9 = basket.AddToSelection(preselection9);
+        basket.AddToBasket(9, selectedItems9);
+
+        List<Item> preselection10 = basket.MakeNew();
+        Bagel bagel10 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection10.Add(bagel10);
+        List<Item> selectedItems10 = basket.AddToSelection(preselection10);
+        basket.AddToBasket(10, selectedItems10);
+
+        List<Item> preselection11 = basket.MakeNew();
+        Bagel bagel11 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection11.Add(bagel11);
+        List<Item> selectedItems11 = basket.AddToSelection(preselection11);
+        basket.AddToBasket(11, selectedItems11);
+
+        List<Item> preselection12 = basket.MakeNew();
+        Bagel bagel12 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection12.Add(bagel12);
+        List<Item> selectedItems12 = basket.AddToSelection(preselection12);
+        basket.AddToBasket(12, selectedItems12);
+
+        List<Item> preselection13 = basket.MakeNew();
+        Bagel bagel13 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection13.Add(bagel13);
+        List<Item> selectedItems13 = basket.AddToSelection(preselection13);
+        basket.AddToBasket(13, selectedItems13);
+
+        List<Item> preselection14 = basket.MakeNew();
+        Bagel bagel14 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection14.Add(bagel14);
+        List<Item> selectedItems14 = basket.AddToSelection(preselection14);
+        basket.AddToBasket(14, selectedItems14);
+
+        List<Item> preselection15 = basket.MakeNew();
+        Bagel bagel15 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        preselection15.Add(bagel15);
+        List<Item> selectedItems15 = basket.AddToSelection(preselection15);
+        basket.AddToBasket(15, selectedItems15);
+
+        double result = basket.BasketTotal();
+
+        Assert.IsTrue(expected == result);
     }
 
 }
