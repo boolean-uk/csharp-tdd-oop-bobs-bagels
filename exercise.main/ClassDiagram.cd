@@ -3,21 +3,21 @@
   <Class Name="exercise.main.Shop">
     <Position X="5.25" Y="6.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAEEAAABAAAAACAAAQAiAQgAAAAAAkAAAAAAAAEAAIE=</HashCode>
+      <HashCode>AAEEIAABAAAAACAAAQAiAQgAAAAAAkAAAAAAAAEAAIE=</HashCode>
       <FileName>Shop.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Basket">
     <Position X="9.5" Y="6.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAIABAAAAAAAAAAAAAAABAQCAAACAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAIABAAAAAAABAAAAAAABAQCAAACAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Basket.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Persons.Customer">
     <Position X="12.25" Y="9.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAIEAAgAAAgQAAAEAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAABAAAIEAAhAAAgQAAAEAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Persons\Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -43,9 +43,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="exercise.main.Items.Item">
-    <Position X="19.5" Y="6.25" Width="1.75" />
+    <Position X="19.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AhAAAAAAAQAIAAAAAAAAAAAAAACAAAAAEAAAAAAAAAA=</HashCode>
+      <HashCode>AhAAAAAAAQAIAAABAAAAAAAAAACAAABAEAAAgAAAIAA=</HashCode>
       <FileName>Items\Item.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -23,7 +23,7 @@ namespace exercise.main.Items
         }
         
         public Bagel(string sku, double price, string variant) : base(sku, price, variant) 
-        { 
+        {
 
         }
     }

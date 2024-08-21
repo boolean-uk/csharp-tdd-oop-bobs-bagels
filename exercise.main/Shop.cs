@@ -86,6 +86,11 @@ namespace exercise.main
             return true;
         }
 
+        public void GetReceipt(Customer customer, string shopName)
+        {
+            Receipt receipt = customer.Checkout(shopName);
+        }
+
         /*
         // PSEUDO CODE
             Shop-class: GetReceipt(Customer customer, string shopName)

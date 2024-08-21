@@ -85,7 +85,7 @@ public class CustomerTests
         customer.AddItemToBasket(bagel);
         customer.AddItemToBasket(coffee);
 
-        double result = customer.GetTotalSumOfBasket();
+        double result = customer.Basket.GetTotalSumOfBasket();
 
         // Verify
         Assert.IsTrue(result == (bagel.Price + coffee.Price));
@@ -109,7 +109,7 @@ public class CustomerTests
         customer.AddFillingToBagel(bagel, filling);
         customer.AddFillingToBagel(bagel, filling2);
 
-        double result = customer.GetTotalSumOfBasket();
+        double result = customer.Basket.GetTotalSumOfBasket();
         double expected = (bagel.Price + coffee.Price + filling.Price + filling2.Price);
         expected = Math.Round(expected, 2);
 
@@ -157,6 +157,7 @@ public class CustomerTests
     {
         Customer customer = new Customer("customer", false);
         ShopInventory shopInventory = new ShopInventory();
+        customer.Basket.Capacity = 23;
 
         // 2 onion Bagel
         Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
@@ -185,12 +186,10 @@ public class CustomerTests
 
         string shopName = "Bob's Bagels";
 
-        Receipt customerReceipt = customer.GetReceipt(shopName);
+        Receipt customerReceipt = customer.Checkout(shopName);
 
-        Assert.Fail();
-
-        //Assert.IsTrue(customerReceipt != null);
-        //Assert.IsTrue(customerReceipt != null);
-        //Assert.IsTrue(customerReceipt != null);
+        Assert.IsTrue(customerReceipt != null);
+        Assert.IsTrue(customerReceipt?.BoughtItems.Count() == 4);
+        Assert.IsTrue(customer.Basket.Capacity == 0);
     }
 }

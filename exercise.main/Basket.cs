@@ -22,10 +22,23 @@ namespace exercise.main
             if (_capacity <= 0)
             {
                 return false;
-            }
-            else
+            } else
             {
+                foreach (var itemInBasket in _itemsInBasket)
+                {
+                    if (itemInBasket.Sku == item.Sku) 
+                    {
+                        _capacity--;
+                        itemInBasket.Quantity++;
+                        itemInBasket.Price = item.OriginalPrice * item.Quantity;
+
+                        return true;
+                    } 
+                }
+
                 _itemsInBasket.Add(item);
+                item.Quantity++;
+                item.OriginalPrice = item.Price;
                 _capacity--;
 
                 return true;
@@ -59,6 +72,50 @@ namespace exercise.main
             }
 
             return false;
+        }
+
+        public Receipt Checkout(string shopName)
+        {
+            Receipt receipt = new Receipt(_itemsInBasket, shopName);
+
+            return receipt;
+        }
+
+        public double GetTotalSumOfBasket()
+        {
+            double total = 0;
+
+            List<Bagel> bagelList = new List<Bagel>();
+            List<Item> itemList = new List<Item>();
+
+            foreach (var item in _itemsInBasket)
+            {
+                if (item.GetType() == typeof(Bagel))
+                {
+                    bagelList.Add((Bagel)item);
+                }
+                else
+                {
+                    itemList.Add(item);
+                }
+            }
+
+            foreach (Bagel bagel in bagelList)
+            {
+                if (bagel.Fillings.Count > 0)
+                {
+                    total += bagel.Price;
+                    total += bagel.Fillings.Sum(filling => filling.Price);
+                }
+                else
+                {
+                    total += bagel.Price;
+                }
+            }
+
+            double itemListSum = itemList.Sum(item => item.Price);
+
+            return total + itemListSum;
         }
     }
 }

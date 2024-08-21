@@ -11,12 +11,15 @@ namespace exercise.main.Items
         #region Properties
         private string _sku;
         private double _price;
+        private double _originalPrice;
         private string _variant;
         private int _quantity;
 
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }
+        public double OriginalPrice { get => _originalPrice; set => _originalPrice = value; }
         public string Variant { get => _variant; set => _variant = value; }
+        public int Quantity { get => _quantity; set => _quantity = value; }
         #endregion
 
         protected Item()
@@ -32,6 +35,7 @@ namespace exercise.main.Items
 
         protected Item(string skuID) 
         {
+
         }
     }
 }

@@ -30,39 +30,7 @@ namespace exercise.main.Persons
 
         public double GetTotalSumOfBasket()
         {
-            double total = 0;
-
-            List<Bagel> bagelList = new List<Bagel>();
-            List<Item> itemList = new List<Item>();
-
-            foreach (var item in _basket.ItemsInBasket)
-            {
-                if (item.GetType() == typeof(Bagel))
-                {
-                    bagelList.Add((Bagel) item);
-                } else
-                {
-                    itemList.Add(item);
-                }
-            }
-
-            foreach (Bagel bagel in bagelList) 
-            {
-                if (bagel.Fillings.Count > 0)
-                {
-                    total += bagel.Price;
-                    total += bagel.Fillings.Sum(filling => filling.Price);
-                } else
-                {
-                    total += bagel.Price;
-                }
-            }
-
-            double itemListSum = itemList.Sum(item => item.Price);
-
-            return total + itemListSum;
-
-            // return _basket.ItemsInBasket.Sum(item => item.Price);
+            return _basket.GetTotalSumOfBasket();
         }
 
         public double GetCostOfItem(Item item)
@@ -87,9 +55,9 @@ namespace exercise.main.Persons
             return false;
         }
 
-        public Receipt GetReceipt(string shopName)
+        public Receipt Checkout(string shopName)
         {
-            throw new NotImplementedException();
+            return _basket.Checkout(shopName);
         }
     }
 }
