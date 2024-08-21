@@ -15,7 +15,7 @@ namespace exercise.main
 
         public Customer(string firstName, string lastName)
             : base(firstName, lastName)
-        { 
+        {
             _basket = null; //if you dont have a basket no bagels for you
         }
 
@@ -34,10 +34,10 @@ namespace exercise.main
             return false;
         }
 
-        public bool addProduct(string SKU) { return _bagelStore.getManager().getProduct(SKU, this);} //done
-        public bool removeProduct(string SKU) 
+        public bool addProduct(string SKU) { return _bagelStore.getManager().getProduct(SKU, this); } //done
+        public bool removeProduct(string SKU)
         {
-            if (_basket.getProductsInBasket().Count > 0 && _basket.getProductsInBasket().FirstOrDefault(item => item.SKU == SKU) != null) 
+            if (_basket.getProductsInBasket().Count > 0 && _basket.getProductsInBasket().FirstOrDefault(item => item.SKU == SKU) != null)
             {
                 return _basket.getProductsInBasket().Remove(_basket.getProductsInBasket().FirstOrDefault(product => product.SKU == SKU));
             }
@@ -85,7 +85,8 @@ namespace exercise.main
                 {
                     totalCost += item.Item3;
 
-                } else
+                }
+                else
                 {
                     totalCost += item.Item3 * (float)item.Item4;
                 }

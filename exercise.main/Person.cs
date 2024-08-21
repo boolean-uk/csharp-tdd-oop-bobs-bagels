@@ -13,7 +13,8 @@ namespace exercise.main
         private string _lastName;
         private int _age;
 
-        public Person(string firstName, string lastName) { 
+        public Person(string firstName, string lastName)
+        {
             _firstName = firstName;
             _lastName = lastName;
             _age = random.Next(12, 74);

@@ -13,12 +13,12 @@ namespace exercise.main
         private Product _coffee;
         private Product _filling;
         private List<Product> _products = new List<Product>(); //menu item
-        private List<Tuple<string, string, float, int>> _discountList = new List<Tuple<string, string, float, int>>(); 
+        private List<Tuple<string, string, float, int>> _discountList = new List<Tuple<string, string, float, int>>();
 
 
         public Manager(string firstName, string lastName)
-            :base(firstName, lastName)
-        { 
+            : base(firstName, lastName)
+        {
             _currentBasketCapacityInStore = 3;
             _bagel = new Bagel(getBagelMenu());
             _coffee = new Coffee(getCoffeeMenu());
@@ -26,7 +26,7 @@ namespace exercise.main
             _products.Add(_bagel);
             _products.Add(_coffee);
             _products.Add(_filling);
-            addDiscount(); 
+            addDiscount();
         }
 
         public void changeBasketCapacity(int newBasketCapacity)
@@ -34,7 +34,7 @@ namespace exercise.main
             _currentBasketCapacityInStore = newBasketCapacity;
         }
 
-        public int getCurrentBasketSize() { return _currentBasketCapacityInStore;}
+        public int getCurrentBasketSize() { return _currentBasketCapacityInStore; }
 
         public Product getProductReference(string SKU)
         {
@@ -55,7 +55,8 @@ namespace exercise.main
         }
 
 
-        public bool getProduct(string SKU, Customer customer) {
+        public bool getProduct(string SKU, Customer customer)
+        {
 
             Product product = null;
             if (SKU.Contains("BGL"))
@@ -64,7 +65,8 @@ namespace exercise.main
                 bool productAdded = customer.recieveProductInBasket(product);
                 if (!productAdded) { basketOverflowWarning(); }
                 return productAdded;
-            } else if (SKU.Contains("COF")) 
+            }
+            else if (SKU.Contains("COF"))
             {
                 product = new Coffee(_coffee.getVariants().FirstOrDefault(item => item.Item1 == SKU));
                 bool productAdded = customer.recieveProductInBasket(product);
@@ -126,13 +128,13 @@ namespace exercise.main
 
             _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 2.49f, 6));
             _discountList.Add(new Tuple<string, string, float, int>("BGLE", "", 3.99f, 12));
-            
+
             _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 2.49f, 6));
             _discountList.Add(new Tuple<string, string, float, int>("BGLO", "", 3.99f, 12));
-            
+
             _discountList.Add(new Tuple<string, string, float, int>("BGLS", "", 2.49f, 6));
             _discountList.Add(new Tuple<string, string, float, int>("BGLS", "", 3.99f, 12));
-            
+
             _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLP", 1.25f, 1));
             _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLE", 1.25f, 1));
             _discountList.Add(new Tuple<string, string, float, int>("COFB", "BGLO", 1.25f, 1));
@@ -190,7 +192,8 @@ namespace exercise.main
                 if (basket.getProductsInBasket().FindAll(item => item.SKU.Contains("BGL")).Count - amountOfBagelsToRemove >= product.Item4)
                 {
                     amountOfBagelsToRemove += product.Item4;
-                } else
+                }
+                else
                 {
                     continue; //think this should be continue and nod break, otherwise use break...
                 }
@@ -230,7 +233,7 @@ namespace exercise.main
             //we iterate through the copylist and increment int
             //we then check the sku of those in copylist and concat that number and price to the ones in products that match and then make new list and return
 
-            List < Tuple<string, string, float, int, bool> > checkoutList = checkoutListMerge(productsThatMatch, copyList);
+            List<Tuple<string, string, float, int, bool>> checkoutList = checkoutListMerge(productsThatMatch, copyList);
 
 
             return checkoutList;

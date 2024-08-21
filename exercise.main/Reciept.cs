@@ -47,31 +47,35 @@ namespace exercise.main
 
             });
 
-            foreach (var product in productsListList) {
-                foreach (var item in product) {
+            foreach (var product in productsListList)
+            {
+                foreach (var item in product)
+                {
                     productsList.Add(item);
-                } 
+                }
             }
 
 
-            purchase.ForEach(item => {
+            purchase.ForEach(item =>
+            {
                 if (item.Item5)
                 {
-                    Console.WriteLine("      {0,-6} {1,-3} {2, -10}", item.Item1,  item.Item4,  item.Item3);
+                    Console.WriteLine("      {0,-6} {1,-3} {2, -10}", item.Item1, item.Item4, item.Item3);
                     totalCost += item.Item3;
                     totalDiscounted += item.Item3;
                 }
-                else {
+                else
+                {
                     totalCost += item.Item3 * (float)item.Item4;
 
                     Console.WriteLine("      {0,-6} {1,-3} {2, -10}", item.Item1, item.Item4, item.Item3 * (float)item.Item4);
 
 
 
-             }
+                }
             });
 
-            
+
             purchase.ForEach(item =>
             {
                 if (item.Item5)
@@ -80,8 +84,8 @@ namespace exercise.main
                 }
             });
 
-            costAndDiscount[0] = (float)Math.Round(totalCost,2);
-            costAndDiscount[1] = (float)Math.Round(actualDiscount,2);
+            costAndDiscount[0] = (float)Math.Round(totalCost, 2);
+            costAndDiscount[1] = (float)Math.Round(actualDiscount, 2);
 
             return costAndDiscount;
         }

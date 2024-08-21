@@ -125,7 +125,7 @@ public class Tests
         Assert.That(basketCount == 3);
     }
 
-    [Test] 
+    [Test]
     public void overflowTest()
     {
         Customer customer = getCustomerAndBasket();
@@ -231,9 +231,9 @@ public class Tests
         addBagel(customer, 4, "BGLP");
 
         List<Product> products = customer.checkBasketContent();
-        
 
-        Assert.That (customer.getTotalCost() == 0.39f * 4.00f);
+
+        Assert.That(customer.getTotalCost() == 0.39f * 4.00f);
 
         addBagel(customer, 4, "BGLE");
 

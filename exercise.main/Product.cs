@@ -12,7 +12,7 @@ namespace exercise.main
 
         public Tuple<string, string, string, float>[] getVariants() { return variants; }
 
-        public Product(Tuple<string, string, string, float>[] variants) 
+        public Product(Tuple<string, string, string, float>[] variants)
         {
             this.variants = variants;
         }
@@ -31,19 +31,19 @@ namespace exercise.main
         public float price { get; set; }
     }
 
-    
+
 
     public class Bagel : Product
     {
         private List<Filling> fillings = new List<Filling>();
 
-        public Bagel(Tuple<string, string, string, float>[] variants) 
-            :base(variants)
-        { 
-                
+        public Bagel(Tuple<string, string, string, float>[] variants)
+            : base(variants)
+        {
+
         }
 
-        public Bagel(Tuple<string, string, string, float> variant) 
+        public Bagel(Tuple<string, string, string, float> variant)
             : base(variant)
         {
 
@@ -59,7 +59,7 @@ namespace exercise.main
     public class Coffee : Product
     {
         public Coffee(Tuple<string, string, string, float>[] variants)
-            :base (variants)
+            : base(variants)
         {
 
         }
@@ -73,7 +73,7 @@ namespace exercise.main
     public class Filling : Product
     {
         public Filling(Tuple<string, string, string, float>[] variants)
-            :base(variants)
+            : base(variants)
         {
 
         }
