@@ -58,6 +58,12 @@ As a manager, \
 So customers can see the incredible amount of money they saved \
 I want the receipt to display all the discounts 
 
+13. Extension 4 Part 1 - SMS \
+As a manager, \
+So customers can get order information digitally \
+I want users to receive a text with their order summary,\
+and delivery time when they complete their order.
+
 | Classes   | Methods                                     | Scenario                                              | Outputs                 |
 |-----------|---------------------------------------------|-------------------------------------------------------|-------------------------|
 | Basket    | List\<Product> products {get; set;}          | Store all products currently in basket                | List\<Product> products  |
@@ -77,3 +83,5 @@ I want the receipt to display all the discounts
 | Receipt   | DateTime Date { get; set; } = DateTime.Now; | store the date and time of receipt creation           |   Datetime  date        |
 |           | string Header { get; set; } = "~~~ Bob's Bagels ~~~";| store receipt header                         |   string header        |
 |           | PrintReceipt(List\<Product> items, decimal total)| print a formatted receipt of the customers purchase |    void      |
+| TextMessage | SendMessage(List\<Product> items, decimal total) | send a confirmation message with an order summary to the customer         |   void       |
+|           | FormatMessage(List\<Product> items, decimal total)| format the body of the confirmation message     |   string messageBody        |
