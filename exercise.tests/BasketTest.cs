@@ -120,7 +120,7 @@ public class BasketTest
             basket.AddItem(filling);
         }
 
-        double actualPrice = basket.GetDiscountPrice(basket);
+        double actualPrice = basket.GetDiscountPrice();
 
 
 

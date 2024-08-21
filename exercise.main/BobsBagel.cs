@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class BobsBagel
+    public static class BobsBagel
     {
 
-        Person person = new Person(1, true);
+        public static string Name { get; set; } = "Bob's Bagels";
 
 
     }

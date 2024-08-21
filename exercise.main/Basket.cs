@@ -64,7 +64,7 @@ namespace exercise.main
             return price;
         }
 
-        public double GetDiscountPrice(Basket basket)
+        public double GetDiscountPrice()
         {
             
             List<Item> bagels = this._items.Where(x => x.GetType() == typeof(Bagel)).ToList();

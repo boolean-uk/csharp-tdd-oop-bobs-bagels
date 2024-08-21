@@ -1,5 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using exercise.main;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using System.Threading.Tasks;
+using System;
+
 
 Bagel bagel = new Bagel("BGLO", 0.49, "Bagel", "Onion");
 Bagel bagel2 = new Bagel("BGLO", 0.49, "Bagel", "Onion");
@@ -27,4 +32,8 @@ basket.AddItem(coffee);
 basket.AddItem(filling);
 basket.AddItem(bagel1);
 
-Receipt.PrintReciept(basket);
+Receipt receipt = new Receipt(basket);
+receipt.PrintReceipt();
+
+
+
