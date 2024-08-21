@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\exercise.main\exercise.main.csproj" />
+    <ProjectReference Include="..\TwilioReceive\TwilioReceive.csproj" />
   </ItemGroup>
 
 </Project>

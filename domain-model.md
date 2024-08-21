@@ -15,10 +15,10 @@
 |                 |                         | AddFilling()                | if filling got added      | true       |
 |                 |                         |                             | if filling didnt get added| false      |
 |                 |                         |                             |                           |            |
-| Basket          | `List<Product> products`| Add(string sku)             | item got added to basket  | true       |
-|				  | `int capacity`          | Add(string sku, int amount) | item did not get added    | false      |
-|                 |                         | Add(string sku1, string sku2) |                         |            |
-|                 |                         | Add(string sku, string[] skus) |                        |            |
+| Basket          | `Dictionary<string, Product> category`| Add(string sku)             | item got added to basket  | true       |
+|				  | `Dictionary<string, ProductOrder> products`| Add(string sku, int amount) | item did not get added    | false      |
+|                 | `int capacity`          | Add(string sku1, string sku2) |                         |            |
+|                 | `int count`             | Add(string sku, string[] skus) |                        |            |
 |                 |		                    | Remove(string sku)          | item got removed          | true       |
 |                 |                         |                             | item did not get removed  | false      |
 |                 |                         | ChangeCapacity(int size)    | capacity got changed      | true       |
@@ -41,4 +41,3 @@
 | Bagel           | inherits from Product   |                             |                           |            |
 | Coffee          | inherits from Product   |                             |                           |            |
 | Filling         | inherits from Product   |                             |                           |            |
-| BagelCoffee     | inherits from Product   |                             |                           |            |
