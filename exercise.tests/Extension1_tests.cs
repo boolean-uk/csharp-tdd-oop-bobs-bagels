@@ -70,7 +70,7 @@ namespace exercise.tests
             SetBsketSizeToThirty(p);
             PoppulateBaskets(6, p, productType.BGLE);
             PoppulateBaskets(6, p, productType.BGLO);
-            Assert.That(p.ImplementDiscount() == (float)Math.Round((2.49f + 2.49f), 2));
+            Assert.That(p.ImplementDiscount(), Is.EqualTo((float)Math.Round((2.49f + 2.49f), 2)));
         }
 
         [Test]
@@ -94,8 +94,7 @@ namespace exercise.tests
             PoppulateBaskets(3, p, productType.BGLP);
             p.Basket.addItemToBascet(productType.COFB);
             p.Basket.addItemToBascet(productType.COFB);
-
-            Assert.That(p.ImplementDiscount() == (float)Math.Round((3.99f + 2.49f+1.25f +1.25f + 0.39f), 2));
+            Assert.That(p.ImplementDiscount(), Is.EqualTo((float)Math.Round((3.99f + 2.49f+1.25f +1.25f + 0.39f), 2)));
         }
     }
 }

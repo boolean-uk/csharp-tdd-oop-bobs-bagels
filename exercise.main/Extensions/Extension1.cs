@@ -15,7 +15,6 @@ namespace exercise.main.Extensions
         private float copyOfPrice;
         private Dictionary<string, int> productDiscount;
         private List<Product> permanentBasketCopy;
-        private int MaxDepth;
 
         public Extension1(List<Product> basket, float price)
         {
@@ -41,7 +40,7 @@ namespace exercise.main.Extensions
 
         private void CheckForBGLOdiscount()
         {
-            foreach (Product product in permanentBasketCopy.Where(product => product.Type == (productType)1))
+            foreach (Product product in permanentBasketCopy.Where(product => product is Bagle))
             {
                 if (!productDiscount.ContainsKey(product.Name))
                 {
@@ -76,11 +75,6 @@ namespace exercise.main.Extensions
         private void DcDiscount(string key, int i, int MaxDepth, float tempTestCost)
         {
             Product product = copyOfBasket.FirstOrDefault(p => p.Name == key);
-            Console.WriteLine("MaxDepth: " + MaxDepth);
-            foreach (Product p in copyOfBasket)
-            {
-                Console.WriteLine(product.Name);
-            }
             if (copyOfBasket.Remove(product))
             {
                 tempTestCost += product.Cost;
@@ -91,7 +85,6 @@ namespace exercise.main.Extensions
                         copyOfPrice -= tempTestCost;
                         tempTestCost = 0f;
                         copyOfPrice += (float)Math.Round(3.99f, 2);
-                        Console.WriteLine("12 : " + copyOfPrice);
                         productDiscount[key]++;
                     }
                     else if (i == 6)
@@ -99,7 +92,6 @@ namespace exercise.main.Extensions
                         copyOfPrice -= tempTestCost;
                         tempTestCost = 0f;
                         copyOfPrice += (float)Math.Round(2.49f, 2);
-                        Console.WriteLine("6: " + copyOfPrice);
                         productDiscount[key]++;
                     }
                 }
@@ -114,11 +106,12 @@ namespace exercise.main.Extensions
         private void CoffeDiscount(int discount)
         {
 
-            if (copyOfBasket.FirstOrDefault(p => p.Type == (productType)1) != null && copyOfBasket.FirstOrDefault(p => p.Type == 0) != null)
+            if (copyOfBasket.FirstOrDefault(p => p is Bagle) != null && copyOfBasket.FirstOrDefault(p => p is Drink) != null)
             {
                 discount++;
-                Product bagle = copyOfBasket.FirstOrDefault(p => p.Type == (productType)1);
-                Product drink = copyOfBasket.FirstOrDefault(predicate => predicate.Type == 0);
+                Product bagle = copyOfBasket.FirstOrDefault(p => p is Bagle);
+          
+                Product drink = copyOfBasket.FirstOrDefault(predicate => predicate is Drink);
                 copyOfPrice -= bagle.Cost;
                 copyOfPrice -= drink.Cost;
                 copyOfBasket.Remove(drink);

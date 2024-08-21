@@ -9,19 +9,21 @@ namespace exercise.main.products
     public enum productType
     {
         COFB = 0,
-        COFW = 0,
-        COFC = 0,
-        COFL = 0,
-        BGLO = 1,
-        BGLP = 1,
-        BGLE = 1,
-        BGLS = 1,
-        FILB = 2,
-        FILE = 2,
-        FILC = 2,
-        FILX = 2,
-        FILS = 2,
-        FILH = 2,
+        COFW = 1,
+        COFC = 2,
+        COFL = 3,
+
+        BGLO = 10,
+        BGLP = 11,
+        BGLE = 12,
+        BGLS = 13,
+
+        FILB = 21,
+        FILE = 22,
+        FILC = 23,
+        FILX = 24,
+        FILS = 25,
+        FILH = 26,
     }
 
     public abstract class Product

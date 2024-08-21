@@ -25,7 +25,7 @@ namespace exercise.main
         public float ImplementDiscount()
         {
             Extension1 discount = new Extension1(this.basket.GetBasket(), this.basket.GetCost());
-            return discount.ValidateDiscounts();
+            return (float)Math.Round(discount.ValidateDiscounts(),2);
         }
 
         public string GetPlainReceipt()

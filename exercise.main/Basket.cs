@@ -27,21 +27,21 @@ namespace exercise.main
             else
             {
 
-                if(p == (productType)0)
+                if(p < (productType)10)
                 {
                     Console.WriteLine($"Added {new Drink(p).Name} to basket, it costs: {new Drink(p).Cost} ");
                     basket.Add(new Drink(p));
                     return true;
 
                 }
-                else if(p == (productType)1)
+                else if((productType)10 <= p && p < (productType)20)
                 {
                     Console.WriteLine($"Added {new Bagle(p).Name} to basket, it costs: {new Bagle(p).Cost} ");
                     basket.Add(new Bagle(p));
                     return true;
 
                 }
-                else if (p == (productType)2)
+                else if ((productType)20 <= p)
                 {
                     Console.WriteLine($"Added {new Fillings(p).Name} to basket, it costs: {new Fillings(p).Cost} ");
                     basket.Add(new Fillings(p));
