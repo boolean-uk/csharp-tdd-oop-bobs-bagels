@@ -147,7 +147,7 @@ public class Tests
 
     }
 
-    //extension2 Receipts
+    //extension 2 Receipts
     //11. As a customer, So that I can track my spendings, I'd like to receive a receipt of my order.
     [Test]
     public void PrintReceiptTest()
@@ -161,5 +161,27 @@ public class Tests
         string printedReceipt = basket.PrintReceipt;
 
         Assert.That(printedReceipt, Does.Contain("Onion Bagel"));
+    }
+
+    //extension 1 Discounts
+    [Test]
+    public void Get6BagelDiscountTest()
+    {
+
+    }
+
+    public void Get12BagelDiscountTest()
+    {
+
+    }
+
+    public void GetCoffeeAndBagelDiscountTest()
+    {
+
+    }
+
+    public void GetAllDiscountsTest()
+    {
+
     }
 }
