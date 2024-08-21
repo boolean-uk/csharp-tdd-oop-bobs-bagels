@@ -10,8 +10,11 @@ User Stories
 9. As a customer, So I don't over-spend, I'd like to know the cost of each filling before I add it to my bagel order.
 10. As a manager, So we don't get any weird requests, I want customer to only be able to order things that we stock in our inventory.
 
-extension2 Receipt
+Extension2 Receipt
 11. As a customer, So that I can track my spendings, I'd like to receive a receipt of my order.
+
+Extension1 Discount
+12. As a manager, So that I can provide my customers some special offers, I want our inventory to include multi-priced items.
 
 
 	
@@ -64,3 +67,18 @@ Extension2 Receipts:
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Basket		|										| AddToReceipt()														| for each item in basket add to receipt	| string
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Extension1 Discount:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Basket		| int BagelCount { get; set; }			|																		| property to get number of bagels in basket| int
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Basket		| int CoffeeCount { get; set; }			|																		| property to get number of coffee in basket| int
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Basket		|										| getSpecialOffer(int BagelCount, int CoffeeCount)						| if discount requirements are met			| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| BobsInventory | double 6ForDiscount { get; set; }		|																		| property to get special offer				| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| BobsInventory | double 12ForDiscount { get; set; }	|																		| property to get special offer				| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| BobsInventory | double CoffeeAndBagel { get; set; }	|																		| property to get special offer				| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
