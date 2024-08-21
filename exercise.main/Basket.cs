@@ -21,7 +21,12 @@ namespace exercise.main
         {
             if (_capacity > _items.Count)
             {
-                if (Inventory.inventory.Contains(item))
+                if (item.GetType() == typeof(Discount))
+                {
+                    _items.Add(item);
+                    return true;
+                }
+                else if (Inventory.inventory.Contains(item))
                 {
                     _items.Add(item);
                     return true;
@@ -33,8 +38,6 @@ namespace exercise.main
 
         public void RemoveItem(Item testItem)
         {
-            Console.WriteLine(testItem);
-            Console.WriteLine(_items);
             _items.Remove(testItem);
         }
 
@@ -45,7 +48,7 @@ namespace exercise.main
 
         public float GetCost()
         {
-            return _items.Sum(x => x.Price);
+            return (float)Math.Round(_items.Sum(x => x.GetItemCost()), 2);
         }
     }
 }

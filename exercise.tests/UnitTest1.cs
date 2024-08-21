@@ -118,4 +118,20 @@ public class Tests
         Assert.That(bsktCapacity == newCapacity);
 
     }
+
+    [Test]
+    public void CheckOutTest()
+    {
+        for (int i = 0; i < 18; i++) 
+        {
+            basket.AddItem(item1);
+        }
+        Bagel bagel = (Bagel)Inventory.inventory[3];
+        bagel.AddFilling((Filling)Inventory.inventory[11]);
+        basket.AddItem(bagel);
+
+        float sum = CheckOut.checkOut(basket);
+        //Console.WriteLine(basket.Items.Count);
+        Assert.That(sum, Is.EqualTo((float)Math.Round(3.99f + 2.49f + 0.12f + 0.49f, 2)));
+    }
 }
