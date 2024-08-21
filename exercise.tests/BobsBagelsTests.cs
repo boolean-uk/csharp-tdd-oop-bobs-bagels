@@ -183,9 +183,27 @@ public class Tests
 
     }
 
+    [Test]
     public void Get12BagelDiscountTest()
     {
+        Basket basket = new Basket();
+        basket.BasketCapacity = 12;
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
+        basket.AddItem("Onion");
 
+        double totalWithDiscount = basket.GetSpecialOffer();
+
+        Assert.That(totalWithDiscount, Is.EqualTo(3.99));
     }
 
     public void GetCoffeeAndBagelDiscountTest()

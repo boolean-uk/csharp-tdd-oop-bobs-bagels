@@ -104,8 +104,6 @@ namespace exercise.main
                 BagelCount = _Basket.Where(item => item.Name == "Bagel").Count();
                 CoffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
             }
-            //int bagelCount = basket.BagelCount; //_bagelCount = _Basket.Where(item  => item.Name == "Bagel").Count();
-            //int coffeeCount = basket.CoffeeCount; //_coffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
 
             if(BagelCount == 6)
             {
