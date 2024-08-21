@@ -59,6 +59,7 @@ I want customers to only be able to order things that we stock in our inventory.
 As a customer,
 So I can see if I saved money
 So I can see the discount in my basket
+
 # Extension 2
 
 12. 

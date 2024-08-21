@@ -124,7 +124,6 @@ namespace exercise.main
                 {
                     itemCount.Add(item, 1);
                 }
-
             }
 
             double coffeeDeal = 1.25;
@@ -154,8 +153,6 @@ namespace exercise.main
              
             }
             return 0;
-                
-            
 
         }
 
