@@ -21,7 +21,6 @@ namespace exercise.main
             this._variant = variant;
         }
 
-
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }
         public string Name { get => _name; set => _name = value; }

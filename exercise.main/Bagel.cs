@@ -14,13 +14,11 @@ namespace exercise.main
         public Bagel(string sku, double price, string name, string variant) : base(sku, price, name, variant)
         {
             this._fillings = new List<Filling>();
-
         }
 
         public override double CheckItemCost()
         {
-            double fillingsSum = _fillings.Select((a) => a.CheckItemCost()).Sum();
-            return Math.Round(fillingsSum + Price, 2);
+            return Math.Round(_fillings.Select((a) => a.CheckItemCost()).Sum() + Price, 2);
         }
 
         public bool AddFilling(string sku)

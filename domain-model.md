@@ -52,6 +52,14 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 
 
+---- Extension 2 ----
+As a customer,
+So i can see that the total is correct,
+I'd like to receive a receipt that shows the entire basket after checkout
+
+
+
+
 | Classes       | Methods			     	  |  Scenario								 | Outputs      |
 | ------------- | -------------	     		  |  ------------							 | -----------  |
 | `Basket`		| AddItem(string sku)	      |  Adds item to basket by sku				 | true			|

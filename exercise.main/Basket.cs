@@ -26,7 +26,7 @@ namespace exercise.main
             {
                 Type t = i.GetType();
                 Item newItem = (Item)Activator.CreateInstance(t, i.Sku, i.Price, i.Name, i.Variant);
-                this._items.Add(i);
+                this._items.Add(newItem);
                 return true;
             }
             return false;
@@ -69,8 +69,39 @@ namespace exercise.main
 
         public double CheckBasketCostDiscounted()
         {
+            double price = 0.0;
 
-            return 0.0d;
+            List<Item> bagels = this._items.Where(i => i.GetType() == typeof(Bagel)).ToList();
+            List<Item> coffee = this._items.Where(i => i.GetType() == typeof(Coffee)).ToList();
+            List<Filling> fillings = new List<Filling>();
+            foreach (Bagel bagel in bagels)
+            {
+                foreach (Filling f in bagel.Fillings)
+                {
+                    fillings.Add(f);
+                }
+            }
+
+            if (bagels.Count() == 1 && coffee.Count() == 1 && fillings.Count() == 0)
+            {
+                return 1.25;
+            }
+
+            int bagelsLeft = bagels.Count();
+            int coffeeleft = coffee.Count();
+
+            price += (bagelsLeft / 12) * 3.99;
+
+            bagelsLeft = bagelsLeft % 12;
+
+            price += (bagelsLeft / 6) * 2.49;
+
+            bagelsLeft = bagelsLeft % 6;
+             price += bagelsLeft * 0.49;
+
+            price += fillings.Select(f => f.CheckItemCost()).Sum();
+            price += coffee.Select(c => c.CheckItemCost()).Sum();
+            return Math.Round(price, 2);
         }
 
         public override string ToString()

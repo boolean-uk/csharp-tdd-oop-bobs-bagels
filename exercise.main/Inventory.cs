@@ -24,10 +24,6 @@ namespace exercise.main
             new Filling("FILX", 0.12d, "Filling", "Cream Cheese"),
             new Filling("FILS", 0.12d, "Filling", "Smoked Salmon"),
             new Filling("FILH", 0.12d, "Filling", "Ham")
-        };
-        
-
-            
-       
+        };   
     }
 }
