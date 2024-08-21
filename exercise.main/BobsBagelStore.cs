@@ -106,7 +106,7 @@ namespace exercise.main
 
                 message.Append("|\n");
             }
-
+            message.Append("\n\n\n");
             Console.Write(message.ToString());
             return message.ToString();
         }

@@ -38,7 +38,7 @@
 | `BobsBagelStore` | `List<Receipt> _receipts` | `ViewProfits()` | View total profits today | `Console + float` |
 
 
-# Domain Model - Extension 1: Discounts
+# Domain Model - Extension 1 & 3: Discounts on receipt
 - As a customer, So im able to save money, I'd like to take advantage of special offers available in the store.
 
 | **Classes** | **Members** | **Methods** | **Scenario** | **Outputs** |

@@ -29,8 +29,10 @@ namespace exercise.main
         {
             Dictionary<Item, (int, float)> discountedItems = CalculateDiscounts(new Dictionary<Item, int>(_items)); 
 
-            float total = 0;
-            float itemTotal = 0;
+            float total = 0f;
+            float totalDiscount = 0f;
+            float itemDiscount = 0f;
+            float itemTotal = 0f;
             StringBuilder message = new StringBuilder();
 
             if (_items.Count() == 0)
@@ -46,31 +48,50 @@ namespace exercise.main
 
             foreach (Item item in _items.Keys)
             {
-                if (_items[item] > 0)
+                itemDiscount = 0f;
+                itemTotal = 0f;
+                if (discountedItems.ContainsKey(item))
                 {
-                    message.Append($"{item.Variant} {item.Name}".PadRight(23));
+                    message.Append($"{item.Variant} {item.Name}".PadRight(22));
                     message.Append($"{_items[item]}".PadRight(5));
-                    itemTotal = item.Price * _items[item];
-                    message.Append($"£{itemTotal}\n");
-                    total += itemTotal;
-                }
-            }
 
-            foreach (Item discountedItem in discountedItems.Keys) 
-            {
-                if (discountedItems[discountedItem].Item1 > 0)
-                {
-                    message.Append($"{discountedItem.Variant} {discountedItem.Name}".PadRight(23));
-                    message.Append($"{discountedItems[discountedItem].Item1}".PadRight(5));
-                    itemTotal = discountedItems[discountedItem].Item2;
+                    if (_items[item] > 0)
+                    {
+                        itemTotal += item.Price * (_items[item] - discountedItems[item].Item1);
+                    }
+                    if (discountedItems[item].Item1 > 0)
+                    {
+                        itemTotal += discountedItems[item].Item2;
+                    }
                     message.Append($"£{itemTotal}\n");
-                    total += itemTotal;
+                    itemDiscount = item.Price * _items[item];
+                    itemDiscount = itemDiscount - discountedItems[item].Item2;
+                    totalDiscount += itemDiscount;
+                    message.Append($"\t\t\t(-£{float.Round(itemDiscount, 2)})\n\n");
                 }
+                else
+                {
+                    if (_items[item] > 0)
+                    {
+                        message.Append($"{item.Variant} {item.Name}".PadRight(22));
+                        message.Append($"{_items[item]}".PadRight(5));
+                        itemTotal = item.Price * _items[item];
+                        message.Append($"£{itemTotal}\n");
+                    }
+                }
+                total += itemTotal;
             }
+            
             message.Append("\n---------------------------------\n");
             message.Append($"Total\t\t".PadRight(18));
-            message.Append($"£{total}\n\n");
+            message.Append($"£{float.Round(total, 2)}\n\n");
+            if (totalDiscount > 0f)
+            {
+                message.Append($"\n  You saved a total of £{totalDiscount}\n\ton this shop\n\n");
+            }
             message.Append("\t    Thank you\n\t  for you order!\n");
+
+            message.Append("\n\n\n");
 
             Console.Write(message.ToString());
 
@@ -82,6 +103,7 @@ namespace exercise.main
             Dictionary <Item, (int, float)> discountedItems = new Dictionary<Item, (int, float)>();
             foreach (Discount discount in _discounts)
             {
+                discount.ResetDiscount();
                 if (items.Keys.Where(x => x.SKU == discount.DiscountItemSKU).ToList().Count() > 0)
                 {
                     Item foundItem = items.Keys.Where(x => x.SKU == discount.DiscountItemSKU).ToList()[0];

@@ -97,11 +97,10 @@ public class BobsBagelTests
     {
         BobsBagelStore store = new BobsBagelStore();
         store.StockUpInventory();
-        bool expectedResult = true;
 
-        bool acutalResult = store.ViewInventory();
+        string result = store.ViewInventory();
 
-        Assert.That(acutalResult, Is.EqualTo(expectedResult));
+        Assert.That(result, Is.Not.Empty);
     }
 
     [Test]
@@ -125,17 +124,13 @@ public class BobsBagelTests
         Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
         basket.AddItem(item1);
         basket.AddItem(item2);
-        bool expectedBoolResult = true;
-        Basket expectedBasketResult = basket;
+        Receipt receipt = new Receipt(basket);
 
-        Receipt? actualResult = store.GenerateReceipt(basket);
+        bool expectedResult = true;
+        
+        bool actualResult = store.AddReceipt(basket, receipt);
 
-        Assert.That((actualResult != null) == expectedBoolResult);
-        if (actualResult != null)
-        {
-            Assert.That(actualResult.RelatedBasket, Is.EqualTo(expectedBasketResult));
-            Assert.That(store.Baskets[0], Is.EqualTo(expectedBasketResult));
-        }
+        Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -147,11 +142,46 @@ public class BobsBagelTests
         Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
         basket.AddItem(item1);
         basket.AddItem(item2);
-        store.GenerateReceipt(basket);
+        Receipt receipt = new Receipt(basket);
+
         float expectedResult = 0.88f;
+
+        store.AddReceipt(basket, receipt);
 
         float actualResult = store.ViewProfits();
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
+    }
+
+    [Test]
+    public void TestPrintReceipt()
+    {
+        Basket basket = new Basket(30);
+        Item item1 = new Item("BGLO", 0.49f, "Bagel", "Onion");
+        Item item2 = new Item("BGLP", 0.39f, "Bagel", "Plain");
+        Item item3 = new Item("COFB", 0.99f, "Coffee", "Black");
+        Item item4 = new Item("BGLE", 0.49f, "Bagel", "Everything");
+
+        basket.AddItem(item1);
+        basket.AddItem(item1);
+
+        for (int i = 0; i < 12; i++)
+        {
+            basket.AddItem(item2);
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            basket.AddItem(item4);
+        }
+        basket.AddItem(item3);
+        basket.AddItem(item3);
+        basket.AddItem(item3);
+
+        Receipt receipt = new Receipt(basket);
+
+        string result = receipt.PrintReceipt();
+
+        Assert.That(result, Is.Not.Empty);
     }
 }
