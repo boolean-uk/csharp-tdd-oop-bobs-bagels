@@ -18,7 +18,6 @@ Second Domain Model
 |				  | `checkout()`                                         | method is called                            | calculates total cost + discount and prints a reciept          |
 |				  | `printReceipt(List<Tuple<>>)`                        | method is called                            | prints a reciept of all content in basket with discount        |
 |				  | `checkMenu()`                                        | method is called                            | returns the menu from the manager                              |
-
 | `Basket`		  | `getCapacity`                                        | method is called                            | returns the capacity of the basket                             |
 |				  |	`productNotInBasketWarning()`                        | method is called                            | prints warning                                                 |
 |				  |	`getProductsInBasket()`                              | method is called                            | returns list of products in basket                             |
@@ -26,22 +25,18 @@ Second Domain Model
 |				  |	                                                     | product is null                             | does not add product to list                                   |
 |				  |	`removeProduct(string SKU)`                          | string matches item in basket               | removes item                                                   |
 |				  |	                                                     | string does not match item in basket        | does not remove item                                           |
-
 | `Person`        | `Person(string Firstname, string LastName)`          | if called with args                         | creates an instance of person                                  |
-
 | `Manager`       | `changeBasketCapacity(int newCapacity)`              | if called with args                         | changes the basket capacity                                    |
 |				  |	`basketOverflowWarning()`                            | method is called                            | prints warning                                                 |
 |				  | `getMenu()`                                          | method is called                            | returns the menu available                                     |
 |				  | `getProduct(string SKU, Customer customer)`          | string matches item on menu                 | adds item to customers basket                                  |
 |				  |                                                      | string does not match item on menu          | does not add item to customers basket                          |
 |				  | `checkout(Basket basket)`                            | method is called                            | calculates total cost and returns list                         |
-
 | `Product`       | `getType()`                                          | if called                                   | returns the type of product                                    |
 |                 | `getPrice()`                                         | if called                                   | returns the price of product                                   |
 |                 | `getName()`                                          | if called                                   | returns the name of product                                    |
 |                 | `getSKU()`                                           | if called                                   | returns the name of product                                    |
 |                 | `getVariants()`                                      | if called                                   | returns the variants of product                                |
-
 | `Receipt`       | `printTop()`                                         | if called                                   | prints top of receipt                                          |
 |                 | `printMid()`                                         | if called                                   | prints mid of receipt                                          |
 |                 | `printBottom()`                                      | if called                                   | prints bottom of receipt                                       |
