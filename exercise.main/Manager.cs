@@ -16,7 +16,7 @@ namespace exercise.main
             this.name = name;
                        
         }
-        public void SetMaxSize(int max, Customer c) => c.SetBasketMaxSize(max);
+        public void SetMaxSize(int max, Customer c) => c.Basket.SetBasketMaxSize(max);
     }
     
 }

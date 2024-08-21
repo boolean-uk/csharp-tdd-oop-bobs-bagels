@@ -1,4 +1,5 @@
 ﻿using exercise.main;
+using exercise.main.products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace exercise.tests
         public Customer createCustomerAndItems()
         {
             Customer p = new Customer("Tom");
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(drinkType.COFB);
-            p.addItemToBascet(drinkType.COFB);
-            p.addItemToBascet(fillingType.FILS);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.COFB);
+            p.Basket.addItemToBascet(productType.COFB);
+            p.Basket.addItemToBascet(productType.FILS);
             return p;
         }
 
@@ -36,12 +37,12 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
             Console.WriteLine(p.GetReceiptWithDiiscount());
         }
 
@@ -50,18 +51,18 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
             Console.WriteLine(p.GetReceiptWithDiiscount());
         }
 
@@ -70,8 +71,8 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(drinkType.COFB);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.COFB);
 
             Console.WriteLine(p.GetReceiptWithDiiscount());
         }
@@ -81,30 +82,30 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(bagleType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.BGLO);
 
-            p.addItemToBascet(bagleType.BGLE);
-            p.addItemToBascet(bagleType.BGLE);
-            p.addItemToBascet(bagleType.BGLE);
-            p.addItemToBascet(bagleType.BGLE);
-            p.addItemToBascet(bagleType.BGLE);
-            p.addItemToBascet(bagleType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
+            p.Basket.addItemToBascet(productType.BGLE);
 
-            p.addItemToBascet(fillingType.FILB);
+            p.Basket.addItemToBascet(productType.FILB);
 
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(drinkType.COFB);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.COFB);
 
             Console.WriteLine(p.GetReceiptWithDiiscount());
         }

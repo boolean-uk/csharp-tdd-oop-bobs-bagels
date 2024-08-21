@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.products;
 
-namespace exercise.main
+namespace exercise.main.Extensions
 {
     internal class Extension2
     {
@@ -12,7 +13,8 @@ namespace exercise.main
         private DateTime combined;
         private List<Product> basketCopy;
         private Dictionary<string, int> productAmount;
-        public Extension2(List<Product> basket) {
+        public Extension2(List<Product> basket)
+        {
             basketCopy = basket;
             productAmount = new Dictionary<string, int>();
         }
@@ -23,7 +25,7 @@ namespace exercise.main
 
             DateTime date = DateTime.Now;
             TimeSpan time = new TimeSpan(36, 0, 0, 0);
-            this.combined = date.Add(time);
+            combined = date.Add(time);
 
 
             string ReceiptString = $"    ~~~ Bob's Bagels ~~~ \n\n    {combined} \n\n----------------------------\n";
@@ -32,14 +34,16 @@ namespace exercise.main
                 if (productAmount.ContainsKey(product.Name))
                 {
                     productAmount[product.Name]++;
-                } else
+                }
+                else
                 {
                     productAmount.Add(product.Name, 1);
                 }
-                 
+
             }
 
-            foreach (KeyValuePair<string, int> i in productAmount) {
+            foreach (KeyValuePair<string, int> i in productAmount)
+            {
 
                 ReceiptString += $"{i.Key}   {i.Value}  £{basketCopy.FirstOrDefault(p => p.Name.Equals(i.Key)).Cost}\n";
             }
@@ -54,7 +58,7 @@ namespace exercise.main
 
             DateTime date = DateTime.Now;
             TimeSpan time = new TimeSpan(36, 0, 0, 0);
-            this.combined = date.Add(time);
+            combined = date.Add(time);
             Extension1 discount = new Extension1(basketCopy, v);
 
             Dictionary<string, int> discounts = discount.GetRecieptDiscount();

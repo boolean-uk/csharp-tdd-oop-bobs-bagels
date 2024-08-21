@@ -1,4 +1,5 @@
 ﻿using exercise.main;
+using exercise.main.products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,12 @@ namespace exercise.tests
             M.SetMaxSize(30, p);
         }
         
-        public void PoppulateBaskets(int i, Customer p,bagleType productType)
+        public void PoppulateBaskets(int i, Customer p, productType productType)
         {
 
             for (int j = 0; j < i; j++)
             {
-                p.addItemToBascet(productType);
+                p.Basket.addItemToBascet(productType);
             }
 
         }
@@ -30,7 +31,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(6, p,bagleType.BGLO);
+            PoppulateBaskets(6, p,productType.BGLO);
             Assert.That(p.ImplementDiscount() == 2.49f);
         }
 
@@ -39,7 +40,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(12, p, bagleType.BGLP);
+            PoppulateBaskets(12, p, productType.BGLP);
             Assert.That(p.ImplementDiscount() == 3.99f);
         }
 
@@ -48,7 +49,7 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(6, p, bagleType.BGLE);
+            PoppulateBaskets(6, p, productType.BGLE);
             Assert.That(p.ImplementDiscount().Equals(2.49f));
         }
 
@@ -57,8 +58,8 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(drinkType.COFB);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.COFB);
             Assert.That(p.ImplementDiscount() == 1.25f);
         }
 
@@ -67,8 +68,8 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(6, p, bagleType.BGLE);
-            PoppulateBaskets(6, p, bagleType.BGLO);
+            PoppulateBaskets(6, p, productType.BGLE);
+            PoppulateBaskets(6, p, productType.BGLO);
             Assert.That(p.ImplementDiscount() == (float)Math.Round((2.49f + 2.49f), 2));
         }
 
@@ -77,9 +78,9 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(6, p, bagleType.BGLE);
-            PoppulateBaskets(6, p, bagleType.BGLO);
-            PoppulateBaskets(6, p, bagleType.BGLO);
+            PoppulateBaskets(6, p, productType.BGLE);
+            PoppulateBaskets(6, p, productType.BGLO);
+            PoppulateBaskets(6, p, productType.BGLO);
             Assert.That(p.ImplementDiscount() == (float)Math.Round((3.99f + 2.49f),2));
         }
 
@@ -88,11 +89,11 @@ namespace exercise.tests
         {
             Customer p = new Customer("Tom");
             SetBsketSizeToThirty(p);
-            PoppulateBaskets(6, p, bagleType.BGLE);
-            PoppulateBaskets(12, p, bagleType.BGLO);
-            PoppulateBaskets(3, p, bagleType.BGLP);
-            p.addItemToBascet(drinkType.COFB);
-            p.addItemToBascet(drinkType.COFB);
+            PoppulateBaskets(6, p, productType.BGLE);
+            PoppulateBaskets(12, p, productType.BGLO);
+            PoppulateBaskets(3, p, productType.BGLP);
+            p.Basket.addItemToBascet(productType.COFB);
+            p.Basket.addItemToBascet(productType.COFB);
 
             Assert.That(p.ImplementDiscount() == (float)Math.Round((3.99f + 2.49f+1.25f +1.25f + 0.39f), 2));
         }

@@ -1,4 +1,5 @@
 ﻿using exercise.main;
+using exercise.main.products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace exercise.tests
         public Customer createCustomerAndItems()
         {
             Customer p = new Customer("Tom");
-            p.addItemToBascet(bagleType.BGLO);
-            p.addItemToBascet(drinkType.COFB);
-            p.addItemToBascet(drinkType.COFB);
-            p.addItemToBascet(fillingType.FILS);
+            p.Basket.addItemToBascet(productType.BGLO);
+            p.Basket.addItemToBascet(productType.COFB);
+            p.Basket.addItemToBascet(productType.COFB);
+            p.Basket.addItemToBascet(productType.FILS);
             return p;
         }
 

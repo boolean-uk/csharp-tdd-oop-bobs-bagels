@@ -5,113 +5,39 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.Extensions;
 
 namespace exercise.main
 {
     public class Customer 
     {
-        private List<Product> basket;
-        protected int basketMaxSize;
+        private Basket basket;
         private string name;
 
         public Customer(string name)
         {
-            this.basket = new List<Product>();
-            this.basketMaxSize = 5;
+            this.basket = new Basket();
             this.name = name;
         }
 
-        public bool addItemToBascet(drinkType p)
-        {
-            if (basket.Count >= basketMaxSize)
-            {
-                return false;
-            }
-            else 
-            {
-                Console.WriteLine($"Added {new Drink(p).Name} to basket, it costs: {new Drink(p).Cost} ");
-                basket.Add(new Drink(p));
-                return true;
-            }
-        }
-        public bool addItemToBascet(fillingType p)
-        {
-            if (basket.Count >= basketMaxSize)
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine($"Added {new Fillings(p).Name} to basket, it costs: {new Fillings(p).Cost} ");
-                basket.Add(new Fillings(p));
-                return true;
-            }
-        }
-        public bool addItemToBascet(bagleType p)
-        {
-            if (basket.Count >= basketMaxSize)
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine($"Added {new Bagle(p).Name} to basket, it costs: {new Bagle(p).Cost} ");
-                basket.Add(new Bagle(p));
-                return true;
-            }
-        }
-
-
-        public bool addItemToBascet(Product p)
-        {
-            if (basket.Count >= basketMaxSize)
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine($"Added {p.Name} to basket, it costs: {p.Cost} ");
-                basket.Add(p);
-                return true;
-            }
-        }
-
-        public bool removeItemFromBasket(Product p) {
-            return basket.Remove(p);
-        }
-
-        public List<Product> GetBasket() { return basket; }
-
-        public int GetBasketMaxSize() { return basketMaxSize; }
-        public void SetBasketMaxSize(int basketMaxSize) { this.basketMaxSize = basketMaxSize; }
-
-        public float GetCost()
-        {
-            float cost = 0f;
-            foreach (Product p in basket)
-            {
-                cost += p.Cost;
-            }
-
-            return cost;
-        }
+        public Basket Basket { get { return basket; } }
 
         public float ImplementDiscount()
         {
-            Extension1 discount = new Extension1(basket, GetCost());
+            Extension1 discount = new Extension1(this.basket.GetBasket(), this.basket.GetCost());
             return discount.ValidateDiscounts();
         }
 
         public string GetPlainReceipt()
         {
-            Extension2 receipt = new Extension2(basket);
-            return receipt.Receipt(GetCost());
+            Extension2 receipt = new Extension2(this.basket.GetBasket());
+            return receipt.Receipt(this.basket.GetCost());
         }
 
         public string GetReceiptWithDiiscount()
         {
-            Extension3 receipt = new Extension3(basket);
-            return receipt.ReciptWithDiscount(GetCost());
+            Extension3 receipt = new Extension3(this.basket.GetBasket());
+            return receipt.ReciptWithDiscount(this.basket.GetCost());
         }
     }
 }

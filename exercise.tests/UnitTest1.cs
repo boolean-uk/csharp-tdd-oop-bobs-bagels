@@ -1,4 +1,5 @@
 using exercise.main;
+using exercise.main.products;
 using System.Xml.Serialization;
 using static NUnit.Framework.Internal.OSPlatform;
 
@@ -14,10 +15,10 @@ public class Tests
     public Customer createCustomerAndItems()
     {
         Customer p = new Customer("Tom");
-        p.addItemToBascet(bagleType.BGLO);
-        p.addItemToBascet(drinkType.COFB);
-        p.addItemToBascet(drinkType.COFB);
-        p.addItemToBascet(fillingType.FILS);
+        p.Basket.addItemToBascet(productType.BGLO);
+        p.Basket.addItemToBascet(productType.COFB);
+        p.Basket.addItemToBascet(productType.COFB);
+        p.Basket.addItemToBascet(productType.FILS);
         return p;
     }
 
@@ -25,8 +26,8 @@ public class Tests
     public void AddToBasket()
     {
         Customer p = createCustomerAndItems();
-        Assert.True(p.addItemToBascet(bagleType.BGLE));
-        Assert.False(p.addItemToBascet(fillingType.FILS));
+        Assert.True(p.Basket.addItemToBascet(productType.BGLE));
+        Assert.False(p.Basket.addItemToBascet(productType.FILS));
 
     }
 
@@ -34,11 +35,11 @@ public class Tests
     public void RemoveFromBasket()
     {
         Customer p = createCustomerAndItems();
-        Product item = new Drink(drinkType.COFB);
-        p.addItemToBascet(item);
-        Assert.True(p.GetBasket().Count == 5);
-        Assert.True(p.removeItemFromBasket(item));
-        Assert.True(p.GetBasket().Count == 4);
+        Product item = new Drink(productType.COFB);
+        p.Basket.addItemToBascet(item);
+        Assert.True(p.Basket.GetBasket().Count == 5);
+        Assert.True(p.Basket.removeItemFromBasket(item));
+        Assert.True(p.Basket.GetBasket().Count == 4);
 
     }
 
@@ -46,22 +47,22 @@ public class Tests
     public void GetTotalCostOfBasket()
     {
         Customer p = new Customer("Tom");
-        p.addItemToBascet(bagleType.BGLO);
-        p.addItemToBascet(drinkType.COFB);
-        p.addItemToBascet(drinkType.COFB);
-        Assert.True(p.GetCost() == 2.47f);
+        p.Basket.addItemToBascet(productType.BGLO);
+        p.Basket.addItemToBascet(productType.COFB);
+        p.Basket.addItemToBascet(productType.COFB);
+        Assert.True(p.Basket.GetCost() == 2.47f);
 
 
     }
 
-    [Test]
+    [Test]  
     public void ChangeCapacityOfBasket()
     {
         Customer p = createCustomerAndItems();
-        Assert.True(p.GetBasketMaxSize() == 5);
+        Assert.True(p.Basket.GetBasketMaxSize() == 5);
         Manager M = new Manager("Manager");
         M.SetMaxSize(10, p);
-        Assert.True(p.GetBasketMaxSize() == 10);
+        Assert.True(p.Basket.GetBasketMaxSize() == 10);
 
     }
 }   

@@ -8,5 +8,8 @@ namespace exercise.main
 {
     public interface IProduct
     {
+        string Name { get; }
+        float Cost { get; }
+
     }
 }
