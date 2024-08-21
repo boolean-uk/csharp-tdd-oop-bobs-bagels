@@ -1,6 +1,6 @@
 #Domain Models In Here
 
-Second Domain Model
+Domain Model
 | Classes         | Methods												 | Scenario                                    | Outputs                                                        |
 |-----------------|------------------------------------------------------|---------------------------------------------|----------------------------------------------------------------|
 | `Customer`      | `addProduct(string name)`							 | if product type exists                      | calls method in manager to add product					        |
