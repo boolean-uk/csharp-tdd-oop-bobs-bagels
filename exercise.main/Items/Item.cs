@@ -12,6 +12,7 @@ namespace exercise.main.Items
         private string _sku;
         private double _price;
         private string _variant;
+        private int _quantity;
 
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }

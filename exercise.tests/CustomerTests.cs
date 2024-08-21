@@ -1,3 +1,4 @@
+using exercise.main;
 using exercise.main.Items;
 using exercise.main.Persons;
 
@@ -149,5 +150,47 @@ public class CustomerTests
 
         // Verify
         Assert.IsTrue(result & bagel.Fillings.Contains(filling));
+    }
+
+    [Test]
+    public void GetReceipt()
+    {
+        Customer customer = new Customer("customer", false);
+        ShopInventory shopInventory = new ShopInventory();
+
+        // 2 onion Bagel
+        Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
+        customer.AddItemToBasket(onionBagel);
+        customer.AddItemToBasket(onionBagel);
+
+        // 12 Plain Bagel
+        Bagel plainBagel = shopInventory.GetBagelBySkuID("BGLP");
+        for (int i = 0; i < 12; i++)
+        {
+            customer.AddItemToBasket(plainBagel);
+        }
+        
+        // 6 Everything Bagel
+        Bagel everythingBagel = shopInventory.GetBagelBySkuID("BGLE");
+        for (int i = 0; i < 6; i++)
+        {
+            customer.AddItemToBasket(everythingBagel);
+        }
+
+        // 3 Black Coffee
+        Coffee coffee = shopInventory.GetCoffeeBySkuID("COFB");
+        customer.AddItemToBasket(coffee);
+        customer.AddItemToBasket(coffee);
+        customer.AddItemToBasket(coffee);
+
+        string shopName = "Bob's Bagels";
+
+        Receipt customerReceipt = customer.GetReceipt(shopName);
+
+        Assert.Fail();
+
+        //Assert.IsTrue(customerReceipt != null);
+        //Assert.IsTrue(customerReceipt != null);
+        //Assert.IsTrue(customerReceipt != null);
     }
 }

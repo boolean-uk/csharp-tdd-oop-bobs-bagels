@@ -86,5 +86,10 @@ namespace exercise.main.Persons
 
             return false;
         }
+
+        public Receipt GetReceipt(string shopName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

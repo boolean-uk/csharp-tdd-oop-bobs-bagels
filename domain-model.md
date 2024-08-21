@@ -53,3 +53,12 @@
 |`Bagel : Item`| List\<Filling> _bagelFillings_ |
 |`Filling : Item`|  |
 |`Coffee : Item`|  |
+
+***
+
+### Extension 2: Receipts
+#### As a customer, <br> So I can see what I have bought, <br> I'd like to get a receipt of the items I have bought.
+
+| **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
+|:---:|:---:|:---:|:---:|
+| `Customer` | Add(Item) | Adds a bagel to the basket | bool | The Add(Item)-method calls the Add(Item)-method in basket to update the List inside the Basket-class. Returns a boolean for confirmation. |
