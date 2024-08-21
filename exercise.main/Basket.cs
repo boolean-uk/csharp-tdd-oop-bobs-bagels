@@ -104,6 +104,11 @@ namespace tdd_bobs_bagels.CSharp.Main
             return _totalPrice;
         }
 
+        public string PrintReciept()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Bagel> AmountOfBagels { get => _bagels; set => _bagels = value; }
         public int Capacity { get => _capacity; set => _capacity = value; }
     }
