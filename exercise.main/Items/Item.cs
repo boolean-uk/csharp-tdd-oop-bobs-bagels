@@ -14,12 +14,14 @@ namespace exercise.main.Items
         private double _originalPrice;
         private string _variant;
         private int _quantity;
+        private double _moneySaved;
 
         public string Sku { get => _sku; set => _sku = value; }
         public double Price { get => _price; set => _price = value; }
         public double OriginalPrice { get => _originalPrice; set => _originalPrice = value; }
         public string Variant { get => _variant; set => _variant = value; }
         public int Quantity { get => _quantity; set => _quantity = value; }
+        public double MoneySaved { get => _moneySaved; set => _moneySaved = value; }
         #endregion
 
         protected Item()
@@ -61,6 +63,8 @@ namespace exercise.main.Items
                     _price = Math.Round((3.99 * (_quantity / 12)) + (_originalPrice * (_quantity % 12)), 2);
                 }
             }
+
+            _moneySaved = Math.Round((_originalPrice * _quantity) - _price, 2);
         }
     }
 }

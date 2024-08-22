@@ -166,4 +166,24 @@ public class ItemTests
         // Verify
         Assert.IsTrue(plainBagel.Price == 4.38);
     }
+
+    [Test]
+    public void MoneySavedFromSpecialOffer()
+    {
+        // Setup
+        Customer customer = new Customer("customer", false);
+        ShopInventory shopInventory = new ShopInventory();
+        customer.Basket.Capacity = 50;
+
+        // Execute
+        Bagel plainBagel = shopInventory.GetBagelBySkuID("BGLP");
+
+        for (int i = 0; i < 12; i++)
+        {
+            customer.AddItemToBasket(plainBagel);
+        }
+
+        // Verify
+        Assert.IsTrue(plainBagel.MoneySaved == -0.69);
+    }
 }

@@ -11,6 +11,10 @@ Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
 
 customer.AddItemToBasket(onionBagel);
 customer.AddItemToBasket(onionBagel);
+customer.AddItemToBasket(onionBagel);
+customer.AddItemToBasket(onionBagel);
+customer.AddItemToBasket(onionBagel);
+customer.AddItemToBasket(onionBagel);
 
 Filling creamCheeseFilling = shopInventory.GetFillingBySkuID("FILX");
 Filling smokedSalmonFilling = shopInventory.GetFillingBySkuID("FILS");
