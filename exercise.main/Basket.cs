@@ -140,7 +140,7 @@ namespace exercise.main
                         prod.Key.Price = 2.49d;
 
                     }
-                    else if (prod.Value == 6 && prod.Key.SKU.StartsWith("BGL"))
+                    else if (prod.Value == 12 && prod.Key.SKU.StartsWith("BGL"))
                     {
                         prod.Key.Price = 3.99d;
                     }
@@ -173,10 +173,6 @@ namespace exercise.main
 
         }
 
-       
-
-      
-        
 
         public List<InventoryProducts> Items { get { return _items; } }
         public int Capacity { get { return _capacity; } set { _capacity = value; } }

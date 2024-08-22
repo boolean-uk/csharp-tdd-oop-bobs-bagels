@@ -32,7 +32,7 @@ namespace exercise.main
             foreach (var item in Products)
             {
                 string varName = $"{item.Variant} {item.Name}".PadRight(25);
-                receipt += $"{varName}{item.Quantity}   £{item.Price} \n";
+                receipt += $"{varName}{item.Quantity.ToString().PadLeft(2)}   £{item.Price:F2} \n";
             }
             receipt += new String('-',33) + "\n" +
                $"Total{new string(' ', 24)}£{TotalCost:F2}\n\n" +

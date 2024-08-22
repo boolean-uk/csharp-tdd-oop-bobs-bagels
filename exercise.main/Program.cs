@@ -10,12 +10,15 @@ InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "S
 InventoryProducts coffeeWhite = new InventoryProducts("COFW", 1.19d, "Coffee", "White");
 InventoryProducts fillingSalmon = new InventoryProducts("FILS", 0.12d, "Filling","Smoked Salmon");
 basket.Items.Add(bagelOnion);
-basket.Items.Add(bagelSesame);
 basket.Items.Add(coffeeWhite);
-basket.Items.Add(bagelSesame);
 basket.Items.Add(fillingSalmon);
 basket.Items.Add(bagelOnion);
 basket.Items.Add(bagelOnion);
+for(int i = 0; i < 12; i++)
+{
+    basket.Items.Add(bagelSesame);
+
+}
 
 
 //Execute
