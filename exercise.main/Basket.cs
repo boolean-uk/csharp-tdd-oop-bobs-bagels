@@ -26,28 +26,29 @@ namespace exercise.main
             // Check if the product exists in the category
             if (!_category.ContainsKey(sku)) return false;
 
-            Product value = _category[sku];
-
             // Check if the basket is full
             if (this.IsFull) return false;
+
+            Product value = _category[sku];
 
             // Check if there is more of the product in stock
             bool result = value.DecreaseStock();
             if (!result) return false;
 
+            ProductOrder order;
             // Check if order already exists, in this case, just increment it by amount
             if (_products.ContainsKey(skuKey))
             {
+                order = _products[skuKey];
                 _products[skuKey].Amount += amount;
             }
             else
             {
-                ProductOrder po = new ProductOrder(value, amount);
-                _products.Add(skuKey, po);
+                order = new ProductOrder(value, amount);
+                _products.Add(skuKey, order);
             }
 
-            ProductOrder order = _products[skuKey];
-
+            // Add coffee or fillings to the bagel order
             for (int i = 1; i < skus.Length; i++)
             {
                 // Currently you can only add a black coffee to an existing order,
@@ -58,7 +59,7 @@ namespace exercise.main
                     amount *= 2;
                 }
                 // Add filling to the bagel!
-                if (_category[skus[i]].Name == "Filling") order.AddFilling(_category[skus[i]]);
+                if (_category[skus[i]] is Filling) order.AddFilling(_category[skus[i]]);
                 // Decrease the stock from the store...
                 _category[skus[i]].DecreaseStock();
             }
@@ -83,15 +84,15 @@ namespace exercise.main
             Product p1 = _category[v1];
             Product p2 = _category[v2];
 
-            if (p1.GetType() == typeof(Bagel) && p2.Sku == "COFB") return AddItem([p1.Sku, p2.Sku], 1);
-            if (p2.GetType() == typeof(Bagel) && p1.Sku == "COFB") return AddItem([p2.Sku, p1.Sku], 1);
+            if (p1 is Bagel && p2.Sku == "COFB") return AddItem([p1.Sku, p2.Sku], 1);
+            if (p2 is Bagel && p1.Sku == "COFB") return AddItem([p2.Sku, p1.Sku], 1);
             else return false;
         }
 
         // This is to add a bagel with toppings/coffee order
         public bool Add(string v1, string[] v2)
         {
-            if (!_category.ContainsKey(v1) && _category[v1].GetType() != typeof(Bagel)) return false;
+            if (!_category.ContainsKey(v1) && _category[v1] is not Bagel) return false;
 
             string[] orderKey = new string[1 + v2.Length];
             orderKey[0] = v1;
@@ -100,8 +101,8 @@ namespace exercise.main
             for (int i = 0; i < v2.Length; i++)
             {
                 if (!_category.ContainsKey(v2[i])) return false; else orderKey[i + 1] = v2[i];
-                if (_category[v2[i]].GetType() == typeof(Bagel)) return false; // cant add bagel to bagel
-                if (_category[v2[i]].GetType() == typeof(Coffee))
+                if (_category[v2[i]] is Bagel) return false; // cant add bagel to bagel
+                if (_category[v2[i]] is Coffee)
                 {
                     if (!coffeeAdded) coffeeAdded = true;
                     else return false;
