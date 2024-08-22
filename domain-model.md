@@ -53,6 +53,7 @@
 |`Bagel : Item`| List\<Filling> _bagelFillings_ |
 |`Filling : Item`|  |
 |`Coffee : Item`|  |
+|`Receipt` | List<Item> _boughtItems_, string _shopName_, double _total_ |
 
 ***
 
