@@ -94,14 +94,27 @@ namespace exercise.main
         private static List<Discount> populateList(Basket basket)
         {
             List<Discount> discounts = new List<Discount>();
-            discounts.Add(new Discount("BGLE", "Bagel", twelveBagelDiscount, 3.99f, basket));
-            discounts.Add(new Discount("BGLE", "Bagel", sixBagelDiscount, 2.49f, basket));
-            discounts.Add(new Discount("COFB", "Bagel", bagelAndCoffe, 1.25f, basket));
+            discounts.Add(new Discount("BGLE", "12 x Bagel Discount", twelveBagelDiscount, 3.99f, basket));
+            discounts.Add(new Discount("BGLE", "6 x Bagel Discount", sixBagelDiscount, 2.49f, basket));
+            discounts.Add(new Discount("COFB", "Bagel & Coffee Discount", bagelAndCoffe, 1.25f, basket));
 
             return discounts;
         }
 
-        public static float checkOut(Basket basket)
+        public static Receipt checkOut(Basket basket)
+        {
+            List<Discount> discounts = populateList(basket);
+            foreach (Discount discount in discounts)
+            {
+                List<Item> discnt = discount.getDiscounts();
+                foreach (Item item in discnt)
+                {
+                    basket.AddItem(item);
+                }
+            }
+            return new Receipt(basket);
+        }
+        public static float checkOutPrice(Basket basket)
         {
             List<Discount> discounts = populateList(basket);
             foreach (Discount discount in discounts)

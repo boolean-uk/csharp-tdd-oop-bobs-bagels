@@ -1,4 +1,5 @@
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace exercise.tests;
 
@@ -16,7 +17,7 @@ public class Tests
         bb = new BobsBagel(20);
         basket = bb.NewBasket();
         fillerItem = Inventory.inventory[0];
-        
+
         testItem = new Bagel("Cfe", 1.3f, "Coffee");
         testFilling = new Filling("HAM", 0.12f, "Ham");
         item1 = Inventory.inventory[1];
@@ -27,7 +28,7 @@ public class Tests
     public void AddItemTest(bool expResult, int basketCount, int basketCapacity)
     {
         basket = new Basket(basketCapacity);
-        for(int i = 0; i < basketCount; i++)
+        for (int i = 0; i < basketCount; i++)
         {
             basket.AddItem(fillerItem);
         }
@@ -122,7 +123,7 @@ public class Tests
     [Test]
     public void CheckOutTest()
     {
-        for (int i = 0; i < 18; i++) 
+        for (int i = 0; i < 18; i++)
         {
             basket.AddItem(item1);
         }
@@ -130,8 +131,42 @@ public class Tests
         bagel.AddFilling((Filling)Inventory.inventory[11]);
         basket.AddItem(bagel);
 
-        float sum = CheckOut.checkOut(basket);
+        float sum = CheckOut.checkOutPrice(basket);
+        //float sumReceipt = basket.GetCost();
         //Console.WriteLine(basket.Items.Count);
-        Assert.That(sum, Is.EqualTo((float)Math.Round(3.99f + 2.49f + 0.12f + 0.49f, 2)));
+        Assert.That(sum, Is.EqualTo((float)Math.Round(3.99f + 2.49f + 0.12f * 3 + 0.49f, 2)));
+    }
+
+    [Test]
+    public void CheckOutReceiptTest()
+    {
+        for (int i = 0; i < 18; i++)
+        {
+            basket.AddItem(item1);
+        }
+        Bagel bagel = (Bagel)Inventory.inventory[3];
+        bagel.AddFilling((Filling)Inventory.inventory[11]);
+        basket.AddItem(bagel);
+
+        Receipt sum = CheckOut.checkOut(basket);
+
+        Assert.That(sum.printReceipt());
+        //Console.WriteLine(basket.Items.Count);
+        //Assert.That(sum, Is.EqualTo((float)Math.Round(3.99f + 2.49f + 0.12f + 0.49f, 2)));
+    }
+    [Test]
+    public void CheckOutSendReceiptTest()
+    {
+        for (int i = 0; i < 18; i++)
+        {
+            basket.AddItem(item1);
+        }
+        Bagel bagel = (Bagel)Inventory.inventory[3];
+        bagel.AddFilling((Filling)Inventory.inventory[11]);
+        basket.AddItem(bagel);
+
+        Receipt sum = CheckOut.checkOut(basket);
+
+        Assert.That(sum.sendReceipt());
     }
 }

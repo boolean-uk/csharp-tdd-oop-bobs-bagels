@@ -11,3 +11,14 @@
 | `Item`          | `AddFilling(Filling filling)`		   | Adds the given filling to the bagel  | true	   |
 |				  |										   | Unable to add filling				  | false      |
 | `BobsBagel`	  | `ChangeBasketCapacity(int cap)`		   | Changes the capacity of new baskets  | true	   |
+
+
+
+
+##Domain Model for Extensions !!!##
+
+| Class		      | Methods                                | Scenario                             | Output     |
+|-----------------|----------------------------------------|--------------------------------------|------------|
+|`CheckOut`       | `checkOut(Basket basket)`              | Return a Receipt with all discounts  | List       | 
+|`Receipt`        | `printReceipt`                         | Print the receipt in the terminal    | true       |
+|`Discount`       | `getItemCost()`                        | Returns discounted price             | float      |

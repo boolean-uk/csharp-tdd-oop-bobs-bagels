@@ -56,5 +56,10 @@ namespace exercise.main
             float fillingPrice = discountedItems.Sum(x => x.GetItemCost() - x.Price);
             return Price + fillingPrice;
         }
+
+        public float GetOriginalPrice()
+        {
+            return discountedItems.Sum(x => x.Price);
+        }
     }
 }
