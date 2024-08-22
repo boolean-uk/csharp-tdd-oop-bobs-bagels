@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Items
 {
-    public class Coffee : IItem
+    public class Coffee : IItem, IDiscountable
     {
         public string id { get; set; }
         public double price { get; set; }
         public string name { get; set; }
         public string variant { get; set; }
+        public int discount { get; set; }
 
         public Coffee() { }
 

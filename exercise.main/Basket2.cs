@@ -92,12 +92,12 @@ namespace exercise.main
         public void Receipt()
         {
 
-            List<string> itemsCounted = new List<string>();
 
             string receipt = "~~~ Bob's Bagels ~~~" + "\n\n" +
                 DateTime.Now.ToString() + "\n\n" +
                 "------------------------" + "\n\n";
 
+            List<string> itemsCounted = new List<string>();
 
             _basketItems.ForEach(item => {
 
@@ -120,5 +120,38 @@ namespace exercise.main
 
             Console.WriteLine(receipt);
         }
+
+        /*
+        public double Discount()
+        {
+            List<string> itemsCounted = new List<string>();
+
+            _basketItems.ForEach((item) =>
+            {
+                if (!itemsCounted.Contains(item.id))
+                {
+                    int itemCount = 0;
+                    foreach (var copy in _basketItems)
+                    {
+                        if (copy.id == item.id)
+                        {
+                            itemCount++;
+                        }
+                    }
+                    itemsWithCount.Add(item, itemCount);
+                    itemsCounted.Add(item.id);
+                }
+            });
+
+            double bagAndCof = 1.25;
+            double sixBagels = 2.49;
+            double twelBagels = 3.99;
+
+            if () {
+
+            if (_basketItems.Count == 2 && itemsCounted is IDiscountable) {
+
+        }
+        */
     }
 }
