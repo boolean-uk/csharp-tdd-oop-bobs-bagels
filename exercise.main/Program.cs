@@ -63,8 +63,20 @@ Basket2 basket2 = new Basket2();
 IItem bp = new Bagel() { id="BGLP", price=0.39, name="Bagel", variant="Plain" };
 
 //Console.WriteLine(basket2.removeItem(bp));
+
+Console.WriteLine(basket2.changeBasketCapacity(8, person.role));
+
+Console.WriteLine(basket2.addItem(bp));
+Console.WriteLine(basket2.addItem(bp));
+Console.WriteLine(basket2.addItem(bp));
+Console.WriteLine(basket2.addItem(bp));
+Console.WriteLine(basket2.addItem(bp));
 Console.WriteLine(basket2.addItem(bp));
 
 // Console.WriteLine(basket2.removeItem(bp));
+// Console.WriteLine(basket2.getPriceOfItem(bp));
 
+// Console.WriteLine("TOTAL: " + basket2.totalCost());
 
+Console.WriteLine("\n");
+basket2.Receipt();

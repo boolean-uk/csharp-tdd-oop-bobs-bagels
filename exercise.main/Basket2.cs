@@ -58,5 +58,67 @@ namespace exercise.main
             Console.WriteLine($"Removed: {item.name} {item.variant}");
             return true;
         }
+
+        public int changeBasketCapacity(int newCapacity, Role role)
+        {
+
+            if (role != Role.MANAGER)
+            {
+                Console.WriteLine("Only the manager can change capacity!");
+                return -1;
+            }
+
+            MAX_BASKET_SIZE = newCapacity;
+
+            return MAX_BASKET_SIZE;
+        }
+
+        public double totalCost()
+        {
+            return Math.Round(_basketItems.Sum(item => item.price), 2);
+        }
+
+        public double getPriceOfItem(IItem item)
+        {
+            if (!inventory2.getInventory2().Any(x => itemsIsEqual(x, item)))
+            {
+                Console.WriteLine($"{item.name} {item.variant} not in Bobs inventory");
+                return -1;
+            }
+
+            return item.price;
+        }
+
+        public void Receipt()
+        {
+
+            List<string> itemsCounted = new List<string>();
+
+            string receipt = "~~~ Bob's Bagels ~~~" + "\n\n" +
+                DateTime.Now.ToString() + "\n\n" +
+                "------------------------" + "\n\n";
+
+
+            _basketItems.ForEach(item => {
+
+                if (!itemsCounted.Contains(item.id))
+                {
+                    int itemCount = 0;
+                    foreach (var copy in _basketItems)
+                    {
+                        if (copy.id == item.id)
+                        {
+                            itemCount++;
+                        }
+                    }
+                    receipt += $"{item.name} {item.variant}   {itemCount}  £{item.price * itemCount} \n\n";
+                    itemsCounted.Add(item.id);
+                }
+            });
+
+            receipt += $"------------------------ \n\nTotal             £{totalCost()} \n\nThank you for your order!";
+
+            Console.WriteLine(receipt);
+        }
     }
 }
