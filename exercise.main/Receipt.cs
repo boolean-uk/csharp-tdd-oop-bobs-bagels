@@ -29,13 +29,15 @@ namespace exercise.main
 
         public void PrintReceipt()
         {
-            Console.WriteLine($"~~~ {_shopName} ~~~\n\n" +
-                $"{DateTime.Now:yyyy-mm-dd HH:mm:ss}\n\n" +
-                $"----------------------------\n");
+            int receiptLineDivide = 40;
+
+            Console.WriteLine($"~~~ {_shopName} ~~~\n\n".PadLeft(30) +
+                $"{DateTime.Now:yyyy-mm-dd HH:mm:ss}\n\n".PadLeft(29) +
+                $"{new string('-', receiptLineDivide)}");
 
             foreach (var item in _boughtItems)
             {
-                Console.WriteLine($"{item.Variant} {item.GetType().Name}".PadRight(27) + $"{item.Quantity}".PadRight(4) + $"£{Math.Round(item.Price, 2)}");
+                Console.WriteLine($"{item.Variant} {item.GetType().Name}".PadRight(28) + $"{item.Quantity}".PadRight(4) + $"£{Math.Round(item.Price, 2)}");
 
                 if (item is Bagel bagel)
                 {
@@ -43,16 +45,18 @@ namespace exercise.main
                     {
                         foreach (Filling filling in bagel.Fillings) 
                         {
-                            Console.WriteLine($"|=> {filling.Variant} {filling.GetType().Name}".PadRight(27) + $"{filling.Quantity}".PadRight(3) + $" £{Math.Round(filling.Price, 2)}");
+                            Console.WriteLine($"|--> {filling.Variant} {filling.GetType().Name}".PadRight(28) + $"{filling.Quantity}".PadRight(3) + $" £{Math.Round(filling.Price, 2)}");
                         }
+
+                        Console.Write("\n");
                     }
                 }
             }
 
-            Console.WriteLine("\n----------------------------\n" +
-                $"Total: £{_total}\n\n" +
-                $"Thank you\n" +
-                $"for your order!");
+            Console.WriteLine($"\n{new string('-', receiptLineDivide)}\n" +
+                $"Total: " + $"£{_total}\n\n".PadLeft(33) +
+                $"Thank you\n".PadLeft(22) +
+                $"for your order!".PadLeft(25));
         }
     }
 }
