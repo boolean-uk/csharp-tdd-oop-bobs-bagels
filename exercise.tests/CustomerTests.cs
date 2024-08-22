@@ -191,5 +191,9 @@ public class CustomerTests
         Assert.IsTrue(customerReceipt != null);
         Assert.IsTrue(customerReceipt?.BoughtItems.Count() == 4);
         Assert.IsTrue(customer.Basket.Capacity == 0);
+        Assert.IsTrue(onionBagel.Quantity == 2);
+        Assert.IsTrue(plainBagel.Quantity == 12);
+        Assert.IsTrue(everythingBagel.Quantity == 6);
+        Assert.IsTrue(coffee.Quantity == 3);
     }
 }

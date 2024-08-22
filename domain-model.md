@@ -56,6 +56,21 @@
 
 ***
 
+# Extensions
+
+### Extension 1: Discounts
+#### As a customer, <br> So I can save money when buying onion bagels, <br> I'd like to get a discount when buying 6 onion bagels.
+
+#### As a customer, <br> So I can save money when buying plain bagels, <br> I'd like to get a discount when buying 12 plain bagels.
+
+#### As a customer, <br> So I can save money when buying everything bagels, <br> I'd like to get a discount when buying 6 everything bagels.
+
+#### As a customer, <br> So I can save money when buying a black coffee and a bagel, <br> I'd like to get a discount when buying a black coffee and a bagel.
+
+| **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
+|:---:|:---:|:---:|:---:|
+| `Item` | CheckForDiscount() | Checks if the item is eligible for discount | void | The CheckForDiscount()-method checks if the item is eligible for a discount based on the special offers. If the item is eligible for a discount it will update its properties, such as price.  |
+
 ### Extension 2: Receipts
 #### As a customer, <br> So I can see what I have bought, <br> I'd like to get a receipt of the items I have bought.
 
