@@ -2,7 +2,9 @@
 using exercise.main;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,7 @@ namespace tdd_bobs_bagels.CSharp.Main
 
     public class Basket
     {
+        private Dictionary<string, List<string>> _checkout = new Dictionary<string, List<string>>();
         private List<Bagel> _bagels = new List<Bagel>();
         private List<Coffee> _coffee = new List<Coffee>();
         private int _capacity = 10;
@@ -103,12 +106,108 @@ namespace tdd_bobs_bagels.CSharp.Main
         {
             return _totalPrice;
         }
-
-        public string PrintReciept()
+        public Dictionary<string, int> CheckOut()
         {
-            throw new NotImplementedException();
+            //returns a dictionary with SKU as key and amount of duplicates as value
+
+            //List<string> bagelSkuList = _bagels.Select(b => b.SKU).ToList();
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+
+            foreach (Bagel bagel in _bagels)
+            {
+                if (counts.ContainsKey(bagel.SKU))
+                {
+                    counts[bagel.SKU]++;
+                }
+                else
+                {
+                    counts[bagel.SKU] = 1;
+                }
+            }
+            foreach (Coffee coffee in _coffee)
+            {
+                if (counts.ContainsKey(coffee.SKU))
+                {
+                    counts[coffee.SKU]++;
+                }
+                else
+                {
+                    counts[coffee.SKU] = 1;
+                }
+            }
+            return counts;
         }
 
+        public string PrintBetterReceipt()
+        {
+            StringBuilder receipt = new();
+            DateTime now = DateTime.Now;
+            Dictionary<string, int> counts = CheckOut();
+
+
+            receipt.AppendLine("    ~~~ Bob's Bagels ~~~     \n");
+            receipt.AppendLine("         " + now.ToString("dd/MM/yyyy"));
+            receipt.AppendLine("----------------------------\n");
+            return receipt.ToString();
+        }
+
+
+        public string PrintReceipt()
+        {
+            //prints the receipt (ISUE FOUND: cant sum up all the elements in one line)
+            StringBuilder receipt = new();
+            DateTime now = DateTime.Now;
+            receipt.AppendLine("    ~~~ Bob's Bagels ~~~     \n");
+            receipt.AppendLine("         " + now.ToString("dd/MM/yyyy"));
+            receipt.AppendLine("----------------------------\n");
+            if (_bagels.Count > 0)
+            {
+                foreach (Bagel bagel in _bagels)
+                {
+                    float bagelPrice = bagel.Price;
+                    string bagelName = bagel.CurrentFlavor.Substring(0, 1).ToUpper() + bagel.CurrentFlavor.Substring(1);
+                    float bagelTotal = 0;
+
+
+                    if (bagel.Fillings.Count > 0)
+                    {
+                        foreach (Filling filling in bagel.Fillings)
+                        {
+                            bagelPrice -= filling.Price;
+                        }
+                    }
+                    receipt.AppendLine(bagelName.PadRight(16) + bagelPrice.ToString().PadLeft(12));
+
+                    if (bagel.Fillings.Count > 0)
+                    {
+                        foreach (Filling filling in bagel.Fillings)
+                        {
+                            float fillingPrice = filling.Price;
+                            string fillingName = filling.FillingName.Substring(0, 1).ToUpper() + filling.FillingName.Substring(1);
+                            receipt.AppendLine(fillingName.PadRight(16) + fillingPrice.ToString().PadLeft(12));
+                        }
+                    }
+                }
+                if (_coffee.Count > 0)
+                {
+                    foreach (Coffee coffee in _coffee)
+                    {
+                        float coffeePrice = coffee.Price;
+                        string coffeeName = coffee.Type.Substring(0, 1).ToUpper() + coffee.Type.Substring(1);
+                        receipt.AppendLine(coffeeName.PadRight(16) + coffeePrice.ToString().PadLeft(12));
+                    }
+                }
+            }
+
+            receipt.AppendLine("----------------------------\n");
+            decimal totalNumber = (decimal)_totalPrice;
+            string total = totalNumber.ToString();
+            receipt.AppendLine("Total:".PadRight(15) + (total.PadLeft(12)) + "£");
+            receipt.AppendLine("\n Thank you for your order!");
+
+            return receipt.ToString();
+        }
+        
         public List<Bagel> AmountOfBagels { get => _bagels; set => _bagels = value; }
         public int Capacity { get => _capacity; set => _capacity = value; }
     }

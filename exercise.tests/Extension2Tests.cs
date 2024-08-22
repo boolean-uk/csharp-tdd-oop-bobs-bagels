@@ -24,13 +24,11 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Add(coffee);
 
                 //act
-                string receipt = basket.PrintReciept();
+                string receipt = basket.PrintReceipt();
 
                 //assert
-                Assert.IsTrue(receipt.Contains("white"));
-
+                Assert.IsTrue(receipt.Contains("White"));
             }
         }
     }
-    
 }

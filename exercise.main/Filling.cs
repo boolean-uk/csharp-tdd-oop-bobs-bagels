@@ -25,7 +25,7 @@ namespace exercise.main
 
         public Filling(string fillingName)
         {
-            this._fillingName = fillingName;
+            this.FillingName = fillingName;
             if (_allowedFillings.Contains(fillingName.ToLower()))
             {
                 this._price = 0.12f;
@@ -40,5 +40,7 @@ namespace exercise.main
         }
 
         public float Price { get => _price;}
+        public string FillingName { get => _fillingName; set => _fillingName = value; }
+        public string SKU { get => _sku;  }
     }
 }

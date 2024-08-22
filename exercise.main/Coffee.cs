@@ -35,5 +35,7 @@ namespace exercise.main
         }
 
         public float Price { get => _price; }
+        public string Type { get => _type;}
+        public string SKU { get => _sku;}
     }
 }

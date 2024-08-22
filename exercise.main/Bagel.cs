@@ -5,6 +5,7 @@ namespace csharp_tdd_bobs_bagels.tests
     public class Bagel : Merchandise
     {
         private float _price;
+        private float _fillingPrice = 0;
         private string _currentFlavor;
         private Dictionary<string, float> _allowedFlavor = new Dictionary<string, float>()  
         {
@@ -15,7 +16,8 @@ namespace csharp_tdd_bobs_bagels.tests
         };
         private string _sku; 
         private List<Filling> _fillings = new();
-        bool _falseOrder = false;
+        private bool _falseOrder = false;
+        
         
 
 
@@ -46,8 +48,10 @@ namespace csharp_tdd_bobs_bagels.tests
         public void AddFilling(string v)
         {
             Filling filling = new Filling(v);
-            _fillings.Add(filling);
+            Fillings.Add(filling);
             _price += filling.Price;
+            _fillingPrice += filling.Price;
+            _sku += filling.SKU;
         }
 
         public void Discount()
@@ -61,6 +65,8 @@ namespace csharp_tdd_bobs_bagels.tests
         public string SKU { get => _sku;  }
         public float Price { get => _price; }
         public bool FalseOrder { get => _falseOrder; }
+        public List<Filling> Fillings { get => _fillings; }
+        public float FillingPrice { get => _fillingPrice; }
 
 
 
