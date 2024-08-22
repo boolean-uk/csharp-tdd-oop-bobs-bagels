@@ -31,7 +31,20 @@ namespace exercise.main
             if (!InventoryProductIds.Contains(productID)) { return "product does not exist in the inventory"; }
 
             IProduct product = GetFromInventory(productID);
+
+            if (product.Name == "bagel")
+            {
+                product = new Bagel(product.SKU, product.Price, product.Name, product.Variant);
+            }
+            if (product.Name == "coffee")
+            {
+                product = new Bagel(product.SKU, product.Price, product.Name, product.Variant);
+            }
+
+            product.ID = _basket.Count;
+
             _basket.Add(product);
+            
             return "product added to basket";
         }
 
@@ -40,7 +53,7 @@ namespace exercise.main
             if (!_basket.Select(item => item.SKU).Contains(productId)) { return "Product does not exist in basket";  }
             if (!_additions.Select(item => item.SKU).Contains(additionId)) { return "Addition is not in inventory";  }
 
-            IProduct product = GetFromInventory(productId);
+            IProduct product = _basket.First(item => item.SKU == productId);
             IAddition addition = GetFromAdditionInventory(additionId);
 
             if(!(addition.AvailableToProduct == product.Name))
@@ -64,8 +77,8 @@ namespace exercise.main
         public bool Remove(string productID)
         {
             if (!BasketProductIds.Contains(productID)) { return false; }
-               
-            IProduct product = GetFromInventory(productID);
+
+            IProduct product = _basket.First(item => item.SKU == productID);
             _basket.Remove(product);
 
             return true;
@@ -148,7 +161,8 @@ namespace exercise.main
                     sum += discount.price;
                     for (int i = 0; i < requirement.Count; i++)
                     {
-                        productsWithDiscount.Remove(GetFromInventory(requirement[i]));
+                        IProduct productToRemove = productsWithDiscount.First(item => item.SKU.Contains(requirement[i]));
+                        productsWithDiscount.RemoveAll(item => item.ID == productToRemove.ID);
                     }
                 }
                 else
@@ -188,21 +202,45 @@ namespace exercise.main
             recieptString.AppendLine(lineBreak);
             recieptString.AppendLine();
 
+            foreach (IProduct product in _basket)
+            {
+                recieptString.Append(String.Format("{0, -26}", product.Name + " " + product.Variant));
+                recieptString.AppendLine(product.Price.ToString());
+
+                double productWithAdditionPrice = product.Price;
+
+                foreach (IAddition addition in product.Additions)
+                {
+                    recieptString.Append(String.Format("{0, -26}", addition.Name + " " + addition.Variant));
+                    recieptString.AppendLine(addition.Price.ToString());
+                    productWithAdditionPrice += addition.Price;
+                }
+
+                if(product.Additions.Count > 0)
+                {
+                    recieptString.AppendLine(lineBreak);
+                    recieptString.AppendLine(String.Format("{0, 30}", productWithAdditionPrice));
+                }
+
+                recieptString.AppendLine(lineBreak);
+            }
+
+
             //Check for unique items
             foreach (IProduct product in uniqueProducts)
             {
-                int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
-                recieptString.Append(String.Format("{0, -19}", product.Name + " " + product.Variant));
-                recieptString.Append(String.Format("{0, -7}", productAmount));
-                double price = Math.Round(product.Price * productAmount, 2);
-                recieptString.AppendLine(price.ToString());
-
                 List<IProduct> toBeDiscounted = _basket.Where(item => item.SKU == product.SKU).ToList();
+                int productAmount = _basket.Where(item => product.SKU == item.SKU).Count();
+                double price = Math.Round(product.Price * productAmount, 2);
                 double newPrice = Math.Round(GetTotalCost(toBeDiscounted), 2);
                 double discountedPrice = Math.Round(price - newPrice, 2);
 
                 if (discountedPrice > 0) 
                 {
+                    
+                    recieptString.Append(String.Format("{0, -19}", product.Name + " " + product.Variant));
+                    recieptString.Append(String.Format("{0, -7}", productAmount));
+                    recieptString.AppendLine(price.ToString());
                     recieptString.AppendLine(String.Format("{0, 30}", "(-£" + discountedPrice + ")"));
 
                     for (int i = 0; i < toBeDiscounted.Count; i++)

@@ -8,6 +8,7 @@ namespace exercise.main.Interfaces
 {
     public interface IProduct
     {
+        int ID { get; set; }
         string SKU { get; set; }
         double Price { get; set; }
 
