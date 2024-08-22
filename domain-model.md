@@ -84,4 +84,4 @@
 
 | **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
 |:---:|:---:|:---:|:---:|
-| `Item` | MoneySaved | Updates the amount of money saved | void | MoneySaved is a property of data double. This is a sum of current price * original price. This is only to be displayed in the receipt if MoneySaved != Price * OriginalPrice |
+| `Item` | MoneySaved | Updates the amount of money saved | double | MoneySaved is a property of data double. This is a sum of current price * original price. This is only to be displayed in the receipt if MoneySaved != Price * OriginalPrice |
