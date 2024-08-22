@@ -14,8 +14,8 @@ Extension2 Receipt
 11. As a customer, So that I can track my spendings, I'd like to receive a receipt of my order.
 
 Extension1 Discount
-12. As a manager, So that I can provide my customers some special offers, I want our inventory to include multi-priced items.
-
+12. As a manager, So that I can provide my customers with some special offers, I want our inventory to include multi-priced items.
+13. As a customer, So that I can save some money, I'd like to be able to receive discounts.
 
 	
 | Classes		| Members								| Methods																| Scenario									| Output
@@ -73,7 +73,9 @@ Extension1 Discount:
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Basket		| int CoffeeCount { get; set; }			|																		| property to get number of coffee in basket| int
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| Basket		|										| getSpecialOffer(int BagelCount, int CoffeeCount)						| if discount requirements are met			| double
+| Basket		|										| getSpecialOffer()														| check for special offers and discounts	| double
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Basket		| double TotalCostWithDiscount { get; }	|																		| property to get total cost with discounts	| double
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | BobsInventory | double 6ForDiscount { get; set; }		|																		| property to get special offer				| double
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

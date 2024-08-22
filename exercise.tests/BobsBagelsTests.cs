@@ -165,6 +165,8 @@ public class Tests
     }
 
     //extension 1 Discounts
+    //12. As a manager, So that I can provide my customers with some special offers, I want our inventory to include multi-priced items.
+    //13. As a customer, So that I can save some money, I'd like to be able to receive discounts.
     [Test]
     public void Get6BagelDiscountTest()
     {
@@ -177,7 +179,7 @@ public class Tests
         basket.AddItem("Onion");
         basket.AddItem("Onion");
 
-        double totalWithDiscount = basket.GetSpecialOffer();
+        double totalWithDiscount = basket.TotalCostWithDiscount;
 
         Assert.That(totalWithDiscount, Is.EqualTo(2.49));
 
@@ -201,7 +203,7 @@ public class Tests
         basket.AddItem("Onion");
         basket.AddItem("Onion");
 
-        double totalWithDiscount = basket.GetSpecialOffer();
+        double totalWithDiscount = basket.TotalCostWithDiscount;
 
         Assert.That(totalWithDiscount, Is.EqualTo(3.99));
     }
@@ -213,7 +215,7 @@ public class Tests
         basket.AddItem("Black");
         basket.AddItem("Plain");
 
-        double totalWithDiscount = basket.GetSpecialOffer();
+        double totalWithDiscount = basket.TotalCostWithDiscount;
 
         Assert.That(totalWithDiscount, Is.EqualTo(1.25));
 
@@ -247,9 +249,9 @@ public class Tests
         basket.AddItem("Onion");
         basket.AddItem("Onion");
         
-        double discount = basket.GetSpecialOffer();
+        double totalWithDiscount = basket.TotalCostWithDiscount;
 
-        Assert.That(discount, Is.EqualTo(2.49 + 3.99 + 1.25));
+        Assert.That(totalWithDiscount, Is.EqualTo(2.49 + 3.99 + 1.25));
 
     }
 }

@@ -22,10 +22,10 @@ namespace exercise.main
         private int BagelCount;
 
         private int CoffeeCount;
-        
 
 
-        private StringBuilder AddToReceipt() 
+
+        private StringBuilder AddToReceipt()
         {
             _receipt.AppendLine("~~~ Bob's Bagels ~~~");
             _receipt.AppendLine();
@@ -36,11 +36,11 @@ namespace exercise.main
 
             int amount = 0;
 
-            foreach (var item in _Basket.Distinct()) 
+            foreach (var item in _Basket.Distinct())
             {
                 amount = _Basket.Where(x => x.Variant == item.Variant).Count();
                 _receipt.AppendLine($"{item.Variant} {item.Name}\t{amount} £ {amount * item.Price}");
-                
+
             }
 
             _receipt.AppendLine();
@@ -50,12 +50,74 @@ namespace exercise.main
             _receipt.AppendLine();
             _receipt.AppendLine();
             _receipt.AppendLine("Thank you for your order!");
-            
+
 
             return _receipt;
-            
+
         }
-        
+
+
+        private double GetSpecialOffer()
+        {
+
+            List<InventoryItem> tempBasket = new List<InventoryItem>();
+            tempBasket.AddRange(_Basket);
+
+            double totalwithDiscount = 0;
+
+
+            foreach (var item in tempBasket)
+            {
+                BagelCount = tempBasket.Where(item => item.Name == "Bagel").Count();
+                CoffeeCount = tempBasket.Where(item => item.Name == "Coffee").Count();
+            }
+
+
+            while (BagelCount >= 12)
+            {
+                totalwithDiscount += BobsInventory.TwelveBagelDiscount;
+
+                for(int i = 0; i < 12; i++)
+                {
+                    InventoryItem removeBagel = tempBasket.First(item => item.Name == "Bagel");
+                    tempBasket.Remove(removeBagel);
+                }
+
+                BagelCount -= 12;
+                
+            }
+
+            while (BagelCount >= 6)
+            {
+                totalwithDiscount += BobsInventory.SixBagelDiscount;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    InventoryItem removeBagel = tempBasket.First(item => item.Name == "Bagel");
+                    tempBasket.Remove(removeBagel);
+                }
+
+                BagelCount -= 6;
+                
+            }
+            
+            while(BagelCount >= 1 && CoffeeCount >= 1)
+            {
+
+                totalwithDiscount += BobsInventory.CoffeeAndBagel;
+
+                InventoryItem removeBagel = tempBasket.First(item => item.Name == "Bagel");
+                InventoryItem removeCoffee = tempBasket.First(item => item.Name == "Coffee");
+                tempBasket.Remove(removeBagel);
+                tempBasket.Remove(removeCoffee);
+                BagelCount --;
+                CoffeeCount --;
+                
+            }
+
+            return totalwithDiscount + tempBasket.Sum(item => item.Price);
+        }
+
 
         public bool AddItem(string variant)
         {
@@ -97,32 +159,6 @@ namespace exercise.main
             return false;
         }
 
-        public double GetSpecialOffer()
-        {
-
-            foreach(var item in _Basket)
-            {
-                BagelCount = _Basket.Where(item => item.Name == "Bagel").Count();
-                CoffeeCount = _Basket.Where(item => item.Name == "Coffee").Count();
-            }
-
-            if (BagelCount == 12)
-            {
-                return BobsInventory.TwelveBagelDiscount;
-            }
-            else if (BagelCount == 6)
-            {
-                return BobsInventory.SixBagelDiscount;
-            }
-            else if(BagelCount == CoffeeCount)
-            {
-                return BobsInventory.CoffeeAndBagel * BagelCount;
-            }
-            else return TotalCost;
-
-            
-            
-        }
 
         public int BasketCapacity { get { return _capacity; } set { _capacity = value; } }
 
@@ -135,5 +171,7 @@ namespace exercise.main
         public double TotalCost { get { return _Basket.Sum(item => item.Price); } }
 
         public string PrintReceipt { get { return AddToReceipt().ToString(); } }
+
+        public double TotalCostWithDiscount { get { return GetSpecialOffer(); } }
     }
 }
