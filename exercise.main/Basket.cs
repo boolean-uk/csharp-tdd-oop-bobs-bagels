@@ -187,7 +187,7 @@ namespace exercise.main
 
         public void ReceiptWithDiscount()
         {
-
+   
             double bagAndCof = 1.25;
             double sixBagels = 2.49;
             double twelBagels = 3.99;
