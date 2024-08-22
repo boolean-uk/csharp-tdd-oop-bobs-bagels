@@ -10,6 +10,12 @@ Start with extracting useful stories and a functional domain model that represen
 
 Tip: Think about a Receipt as an object. What other objects are contained in a receipt?
 
+## User story 1
+As a user, So I know what I have purchased, I want a recite showing me my purchase.
+
+
+
+
 #### Example Receipt
 ```
     ~~~ Bob's Bagels ~~~
@@ -45,3 +51,10 @@ Total                  £5.55
         Thank you
       for your order!
 ```
+
+
+| Classes | Methods()             | Scenario                                           | Output         |
+|---------|-----------------------|----------------------------------------------------|----------------|
+| Basket  | string printreceipt() | receipt is printed out if it have something inside | string receipt |
+|         |                       |                                                    |                |
+|         |                       |                                                    |                |

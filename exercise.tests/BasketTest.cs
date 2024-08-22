@@ -27,7 +27,7 @@ namespace exercise.tests
 
             //arrange
 
-            Assert.That(basket.Item.Contains(item1));
+            Assert.That(basket.Items.Contains(item1));
 
 
         }
@@ -50,7 +50,7 @@ namespace exercise.tests
 
             //assert
 
-            Assert.IsFalse(basket.Item.Contains(item1));
+            Assert.IsFalse(basket.Items.Contains(item1));
         }
         [Test]
 
@@ -72,7 +72,7 @@ namespace exercise.tests
             basket.addItem(item3);
             basket.addItem(item4);
 
-            basket.max_capasity = 3;
+            basket.Maxcapasity = 3;
 
             bool expected = basket.isFull();
 
@@ -93,7 +93,7 @@ namespace exercise.tests
 
             //assert
             Assert.That(expected, Is.True);
-            Assert.That(basket.max_capasity == 10);
+            Assert.That(basket.Maxcapasity == 10);
 
 
         }
@@ -111,7 +111,7 @@ namespace exercise.tests
             bool notexisting = basket.removeItem(item2);
 
             //assert
-            Assert.IsFalse(basket.Item.Contains(item2));
+            Assert.IsFalse(basket.Items.Contains(item2));
 
         }
         [Test]

@@ -10,7 +10,7 @@ namespace exercise.main
     {
         
         private List<Item> _shopInventory = new List<Item>();
-        public List<Item> ShopInventory { get { return _shopInventory; } }
+        
 
         public Inventory() {
 
@@ -36,11 +36,7 @@ namespace exercise.main
             return _shopInventory.Find(item => item.Sku == sku);
         }
 
-
-
-
-
-
+        public List<Item> ShopInventory { get { return _shopInventory; } }
 
     }
 }

@@ -11,4 +11,4 @@
 |         | double getFillingCost(string variant)         | finding item with filling from the inventory and <br>returns the filling price.                                                                       | double, gives the filling<br>price, else it gives 0                     |
 |
 |Inventory,
- Item|                                                                                                                                                       |                                                                         |
+ Item                                                                                                                                                       |                                                                         |

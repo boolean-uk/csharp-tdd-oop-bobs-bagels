@@ -12,19 +12,64 @@ namespace exercise.main
     public class Basket
     {
         private Inventory _inventory = new Inventory();
-        public Inventory Inventory { get => _inventory; }
-        public List<Item> Item { get; set; } = new List<Item> { };
 
-        public int max_capasity { get; set; }
+        private List<Item> _items = new List<Item> { };
+
+        private int _maxcapasity;
+
+        /*
+        public string printreceipt()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("   ~~~  Bob's Bagels  ~~~");
+            sb.AppendLine();
+            sb.AppendLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("-------------------");
+
+            double totalprice = 0;
+
+            var groupedItem = _items.GroupBy(item => new { item.Variant, item.Name })
+                .Select(group => new
+                {
+                    Name = group.Key.Name,
+                    Variant = group.Key.Variant,
+                    Quantity = group.Count(),
+                    ItemPrice = group.First().Price,
+                    TotalPrice = group.Sum(item => item.Price)
+                });
+
+            foreach (var group in groupedItem)
+            {
+                var itemname = $"{group.Name} {group.Variant}";
+                var itemquantity = group.Quantity;
+                var totalitemprice = group.TotalPrice;
+                totalprice += totalitemprice;
+
+                sb.AppendLine($"{itemname}\t {itemquantity,2}\t £{totalitemprice:F2}");
+            }
+
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine(" ------------- ");
+            sb.AppendLine($" Total           £{totalprice:F2}");
+
+            return sb.ToString();
+
+
+
+
+        }*/
 
         public bool addItem(Item item)
         {
             if (item == null)
             {
                 return false;
-            } else if (Item.Count <= max_capasity)
+            } else if (Items.Count <= _maxcapasity)
             {
-                Item.Add(item);
+                Items.Add(item);
                 return true;
             } else
             {
@@ -45,9 +90,9 @@ namespace exercise.main
         }
         public bool removeItem(Item item)
         {
-            if (Item.Count() > max_capasity)
+            if (Items.Count() > _maxcapasity)
             {
-                Item.Remove(item);
+                Items.Remove(item);
                 return true;
             }
             return false;
@@ -55,7 +100,7 @@ namespace exercise.main
         }
         public bool isFull()
         {
-            if (Item.Count() <= max_capasity)
+            if (Items.Count() <= _maxcapasity)
             {
                 return true;
             }
@@ -65,9 +110,9 @@ namespace exercise.main
         public bool changecapacity(int newcapasity)
         {
 
-            if (newcapasity > 0 && newcapasity != max_capasity)
+            if (newcapasity > 0 && newcapasity != _maxcapasity)
             {
-                max_capasity = newcapasity;
+                _maxcapasity = newcapasity;
                 return true;
             }
             return false;
@@ -75,7 +120,7 @@ namespace exercise.main
         }
         public string removingNotExisting(Item item)
         {
-            if (!Item.Contains(item))
+            if (!Items.Contains(item))
             {
                 return "Item does not exists";
             }
@@ -84,7 +129,7 @@ namespace exercise.main
 
         public double getTotalCost()
         {
-            return Item.Sum(item => item.Price);
+            return Items.Sum(item => item.Price);
 
         }
 
@@ -148,5 +193,14 @@ namespace exercise.main
             return false;
         }
         */
+
+        
+
+        public Inventory Inventory { get { return _inventory; } }
+        public List<Item> Items { get { return _items; } }
+
+        public int Maxcapasity { get { return _maxcapasity; } set { _maxcapasity = value; } }
+
+        
     }
 }
