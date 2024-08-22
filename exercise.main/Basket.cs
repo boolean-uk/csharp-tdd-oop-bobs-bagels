@@ -47,17 +47,25 @@ namespace exercise.main
 
         public bool Remove(Item item)
         {
-            if (_itemsInBasket.Contains(item))
-            {
-                _itemsInBasket.Remove(item);
-                _capacity++;
+            if (_itemsInBasket.Contains(item)) { 
+                foreach (var itemInBasket in _itemsInBasket)
+                {
+                    if (itemInBasket.Sku == item.Sku)
+                    {
+                        _capacity++;
+                        itemInBasket.Quantity--;
 
-                return true;
-            } else
-            {
-                return false;
+                        if (itemInBasket.Quantity == 0)
+                        {
+                            _itemsInBasket.Remove(item);
+                        }
+
+                        return true;
+                    }
+                }
             }
-            
+
+            return false;
         }
 
         public bool AddFillingToBagel(Bagel bagel, Filling filling)
