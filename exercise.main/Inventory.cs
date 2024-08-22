@@ -120,6 +120,7 @@ namespace exercise.main
             return product;
         }
 
+
         public List<InventoryProducts> Products { get { return _products; } }
         public List<Basket> Baskets { get { return _baskets; } set { _baskets = value; } }
         public Basket Basket { get { return _basket; } set { _basket = value; } }

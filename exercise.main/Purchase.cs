@@ -9,6 +9,7 @@ namespace exercise.main
     //Extension task 2
     public class Purchase
     {
+
         public Purchase()
         {
         }
@@ -19,21 +20,25 @@ namespace exercise.main
             this.Name = name;
             this.Quantity = 1;
             this.Price = price;
-         
+
         }
 
-        public Purchase(string variant, string name,int qty, double price)
+        public Purchase(string variant, string name, int qty, double price, double saved)
         {
             this.Variant = variant;
             this.Name = name;
             this.Quantity = qty;
             this.Price = price;
+            this.Saved = saved;
+           
 
         }
+
 
         public string Variant { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
+        public double Saved { get; set; }
     }
 }

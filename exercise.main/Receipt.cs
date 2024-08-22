@@ -6,45 +6,60 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Receipt 
+    public class Receipt : Basket
     {
         private bool _isPurchased;
 
-        private Basket _basket;
+        private string _storename;
+        private List<Purchase> _products;
+        private double _totalcost;
+
+        public Receipt(Basket basket)
+        {
+
+            _storename = basket.GetStoreName();
+            _products = basket.ListItems();
+            _totalcost = _products.Select(x => x.Price).Sum();
 
 
-        public Receipt(string storename, List<Purchase> products, double totalcost ) {
-            
-            this.StoreName = storename; 
-            this.Products = products;
-            this.TotalCost = totalcost;
 
 
-        
         }
+
         
+
         public string ReceiptToString()
         {
-            string receipt = $"        ~~~{StoreName}~~~         \n" +
+            string receipt = $"        ~~~{_storename}~~~         \n" +
                 $"        {DateTime.Now:yyyy-MM-dd HH:mm:ss}           \n\n" +
-                new String('-',33) + "\n\n";
-           
+                new String('-', 35) + "\n\n";
+
             foreach (var item in Products)
             {
                 string varName = $"{item.Variant} {item.Name}".PadRight(25);
-                receipt += $"{varName}{item.Quantity.ToString().PadLeft(2)}   £{item.Price:F2} \n";
+                receipt += $"{varName}{item.Quantity.ToString().PadLeft(2)}   £{item.Price:F2} \n\n";
+
+                if(item.Saved > 0){
+                    receipt += new string(' ', 28) +$"(-£{item.Saved:F2}) \n";
+                }
+
             }
-            receipt += new String('-',33) + "\n" +
-               $"Total{new string(' ', 24)}£{TotalCost:F2}\n\n" +
+            receipt += "\n";
+
+            receipt += new String('-', 35) + "\n" +
+               $"Total{new string(' ', 24)}£{_totalcost:F2}\n\n" +
+               $"      You saved a total of £{Products.Select(x => x.Saved).Sum():F2} \n          on this shop \n\n" +
                "            Thank you \n          for your order!\n";
 
             return receipt;
 
         }
-        public string StoreName { get; set; }
-        public List<Purchase> Products { get; set; }
-        public double TotalCost { get; set; }
-        public Basket Basket { get; set; }
+
+        public string StoreName { get { return _storename; } }
+        public List<Purchase> Products { get { return _products; } }
+
+
+
 
         public bool IsPurchased { get { return _isPurchased; } set { _isPurchased = value; } }
 

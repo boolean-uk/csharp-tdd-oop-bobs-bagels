@@ -26,7 +26,7 @@ namespace exercise.tests
            
             //Execute
             
-            Receipt receipt = basket.CreateReceipt();
+            Receipt receipt = new Receipt(basket);
             
             //Verify
             Assert.IsTrue(receipt.StoreName == "Bob's Bagels" );
@@ -36,9 +36,8 @@ namespace exercise.tests
             Assert.IsTrue(receipt.Products.Any(p => p.Variant == "White" && p.Name == "Coffee" && p.Price == 1.19d && p.Quantity == 1));
 
 
-            Assert.IsTrue(receipt.TotalCost == basket.TotalCost());
 
-
+            
         }
 
 

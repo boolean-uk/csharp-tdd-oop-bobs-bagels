@@ -3,27 +3,27 @@
 using exercise.main;
 
 Basket basket = new Basket();
-basket.Capacity = 10;
+basket.Capacity = 30;
 basket.IsPurchased = true;
 InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
 InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "Sesame");
 InventoryProducts coffeeWhite = new InventoryProducts("COFW", 1.19d, "Coffee", "White");
 InventoryProducts fillingSalmon = new InventoryProducts("FILS", 0.12d, "Filling","Smoked Salmon");
-basket.Items.Add(bagelOnion);
-basket.Items.Add(coffeeWhite);
-basket.Items.Add(fillingSalmon);
-basket.Items.Add(bagelOnion);
-basket.Items.Add(bagelOnion);
+basket.AddToBasket(bagelOnion);
+basket.AddToBasket(coffeeWhite);
+basket.AddToBasket(fillingSalmon);
+basket.AddToBasket(bagelOnion);
+basket.AddToBasket(bagelOnion);
 for(int i = 0; i < 12; i++)
 {
-    basket.Items.Add(bagelSesame);
+    basket.AddToBasket(bagelSesame);
 
 }
 
 
 //Execute
 
-Receipt receipt = basket.CreateReceipt();
+Receipt receipt = new Receipt(basket);
 
 Console.WriteLine(receipt.ReceiptToString());
 

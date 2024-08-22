@@ -98,18 +98,15 @@ namespace exercise.main
 
         public double TotalCost()
         {
-            double total = 0;
-            foreach (var item in _items)
-            {
-                total += item.Price;
-            }
 
-            return total;
+            return _items.Select(p => p.Price).Sum();
         }
 
-        
+       
+
+
         //Extension Task 2
-      
+
         public List<Purchase> ListItems()
 
         { 
@@ -137,29 +134,27 @@ namespace exercise.main
                 {
                     if (prod.Value == 6 && prod.Key.SKU.StartsWith("BGL"))
                     {
-                        prod.Key.Price = 2.49d;
-
+                        prod.Key.Save = (prod.Key.Price * prod.Value) - Discount.SixBagels ;
+                        prod.Key.Price = Discount.SixBagels;
                     }
                     else if (prod.Value == 12 && prod.Key.SKU.StartsWith("BGL"))
                     {
-                        prod.Key.Price = 3.99d;
-                    }
-                    else
-                    {
+                        prod.Key.Save = (prod.Key.Price * prod.Value) - Discount.TwelveBagels;
+                        prod.Key.Price = Discount.TwelveBagels;
 
-                        prod.Key.Price *= prod.Value;
                     }
+                    else { 
+                        prod.Key.Price *= prod.Value;
+                        prod.Key.Save = 0;
+                    }
+
+
+                    receipt.Add(new Purchase(prod.Key.Variant, prod.Key.Name, prod.Value, prod.Key.Price, Math.Round(prod.Key.Save,2)));
+
                 }
+
 
                 
-
-                foreach (var p in products)
-                {
-                    
-
-                        receipt.Add(new Purchase(p.Key.Variant, p.Key.Name, p.Value, p.Key.Price));
-                    
-                }
             }
 
 
@@ -167,11 +162,11 @@ namespace exercise.main
 
             return receipt;      
         }
-        public Receipt CreateReceipt()
-        {
-            return new Receipt(_inventory.GetStoreName(), ListItems(), TotalCost());
 
-        }
+
+
+
+
 
 
         public List<InventoryProducts> Items { get { return _items; } }

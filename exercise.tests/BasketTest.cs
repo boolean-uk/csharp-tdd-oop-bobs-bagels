@@ -132,7 +132,7 @@ public class Tests
         double result  = basket.TotalCost();
         //Verify
 
-        Assert.That(result == (bagelSesame.Price+bagelOnion.Price) );
+        Assert.IsTrue(result == (bagelSesame.Price+bagelOnion.Price) );
     }
 
 }
