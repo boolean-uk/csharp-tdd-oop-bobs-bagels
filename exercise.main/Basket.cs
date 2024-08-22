@@ -34,69 +34,78 @@ namespace exercise.main
             return new List<Item>();
         }
 
-        public void TrackDiscountBagel (Bagel thing)
+        public void TrackDiscountBagel ()
         {
-            for (int i = 0; i < sixDiscount.Length; i++)
+            foreach (KeyValuePair<int, List<Item>> item in BasketItems)
             {
-                if (sixDiscount[i] == null)
-                {
-                    sixDiscount[i] = thing;
-                    break;
-                }
-            }
-
-            int sixcount = 0;
-            for (int i = 0; i < sixDiscount.Length; ++i)
-            {
-                if (sixDiscount[i] != null)
-                {
-                    sixcount++;
-                }
-            }
-            
-            int twelvecount = 0;
-
-            for (int i = 0; i < twelveDiscount.Length; i++)
-            {
-                if (twelveDiscount[i] != null)
-                {
-                    twelvecount++;
-                }
-            }
-
-            if (sixcount == 6)
-            {
-                for (int i = 0; i < sixDiscount.Length; i++)
-                {
-                    if (twelvecount >= 6 && twelvecount < 12)
+                int key = item.Key;
+                List<Item> items = item.Value;
+                foreach (Item thing in items)
+                    if (thing is Bagel bagel) //redundant check for bagel
                     {
-                        sixDiscount[i].Price = 0.415;
-                        twelveDiscount[twelvecount] = sixDiscount[i];
-                        twelvecount++;
+                        for (int i = 0; i < sixDiscount.Length; i++)
+                        {
+                            if (sixDiscount[i] == null)
+                            {
+                                sixDiscount[i] = thing;
+                                break;
+                            }
+                        }
+
+                        int sixcount = 0;
+                        for (int i = 0; i < sixDiscount.Length; ++i)
+                        {
+                            if (sixDiscount[i] != null)
+                            {
+                                sixcount++;
+                            }
+                        }
+
+                        int twelvecount = 0;
+
+                        for (int i = 0; i < twelveDiscount.Length; i++)
+                        {
+                            if (twelveDiscount[i] != null)
+                            {
+                                twelvecount++;
+                            }
+                        }
+
+                        if (sixcount == 6)
+                        {
+                            for (int i = 0; i < sixDiscount.Length; i++)
+                            {
+                                if (twelvecount >= 6 && twelvecount < 12)
+                                {
+                                    sixDiscount[i].Price = 0.415;
+                                    twelveDiscount[twelvecount] = sixDiscount[i];
+                                    twelvecount++;
+                                }
+                                else
+                                {
+                                    sixDiscount[i].Price = 0.415;
+                                    twelveDiscount[i] = sixDiscount[i];
+                                    twelvecount++;
+                                }
+                            }
+                            for (int i = 0; i < sixDiscount.Length; i++)
+                            {
+                                sixDiscount[i] = null;
+                            }
+                        }
+
+                        if (twelvecount == 12)
+                        {
+                            for (int i = 0; i < twelveDiscount.Length; i++)
+                            {
+                                twelveDiscount[i].Price = 0.3325;
+                            }
+                            for (int i = 0; i < twelveDiscount.Length; i++)
+                            {
+                                twelveDiscount[i] = null;
+                            }
+                        }
                     }
-                    else
-                    {
-                        sixDiscount[i].Price = 0.415;
-                        twelveDiscount[i] = sixDiscount[i];
-                        twelvecount++;
-                    }
-                }
-                for (int i = 0; i < sixDiscount.Length; i++)
-                {
-                    sixDiscount[i] = null;
-                }
-            }     
-            
-            if (twelvecount == 12)
-            {
-                for (int i = 0; i < twelveDiscount.Length; i++)
-                {
-                    twelveDiscount[i].Price = 0.3325;
-                }
-                for (int i = 0; i < twelveDiscount.Length; i++)
-                {
-                    twelveDiscount[i] = null;
-                }
             }
         }
 
@@ -164,7 +173,7 @@ namespace exercise.main
             {
                 if (thing is Bagel)
                 {
-                    TrackDiscountBagel((Bagel) thing);
+                    TrackDiscountBagel();
                 }
             }
         }
@@ -198,7 +207,7 @@ namespace exercise.main
                 {
                     if (thing is Bagel)
                     {
-                        TrackDiscountBagel((Bagel)thing);
+                        TrackDiscountBagel();
                     }
                     else if (thing is Coffee)
                     {
