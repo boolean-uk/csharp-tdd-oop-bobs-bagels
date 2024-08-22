@@ -16,9 +16,7 @@ So I can see what to buy.
 |-----------|---------|----------|---------|
 | `Inventory ` |ShowDiscountList()|Returns a list of the discout oppurtunitys  |List<Discount ,> |
 || GetItemBySKU(string SKU) | Returns an inventory product | InventoryProduct|
-| `Basket ` | CheckDiscount() | Checks if the basket has enough bagels to receive a discount | bool |
-|| AddDiscount() | Adds the discount to the purchase| void|
-|| ListItems()| extend from task 2 to include the adddiscount method| List<Purchase.>|
+| `Basket ` |  ListItems()| extend from task 2 to include discounts| List<Purchase.>|
 
 
 

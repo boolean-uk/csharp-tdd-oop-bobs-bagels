@@ -117,7 +117,7 @@ namespace exercise.main
             Dictionary<InventoryProducts, int> products = new Dictionary<InventoryProducts, int>();
             List<Purchase> receipt = new List<Purchase>();
 
-            if (_isPurchased = true)
+            if (_isPurchased == true)
             {
                 //Go trhough _items in basket and add them as purchase objects
                 foreach (var item in _items)
@@ -135,14 +135,34 @@ namespace exercise.main
 
                 foreach (var prod in products)
                 {
-                    prod.Key.Price *= prod.Value;
+                    if (prod.Value == 6 && prod.Key.SKU.StartsWith("BGL"))
+                    {
+                        prod.Key.Price = 2.49d;
+
+                    }
+                    else if (prod.Value == 6 && prod.Key.SKU.StartsWith("BGL"))
+                    {
+                        prod.Key.Price = 3.99d;
+                    }
+                    else
+                    {
+
+                        prod.Key.Price *= prod.Value;
+                    }
                 }
+
+                
 
                 foreach (var p in products)
                 {
-                    receipt.Add(new Purchase(p.Key.Variant, p.Key.Name, p.Value, p.Key.Price));
+                    
+
+                        receipt.Add(new Purchase(p.Key.Variant, p.Key.Name, p.Value, p.Key.Price));
+                    
                 }
             }
+
+
 
 
             return receipt;      
@@ -153,15 +173,10 @@ namespace exercise.main
 
         }
 
-        public bool CheckDiscount()
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public void AddDiscount()
-        {
-            throw new NotImplementedException();
-        }
+      
+        
 
         public List<InventoryProducts> Items { get { return _items; } }
         public int Capacity { get { return _capacity; } set { _capacity = value; } }

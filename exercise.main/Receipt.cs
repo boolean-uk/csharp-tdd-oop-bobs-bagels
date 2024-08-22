@@ -27,14 +27,14 @@ namespace exercise.main
         {
             string receipt = $"        ~~~{StoreName}~~~         \n" +
                 $"        {DateTime.Now:yyyy-MM-dd HH:mm:ss}           \n\n" +
-                $"----------------------------------- \n\n";
+                new String('-',33) + "\n\n";
            
             foreach (var item in Products)
             {
                 string varName = $"{item.Variant} {item.Name}".PadRight(25);
                 receipt += $"{varName}{item.Quantity}   £{item.Price} \n";
             }
-            receipt += "----------------------------------- \n" +
+            receipt += new String('-',33) + "\n" +
                $"Total{new string(' ', 24)}£{TotalCost:F2}\n\n" +
                "            Thank you \n          for your order!\n";
 

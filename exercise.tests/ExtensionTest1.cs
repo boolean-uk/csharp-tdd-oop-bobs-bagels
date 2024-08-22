@@ -50,85 +50,10 @@ namespace exercise.tests
 
         }
 
-        [Test]
-        public void shouldCheckDiscountSix()
-        {
-            //Setup
-            Basket basket = new Basket();
-            basket.Capacity = 20;
-            InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
-            for(int i = 0; i < 6; i++)
-            {
-                basket.AddToBasket(bagelOnion);
-            }
-
-            //Execute
-            bool result = basket.CheckDiscount();
-            //Verify
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void shouldCheckDiscountFail()
-        {
-            //Setup
-            Basket basket = new Basket();
-            basket.Capacity = 20;
-            InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
-            for (int i = 0; i < 3; i++)
-            {
-                basket.AddToBasket(bagelOnion);
-            }
-
-            //Execute
-            bool result = basket.CheckDiscount();
-            //Verify
-            Assert.IsFalse(result);
-
-        }      
         
-        [Test]
-        public void shouldCheckDiscountTwelve()
-        {
-            //Setup
-            Basket basket = new Basket();
-            basket.Capacity = 20;
-            InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
-            InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "Sesame");
-            for (int i = 0; i < 12; i++)
-            {
-                basket.AddToBasket(bagelOnion);
-            }
-
-            //Execute
-            bool result = basket.CheckDiscount();
-            //Verify
-            Assert.IsTrue(result);
-        }
-       
         
 
-        [Test]
-        public void shouldAddDiscount()
-        {
-            //Setup
-            Basket basket = new Basket();
-            basket.Capacity = 20;
-            InventoryProducts bagelOnion = new InventoryProducts("BGLO", 0.49d, "Bagel", "Onion");
-            InventoryProducts bagelSesame = new InventoryProducts("BGLS", 0.49d, "Bagel", "Sesame");
-            for (int i = 0; i < 12; i++)
-            {
-                basket.AddToBasket(bagelOnion);
-            }
-
-
-            //Execute
-            basket.AddDiscount();
-
-            //Verify
-            Assert.IsTrue(basket.TotalCost() == 3.99d);
-        }      
-        
+                 
         [Test]
         public void shouldListItemsWithDiscounts()
         {
