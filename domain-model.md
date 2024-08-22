@@ -77,3 +77,10 @@
 | **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
 |:---:|:---:|:---:|:---:|
 | `Basket` | Checkout(string) | Receives a receipt based on shop name | Receipt | The Checkout(string)-method makes an object of the Receipt-class that receives the items in the basket and the shop name and it also sends the GetTotalSumOfBask()-method to the Receipt constructor. Returns a Receipt-object for further use. |
+
+### Extension 3: Discount Receipts
+#### As a customer, <br> So I can see how much I have saved, <br> I'd like to see how much I have saved on my receipt.
+
+| **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
+|:---:|:---:|:---:|:---:|
+| `Item` | MoneySaved | Updates the amount of money saved | void | MoneySaved is a property of data double. This is a sum of current price * original price. This is only to be displayed in the receipt if MoneySaved != Price * OriginalPrice |
