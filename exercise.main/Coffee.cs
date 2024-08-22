@@ -8,7 +8,6 @@ namespace exercise.main
 {
     public class Coffee : Item
     {
-        public Coffee() : base() { }
         public Coffee(string type) : base(type) { }
         public Coffee(string sku, double cost, string name, string type) : base(sku, cost, name, type) { }
 

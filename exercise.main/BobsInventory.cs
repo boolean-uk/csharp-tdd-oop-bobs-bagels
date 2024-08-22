@@ -8,7 +8,6 @@ namespace exercise.main
 {
     public class BobsInventory
     {
-        // property 
         public List<Item> Inventory { get; set; } = new List<Item>();
 
         // constructor - adds items to _Inventory when class in instantiated
@@ -29,6 +28,8 @@ namespace exercise.main
             Inventory.Add(new Filling("FILS", 0.12, "Filling", "Smoked Salmon"));
             Inventory.Add(new Filling("FILH", 0.12, "Filling", "Ham"));
         }
+
+
     }
 }
 

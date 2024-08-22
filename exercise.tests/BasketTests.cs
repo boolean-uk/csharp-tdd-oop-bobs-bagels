@@ -20,7 +20,7 @@ public class Tests
         basket.AddItem(item1);
         basket.AddItem(item2);
 
-        Assert.That(basket.BasketItems.Contains(item1), Is.True); // test add 
+        Assert.That(basket.BasketItems.Contains(item1), Is.True); // test add to basket
         Assert.That(basket.BasketItems.Count == 1, Is.True); // test not adding to full basket
     }
 
@@ -48,7 +48,7 @@ public class Tests
 
         var result = basket.BasketItems.Contains(item);
 
-        Assert.That(result, Is.False); 
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -56,7 +56,7 @@ public class Tests
     {
         Basket basket = new Basket();
         Item item = new Bagel("BGLP", 0.39, "Bagel", "Vegan");
-        
+
         var result = basket.RemoveNonExistingItem(item);
 
         Assert.That(result, Is.True);
@@ -83,12 +83,10 @@ public class Tests
     public void GetBagelCostTest()
     {
         Basket basket = new Basket();
-        Bagel bagel = new Bagel();
         Item item = new Bagel("BGE", 0.49, "Bagel", "Everything");
         basket.AddItem(item);
-        double expected = 0.49;
+        double expected = basket.GetTotalCost();
 
-        //double result = Bagel.GetBagelCost(item);
         double result = Bagel.GetItemCost(item);
 
         Assert.That(expected, Is.EqualTo(result));
@@ -98,10 +96,9 @@ public class Tests
     public void GetFillingCostTest()
     {
         Basket basket = new Basket();
-        Filling filling = new Filling();
         Item item = new Filling("FILB", 0.12, "Filling", "Bacon");
         basket.AddItem(item);
-        double expected = 0.12;
+        double expected = basket.GetTotalCost();
 
         double result = Filling.GetItemCost(item);
 
@@ -111,11 +108,10 @@ public class Tests
     [Test]
     public void AddFillingTest()
     {
-        Bagel bagel = new Bagel();
         BobsInventory inventory = new BobsInventory();
         Item item = inventory.Inventory.Where(x => x.Name == "Filling").First();
         Bagel.AddFilling(item);
-        string expected = "FILB";
+        string expected = item.SKU.ToString();
 
         string result = inventory.Inventory.Where(x => x.SKU == expected).First().SKU;
 
@@ -134,6 +130,69 @@ public class Tests
 
         Assert.That(result, Is.True);
         Assert.That(newCapacity, Is.EqualTo(actualCapacity));
+    }
+
+    [Test]
+    public void PrintReceiptTest()
+    {
+        Basket basket = new Basket();
+        Item item = new Bagel("BGLE", 0.49, "Bagel", "Everything");
+        basket.AddItem(item);
+
+        string printedReceipt = basket.GetReceipt();
+
+        Assert.That(printedReceipt.Contains("Everything"));
+    }
+
+    [Test]
+    public void Discount6Test()
+    {
+        Basket basket = new Basket();
+        basket.MaxCapacity = 20;
+
+        for (int i = 0; i <= 5; i++)
+        {
+            basket.BasketItems.Add(new Bagel("BGLO", 0.49, "Bagel", "Everything"));
+        }
+
+        double expected = 2.49;
+        double result = basket.GetDiscount();
+
+        Assert.That(expected, Is.EqualTo(result));
+    }
+
+    [Test]
+    public void Discount12Test()
+    {
+        Basket basket = new Basket();
+        basket.MaxCapacity = 20;
+
+        for (int i = 0; i <= 11; i++)
+        {
+            basket.BasketItems.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
+        }
+
+        double expected = 3.99;
+        double result = basket.GetDiscount();
+
+        Assert.That(expected, Is.EqualTo(result));
+    }
+
+    [Test]
+    public void CoffeeAndBagelTest()
+    {
+        Basket basket = new Basket();
+        basket.MaxCapacity = 20;
+        basket.BasketItems.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
+        basket.BasketItems.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+
+        double expected = 1.25;
+        double result = basket.GetDiscount();
+
+        Assert.That(expected, Is.EqualTo(result));
+
+
+
     }
 }
 

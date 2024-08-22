@@ -15,12 +15,12 @@ namespace exercise.main
         public string Type { get; set; }
 
         // constructor
-        public Item() { }
 
         public Item(string name) 
         { 
             this.Name = name; 
         }
+       
 
         public Item(string name, string type)
         {
@@ -38,6 +38,10 @@ namespace exercise.main
 
         // method
         public static double GetItemCost(Item item) { return item.Cost; }
+
+
+
+
 
     }
 }
