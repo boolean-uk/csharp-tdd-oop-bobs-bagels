@@ -11,7 +11,6 @@ namespace exercise.main
     {
         private int _id;
         private int _capacity;
-        public int Id { get { return _id; } set { _id = value; } }
         public int Capacity { get { return _capacity; }set { _capacity = value; } }
 
         private List<Item> _items;

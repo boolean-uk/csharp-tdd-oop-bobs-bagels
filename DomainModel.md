@@ -59,30 +59,33 @@ I want customers to only be able to order things that we stock in our inventory.
 | `Basket		` | `RemoveItem(Item item)					`	| Remove item from basket, if exists |(bool) True if removed, otherwise false			|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `ChangeCapacity()						`	| If manager, change capacity		 |(bool) Returns true if changed, false if not		|
+| `Basket		` | `ChangeCapacity(Person person, int cap)	`	| If manager, change capacity		 |(bool) Returns true if changed, false if not		|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `GetPrice()								`	| returns price of basket			 |(void) Cost of basket								|
+| `Basket		` | `GetPrice()								`	| returns price of basket			 |(double) Cost of basket							|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `AddFilling(Item item)					`	| Print cost, Add filling to bagel	 |(void) Prints a statement that it was added		|
+| `Basket		` | `GetDiscountPrice()						`	| returns price of discount			 |(double) Cost of discount							|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `RemoveFilling(Item item)				`	| Removes filling from bagel		 |(void) Prints a statement that it was removed		|
+| `Bagel		` | `AddFilling(string namefilling)			`	| add filling to bagel				 |(string) returns string indicating if it was added|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Bagel		` | `RemoveFilling(string nameFilling)		`	| Removes filling from bagel		 |(bool) True if removed, otherwise false			|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Bagel		` | `GetPrice()								`	| Gets price with fillings			 |(double) returns price of bagel					|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Receipt		` | `GetReceipt(Basket basket)				`	| Gets receipt of basket			 |(string) returns receipt							|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `Receipt		` | `PrintReceipt()							`	| Prints receipt					 |(void) prints receipt								|
+|                 |                                             |									 |													|
+|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
+| `SMSService	` | `SendSMS(string message)				`	| Sends receipt of order			 |(void) Sends receipt by SMS						|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
 | `Inventory	` | `GetInventory()							`	| Method for checking avaliable stock|(List<Item>) returns list with stock of items	    |
-|                 |                                             |									 |													|
-|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-
-Extension: 
-
-
-| Classes         | Methods                                     | Scenario							 |			  Outputs								|
-|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Receipt		` | `GetReceipt(Basket basket)				`	| Prints a receipt of items			 |(void)											|
-|                 |                                             |									 |													|
-|-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
-| `Basket		` | `GetPrice()								`	| returns price of basket			 |(void) Cost of basket, with discount				|
 |                 |                                             |									 |													|
 |-----------------|---------------------------------------------|------------------------------------|--------------------------------------------------|
