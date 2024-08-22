@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.BagelShop">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAABAAAAAAAAIAAAAAAAAAAAAAAJAAACAA=</HashCode>
+      <FileName>BagelShop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Basket">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAAAAAAAAABAAAAAAABAQCgBQAAAAMAICAAAEACAQ=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Product">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BhAIIAAAAQAIAAAEAAQAAAQAgACAAAAAEAAAAEAAAAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Bagel">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProductClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Coffee">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProductClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Filling">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProductClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.ProductOrder">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAgEAAAIAAAAAAQAAABCIBAAAAAAAAoRAAAAAAAA=</HashCode>
+      <FileName>ProductOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

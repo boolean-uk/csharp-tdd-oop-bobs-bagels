@@ -9,12 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exercise.tests", "exercise.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{825CCFE7-4F2E-4770-8393-FEB732F66EE4}"
 	ProjectSection(SolutionItems) = preProject
+		domain-model.md = domain-model.md
 		extension1.md = extension1.md
 		extension2.md = extension2.md
 		extension3.md = extension3.md
 		extension4.md = extension4.md
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwilioReceive", "TwilioReceive\TwilioReceive.csproj", "{EC7A1CFB-5098-4F9B-9935-C21109FB7FBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,8 +33,15 @@ Global
 		{D2678B46-EB41-4FBE-B9FB-48D5B51A28A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2678B46-EB41-4FBE-B9FB-48D5B51A28A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2678B46-EB41-4FBE-B9FB-48D5B51A28A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC7A1CFB-5098-4F9B-9935-C21109FB7FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7A1CFB-5098-4F9B-9935-C21109FB7FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7A1CFB-5098-4F9B-9935-C21109FB7FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7A1CFB-5098-4F9B-9935-C21109FB7FBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A715B21-5AA3-42C5-9C4D-9D3434AF7B49}
 	EndGlobalSection
 EndGlobal
