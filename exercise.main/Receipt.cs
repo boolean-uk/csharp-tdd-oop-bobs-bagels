@@ -38,8 +38,12 @@ namespace exercise.main
 
             foreach (var item in _boughtItems)
             {
-                Console.WriteLine($"{item.Variant} {item.GetType().Name}".PadRight(28) + $"{item.Quantity}".PadRight(4) + $"£{Math.Round(item.Price, 2)}");
+                Console.WriteLine(
+                    $"{item.Variant} {item.GetType().Name}".PadRight(28) + 
+                    $"{item.Quantity}".PadRight(4) + $"£{Math.Round(item.Price, 2)}"
+                 );
 
+                // If there is money saved, print out
                 if (item.MoneySaved != (item.OriginalPrice * item.Quantity) & item.MoneySaved != 0)
                 {
                     Console.WriteLine($"(-£{item.MoneySaved})".PadLeft(38));
@@ -48,11 +52,15 @@ namespace exercise.main
 
                 if (item is Bagel bagel)
                 {
+                    // Check if bagel has fillings, if it has print these out
                     if (bagel.Fillings.Count > 0)
                     {
                         foreach (Filling filling in bagel.Fillings) 
                         {
-                            Console.WriteLine($"|--> {filling.Variant} {filling.GetType().Name}".PadRight(28) + $"{filling.Quantity}".PadRight(3) + $" £{Math.Round(filling.Price, 2)}");
+                            Console.WriteLine(
+                                $"|--> {filling.Variant} {filling.GetType().Name}".PadRight(28) + 
+                                $"{filling.Quantity}".PadRight(3) + $" £{Math.Round(filling.Price, 2)}"
+                             );
                         }
 
                         Console.Write("\n");
