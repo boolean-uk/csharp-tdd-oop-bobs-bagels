@@ -51,13 +51,37 @@ As the manager,
 So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 
+---- Extension 1 ----
+As a Bobs bagel manager,
+So that customers are incentivised to order larger amounts
+I'd like to give them a discount on larger orders
 
 ---- Extension 2 ----
 As a customer,
 So i can see that the total is correct,
 I'd like to receive a receipt that shows the entire basket after checkout
 
+---- Extension 3 ----
+As a customer,
+So i can see how much i saved on a purchase,
+I'd like to see on my receipt if any discount was applied to my order, and how much
 
+---- Extension 4 ----
+As a customer,
+So i dont need to have physical paper receipts
+I'd like to receive my receipt by Sms
+
+As a customer,
+So i know when to pick up my order
+I'd like the Sms receipt to include pickup date and time
+
+
+
+| `Bagel`       | AddFilling()				  |  Adds filling to bagel			    	 | true         |
+|               |           				  |  Filling is not in inventory	    	 | false        |
+|               |                             |                                          |	            |
+| `Bagel`       | RemoveFilling(string sku)	  |  Removes filling by filling sku		   	 | true         |
+|               |                             |                                          |	            |
 
 
 | Classes       | Methods			     	  |  Scenario								 | Outputs      |
@@ -79,9 +103,16 @@ I'd like to receive a receipt that shows the entire basket after checkout
 | `Item`        | CheckItemCost()		      |  Checks cost of item 			    	 | int          
 |               |                             |                                          |	            |
 | `Bagel`       | AddFilling()				  |  Adds filling to bagel			    	 | true         |
-|               |           				  |  Filling is not in inventory	    	 | false         |
+|               |           				  |  Filling is not in inventory	    	 | false        |
 |               |                             |                                          |	            |
 | `Bagel`       | RemoveFilling(string sku)	  |  Removes filling by filling sku		   	 | true         |
 |               |                             |                                          |	            |
-
-
+|               |                             |                                          |	            |
+| `Basket`      | CheckBasketCostDiscounted() |  Checks cost of basket with discount	 | int          |
+|               |                             |                                          |	            |
+| `Receipt`     | PrintReceipt()		      |  Prints a receipt of basket total 	  	 | void         |
+|               |                             |                                          |	            |
+| `Receipt`     | SendReceipt()		          |  Calls SendReceipt() on NotificationSendeer 	  	| void          |
+|               |                             |														|	            |
+| `NotificationSender`     | SendReceipt()		         |  Sends a receipt message to customer 	| void          |
+|						   |                             |                                          |	            |

@@ -9,24 +9,23 @@ namespace exercise.main
     public class Receipt
     {
         private Basket _basket;
-        private double total;
-        private double discount;
+        private double _total;
+        private double _discount;
         
         public Receipt(Basket basket)
         {
             this._basket = basket;
-            total = Math.Round(this._basket.CheckBasketCostDiscounted(),2);
-            discount = Math.Round(this._basket.CheckBasketCost() - this._basket.CheckBasketCostDiscounted(), 2);
+            this._total = Math.Round(this._basket.CheckBasketCostDiscounted(),2);
+            this._discount = Math.Round(this._basket.CheckBasketCost() - this._basket.CheckBasketCostDiscounted(), 2);
         }
 
-        public void PrintReceipt()
+        public string GenerateReceipt()
         {
-            Console.WriteLine("    ~~~ Bob's Bagels ~~~\r\n");
-            Console.WriteLine("   " + DateTime.Now.ToString() + "\r\n");
-            Console.WriteLine("----------------------------\r\n");
+            StringBuilder sb = new StringBuilder();
 
-            List<Item> basketBagels = this._basket.Items.Where(i => i.GetType() == typeof(Bagel)).ToList();
-            List<Bagel> bagels = new List<Bagel>();
+            sb.AppendLine("    ~~~ Bob's Bagels ~~~\r\n");
+            sb.AppendLine("   " + DateTime.Now.ToString() + "\r\n");
+            sb.AppendLine("----------------------------\r\n");
 
             var groupedBagels = this._basket.Items
                 .GroupBy(b => b.Sku)
@@ -34,7 +33,7 @@ namespace exercise.main
                 {
 
                     double price = 0;
-                    foreach(Item b in group)
+                    foreach (Item b in group)
                     {
                         price += b.Price;
                     }
@@ -45,7 +44,7 @@ namespace exercise.main
                         .Select(group =>
                         {
                             double fillingsPrice = 0;
-                            foreach(Filling filling in group)
+                            foreach (Filling filling in group)
                             {
                                 fillingsPrice += filling.Price;
                             }
@@ -57,7 +56,6 @@ namespace exercise.main
                             };
                         });
 
-
                     return new
                     {
                         Name = $"{group.First().Variant} {group.First().Name}",
@@ -68,32 +66,46 @@ namespace exercise.main
 
                 });
 
-            foreach(var b in groupedBagels)
+            foreach (var b in groupedBagels)
             {
-                Console.WriteLine("{0,-18} {1,-1} {2,-10}", $"{b.Name} ", b.Quantity, $"£{b.Price}");
-                foreach(var f in b.Fillings)
+                sb.AppendFormat("{0,-18} {1,-1} {2,-10}", $"{b.Name} ", b.Quantity, $"£{b.Price}");
+                sb.AppendLine();
+                foreach (var f in b.Fillings)
                 {
-                    Console.WriteLine("{0,-18} {1,-1} {2,-10}", $" - {f.Name}", f.Quantity , $"£{f.Price}");
-
+                    sb.AppendFormat("{0,-18} {1,-1} {2,-10}", $" - {f.Name}", f.Quantity, $"£{f.Price}");
+                    sb.AppendLine();
                 }
             }
 
-            Console.WriteLine("----------------------------\r");
-            Console.WriteLine("{0,-18} {1,-1:C} {2,-10}", $"Total price", "", $"£{total}");
-            if(discount > 0)
+            sb.AppendLine("----------------------------\r");
+            sb.AppendFormat("{0,-18} {1,-1:C} {2,-10}", $"Total price", "", $"£{_total}");
+            sb.AppendLine();
+            if (_discount > 0)
             {
-                Console.WriteLine("{0,-16} {1,-1:C} {2,-10}", $"", "", $"(-£{Math.Round(this._basket.CheckBasketCost() - total, 2)})\n");
+                sb.AppendFormat("{0,-16} {1,-1:C} {2,-10}", $"", "", $"(-£{Math.Round(this._basket.CheckBasketCost() - _total, 2)})\n");
+                sb.AppendLine();
 
-                Console.WriteLine($" You saved a total of £{discount}");
-                Console.WriteLine("        on this shop\r\n");
-            } else
+                sb.AppendLine($" You saved a total of £{_discount}");
+                sb.AppendLine("        on this order\r\n");
+            }
+            else
             {
-                Console.WriteLine("");
+                sb.AppendLine("");
             }
 
-            Console.WriteLine("        Thank you\r");
-            Console.WriteLine("      for your order!\r\n");
-            
+            sb.AppendLine("        Thank you\r");
+            sb.AppendLine("for shopping at Bobs Bagels!\r\n");
+            return sb.ToString();
+        }
+        
+        public void PrintReceipt()
+        {
+            Console.WriteLine(GenerateReceipt());
+        }
+
+        public void SendReceipt()
+        {
+            NotificationSender.SendReceipt(GenerateReceipt());
         }
     }
 }
