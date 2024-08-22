@@ -9,11 +9,14 @@ customer.Basket.Capacity = 50;
 // 2 onion Bagel
 Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
 
-Filling creamCheeseFilling = shopInventory.GetFillingBySkuID("FILX");
-customer.AddFillingToBagel(onionBagel, creamCheeseFilling);
+customer.AddItemToBasket(onionBagel);
+customer.AddItemToBasket(onionBagel);
 
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
+Filling creamCheeseFilling = shopInventory.GetFillingBySkuID("FILX");
+Filling smokedSalmonFilling = shopInventory.GetFillingBySkuID("FILS");
+customer.AddFillingToBagel(onionBagel, creamCheeseFilling);
+customer.AddFillingToBagel(onionBagel, creamCheeseFilling);
+customer.AddFillingToBagel(onionBagel, smokedSalmonFilling);
 
 
 // 12 Plain Bagel

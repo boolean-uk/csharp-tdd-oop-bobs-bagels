@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace exercise.main
 {
@@ -74,8 +75,22 @@ namespace exercise.main
             {
                 if (item.Sku == bagel.Sku)
                 {
-                    bagel.Fillings.Add(filling);
-                    return true;
+                    if (bagel.Fillings.Contains(filling))
+                    {
+                        filling.Quantity++;
+                        filling.Price = filling.OriginalPrice * filling.Quantity;
+                        _capacity--;
+
+                        return true;
+                    } else
+                    {
+                        bagel.Fillings.Add(filling);
+                        filling.Quantity++;
+                        filling.OriginalPrice = filling.Price;
+                        _capacity--;
+
+                        return true;
+                    }
                 }
             }
 
@@ -117,6 +132,8 @@ namespace exercise.main
             double itemListSum = itemList.Sum(item => item.Price);
 
             return Math.Round(total + itemListSum, 2);
+
+            //return Math.Round(_itemsInBasket.Sum(x => x.Price), 2);
         }
 
         public Receipt Checkout(string shopName)

@@ -35,7 +35,18 @@ namespace exercise.main
 
             foreach (var item in _boughtItems)
             {
-                Console.WriteLine($"{item.Variant} {item.GetType().Name} {item.Quantity} £{Math.Round(item.Price, 2)}");
+                Console.WriteLine($"{item.Variant} {item.GetType().Name}".PadRight(27) + $"{item.Quantity}".PadRight(4) + $"£{Math.Round(item.Price, 2)}");
+
+                if (item is Bagel bagel)
+                {
+                    if (bagel.Fillings.Count > 0)
+                    {
+                        foreach (Filling filling in bagel.Fillings) 
+                        {
+                            Console.WriteLine($"|=> {filling.Variant} {filling.GetType().Name}".PadRight(27) + $"{filling.Quantity}".PadRight(3) + $" £{Math.Round(filling.Price, 2)}");
+                        }
+                    }
+                }
             }
 
             Console.WriteLine("\n----------------------------\n" +
