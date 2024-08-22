@@ -38,7 +38,7 @@ namespace exercise.main
             }
             if (product.Name == "coffee")
             {
-                product = new Bagel(product.SKU, product.Price, product.Name, product.Variant);
+                product = new Coffee(product.SKU, product.Price, product.Name, product.Variant);
             }
 
             product.ID = _basket.Count;
@@ -225,6 +225,8 @@ namespace exercise.main
                 recieptString.AppendLine(lineBreak);
             }
 
+            recieptString.AppendLine("Discounts:");
+            recieptString.AppendLine();
 
             //Check for unique items
             foreach (IProduct product in uniqueProducts)
@@ -280,7 +282,7 @@ namespace exercise.main
             }
 
             recieptString.AppendLine(lineBreak);
-            recieptString.Append(String.Format("{0, -25}", "Total"));
+            recieptString.Append(String.Format("{0, -24}", "Total"));
             recieptString.AppendLine("£" + total);
             recieptString.AppendLine();
             recieptString.AppendLine(String.Format("{0, 27}", "You saved a total of £" + Math.Round(totalNoDisc-total, 2)));
