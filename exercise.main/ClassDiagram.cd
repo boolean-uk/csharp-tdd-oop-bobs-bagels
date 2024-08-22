@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.Basket">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAgACEAAAAAAAAAAgBAAAAAEAAAAAAAACAA=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.BobsBagelStore">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAQAAGAAEAAAAAAAAABQBAAAACAEIAACkABAAA=</HashCode>
+      <FileName>BobsBagelStore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Discount">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAABAAAAAAAACAAACAgEAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Discount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Item">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAIAAAAQAIAAAAAAAAAAQAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Order">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAAACQAAIAAAAAABAAAIAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Receipt">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAQAAAAAABiAAAAAAAAICAABAAQAAAAggAACQAAAA=</HashCode>
+      <FileName>Receipt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.SmsController">
+    <Position X="2.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAABAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SmsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.User">
+    <Position X="4.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="exercise.main.Role">
+    <Position X="6.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
