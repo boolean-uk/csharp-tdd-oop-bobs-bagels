@@ -61,4 +61,4 @@
 
 | **Classes** | **Methods** | **Scenario** | **Outputs** | **Description** |
 |:---:|:---:|:---:|:---:|
-| `Customer` | Add(Item) | Adds a bagel to the basket | bool | The Add(Item)-method calls the Add(Item)-method in basket to update the List inside the Basket-class. Returns a boolean for confirmation. |
+| `Basket` | Checkout(string) | Receives a receipt based on shop name | Receipt | The Checkout(string)-method makes an object of the Receipt-class that receives the items in the basket and the shop name and it also sends the GetTotalSumOfBask()-method to the Receipt constructor. Returns a Receipt-object for further use. |
