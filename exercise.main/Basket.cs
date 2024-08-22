@@ -32,6 +32,7 @@ namespace exercise.main
                         _capacity--;
                         itemInBasket.Quantity++;
                         itemInBasket.Price = item.OriginalPrice * item.Quantity;
+                        itemInBasket.CheckForDiscount();
 
                         return true;
                     } 

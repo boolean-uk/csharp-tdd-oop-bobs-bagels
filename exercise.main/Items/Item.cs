@@ -37,5 +37,30 @@ namespace exercise.main.Items
         {
 
         }
+
+        public void CheckForDiscount()
+        {
+            if (_sku == "BGLO" | _sku == "BGLE")
+            {
+                if (_quantity % 6 == 0)
+                {
+                    _price = Math.Round((2.49 * (_quantity / 6)), 2);
+                }
+                else
+                {
+                    _price = Math.Round((2.49 * (_quantity / 6)) + (_originalPrice * (_quantity % 6)), 2);
+                }
+            } else if (_sku == "BGLP")
+            {
+                if (_quantity % 12 == 0)
+                {
+                    _price = Math.Round((3.99 * (_quantity / 12)), 2);
+                }
+                else
+                {
+                    _price = Math.Round((3.99 * (_quantity / 12)) + (_originalPrice * (_quantity % 12)), 2);
+                }
+            }
+        }
     }
 }
