@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Twilio.TwiML.Messaging;
 
 namespace exercise.main
 {
@@ -17,12 +18,14 @@ namespace exercise.main
         private List<Item> _inventory;
         private List<Basket> _baskets;
         private List<Receipt> _receipts;
+        private List<Order> _orders;
 
         public BobsBagelStore()
         {
             _inventory = new List<Item>();
             _baskets = new List<Basket>();
             _receipts = new List<Receipt>();
+            _orders = new List<Order>();
         }
 
         public bool AddReceipt(Basket basket, Receipt newReceipt)
@@ -125,8 +128,57 @@ namespace exercise.main
             return profits;
         }
 
+        public string MakeOrder(Receipt receipt)
+        {
+            Order order = new Order(receipt);
+            _orders.Add(order);
+            StringBuilder orderMessage = new StringBuilder();
+
+            orderMessage.Append("       ~~~ Order Created ~~~\n\n");
+            orderMessage.Append($"Items Ordered at {order.OrderDate}\n".PadRight(5));
+            orderMessage.Append($"Estimated delivery time is {order.DeliveryTime} minutes\n");
+            orderMessage.Append($"at {order.DeliveryDate.Hour}:{order.DeliveryDate.Minute}\n".PadLeft(5));
+            orderMessage.Append($"\nOrder receipt is\n");
+
+            Console.WriteLine(orderMessage.ToString());
+
+            orderMessage.Insert(0, receipt.PrintReceipt());
+
+            return orderMessage.ToString();
+        }
+
+        public string PrintOrderHistory()
+        {
+            int counter = 0;
+            StringBuilder orderHistory = new StringBuilder();
+            orderHistory.Append("      ~~~ Order History ~~~\n\n");
+            foreach (Order order in _orders) 
+            {
+                counter++;
+                orderHistory.Append($"Order {counter} from {order.OrderDate}\n");
+                orderHistory.Append($"Delivered at {order.DeliveryDate}\n\n");
+                orderHistory.Append($"With items:\n");
+                orderHistory.Append(new string('-', 33) + '\n');
+                orderHistory.Append($"{order.BelongingReceipt.CalculateItems()}");
+                orderHistory.Append(new string('-', 33) + '\n');
+                orderHistory.Append($"Total\t\t".PadRight(18));
+                orderHistory.Append($"£{float.Round(order.BelongingReceipt.Total, 2)}\n");
+                if (order.BelongingReceipt.TotalDiscount > 0f)
+                {
+                    orderHistory.Append($"Total saved\t\t".PadRight(16));
+                    orderHistory.Append($"£{float.Round(order.BelongingReceipt.TotalDiscount, 2)}\n");
+                }
+                orderHistory.Append(new string('~', 33) + "\n\n\n");
+            }
+
+            Console.WriteLine(orderHistory);
+
+            return orderHistory.ToString();
+        }
+
         public List<Basket> Baskets { get { return _baskets; } }
         public List<Item> Inventory { get { return _inventory; } }
         public List<Receipt> Receipts { get { return _receipts; } }
+        public List<Order> Orders { get { return _orders; } }
     }
 }

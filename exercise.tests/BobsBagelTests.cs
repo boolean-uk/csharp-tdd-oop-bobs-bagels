@@ -1,15 +1,11 @@
 using exercise.main;
 using NUnit.Framework.Interfaces;
+using System.Security.Cryptography.X509Certificates;
 
 namespace exercise.tests;
 
 public class BobsBagelTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [TestCase(3, true)]
     [TestCase(2, false)]
     public void TestAddItemToBasken(int basketCapacity, bool expectedResult)
