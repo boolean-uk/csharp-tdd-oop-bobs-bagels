@@ -71,8 +71,7 @@ public class Tests
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
         TestBagel.Filling = fillingvariant;
 
-        string expected = $"{fillingsku}, {fillingprice}\n{fillingname}, {fillingvariant}\n\n{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} \n\n\nSubtotal: 0,61 quid\nThanks for shopping at Bob's Bagels! ^_^";
-
+        double expected = 0.61;
         // act
         Bagel FilledBagel = ChosenItem.AddFillings(Bagel, fillings);
         preselection.Add(Bacon);
@@ -82,7 +81,7 @@ public class Tests
 
         Basket.AddToBasket(0, preselection);
 
-        string result = Basket.PrintBasket();
+        double result = Basket.BasketTotal();
 
         Assert.IsTrue(expected == result);
     }
@@ -110,8 +109,7 @@ public class Tests
         Bagel TestBagel = new Bagel(sku, price, name, variant, filling);
         TestBagel.Filling = $"{fillingvariant} {fillingvariant2}";
 
-        string expected = $"{fillingsku}, {fillingprice}\n{fillingname}, {fillingvariant}\n\n{fillingsku2}, {fillingprice2}\n{fillingname2}, {fillingvariant2}\n\n{sku}, {price}\n{name}, {variant}\nWith: {TestBagel.Filling} \n\n\nSubtotal: 0,73 quid\nThanks for shopping at Bob's Bagels! ^_^";
-
+        double expected = 0.73;
         // act
         Bagel filledBagel = ChosenItem.AddFillings(Bagel, fillings);
         preselection.Add(Bacon);
@@ -120,7 +118,7 @@ public class Tests
 
         Basket.AddToBasket(0, preselection);
 
-        string result = Basket.PrintBasket();
+        double result = Basket.BasketTotal();
 
         Assert.IsTrue(expected == result);
     }
@@ -383,17 +381,5 @@ public class Tests
         }
 
         Assert.IsTrue(expected == false);
-
-        
-        
-
-        //Filling filling1 = ChosenItem.ChooseFillings("FILE", 0.12, "Filling", "Egg");
-        //List<Filling> thesefillings = new List<Filling>();
-        //thesefillings.Add(filling1);
-        //bagel18 = ChosenItem.AddFillings(bagel18, thesefillings);
-        //preselection18.Add(bagel18);
-        //preselection18.Add(filling1);
-        //List<Item> selectedItems18 = basket.AddToSelection(preselection18);
-        //basket.AddToBasket(18, selectedItems18);
     }
 }
