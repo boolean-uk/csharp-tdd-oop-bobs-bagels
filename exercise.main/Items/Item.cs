@@ -44,27 +44,10 @@ namespace exercise.main.Items
         {
             if (_sku == "BGLO" | _sku == "BGLE")
             {
-                // Check for leftovers/loose items that are not included in special offer using modulo operator
-                if (_quantity % 6 == 0)
-                {
-                    // For each pair of 6, multiply by 2.49 because BGLO and BGLE special offer is 6 for 2.49
-                    _price = Math.Round((2.49 * (_quantity / 6)), 2);
-                }
-                else
-                {
-                    // Runs if there are leftovers/loose items. Calculates special offer price + (original price * number of loose items)
-                    _price = Math.Round((2.49 * (_quantity / 6)) + (_originalPrice * (_quantity % 6)), 2);
-                }
+                _price = Math.Round((2.49 * (_quantity / 6)) + (_originalPrice * (_quantity % 6)), 2);
             } else if (_sku == "BGLP")
             {
-                if (_quantity % 12 == 0)
-                {
-                    _price = Math.Round((3.99 * (_quantity / 12)), 2);
-                }
-                else
-                {
-                    _price = Math.Round((3.99 * (_quantity / 12)) + (_originalPrice * (_quantity % 12)), 2);
-                }
+                _price = Math.Round((3.99 * (_quantity / 12)) + (_originalPrice * (_quantity % 12)), 2);
             }
 
             _moneySaved = Math.Round((_originalPrice * _quantity) - _price, 2);

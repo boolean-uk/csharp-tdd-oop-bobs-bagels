@@ -8,6 +8,8 @@ namespace exercise.main.Items
 {
     public class Coffee : Item
     {
+        //private Bagel _bagel;
+        //public Bagel Bagel { get => _bagel; set => _bagel = value; }
         public Coffee()
         {
 

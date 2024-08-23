@@ -9,12 +9,10 @@ customer.Basket.Capacity = 50;
 // 2 onion Bagel
 Bagel onionBagel = shopInventory.GetBagelBySkuID("BGLO");
 
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
-customer.AddItemToBasket(onionBagel);
+for (int i = 0; i < 3; i++)
+{
+    customer.AddItemToBasket(onionBagel);
+}
 
 Filling creamCheeseFilling = shopInventory.GetFillingBySkuID("FILX");
 Filling smokedSalmonFilling = shopInventory.GetFillingBySkuID("FILS");
@@ -39,9 +37,10 @@ for (int i = 0; i < 6; i++)
 
 // 3 Black Coffee
 Coffee coffee = shopInventory.GetCoffeeBySkuID("COFB");
-customer.AddItemToBasket(coffee);
-customer.AddItemToBasket(coffee);
-customer.AddItemToBasket(coffee);
+for (int i = 0; i < 3; i++)
+{
+    customer.AddItemToBasket(coffee);
+}
 
 string shopName = "Bob's Bagels";
 

@@ -139,9 +139,57 @@ namespace exercise.main
 
         public Receipt Checkout(string shopName)
         {
+            // CheckForCoffeeAndBagelSpecialOffer();
             Receipt receipt = new Receipt(_itemsInBasket, shopName, GetTotalSumOfBasket());
 
             return receipt;
         }
+
+        //public void CheckForCoffeeAndBagelSpecialOffer()
+        //{
+        //    Bagel looseBagelType;
+        //    int coffeeQuantity = 0;
+
+        //    // Count amount of COFB, Black Coffee
+        //    foreach (var item in _itemsInBasket)
+        //    {
+        //        if (item.GetType() == typeof(Coffee) & item.Sku == "COFB")
+        //        {
+        //            coffeeQuantity++;
+        //        }
+        //    }
+
+        //    foreach (var item in _itemsInBasket)
+        //    {
+        //        if (item.GetType() == typeof(Bagel) & item.Quantity % 6 != 0 & (item.Sku == "BGLO" | item.Sku == "BGLE"))
+        //        {
+        //            looseBagelType = new Bagel(item.Sku, item.Price, item.Variant);
+        //            looseBagelType.Quantity = item.Quantity % 6;
+        //            item.Quantity -= item.Quantity % 6;
+
+        //            foreach (var item2 in _itemsInBasket)
+        //            {
+        //                if (item2.GetType() == typeof(Coffee) & item2.Sku == "COFB" & looseBagelType.Quantity != 0)
+        //                {
+        //                    ((Coffee)item2).Bagel = looseBagelType;
+        //                    looseBagelType.Price = 0;
+
+        //                    for (int i = coffeeQuantity; i < looseBagelType.Quantity;)
+        //                    {
+        //                        item2.Price = 1.25;
+        //                        item2.MoneySaved += 0.26;
+
+        //                        looseBagelType.Quantity--;
+        //                    }
+        //                }
+        //            }
+        //        } else if (item.GetType() == typeof(Bagel) & item.Quantity % 12 != 0 & item.Sku == "BGLP")
+        //        {
+        //            looseBagelType = new Bagel(item.Sku, item.Price, item.Variant);
+        //            looseBagelType.Quantity += item.Quantity % 12;
+        //            item.Quantity -= item.Quantity % 12;
+        //        }
+        //    }
+        //}
     }
 }
