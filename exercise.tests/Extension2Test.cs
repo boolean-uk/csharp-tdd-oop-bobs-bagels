@@ -29,9 +29,8 @@ namespace exercise.tests
             string receipt = basket.printreceipt();
 
             Assert.That(receipt, Does.Contain("2024"));
-
-
-
+            Assert.That(receipt, Does.Contain("Bob's Bagels"));
+            Assert.That(receipt, Does.Contain("Total"));
 
         }
     }

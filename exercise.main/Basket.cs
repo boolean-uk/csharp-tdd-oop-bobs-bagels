@@ -17,14 +17,14 @@ namespace exercise.main
 
         private int _maxcapasity;
 
-        /*
+        
         public string printreceipt()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("   ~~~  Bob's Bagels  ~~~");
+            sb.AppendLine();
+            sb.AppendLine("Bob's Bagels");
             sb.AppendLine();
             sb.AppendLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine("-------------------");
 
@@ -44,7 +44,7 @@ namespace exercise.main
             {
                 var itemname = $"{group.Name} {group.Variant}";
                 var itemquantity = group.Quantity;
-                var totalitemprice = group.TotalPrice;
+                var totalitemprice = group.ItemPrice;
                 totalprice += totalitemprice;
 
                 sb.AppendLine($"{itemname}\t {itemquantity,2}\t £{totalitemprice:F2}");
@@ -52,15 +52,13 @@ namespace exercise.main
 
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine(" ------------- ");
-            sb.AppendLine($" Total           £{totalprice:F2}");
+            sb.AppendLine("------------------");
+            sb.AppendLine($"Total         £{totalprice:F2}");
 
             return sb.ToString();
 
 
-
-
-        }*/
+        }
 
         public bool addItem(Item item)
         {
