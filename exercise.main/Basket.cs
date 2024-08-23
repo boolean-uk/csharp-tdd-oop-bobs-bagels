@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -99,10 +100,7 @@ namespace exercise.main
             return _receipt.ToString();
         }
 
-        
         public double GetTotalCost() { return BasketItems.Sum(x => x.Cost); }
-
-
 
 
         public double GetDiscount()

@@ -14,8 +14,6 @@ namespace exercise.main
         public string Name { get; set; }
         public string Type { get; set; }
 
-        // constructor
-
         public Item(string name) 
         { 
             this.Name = name; 

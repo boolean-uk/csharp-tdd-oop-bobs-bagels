@@ -190,9 +190,6 @@ public class Tests
         double result = basket.GetDiscount();
 
         Assert.That(expected, Is.EqualTo(result));
-
-
-
     }
 }
 
