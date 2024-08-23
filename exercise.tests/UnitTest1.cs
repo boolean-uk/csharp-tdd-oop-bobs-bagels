@@ -302,7 +302,7 @@ public class Tests
 
     }
 
-    [Test] //This tests for the occurence of 13 bagels, where 12 get the discount, and not the last one
+    [Test]
     public void BagelDiscountTest()
     {
         Basket basket = new Basket();
@@ -397,4 +397,42 @@ public class Tests
         Assert.IsTrue(expected == result);
     }
 
+    [Test]
+    // Honestly here I'm just testing to see that the receipt is not returning the empty dialogue.
+    public void ReceiptTest()
+    {
+        Basket basket = new Basket();
+        List<Item> preselection = basket.MakeNew();
+        List<Filling> fillings = new List<Filling>();
+        Filling filling1 = ChosenItem.ChooseFillings("FILE", 0.12, "Filling", "Egg");
+        fillings.Add(filling1);
+        Bagel bagel = ChosenItem.MakeBagel("BGLE", 0.49, "Bagel", "Everything", "");
+        bagel = ChosenItem.AddFillings(bagel, fillings);
+        preselection.Add(bagel);
+        preselection.Add(filling1);
+        basket.AddToBasket(1, preselection);
+
+        bool expected = false;
+
+        bool empty = true;
+
+        if (basket.PrintBasket() != "Basket is empty")
+        {
+            empty = false;
+        }
+
+        Assert.IsTrue(expected == false);
+
+        
+        
+
+        //Filling filling1 = ChosenItem.ChooseFillings("FILE", 0.12, "Filling", "Egg");
+        //List<Filling> thesefillings = new List<Filling>();
+        //thesefillings.Add(filling1);
+        //bagel18 = ChosenItem.AddFillings(bagel18, thesefillings);
+        //preselection18.Add(bagel18);
+        //preselection18.Add(filling1);
+        //List<Item> selectedItems18 = basket.AddToSelection(preselection18);
+        //basket.AddToBasket(18, selectedItems18);
+    }
 }

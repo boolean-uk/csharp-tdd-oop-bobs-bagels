@@ -345,12 +345,11 @@ namespace exercise.main
                         }
                 }
 
-                var bagelsQuery = bagels.DistinctBy(x => x.Sku);
-                /*
+
                 var bagelsQuery = bagels.GroupBy(x => x.Sku)
-                    .Where(g => g.Count() > 1)
-                    .Select(y => new { Element = y.Key, Counter = y.Count(), bagels.FindAll(c => c.Variant), Total = bagels.Sum(x => x.Price)})
-                    .ToList();*/
+                    .Where(g => g.Count() >= 1)
+                    .Select(y => new { Element = y.Key, Counter = y.Count(), Variant = y.ElementAt(0).Variant , Total = y.Sum(y => y.Price) })
+                    .ToList();
 
 
                 var coffeeQuery = coffees.GroupBy(x => x)
@@ -367,7 +366,7 @@ namespace exercise.main
 
                 foreach (var bagel in bagelsQuery)
                 {
-                    print += bagel.Element +": " + bagel.Counter + "  "+Math.Round(bagel.Total,2)+"\n\n";
+                    print += bagel.Element +" "+bagel.Variant+" : " + bagel.Counter + "  "+Math.Round(bagel.Total,2)+"\n\n";
                 }
 
                 foreach (var coffee in coffeeQuery)

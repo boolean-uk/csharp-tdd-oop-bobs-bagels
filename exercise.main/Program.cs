@@ -9,42 +9,52 @@ Inventory.FillingStock = 20;
 Inventory.BagelStock = 20;
 Inventory.CoffeeStock = 20;
 
+List<Item> preselection = basket.MakeNew();
+List<Filling> fillings = new List<Filling>();
+Filling filling1 = ChosenItem.ChooseFillings("FILE", 0.12, "Filling", "Egg");
+fillings.Add(filling1);
+Bagel bagel = ChosenItem.MakeBagel("BGLE", 0.49, "Bagel", "Everything", "");
+bagel = ChosenItem.AddFillings(bagel, fillings);
+preselection.Add(bagel);
+preselection.Add(filling1);
+basket.AddToBasket(1, preselection);
 
-List<Item> preselection3 = basket.MakeNew();
-Bagel bagel3 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection3.Add(bagel3);
-List<Item> selectedItems3 = basket.AddToSelection(preselection3);
-basket.AddToBasket(3, selectedItems3);
 
-List<Item> preselection4 = basket.MakeNew();
-Bagel bagel4 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection4.Add(bagel4);
-List<Item> selectedItems4 = basket.AddToSelection(preselection4);
-basket.AddToBasket(4, selectedItems4);
+//List<Item> preselection3 = basket.MakeNew();
+//Bagel bagel3 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+//preselection3.Add(bagel3);
+//List<Item> selectedItems3 = basket.AddToSelection(preselection3);
+//basket.AddToBasket(3, selectedItems3);
 
-List<Item> preselection5 = basket.MakeNew();
-Bagel bagel5 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection5.Add(bagel5);
-List<Item> selectedItems5 = basket.AddToSelection(preselection5);
-basket.AddToBasket(5, selectedItems5);
+//List<Item> preselection4 = basket.MakeNew();
+//Bagel bagel4 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+//preselection4.Add(bagel4);
+//List<Item> selectedItems4 = basket.AddToSelection(preselection4);
+//basket.AddToBasket(4, selectedItems4);
 
-List<Item> preselection6 = basket.MakeNew();
-Bagel bagel6 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection6.Add(bagel6);
-List<Item> selectedItems6 = basket.AddToSelection(preselection6);
-basket.AddToBasket(6, selectedItems6);
+//List<Item> preselection5 = basket.MakeNew();
+//Bagel bagel5 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+//preselection5.Add(bagel5);
+//List<Item> selectedItems5 = basket.AddToSelection(preselection5);
+//basket.AddToBasket(5, selectedItems5);
 
-List<Item> preselection7 = basket.MakeNew();
-Bagel bagel7 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection7.Add(bagel7);
-List<Item> selectedItems7 = basket.AddToSelection(preselection7);
-basket.AddToBasket(7, selectedItems7);
+//List<Item> preselection6 = basket.MakeNew();
+//Bagel bagel6 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+//preselection6.Add(bagel6);
+//List<Item> selectedItems6 = basket.AddToSelection(preselection6);
+//basket.AddToBasket(6, selectedItems6);
 
-List<Item> preselection8 = basket.MakeNew();
-Bagel bagel8 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
-preselection8.Add(bagel8);
-List<Item> selectedItems8 = basket.AddToSelection(preselection8);
-basket.AddToBasket(8, selectedItems8);
+//List<Item> preselection7 = basket.MakeNew();
+//Bagel bagel7 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+//preselection7.Add(bagel7);
+//List<Item> selectedItems7 = basket.AddToSelection(preselection7);
+//basket.AddToBasket(7, selectedItems7);
+
+//List<Item> preselection8 = basket.MakeNew();
+//Bagel bagel8 = ChosenItem.MakeBagel("BGLE", 0.49, "Bagel", "Everything", "");
+//preselection8.Add(bagel8);
+//List<Item> selectedItems8 = basket.AddToSelection(preselection8);
+//basket.AddToBasket(8, selectedItems8);
 
 //List<Item> preselection9 = basket.MakeNew();
 //Bagel bagel9 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
