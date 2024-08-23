@@ -36,168 +36,76 @@ namespace exercise.main
             return new List<Item>();
         }
 
-        public void TrackDiscountBagel(Bagel thing)
+        public void TrackDiscountBagel()
         {
-            for (int i = 0; i < sixDiscount.Length; i++)
-            {
-                if (sixDiscount[i] == null)
-                {
-                    sixDiscount[i] = thing;
-                    break;
-                }
-            }
+            List<Item> coffees = new List<Item>();
+            List<Item> bagels = new List<Item>();
+            List<Item> fillings = new List<Item>();
 
-            int sixcount = 0;
-            for (int i = 0; i < sixDiscount.Length; ++i)
+            foreach (KeyValuePair<int, List<Item>> item in BasketItems)
             {
-                if (sixDiscount[i] != null)
+                int key = item.Key;
+                List<Item> items = item.Value;
+                foreach (Item thing in items)
                 {
-                    sixcount++;
-                }
-            }
-
-            int twelvecount = 0;
-
-            for (int i = 0; i < twelveDiscount.Length; i++)
-            {
-                if (twelveDiscount[i] != null)
-                {
-                    twelvecount++;
-                }
-            }
-
-            if (sixcount == 6)
-            {
-                for (int i = 0; i < sixDiscount.Length; i++)
-                {
-                    if (twelvecount >= 6 && twelvecount < 12)
+                    if (thing is Bagel bagel)
                     {
-                        sixDiscount[i].Price = 0.415;
-                        twelveDiscount[twelvecount] = sixDiscount[i];
-                        twelvecount++;
+                        bagels.Add(bagel);
                     }
-                    else
+                    else if (thing is Coffee coffee)
                     {
-                        sixDiscount[i].Price = 0.415;
-                        twelveDiscount[i] = sixDiscount[i];
-                        twelvecount++;
+                        coffees.Add(coffee);
+                    }
+                    else if (thing is Filling filling)
+                    {
+                        fillings.Add(filling);
                     }
                 }
-                for (int i = 0; i < sixDiscount.Length; i++)
+            }
+
+            if (bagels.Count == 6)
+            {
+                for (int i = 0; i < 6; i++)
                 {
-                    sixDiscount[i] = null;
+                    bagels[i].Price = 0.415;
                 }
             }
 
-            if (twelvecount == 12)
+            if (bagels.Count % 6 == 0)
             {
-                for (int i = 0; i < twelveDiscount.Length; i++)
+                if (bagels.Count == 12)
+                foreach (Bagel bagel in bagels)
                 {
-                    twelveDiscount[i].Price = 0.3325;
+                   bagel.Price = bagel.Price = 0.3325;
                 }
-                for (int i = 0; i < twelveDiscount.Length; i++)
+                if (bagels.Count > 12 && bagels.Count < 18)
                 {
-                    twelveDiscount[i] = null;
+                    for (int i = 0; i < 12; i++)
+                    {
+                        bagels[i].Price = 0.3325;
+                    }
+                }
+                if (bagels.Count > 12 && bagels.Count >= 18)
+                {
+                    for (int i = 0; i < 12; i++)
+                    {
+                        bagels[i].Price = 0.3325;
+                    }
+                    for (int i = 13; i < 18; i++)
+                    {
+                        bagels[i].Price = 0.415;
+                    }
+                }
+            }
+
+            if (bagels.Count > 6 && bagels.Count < 12)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    bagels[i].Price = 0.415;
                 }
             }
         }
-
-        //public void TrackDiscountBagel()
-        //{
-        //    int bagelAmount = BasketItems.Count;
-        //    List<Item> all = new List<Item>();
-        //    foreach (KeyValuePair<int, List<Item>> item in BasketItems)
-        //    {
-        //        int key = item.Key;
-        //        List<Item> items = item.Value;
-        //        foreach (Item thing in items)
-        //            if (thing is Bagel bagel) //redundant check for bagel
-        //            {
-        //                all.Add(thing);
-        //                bagelAmount++;
-        //            }
-        //    }
-        //    for (int i = 0; i < bagelAmount; i++) 
-        //    {
-
-        //    }
-        //    List<Item> discountables = all.Take(6).ToList();
-
-        //}
-        //public void TrackDiscountBagel()
-        //{
-        //    foreach (KeyValuePair<int, List<Item>> item in BasketItems)
-        //    {
-        //        int key = item.Key;
-        //        List<Item> items = item.Value;
-        //        foreach (Item thing in items)
-        //            if (thing is Bagel bagel) //redundant check for bagel
-        //            {
-        //                for (int i = 0; i < sixDiscount.Length; i++)
-        //                {
-        //                    if (sixDiscount[i] == null)
-        //                    {
-        //                        sixDiscount[i] = thing;
-        //                        break;
-        //                    }
-        //                }
-
-        //                int sixcount = 0;
-        //                for (int i = 0; i < sixDiscount.Length; ++i)
-        //                {
-        //                    if (sixDiscount[i] != null)
-        //                    {
-        //                        sixcount++;
-        //                    }
-        //                }
-
-        //                int twelvecount = 0;
-
-        //                for (int i = 0; i < twelveDiscount.Length; i++)
-        //                {
-        //                    if (twelveDiscount[i] != null)
-        //                    {
-        //                        twelvecount++;
-        //                    }
-        //                }
-
-        //                if (sixcount == 6)
-        //                {
-        //                    for (int i = 0; i < sixDiscount.Length; i++)
-        //                    {
-        //                        if (twelvecount >= 6 && twelvecount < 12)
-        //                        {
-        //                            sixDiscount[i].Price = 0.415;
-        //                            twelveDiscount[twelvecount] = sixDiscount[i];
-        //                            twelvecount++;
-        //                        }
-        //                        else
-        //                        {
-        //                            sixDiscount[i].Price = 0.415;
-        //                            twelveDiscount[i] = sixDiscount[i];
-        //                            twelvecount++;
-        //                        }
-        //                    }
-        //                    for (int i = 0; i < sixDiscount.Length; i++)
-        //                    {
-        //                        sixDiscount[i] = null;
-        //                    }
-        //                }
-
-        //                if (twelvecount == 12)
-        //                {
-        //                    for (int i = 0; i < twelveDiscount.Length; i++)
-        //                    {
-        //                        twelveDiscount[i].Price = 0.3325;
-        //                    }
-        //                    for (int i = 0; i < twelveDiscount.Length; i++)
-        //                    {
-        //                        twelveDiscount[i] = null;
-        //                    }
-        //                }
-        //            }
-        //    }
-        //}
 
         public List<Item> AddToSelection(List<Item> selection)
         {
@@ -259,36 +167,9 @@ namespace exercise.main
             {
                 CapNotice = "Your basket is full";
             }
-            foreach (Item thing in item)
-            {
-                if (thing is Bagel)
-                {
-                    TrackDiscountBagel((Bagel)thing);
-                }
-            }
-        }
 
-        //public void UpdateCount(Dictionary<int, List<Item>> BasketItems)
-        //{
-        //    int Counter = 0;
-        //    foreach (KeyValuePair <int, List<Item>> item in BasketItems)
-        //    {
-        //        int key = item.Key;
-        //        List<Item> items = item.Value;
-        //        foreach (Item thing in items)
-        //        {
-        //            if (thing is Bagel || thing is Coffee)
-        //            {
-        //                Counter++;
-        //            }
-        //            if (thing is Bagel)
-        //            {
-        //                discountables.Add((Bagel)thing);
-        //            }
-        //        }
-        //    }
-        //    BasketItemCount = Counter;
-        //}
+            TrackDiscountBagel();
+        }
 
         public void RemoveFromBasket(int id)
         {
@@ -297,7 +178,7 @@ namespace exercise.main
                 {
                     if (thing is Bagel)
                     {
-                        TrackDiscountBagel((Bagel)thing);
+                        TrackDiscountBagel();
                     }
                     else if (thing is Coffee)
                     {
@@ -366,7 +247,7 @@ namespace exercise.main
 
                 foreach (var bagel in bagelsQuery)
                 {
-                    print += bagel.Element +" "+bagel.Variant+" : " + bagel.Counter + "  "+Math.Round(bagel.Total,2)+"\n\n";
+                    print += bagel.Element +" "+bagel.Variant+": Amount: " + bagel.Counter + "  "+Math.Round(bagel.Total,2)+"\n\n";
                 }
 
                 foreach (var coffee in coffeeQuery)
@@ -381,7 +262,7 @@ namespace exercise.main
                 }
 
                 double total = this.BasketTotal();
-                print += "Total: " + Math.Round(total, 2);
+                print += "Total: " + Math.Round(total, 3);
                 print += "\n\nThanks for shopping at Bob's Bagels!";
                 return print;
             }
@@ -390,45 +271,6 @@ namespace exercise.main
                 return "Basket is empty";
             }
         }
-
-        //public string PrintBasket()
-        //{
-        //    string printout = "";
-        //    if (BasketItems.Count > 0)
-        //    {
-        //        foreach (KeyValuePair<int, List<Item>> item in BasketItems)
-        //        {
-        //            int key = item.Key;
-        //            List<Item> items = item.Value;
-        //            foreach (Item thing in items)
-        //            if (thing is Bagel bagel)
-        //            {
-        //                    if (bagel.Filling != "")
-        //                    {
-        //                        printout += thing.PrintItem();
-        //                        printout += $"\nWith: {bagel.Filling}\n\n";
-        //                    }
-        //                    else
-        //                    {
-        //                        printout += thing.PrintItem();
-        //                        printout += "\nNo Fillings\n\n";
-        //                    }
-        //            }
-        //            else
-        //            {
-        //                printout += thing.PrintItem();
-        //                printout += "\n\n";
-        //                }
-        //        }
-        //        printout += "\nSubtotal: "+BasketTotal().ToString()+" quid\n";
-        //        printout += "Thanks for shopping at Bob's Bagels! ^_^";
-        //        return printout;
-        //    }
-        //    else
-        //    {
-        //        return "Basket is empty";
-        //    }
-        //}
 
         public double BasketTotal()
         {
