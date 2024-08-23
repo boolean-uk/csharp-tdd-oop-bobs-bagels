@@ -348,18 +348,18 @@ namespace exercise.main
 
                 var bagelsQuery = bagels.GroupBy(x => x.Sku)
                     .Where(g => g.Count() >= 1)
-                    .Select(y => new { Element = y.Key, Counter = y.Count(), Variant = y.ElementAt(0).Variant , Total = y.Sum(y => y.Price) })
+                    .Select(y => new { Element = y.Key, Counter = y.Count(), Variant = y.ElementAt(0).Variant, Total = y.Sum(y => y.Price) })
                     .ToList();
 
 
-                var coffeeQuery = coffees.GroupBy(x => x)
-                    .Where(g => g.Count() > 1)
-                    .Select(y => new { Element = y.Key, Counter = y.Count() })
+                var coffeeQuery = coffees.GroupBy(x => x.Sku)
+                    .Where(g => g.Count() >= 1)
+                    .Select(y => new { Element = y.Key, Counter = y.Count(), Variant = y.ElementAt(0).Variant, Total = y.Sum(y => y.Price) })
                     .ToList();
 
-                var fillingsQuery = fillings.GroupBy(x => x)
-                    .Where(g => g.Count() > 1)
-                    .Select(y => new { Element = y.Key, Counter = y.Count() })
+                var fillingsQuery = fillings.GroupBy(x => x.Sku)
+                    .Where(g => g.Count() >= 1)
+                    .Select(y => new { Element = y.Key, Counter = y.Count(), Variant = y.ElementAt(0).Variant, Total = y.Sum(y => y.Price) })
                     .ToList();
 
                 print += "Purchased: \n\n";
@@ -371,16 +371,18 @@ namespace exercise.main
 
                 foreach (var coffee in coffeeQuery)
                 {
-                    print += coffee.Element + ": " + coffee.Counter;
+                    print += coffee.Element + " " + coffee.Variant + " : " + coffee.Counter + "  " + Math.Round(coffee.Total, 2) + "\n\n";
+
                 }
 
                 foreach (var filling in fillingsQuery)
                 {
-                    print += filling.Element + ": " + filling.Counter;
+                    print += filling.Element + " " + filling.Variant + " : " + filling.Counter + "  " + Math.Round(filling.Total, 2) + "\n\n";
                 }
 
                 double total = this.BasketTotal();
                 print += "Total: " + Math.Round(total, 2);
+                print += "\n\nThanks for shopping at Bob's Bagels!";
                 return print;
             }
             else
