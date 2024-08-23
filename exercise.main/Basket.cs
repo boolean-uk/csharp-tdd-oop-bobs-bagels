@@ -34,6 +34,7 @@ namespace tdd_bobs_bagels.CSharp.Main
         }
 
         public bool Add(Bagel bagelName)
+            //Override for Bagel Add
         {
             if ((_amount < Capacity))
             {
@@ -47,6 +48,7 @@ namespace tdd_bobs_bagels.CSharp.Main
             return false;
         }
         public bool Add(Coffee coffeeName)
+            //Override for Coffee Add
         {
             if ((_amount < Capacity))
             {
@@ -61,6 +63,9 @@ namespace tdd_bobs_bagels.CSharp.Main
         }
        
         public void Discount()
+            //this method calculates discount based on:
+            //12 bagels of any type will always cost 3.99,
+            //6 bagels of any type will always cost 2.49
         {
             int bagelAmount = _bagels.Count;
             int coffeeAmount = _coffee.Count;
@@ -101,7 +106,6 @@ namespace tdd_bobs_bagels.CSharp.Main
                         }
                     }
                 }
-
             }
             else if (bagelAmount >= 6)
             {
@@ -152,12 +156,10 @@ namespace tdd_bobs_bagels.CSharp.Main
                 }
             }
 
-
-
-
         }
 
         public bool Remove(Bagel bagelName)
+           
         {
             if (_bagels.Contains(bagelName))
             {
@@ -167,6 +169,19 @@ namespace tdd_bobs_bagels.CSharp.Main
             }
             return false;
         }
+        public bool Remove(Coffee coffeeName)
+
+        {
+            if (_coffee.Contains(coffeeName))
+            {
+                _coffee.Remove(coffeeName);
+                _amount--;
+                return true;
+            }
+            return false;
+        }
+
+
 
         public void ChangeCapacity(int v)
         {
@@ -257,6 +272,9 @@ namespace tdd_bobs_bagels.CSharp.Main
             }
             receipt.AppendLine("----------------------------\n");
             decimal totalNumber = (decimal)_totalPrice;
+            if (_discount12Bagels > 0 || _discount6Bagels > 0 || _coffeeBagelDiscount > 0)
+            {
+            }
             string total = totalNumber.ToString();
             receipt.AppendLine("Total:".PadRight(15) +  ("£" + total).PadLeft(13) );
             receipt.AppendLine("\n Thank you for your order!");
