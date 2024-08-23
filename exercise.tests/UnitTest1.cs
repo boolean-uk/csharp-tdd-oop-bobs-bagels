@@ -301,7 +301,46 @@ public class Tests
     }
 
     [Test]
-    public void BagelDiscountTest()
+    public void SixBagelDiscountTest()
+    {
+        // Testing for 6 discounted Bagels (2.49) and 1 not discounted totaling 2.98
+        double expected = 2.98;
+
+        Basket basket = new Basket();
+        basket.Cap = 20;
+
+        Inventory.FillingStock = 20;
+        Inventory.BagelStock = 20;
+        Inventory.CoffeeStock = 20;
+
+        List<Item> preselection = basket.MakeNew();
+        Bagel bagel1 = ChosenItem.MakeBagel("BGLE", 0.49, "Bagel", "Everything", "");
+
+        Bagel bagel2 = ChosenItem.MakeBagel("BGLO", 0.49, "Bagel", "Onion", "");
+        List<Item> preselection2 = basket.MakeNew();
+        preselection2.Add(bagel2);
+
+        preselection.Add(bagel1);
+
+
+        basket.AddToBasket(1, preselection);
+        basket.AddToBasket(2, preselection);
+        basket.AddToBasket(3, preselection);
+        basket.AddToBasket(4, preselection);
+        basket.AddToBasket(5, preselection);
+        basket.AddToBasket(6, preselection);
+
+        basket.AddToBasket(13, preselection2);
+
+        //Console.WriteLine(basket.PrintBasket());
+
+        double result = basket.BasketTotal();
+
+        Assert.IsTrue(expected == result);
+    }
+
+    [Test]
+    public void TwelveBagelDiscountTest()
     {
         // Testing for 12 discounted Bagels, and 1 not discounted bagel
         double expected = 41.56;
