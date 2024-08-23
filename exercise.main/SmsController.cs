@@ -20,14 +20,12 @@ namespace exercise.main
             _authToken = authToken;
         }
         
-        public bool SendMessage(string sms, string phoneNumber)
+        public bool SendMessage(string sms, string phoneNumber, string phoneNumberFrom)
         {
             if (string.IsNullOrEmpty(sms) || string.IsNullOrEmpty(_accountSid) || string.IsNullOrEmpty(_authToken))
             {
                 return false;
             }
-
-            string phoneNumberFrom = "+12566702553";
 
             TwilioClient.Init(_accountSid, _authToken);
 

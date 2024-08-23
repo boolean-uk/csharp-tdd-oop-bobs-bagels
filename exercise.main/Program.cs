@@ -3,6 +3,8 @@
 string yourTwilioAccountSID = "";
 string yourTwilioAuthToken = "";
 string yourPhoneNumber = "";
+string yourTwilioPhoneNumberFrom = "";
+
 BobsBagelStore store = new BobsBagelStore();
 string orderMessage = string.Empty;
 
@@ -19,7 +21,7 @@ Console.ReadLine();
 orderMessage += store.PrintOrderHistory();
 
 SmsController sms = new SmsController(yourTwilioAccountSID, yourTwilioAuthToken);
-sms.SendMessage(orderMessage, yourPhoneNumber);
+sms.SendMessage(orderMessage, yourPhoneNumber, yourTwilioPhoneNumberFrom);
 
 
 Receipt CreateOrderExample1()
