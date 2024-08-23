@@ -28,8 +28,15 @@ namespace exercise.main
             this.FillingName = fillingName;
             if (_allowedFillings.Contains(fillingName.ToLower()))
             {
+                if (fillingName == "cream cheese")
+                {
+                    this._sku += 'X';
+                }
+                else
+                {
                 this._price = 0.12f;
                 this._sku += fillingName.Substring(0, 1).ToUpper();
+                }
             }
 
             else

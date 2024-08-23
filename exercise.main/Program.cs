@@ -35,8 +35,15 @@ for (int i = 0; i < 3; i++)
     basket.Add(coffee);
 }
 
-
-foreach (KeyValuePair<string,int> entry in basket.CheckOut())
-    Console.WriteLine($"{entry.Key} {entry.Value}");
+Console.WriteLine(basket.PrintBetterReceipt());
+/*
+foreach (KeyValuePair<string, int> entry in basket.CheckOut())
+{
+    foreach(KeyValuePair<string, float> dec in SkuHandler.SkuDecoder(entry.Key))
+    {
+        Console.WriteLine(dec.Key + dec.Value.ToString());
+    }
+} 
+*/
 
 //Console.WriteLine(basket.PrintReceipt());
