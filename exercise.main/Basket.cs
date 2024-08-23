@@ -261,8 +261,19 @@ namespace exercise.main
                     print += filling.Element + " " + filling.Variant + " : " + filling.Counter + "  " + Math.Round(filling.Total, 2) + "\n\n";
                 }
 
+                if (bagels.Count >= 6 && bagels.Count < 12)
+                {
+                    print += "Saved 0.45 from 6 for 2.49 discount!";
+                }
+                else if (bagels.Count >= 6 && bagels.Count > 12)
+                {
+                    print += "\nSaved 0.45 from 6 for 2.49 offer!";
+                    print += "\nSaved 1.89 from 12 for 3.99 offer!";
+                    print += "\n\n^_^ You have reached the maximum amount of savings for this order! ^_^";
+                }
+
                 double total = this.BasketTotal();
-                print += "Total: " + Math.Round(total, 3);
+                print += "\n\nTotal: " + Math.Round(total, 3);
                 print += "\n\nThanks for shopping at Bob's Bagels!";
                 return print;
             }
