@@ -61,7 +61,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 basket.Add(coffee);
                 basket.Discount();
-                float actualTotal = basket.Total();
+                float actualTotal = basket.TotalAfterDiscount();
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));
             }
@@ -77,7 +77,7 @@ namespace csharp_tdd_bobs_bagels.tests
                     bagelList.Add(bagel);
                 };
                 Coffee coffee = new("White");
-                float expectedTotal = 3.94f;
+                float expectedTotal = 3.74f;
 
                 //act
 
@@ -89,7 +89,7 @@ namespace csharp_tdd_bobs_bagels.tests
 
                 basket.Add(coffee);
                 basket.Discount();
-                float actualTotal = basket.Total();
+                float actualTotal = basket.TotalAfterDiscount();
                 //assert
                 Assert.That(actualTotal, Is.EqualTo(expectedTotal));
             }
@@ -106,7 +106,7 @@ namespace csharp_tdd_bobs_bagels.tests
                 float expectedPrice = 1.25f;
                 //run
                 basket.Discount();
-                float resultedPrice = basket.Total(); 
+                float resultedPrice = basket.TotalAfterDiscount(); 
 
                 //assert
                 Assert.That(resultedPrice, Is.EqualTo(expectedPrice));

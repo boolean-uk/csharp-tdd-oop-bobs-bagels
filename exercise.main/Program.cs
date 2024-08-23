@@ -35,7 +35,7 @@ for (int i = 0; i < 3; i++)
     basket.Add(coffee);
 }
 
-Console.WriteLine(basket.PrintBetterReceipt());
+Console.WriteLine(basket.PrintReceipt());
 /*
 foreach (KeyValuePair<string, int> entry in basket.CheckOut())
 {

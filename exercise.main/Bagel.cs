@@ -63,7 +63,7 @@ namespace csharp_tdd_bobs_bagels.tests
         public List<string> Flavors { get => _allowedFlavor.Keys.ToList(); }
         public string CurrentFlavor { get => _currentFlavor; set => _currentFlavor = value; }
         public string SKU { get => _sku;  }
-        public float Price { get => _price; }
+        public float Price { get => _price; set => _price = value; }
         public bool FalseOrder { get => _falseOrder; }
         public List<Filling> Fillings { get => _fillings; }
         public float FillingPrice { get => _fillingPrice; }

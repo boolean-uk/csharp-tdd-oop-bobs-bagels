@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,8 +20,14 @@ namespace tdd_bobs_bagels.CSharp.Main
         private int _capacity = 10;
         private int _amount = 0;
         private float _totalPrice = 0;
+        private float _toatalPriceAfterDiscount = 0;
 
-                
+        //discount count
+        private int _discount6Bagels = 0;
+        private int _discount12Bagels = 0;
+        private int _coffeeBagelDiscount = 0;
+
+
         public Basket()
         {
             
@@ -52,39 +59,101 @@ namespace tdd_bobs_bagels.CSharp.Main
             return false;
 
         }
+       
         public void Discount()
         {
-            int discount6Bagels = _bagels.Count / 6;
+            int bagelAmount = _bagels.Count;
+            int coffeeAmount = _coffee.Count;
 
-            if (discount6Bagels > 0)
+
+            if (bagelAmount >= 12)
             {
-                _totalPrice -= 0.45f * discount6Bagels;
+                _discount12Bagels = bagelAmount/12;
 
-                int bagelCount = _bagels.Count - (discount6Bagels * 6);
-
-                if (bagelCount > 0 && _coffee.Count > 0)
+                for (int i = 0; i < (_discount12Bagels * 12); i++)
                 {
-                    int coffeeCount = _coffee.Count;
-                    while (coffeeCount > 0 && bagelCount > 0)
+                    _bagels[i].Price = 3.99f / 12;
+                }
+
+                if (bagelAmount - (_discount12Bagels * 12) > 6)
+                {
+                    _discount6Bagels++;
+                    for (int i = (_discount12Bagels * 12); i < (_discount12Bagels * 12) + 6; i++)
                     {
-                        _totalPrice -= 0.23f;
-                        coffeeCount -= 1;
-                        bagelCount -= 1;
+                        _bagels[i].Price = 2.48f / 6;
+                    }
+                    if (bagelAmount - (_discount12Bagels * 12) - 6 > 0 && coffeeAmount > 0)
+                    {
+                        //this can be grouped into a private method later if I have time
+                        int coffeeLeft = coffeeAmount;
+                        int bagelLeft = bagelAmount - (_discount12Bagels * 12) - 6;
+                        int counterB = (_discount12Bagels * 12) + 6;
+                        int counterC = 0;
+                        while (coffeeLeft > 0 && bagelLeft > 0)
+                        {
+                            _bagels[counterB].Price = 0;
+                            _coffee[counterC].Price = 1.25f;
+                            _coffeeBagelDiscount++;
+                            counterB++;
+                            counterC++;
+                            coffeeLeft--;
+                            bagelLeft--;
+                        }
                     }
                 }
+
             }
-            else if (_bagels.Count > 0 && _coffee.Count > 0)
+            else if (bagelAmount >= 6)
             {
-                int bagelCount = _bagels.Count;
-                int coffeeCount = _coffee.Count;
-                while (coffeeCount > 0 && bagelCount > 0)
+                _discount6Bagels++;
+
+                for (int i = 0; i < 6;  i++)
                 {
-                    _totalPrice -= 0.23f;
-                    coffeeCount -= 1;
-                    bagelCount -= 1;
+                    _bagels[i].Price = 2.49f / 6;
+                }
+                if (bagelAmount - 6 > 0 && coffeeAmount > 0)
+                {
+                    int coffeeLeft = coffeeAmount;
+                    int bagelLeft = bagelAmount - 6;
+                    int counterB = 6;
+                    int counterC = 0;
+                    while (coffeeLeft > 0 && bagelLeft > 0)
+                    {
+                        _bagels[counterB].Price = 0;
+                        _coffee[counterC].Price = 1.25f;
+                        _coffeeBagelDiscount++;
+                        counterB++;
+                        counterC++;
+                        coffeeLeft--;
+                        bagelLeft--;
+                    }
                 }
 
             }
+            else
+            {
+                if (coffeeAmount > 0 && bagelAmount > 0)
+                {
+                    int coffeeLeft = coffeeAmount;
+                    int bagelLeft = bagelAmount;
+                    int counterB = 0;
+                    int counterC = 0;
+                    while (coffeeLeft > 0 && bagelLeft > 0)
+                    {
+                        _bagels[counterB].Price = 0;
+                        _coffee[counterC].Price = 1.25f;
+                        _coffeeBagelDiscount++;
+                        counterB++;
+                        counterC++;
+                        coffeeLeft--;
+                        bagelLeft--;
+                    }
+
+                }
+            }
+
+
+
 
         }
 
@@ -102,6 +171,30 @@ namespace tdd_bobs_bagels.CSharp.Main
         public void ChangeCapacity(int v)
         {
             _capacity = v;
+        }
+        public float TotalAfterDiscount()
+        {
+            foreach (Bagel bagel in _bagels)
+            {
+                if (bagel.Fillings.Count > 0)
+                {
+                    foreach (Filling filling in bagel.Fillings)
+                    {
+                        _toatalPriceAfterDiscount += filling.Price;
+                    }
+                    _toatalPriceAfterDiscount += bagel.Price;
+                }
+                else
+                {
+                    _toatalPriceAfterDiscount += bagel.Price;
+                }
+            }
+            foreach (Coffee coffee in _coffee)
+            {
+                _toatalPriceAfterDiscount += coffee.Price;
+            }
+                
+            return _toatalPriceAfterDiscount;
         }
 
         public float Total()
