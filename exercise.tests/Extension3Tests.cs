@@ -24,11 +24,12 @@ namespace csharp_tdd_bobs_bagels.tests
                 basket.Add(coffee);
 
                 //act
-                string expected = basket.TotalAfterDiscount().ToString();
+                string expected = 1.37f.ToString();
+                string computed = basket.PrintReceipt().ToString();
 
 
                 //assert
-                Assert.IsTrue(basket.PrintReceipt().ToString().Contains($"{expected}"));
+                Assert.IsTrue(computed.Contains($"{expected}"));
             }
         }
     }

@@ -272,12 +272,40 @@ namespace tdd_bobs_bagels.CSharp.Main
             }
             receipt.AppendLine("----------------------------\n");
             decimal totalNumber = (decimal)_totalPrice;
-            if (_discount12Bagels > 0 || _discount6Bagels > 0 || _coffeeBagelDiscount > 0)
-            {
-            }
             string total = totalNumber.ToString();
-            receipt.AppendLine("Total:".PadRight(15) +  ("£" + total).PadLeft(13) );
+            receipt.AppendLine("Total:".PadRight(15) + ("£" + total).PadLeft(13));
+
+            this.Discount();
+            if (_discount12Bagels > 0 || _discount6Bagels > 0 || _coffeeBagelDiscount > 0)
+                receipt.AppendLine("\nYou have these discounts:");
+
+            if (_discount12Bagels > 0) 
+            {
+                receipt.AppendLine();
+                receipt.AppendLine($"12 Bagels for".PadRight(23) + "£3.99".PadLeft(5));
+                receipt.AppendLine($"x{_discount12Bagels}");
+            }
+             if (_discount6Bagels > 0)
+            {
+                receipt.AppendLine();
+                receipt.AppendLine($"6 Bagels for".PadRight(23) +  "£2.49".PadLeft(5));
+                receipt.AppendLine($"x{_discount6Bagels}");
+            }
+             if (_coffeeBagelDiscount > 0)
+            {
+                receipt.AppendLine();
+                receipt.AppendLine($"1 Coffee & 1 Bagel for ".PadRight(23) + "£1.25".PadLeft(5));
+                receipt.AppendLine($"x{_coffeeBagelDiscount}");
+            }
+            
+             if(_discount12Bagels > 0|| _discount6Bagels > 0|| _coffeeBagelDiscount > 0)
+            {
+                receipt.AppendLine();
+                receipt.AppendLine($"Total after Discount:  £{Math.Round((decimal) TotalAfterDiscount(), 2)}");
+            }
+            
             receipt.AppendLine("\n Thank you for your order!");
+            
 
             return receipt.ToString();
         }
