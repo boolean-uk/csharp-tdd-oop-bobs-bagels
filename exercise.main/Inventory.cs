@@ -7,20 +7,20 @@ namespace exercise.main
     {
         private Dictionary<string, ShopItem> _inventory = new Dictionary<string, ShopItem>
         {
-            ["bglo"] = new ShopItem("bglo", "Onion", 0.49f, 'b'),
-            ["bglp"] = new ShopItem("bglp", "Plain", 0.39f, 'b'),
-            ["bgle"] = new ShopItem("bgle", "Everything", 0.49f, 'b'),
-            ["bgls"] = new ShopItem("bgls", "Sesame", 0.49f, 'b'),
-            ["cofb"] = new ShopItem("cofb", "Black", 0.99f, 'c'),
-            ["cofw"] = new ShopItem("cofw", "White", 1.19f, 'c'),
-            ["cofc"] = new ShopItem("cofc", "Capuccino", 1.29f, 'c'),
-            ["cofl"] = new ShopItem("cofl", "Latte", 1.29f, 'c'),
-            ["filb"] = new ShopItem("filb", "Bacon", 0.12f, 'f'),
-            ["file"] = new ShopItem("file", "Egg", 0.12f, 'f'),
-            ["filc"] = new ShopItem("filc", "Cheese", 0.12f, 'f'),
-            ["filx"] = new ShopItem("filx", "Cream Cheese", 0.12f, 'f'),
-            ["fils"] = new ShopItem("fils", "Smoked Salmon", 0.12f, 'f'),
-            ["filh"] = new ShopItem("filh", "Ham", 0.12f, 'f'),
+            ["bglo"] = new ShopItem("bglo", "Onion", 0.49f),
+            ["bglp"] = new ShopItem("bglp", "Plain", 0.39f),
+            ["bgle"] = new ShopItem("bgle", "Everything", 0.49f),
+            ["bgls"] = new ShopItem("bgls", "Sesame", 0.49f),
+            ["cofb"] = new ShopItem("cofb", "Black", 0.99f),
+            ["cofw"] = new ShopItem("cofw", "White", 1.19f),
+            ["cofc"] = new ShopItem("cofc", "Capuccino", 1.29f),
+            ["cofl"] = new ShopItem("cofl", "Latte", 1.29f),
+            ["filb"] = new ShopItem("filb", "Bacon", 0.12f),
+            ["file"] = new ShopItem("file", "Egg", 0.12f),
+            ["filc"] = new ShopItem("filc", "Cheese", 0.12f),
+            ["filx"] = new ShopItem("filx", "Cream Cheese", 0.12f),
+            ["fils"] = new ShopItem("fils", "Smoked Salmon", 0.12f),
+            ["filh"] = new ShopItem("filh", "Ham", 0.12f),
         };
 
         public Dictionary<string, ShopItem> ItemInventory { get => _inventory; }

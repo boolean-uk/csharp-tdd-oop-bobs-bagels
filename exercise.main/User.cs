@@ -12,6 +12,8 @@ namespace exercise.main
 
         public Basket UserBasket = new Basket();
 
+        public CheckOut checkOut = new CheckOut();
+
         public User(bool manager = false) {  this.manager = manager; }
         
         public bool AddToBasket(string sku)
@@ -19,14 +21,12 @@ namespace exercise.main
             return UserBasket.Add(sku);
         }
 
-        public void ChangeBasketCapacity(int newCapacity)
+        public bool RemoveFromBasket(string sku)
         {
-            if (manager) 
-            {
-                Basket.ChangeCapacity(newCapacity, "secret password");
-            }
-
+            return UserBasket.Remove(sku);
         }
+
+        
 
         public float GetItemPrice(string sku)
         {
@@ -35,12 +35,21 @@ namespace exercise.main
 
         public float GetTotalCost()
         {
-            return UserBasket.TotalCost;
+            return checkOut.CalculateCost(UserBasket.itemAmounts);
         }
 
-        public bool RemoveFromBasket(string sku)
+        public void GetReceipt()
         {
-            return UserBasket.Remove(sku);
+            checkOut.Receipt(UserBasket.itemAmounts);
+        }
+
+        public void ChangeBasketCapacity(int newCapacity)
+        {
+            if (manager)
+            {
+                Basket.ChangeCapacity(newCapacity, "secret password");
+            }
+
         }
     }
 }

@@ -6,14 +6,12 @@
         public string Description { get; set; }
         public float Price { get; set; }
 
-        public char Type { get; set; }
 
-        public ShopItem(string sku, string description, float price, char type) 
+        public ShopItem(string sku, string description, float price) 
         { 
             SKU = sku;
             Description = description;
             Price = price;
-            Type = type;
         }
     }
 }

@@ -1,25 +1,37 @@
 ﻿
+using System.Dynamic;
+using System.Globalization;
+
 namespace exercise.main
 {
     public class Basket
 
     {
-        private static int CAPACITY = 5;
+        private static int CAPACITY = 10;
         public static int Capacity { get => CAPACITY; }
 
         private Inventory _inventory = new Inventory();
-        private float _totalCost = 0;
-        public float TotalCost { get => _totalCost; }
 
         public List<ShopItem> Items = new List<ShopItem>();
+
+        public Dictionary<ShopItem, int> itemAmounts = new Dictionary<ShopItem, int>();
  
         internal bool Add(string sku)
         {
             if (Items.Count < CAPACITY && _inventory.ItemInventory.ContainsKey(sku) )
             {
                 ShopItem shopItem = _inventory.ItemInventory[sku];
-                _totalCost += shopItem.Price;
+
                 Items.Add(shopItem);
+
+                if (itemAmounts.ContainsKey(shopItem))
+                {
+                    itemAmounts[shopItem]++;
+                }
+                else 
+                {
+                    itemAmounts[shopItem] = 1;
+                }
 
                 return true;
             }
@@ -32,7 +44,15 @@ namespace exercise.main
             if (_inventory.ItemInventory.ContainsKey(sku))
             {
                 ShopItem shopItem = _inventory.ItemInventory[sku];
-                _totalCost -= shopItem.Price;
+                
+                if (itemAmounts.ContainsKey(shopItem)) 
+                { 
+                    itemAmounts[shopItem]--; 
+                    if (itemAmounts[shopItem] == 0)
+                    {
+                        itemAmounts.Remove(shopItem);
+                    }
+                }
                 return Items.Remove(shopItem);
             }
             return false;
@@ -43,6 +63,7 @@ namespace exercise.main
             return _inventory.ItemInventory[sku].Price;
         }
 
+       
         internal static void ChangeCapacity(int newCapacity, string password)
         {
             if (password.Equals("secret password"))
