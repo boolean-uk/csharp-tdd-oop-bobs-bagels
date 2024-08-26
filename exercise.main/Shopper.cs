@@ -9,6 +9,7 @@ namespace BobsBagels.main
     public class Shopper : User
     {
         private Basket _basket = new();
+        private Receipt _receipt = new();
 
         public float Total() { throw new NotImplementedException(); }
         public float GetItemPrice(Item item) { throw new NotImplementedException(); }
