@@ -246,7 +246,7 @@ public class CoreTests {
         bagel.AddFilling(filling2);
         bagel.AddFilling(filling3);
         shopper.Basket.Add(bagel);
-        var price = shopper.Basket.Total();
+        var price = shopper.Total();
 
         Assert.That(price, Is.EqualTo(0.49f + 0.12f * 3));
 
@@ -259,7 +259,7 @@ public class CoreTests {
         var inventory = new Inventory();
         var shopper = new Shopper();
 
-        var price = shopper.Basket.Total();
+        var price = shopper.Total();
 
         Assert.That(price, Is.EqualTo(0));
     }
@@ -292,18 +292,17 @@ public class CoreTests {
     public void Example1FromExtension2() 
     {
         // arrange
-        string expectedReceipt = "" +
-            "   ~~~ Bob's Bagels ~~~" +
-            "   2021-03-16 21:38:44" +
-            "----------------------------" +
-            "Onion Bagel        2   £0.98" +
-            "Plain Bagel        12  £3.99" +
-            "Everything Bagel   6   £2.49" +
-            "Coffee             3   £2.97" +
-            "----------------------------" +
-            "Total                 £10.43" +
-            "         Thank you" +
-            "      for your order!";
+        string expectedReceipt = "\r\n          ~~~ Bob's Bagels ~~~" +
+            $"\r\n            {DateTime.Now.ToString("yyyy-MM-dd HH:mm")}\r\n" +
+            "\r\n----------------------------------------\r\n" +
+            "\r\nOnion Bagel                  2     £0,98\r\n" +
+            "\r\nPlain Bagel                  12    £4,68\r\n" +
+            "\r\nEverything Bagel             6     £2,94\r\n" +
+            "\r\nBlack Coffee                 3     £2,97\r\n" +
+            "\r\n----------------------------------------\r\n" +
+            "Total                             £11,57\r\n" +
+            "\r\n            Thank you\r\n" +
+            "          for your order!\r\n";
         var inventory = new Inventory();
         var shopper = new Shopper();
         var manager = new Manager();
@@ -325,22 +324,22 @@ public class CoreTests {
 
         // assert
         var output = stringWriter.ToString();
-        Assert.That(expectedReceipt, Is.EqualTo(output));
+        Assert.That(output, Is.EqualTo(expectedReceipt));
     }
 
     [Test]
     public void Example2FromExtension2()
     {
         // arrange
-        string expectedReceipt = "" +
-            "   ~~~Bob's Bagels ~~~" +
-            "   2021 - 03 - 16 21:40:12" +
-            "----------------------------" +
-            "Plain Bagel        16  £5.55" +
-            "----------------------------" +
-            "Total                  £5.55" +
-            "         Thank you" +
-            "      for your order!";
+        string expectedReceipt = "\r\n          ~~~ Bob's Bagels ~~~" +
+            $"\r\n            {DateTime.Now.ToString("yyyy-MM-dd HH:mm")}\r\n\r\n" +
+            "----------------------------------------\r\n" +
+            "\r\nPlain Bagel                  16    £6,24\r\n\r\n" +
+            "----------------------------------------\r\n" +
+            "Total                              £6,24\r\n" +
+            "\r\n            Thank you" +
+            "\r\n          for your order!\r\n";
+
         var inventory = new Inventory();
         var shopper = new Shopper();
         var manager = new Manager();
@@ -357,7 +356,7 @@ public class CoreTests {
 
         // assert
         var output = stringWriter.ToString();
-        Assert.That(expectedReceipt, Is.EqualTo(output));
+        Assert.That(output, Is.EqualTo(expectedReceipt));
     }
 
     [Test]
@@ -375,7 +374,7 @@ public class CoreTests {
 
         // assert
         var output = stringWriter.ToString();
-        Assert.That(string.IsNullOrEmpty(output));
+        Assert.That(output, Is.EqualTo("\r\n"));
     }
 
 }

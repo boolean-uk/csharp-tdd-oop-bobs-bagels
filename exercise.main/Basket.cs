@@ -9,12 +9,6 @@
         public bool Add(Item item)
         {
             if (_count == _capacity) return false;
-            if (_items.TryGetValue(item, out var value))
-            {
-                _count += 1;
-                _items[item]++;
-                return true;
-            }
 
             if (item is Bagel bagel)
                 {
@@ -22,13 +16,39 @@
                 _count += bagel.Fillings.Count;
 
             }
+            if (_items.ContainsKey(item))
+            {
+                _count += 1;
+                _items[item]++;
+                return true;
+            }
 
             _items[item] = 1;
             _count++;
             return true;
         }
 
-        public bool Add(Item item, int quantity) { throw new NotImplementedException(); }
+        public bool Add(Item item, int quantity)
+        {
+            if (_count+quantity > _capacity) return false;
+            int fillingCounter = 0;
+            if (item is Bagel bagel)
+            {
+                if (fillingCounter + bagel.Fillings.Count + quantity > _capacity) return false;
+                fillingCounter += bagel.Fillings.Count;
+
+            }
+            if (_items.ContainsKey(item))
+            {
+                _count += 1;
+                _items[item] += quantity;
+                return true;
+            }
+
+            _items[item] = quantity;
+            _count += quantity + fillingCounter;
+            return true;
+        }
         public bool Remove(Item item)
         {
             if (item is Bagel bagel)
@@ -38,7 +58,6 @@
             _count--;
             return _items.Remove(item);
         }
-        public bool ChangeCapacity(User user, int capacity) { throw new NotImplementedException(); }
         public float Total() 
         {
             float total = 0;
@@ -47,14 +66,14 @@
             {
                 if (item.Key is Bagel bagel)
                 {
-                    total += bagel.Price;
+                    total += bagel.Price * item.Value;
                 }
                 else
                 {
-                    total += item.Key.Price;
+                    total += item.Key.Price * item.Value;
                 }
             }
-            return total;
+            return (float) Math.Round(total, 3);
         }
 
         public Dictionary<Item, int> Items { get { return _items; } }
