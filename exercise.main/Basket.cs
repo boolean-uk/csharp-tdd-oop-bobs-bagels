@@ -27,6 +27,8 @@
             _count++;
             return true;
         }
+
+        public bool Add(Item item, int quantity) { throw new NotImplementedException(); }
         public bool Remove(Item item)
         {
             if (item is Bagel bagel)

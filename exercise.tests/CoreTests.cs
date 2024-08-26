@@ -1,6 +1,8 @@
 
 
 using BobsBagels.main;
+using System.Reflection.Metadata;
+using System.Threading.Tasks;
 
 namespace BobsBagels.tests;
 
@@ -282,6 +284,98 @@ public class CoreTests {
 
         });
 
+    }
+
+    // ------------------ EXTENSION 2 ------------------
+
+    [Test]
+    public void Example1FromExtension2() 
+    {
+        // arrange
+        string expectedReceipt = "" +
+            "   ~~~ Bob's Bagels ~~~" +
+            "   2021-03-16 21:38:44" +
+            "----------------------------" +
+            "Onion Bagel        2   £0.98" +
+            "Plain Bagel        12  £3.99" +
+            "Everything Bagel   6   £2.49" +
+            "Coffee             3   £2.97" +
+            "----------------------------" +
+            "Total                 £10.43" +
+            "         Thank you" +
+            "      for your order!";
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var manager = new Manager();
+        manager.ChangeCapacity(23);
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+
+        // act
+        var BGLO = inventory.SearchInventory("BGLO");
+        var BGLP = inventory.SearchInventory("BGLP");
+        var BGLE = inventory.SearchInventory("BGLE");
+        var COFB = inventory.SearchInventory("COFB");
+        shopper.Basket.Add(BGLO, 2);
+        shopper.Basket.Add(BGLP, 12);
+        shopper.Basket.Add(BGLE, 6);
+        shopper.Basket.Add(COFB, 3);
+        shopper.PrintReceipt();
+
+        // assert
+        var output = stringWriter.ToString();
+        Assert.That(expectedReceipt, Is.EqualTo(output));
+    }
+
+    [Test]
+    public void Example2FromExtension2()
+    {
+        // arrange
+        string expectedReceipt = "" +
+            "   ~~~Bob's Bagels ~~~" +
+            "   2021 - 03 - 16 21:40:12" +
+            "----------------------------" +
+            "Plain Bagel        16  £5.55" +
+            "----------------------------" +
+            "Total                  £5.55" +
+            "         Thank you" +
+            "      for your order!";
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var manager = new Manager();
+        manager.ChangeCapacity(16);
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+
+        // act
+
+        var BGLP = inventory.SearchInventory("BGLP");
+        shopper.Basket.Add(BGLP, 16);
+        shopper.PrintReceipt();
+
+        // assert
+        var output = stringWriter.ToString();
+        Assert.That(expectedReceipt, Is.EqualTo(output));
+    }
+
+    [Test]
+    public void ReceiptEmptyBasket()
+    {
+        // arrange
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+
+        // act
+        shopper.PrintReceipt();
+
+        // assert
+        var output = stringWriter.ToString();
+        Assert.That(string.IsNullOrEmpty(output));
     }
 
 }
