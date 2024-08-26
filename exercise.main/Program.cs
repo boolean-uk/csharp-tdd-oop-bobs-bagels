@@ -14,7 +14,7 @@ basket.AddToBasket(coffeeWhite);
 basket.AddToBasket(fillingSalmon);
 basket.AddToBasket(bagelOnion);
 basket.AddToBasket(bagelOnion);
-for(int i = 0; i < 12; i++)
+for(int i = 0; i < 16; i++)
 {
     basket.AddToBasket(bagelSesame);
 

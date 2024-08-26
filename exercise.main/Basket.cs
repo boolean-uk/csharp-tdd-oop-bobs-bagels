@@ -102,14 +102,14 @@ namespace exercise.main
             return _items.Select(p => p.Price).Sum();
         }
 
-       
+
 
 
         //Extension Task 2
 
         public List<Purchase> ListItems()
 
-        { 
+        {
 
             Dictionary<InventoryProducts, int> products = new Dictionary<InventoryProducts, int>();
             List<Purchase> receipt = new List<Purchase>();
@@ -129,42 +129,37 @@ namespace exercise.main
                         products.Add(item, 1);
                     }
                 }
-
+                int setsOfTwelve = 0;
+                int setsOfSix = 0;
                 foreach (var prod in products)
                 {
-                    if (prod.Value == 6 && prod.Key.SKU.StartsWith("BGL"))
+                    int quantity = prod.Value;
+                    double totalDiscount = 0;
+
+                    if (prod.Key.SKU.StartsWith("BGL"))
                     {
-                        prod.Key.Save = (prod.Key.Price * prod.Value) - Discount.SixBagels ;
-                        prod.Key.Price = Discount.SixBagels;
-                    }
-                    else if (prod.Value == 12 && prod.Key.SKU.StartsWith("BGL"))
-                    {
-                        prod.Key.Save = (prod.Key.Price * prod.Value) - Discount.TwelveBagels;
-                        prod.Key.Price = Discount.TwelveBagels;
+                        setsOfTwelve = quantity / 12;
+                        totalDiscount += setsOfTwelve * (prod.Key.Price * 12 - Discount.TwelveBagels);
+                        quantity -= setsOfTwelve * 12;
 
-                    }
-                    else { 
-                        prod.Key.Price *= prod.Value;
-                        prod.Key.Save = 0;
+                        setsOfSix = quantity / 6;
+                        totalDiscount += setsOfSix * (prod.Key.Price * 6 - Discount.SixBagels);
+                        quantity -= setsOfSix * 6;
                     }
 
+                    double finalPrice = (prod.Value - setsOfTwelve * 12 - setsOfSix * 6) * prod.Key.Price;
 
-                    receipt.Add(new Purchase(prod.Key.Variant, prod.Key.Name, prod.Value, prod.Key.Price, Math.Round(prod.Key.Save,2)));
+                    double totalPrice = (prod.Key.Price * prod.Value) - totalDiscount;
+                    prod.Key.Save = totalDiscount;
 
+                    receipt.Add(new Purchase(prod.Key.Variant, prod.Key.Name, prod.Value, totalPrice, Math.Round(prod.Key.Save, 2)));
                 }
-
-
-                
             }
 
+            return receipt;
 
 
-
-            return receipt;      
         }
-
-
-
 
 
 
