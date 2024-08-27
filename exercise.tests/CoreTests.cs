@@ -288,7 +288,52 @@ public class CoreTests {
 
     // ------------------ EXTENSION 1 ------------------
 
+    [Test]
+    public void SixBGLODiscount() 
+    {
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var basket = shopper.Basket;
+        var BGLO = inventory.SearchInventory("BGLO");
 
+        basket.Add(BGLO, 6);
+        var price = basket.Total();
+
+        Assert.That(price, Is.EqualTo(2.49));
+        
+    }
+
+    [Test]
+    public void TwelveBGLPDiscount()
+    {
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var basket = shopper.Basket;
+        var BGLP = inventory.SearchInventory("BGLP");
+
+        basket.Add(BGLP, 12);
+        var price = basket.Total();
+
+        Assert.That(price, Is.EqualTo(3.99));
+
+    }
+
+    [Test]
+    public void CoffeeAndBagelDiscount()
+    {
+        var inventory = new Inventory();
+        var shopper = new Shopper();
+        var basket = shopper.Basket;
+        var COFB = inventory.SearchInventory("COFB");
+        var BGLP = inventory.SearchInventory("BGLP");
+
+        basket.Add(COFB);
+        basket.Add(BGLP);
+        var price = basket.Total();
+
+        Assert.That(price, Is.EqualTo(1.25));
+
+    }
     // ------------------ EXTENSION 2 ------------------
 
     [Test]
