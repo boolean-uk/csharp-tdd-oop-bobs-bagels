@@ -68,3 +68,10 @@ As a cashier at Bob's Bagels,
 I want the discounts to be applied when calculating the total,
 so that I can finish scanning the products before a discount is chosen
 ```
+
+```
+5. 
+As a manager of Bob's bagels,
+I want multi-priced discounts to only be applied to same variants,
+so that I can get rid of some variants in stock
+```

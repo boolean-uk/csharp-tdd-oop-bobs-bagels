@@ -293,13 +293,14 @@ public class CoreTests {
     {
         var inventory = new Inventory();
         var shopper = new Shopper();
-        var basket = shopper.Basket;
+        var manager = new Manager();
+        manager.ChangeCapacity(6);
         var BGLO = inventory.SearchInventory("BGLO");
 
-        basket.Add(BGLO, 6);
-        var price = basket.Total();
+        shopper.Basket.Add(BGLO, 6);
+        float price = shopper.Basket.Total();
 
-        Assert.That(price, Is.EqualTo(2.49));
+        Assert.That(price, Is.EqualTo(2.49f));
         
     }
 
@@ -308,13 +309,15 @@ public class CoreTests {
     {
         var inventory = new Inventory();
         var shopper = new Shopper();
+        var manager = new Manager();
+        manager.ChangeCapacity(12);
         var basket = shopper.Basket;
         var BGLP = inventory.SearchInventory("BGLP");
 
         basket.Add(BGLP, 12);
         var price = basket.Total();
 
-        Assert.That(price, Is.EqualTo(3.99));
+        Assert.That(price, Is.EqualTo(3.99f));
 
     }
 
@@ -331,7 +334,7 @@ public class CoreTests {
         basket.Add(BGLP);
         var price = basket.Total();
 
-        Assert.That(price, Is.EqualTo(1.25));
+        Assert.That(price, Is.EqualTo(1.25f));
 
     }
     // ------------------ EXTENSION 2 ------------------
@@ -348,7 +351,7 @@ public class CoreTests {
             "\r\nEverything Bagel             6     £2,94\r\n" +
             "\r\nBlack Coffee                 3     £2,97\r\n" +
             "\r\n----------------------------------------\r\n" +
-            "Total                             £11,57\r\n" +
+            "Total                             £10,88\r\n" +
             "\r\n            Thank you\r\n" +
             "          for your order!\r\n";
         var inventory = new Inventory();
@@ -384,7 +387,7 @@ public class CoreTests {
             "----------------------------------------\r\n" +
             "\r\nPlain Bagel                  16    £6,24\r\n\r\n" +
             "----------------------------------------\r\n" +
-            "Total                              £6,24\r\n" +
+            "Total                              £5,55\r\n" +
             "\r\n            Thank you" +
             "\r\n          for your order!\r\n";
 
