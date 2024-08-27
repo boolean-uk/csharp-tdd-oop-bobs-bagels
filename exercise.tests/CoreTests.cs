@@ -286,6 +286,9 @@ public class CoreTests {
 
     }
 
+    // ------------------ EXTENSION 1 ------------------
+
+
     // ------------------ EXTENSION 2 ------------------
 
     [Test]
@@ -376,5 +379,8 @@ public class CoreTests {
         var output = stringWriter.ToString();
         Assert.That(output, Is.EqualTo("\r\n"));
     }
+
+    
+
 
 }

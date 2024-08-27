@@ -6,6 +6,8 @@
         private int _capacity { get { return Manager.Capacity; } }
         private int _count { get; set; } = 0;
 
+        private void ApplyDiscount() { throw new NotImplementedException(); }
+
         public bool Add(Item item)
         {
             if (_count == _capacity) return false;
