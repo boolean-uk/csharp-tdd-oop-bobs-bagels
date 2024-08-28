@@ -38,3 +38,40 @@ Every Bagel is available for the `6 for 2.49` and `12 for 3.99` offer, but filli
 Update and extend your program to handle these orders at Bob's Bagels.
 
 Start with extracting useful stories and a functional domain model that represents these requirements.
+
+## User stories
+
+```
+1. 
+As a manager of Bob's bagels,
+I want at most one discount to be applied to a customers basket,
+so that my company is not too altruistic
+```
+
+``` 
+2.
+As a customer at Bob's Bagels,
+I want to take advantage of multi-price offers,
+so that I can save money when buying in bulk.
+``` 
+
+```
+3. 
+As a cashier at Bob's Bagels,
+I want to identify bagels using their SKU codes,
+so that I can easily manage and process orders.
+```
+
+```
+4. 
+As a cashier at Bob's Bagels,
+I want the discounts to be applied when calculating the total,
+so that I can finish scanning the products before a discount is chosen
+```
+
+```
+5. 
+As a manager of Bob's bagels,
+I want multi-priced discounts to only be applied to same variants,
+so that I can get rid of some variants in stock
+```
