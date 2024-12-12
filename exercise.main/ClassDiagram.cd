@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="exercise.main.Inventory">
+    <Position X="6" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAFAAAAAgAAAwAAAAGACABAAAAAAAIAAAAAAAAQ=</HashCode>
+      <FileName>Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Purchase">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAACAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Purchase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Receipt">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAIAgAABggAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Receipt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.InventoryProducts">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>InventoryProducts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Basket" Collapsed="true">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAIgiAABBRAAAAQCQBBAAASIAgCAAgAAAAA=</HashCode>
+      <FileName>Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Discount">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQAAQQAAAAAAAQAAAQAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Discount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
