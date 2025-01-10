@@ -9,10 +9,10 @@ namespace exercise.main
 {
     public class Inventory
     {
-        public List<Item> Items { get; private set; }
+        public List<Item> items { get; private set; }
         public Inventory()
         {
-            Items = new List<Item>
+            items = new List<Item>
             {
                 new Item("BGLO", 0.49, "Bagel", "Onion"),
                 new Item("BGLP", 0.39, "Bagel", "Plain"),
@@ -30,5 +30,11 @@ namespace exercise.main
                 new Item("FILH", 0.12, "Filling", "Ham")
             };
         }
+
+        public Item? GetItem(string sku)
+        {
+            return items.FirstOrDefault(x => x.Sku == sku);
+        }
+
     }
 }
