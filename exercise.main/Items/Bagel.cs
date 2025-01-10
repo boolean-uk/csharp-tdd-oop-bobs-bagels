@@ -10,22 +10,20 @@ namespace exercise.main.Items
     {
 
         private List<Item> _fillings = [];
-        public new float Price { get
-            {
-                return this._cost + _fillings.Select(a => a.Price).Aggregate((a, b) => a + b);
-            }
-        }
+        public List<Item> Fillings { get { return _fillings; } }
+        //public override float Price { get { return _cost + _fillings.Select(a => a.Price).Sum(); } }
 
-        public Bagel(string id, string name, string variant, float cost) : base(id, name, variant, cost) { }
+        //public override string Id { get { return _id + (_fillings.Count > 0 ? $", {string.Join(", ", _fillings.Select(a => a.Id))}" : ""); }}
+
+        public Bagel(string variant, float cost) : base("BGL" + variant.ToUpper().First(), "Bagel", variant, cost) { }
         public void AddFilling(Item filling)
         {
             _fillings.Add(filling);
         }
 
-        override
-        public string ToString()
+        override public string ToString()
         {
-            return $"{Name} - {Variant} - {String.Join(", ", _fillings.Select(a => a.Variant))} - {Price}£";
+            return $"{Name} - {Variant} - {string.Join(", ", _fillings.Select(a => a.Variant))} - {Price}£";
         }
     }
 }

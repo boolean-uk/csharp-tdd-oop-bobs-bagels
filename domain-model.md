@@ -4,5 +4,5 @@
 | Basket.cs       | Remove(Item item)        | Remove an item from your basket                                        | bool, if exists           |
 | Basket.cs       | Capacity                 | Get / Set capacity of basket. Set restricted to mangers.               | int                       |
 | Basket.cs       | TotalCost                | Gets the total price of all items in the basket, with discounts added. | Receipt                   |
-| Item.cs         | Cost                     | The total cost of the item                                             |                           |
+| Item.cs         | Price                    | The total price of the item                                             |                           |
 | Bagel.cs : Item | AddFilling(Item filling) | Adds a filling to the bagel.                                           |                           |
