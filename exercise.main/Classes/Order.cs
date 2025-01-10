@@ -12,7 +12,7 @@ namespace exercise.main.Classes
         private List<string> skus = new List<string>();
         private decimal orderTotal = 0;
 
-        public Order(Basket basket)
+        public Order(BagelBasket basket)
         {
             decimal currentTotal = 0;
 

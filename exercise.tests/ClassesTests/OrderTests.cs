@@ -15,7 +15,7 @@ public class OrderTests
     public void CreateOrderTest()
     {
         Person person = new("Ola");
-        Basket basket = person.GetBasket();
+        BagelBasket basket = person.GetBasket();
         
         basket.AddBagel("bglo");
         basket.AddBagel("bglp");
@@ -31,7 +31,7 @@ public class OrderTests
     public void CreateOrderWithFillingsTest()
     {
         Person person = new("Ola");
-        Basket basket = person.GetBasket();
+        BagelBasket basket = person.GetBasket();
 
         basket.AddBagel("bglo");
         basket.AddBagel("bglp");
@@ -57,7 +57,7 @@ public class OrderTests
     public void ApplyDiscounts6BagelsTest()
     {
         Person person = new("Ola");
-        Basket basket = person.GetBasket();
+        BagelBasket basket = person.GetBasket();
         basket.ChangeCapacity(1000);
 
         basket.AddBagel("bglo");
@@ -80,7 +80,7 @@ public class OrderTests
     public void ApplyDiscounts12BagelsTest()
     {
         Person person = new("Ola");
-        Basket basket = person.GetBasket();
+        BagelBasket basket = person.GetBasket();
         basket.ChangeCapacity(1000);
 
         basket.AddBagel("bglo");

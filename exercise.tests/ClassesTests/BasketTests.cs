@@ -15,7 +15,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void CreateBasketTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         Assert.That(basket.GetBagels(), Is.Not.Null);
         Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
@@ -27,7 +27,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void AddBagelTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         basket.AddBagel("BgLo");
 
@@ -60,7 +60,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void RemoveBagelTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         basket.AddBagel("BgLo");
 
@@ -90,7 +90,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void ClearBasketTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         basket.AddBagel("BgLo");
         basket.AddBagel("pLaIn");
@@ -110,7 +110,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void TotalCostTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         basket.AddBagel("BgLo");
 
@@ -137,7 +137,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void IsFullTest()
     {
-        Basket basket = new();
+        BagelBasket basket = new();
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
@@ -166,7 +166,7 @@ public class BasketTests
     [Category("Basket.cs")]
     public void ChangeCapacity()
     {
-        Basket basket = new Basket();
+        BagelBasket basket = new BagelBasket();
 
         for (int i = 0; i < 10; i++)
         {
