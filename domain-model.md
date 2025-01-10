@@ -144,8 +144,8 @@ Domain model for EXTENSION 1
 ```
 Domain model for EXTENSION 2
 ```
-| Class  | Method           | Member Variables           | Scenario                                             | Result         |
-|--------|------------------|----------------------------|------------------------------------------------------|----------------|
-| Basket | string receipt() | ArrayList<Item> inventory  |                                                      | return receipt |
-|        |                  | ArrayList<string> basket   | Iterate through basket, count and calculate the cost |                |
-|        |                  | ArrayList<string> discount |                                                      |                |
+| Class  | Method           | Member Variables      | Scenario                                             | Result         |
+|--------|------------------|-----------------------|------------------------------------------------------|----------------|
+| Basket | string receipt() | List<Item> inventory  |                                                      | return receipt |
+|        |                  | List<string> basket   | Iterate through basket, count and calculate the cost |                |
+|        |                  | List<string> discount |                                                      |                |
