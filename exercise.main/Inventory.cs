@@ -6,25 +6,33 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Inventory
+    public static class Inventory
     {
-        public List<Item> inventory { get; } = new List<Item>();
-        public Inventory()
+        public static List<Item> inventory { get; } = new List<Item>()
         {
-            inventory.Add(new Bagel("Onion"));
-            inventory.Add(new Bagel("Plain"));
-            inventory.Add(new Bagel("Everything"));
-            inventory.Add(new Bagel("Sesame"));
-            inventory.Add(new Coffee("Black"));
-            inventory.Add(new Coffee("White"));
-            inventory.Add(new Coffee("Capuccino"));
-            inventory.Add(new Coffee("Latte"));
-            inventory.Add(new Filling("Bacon"));
-            inventory.Add(new Filling("Egg"));
-            inventory.Add(new Filling("Cheese"));
-            inventory.Add(new Filling("Cream Cheese"));
-            inventory.Add(new Filling("Smoked Salmon"));
-            inventory.Add(new Filling("Ham"));
+            {new Bagel("Onion") },
+            {new Bagel("Plain") },
+            {new Bagel("Everything") },
+            {new Bagel("Sesame") },
+            {new Coffee("Black") },
+            {new Coffee("White") },
+            {new Coffee("Capuccino") },
+            {new Coffee("Latte") },
+            {new Filling("Bacon") },
+            {new Filling("Egg") },
+            {new Filling("Cheese") },
+            {new Filling("Cream Cheese") },
+            {new Filling("Smoked Salmon") },
+            {new Filling("Ham") },
+        };
+
+        public static bool CheckIfInInventory(Item item)
+        {
+            foreach (Item itm in inventory)
+                if (itm.sKU == item.sKU)
+                    return true;
+
+            return false;
         }
     }
 }

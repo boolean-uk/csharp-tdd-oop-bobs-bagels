@@ -9,16 +9,24 @@ namespace exercise.main
     public class Basket
     {
         private List<Item> _items = new List<Item>();
-        private static int basketSize { get; set; }
+        private static int _basketSize { get; set; }
+
+        private List<Item> inventory = Inventory.inventory;
 
         public Basket()
         {
-
+            List<Item> inventory = Inventory.inventory;
         }
 
         public void Add(Item item)
         {
-            _items.Add(item);
+            if (Inventory.CheckIfInInventory(item))
+            {
+                _items.Add(item);
+                Console.WriteLine("Item added.");
+            }
+            else
+                Console.WriteLine("Item does not exist.");
         }
 
         public void Remove(string item)
