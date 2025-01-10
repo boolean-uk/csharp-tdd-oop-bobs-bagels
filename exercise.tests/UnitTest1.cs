@@ -40,4 +40,29 @@ public class Tests
             Assert.That(result, Is.EqualTo(items[0]));
         });
     }
+
+    [Test]
+    public void MaxCapacityOfBasket()
+    {
+        var basket = new Basket();
+        List<Item> items = new List<Item>
+        {
+                new Item("BGLS", 0.49, "Bagel", "Sesame"),
+                new Item("COFB", 0.99, "Coffee", "Black"),
+                new Item("COFW", 1.19, "Coffee", "White"),
+                new Item("COFC", 1.29, "Coffee", "Capuccino"),
+                new Item("COFL", 1.29, "Coffee", "Latte"),
+        };
+
+        foreach (Item item in items)
+        {
+            basket.Add(item);
+        }
+
+        var cap = basket.capacity;
+
+        Assert.That(cap, Is.EqualTo(5));
+
+    }
+
 }
