@@ -139,13 +139,13 @@ public class Tests
     public void TestCheckCostOfBagel()
     {
         // arrange
-
+        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
 
         // act
-
+        double cost = bagelGarlic.GetPrice();
 
         // assert
-
+        Assert.That(cost, Is.EqualTo(10));
     }
 
     [Test]
