@@ -10,25 +10,41 @@ namespace exercise.main
     {
         private string _sku;
         private double _price;
-        private string _name;
+        private string _type;
         private string _variant;
+        private Item _filling;
 
         public string Sku { get { return _sku; } set { _sku = value; } }
         public double Price { get { return _price; } set { _price = value; } }
-        public string Name { get { return _name; } set { _name = value; } }
+        public string Type { get { return _type; } set { _type = value; } }
         public string Variant { get { return _variant; } set { _variant = value; } }
+        public Item Filling { get; set; }
 
         public Item(string sku, double price, string name, string variant) 
         {
             _sku = sku;
             _price = price;
-            _name = name;
+            _type = name;
             _variant = variant;
         }
 
         public override string ToString()
         {
-            return $"{this.Sku} - {this.Name} ({this.Variant}): ${this.Price:F2}";
+            if(Filling != null)
+            {
+                return $"{this.Sku} - {this.Type} ({this.Variant}) with {this.Filling._variant}: ${this.Price:F2}";
+            }
+            return $"{this.Sku} - {this.Type} ({this.Variant}): ${this.Price:F2}";
+        }
+
+        public Item? AddFilling(Item item)
+        {
+            if(item._type != "Filling")
+            {
+                throw new Exception("Error");
+            }
+            this.Price += item.Price;
+            return this.Filling = item;
         }
     }
 }
