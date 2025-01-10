@@ -36,5 +36,10 @@ namespace exercise.main
             return items.FirstOrDefault(x => x.Sku == sku);
         }
 
+        public List<Item> GetFillings()
+        {
+            return items.FindAll(item => item.Type == "Filling");
+        }
+
     }
 }

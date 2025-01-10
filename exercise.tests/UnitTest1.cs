@@ -186,5 +186,18 @@ public class Tests
         Assert.That(bagelSesame.Price, Is.EqualTo(priceOfBagelWithFilling));
     }
 
+    [Test]
+    public void CheckFillingPrices()
+    {
+        Inventory inv = new Inventory();
+
+        List<Item> itemFilling = inv.GetFillings();
+
+        foreach (var item in itemFilling)
+        {
+            Assert.That(item.Type, Is.EqualTo("Filling"));
+        }
+    }
+
 
 }
