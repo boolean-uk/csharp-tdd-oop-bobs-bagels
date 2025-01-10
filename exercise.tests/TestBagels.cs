@@ -52,6 +52,19 @@ namespace exercise.tests
             Assert.IsTrue( bagel.BasketFull());
         }
 
+        [Test]
+        public void TestTotaltCost()
+        {
+            Bagel bagel = new Bagel();
+            bagel.ChangeCap(2);
+            bagel.AddBagel("BGLO");
+            bagel.AddBagel("BGLP");
+
+            
+            Assert.IsTrue();
+        }
+
+
 
     }
 }
