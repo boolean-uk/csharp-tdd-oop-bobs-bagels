@@ -45,5 +45,15 @@ namespace exercise.main
 
         }
 
+        public double Total()
+        {
+            double total = 0;
+            foreach (Item item in items)
+            {
+                total += item.Price;
+            }
+
+            return total;
+        }
     }
 }
