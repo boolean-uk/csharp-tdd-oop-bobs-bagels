@@ -32,5 +32,12 @@ namespace exercise.main
             return item;
         }
 
+        public int ChangeCap(int cap)
+        {
+            this.capacity = cap;
+            return this.capacity;
+
+        }
+
     }
 }
