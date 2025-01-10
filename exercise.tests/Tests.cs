@@ -52,4 +52,20 @@ public class Tests
         // assert
         Assert.That(_basket.GetItems().Count, Is.EqualTo(4));
     }
+
+    [Test]
+    public void TestAddDuplicateBagels()
+    {
+        // arrange
+        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+
+
+        // act
+        _basket.Add(bagelGarlic, 2);
+        _basket.Add(bagelGarlic, 3);
+
+        // assert
+        Assert.That(_basket.GetItems().Count, Is.EqualTo(4));
+        Assert.That(_basket.GetItemBySKU("BGLG").Amount, Is.EqualTo(5));
+    }
 }

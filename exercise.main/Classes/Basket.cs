@@ -53,6 +53,11 @@ namespace exercise.main.Classes
             return _items;
         }
 
+        public BasketItem GetItemBySKU(string sku)
+        {
+            return _items.Find(x => x.Product.GetSKU().Equals(sku));
+        }
+
         private void CheckDiscounts()
         {
             throw new NotImplementedException();

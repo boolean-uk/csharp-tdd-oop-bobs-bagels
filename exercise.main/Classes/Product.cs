@@ -37,6 +37,11 @@ namespace exercise.main.Classes
             throw new NotImplementedException();
         }
 
+        public string GetSKU()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddPromo(double amount, double price)
         {
             throw new NotImplementedException();
