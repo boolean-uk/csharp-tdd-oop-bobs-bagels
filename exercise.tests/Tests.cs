@@ -130,10 +130,10 @@ public class Tests
 
 
         // act
-
+        double totalCost = _basket.GetTotal();
 
         // assert
-
+        Assert.That(totalCost, Is.GreaterThan(0));
     }
     [Test]
     public void TestCheckCostOfBagel()
