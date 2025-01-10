@@ -100,7 +100,7 @@ namespace exercise.main
                     coffee = true;
                 }
 
-                else if (bagelflavors.Contains(item.name))
+                if (bagelflavors.Contains(item.name))
                 {
                     bagel = true;
                 }
@@ -131,6 +131,8 @@ namespace exercise.main
         public double GetTotalCost()
         {
             double total = 0;
+            double coffeetotal = 0;
+            double bageltotal = 0; 
             
             if (coffeebageldiscount())
             {
@@ -150,7 +152,7 @@ namespace exercise.main
                     {
                         foreach (Filling fill in item.bagelfillings)
                         {
-                            total += fill.prices[fill.actualname];
+                            bageltotal += fill.prices[fill.actualname];
                             item.bagelfillings.Remove(fill);
                         }
 
@@ -159,7 +161,7 @@ namespace exercise.main
                     }
 
                 }
-                total += 1.25;
+                coffeetotal += 1.25;
             }
 
 
@@ -170,6 +172,7 @@ namespace exercise.main
 
             }
 
+            total += bageltotal + coffeetotal;
 
             return total;
         }

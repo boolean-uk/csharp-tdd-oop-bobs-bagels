@@ -150,9 +150,11 @@ public class Tests
         bagel.AddFilling(fill);
         person.AddItem(bagel);
         Coffee c = new Coffee("COFB");
+        person.AddItem(c);
         double initcost = 0.49 + 0.12 + 0.99;
+        double num = 1.25 + 0.12;
         double newcost = person.GetTotalCost();
 
-        Assert.That(initcost > newcost, Is.True);
+        Assert.That(newcost == num);
     }
 }
