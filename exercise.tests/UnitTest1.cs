@@ -138,4 +138,21 @@ public class Tests
         person.AddItem(coff);
         Assert.That(person.ItemExists(coff), Is.True);
     }
+
+
+    //NOT SURE ABOUT THIS ONE, NEEDS EXTRA TESTING!!!
+    [Test]
+    public void CoffeeBagelDiscount()
+    {
+        Person person = new Person();
+        Bagel bagel = new Bagel("BGLO");
+        Filling fill = new Filling("FILB");
+        bagel.AddFilling(fill);
+        person.AddItem(bagel);
+        Coffee c = new Coffee("COFB");
+        double initcost = 0.49 + 0.12 + 0.99;
+        double newcost = person.GetTotalCost();
+
+        Assert.That(initcost > newcost, Is.True);
+    }
 }

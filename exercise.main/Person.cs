@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +13,9 @@ namespace exercise.main
     {
         public int _capacity = 10;
         private List<Item> _basket = new List<Item>();
-        public string role { get;set;}
+        public string role { get; set; }
 
-        
+
 
         public int GetCapacity()
         {
@@ -29,7 +31,7 @@ namespace exercise.main
             {
 
                 Console.WriteLine(item.name);
-                
+
             }
         }
 
@@ -43,11 +45,11 @@ namespace exercise.main
             {
                 throw new Exception("The item is not in inventory");
             }
-            else 
+            else
             {
                 _basket.Add(item);
             }
-            
+
         }
 
         public void RemoveItem(Item item)
@@ -85,17 +87,94 @@ namespace exercise.main
             return _basket.Contains(item);
         }
 
-        public double GetTotalCost()
+        public bool coffeebageldiscount()
         {
-            double total = 0;
+            bool coffee = false;
+            bool bagel = false;
+
+            List<string> bagelflavors = new List<string> { "BGLO", "BGLP", "BGLE", "BGLS" };
+            foreach (Item item in _basket)
+            {
+                if (item.name == "COFB")
+                {
+                    coffee = true;
+                }
+
+                else if (bagelflavors.Contains(item.name))
+                {
+                    bagel = true;
+                }
+            }
+            return coffee && bagel;
+        }
+
+
+        public string GetCheapestBagel()
+        {
+            double mincost = 10000000;
+            string name = "";
 
             foreach (Item item in _basket)
             {
+                if (item.name.StartsWith("BGL"))
+                {
+                    if (item.prices[item.name] < mincost)
+                    {
+                        mincost = item.prices[item.name];
+                        name = item.name;
+                    }
+                }
+            }
+            return name;
+        }
+
+        public double GetTotalCost()
+        {
+            double total = 0;
+            
+            if (coffeebageldiscount())
+            {
+                string bagelname = GetCheapestBagel();
+
+                foreach (Item item in _basket) {
+                    if (item.name == "COFB")
+                    {
+                        _basket.Remove(item);
+                        break;
+                    }
+                }
+
+                foreach (Item item in _basket)
+                {
+                    if (item.name == bagelname)
+                    {
+                        foreach (Filling fill in item.bagelfillings)
+                        {
+                            total += fill.prices[fill.actualname];
+                            item.bagelfillings.Remove(fill);
+                        }
+
+                        _basket.Remove(item);
+                        break;
+                    }
+
+                }
+                total += 1.25;
+            }
+
+
+            foreach (Item item in _basket)
+            {
+
                 total += item.totalcost + item.prices[item.name];
 
             }
+
+
             return total;
         }
+    
+
 
         public double GetItemCost(Item item)
         {
@@ -117,5 +196,10 @@ namespace exercise.main
             return fill.prices[fill.actualname];
         }
 
+        public int GetItemAmount(Item item)
+        {
+            return item.itemcount[item.name];
+
+        }
     }
 }
