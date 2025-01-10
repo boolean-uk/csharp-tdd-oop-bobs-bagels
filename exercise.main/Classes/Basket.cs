@@ -21,9 +21,10 @@ namespace exercise.main.Classes
             BasketItem alreadyExists = _items.Find(x => x.Product.Equals(item));
 
             // If the product already exists in the basket
-            if (alreadyExists != null)
+            if (CheckIfProductExistsInBasket(item))
             {
-                alreadyExists.Amount += amount;
+                BasketItem foundItem = GetItemFromBasket(item);
+                foundItem.Amount += amount;
             }
             else 
             {
@@ -34,9 +35,19 @@ namespace exercise.main.Classes
             
 
         }
-        public void Remove(Product item) { }
+        public void Remove(Product item) 
+        {
+            if (CheckIfProductExistsInBasket(item))
+            {
+                _items.Remove(GetItemFromBasket(item));
+            }
+            
+        }
 
-        public void Remove(string sku) { }
+        public void Remove(string sku) 
+        { 
+            _items.Remove(GetItemBySKU(sku));
+        }
 
         public void SetCapacity(int size) { }
 
@@ -68,6 +79,17 @@ namespace exercise.main.Classes
         private bool CheckCapacity()
         {
             throw new NotImplementedException();
+        }
+
+        private bool CheckIfProductExistsInBasket(Product item)
+        {
+            return GetItemFromBasket(item) == null ? false : true;
+
+        }
+
+        private BasketItem GetItemFromBasket(Product item)
+        {
+            return _items.Find(x => x.Product.GetSKU().Equals(item.GetSKU()));
         }
     }
 }
