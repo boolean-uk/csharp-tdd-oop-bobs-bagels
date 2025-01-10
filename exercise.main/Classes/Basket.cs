@@ -36,6 +36,8 @@ namespace exercise.main.Classes
         }
         public void Remove(Product item) { }
 
+        public void Remove(string sku) { }
+
         public void SetCapacity(int size) { }
 
         public double GetTotal()

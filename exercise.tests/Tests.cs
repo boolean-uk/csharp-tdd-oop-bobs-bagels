@@ -68,4 +68,17 @@ public class Tests
         Assert.That(_basket.GetItems().Count, Is.EqualTo(4));
         Assert.That(_basket.GetItemBySKU("BGLG").Amount, Is.EqualTo(5));
     }
+
+    [Test]
+    public void TestRemoveBagel()
+    {
+        // arrange
+
+
+        // act
+        _basket.Remove("BGLO");
+
+        // assert
+        Assert.That(_basket.GetItems().Count, Is.EqualTo(2));
+    }
 }
