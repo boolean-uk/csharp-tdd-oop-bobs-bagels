@@ -16,11 +16,15 @@ namespace exercise.main
             { "BGLS", 0.49f },
         };
 
+        private List<Item> _fillings = new List<Item>();
+
         public Bagel(string variant) : base(variant)
         {
             _SKU = "BGL" + variant[0];
             _cost = _skuPriceDictionary[_SKU];
             _name = "Bagel";
         }
+
+        public List<Item> fillings { get { return _fillings; } }
     }
 }
