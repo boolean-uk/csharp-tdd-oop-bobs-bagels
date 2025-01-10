@@ -93,6 +93,28 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 ```
 
+## Domain Model
+| Classes    | Methods/Properties      | Scenario                        | Outputs          |
+|------------|-------------------------|---------------------------------|---------------|
+| Person.cs       | Person()					   | Constructor							 | Initialize Person         |
+| Person.cs       | GetCapactiy()					   | Get the capacity							 | Returns the capacity        |
+| Person.cs		 | GetItems()					   | Get all the items in basket							 | Returns all the items         |
+| Person.cs		 | AddItem(Item item)					   | Add an item to basket							 | Increases the amount of items in basket    |
+| Person.cs		 | RemoveItem(Item item)				       | Remove an item from basket							 | Removes an item        |
+| Person.cs	     | IsFull()					   | Check to see if basket is full							 | True/False         |
+| Person.cs	     | Private field basket/list
+| Person.cs		 | Private field item count
+| Person.cs		 | ChangeCapacity(int number)					   | Changing the capacity of basket							 | Void         |
+| Person.cs		 | ItemExist(Item item)					   | Check to see if item exists					     | True/False         |
+| Person.cs		 | GetTotalCost()					   | See the total cost of basket						 | Returns the cost           |
+| Person.cs		 | GetIndividualCost(Item item)					   | Get the individal cost of an item						 | Returns the cost        |
+| Item.cs		 | Abstract field cost					  
+| Item.cs		 | Abstract field identifier/ID
+| Item.cs		 | Abstract field name
+| Item.cs		 | Abstract field options
+| Bagel.cs		 | Bagel() constructor - Set cost, name, ID, and variants
+| Coffee.cs		 | Coffee() constructor - Set cost, name, ID, and variants
+| Filling.cs		 | Filling() constructor - Set cost, name, ID, and variants
 ## Bob's Inventory
 
 | SKU  | Price | Name    | Variant       |
