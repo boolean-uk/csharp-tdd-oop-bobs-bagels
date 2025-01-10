@@ -1,15 +1,19 @@
+using exercise.main;
+
 namespace exercise.tests;
 
 public class Tests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
-    public void Test1()
+    public void AddItemToBasket()
     {
-        Assert.Pass();
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket();
+
+        Item bagel = new Item("BGLO", 0.49, "Bagel", "Onion");
+
+        basket.Add(bagel);
+        Assert.That(basket.items[0], Is.EqualTo(bagel));
+
     }
 }
