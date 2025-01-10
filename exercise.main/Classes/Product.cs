@@ -24,7 +24,13 @@ namespace exercise.main.Classes
 
         public double GetPrice()
         {
-            throw new NotImplementedException();
+            double cost = _price;
+            if (_discount > 0) 
+            {
+                double percentDiscount = 1 - _discount;
+                cost *= percentDiscount;
+            }
+            return cost;
         }
 
         public void SetPrice()

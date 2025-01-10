@@ -63,7 +63,12 @@ namespace exercise.main.Classes
 
         public double GetTotal()
         {
-            throw new NotImplementedException();
+            double total = 0;
+            foreach (var item in _items) 
+            {
+                total += item.Product.GetPrice();
+            }
+            return total;
         }
 
         public List<BasketItem> GetItems()

@@ -133,7 +133,7 @@ public class Tests
         double totalCost = _basket.GetTotal();
 
         // assert
-        Assert.That(totalCost, Is.GreaterThan(0));
+        Assert.That(totalCost, Is.EqualTo(30));
     }
     [Test]
     public void TestCheckCostOfBagel()
