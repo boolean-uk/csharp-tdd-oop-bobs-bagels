@@ -192,58 +192,58 @@ namespace exercise.main
                     "          for your order!        ");
         }
 
-        public string formatTableOrder()
-        {
-            Dictionary<string, int> countMap = new Dictionary<string,int>();
-            Dictionary<string, double> priceMap = new Dictionary<string, double>();
+        //public string formatTableOrder()
+        //{
+        //    Dictionary<string, int> countMap = new Dictionary<string,int>();
+        //    Dictionary<string, double> priceMap = new Dictionary<string, double>();
 
-            for (int i = 0; i < BasketList.Count; i++)
-            {
-                string key = BasketList[i].getVariant() + " " + BasketList[i].Name;
-                countMap.Add(key, countMap.getOrDefault(key, 0) + 1);
-                priceMap.Add(key, BasketList[i].Price);
-            }
+        //    for (int i = 0; i < BasketList.Count; i++)
+        //    {
+        //        string key = BasketList[i].getVariant() + " " + BasketList[i].Name;
+        //        countMap.Add(key, countMap.getOrDefault(key, 0) + 1);
+        //        priceMap.Add(key, BasketList[i].Price);
+        //    }
 
-            StringBuilder out = new StringBuilder();
-            for (Map.Entry<string, int> entry : countMap.entrySet())
-            {
-                string key = entry.getKey();
-                double discount = 0.00;
-                int count = entry.getValue();
-                double total = count * priceMap[key];
-            out.append(string.format("%-18s %2d   £%.2f\n", key, count, total));
-                if (key.Contains("Onion"))
-                {
-                    if (count >= 6)
-                    {
-                        discount = 0.45;
-                        string sdis = "(-£" + discount + ")";
-                        out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-                    }
-                }
-                if (key.contains("Plain"))
-                {
-                    if (count >= 12)
-                    {
-                        discount = 0.69;
-                        string sdis = "(-£" + discount + ")";
-                        out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-                    }
-                }
-                if (key.Contains("Everything"))
-                {
-                    if (count >= 6)
-                    {
-                        discount = 0.45;
-                        string sdis = "(-£" + discount + ")";
-                        out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-                    }
-                }
+        //    StringBuilder out = new StringBuilder();
+        //    for (Map.Entry<string, int> entry : countMap.entrySet())
+        //    {
+        //        string key = entry.getKey();
+        //        double discount = 0.00;
+        //        int count = entry.getValue();
+        //        double total = count * priceMap[key];
+        //    out.append(string.format("%-18s %2d   £%.2f\n", key, count, total));
+        //        if (key.Contains("Onion"))
+        //        {
+        //            if (count >= 6)
+        //            {
+        //                discount = 0.45;
+        //                string sdis = "(-£" + discount + ")";
+        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
+        //            }
+        //        }
+        //        if (key.contains("Plain"))
+        //        {
+        //            if (count >= 12)
+        //            {
+        //                discount = 0.69;
+        //                string sdis = "(-£" + discount + ")";
+        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
+        //            }
+        //        }
+        //        if (key.Contains("Everything"))
+        //        {
+        //            if (count >= 6)
+        //            {
+        //                discount = 0.45;
+        //                string sdis = "(-£" + discount + ")";
+        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
+        //            }
+        //        }
 
 
-            }
-            return out.toString();
-        }
+        //    }
+        //    return out.toString();
+        //}
 
 
     }
