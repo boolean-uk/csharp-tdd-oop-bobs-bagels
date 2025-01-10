@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Classes\Products\Coffes\" />
+    <Folder Include="Classes\Products\Fillings\" />
+  </ItemGroup>
+
 </Project>
