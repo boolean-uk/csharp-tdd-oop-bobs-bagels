@@ -89,10 +89,10 @@ public class Tests
 
 
         // act
-        
+        _basket.Capacity = 20;
 
         // assert
-        
+        Assert.That(_basket.Capacity, Is.EqualTo(20));
     }
 
     [Test]

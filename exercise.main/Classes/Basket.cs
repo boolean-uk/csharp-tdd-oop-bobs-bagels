@@ -49,7 +49,11 @@ namespace exercise.main.Classes
             _items.Remove(GetItemBySKU(sku));
         }
 
-        public void SetCapacity(int size) { }
+        public int Capacity
+        {
+            get => _capacity;
+            set { _capacity = value; }
+        }
 
         public double GetTotal()
         {
