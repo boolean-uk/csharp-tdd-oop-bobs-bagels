@@ -16,9 +16,14 @@ namespace exercise.main
             capacity = 5;
         }
 
-        public void Add(Item item)
+        public string Add(Item item)
         {
-            items.Add(item);
+            if (this.capacity > items.Count)
+            {
+                items.Add(item);
+                return $"{item.Sku} added to basket.";
+            }
+            return "Basket is full, item not added";
         }
 
         public Item Remove(string sku)
@@ -27,10 +32,11 @@ namespace exercise.main
             if (item != null)
             {
                 items.Remove(item);
-                return item;
             }
             return item;
         }
+
+        
 
         public int ChangeCap(int cap)
         {

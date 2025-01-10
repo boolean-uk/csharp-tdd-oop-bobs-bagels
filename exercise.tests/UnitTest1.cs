@@ -42,6 +42,30 @@ public class Tests
     }
 
     [Test]
+    public void AddBeyondMaxCap()
+    {
+        var basket = new Basket();
+        List<Item> items = new List<Item>
+        {
+                new Item("BGLS", 0.49, "Bagel", "Sesame"),
+                new Item("COFB", 0.99, "Coffee", "Black"),
+                new Item("COFW", 1.19, "Coffee", "White"),
+                new Item("COFC", 1.29, "Coffee", "Capuccino"),
+                new Item("COFL", 1.29, "Coffee", "Latte"),
+        };
+
+        foreach (Item item in items)
+        {
+            basket.Add(item);
+        }
+
+        Item testItem = new Item("FILE", 0.12, "Filling", "Egg");
+
+        Assert.That(basket.Add(testItem), Is.EqualTo("Basket is full, item not added"));
+    }
+
+
+    [Test]
     public void MaxCapacityOfBasket()
     {
         var basket = new Basket();
