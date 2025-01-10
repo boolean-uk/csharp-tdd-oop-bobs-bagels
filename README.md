@@ -137,3 +137,24 @@ At the top, we see `expected: 512 but was: 0`. This means the test expected the 
 In the stack trace itself, we see this line: `1.  at csharp_fundamentals_primitive_types.Test.CoreTests.twoShouldBe512() in C:\Dev\boolean\csharp\fundamentals\csharp-fundamentals-primitive-types\src\csharp-fundamentals-primitive-types.Test\CoreTests.cs:line 17`. This is helpful! This tells us the exact line in the `CoreTests.cs` file (line 17) where the failure happened, as well as the method name (twoShouldBe512), helping us to identify where the issue began. This is the kind of thing you need to look for; a relevant file name, method name, class name and line number to give you a good starting point for debugging.
 
 ![](./assets/test-failure.png)
+
+
+
+## Domain Model
+
+| Class        | Methods/Properties           | Scenario                              | Output                              |
+|--------------|------------------------------|---------------------------------------|-------------------------------------|
+| ToDoList.cs  | GetTasks                     | fetch all tasks                       | List of all ToDoTaks                |
+| ToDoList.cs  | GetTaskByName                | get a task by its name                | a single task with the given name   |
+| ToDoList.cs  | GetTasksAscending/Descending | fetch a list of tasks ordered         | A list of all tasks ordered by name |
+| ToDoList.cs  | AddTask                      | adds a task to the list               |                                     |
+| ToDoList.cs  | RemoveTask                   | Removes a task with a given name      |                                     |
+| ToDoList.cs  | GetCompletedTasks            | fetches all completed tasks           | a list of all completed tasks       |
+| ToDoList.cs  | GetIncompleteTasks           | fetches all incomplete tasks          | a list of incompleted tasks         |
+| ToDoList.cs  | SearchTasks                  | searches for a given task             | either a list of tasks or nothing   |
+| ToDoTask.cs  | CompleteTask                 | set isComplete to true                |                                     |
+| Extension.cs | UpdateTaskName               | Update task name by given ID          |                                     |
+| Extension.cs | UpdateTaskStatus             | updates the task status with given ID |                                     |
+| Extension.cs | GetTaskById                  | get a  task with given id             | The task that has this unique ID    |
+
+![](./assets/domainmodel.png)
