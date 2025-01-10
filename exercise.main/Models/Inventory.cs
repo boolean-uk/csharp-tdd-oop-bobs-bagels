@@ -25,8 +25,5 @@ namespace exercise.main.Models
             {"FILS", new Filling("FILS", "Smoked Salmon", 0.12M)},
             {"FILH", new Filling("FILH", "Ham", 0.12M)},
         };
-
-        //Return a new instance of a product based on the SKU
-
     }
 }

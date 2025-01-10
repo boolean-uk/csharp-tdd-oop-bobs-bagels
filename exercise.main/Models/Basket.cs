@@ -9,6 +9,8 @@ namespace exercise.main.Models
     public class Basket
     {
 
+        private readonly DiscountService _discountService = new DiscountService();
+
         public List<Product> Products { get; set; }
         public int Capacity { get; set; }
         public Basket(int capacity) {
@@ -27,18 +29,36 @@ namespace exercise.main.Models
 
         public decimal GetTotalPrice()
         {
-            return Products.Sum(p =>
+           return GetListPrice(Products);
+        }
+
+        private decimal GetListPrice(List<Product> products)
+        {
+            return products.Sum(p =>
             {
-            decimal price = 0;
-            if (p is Bagel bagel)
-            {
-                return bagel.GetTotalPrice();
+                decimal price = 0;
+                if (p is Bagel bagel)
+                {
+                    return bagel.GetTotalPrice();
                 }
                 else
                 {
                     return p.Price;
                 }
             });
+        }
+
+        public decimal GetPriceWithDiscounts()
+        {
+            List<Product> restProducts;
+            var specialOffers = _discountService.checkForDiscounts(Products, out restProducts);
+            decimal restPrice = GetListPrice(restProducts);
+            decimal specialOfferPrice = GetSpecialOfferPrice(specialOffers);
+            return restPrice + specialOfferPrice;
+        }
+        private decimal GetSpecialOfferPrice(List<SpecialOffer> specialOffers)
+        {
+            return specialOffers.Sum(o => o.Price);
         }
 
         public bool Remove(Bagel bagel)
@@ -61,6 +81,11 @@ namespace exercise.main.Models
             {
                 throw new Exception("You are not authorized to update the capacity");
             }
+        }
+
+        public void clear()
+        {
+            Products.Clear();
         }
     }
 }
