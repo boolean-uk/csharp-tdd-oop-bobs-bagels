@@ -91,7 +91,7 @@ namespace exercise.main.Classes
             throw new NotImplementedException();
         }
 
-        private bool CheckIfProductExistsInBasket(Product item)
+        public bool CheckIfProductExistsInBasket(Product item)
         {
             return GetItemFromBasket(item) == null ? false : true;
 

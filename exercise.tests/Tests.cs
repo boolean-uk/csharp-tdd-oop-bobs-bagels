@@ -107,20 +107,20 @@ public class Tests
         bool added = _basket.Add(bagelGarlic, 2);
 
         // assert
-        Assert.That(added, Is.EqualTo(false));
+        Assert.That(added, Is.False);
     }
 
     [Test]
-    public void TestCheckIfItemExistsInBasket()
+    public void TestCheckIfProductExistsInBasket()
     {
         // arrange
-
+        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
 
         // act
-
+        bool exists = _basket.CheckIfProductExistsInBasket(bagelGarlic);
 
         // assert
-
+        Assert.That(exists, Is.False);
     }
 
     [Test]
