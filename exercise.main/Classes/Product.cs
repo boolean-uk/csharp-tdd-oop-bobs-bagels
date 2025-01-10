@@ -39,7 +39,7 @@ namespace exercise.main.Classes
 
         public string GetSKU()
         {
-            throw new NotImplementedException();
+            return _sku;
         }
 
         public void AddPromo(double amount, double price)
