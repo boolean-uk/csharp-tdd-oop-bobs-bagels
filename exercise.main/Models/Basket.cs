@@ -13,9 +13,11 @@ namespace exercise.main.Models
 
         public List<Product> Products { get; set; }
         public int Capacity { get; set; }
+        public List<SpecialOffer> SpecialOffers { get; set; }
         public Basket(int capacity) {
             Capacity = capacity;
             Products = new List<Product>();
+            SpecialOffers = new List<SpecialOffer>();
         }
         public bool Add(Product product)
         {
@@ -54,6 +56,7 @@ namespace exercise.main.Models
             var specialOffers = _discountService.checkForDiscounts(Products, out restProducts);
             decimal restPrice = GetListPrice(restProducts);
             decimal specialOfferPrice = GetSpecialOfferPrice(specialOffers);
+            SpecialOffers = specialOffers;
             return restPrice + specialOfferPrice;
         }
         private decimal GetSpecialOfferPrice(List<SpecialOffer> specialOffers)
