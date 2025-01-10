@@ -16,5 +16,13 @@ namespace exercise.main.Classes
             _amount = amount;
             _product = product;
         }
+
+        public Product Product => _product;
+
+        public int Amount
+        {
+            get => _amount;
+            set { _amount = value; }
+        }
     }
 }

@@ -25,9 +25,9 @@ public class Tests
 
         _basket = new Basket();
 
-        _basket.Add(bagelOnion);
-        _basket.Add(bagelPlain);
-        _basket.Add(bagelEverything);
+        _basket.Add(bagelOnion, 1);
+        _basket.Add(bagelPlain, 3);
+        _basket.Add(bagelEverything, 5);
 
         List<BasketItem> items = _basket.SubmitOrder();
 
@@ -43,11 +43,11 @@ public class Tests
     public void TestAddBagel()
     {
         // arrange
-        Product bagelOnion = new Product("BGLO", 10, "Bagel", "Onion");
+        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
         
 
         // act
-        _basket.Add(bagelOnion);
+        _basket.Add(bagelGarlic, 2);
 
         // assert
         Assert.That(_basket.GetItems().Count, Is.EqualTo(4));

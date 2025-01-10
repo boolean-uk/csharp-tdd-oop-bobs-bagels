@@ -16,7 +16,24 @@ namespace exercise.main.Classes
             _capacity = 10;
         }
 
-        public void Add(Product item) { }
+        public void Add(Product item, int amount) 
+        {
+            BasketItem alreadyExists = _items.Find(x => x.Product.Equals(item));
+
+            // If the product already exists in the basket
+            if (alreadyExists != null)
+            {
+                alreadyExists.Amount += amount;
+            }
+            else 
+            {
+                BasketItem newItem = new BasketItem(item, amount);
+                _items.Add(newItem);
+            }
+
+            
+
+        }
         public void Remove(Product item) { }
 
         public void SetCapacity(int size) { }
@@ -28,12 +45,12 @@ namespace exercise.main.Classes
 
         public List<BasketItem> GetItems()
         {
-            throw new NotImplementedException();
+            return _items;
         }
 
         public List<BasketItem> SubmitOrder()
         {
-            throw new NotImplementedException();
+            return _items;
         }
 
         private void CheckDiscounts()
