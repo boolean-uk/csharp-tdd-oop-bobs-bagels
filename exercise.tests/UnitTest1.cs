@@ -113,7 +113,7 @@ public class Tests
     }
 
     [Test]
-    public void CheckPriceOfItem()
+    public void CheckTotalOfBasket()
     {
         var basket = new Basket();
         List<Item> items = new List<Item>
