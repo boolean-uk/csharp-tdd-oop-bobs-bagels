@@ -19,5 +19,16 @@ namespace exercise.main
             items.Add(item);
         }
 
+        public Item Remove(string sku)
+        {
+            Item? item = items.FirstOrDefault(i => i.Sku == sku);
+            if (item != null)
+            {
+                items.Remove(item);
+                return item;
+            }
+            return item;
+        }
+
     }
 }
