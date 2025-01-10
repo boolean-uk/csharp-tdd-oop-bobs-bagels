@@ -99,13 +99,15 @@ public class Tests
     public void TestBasketFull()
     {
         // arrange
+        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
 
 
         // act
-
+        _basket.Capacity = 3;
+        bool added = _basket.Add(bagelGarlic, 2);
 
         // assert
-
+        Assert.That(added, Is.EqualTo(false));
     }
 
     [Test]

@@ -16,8 +16,14 @@ namespace exercise.main.Classes
             _capacity = 10;
         }
 
-        public void Add(Product item, int amount) 
+        public bool Add(Product item, int amount) 
         {
+            // Check if the capacity is full
+            if (_items.Count >= _capacity) 
+            {
+                return false;
+            }
+
             BasketItem alreadyExists = _items.Find(x => x.Product.Equals(item));
 
             // If the product already exists in the basket
@@ -32,7 +38,7 @@ namespace exercise.main.Classes
                 _items.Add(newItem);
             }
 
-            
+            return true;
 
         }
         public void Remove(Product item) 
