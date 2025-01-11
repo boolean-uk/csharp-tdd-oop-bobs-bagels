@@ -4,17 +4,24 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main;
 
 namespace exercise.tests
 {
     public class BasketTest
     {
         private Basket basket;
+        private Filling filling;
+        private Bagel bagel;
+        private Inventory inventory;
 
         [SetUp]
-        public void SetUp()
+        public void SetUp() // Arrange step for all tests
         {
-            basket = new Basket(); // Arrange step for all tests
+            basket = new Basket(); 
+            filling = new Filling();
+            bagel = new Bagel();
+            inventory = new Inventory();
         }
 
         [Test]
