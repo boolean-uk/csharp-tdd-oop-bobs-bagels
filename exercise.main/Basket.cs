@@ -9,15 +9,22 @@ namespace exercise.main
     public class Basket
     {
         public List<Item> items;
+        public Inventory inventory;
         public int capacity;
         public Basket()
         {
+            inventory = new Inventory();
             items = new List<Item>();
             capacity = 5;
         }
 
         public string Add(Item item)
         {
+            if (!inventory.ValidateItem(item))
+            {
+                return "invalid item";
+            }
+
             if (this.capacity > items.Count)
             {
                 items.Add(item);
@@ -35,7 +42,6 @@ namespace exercise.main
             }
             return item;
         }
-
         
 
         public int ChangeCap(int cap)

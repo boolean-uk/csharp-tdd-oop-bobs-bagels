@@ -199,5 +199,28 @@ public class Tests
         }
     }
 
+    [Test]
+    public void CheckValidItems()
+    {
+        Inventory inv = new Inventory();
+        var basket = new Basket();
+        List<Item> items = new List<Item>
+        {
+                new Item("BGLS", 0.49, "Bagel", "Sesame"),
+                new Item("COFB", 0.99, "Coffee", "Black"),
+                new Item("COFW", 1.19, "Coffee", "White"),
+        };
+
+        foreach (Item item in items)
+        {
+            basket.Add(item);
+        }
+
+        Item invalidItem = new Item("KIUH", 0.38, "Fries", "Potato");
+        basket.Add(invalidItem);
+        Assert.That(basket.items.Count, Is.EqualTo(3));
+
+    }
+
 
 }

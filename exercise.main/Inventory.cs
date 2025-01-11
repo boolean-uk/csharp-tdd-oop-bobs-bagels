@@ -41,5 +41,18 @@ namespace exercise.main
             return items.FindAll(item => item.Type == "Filling");
         }
 
+        public bool ValidateItem(Item item)
+        {
+            Item? validItem = GetItem(item.Sku);
+
+            if (validItem == null)
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
     }
 }
