@@ -13,6 +13,8 @@ namespace exercise.main
         protected string _name;
         private string _variant;
 
+        protected List<Item> _fillings;
+
         public Item(string variant)
         {
             _variant = variant;
@@ -22,5 +24,9 @@ namespace exercise.main
         public float cost { get { return _cost; } }
         public string name { get { return _name; } }
         public string variant { get { return _variant; } }
+
+        public abstract void AddFilling(Item filling);
+
+        public abstract List<Item> GetFillings();
     }
 }

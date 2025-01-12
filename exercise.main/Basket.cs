@@ -22,11 +22,15 @@ namespace exercise.main
 
         public void Add(Item item)
         {
-            if (Inventory.CheckIfInInventory(item))
+            if (item.name == "Filling")
+                Console.WriteLine("Fillings cannot be added to the basket directly.");
+
+            else if (Inventory.CheckIfInInventory(item))
             {
                 _items.Add(item);
                 Console.WriteLine($"{item.variant} {item.name} added.");
             }
+
             else
                 Console.WriteLine("Item does not exist.");
         }
@@ -62,39 +66,14 @@ namespace exercise.main
             float totalCost = 0f;
 
             foreach (Item item in _items)
+            {
                 totalCost += item.cost;
+                foreach (Item filling in item.GetFillings())
+                    totalCost += filling.cost;
+            }
 
             return totalCost;
         }
-
-        public void AddFilling(Item filling, Item toBagel)
-        {
-            if (toBagel.name != "Bagel")
-            {
-                Console.WriteLine("Fillings can only be added to bagels.");
-                return;
-            }
-
-            if (!_items.Contains(toBagel))
-            {
-                Console.WriteLine("Bagel not in basket.");
-                return;
-            }
-
-            if (Inventory.CheckIfInInventory(filling)) {
-                if (filling.name == "Filling")
-                {
-                    _items.Add(filling);
-                    //toBagel.fillings.Add(filling);
-                    Console.WriteLine($"Item added: {filling.variant} {filling.name}");
-                }
-                else
-                    Console.WriteLine("Not a filling.");
-            }
-            else
-                Console.WriteLine("Item does not exist.");
-        }
-
 
         public List<Item> items { get { return _items; } }
     }

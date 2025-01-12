@@ -21,6 +21,19 @@ namespace exercise.main
             _SKU = "COF" + variant[0];
             _cost = _skuPriceDictionary[_SKU];
             _name = "Coffee";
+
+            _fillings = new List<Item>();
+        }
+
+        public override void AddFilling(Item filling)
+        {
+            Console.WriteLine("Filling cannot be added to a coffee.");
+        }
+
+        public override List<Item> GetFillings()
+        {
+            Console.WriteLine("Coffee cannot have fillings.");
+            return _fillings;
         }
 
     }

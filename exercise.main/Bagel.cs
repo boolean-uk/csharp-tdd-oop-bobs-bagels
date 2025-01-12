@@ -16,8 +16,6 @@ namespace exercise.main
             { "BGLS", 0.49f },
         };
 
-        private List<Item> _fillings = new List<Item>();
-
         public Bagel(string variant) : base(variant)
         {
             _SKU = "BGL" + variant[0];
@@ -31,8 +29,27 @@ namespace exercise.main
             }
 
             _name = "Bagel";
+
+            _fillings = new List<Item>();
         }
 
-        public List<Item> fillings { get { return _fillings; } }
+        public override void AddFilling(Item filling)
+        {
+            if (Inventory.CheckIfInInventory(filling))
+            {
+                if (filling.name == "Filling")
+                {
+                    _fillings.Add(filling);
+                    Console.WriteLine($"Item added: {filling.variant} {filling.name}");
+                }
+                else
+                    Console.WriteLine("Not a filling.");
+            }
+        }
+
+        public override List<Item> GetFillings()
+        {
+            return _fillings;
+        }
     }
 }

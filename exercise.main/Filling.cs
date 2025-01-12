@@ -27,6 +27,19 @@ namespace exercise.main
 
             _cost = _skuPriceDictionary[_SKU];
             _name = "Filling";
+
+            _fillings = new List<Item>();
+        }
+
+        public override void AddFilling(Item filling)
+        {
+            Console.WriteLine("Filling cannot be added to a filling.");
+        }
+
+        public override List<Item> GetFillings()
+        {
+            Console.WriteLine("Filling cannot have fillings.");
+            return _fillings;
         }
     }
 }

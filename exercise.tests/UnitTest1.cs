@@ -53,9 +53,13 @@ public class Tests
     [Test]
     public void TestGetTotalCost()
     {
-        basket.Add(new Bagel("Onion"));
-        basket.Add(new Coffee("White"));
-        basket.Add(new Filling("Cream Cheese"));
+        Item bagel = new Bagel("Onion");
+        Item coffee = new Coffee("White");
+        Item filling = new Filling("Egg");
+
+        basket.Add(bagel);
+        basket.Add(coffee);
+        bagel.AddFilling(filling);
 
         Assert.That(basket.GetTotalCost(), Is.EqualTo(0.49f + 1.19f + 0.12f));
     }
@@ -74,16 +78,19 @@ public class Tests
         Item coffee = new Coffee("White");
         Item filling = new Filling("Egg");
 
-        basket.AddFilling(filling, bagel);
-        Assert.That(!basket.items.Contains(filling));
-
         basket.Add(bagel);
 
-        basket.AddFilling(filling, coffee);
-        Assert.That(!basket.items.Contains(filling));
+        coffee.AddFilling(filling);
+        Assert.That(!coffee.GetFillings().Contains(filling));
 
-        basket.AddFilling(filling, bagel);
-        Assert.That(basket.items.Contains(filling));
+        filling.AddFilling(filling);
+        Assert.That(!filling.GetFillings().Contains(filling));
+
+        bagel.AddFilling(filling);
+        Assert.That(bagel.GetFillings().Contains(filling));
+
+        basket.Add(filling);
+        Assert.That(basket.items.Count == 1);
     }
 
     [Test]
