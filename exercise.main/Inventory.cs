@@ -29,9 +29,10 @@ namespace exercise.main
         public static bool CheckIfInInventory(Item item)
         {
             foreach (Item itm in inventory)
-                if (itm.sKU == item.sKU)
+                if (itm.sKU == item.sKU && itm.variant == item.variant)
                     return true;
 
+            Console.WriteLine($"{item.variant} {item.name} is not in our inventory.");
             return false;
         }
     }

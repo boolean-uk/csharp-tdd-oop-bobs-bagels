@@ -85,4 +85,14 @@ public class Tests
         basket.AddFilling(filling, bagel);
         Assert.That(basket.items.Contains(filling));
     }
+
+    [Test]
+    public void TestAddItemNotInInventory()
+    {
+        Assert.That(basket.items.Count == 0);
+
+        basket.Add(new Bagel("Onionion"));
+
+        Assert.That(basket.items.Count == 0);
+    }
 }

@@ -21,7 +21,15 @@ namespace exercise.main
         public Bagel(string variant) : base(variant)
         {
             _SKU = "BGL" + variant[0];
-            _cost = _skuPriceDictionary[_SKU];
+
+            if (_skuPriceDictionary.ContainsKey(_SKU))
+                _cost = _skuPriceDictionary[_SKU];
+            else
+            {
+                Console.WriteLine($"{variant} is not a valid variant.");
+                return;
+            }
+
             _name = "Bagel";
         }
 
