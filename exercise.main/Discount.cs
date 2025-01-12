@@ -8,18 +8,19 @@ namespace exercise.main
 {
     public class Discount
     {
-        private string _SKU;
+        private string _name;
         private float _discount;
         private List<Item> _itemsNeeded;
-        public Discount(string sKU, float discount, List<Item> itemsNeeded)
+
+        public Discount(string name, float discount, List<Item> itemsNeeded)
         {
-            _SKU = sKU;
+            _name = name;
             _discount = discount;
             _itemsNeeded = itemsNeeded;
         }
 
-        public string SKU { get { return _SKU; } }
+        public string name { get { return _name; } }
         public float discount { get { return _discount; } }
-        public List<Item> itemsneeded { get { return _itemsNeeded; } }
+        public List<Item> itemsNeeded { get { return _itemsNeeded; } }
     }
 }

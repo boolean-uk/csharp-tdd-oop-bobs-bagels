@@ -36,16 +36,16 @@ public class Tests
     [Test]
     public void TestSpaceLeft()
     {
-        Assert.That(basket.SpaceLeft() == 10);
+        Assert.That(basket.SpaceLeft() == 40);
         basket.Add(new Bagel("Onion"));
         basket.Add(new Coffee("White"));
-        Assert.That(basket.SpaceLeft() == 8);
+        Assert.That(basket.SpaceLeft() == 38);
     }
 
     [Test]
     public void TestChangeCapacity()
     {
-        Assert.That(basket.SpaceLeft() == 10);
+        Assert.That(basket.SpaceLeft() == 40);
         basket.ChangeCapacity(4);
         Assert.That(basket.SpaceLeft() == 4);
     }
@@ -101,5 +101,45 @@ public class Tests
         basket.Add(new Bagel("Onionion"));
 
         Assert.That(basket.items.Count == 0);
+    }
+
+    [Test]
+    public void TestDiscount()
+    {
+        for (int i = 0; i <= 31; i++)
+            basket.Add(new Bagel("Everything"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Sesame"));
+        basket.Add(new Bagel("Plain"));
+
+        basket.items[0].AddFilling(new Filling("Egg"));
+        basket.items[4].AddFilling(new Filling("Egg"));
+        basket.items[7].AddFilling(new Filling("Cream Cheese"));
+        basket.items[7].AddFilling(new Filling("Smoked Salmon"));
+        basket.items[16].AddFilling(new Filling("Bacon"));
+        basket.items[28].AddFilling(new Filling("Ham"));
+
+        basket.Add(new Coffee("White"));
+        basket.Add(new Coffee("Black"));
+
+        float truePrice = 0f;
+
+        truePrice += new Bagel("Everything").cost * 32;
+        truePrice += new Bagel("Onion").cost;
+        truePrice += new Bagel("Sesame").cost;
+        truePrice += new Bagel("Plain").cost;
+
+        truePrice += new Filling("Egg").cost * 6;
+
+        truePrice += new Coffee("White").cost;
+        truePrice += new Coffee("Black").cost;
+
+        truePrice -= 1.29f;
+        truePrice -= 1.29f;
+        truePrice -= 0.49f;
+        truePrice -= 0.25f;
+        truePrice -= 0.25f;
+
+        Assert.That(Math.Round(basket.GetCostAfterDiscounts(), 4), Is.EqualTo(Math.Round(truePrice, 4)));
     }
 }
