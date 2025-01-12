@@ -38,7 +38,16 @@ namespace exercise.main
 
         public double getTotalCost()
         {
-            return 42.2;
+            if(items != null && items.Count > 0)
+            {
+                double totalCost = 0;
+                foreach (Item item in items)
+                {
+                    totalCost += item.getPrice();
+                }
+                return totalCost;
+            }
+            return 0;
         }
 
     }

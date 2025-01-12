@@ -22,7 +22,7 @@ namespace exercise.main
 
         public abstract string getVariant();
 
-        public double getPrice() { return price; }
+        public abstract double getPrice();
 
     }
 

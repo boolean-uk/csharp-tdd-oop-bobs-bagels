@@ -11,12 +11,15 @@ namespace exercise.main
     {
         private string variant;
 
+        private List<Fillings> fillings_list; 
+
+        public List<Fillings> Fillings_list { get { return fillings_list; } set { fillings_list = value; } }
+
         public struct Fillings
         {
-   
             public string Id { get; }
             public string Variant { get; }
-            public double Price { get { return Price; } set { Price = value; } }
+            public double Price { get; } 
 
             public Fillings(string id, string variant, double price)
             {
@@ -32,15 +35,22 @@ namespace exercise.main
         }
 
 
-
         public override string getVariant()
         {
             return variant;
         }
 
-        //public double getPrice(){
-        //    return base.getPrice() + this.Fillings.Price;
-        //}
+        public override double getPrice()
+        {
+            if (fillings_list != null && fillings_list.Count > 0) 
+            {
+                double total_filling = 0;
+                foreach (Fillings filling in fillings_list) { total_filling += filling.Price; }
+
+                return base.Price + total_filling;
+            }
+            return base.Price;
+        }
 
     }
 }

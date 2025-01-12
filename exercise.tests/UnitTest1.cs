@@ -1,10 +1,10 @@
 using exercise.main;
+using static exercise.main.Bagel;
 
 namespace exercise.tests;
 
 public class Tests
 {
-    //Basket basket = new Basket();
     Bagel bagelO = new Bagel("BGLO", "Bagel", 0.49);
     Bagel bagelP = new Bagel("BGLP", "Bagel", 0.39);
 
@@ -12,14 +12,12 @@ public class Tests
     [Test]
     public void TestAddToBasket()
     {
-
         Basket expBasket = new Basket { Items = new List<Item>() { bagelO, bagelP } };
         Basket basket = new Basket 
         { 
             Items = new List<Item>() { bagelO }, 
             MaxSize = 2 
         };
-
 
         basket.addToBasket(bagelP);
 
@@ -33,6 +31,7 @@ public class Tests
         }
         catch (Exception e) { Console.WriteLine(e); }
     }
+
 
     [Test]
     public void TestRemoveBasket()
@@ -52,6 +51,7 @@ public class Tests
         }
         catch (Exception e) { Console.WriteLine(e); }
     }
+
 
     [Test]
     public void TestSetBasketSize()
@@ -75,10 +75,26 @@ public class Tests
 
     }
 
+
     [Test]
     public void TestGetTotalCost()
     {
-        Assert.Pass();
+        Basket basket = new Basket { Items = new List<Item>() };
+
+        Assert.That(basket.getTotalCost(), Is.EqualTo(0));
+
+        Fillings fillings = new Fillings("FILE", "Filling", 0.12);
+        bagelO.Fillings_list = new List<Fillings>() { fillings };
+        double onionWFilling = 0.49 + 0.12;
+
+        Assert.That(bagelP.getPrice(), Is.EqualTo(0.39));
+        Assert.That(bagelO.getPrice(), Is.EqualTo(onionWFilling));
+
+        basket.Items = new List<Item>() { bagelO, bagelP };
+        double totalCost = 0.39 + 0.49 + 0.12;
+
+        Assert.That(basket.getTotalCost(), Is.EqualTo(totalCost));
+
     }
 }
 
