@@ -20,9 +20,9 @@ public class Tests
         Product bagelEverything = new Product("BGLE", 10, ProductType.Bagel, "Everything");
 
         _inventory = new Inventory();
-        _inventory.Add(bagelOnion);
-        _inventory.Add(bagelPlain);
-        _inventory.Add(bagelEverything);
+        _inventory.Add(bagelOnion, 100);
+        _inventory.Add(bagelPlain, 100);
+        _inventory.Add(bagelEverything, 100);
 
         _basket = new Basket();
 
@@ -168,12 +168,34 @@ public class Tests
     public void TestCheckStockOfProduct()
     {
         // arrange
-
+        int amount = _inventory.GetStock("BGLO");
 
         // act
 
 
         // assert
+        Assert.That(amount, Is.EqualTo(100));
+    }
 
+    [Test]
+    public void TestAddAndRemoveStock()
+    {
+        // arrange
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
+        Product bagelPlain = new Product("BGLP", 10, ProductType.Bagel, "Plain");
+
+        // act
+        _inventory.Remove("BGLO", 10);
+        _inventory.Add(bagelGarlic, 10);
+        _inventory.Add(bagelPlain, 10);
+
+        int bgloAmount = _inventory.GetStock("BGLO");
+        int bglgAmount = _inventory.GetStock("BGLG");
+        int bglpAmount = _inventory.GetStock("BGLP");
+
+        // assert
+        Assert.That(bgloAmount, Is.EqualTo(90));
+        Assert.That(bglgAmount, Is.EqualTo(10));
+        Assert.That(bglpAmount, Is.EqualTo(110));
     }
 }
