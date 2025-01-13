@@ -30,7 +30,7 @@ public class Seed
             var product = inventoryItem.Key;
             if (product.Sku.StartsWith("BGL"))
             {
-                product.AllowedMofifications = modifications;
+                product.AllowedModifications = modifications;
             }
         }
     }

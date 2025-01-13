@@ -11,16 +11,16 @@ public class ProductModificationTest
     public void Setup()
     {
         _product = new Product("SKU0", "Test Product", 10.99);
-        _product.AllowedMofifications
+        _product.AllowedModifications
             .Add(new ProductModification("MOD1", "Test Modification", 9.99));
     }
     
     [Test]
     public void ProductModConstructorTest()
     {
-        Assert.That(_product.AllowedMofifications.First().Sku, Is.EqualTo("MOD1"));
-        Assert.That(_product.AllowedMofifications.First().Name, Is.EqualTo("Test Modification"));
-        Assert.That(_product.AllowedMofifications.First().Price, Is.EqualTo(9.99));
+        Assert.That(_product.AllowedModifications.First().Sku, Is.EqualTo("MOD1"));
+        Assert.That(_product.AllowedModifications.First().Name, Is.EqualTo("Test Modification"));
+        Assert.That(_product.AllowedModifications.First().Price, Is.EqualTo(9.99));
     }
     
     [Test]
@@ -34,6 +34,6 @@ public class ProductModificationTest
     public void ProductSetPriceTest()
     {
         _product.SetPrice(8.99);
-        Assert.That(_product.AllowedMofifications.First().GetPrice(), Is.EqualTo(8.99));
+        Assert.That(_product.AllowedModifications.First().GetPrice(), Is.EqualTo(8.99));
     }
 }

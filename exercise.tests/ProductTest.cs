@@ -20,7 +20,7 @@ public class ProductTest
         Assert.That(_product.Name, Is.EqualTo("Test Product"));
         Assert.That(_product.Price, Is.EqualTo(10.99));
         Assert.IsEmpty(_product.Promotions);
-        Assert.IsEmpty(_product.AllowedMofifications);
+        Assert.IsEmpty(_product.AllowedModifications);
     }
     
     [Test]
