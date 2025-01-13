@@ -1,4 +1,5 @@
 using exercise.main.Classes;
+using exercise.main.Enums;
 using NUnit.Framework.Interfaces;
 
 namespace exercise.tests;
@@ -14,9 +15,9 @@ public class Tests
     {
         _order = new Order();
 
-        Product bagelOnion = new Product("BGLO", 10, "Bagel", "Onion");
-        Product bagelPlain = new Product("BGLP", 10, "Bagel", "Plain");
-        Product bagelEverything = new Product("BGLE", 10, "Bagel", "Everything");
+        Product bagelOnion = new Product("BGLO", 10, ProductType.Bagel, "Onion");
+        Product bagelPlain = new Product("BGLP", 10, ProductType.Bagel, "Plain");
+        Product bagelEverything = new Product("BGLE", 10, ProductType.Bagel, "Everything");
 
         _inventory = new Inventory();
         _inventory.Add(bagelOnion);
@@ -43,7 +44,7 @@ public class Tests
     public void TestAddBagel()
     {
         // arrange
-        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
         
 
         // act
@@ -57,7 +58,7 @@ public class Tests
     public void TestAddDuplicateBagels()
     {
         // arrange
-        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
 
 
         // act
@@ -99,7 +100,7 @@ public class Tests
     public void TestBasketFull()
     {
         // arrange
-        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
 
 
         // act
@@ -114,7 +115,7 @@ public class Tests
     public void TestCheckIfProductExistsInBasket()
     {
         // arrange
-        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
 
         // act
         bool exists = _basket.CheckIfProductExistsInBasket(bagelGarlic);
@@ -139,7 +140,7 @@ public class Tests
     public void TestCheckCostOfBagel()
     {
         // arrange
-        Product bagelGarlic = new Product("BGLG", 10, "Bagel", "Garlic");
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
 
         // act
         double cost = bagelGarlic.GetPrice();
@@ -149,68 +150,18 @@ public class Tests
     }
 
     [Test]
-    public void TestChooseFillings()
-    {
-        // arrange
-
-
-        // act
-
-
-        // assert
-
-    }
-
-    [Test]
-    public void TestCheckFillingCost()
-    {
-        // arrange
-
-
-        // act
-
-
-        // assert
-
-    }
-
-    [Test]
-    public void TestAddCoffeeToBasket()
-    {
-        // arrange
-
-
-        // act
-
-
-        // assert
-
-    }
-
-    [Test]
-    public void TestCheckCoffeeCost()
-    {
-        // arrange
-
-
-        // act
-
-
-        // assert
-
-    }
-
-    [Test]
     public void TestAddPromotionToProduct()
     {
         // arrange
-
+        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
+        double discount = 0.3;
 
         // act
-
+        bagelGarlic.AddDiscount(discount);
+        double cost = bagelGarlic.GetPrice();
 
         // assert
-
+        Assert.That(cost, Is.EqualTo(7));
     }
 
     [Test]

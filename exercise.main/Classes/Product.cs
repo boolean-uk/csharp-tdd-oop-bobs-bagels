@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.Enums;
+using exercise.main.Interfaces;
 
 namespace exercise.main.Classes
 {
-    public class Product
+    public class Product : IProduct
     {
         private double _price;
-        private string _name;
+        private ProductType _type;
         private string _sku;
         private string _variant;
         private double _discount;
-        public Product(string sku, double price, string name, string variant) 
+        public Product(string sku, double price, ProductType type, string variant)
         {
             _sku = sku;
             _price = price;
-            _name = name;
+            _type = type;
             _variant = variant;
             _discount = 0;
         }
@@ -48,9 +50,9 @@ namespace exercise.main.Classes
             return _sku;
         }
 
-        public void AddPromo(double amount, double price)
+        public void AddDiscount(double amount)
         {
-            throw new NotImplementedException();
+            _discount = amount;
         }
     }
 }
