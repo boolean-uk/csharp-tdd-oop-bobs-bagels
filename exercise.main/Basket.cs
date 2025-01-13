@@ -7,22 +7,18 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Basket
+    public class Basket : IBasket
     {
         private List<Inventory> _basketList = new List<Inventory>();
         private List<Inventory> _inventoryList = new List<Inventory>();
-        private List<Bagel> _bagelList = new List<Bagel>();
 
         private int basketSize = 5; //Instantiating basket size
 
         //Dependency Injection
-        public Basket(List<Inventory> basketList, List<Bagel> bagelList, List<Inventory> inventoryList)
+        public Basket(List<Inventory> basketList, List<Inventory> inventoryList)
         {
             {
                 _basketList = basketList;
-
-                _bagelList = bagelList;
-
                 _inventoryList = inventoryList;
             }
         }
@@ -30,29 +26,37 @@ namespace exercise.main
         //User Story 1
         public bool AddBagelVariantToBasket(Bagel bagelVariant)
         {
-            if (!_bagelList.Contains(bagelVariant))
+            //Find the item in inventory list
+            var matchingItem = _inventoryList.FirstOrDefault(
+                item => item.Name == "Bagel" && item.Variant == bagelVariant.Variant
+            );
+
+            // If item exists in inventory
+            if (matchingItem == null)
             {
-                _bagelList.Add(bagelVariant);
-                return true;
+                return false; // Doesnt add if item is not in inventory
             }
-            else
-            {
-                return false;
-            }
+
+            _basketList.Add(matchingItem);
+            return true;
         }
 
         //User Story 2
         public bool RemoveBagelVariantFromBasket(Bagel bagelVariant)
         {
-            if (_bagelList.Contains(bagelVariant))
+            // Find the item in basket list
+            var matchingItem = _basketList.FirstOrDefault(
+                item => item.Name == "Bagel" && item.Variant == bagelVariant.Variant
+            );
+
+            // If found, remove item
+            if (matchingItem != null)
             {
-                _bagelList.Remove(bagelVariant);
+                _basketList.Remove(matchingItem);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         //User Story 3

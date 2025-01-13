@@ -12,7 +12,6 @@ namespace exercise.tests
     {
         private Basket basket;
         private List<Inventory> basketList;
-        private List<Bagel> bagelList;
         private List<Inventory> inventoryList;
 
         private Bagel bagel; 
@@ -23,7 +22,6 @@ namespace exercise.tests
         public void SetUp() // Arrange step for some of the tests
         {
             basketList = new List<Inventory>();
-            bagelList = new List<Bagel>();
             inventoryList = new List<Inventory>
             {
                 new Inventory("BGLO", 0.49, "Bagel", "Onion"),
@@ -41,7 +39,7 @@ namespace exercise.tests
                 new Inventory("FILS", 0.12, "Filling", "Smoked Salmon"),
                 new Inventory("FILH", 0.12, "Filling", "Ham")
             };
-            basket = new Basket(basketList, bagelList, inventoryList);
+            basket = new Basket(basketList, inventoryList);
         }
 
         [Test]
