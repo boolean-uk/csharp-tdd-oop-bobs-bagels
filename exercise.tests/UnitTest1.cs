@@ -10,42 +10,57 @@ public class Tests
     [Test]
     public void CreateBasket()
     {
-        var p = new Basket();
+        Inventory inventory = new Inventory();
+        var p = new Basket(inventory);
         Assert.Pass();
     }
     
     [Test]
     public void addProductToBasket()
     {
-        var p = new Basket();
+        Inventory inventory = new Inventory();
+        var p = new Basket(inventory);
 
-        var b = new Product<Bagel>  ("BGLO", "Onion", 0.49f);
-        var h = new Product<Filling>("FILH", "Ham",      0.12f);
-        var c = new Product<Filling>("FILC", "Cheese", 0.12f);
-        var l = new Product<Filling>("FILE", "Egg",      0.12f);
+        inventory.Add("BGLO", "Onion", 0.49f, 100);
+        inventory.Add("FILH", "Ham",      0.12f, 100);
+        inventory.Add("FILC", "Cheese", 0.12f, 100);
+        inventory.Add("FILE", "Egg", 0.12f, 100);
 
-        p.addProduct(b);
-        p.addProduct(h);
-        p.addProduct(c);
-        p.addProduct(l);
+        //var b = new Product("BGLO", "Onion", 0.49f);
+        //var h = new Product("FILH", "Ham",      0.12f);
+        //var c = new Product("FILC", "Cheese", 0.12f);
+        //var l = new Product("FILE", "Egg",      0.12f);
+
+        //p.addProduct(b);
+        //p.addProduct(h);
+        //p.addProduct(c);
+        //p.addProduct(l);
+        p.addProduct("BGLO");
+        p.addProduct("FILH");
+        p.addProduct("FILC");
+        p.addProduct("FILE");
         Assert.Pass();
     }
     [Test]
     public void createDiscountType()
     {
-        var p = new Basket();
+        Inventory inventory = new Inventory();
+        var p = new Basket(inventory);
 
         
-        var b = new Product<Bagel>("BGLO", "Onion", 0.49f);
-        var h = new Product<Filling>("FILH", "Ham", 0.12f);
-        var c = new Product<Filling>("FILC", "Cheese", 0.12f);
-        var l = new Product<Filling>("FILE", "Egg", 0.12f);
+        //var b = new Product("BGLO", "Onion", 0.49f);
+        //var h = new Product("FILH", "Ham", 0.12f);
+        //var c = new Product("FILC", "Cheese", 0.12f);
+        //var l = new Product("FILE", "Egg", 0.12f);
 
-        Inventory inventory = new Inventory();
-        inventory.Add(b,50);
-        inventory.Add(h,50);
-        inventory.Add(c,50);
-        inventory.Add(l,50);
+        //inventory.Add(b,50);
+        //inventory.Add(h,50);
+        //inventory.Add(c,50);
+        //inventory.Add(l,50);
+        inventory.Add("BGLO", "Onion", 0.49f, 50);
+        inventory.Add("FILH", "Ham", 0.12f, 50);
+        inventory.Add("FILC", "Cheese", 0.12f, 50);
+        inventory.Add("FILE", "Egg", 0.12f,  50);
 
         // Create Discount deal, 6 BGLOO, for 2.49f 
         int nrOfBagelsForDiscount = 6;
@@ -61,21 +76,23 @@ public class Tests
         float totalPrice = 0.0f;
         
 
-        p.addProduct(h);
-        totalPrice += h.ProductPrice;
-        p.addProduct(c);
-        totalPrice += c.ProductPrice;
-        p.addProduct(l);
-        totalPrice += l.ProductPrice;
-        p.addProduct(l);
-        totalPrice += l.ProductPrice;
+        p.addProduct("FILH");
+        totalPrice += inventory.getPrice("FILH");
+        p.addProduct("FILC");
+        totalPrice += inventory.getPrice("FILC");
+        p.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+        p.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
 
         // Add discounted Products, calculate sum based on the discount
         int nrOf_OnionBagels = 24;
-        for (var i = 0; i < nrOf_OnionBagels; i++)
-        {
-            p.addProduct(b);
-        }
+        p.addProduct("BGLO", nrOf_OnionBagels);
+        //for (var i = 0; i < nrOf_OnionBagels; i++)
+        //{
+        //    //p.addProduct(b);
+        //    p.addProduct("BGLO");
+        //}
 
         totalPrice += MathF.Floor((float)nrOf_OnionBagels / nrOfBagelsForDiscount) * discountedPrice_6_for_2_49;
         

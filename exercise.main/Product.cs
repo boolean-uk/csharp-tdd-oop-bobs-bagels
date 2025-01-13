@@ -256,11 +256,14 @@ namespace exercise.main
                 int requiredProduct = discountReq.Value;
                 int d = (int)MathF.Floor(basket.countProductTypes(SKU) / discountReq.Value);
 
-                float? defprice = basket.getDefaultPrice(SKU);
-                //if (defprice == null)
-                Debug.Assert(defprice != null, "expected SKU to exist in basket...");
+                //float? defprice = basket.getDefaultPrice(SKU);
+                ////if (defprice == null)
+                //Debug.Assert(defprice != null, "expected SKU to exist in basket...");
 
-                totalCost_withoutDiscount +=  discountReq.Value * d * (defprice ?? 1.0f);
+                var defprice = _inventory.getPrice(SKU);
+
+                //totalCost_withoutDiscount +=  discountReq.Value * d * (defprice ?? 1.0f);
+                totalCost_withoutDiscount +=  discountReq.Value * d * defprice;
 
                 discountedProductSKU[SKU] = d;
             }
@@ -309,14 +312,15 @@ namespace exercise.main
         private string sku;
         protected float productPrice;
         protected List<BaseProduct> subProducts;
-        protected ProductType productType;
-        public BaseProduct(string SKU,string name, float defaultPrice, ProductType productType, List<BaseProduct>? subProducts = null)
+        //protected ProductType productType;
+        //public BaseProduct(string SKU,string name, float defaultPrice, ProductType productType, List<BaseProduct>? subProducts = null)
+        public BaseProduct(string SKU,string name, float defaultPrice, List<BaseProduct>? subProducts = null)
         {            
             this.sku = SKU;
             this.name = name;
             this.productPrice = defaultPrice;
             this.subProducts = subProducts ?? new List<BaseProduct>();
-            this.productType = productType;
+            //this.productType = productType;
         }
         public float CombinedPrice
         {
@@ -334,44 +338,15 @@ namespace exercise.main
         public string SKU { get => sku;}
     }
 
-    public class Product<T>: BaseProduct where T : ProductType, new()
+    public class Product: BaseProduct
     {
         public Product(string SKU, string name, float defaultPrice,List<BaseProduct>? subProducts = null)
-            : base(SKU, name, defaultPrice, new T(),subProducts)
+            : base(SKU, name, defaultPrice, subProducts)
         {
         }
     }
 
 
-    public interface ProductType
-    {
-        public float calcPrice();
-        public string TypeName()
-        {
-            return GetType().Name;
-        }
-    }
-    public class Filling : ProductType
-    {
-        public float calcPrice()
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class Coffee : ProductType
-    {
-        public float calcPrice()
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class Bagel : ProductType
-    {
-        public Bagel() { }
-        public float calcPrice()
-        {
-            throw new NotImplementedException();
-        }
-    }
+
 
 }

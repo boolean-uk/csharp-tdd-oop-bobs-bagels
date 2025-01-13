@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,37 @@ namespace exercise.main
     public class Basket
     {
         private List<BaseProduct> products = new List<BaseProduct>();
+        private Inventory _inventory;
 
-        public Basket() {}
+        public Basket(Inventory inventory) 
+        {
+            this._inventory = inventory;
+        }
 
         
-        public void addProduct(BaseProduct product)
+        //public void addProduct(BaseProduct product)
+        public void addProduct(string productSku, int amount = 1)
         {
-            this.products.Add(product);
+            if (amount < 1)
+            {
+                Debug.Assert(amount < 1, "Amount to add must be positive");
+            }
+
+            int productStock = this._inventory.getStock(productSku);
+            if (productStock < amount)
+            {
+                Debug.Assert(productStock <= 0, $"There's not enough {productSku} in stock...");
+            }
+            for (int i = 0; i < amount; i++)
+            {
+                Product p = new Product(
+                    productSku,
+                    _inventory.getName(productSku),
+                    _inventory.getPrice(productSku)
+                    );
+
+                this.products.Add(p);
+            }
         }
         public int countProductTypes(string SKU)
         {
