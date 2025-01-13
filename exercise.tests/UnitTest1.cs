@@ -1,3 +1,6 @@
+
+using exercise.main;
+
 namespace exercise.tests;
 
 public class Tests
@@ -10,7 +13,7 @@ public class Tests
     [Test]
     public void TestAddItem()
     {
-        var basket = new Basket();
+        Basket basket = new Basket();
         string bagel = "BGLO";
 
         Assert.IsTrue(basket.AddItem(bagel));
@@ -25,7 +28,7 @@ public class Tests
     }
 
     [Test]
-    public void TestCapacityCheck()
+    public void TestCapacityFull()
     {
         var basket = new Basket();
         basket.AddItem("BGLO");
@@ -33,7 +36,7 @@ public class Tests
         basket.AddItem("COFB");
         basket.AddItem("COFW");
 
-        Assert.AreEqual(3, basket.BasketList.Count);
+        Assert.AreEqual(3, basket.basketList.Count);
     }
 
     [Test]
@@ -44,9 +47,9 @@ public class Tests
         basket.AddItem("BGLP");
         basket.AddItem("COFB");
 
-        Assert.AreEqual(3, basket.BasketList.Count);
+        Assert.AreEqual(3, basket.basketList.Count);
         Assert.IsTrue(basket.RemoveItem("BGLP"));
-        Assert.AreEqual(2, basket.BasketList.Count);
+        Assert.AreEqual(2, basket.basketList.Count);
     }
 
     [Test]
@@ -57,9 +60,9 @@ public class Tests
         basket.AddItem("BGLP");
         basket.AddItem("COFB");
 
-        Assert.AreEqual(3, basket.BasketList.Count);
+        Assert.AreEqual(3, basket.basketList.Count);
         Assert.IsFalse(basket.RemoveItem("Carrot"));
-        Assert.AreEqual(3, basket.BasketList.Count);
+        Assert.AreEqual(3, basket.basketList.Count);
     }
 
     [Test]
@@ -70,7 +73,7 @@ public class Tests
         basket.AddItem("BGLP");
         basket.AddItem("COFB");
 
-        Assert.AreEqual(1.87, basket.TotalCost(), 0.01);
+        Assert.AreEqual(1.87, basket.totalCost(), 0.01);
     }
 
     [Test]
@@ -78,7 +81,7 @@ public class Tests
     {
         var basket = new Basket();
 
-        Assert.AreEqual(0, basket.TotalCost(), 0.01);
+        Assert.AreEqual(0, basket.totalCost(), 0.01);
     }
 
     [Test]
@@ -89,19 +92,33 @@ public class Tests
         basket.AddItem("BGLP");
         basket.AddItem("COFB");
 
-        Assert.AreEqual("[BGLO, BGLP]", basket.ChangeCapacity(2));
-        Assert.AreEqual(2, basket.BasketList.Count);
+        basket.changeCapacity(2);
+        Assert.AreEqual(2, basket.basketList.Count);
         basket.AddItem("COFB");
-        Assert.AreEqual(2, basket.BasketList.Count);
+        Assert.AreEqual(2, basket.basketList.Count);
+    }
+
+    [Test]
+    public void TestChangeCapacityWithFilling()
+    {
+        var basket = new Basket();
+        basket.AddItem("BGLO");
+        basket.AddItem("FILE");
+        basket.AddItem("BGLP");
+        
+
+        basket.changeCapacity(2);
+        Assert.AreEqual(3, basket.basketList.Count);
+        
     }
 
     [Test]
     public void TestCapacityBeforeAdd()
     {
         var basket = new Basket();
-        basket.ChangeCapacity(5);
+        basket.changeCapacity(5);
 
-        Assert.AreEqual(5, basket.Capacity);
+        Assert.AreEqual(5, basket.capacity);
     }
 
     [Test]
@@ -109,7 +126,7 @@ public class Tests
     {
         var basket = new Basket();
 
-        Assert.AreEqual(0.39, basket.CheckPrice("BGLP"), 0.01);
+        Assert.AreEqual(0.39, basket.checkPrice("BGLP"), 0.01);
     }
 
     [Test]
@@ -117,7 +134,7 @@ public class Tests
     {
         var basket = new Basket();
 
-        Assert.AreEqual(0.12, basket.CheckPrice("FILE"), 0.01);
+        Assert.AreEqual(0.12, basket.checkPrice("FILE"), 0.01);
     }
 
     [Test]
@@ -125,17 +142,18 @@ public class Tests
     {
         var basket = new Basket();
 
-        Assert.AreEqual(0.0, basket.CheckPrice("Apple"), 0.01);
+        Assert.AreEqual(0.0, basket.checkPrice("Apple"), 0.01);
     }
 
     [Test]
+    
     public void TestAddFillingToBagel()
     {
         var basket = new Basket();
         basket.AddItem("BGLO");
         basket.AddItem("BGLP");
 
-        Assert.AreEqual("[BGLO, FILE, BGLP]", basket.AddFilling("BGLO", "FILE"));
+        Assert.IsTrue(basket.AddFilling(1, "FILE"));
     }
 
     [Test]
@@ -145,7 +163,7 @@ public class Tests
         basket.AddItem("BGLO");
         basket.AddItem("BGLP");
 
-        Assert.AreEqual("[BGLO, BGLP, FILE]", basket.AddFilling("BGLP", "FILE"));
+        Assert.IsTrue(basket.AddFilling(0, "FILE"));
     }
 
     [Test]
@@ -155,10 +173,9 @@ public class Tests
         basket.AddItem("BGLO");
         basket.AddItem("BGLP");
         basket.AddItem("COFB");
-        basket.AddFilling("BGLO", "FILC");
-        basket.AddFilling("BGLO", "FILX");
-        basket.AddFilling("BGLP", "FILX");
 
-        Assert.AreEqual("[BGLO, FILE, FILX, FILC, BGLP, FILX, COFB]", basket.AddFilling("BGLO", "FILE"));
+        Assert.IsTrue(basket.AddFilling(0, "FILC"));
+        Assert.IsTrue(basket.AddFilling(2, "FILX"));
+        Assert.IsTrue(basket.AddFilling(2, "FILX"));
     }
 }
