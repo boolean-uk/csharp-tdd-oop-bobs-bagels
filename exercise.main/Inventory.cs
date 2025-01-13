@@ -1,15 +1,16 @@
 ﻿using System.Diagnostics;
 using System.IO.Pipelines;
+using System.Xml.Linq;
 
 namespace exercise.main
 {
     public class InventoryData
     {
         
-        public string name; 
-        public string SKU; 
-        public float price; 
-        public int stock;
+        public string name = ""; 
+        public string SKU = ""; 
+        public float price = 0.0f; 
+        public int stock = 0;
 
         public InventoryData(string name, string sKU, float price, int stock)
         {
@@ -18,12 +19,30 @@ namespace exercise.main
             this.price = price;
             this.stock = stock;
         }
+        public string stringify()
+        {
+            //return string.Format("{0,0:10}{1,0:10}{2,0:30}{3,0:40}", SKU, name, price, stock);
+            return String.Format("{0,0}{1,10}{2,10}{3,10}", SKU, name, price, stock);
+        }
     }
+    
+
     public class Inventory
     {
         Dictionary<string, InventoryData> inventory = new Dictionary<string, InventoryData>();
         public Inventory()
         {
+        }
+        public string stringify()
+        {
+            
+            //return "Inventory:\n"+ string.Join("\n", inventory.ToList().Select(x=>x.Value.toString()));
+            string st = String.Format("{0,0}{1,10}{2,10}{3,10}\n", "SKU", "Product", "Price", "Stock"); ;
+            foreach (var item in inventory.ToList())
+            {
+                st += item.Value.stringify() + "\n";
+            }
+            return st;
         }
         public void Add(string SKU, string name, float price, int stock )
         {

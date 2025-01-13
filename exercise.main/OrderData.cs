@@ -1,4 +1,5 @@
-﻿namespace exercise.main
+﻿using exercise.main.Discount;
+namespace exercise.main
 {
     public struct OrderData
     {
@@ -7,7 +8,10 @@
         public float individual_price; 
         public float discounted_price; 
         public float total_price; 
-        public float saving; 
+        public float saving;
+        private DiscountBase _usedDiscount;
+
+        public DiscountBase UsedDiscount { get => _usedDiscount; set => _usedDiscount = value; }
     }
 
 

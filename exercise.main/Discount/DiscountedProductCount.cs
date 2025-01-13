@@ -6,6 +6,8 @@
         public int discountMultiple = 0;
         public float possibleSavings = 0.0f;
         public float finalPrice = 0.0f;
+        public DiscountBase discount = null;
+
     }
 
 

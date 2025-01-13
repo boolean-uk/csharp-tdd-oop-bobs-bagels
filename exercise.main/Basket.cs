@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.Discount;
 
 namespace exercise.main
 {
@@ -41,6 +42,7 @@ namespace exercise.main
 
                 this.products.Add(p);
             }
+            this._inventory.decreaseStock(productSku, amount);
         }
         public void removeProduct(string productSku, int amount = 1)
         {
@@ -56,7 +58,7 @@ namespace exercise.main
             {
                 this.products.Remove(itemsToRemoveList[i]);
             }
-            Console.WriteLine("he");
+            this._inventory.IncreaseStock(productSku, nrToRemove);
         }
         public int countProductTypes(string SKU)
         {
@@ -87,19 +89,32 @@ namespace exercise.main
             }
             return tempSku;
         }
-        //public float? getDefaultPrice(string SKU)
-        //{
-            
-        //    foreach (BaseProduct product in this.products)
-        //    {
-        //        if(product.SKU == SKU)
-        //        {
-        //            return product.ProductPrice;
-        //        }
-        //    }
-        //    return null;
-            
-        //}
+        public bool isNotEmpty()
+        {
+            return this.products.Count > 0;
+        }
+
+        public string stringify(DiscountManager dm)
+        {
+            var cacledBasket = dm.calculateDiscount(this);
+            string ret = string.Format("{0,0}{1,25}{2,25}\n", "Name", "Amount", "Cost");
+
+            foreach (var x in cacledBasket.ToList())
+            {
+                if (x.Value.UsedDiscount == null)
+                {
+                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}", _inventory.getName(x.Value.name), x.Value.amount, x.Value.total_price);
+                }
+                else
+                {
+                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}", x.Value.UsedDiscount.stringify(), x.Value.amount, x.Value.total_price);
+                }
+            }
+
+            ret += $"\n\n Total: {cacledBasket.Sum(x => x.Value.total_price)}";
+
+            return ret;
+        }
 
     }
 }

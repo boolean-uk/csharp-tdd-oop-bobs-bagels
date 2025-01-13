@@ -132,6 +132,28 @@ public class Tests
 
     }
     [Test]
+    public void createTerminalStoreFront()
+    {
+
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        DiscountManager discountManager = new DiscountManager(inventory);
+
+        inventory.Add("BGLO", "Onion", 0.49f, 100);
+        inventory.Add("BGLS", "Sesame", 0.49f, 100);
+        inventory.Add("FILH", "Ham", 0.12f, 100);
+        inventory.Add("FILC", "Cheese", 0.12f, 100);
+        inventory.Add("FILE", "Egg", 0.12f, 100);
+
+
+        var storeFrontExecutior = new StoreFrontExecutor(new TerminalStoreFront(inventory, basket, discountManager));
+
+        storeFrontExecutior.run();
+
+        Assert.Pass();
+
+    }
+    [Test]
     public void inventory_add()
     {
 

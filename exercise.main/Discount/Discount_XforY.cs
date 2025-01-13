@@ -1,6 +1,6 @@
 ﻿namespace exercise.main.Discount
 {
-    public class Discount_XforY : Discount
+    public class Discount_XforY : DiscountBase
     {
         Dictionary<string, int> nrOfRequiredProducts = new Dictionary<string, int>();
 
@@ -67,10 +67,17 @@
                 //discountMultiple = maxDiscountMultiplier ,
                 discountMultiple = (int)maxDiscountMultiplier,
                 possibleSavings = discountedSavings,
-                finalPrice = totalCost_withDiscount
+                finalPrice = totalCost_withDiscount,
+                discount = this,
             };
 
             return dp;
+        }
+
+        public override string stringify()
+        {
+            
+            return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
         }
     }
 

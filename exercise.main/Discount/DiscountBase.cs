@@ -1,8 +1,8 @@
 ﻿namespace exercise.main.Discount
 {
-    public abstract class Discount
+    public abstract class DiscountBase
     {
-        public Discount(float discountedPrice, Inventory inventory)
+        public DiscountBase(float discountedPrice, Inventory inventory)
         {
             discountPrice = discountedPrice;
             _inventory = inventory;
@@ -18,6 +18,7 @@
 
         public abstract bool checkCondition(Basket basket);
         public abstract DiscountedProductCount getDiscountedPrice(Basket basket);
+        public abstract string stringify();
     }
 
 

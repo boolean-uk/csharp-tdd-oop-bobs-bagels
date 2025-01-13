@@ -1,16 +1,18 @@
-﻿namespace exercise.main.Discount
+﻿using System.Linq;
+
+namespace exercise.main.Discount
 {
     public class DiscountManager
     {
 
-        List<Discount> discountTypes = new List<Discount>();
+        List<DiscountBase> discountTypes = new List<DiscountBase>();
         //public void addDiscountType<T>(params object[] args) where T : Discount
         private Inventory _inventory;
         public DiscountManager(Inventory inventory)
         {
             _inventory = inventory;
         }
-        public void addDiscountType(Discount discount)
+        public void addDiscountType(DiscountBase discount)
         {
             // TODO: Check for and remove identicals...
             discountTypes.Add(discount);
@@ -76,7 +78,7 @@
         public Dictionary<string, OrderData> calculateDiscount(Basket basket)
         {
             List<DiscountedProductCount> possibleDiscounts = new List<DiscountedProductCount>();
-            foreach (Discount discount in discountTypes)
+            foreach (DiscountBase discount in discountTypes)
             {
                 if (discount.checkCondition(basket))
                 {
@@ -136,6 +138,7 @@
                     discounted_price = product.finalPrice,
                     total_price = product.finalPrice,
                     saving = product.possibleSavings,
+                    UsedDiscount = product.discount
 
                 };
             }
@@ -176,6 +179,12 @@
             }
 
             return nameAmountPrice;
+        }
+
+        public string stringify()
+        {
+
+            return string.Join("\n", discountTypes.ToList().Select(x => x.stringify()).ToList());
         }
     }
 
