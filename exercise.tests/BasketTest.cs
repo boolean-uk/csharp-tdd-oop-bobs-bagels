@@ -19,7 +19,7 @@ public class BasketTest
     
     [TestCase("BGLO", 1, 0.49)]
     [TestCase("BGLP", 1, 0.39)]
-    [TestCase("BGLP", 3, 3.51)]
+    [TestCase("BGLP", 3, 1.17)]
     [TestCase("COFC", 1, 1.29)]
 
     public void TestAdd(string sku, int quantity, double total)
