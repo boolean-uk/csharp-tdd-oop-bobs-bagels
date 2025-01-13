@@ -54,8 +54,8 @@ namespace exercise.main.Models
             List<Product> restProducts;
             var specialOffers = _discountService.checkForDiscounts(Products, out restProducts);
             decimal restPrice = GetListPrice(restProducts);
-            decimal specialOfferPrice = GetSpecialOfferPrice(specialOffers);
-            SpecialOffers = specialOffers;
+            SpecialOffers.AddRange(specialOffers);
+            decimal specialOfferPrice = GetSpecialOfferPrice(SpecialOffers);
             return restPrice + specialOfferPrice;
         }
         private decimal GetSpecialOfferPrice(List<SpecialOffer> specialOffers)

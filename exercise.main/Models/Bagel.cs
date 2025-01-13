@@ -36,11 +36,15 @@ namespace exercise.main.Models
     
         public override string ToString()
         {
-            string result = $"{Variant} - ${Price}\n";
-            foreach (var filling in Fillings)
+            string result = $"{Variant} - ${Price}";
+            if(Fillings.Count > 0)
             {
-                result += $"\t{filling.Variant} - ${filling.Price}\n";
+                foreach (var filling in Fillings)
+                {
+                    result += $"\n\t{filling.Variant} - ${filling.Price}\n";
+                }
             }
+            
             return result;
         }
     }
