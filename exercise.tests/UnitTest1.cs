@@ -12,11 +12,11 @@ public class Tests
 
         Basket basket = new Basket();
         Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
-        basket.Add(bagel);
+        basket.AddBagel(bagel);
         Assert.That(basket.Items.Count(), Is.EqualTo(1));
     }
     [Test]
-    public void RemoveFromBasket()
+    public void RemoveBagel()
     {
         Basket basket = new Basket();
         Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
@@ -26,4 +26,46 @@ public class Tests
         basket.RemoveBagel(bagel);
         Assert.That(basket.Items.Count(), Is.EqualTo(0));
     }
+    [Test]
+    public void IsFull()
+    {
+        Basket basket = new Basket();
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);
+        Assert.That(basket.IsFull(), Is.EqualTo(false));
+    }
+
+    [Test]
+    public void ChangeBasketCapacity() 
+    {
+        Iperson manager = new Manager();
+        manager.ChangeBasketCapacity(5);
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        for (int i = 0; i < 6; i++) 
+        {
+            manager.GetBasket().AddBagel(bagel);
+        }
+        Assert.That(manager.GetBasket().IsFull(), Is.EqualTo(true));
+
+    }
+    [Test]
+    public void ItemNotPresent()
+    {
+        Iperson customer = new Customer();
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Assert.Throws<ArgumentException>(() => customer.GetBasket().RemoveBagel(bagel));
+    }
+    [Test]
+    public void GetTotalCost()
+    {
+        Iperson customer = new Customer();
+        Basket basket = customer.GetBasket();
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        basket.AddBagel(bagel);
+        float totalCost = basket.GetTotalCost();
+        Assert.That(totalCost, Is.EqualTo(6.9F));
+
+    }
+    
 }

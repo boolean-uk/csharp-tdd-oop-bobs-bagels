@@ -8,6 +8,6 @@ namespace exercise.main
 {
     public interface Iproduct
     {
-        
+        public float GetPrice();
     }
 }

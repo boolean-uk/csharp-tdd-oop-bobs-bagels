@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    abstract class Product
+    public interface Iperson
     {
+        public Basket GetBasket();
+        public void ChangeBasketCapacity(int capacity);
     }
 }

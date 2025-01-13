@@ -20,5 +20,10 @@ namespace exercise.main
             Price = price;
             Variant = variant;
         }
+
+        public float GetPrice()
+        {
+            return Price;
+        }
     }
 }
