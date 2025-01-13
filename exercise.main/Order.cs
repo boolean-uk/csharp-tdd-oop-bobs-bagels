@@ -11,8 +11,6 @@ public class Order
         _orderLines = new List<OrderLine>();
     }
     
-    
-    
     public override string ToString()
     {
         var sb = new StringBuilder();
@@ -20,7 +18,7 @@ public class Order
         foreach (var orderLine in _orderLines)
         {
             sb.AppendLine($"{
-                FixedLengthString(orderLine.Product.Name, 15)} " +
+                FixedLengthString(orderLine.Product, 15)} " +
                           $"{FixedLengthString(orderLine.Amount.ToString(), 2)} " +
                           $"{FormatPrice(orderLine.Price)}");
         }
@@ -32,9 +30,19 @@ public class Order
     {
         _orderLines.Add(new OrderLine
         {
-            Product = product,
+            Product = product.Name,
             Amount = amount,
             Price = product.GetPrice()
+        });
+    }
+    
+    public void AddModifier(string label, int amount, double price)
+    {
+        _orderLines.Add(new OrderLine
+        {
+            Product = label,
+            Amount = amount,
+            Price = price
         });
     }
     
