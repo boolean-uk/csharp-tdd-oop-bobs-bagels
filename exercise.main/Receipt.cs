@@ -14,7 +14,11 @@ namespace exercise.main
     }
     public class Receipt
     {
-        //public static 
+        public List<Action<Dictionary<string, Pair<Item, int>>, List<Tuple<Item, int, float>>>> discounts = [
+            (items, priceLog) => { Misc.BagelDiscount(items, priceLog, 12, 3.99f); }, // 12 bagel discount
+            (items, priceLog) => { Misc.BagelDiscount(items, priceLog, 6, 2.39f); }, // 6 bagel discount
+            ];
+        private List<Tuple<Item, int, float>> priceLog = new();
 
         private Dictionary<string, Pair<Item, int>> _itemList;
         public Dictionary<string, Pair<Item, int>> ItemList {  get { return _itemList; } }
