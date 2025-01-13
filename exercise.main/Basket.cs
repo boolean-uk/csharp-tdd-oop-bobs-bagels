@@ -15,27 +15,65 @@ public class Basket
     }
     public void Add(string SKU, int quantity)
     {
-        throw new NotImplementedException();
+        // Do not allow overfilled bagel basket!
+        if (GetNumberOfItems() + quantity > _capacity)
+        {
+            throw new Exception("Basket is full");
+        }
+        
+        if (!_items.ContainsKey(SKU))
+        {
+            _items.Add(SKU, quantity);
+            return;
+        }
+        
+        _items[SKU] += quantity;
     }
     
     public void Remove(string SKU, int quantity)
     {
-        throw new NotImplementedException();
+        if (!_items.ContainsKey(SKU))
+        {
+            return;
+        }
+        
+        _items[SKU] -= quantity;
     }
     
     public void SetCapacity(int capacity)
     {
-        throw new NotImplementedException();
+        _capacity = capacity;
     }
     
     public int GetCapacity()
     {
-        throw new NotImplementedException();
+        return _capacity;
+    }
+    
+    private int GetNumberOfItems()
+    {
+        var numItems = 0;
+
+        foreach (var item in _items)
+        {
+            numItems += item.Value;
+        }
+
+        return numItems;
     }
     
     public double GetTotal()
     {
-        throw new NotImplementedException();
+        double total = 0;
+        
+        foreach (var item in _items)
+        {
+            var price = _inventory.GetProduct(item.Key).GetPrice();
+            
+            total += price * item.Value * item.Value;
+        }
+        
+        return total;
     }
     
     public Order Order()

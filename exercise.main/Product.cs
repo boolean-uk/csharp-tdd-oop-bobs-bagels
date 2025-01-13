@@ -20,16 +20,27 @@ public class Product
     
     public double GetPrice()
     {
-        throw new NotImplementedException();
+        return Price;
     }
     
     public void SetPrice(double price)
     {
-        throw new NotImplementedException();
+        if (price <= 0)
+        {
+            throw new Exception("Price must be greater than 0");
+        }
+        
+        Price = price;
     }
     
     public void AddPromotion(int quantity, double price)
     {
-        throw new NotImplementedException();
+        if (quantity > 0 && price > 0)
+        {
+            Promotions.Add(quantity, price);
+            return;
+        }
+        
+        throw new Exception("Invalid promotion. Quantity and promotional price must be greater than 0");
     }
 }
