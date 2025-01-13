@@ -15,7 +15,12 @@ namespace exercise.main
         private Item _filling;
 
         public string Sku { get { return _sku; } set { _sku = value; } }
-        public double Price { get { return _price; } set { _price = value; } }
+        public double Price 
+        { 
+            get { return _price; }
+            set { _price = value; } 
+        }
+
         public string Type { get { return _type; } set { _type = value; } }
         public string Variant { get { return _variant; } set { _variant = value; } }
         public Item Filling { get; set; }
@@ -39,12 +44,17 @@ namespace exercise.main
 
         public Item? AddFilling(Item item)
         {
-            if(item._type != "Filling")
+            if(this.Type != "Bagel" && item.Type != "Filling")
             {
                 throw new Exception("Error");
             }
-            this.Price += item.Price;
+           
             return this.Filling = item;
+        }
+
+        public double Total()
+        {
+            return _price + (Filling?.Price ?? 0);
         }
     }
 }

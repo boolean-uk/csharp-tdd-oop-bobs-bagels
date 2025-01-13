@@ -9,17 +9,17 @@ namespace exercise.main
     public class Basket
     {
         public List<Item> items;
-        public Inventory inventory;
+
         public int capacity;
         public Basket()
         {
-            inventory = new Inventory();
             items = new List<Item>();
             capacity = 5;
         }
 
         public string Add(Item item)
         {
+            Inventory inventory = new Inventory();
             if (!inventory.ValidateItem(item))
             {
                 return "invalid item";
@@ -56,10 +56,20 @@ namespace exercise.main
             double total = 0;
             foreach (Item item in items)
             {
+                // apply filling price if bagel has filling
+                if(item.Type == "Bagel" && item.Filling != null)
+                {
+                    total += item.Filling.Price;
+                }
                 total += item.Price;
             }
 
             return total;
+        }
+
+        public void ApplyDiscount()
+        {
+            
         }
     }
 }

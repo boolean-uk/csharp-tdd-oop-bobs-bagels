@@ -183,7 +183,7 @@ public class Tests
         bagelSesame.AddFilling(eggFilling);
 
         Assert.That(bagelSesame.Filling, Is.EqualTo(eggFilling));
-        Assert.That(bagelSesame.Price, Is.EqualTo(priceOfBagelWithFilling));
+        Assert.That(bagelSesame.Total(), Is.EqualTo(priceOfBagelWithFilling));
     }
 
     [Test]
@@ -220,6 +220,47 @@ public class Tests
         basket.Add(invalidItem);
         Assert.That(basket.items.Count, Is.EqualTo(3));
 
+    }
+
+    [Test]
+    public void CheckForAppliedDiscounts()
+    {
+        Inventory inv = new Inventory();
+        var basket = new Basket();
+
+        // two bagel onions
+        basket.Add(new Item("BGLO", 0.49, "Bagel", "Onion"));
+        basket.Add(new Item("BGLO", 0.49, "Bagel", "Onion"));
+
+
+        // six bagel everything
+        for (int i = 0; i < 5; i++)
+        {
+            basket.Add(new Item("BGLE", 0.49, "Bagel", "Everything"));
+        }
+
+        // twelve bagel plain
+        for (int i = 0; i < 11; i++)
+        {
+            basket.Add(new Item("BGLP", 0.39, "Bagel", "Plain"));
+        }
+
+        // three coffee black
+        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
+        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
+        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
+
+
+        basket.ApplyDiscount();
+        /*
+            2x BGLO  = 0.98
+            12x BGLP = 3.99
+            6x BGLE  = 2.49
+            3x COF   = 2.97
+                       ----
+                      10.43
+         */
+        Assert.That(basket.Total(), Is.EqualTo(10.43));
     }
 
 

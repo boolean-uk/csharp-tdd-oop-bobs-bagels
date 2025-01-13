@@ -50,7 +50,6 @@ namespace exercise.main
                 return false;
             }
 
-
             return true;
         }
 
