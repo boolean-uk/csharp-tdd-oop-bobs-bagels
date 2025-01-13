@@ -11,24 +11,46 @@ namespace exercise.tests
     public class BasketTest
     {
         private Basket basket;
+        private List<Inventory> basketList;
+        private List<Bagel> bagelList;
+        private List<Inventory> inventoryList;
+
+        private Bagel bagel; 
         private Filling filling;
-        private Bagel bagel;
-        private Inventory inventory;
+        private Inventory inventoryItem;
 
         [SetUp]
-        public void SetUp() // Arrange step for all tests
+        public void SetUp() // Arrange step for some of the tests
         {
-            basket = new Basket(); 
-            filling = new Filling();
-            bagel = new Bagel();
-            inventory = new Inventory();
+            basketList = new List<Inventory>();
+            bagelList = new List<Bagel>();
+            inventoryList = new List<Inventory>
+            {
+                new Inventory("BGLO", 0.49, "Bagel", "Onion"),
+                new Inventory("BGLP", 0.39, "Bagel", "Plain"),
+                new Inventory("BGLE", 0.49, "Bagel", "Everything"),
+                new Inventory("BGLS", 0.49, "Bagel", "Sesame"),
+                new Inventory("COFB", 0.99, "Coffee", "Black"),
+                new Inventory("COFW", 1.19, "Coffee", "White"),
+                new Inventory("COFC", 1.29, "Coffee", "Cappuccino"),
+                new Inventory("COFL", 1.29, "Coffee", "Latte"),
+                new Inventory("FILB", 0.12, "Filling", "Bacon"),
+                new Inventory("FILE", 0.12, "Filling", "Egg"),
+                new Inventory("FILC", 0.12, "Filling", "Cheese"),
+                new Inventory("FILX", 0.12, "Filling", "Cream Cheese"),
+                new Inventory("FILS", 0.12, "Filling", "Smoked Salmon"),
+                new Inventory("FILH", 0.12, "Filling", "Ham")
+            };
+            basket = new Basket(basketList, bagelList, inventoryList);
         }
 
         [Test]
         public void AddBagelVariantToBasket()
         {
+            //Arrange
+            bagel = new Bagel("Onion");
+
             //Act
-            Bagel bagel = new Bagel("Onion");
             bool result = basket.AddBagelVariantToBasket(bagel);
 
             //Assert
@@ -38,8 +60,10 @@ namespace exercise.tests
         [Test]
         public void RemoveBagelVariantFromBasket()
         {
+            //Arrange
+            bagel = new Bagel("Plain");
+
             //Act
-            Bagel bagel = new Bagel("Plain");
             basket.AddBagelVariantToBasket(bagel);
 
             bool result = basket.RemoveBagelVariantFromBasket(bagel);
@@ -77,11 +101,13 @@ namespace exercise.tests
         [Test]
         public void CanRemoveItemInBasket()
         {
-            //Act
-            Inventory item = new Inventory("BGLO", 0.49, "Bagel", "Onion");
-            basket.GetBasketList().Add(item);
+            //Arrange
+            inventoryItem = new Inventory("BGLO", 0.49, "Bagel", "Onion");
 
-            string result = basket.CanRemoveItemInBasket(item);
+            //Act
+            basket.GetBasketList().Add(inventoryItem);
+
+            string result = basket.CanRemoveItemInBasket(inventoryItem);
 
             //Assert
             Assert.That(result, Is.EqualTo("Item is in basket and can be removed."));
@@ -90,10 +116,11 @@ namespace exercise.tests
         [Test]
         public void TotalCostOfItems()
         {
-            //Act
+            //Arrange
             basket.GetBasketList().Add(new Inventory("BGLO", 0.49, "Bagel", "Onion"));
             basket.GetBasketList().Add(new Inventory("BGLP", 0.39, "Bagel", "Plain"));
 
+            //Act
             double result = basket.TotalCostOfItems();
 
             //Assert
@@ -103,8 +130,10 @@ namespace exercise.tests
         [Test]
         public void ReturnCostOfBagel()
         {
+            //Arrange
+            bagel = new Bagel("Onion");
+
             //Act
-            Bagel bagel = new Bagel("Onion");
             double result = basket.ReturnCostOfBagel(bagel);
 
             //Assert
@@ -114,8 +143,10 @@ namespace exercise.tests
         [Test]
         public void ChooseBagelFilling()
         {
+            //Arrange
+            filling = new Filling("FILB");
+
             //Act
-            Filling filling = new Filling("FILB");
             string result = basket.ChooseBagelFilling(filling);
 
             //Assert
@@ -125,8 +156,10 @@ namespace exercise.tests
         [Test]
         public void CostOfEachFilling()
         {
+            //Arrange
+            filling = new Filling("FILC");
+
             //Act
-            Filling filling = new Filling("FILC");
             double result = basket.CostOfEachFilling(filling);
 
             //Assert
@@ -140,7 +173,7 @@ namespace exercise.tests
             bool result = basket.MustBeInInventory("BGLO");
 
             //Assert
-            Assert.IsTrue(result, "The item should exist in the inventory.");
+            Assert.IsTrue(result, "The item should exist in the inventoryItem.");
         }
     }
 }
