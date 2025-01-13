@@ -15,7 +15,7 @@ namespace exercise.main
     public class Shop 
     {
         public List<Iproduct> inventory { get; set; }
-        public List<>
+
         public Iperson manager { get; set; }
         public Shop()
         {
@@ -33,5 +33,6 @@ namespace exercise.main
         {
             return inventory;
         }
+
     }
 }

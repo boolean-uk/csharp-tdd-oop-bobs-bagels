@@ -109,7 +109,7 @@ public class Tests
         shop.AddToInventory(bagel, 2);
         shop.AddToInventory(filling, 5);
         basket.AddBagel(bagel);
-        shop.AddCoupon(coupon);
+        basket.AddCoupon(coupon);
         float total= basket.Discount();
         Assert.That(total, Is.EqualTo(2.49F));
 

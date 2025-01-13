@@ -9,6 +9,7 @@ namespace exercise.main
     public class Basket
     {
         private int _capacity = 10;
+        public HashSet<Coupon> coupons { get; set; }
         public int Capacity
         {
             get { return _capacity; }
@@ -20,6 +21,10 @@ namespace exercise.main
         {
             get { return _items; }
             set { _items = value; }
+        }
+        public Basket()
+        { 
+            coupons = new HashSet<Coupon>();   
         }
         public void AddBagel(Iproduct item)
         { 
@@ -50,5 +55,31 @@ namespace exercise.main
             Items.ForEach(x => totalCost += x.GetPrice());
             return totalCost;
         }
+        public void AddCoupon(Coupon coupon)
+        {
+            coupons.Add(coupon);
+        }
+        public float Discount()
+        {
+            float total = 0;
+            List<Coupon> CouponList = coupons.ToList();
+            List<Iproduct> itemCopy = new List<Iproduct>(Items); // Create a copy of the Items list
+
+            foreach (Coupon c in CouponList.ToList())
+            {
+                bool allItemsPresent = c.items.All(item => itemCopy.Contains(item));
+                if (allItemsPresent)
+                {
+                    total += c.discount;
+                    foreach (Iproduct i in c.items)
+                    {
+                        itemCopy.Remove(i);
+                    }
+                    CouponList.Remove(c); // Removing from the copy of the coupons list
+                }
+            }
+            return total;
+        }
+
     }
 }
