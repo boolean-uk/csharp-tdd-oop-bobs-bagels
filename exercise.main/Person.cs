@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.Dynamic;
 
-namespace exercise.main
+namespace exercise.main;
+
+public class Person
 {
-    internal class Person
+    public int SecurityLevel {get; set;}
+    public Guid id = Guid.NewGuid();
+
+    public Person(string role)
     {
+        if (role == "Manager")
+        {
+            SecurityLevel = 1;
+        }
+        else
+        {
+            SecurityLevel = 0;
+        }
+     
+
     }
 }
