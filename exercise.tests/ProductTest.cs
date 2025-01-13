@@ -29,11 +29,22 @@ public class ProductTest
         Assert.That(_product.GetPrice(), Is.EqualTo(10.99));
     }
     
-    [Test]
-    public void ProductSetPriceTest()
+    [TestCase(9.9)]
+    [TestCase(0.01)]
+    [TestCase(double.MaxValue)]
+
+    public void ProductSetPriceTest(double newPrice)
     {
-        _product.SetPrice(9.99);
-        Assert.That(_product.GetPrice(), Is.EqualTo(9.99));
+        _product.SetPrice(newPrice);
+        Assert.That(_product.GetPrice(), Is.EqualTo(newPrice));
+    }
+    
+    [TestCase(0)]
+    [TestCase(-1.0)]
+    [TestCase(double.MinValue)]
+    public void ProductSetNegativePriceTest(double newPrice)
+    {
+        Assert.Throws<Exception>(() => _product.SetPrice(newPrice));
     }
     
     [Test]

@@ -7,31 +7,32 @@ namespace exercise.tests;
 public class BasketTest
 {
     private Basket _basket;
-    private IInventory _inventory;
+    private Inventory _inventory;
     
     [SetUp]
     public void Setup()
     {
-        var services = new ServiceCollection();
-        services.AddSingleton<IInventory, Inventory>();
-        var serviceProvider = services.BuildServiceProvider();
-
-        _inventory = serviceProvider.GetService<IInventory>();
+        _inventory = new Inventory();
+        Seed.AddData(out _inventory);
         _basket = new Basket(_inventory);
     }
     
-    [Test]
-    public void TestAdd()
+    [TestCase("BGLO", 1, 0.49)]
+    [TestCase("BGLP", 1, 0.39)]
+    [TestCase("BGLP", 3, 3.51)]
+    [TestCase("COFC", 1, 1.29)]
+
+    public void TestAdd(string sku, int quantity, double total)
     {
-        _basket.Add("A", 1);
-        Assert.AreEqual(1, _basket.GetTotal());
+        _basket.Add(sku, quantity);
+        Assert.AreEqual(total, _basket.GetTotal());
     }
     
     [Test]
     public void TestRemove()
     {
-        _basket.Add("A", 1);
-        _basket.Remove("A", 1);
+        _basket.Add("BGLO", 1);
+        _basket.Remove("BGLO", 1);
         Assert.AreEqual(0, _basket.GetTotal());
     }
     
