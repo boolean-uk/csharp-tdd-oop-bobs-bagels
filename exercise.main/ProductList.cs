@@ -19,13 +19,13 @@ namespace exercise.main
 
         public void GetFillings()
         {
-            List<Product> result = new List<Product>();
+            Console.WriteLine($"Price   Name    Variant");
 
             for (int i = 0; i < _products.Count; i++)
             {
                 if (_products[i].GetType() == typeof(Filling))
                 {
-                    result.Add(_products[i]);
+                    Console.WriteLine($"{_products[i]._price}   {_products[i]._name}    {_products[i]._variant}");
                 }
             }
             return;
@@ -33,14 +33,12 @@ namespace exercise.main
 
         public void GetBagels()
         {
-            //List<Product> result = new List<Product>();
             Console.WriteLine($"Price   Name    Variant");
 
             for (int i = 0; i < _products.Count; i++)
             {
                 if (_products[i].GetType() == typeof(Bagel))
                 {
-                    //result.Add(_products[i]);
                     Console.WriteLine($"{_products[i]._price}   {_products[i]._name}    {_products[i]._variant}");
                 }
             }

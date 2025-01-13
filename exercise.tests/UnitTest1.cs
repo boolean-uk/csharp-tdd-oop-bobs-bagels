@@ -43,6 +43,7 @@ public class Tests
     public void TestLimit()
     {
         Basket basket = new Basket();
+        basket.MaxProducts = 5;
 
         basket.AddProduct("BGLO");
         basket.AddProduct("BGLO");
@@ -88,5 +89,86 @@ public class Tests
 
         ProductList productList = new ProductList();
         Assert.That(productList.GetPriceBagle("Onion"), Is.EqualTo(0.49));
+    }
+
+    [Test]
+    public void TestGetReceipt()
+    {
+
+        Basket basket = new Basket();
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLO");
+        basket.AddProduct("COFB");
+        basket.AddProduct("COFB");
+        basket.PrintReceipt();
+    }
+
+
+    [Test]
+    public void TestGetDiscount()
+    {
+
+        Basket basket = new Basket();
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLO");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("BGLE");
+        basket.AddProduct("COFB");
+        basket.AddProduct("COFB");
+        basket.AddProduct("COFB");
+        Assert.That((decimal)basket.DiscountedPrice(), Is.EqualTo(10.65));
+    }
+
+    [Test]
+    public void TestGetDiscount2()
+    {
+
+        Basket basket = new Basket();
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+
+        Assert.That((decimal)basket.DiscountedPrice(), Is.EqualTo(5.55));
+        basket.PrintReceiptDiscount(); 
+
+        Basket basket2 = new Basket();
+
+        basket2.AddProduct("BGLO");
+        basket2.AddProduct("COFB");
+        Assert.That((decimal)basket2.DiscountedPrice(), Is.EqualTo(1.25));
+
+        basket2.PrintReceiptDiscount();
     }
 }
