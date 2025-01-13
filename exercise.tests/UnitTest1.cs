@@ -95,7 +95,24 @@ public class Tests
     [Test]
     public void Discount()
     {
-        return;
+        Shop shop = new Shop();
+        Customer customer = new Customer();
+        Basket basket = customer.GetBasket();
+        Iproduct bagel = new Bagel("bagel ", "BGLO", 6.9F, "Onion");
+        Iproduct filling = new Filling("Filling", "FILC", 0.12F, "Cheese");
+        List<Iproduct> couponItems = new List<Iproduct>();
+        for (int i = 0; i < 6; i++) 
+        {
+            couponItems.Add(bagel);
+        }
+        Coupon coupon = new Coupon(couponItems,2.49F);
+        shop.AddToInventory(bagel, 2);
+        shop.AddToInventory(filling, 5);
+        basket.AddBagel(bagel);
+        shop.AddCoupon(coupon);
+        float total= basket.Discount();
+        Assert.That(total, Is.EqualTo(2.49F));
+
     }
     [Test]
     public void PrintReceipts()
