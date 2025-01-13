@@ -16,6 +16,7 @@ namespace exercise.main.Models
 
         public DateTime Date { get; set; }
 
+        //Would likely have an Order class aswell, but for now Receipt will act as both
         public Receipt(Basket basket)
         {
             Products = basket.Products;

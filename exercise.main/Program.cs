@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using exercise.main.Communication;
 using exercise.main.Models;
 
 Console.WriteLine("Hello, World!");
@@ -26,4 +27,8 @@ Receipt receipt = new Receipt(basket);
 
 decimal totalprice = basket.GetPriceWithDiscounts();
 
-Console.WriteLine(receipt.FullReceipt());
+
+ICommunicator communicator = new ConsoleCommunicator();
+communicator.Send(receipt.FullReceipt());
+
+
