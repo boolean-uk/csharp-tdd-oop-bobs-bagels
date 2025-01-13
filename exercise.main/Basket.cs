@@ -78,6 +78,8 @@ namespace exercise.main
                     CouponList.Remove(c); // Removing from the copy of the coupons list
                 }
             }
+            //adding on the rest of the non discount cost
+            itemCopy.ForEach(x => total += x.GetPrice());
             return total;
         }
 

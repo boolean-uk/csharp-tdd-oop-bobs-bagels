@@ -95,6 +95,7 @@ public class Tests
     [Test]
     public void Discount()
     {
+        float expectedDiscount = 2.49F;
         Shop shop = new Shop();
         Customer customer = new Customer();
         Basket basket = customer.GetBasket();
@@ -104,14 +105,15 @@ public class Tests
         for (int i = 0; i < 6; i++) 
         {
             couponItems.Add(bagel);
+            basket.AddBagel(bagel);
         }
         Coupon coupon = new Coupon(couponItems,2.49F);
         shop.AddToInventory(bagel, 2);
         shop.AddToInventory(filling, 5);
-        basket.AddBagel(bagel);
+        basket.AddBagel(bagel);//7 bagels, 6 is dicounted + 1 not discounted
         basket.AddCoupon(coupon);
         float total= basket.Discount();
-        Assert.That(total, Is.EqualTo(2.49F));
+        Assert.That(total, Is.EqualTo(expectedDiscount+bagel.GetPrice()));
 
     }
     [Test]
