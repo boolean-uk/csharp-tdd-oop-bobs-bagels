@@ -1,4 +1,5 @@
 using exercise.main;
+using exercise.main.Products;
 
 namespace exercise.tests;
 
@@ -109,7 +110,7 @@ public class Tests
         onionBagel1.AddFilling(ham1);
         basket.AddItem(onionBagel1);
 
-        Assert.That(onionBagel1.TotalPrice, Is.EqualTo(0.49 + 0.12));
+        Assert.That(onionBagel1.PriceWithFillings, Is.EqualTo(0.49 + 0.12));
 
     }
 

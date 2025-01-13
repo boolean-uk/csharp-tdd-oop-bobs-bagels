@@ -8,12 +8,23 @@ Console.WriteLine("Welcome to Bob's Bagels! \n----------------------------- \nWh
 Store bobsBagel = new Store();
 
 Basket basket = new Basket(bobsBagel.Inventory);
-basket.Capacity = 5;
+basket.Capacity = 20;
 basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
 basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
+
+for(int i = 0; i < 13; i++)
+{
+    basket.AddItem(bobsBagel.Inventory.Products["BGLP"]);
+}
 
 basket.TotalCost();
-
+basket.ApplyDiscount();
 //var exit = false;
 
 

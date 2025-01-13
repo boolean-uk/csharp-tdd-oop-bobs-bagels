@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace exercise.main
+namespace exercise.main.Products
 {
-    public class Filling(string sku, double price, Filling.FillingVariant variant) : Product(sku, price)
+    public class Filling(string sku, decimal price, Filling.FillingVariant variant) : Product(sku, price)
     {
         private readonly FillingVariant _variant = variant;
 
-        public string Name
+        public override string Name
         {
             get { return $"{_variant} Filling"; }
         }

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using static exercise.main.Filling;
+using static exercise.main.Products.Filling;
 
-namespace exercise.main
+namespace exercise.main.Products
 {
-    public class Bagel(string sku, double price, Bagel.BagelVariant variant) : Product(sku, price)
+    public class Bagel(string sku, decimal price, Bagel.BagelVariant variant) : Product(sku, price)
     {
         private readonly BagelVariant _variant = variant;
 
         private readonly List<Filling> _fillings = [];
 
-        public string Name
+        public override string Name
         {
             get { return $"{_variant} Bagel"; }
         }
@@ -35,19 +35,19 @@ namespace exercise.main
             _fillings.Add(filling);
         }
 
-        public List<Filling> Fillings 
+        public List<Filling> Fillings
         {
             get { return _fillings; }
         }
 
-        public double TotalPrice
+        public decimal PriceWithFillings
         {
             get
             {
-                double total = this.Price; 
+                decimal total = Price;
                 foreach (var filling in _fillings)
                 {
-                    total += filling.Price; 
+                    total += filling.Price;
                 }
                 return total;
             }
