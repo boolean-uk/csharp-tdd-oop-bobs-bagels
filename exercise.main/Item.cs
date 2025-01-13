@@ -8,19 +8,17 @@ namespace exercise.main
 {
     public abstract class Item
     {
-        private string id;
-        private double price;
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string Variant { get; set; }
 
-        public string Id { get { return id; } }
-        public double Price { get { return price; } } 
-
-        public Item(string id, double price)
+        public Item(string name, string variant, double price)
         {
-            this.id = id;
-            this.price = price;
-        }
+            Name = name;
+            Price = price;
+            Variant = variant;
 
-        public abstract string getVariant();
+        }
 
         public abstract double getPrice();
 

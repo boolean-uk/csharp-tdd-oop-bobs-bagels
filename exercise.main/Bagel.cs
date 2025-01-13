@@ -15,6 +15,16 @@ namespace exercise.main
 
         public List<Fillings> Fillings_list { get { return fillings_list; } set { fillings_list = value; } }
 
+        public Dictionary<string, Fillings> StockItems = new Dictionary<string, Fillings>()
+        {
+            {"FILB", new Fillings("Filling", "Bacon", 0.12)},
+            {"FILE", new Fillings("Filling", "Egg", 0.12)},
+            {"FILC", new Fillings("Filling", "Cheese", 0.12)},
+            {"FILX", new Fillings("Filling", "Cream Cheese", 0.12)},
+            {"FILS", new Fillings("Filling", "Smoked Salmon", 0.12)},
+            {"FILH", new Fillings("Filling", "Ham", 0.12)},
+        };
+
         public struct Fillings
         {
             public string Id { get; }
@@ -29,15 +39,13 @@ namespace exercise.main
             }
         }
 
-        public Bagel(string id, string variant, double price) : base(id, price) 
-        {
-            this.variant = variant;
-        }
+        public Bagel(string name, string variant, double price) : base(name, variant, price) { }
 
 
-        public override string getVariant()
+        public void addFillingByID(string id)
         {
-            return variant;
+            if (StockItems.ContainsKey(id)) { fillings_list.Add(StockItems[id]); }
+            else { throw new Exception("Order not in stock"); }
         }
 
         public override double getPrice()
