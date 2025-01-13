@@ -78,7 +78,14 @@ public class Basket
     
     public Order Order()
     {
-        throw new NotImplementedException();
+        Order order = new Order();
+
+        foreach (var item in _items)
+        {
+            order.Add(_inventory.GetProduct(item.Key), item.Value);
+        }
+        
+        return order;
     }
     
     public override string ToString()
