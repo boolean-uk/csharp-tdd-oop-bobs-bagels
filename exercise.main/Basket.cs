@@ -1,4 +1,5 @@
-﻿using System;
+﻿using exercise.main.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,16 @@ namespace exercise.main
 {
     public class Basket
     {
-        public List<Item> items;
+        public List<IProduct> items;
 
         public int capacity;
         public Basket()
         {
-            items = new List<Item>();
+            items = new List<IProduct>();
             capacity = 5;
         }
 
-        public string Add(Item item)
+        public string Add(IProduct item)
         {
             Inventory inventory = new Inventory();
             if (!inventory.ValidateItem(item))
@@ -33,9 +34,9 @@ namespace exercise.main
             return "Basket is full, item not added";
         }
 
-        public Item Remove(string sku)
+        public IProduct Remove(string sku)
         {
-            Item? item = items.FirstOrDefault(i => i.Sku == sku);
+            IProduct? item = items.FirstOrDefault(i => i.Sku == sku);
             if (item != null)
             {
                 items.Remove(item);
@@ -54,13 +55,13 @@ namespace exercise.main
         public double Total()
         {
             double total = 0;
-            foreach (Item item in items)
+            foreach (IProduct item in items)
             {
-                // apply filling price if bagel has filling
-                if(item.Type == "Bagel" && item.Filling != null)
+                if (item is Bagel bagel && bagel.filling != null)
                 {
-                    total += item.Filling.Price;
+                    total += bagel.filling.Price;
                 }
+
                 total += item.Price;
             }
 
@@ -69,7 +70,7 @@ namespace exercise.main
 
         public void ApplyDiscount()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

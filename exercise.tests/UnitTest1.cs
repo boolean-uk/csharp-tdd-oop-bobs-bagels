@@ -1,4 +1,5 @@
 using exercise.main;
+using exercise.main.Products;
 
 namespace exercise.tests;
 
@@ -8,7 +9,7 @@ public class Tests
     public void AddItemToBasket()
     {
         Basket basket = new Basket();
-        Item bagel = new Item("BGLO", 0.49, "Bagel", "Onion");
+        Bagel bagel = new Bagel("BGLO", 0.49, "Bagel", "Onion");
 
         basket.Add(bagel);
         Assert.That(basket.items[0], Is.EqualTo(bagel));
@@ -18,16 +19,16 @@ public class Tests
     public void RemoveItemFromBasket()
     {
         Basket basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
 
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
@@ -45,21 +46,20 @@ public class Tests
     public void AddBeyondMaxCap()
     {
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
 
-        Item testItem = new Item("FILE", 0.12, "Filling", "Egg");
+        Filling testItem = new Filling("FILE", 0.12, "Filling", "Egg");
 
         Assert.That(basket.Add(testItem), Is.EqualTo("Basket is full, item not added"));
     }
@@ -69,16 +69,15 @@ public class Tests
     public void MaxCapacityOfBasket()
     {
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
@@ -93,16 +92,15 @@ public class Tests
     public void ChangeMaxCapacityOfBasket()
     {
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
@@ -116,16 +114,15 @@ public class Tests
     public void CheckTotalOfBasket()
     {
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
@@ -138,21 +135,20 @@ public class Tests
     {
         Inventory inv = new Inventory();
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
 
-        Item? BagelSesame = inv.GetItem("BGLS");
+        IProduct? BagelSesame = inv.GetItem("BGLS");
         Assert.That(BagelSesame?.Price, Is.EqualTo(0.49));
     }
 
@@ -161,28 +157,27 @@ public class Tests
     {
         Inventory inv = new Inventory();
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
-                new Item("COFC", 1.29, "Coffee", "Capuccino"),
-                new Item("COFL", 1.29, "Coffee", "Latte"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
+                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
+                new Coffee("COFL", 1.29, "Coffee", "Latte"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
 
-        Item? bagelSesame = inv.GetItem("BGLS");
-        Item? eggFilling = inv.GetItem("FILE");
+        Bagel? bagelSesame = (Bagel?)inv.GetItem("BGLS");
+        Filling? eggFilling = (Filling?)inv.GetItem("FILE");
 
         double priceOfBagelWithFilling = (bagelSesame.Price + eggFilling.Price);
 
         bagelSesame.AddFilling(eggFilling);
 
-        Assert.That(bagelSesame.Filling, Is.EqualTo(eggFilling));
+        Assert.That(bagelSesame.filling, Is.EqualTo(eggFilling));
         Assert.That(bagelSesame.Total(), Is.EqualTo(priceOfBagelWithFilling));
     }
 
@@ -191,7 +186,7 @@ public class Tests
     {
         Inventory inv = new Inventory();
 
-        List<Item> itemFilling = inv.GetFillings();
+        List<IProduct> itemFilling = inv.GetFillings();
 
         foreach (var item in itemFilling)
         {
@@ -204,19 +199,18 @@ public class Tests
     {
         Inventory inv = new Inventory();
         var basket = new Basket();
-        List<Item> items = new List<Item>
+        List<IProduct> items = new List<IProduct>
         {
-                new Item("BGLS", 0.49, "Bagel", "Sesame"),
-                new Item("COFB", 0.99, "Coffee", "Black"),
-                new Item("COFW", 1.19, "Coffee", "White"),
+                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+                new Coffee("COFB", 0.99, "Coffee", "Black"),
+                new Coffee("COFW", 1.19, "Coffee", "White"),
         };
-
-        foreach (Item item in items)
+        foreach (IProduct item in items)
         {
             basket.Add(item);
         }
 
-        Item invalidItem = new Item("KIUH", 0.38, "Fries", "Potato");
+        IProduct invalidItem = new Bagel("KIUH", 0.38, "Fries", "Potato");
         basket.Add(invalidItem);
         Assert.That(basket.items.Count, Is.EqualTo(3));
 
@@ -229,26 +223,26 @@ public class Tests
         var basket = new Basket();
 
         // two bagel onions
-        basket.Add(new Item("BGLO", 0.49, "Bagel", "Onion"));
-        basket.Add(new Item("BGLO", 0.49, "Bagel", "Onion"));
+        basket.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+        basket.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
 
 
         // six bagel everything
         for (int i = 0; i < 5; i++)
         {
-            basket.Add(new Item("BGLE", 0.49, "Bagel", "Everything"));
+            basket.Add(new Bagel("BGLE", 0.49, "Bagel", "Everything"));
         }
 
         // twelve bagel plain
         for (int i = 0; i < 11; i++)
         {
-            basket.Add(new Item("BGLP", 0.39, "Bagel", "Plain"));
+            basket.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
         }
 
         // three coffee black
-        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
-        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
-        basket.Add(new Item("COFB", 0.99, "Coffee", "Black"));
+        basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+        basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+        basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
 
 
         basket.ApplyDiscount();
