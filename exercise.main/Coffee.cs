@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Coffee
+    public class Coffee : Iproduct
     {
 
         public string Name { get; set; }
@@ -19,6 +19,21 @@ namespace exercise.main
             SKU = sKU;
             Price = price;
             Variant = variant;
+        }
+
+        public float GetPrice()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddFilling(Iproduct filling)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Iproduct> GetFillings()
+        {
+            throw new NotImplementedException();
         }
     }
 }

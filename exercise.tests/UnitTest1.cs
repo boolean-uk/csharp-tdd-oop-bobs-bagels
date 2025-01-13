@@ -37,12 +37,12 @@ public class Tests
     }
 
     [Test]
-    public void ChangeBasketCapacity() 
+    public void ChangeBasketCapacity()
     {
         Iperson manager = new Manager();
         manager.ChangeBasketCapacity(5);
         Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
-        for (int i = 0; i < 6; i++) 
+        for (int i = 0; i < 6; i++)
         {
             manager.GetBasket().AddBagel(bagel);
         }
@@ -67,5 +67,39 @@ public class Tests
         Assert.That(totalCost, Is.EqualTo(6.9F));
 
     }
-    
+    [Test]
+    public void GetCost()
+    {
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Assert.That(bagel.GetPrice(), Is.EqualTo(6.9F));
+    }
+    [Test]
+    public void AddFilling()
+    {
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Iproduct filling = new Filling("Filling", "FILC", 0.12F, "Cheese");
+        bagel.AddFilling(filling);
+        Assert.That(bagel.GetFillings().ElementAt(0), Is.EqualTo(filling));
+    }
+    [Test]
+    public void AvaiableItems()
+    { 
+        Shop shop = new Shop();
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Iproduct filling = new Filling("Filling", "FILC", 0.12F, "Cheese");
+        shop.AddToInventory(bagel, 2);
+        shop.AddToInventory(filling, 5);
+        List<Iproduct> inventory = shop.AvaiableItems();
+        Assert.That(inventory.Count(), Is.EqualTo(7));
+    }
+    [Test]
+    public void Discount()
+    {
+        return;
+    }
+    [Test]
+    public void PrintReceipts()
+    {
+        return;
+    }
 }

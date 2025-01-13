@@ -25,5 +25,15 @@ namespace exercise.main
         {
             return Price;
         }
+
+        public void AddFilling(Iproduct filling)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Iproduct> GetFillings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

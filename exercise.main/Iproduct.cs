@@ -9,5 +9,7 @@ namespace exercise.main
     public interface Iproduct
     {
         public float GetPrice();
+        public void AddFilling(Iproduct filling);
+        public List<Iproduct> GetFillings();
     }
 }

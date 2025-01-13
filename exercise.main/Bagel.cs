@@ -13,17 +13,31 @@ namespace exercise.main
         public string SKU { get; set; }
         public float Price { get; set; }
         public string Variant { get; set; }
+        public List<Iproduct> fillings { get; set; }
         public Bagel(string name, string sKU, float price, string variant)
         {
             Name = name;
             SKU = sKU;
             Price = price;
             Variant = variant;
+            fillings = new List<Iproduct>();
         }
 
         public float GetPrice()
         {
             return Price;
         }
+        public void AddFilling(Iproduct filling)
+        {
+            fillings.Add(filling);
+        }
+
+
+        public List<Iproduct> GetFillings()
+        { 
+            return fillings;
+        }
+
+
     }
 }
