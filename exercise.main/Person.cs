@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +14,8 @@ namespace exercise.main
     public class Person
     {
         public int _capacity = 10;
-        private List<Item> _basket = new List<Item>();
+        private List<Item>_basket = new List<Item>();
+        private List<Item>_bagels = new List<Item>();
         public string role { get; set; }
 
 
@@ -45,11 +48,14 @@ namespace exercise.main
             {
                 throw new Exception("The item is not in inventory");
             }
-            else
-            {
+       
                 _basket.Add(item);
-            }
+            
 
+            if (item.GetType() == typeof(Bagel))
+            {
+                _bagels.Add(item);
+            }
         }
 
         public void RemoveItem(Item item)
@@ -109,79 +115,110 @@ namespace exercise.main
         }
 
 
-        public string GetCheapestBagel()
-        {
-            double mincost = 10000000;
-            string name = "";
 
-            foreach (Item item in _basket)
-            {
-                if (item.name.StartsWith("BGL"))
-                {
-                    if (item.prices[item.name] < mincost)
-                    {
-                        mincost = item.prices[item.name];
-                        name = item.name;
-                    }
-                }
-            }
-            return name;
-        }
-
+       
         public double GetTotalCost()
         {
+
             double total = 0;
-            double coffeetotal = 0;
-            double bageltotal = 0; 
-            
-            if (coffeebageldiscount())
-            {
-                string bagelname = GetCheapestBagel();
-
-                foreach (Item item in _basket) {
-                    if (item.name == "COFB")
-                    {
-                        _basket.Remove(item);
-                        break;
-                    }
-                }
-
-                foreach (Item item in _basket)
-                {
-                    if (item.name == bagelname)
-                    {
-                        foreach (Filling fill in item.bagelfillings)
-                        {
-                            bageltotal += fill.prices[fill.actualname];
-                            item.bagelfillings.Remove(fill);
-                        }
-
-                        _basket.Remove(item);
-                        break;
-                    }
-
-                }
-                coffeetotal += 1.25;
-            }
-
+            double discount = DeductDiscount();
 
             foreach (Item item in _basket)
             {
-
-                total += item.totalcost + item.prices[item.name];
-
+                total += item.prices[item.name];
+                
             }
 
-            total += bageltotal + coffeetotal;
+            foreach (Item bagel in _bagels)
+            {
+                foreach(Filling fill in bagel.bagelfillings)
+                {
+                    total += fill.prices[fill.actualname];
+                }
+            }
 
-            return total;
+            
+
+            return total - discount;
+        }
+
+
+        public double DeductDiscount()
+        {
+            bool bagel = false;           
+            bool coffee = false;
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+            foreach (Item item in _basket)
+            {
+                if (counts.ContainsKey(item.name))
+                {
+                    counts[item.name]++;
+                }
+                else
+                {
+                    counts.Add(item.name, 1);
+                }
+                
+            }
+
+            foreach(Item item in _basket)
+            {
+                if (item.name == "COFB")
+                {
+                    coffee = true;
+                }
+                else if (item.GetType() == typeof(Bagel)){
+                   
+                       bagel = true;
+                    }
+                }
+            
+
+
+            
+
+            if (bagel && coffee)
+            {
+                return (0.49 + 0.99) - 1.25;
+            }
+
+            else
+            {
+                foreach(string key in counts.Keys)
+                {
+                    if (key.StartsWith('B')){
+                        if (counts[key] >= 12)
+                        {
+                            return (0.49 * 12) - 3.99;
+                    }
+                        else if(counts[key] >= 6)
+                        {
+                            return (0.49 * 6) - 2.49;
+                        }
+                    
+                        
+                    }
+                    
+                }
+            }
+            return 0.0;
+
         }
     
 
 
         public double GetItemCost(Item item)
         {
-            return item.prices[item.name] + item.totalcost;
+            double tot = 0;
+            if(item.GetType() == typeof(Bagel)){
+                foreach(Filling fill in item.bagelfillings) {
+                    tot += fill.prices[fill.actualname];
+
+                }
+            }
+
+
+            return item.prices[item.name] + tot;
         }
 
         public int GetTotalItems()

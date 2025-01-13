@@ -12,8 +12,10 @@ namespace exercise.main
         public string actualname;
         public override string name => actualname;
         public List<Filling> fillings = new List<Filling>();
-        public double actualtotalcost = 0;
-        public override double totalcost => actualtotalcost;
+
+        public override double totalcost => 0;
+        public double cost = 0;
+        
 
         public Bagel(string id)
         {
@@ -30,7 +32,7 @@ namespace exercise.main
         public void AddFilling(Filling filling)
         {
             fillings.Add(filling);
-            actualtotalcost += filling.prices[filling.actualname];
+            cost += filling.prices[filling.actualname];
         }
 
         public Dictionary<string, int> Initialization(Dictionary<string, double> pricess)
