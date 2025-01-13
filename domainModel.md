@@ -1,4 +1,4 @@
-# **Domain Model (Translated to .NET/C#)**
+# **Domain Model**
 
 ---
 

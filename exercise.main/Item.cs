@@ -13,6 +13,7 @@ namespace exercise.main
         public string name { get; set; }
         public double cost { get; set; }
         public string variant { get; set; } 
+        public bool isDiscounted { get; set; }
 
         public Item(string SKU, string name, double cost, string variant)
         {
@@ -20,6 +21,7 @@ namespace exercise.main
             this.name = name;
             this.cost = cost;
             this.variant = variant;
+            this.isDiscounted = false;
         }
         public Type getInstance()
         {

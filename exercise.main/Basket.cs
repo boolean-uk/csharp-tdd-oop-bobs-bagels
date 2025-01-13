@@ -43,5 +43,115 @@ namespace exercise.main
             return false;
         }
 
+        public void applyDiscounts()
+        {
+            // Group item by name, sort by cost (high->low) and variant
+            List<Item> disc = _items
+                .OrderBy(item => item.name)
+                .ThenByDescending(item => item.cost)
+                .ThenBy(item => item.variant)
+                .ToList();
+
+            // Apply discount for 12 bagels
+            // while 12 or more non-discounted bagels
+            while (disc.Count(x => x.name.Equals("Bagel") && !x.isDiscounted) >= 12)
+            {
+
+
+
+                /**
+                 *  13.01.25
+                 *  ROUNDING ERROR BECAUSE OF FLOAT-POINT PRECISION  
+                 */
+
+
+
+                double discountedPricePerBagel = Math.Round(3.99 / 12, 2); // Rounding because of float precision
+
+                int count = 0;
+                foreach (Item item in disc)
+                {
+                    if (item.name.Equals("Bagel") && !item.isDiscounted)
+                    {
+                        item.cost = discountedPricePerBagel;
+                        item.isDiscounted = true;
+                        count++;
+
+                        if (count == 12)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Apply discount for 6 bagels
+            // while 6 or more discounted bagels
+            while (disc.Count(x => x.name.Equals("Bagel") && !x.isDiscounted) >= 6)
+            {
+                double discountedPricePerBagel = 2.49 / 6;
+
+                int count = 0;
+                foreach (Item item in disc)
+                {
+                    if (item.name.Equals("Bagel") && !item.isDiscounted)
+                    {
+                        item.cost = discountedPricePerBagel;
+                        item.isDiscounted = true;
+                        count++;
+
+                        if (count == 6)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Step 3: Apply Bagel + Coffee for 1.25 discount
+            // Exits with break
+
+            while (true)
+            {
+                Item bagel = null;
+                Item coffee = null;
+
+                // find non-discounted bagel
+                foreach (var item in disc)
+                {
+                    if (item.name.Equals("Bagel") && !item.isDiscounted)
+                    {
+                        bagel = item;
+                        break;
+                    }
+                }
+
+                // find non-discounted bagel
+                foreach (var item in disc)
+                {
+                    if (item.name.Equals("Coffee") && !item.isDiscounted)
+                    {
+                        coffee = item;
+                        break;
+                    }
+                }
+
+                // if missing bagel or coffee, exit while-loop
+                if (bagel == null || coffee == null)
+                {
+                    break;
+                }
+
+                // Apply the discount
+                bagel.cost = 0.35;
+                bagel.isDiscounted = true;
+
+                coffee.cost = 0.9;
+                coffee.isDiscounted = true;
+            }
+
+            _items = disc;
+        }
+
     }
 }

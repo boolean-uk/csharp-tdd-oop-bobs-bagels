@@ -25,22 +25,29 @@ namespace exercise.main
 
         public Basket order(string sku)
         {
-            // TODO
             Item? item = _store._itemsInStock.Find((x) => x.SKU == sku);
+            // if under capacity and found sku in store inventory
             if (_store._basketCapacity > _basket._items.Count && item != null)
             {
-                _basket.AddItem(item);
+                Item itemToAdd = item switch
+                {
+                    Bagel => new Bagel(item.SKU, item.name, item.cost, item.variant),
+                    Coffee => new Coffee(item.SKU, item.name, item.cost, item.variant),
+                    Filling => new Filling(item.SKU, item.name, item.cost, item.variant),
+                    _ => throw new InvalidOperationException("Not valid SKU")
+                };
+                _basket._items.Add(itemToAdd);
                 Console.WriteLine($"{sku} was added");
                 return _basket;
             }
             Console.WriteLine($"{sku} was not added");
             return _basket;
         }
-      
+
         public string DeleteItem(string sku)
         {
             Item? item = _basket._items.Find((x) => x.SKU.Equals(sku));
-            if(item != null)
+            if (item != null)
             {
                 _basket._items.Remove(item);
                 return $"{sku} has been deleted";
@@ -51,11 +58,12 @@ namespace exercise.main
         public double CalculateCostBeforeOrder(string sku)
         {
             Item? item = _basket._items.Find((x) => x.SKU == sku);
-            if(item != null)
+            if (item != null)
             {
                 return item.cost;
             }
             return 0.0;
         }
+
     }
-}
+    }
