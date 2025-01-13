@@ -10,9 +10,12 @@ namespace exercise.main
 {
     public struct OrderData
     {
+        public string name;
         public int amount;
         public float individual_price; 
         public float discounted_price; 
+        public float total_price; 
+        public float saving; 
     }
     public class Order
     {
@@ -24,8 +27,14 @@ namespace exercise.main
     }
     public class DiscountManager 
     {
+        
         List<Discount> discountTypes = new List<Discount>();
         //public void addDiscountType<T>(params object[] args) where T : Discount
+        private Inventory _inventory; 
+        public DiscountManager(Inventory inventory)
+        {
+            this._inventory = inventory;
+        }
         public void addDiscountType(Discount discount) 
         {
             // TODO: Check for and remove identicals...
@@ -89,7 +98,7 @@ namespace exercise.main
         }
 
         //public Order calculateDiscount(Basket basket)
-        public void calculateDiscount(Basket basket)
+        public Dictionary<string, OrderData> calculateDiscount(Basket basket)
         {
             List<DiscountedProductCount> possibleDiscounts = new List<DiscountedProductCount>();
             foreach (Discount discount in discountTypes)
@@ -136,52 +145,77 @@ namespace exercise.main
                 }
             }
 
-            Dictionary<string, Tuple<int, float>> nameAmountPrice = new Dictionary<string, Tuple<int, float>>();
+            //Dictionary<string, Tuple<int, float>> nameAmountPrice = new Dictionary<string, Tuple<int, float>>();
+            Dictionary<string, OrderData> nameAmountPrice = new Dictionary<string, OrderData>();
             
             foreach (var product in bestDealsDiscounts)
             {
-                string nameStr = "deal: " + string.Join(" + ", product.SKU_amount.Keys);
+                //string nameStr = "deal: " + string.Join(" + ", product.SKU_amount.Keys);
+                string nameStr = "deal: " + string.Join(" + ", product.SKU_amount.Keys.Select(x => this._inventory.getName(x)));
                 
-                nameAmountPrice[nameStr] = new (product.discountMultiple, product.finalPrice);
+                nameAmountPrice[nameStr] = new OrderData
+                {
+                    name = nameStr,
+                    amount = product.discountMultiple, 
+                    individual_price = 0.0f, // TODO: fix ...
+                    discounted_price = product.finalPrice,
+                    total_price = product.finalPrice,
+                    saving = product.possibleSavings,
+                    
+                };
             }
 
-            Dictionary<string, int> tempSku = new Dictionary<string, int>();
+            Dictionary<string, int> amontPerSku = new Dictionary<string, int>();
             foreach (var product in productList)
             {
-                if(!tempSku.ContainsKey(product.SKU))
+                if (!amontPerSku.ContainsKey(product.SKU))
                 {
-                    tempSku[product.SKU] = 0;
+                    amontPerSku[product.SKU] = 0;
                 }
-                tempSku[product.SKU]++; 
+                amontPerSku[product.SKU]++;
             }
-            
-            foreach (var product in tempSku)
+
+            //var amontPerSku = basket.getAmountPerSku();
+            foreach (var product in amontPerSku)
             {
 
-                float? defPrice = basket.getDefaultPrice(product.Key);
-                if (defPrice == null)
-                    Debug.Assert(false, "defPrice cant be zero...");
+                //float? defPrice = basket.getDefaultPrice(product.Key);
+                //float? defPrice = this._inventory.getPrice(product.Key);
+                //if (defPrice == null)
+                    //Debug.Assert(false, "defPrice cant be zero...");
 
-                nameAmountPrice[product.Key] = new (product.Value, defPrice.Value);
+                float defPrice = this._inventory.getPrice(product.Key);
+
+                //nameAmountPrice[product.Key] = new (product.Value, defPrice.Value);
+                nameAmountPrice[product.Key] = new OrderData
+                {
+                    name = product.Key,
+                    amount = product.Value,
+                    //individual_price = defPrice.Value,
+                    individual_price = defPrice,
+                    discounted_price = 0.0f, // TODO: fix
+                    //total_price = defPrice.Value * product.Value,
+                    total_price = defPrice * product.Value,
+                    saving = 0.0f,
+                }; 
             }
 
-
-            Console.WriteLine("hej");
-
-
+            return nameAmountPrice;
         }
     }
     public abstract class Discount
     {
-        public Discount(float discountedPrice) 
+        public Discount(float discountedPrice, Inventory inventory) 
         {
             this.discountPrice = discountedPrice;
+            this._inventory = inventory;
         }
         //private Func<int, int> discountConditionFunc;
         //private Action discountConditionFunc;
 
         //public void defineCondition(Func<int,int> func )
         private float discountPrice;
+        protected Inventory _inventory;
 
         public float DiscountPrice { get => discountPrice; }
 
@@ -193,8 +227,8 @@ namespace exercise.main
     {
         Dictionary<string, int> nrOfRequiredProducts = new Dictionary<string, int>();
         
-        public Discount_XforY(Dictionary<string, int> nrOfRequiredProductsSKU, float discountedPrice)
-            : base(discountedPrice)
+        public Discount_XforY(Dictionary<string, int> nrOfRequiredProductsSKU, float discountedPrice, Inventory inventory)
+            : base(discountedPrice, inventory)
         {
             this.nrOfRequiredProducts = nrOfRequiredProductsSKU;
 
@@ -291,6 +325,10 @@ namespace exercise.main
         public float ProductPrice
         {
             get { return this.productPrice; }
+        }
+        public string ProductName
+        {
+            get { return this.name; }
         }
 
         public string SKU { get => sku;}

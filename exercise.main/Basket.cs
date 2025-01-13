@@ -32,6 +32,20 @@ namespace exercise.main
             }
             return cpyList;
         }
+        public Dictionary<string, int> getAmountPerSku()
+        {
+            var productList = getProducts();
+            Dictionary<string, int> tempSku = new Dictionary<string, int>();
+            foreach (var product in productList)
+            {
+                if (!tempSku.ContainsKey(product.SKU))
+                {
+                    tempSku[product.SKU] = 0;
+                }
+                tempSku[product.SKU]++;
+            }
+            return tempSku;
+        }
         public float? getDefaultPrice(string SKU)
         {
             
