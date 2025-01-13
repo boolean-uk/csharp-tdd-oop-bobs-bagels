@@ -42,6 +42,22 @@ namespace exercise.main
                 this.products.Add(p);
             }
         }
+        public void removeProduct(string productSku, int amount = 1)
+        {
+            if (amount < 1)
+            {
+                Debug.Assert(amount < 1, "Amount to remove must be positive");
+            }
+
+            int amountProductInBasket = this.countProductTypes(productSku);
+            int nrToRemove = Math.Min(amountProductInBasket, amount);
+            var itemsToRemoveList = this.products.Where(x => x.SKU == productSku).ToList();
+            for (int i = 0; i < nrToRemove; i++)
+            {
+                this.products.Remove(itemsToRemoveList[i]);
+            }
+            Console.WriteLine("he");
+        }
         public int countProductTypes(string SKU)
         {
             return products.Where(x=>x.SKU == SKU).Count();
@@ -71,19 +87,19 @@ namespace exercise.main
             }
             return tempSku;
         }
-        public float? getDefaultPrice(string SKU)
-        {
+        //public float? getDefaultPrice(string SKU)
+        //{
             
-            foreach (BaseProduct product in this.products)
-            {
-                if(product.SKU == SKU)
-                {
-                    return product.ProductPrice;
-                }
-            }
-            return null;
+        //    foreach (BaseProduct product in this.products)
+        //    {
+        //        if(product.SKU == SKU)
+        //        {
+        //            return product.ProductPrice;
+        //        }
+        //    }
+        //    return null;
             
-        }
+        //}
 
     }
 }

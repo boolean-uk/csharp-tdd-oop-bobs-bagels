@@ -19,27 +19,56 @@ public class Tests
     public void addProductToBasket()
     {
         Inventory inventory = new Inventory();
-        var p = new Basket(inventory);
+        var b = new Basket(inventory);
 
         inventory.Add("BGLO", "Onion", 0.49f, 100);
         inventory.Add("FILH", "Ham",      0.12f, 100);
         inventory.Add("FILC", "Cheese", 0.12f, 100);
         inventory.Add("FILE", "Egg", 0.12f, 100);
 
-        //var b = new Product("BGLO", "Onion", 0.49f);
-        //var h = new Product("FILH", "Ham",      0.12f);
-        //var c = new Product("FILC", "Cheese", 0.12f);
-        //var l = new Product("FILE", "Egg",      0.12f);
+        b.addProduct("BGLO");
+        b.addProduct("FILH");
+        b.addProduct("FILC");
+        b.addProduct("FILE");
 
-        //p.addProduct(b);
-        //p.addProduct(h);
-        //p.addProduct(c);
-        //p.addProduct(l);
-        p.addProduct("BGLO");
-        p.addProduct("FILH");
-        p.addProduct("FILC");
-        p.addProduct("FILE");
+        var productsInBasket = b.getAmountPerSku();
+        Assert.That(productsInBasket.ContainsKey("BGLO"));
+        Assert.That(productsInBasket.ContainsKey("FILH"));
+        Assert.That(productsInBasket.ContainsKey("FILC"));
+        Assert.That(productsInBasket.ContainsKey("FILE"));
         Assert.Pass();
+    }
+    
+    [Test]
+    public void removeProductToBasket()
+    {
+        Inventory inventory = new Inventory();
+        var b = new Basket(inventory);
+
+        inventory.Add("BGLO", "Onion", 0.49f, 100);
+        inventory.Add("BGLS", "Sesame", 0.49f, 100);
+        inventory.Add("FILH", "Ham",      0.12f, 100);
+        inventory.Add("FILC", "Cheese", 0.12f, 100);
+        inventory.Add("FILE", "Egg", 0.12f, 100);
+
+        b.addProduct("BGLO",30);
+        b.addProduct("FILH",25);
+        b.addProduct("BGLS", 25);
+        b.addProduct("FILC",20);
+        b.addProduct("FILE",10);
+
+        b.removeProduct("FILC", 20);
+        b.removeProduct("BGLS", 5);
+        b.removeProduct("FILH", 100);
+
+        var productsInBasket = b.getAmountPerSku();
+        Assert.That(productsInBasket["BGLO"] == 30);
+        Assert.That(productsInBasket.ContainsKey("FILH") == false);
+        Assert.That(productsInBasket["BGLS"] == 20);
+        Assert.That(productsInBasket.ContainsKey("FILC") == false);
+        Assert.That(productsInBasket["FILE"] == 10);
+
+
     }
     [Test]
     public void createDiscountType()
@@ -47,16 +76,6 @@ public class Tests
         Inventory inventory = new Inventory();
         var p = new Basket(inventory);
 
-        
-        //var b = new Product("BGLO", "Onion", 0.49f);
-        //var h = new Product("FILH", "Ham", 0.12f);
-        //var c = new Product("FILC", "Cheese", 0.12f);
-        //var l = new Product("FILE", "Egg", 0.12f);
-
-        //inventory.Add(b,50);
-        //inventory.Add(h,50);
-        //inventory.Add(c,50);
-        //inventory.Add(l,50);
         inventory.Add("BGLO", "Onion", 0.49f, 50);
         inventory.Add("FILH", "Ham", 0.12f, 50);
         inventory.Add("FILC", "Cheese", 0.12f, 50);
@@ -88,11 +107,6 @@ public class Tests
         // Add discounted Products, calculate sum based on the discount
         int nrOf_OnionBagels = 24;
         p.addProduct("BGLO", nrOf_OnionBagels);
-        //for (var i = 0; i < nrOf_OnionBagels; i++)
-        //{
-        //    //p.addProduct(b);
-        //    p.addProduct("BGLO");
-        //}
 
         totalPrice += MathF.Floor((float)nrOf_OnionBagels / nrOfBagelsForDiscount) * discountedPrice_6_for_2_49;
         
