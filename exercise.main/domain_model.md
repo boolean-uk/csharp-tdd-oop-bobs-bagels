@@ -1,1 +1,16 @@
-﻿
+﻿| Classes    | Methods                     | Scenario                                                               | Outputs                                         |
+|------------|-----------------------------|------------------------------------------------------------------------|-------------------------------------------------|
+| Basket.cs  | addProduct(sku)             | Adds the product with the given SKU to the basket object, if it exist. | $"{product} has been added to your basket!"     |
+| Basket.cs  | removeProduct(sku)          | Removes the product with the given SKU from the basket, if it exist.   | $"{product} has been removed from your basket!" |
+| Basket.cs  | isFull()                    | Returns true or false, based on if the basket is full or not.          | true || false                                   |
+| Basket.cs  | changeCapacity(newCapacity) | Changes the capacity of a basket to newCapacity.                       |                                                 |
+| Basket.cs  | totalCost()                 | Calculates and returns the total cost of the products in the basket.   | $"Total cost: {totalCost}!"                     |
+| Bagel.cs   | Price()                     | Returns the cost of the bagel.                                         | $"Price of {bagelType} bagel is {price}!"       |
+| Bagel.cs   | addFilling(fillingType)     | Adds the given fillingType to the bagel, if it exist.                  | $"Added {fillingType} on bagel!"                |
+| Filling.cs | Price()                     | Returns the cost of the filling.                                       | $"Price of {fillingType} is {price}"            |
+|            |                             |                                                                        |                                                 |
+|            |                             |                                                                        |                                                 |
+|            |                             |                                                                        |                                                 |
+|            |                             |                                                                        |                                                 |
+|            |                             |                                                                        |                                                 |
+|            |                             |                                                                        |                                                 |
