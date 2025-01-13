@@ -10,12 +10,12 @@ namespace exercise.main.Models
     {
         public static Dictionary<string, Product> inventory = new Dictionary<string, Product>
         {
-            {"BGLO", new Bagel("BGLO", "Onion", 0.49M)},
-            {"BGLP", new Bagel("BGLP", "Plain", 0.39M)},
-            {"BGLE", new Bagel("BGLE", "Everything", 0.49M)},
+            {"BGLO", new Bagel("BGLO", "Onion Bagel", 0.49M)},
+            {"BGLP", new Bagel("BGLP", "Plain Bagel", 0.39M)},
+            {"BGLE", new Bagel("BGLE", "Everything Bagel", 0.49M)},
             {"BGLS", new Bagel("BGLS", "Sesame", 0.49M)},
-            {"COFB", new Coffee("COFB", "Black", 0.99M)},
-            {"COFW", new Coffee("COFW", "White", 1.19M)},
+            {"COFB", new Coffee("COFB", "Black Coffee", 0.99M)},
+            {"COFW", new Coffee("COFW", "White Coffee", 1.19M)},
             {"COFC", new Coffee("COFC", "Capuccino", 1.29M)},
             {"COFL", new Coffee("COFL", "Latte", 1.29M)},
             {"FILB", new Filling("FILB", "Bacon", 0.12M)},

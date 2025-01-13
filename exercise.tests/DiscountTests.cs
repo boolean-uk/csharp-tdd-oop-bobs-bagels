@@ -38,7 +38,7 @@ public class DiscountTests
     [Test]
     public void TestSixBagelDeal()
     {
-        basket.clear();
+        basket.Clear();
         Bagel bagel1 = new Bagel("BGLO");
         Bagel bagel2 = new Bagel("BGLO");
         Bagel bagel3 = new Bagel("BGLO");
@@ -56,7 +56,7 @@ public class DiscountTests
     [Test]
     public void TestTwelveBagelDeal()
     {
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 12; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -69,7 +69,7 @@ public class DiscountTests
     [Test]
     public void TestTwelveWithExtra()
     {
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 14; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -81,7 +81,7 @@ public class DiscountTests
     [Test]
     public void TestTwelveWithExtraCoffee()
     {
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 14; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -96,7 +96,7 @@ public class DiscountTests
     public void TestTwelveSixCoffeCoffe()
     {
         // 12 bagel deal, 6 bagel deal, 2 coffe deals, and an extra bagle
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 21; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -114,7 +114,7 @@ public class DiscountTests
     [Test]
     public void TestSixWithFillings()
     {
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 6; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -128,7 +128,7 @@ public class DiscountTests
     [Test]
     public void TestTwelveSomeFilling()
     {
-        basket.clear();
+        basket.Clear();
         for (int i = 0; i < 12; i++)
         {
             Bagel bagel = new Bagel("BGLO");
@@ -140,5 +140,29 @@ public class DiscountTests
             basket.Add(bagel);
         }
         Assert.That(basket.GetPriceWithDiscounts(), Is.EqualTo(4.71));
+    }
+
+    [Test]
+    public void TestDiscountAmmountBagels()
+    {
+        basket.Clear();
+        for (int i = 0; i < 12; i++)
+        {
+            Bagel bagel = new Bagel("BGLO");
+            basket.Add(bagel);
+        }
+        Assert.That(basket.GetTotalDiscount(), Is.EqualTo(1.89));
+    }
+
+    [Test]
+    public void TestDiscountAmmountCoffee()
+    {
+        basket.Clear();
+        
+        Coffee coffee = new Coffee("COFB");
+        basket.Add(coffee);
+        Bagel bagel = new Bagel("BGLO");
+        basket.Add(bagel);
+        Assert.That(basket.GetTotalDiscount(), Is.EqualTo(0.23));
     }
 }

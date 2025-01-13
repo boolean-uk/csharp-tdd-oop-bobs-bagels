@@ -40,6 +40,7 @@ namespace exercise.main
             return hasDiscountGeneric(products, 12, out restProducts, out discounts);
         }
 
+        //Uh oh, its getting messy
         private bool hasDiscountGeneric(List<Product> products, int quantity, out List<Product> restProducts, out List<SpecialOffer> discounts)
         {
             bool hasDiscount = products.Where(p => p.SKU.StartsWith("BGL")).Count() >= quantity;
@@ -50,6 +51,7 @@ namespace exercise.main
                 restProducts = products;
                 return false;
             }
+            //List of products that are not included in the discount
             restProducts = new List<Product>();
             restProducts.AddRange(products);
             while (hasDiscount)
@@ -65,7 +67,9 @@ namespace exercise.main
                         {
                             if (quantity == 6)
                             {
-                                discounts.Add(new SpecialOffer(SpecialOfferType.sixBagelsDeal));
+                                SpecialOffer specialOffer = new SpecialOffer(SpecialOfferType.sixBagelsDeal);
+                                specialOffer.Discount = CalculateDiscountForSingleOffer(products, specialOffer);
+                                discounts.Add(specialOffer);
                                 restProducts.Remove(product);
                                 if(thisProduct.Fillings.Count > 0)
                                 {
@@ -74,7 +78,9 @@ namespace exercise.main
                             }
                             else
                             {
-                                discounts.Add(new SpecialOffer(SpecialOfferType.twelveBagelsDeal));
+                                SpecialOffer specialOffer = new SpecialOffer(SpecialOfferType.twelveBagelsDeal);
+                                specialOffer.Discount = CalculateDiscountForSingleOffer(products, specialOffer);
+                                discounts.Add(specialOffer);
                                 restProducts.Remove(product);
                                 if (thisProduct.Fillings.Count > 0)
                                 {
@@ -114,18 +120,34 @@ namespace exercise.main
                 return false;
             }
             
-            Bagel bagelToRemove = (Bagel)products.Where(p => p.SKU == "BGLO" || p.SKU == "BGLP" || p.SKU == "BGLE").First();
-            
+            Bagel bagelToRemove = (Bagel)products.Where(p => p.SKU == "BGLP" || p.SKU == "BGLO" || p.SKU == "BGLE").First();
+            List<Product> productsInDeal = new List<Product>();
+            productsInDeal.Add(bagelToRemove);
+
             restProducts.Remove(bagelToRemove);
-            products.Remove(products.Where(p => p.SKU == "COFB").First());
+            Coffee coffeeToRemove = (Coffee)products.Where(p => p.SKU == "COFB").First();
+            productsInDeal.Add(coffeeToRemove);
+            restProducts.Remove(coffeeToRemove);
             restProducts = products;
             if (bagelToRemove.Fillings.Count > 0)
             {
                 restProducts.AddRange(bagelToRemove.Fillings);
             }
             discounts = new List<SpecialOffer>();
-            discounts.Add(new SpecialOffer(SpecialOfferType.coffeeBagelDeal));
+            SpecialOffer specialOffer = new SpecialOffer(SpecialOfferType.coffeeBagelDeal);
+            specialOffer.Discount = CalculateDiscountForSingleOffer(productsInDeal, specialOffer);
+            discounts.Add(specialOffer);
             return true;
+        }
+
+        private decimal CalculateDiscountForSingleOffer(List<Product> products, SpecialOffer specialOffer)
+        {
+            return products.Sum(p => p.Price) - specialOffer.Price;
+        }
+
+        public decimal GetTotalDiscount(List<SpecialOffer> products)
+        {
+            return products.Sum(o =>  o.Discount);
         }
     }
 }

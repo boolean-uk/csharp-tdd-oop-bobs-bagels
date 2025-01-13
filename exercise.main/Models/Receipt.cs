@@ -12,7 +12,7 @@ namespace exercise.main.Models
         public List<Product> Products { get; set; }
         public List<SpecialOffer> SpecialOffers { get; set; }
         public decimal Total { get; set; }
-        //public decimal Discount { get; set; }
+        public decimal Discount { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -21,6 +21,7 @@ namespace exercise.main.Models
             Products = basket.Products;
             Total = basket.GetPriceWithDiscounts();
             SpecialOffers = basket.SpecialOffers;
+            Discount = basket.GetTotalDiscount();
             Date = DateTime.Now;
         }
         public string FullReceipt()
@@ -29,10 +30,11 @@ namespace exercise.main.Models
                 $"Date: {Date} \n" +
                 $"----------------------------\r\n" +
                 $"Products: \n" +
-                $"{string.Join("\n", Products.Select(p => p.SKU + " " + p.Variant + " " + p.Price))} \n" +
+                $"{string.Join("\n", Products.Select(p => p.ToString()))} \n" +
                 $"Special Offers: \n" +
-                $"{string.Join("\n", SpecialOffers.Select(p => p.Variant + " " + p.Price))} \n" +
+                $"{string.Join("\n", SpecialOffers.Select(p => p.ToString()))} \n" +
                 $"----------------------------\r\n" +
+                $"Total discount: -$" + Discount.ToString() + "\n" +
                 $"Total: {Total} \n";
         }
     }

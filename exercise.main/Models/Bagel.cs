@@ -33,5 +33,17 @@ namespace exercise.main.Models
         {
             return Price + Fillings.Sum(f => f.Price);
         }
+    
+        public override string ToString()
+        {
+            string result = $"{Variant} - ${Price}\n";
+            foreach (var filling in Fillings)
+            {
+                result += $"\t{filling.Variant} - ${filling.Price}\n";
+            }
+            return result;
+        }
     }
+
+
 }

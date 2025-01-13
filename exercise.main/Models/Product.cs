@@ -17,5 +17,10 @@ namespace exercise.main.Models
             get => price;
             set => price = Math.Round(value, 2);
         }
+
+        public override string ToString()
+        {
+            return $"{Variant} - ${Price}";
+        }
     }
 }

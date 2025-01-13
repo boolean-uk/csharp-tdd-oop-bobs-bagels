@@ -38,7 +38,6 @@ namespace exercise.main.Models
         {
             return products.Sum(p =>
             {
-                decimal price = 0;
                 if (p is Bagel bagel)
                 {
                     return bagel.GetTotalPrice();
@@ -86,9 +85,18 @@ namespace exercise.main.Models
             }
         }
 
-        public void clear()
+        public void Clear()
         {
             Products.Clear();
+        }
+
+        public decimal GetTotalDiscount()
+        {
+            if (SpecialOffers.Count == 0)
+            {
+                GetPriceWithDiscounts();
+            }
+            return _discountService.GetTotalDiscount(SpecialOffers);
         }
     }
 }
