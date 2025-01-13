@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    abstract class Coffee : Item
+    internal class Coffee
     {
+        public string Name { get; set; }
+        public string SKU { get; set; }
+        public string Price { get; set; }
+        public string Variant { get; set; }
     }
 }

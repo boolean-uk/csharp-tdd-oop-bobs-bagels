@@ -10,5 +10,5 @@
 | Bagel.cs   	| AddFilling(Filling fillingType) 	| adds filling to the bagels list of fillings, if in stock             	|                  	|
 | Filling.cs 	| GetCost()                       	| Returns the cost of the filling                                      	| int cost;        	|
 | store.cs   	| AvaiableItems()                 	| returns all avaiable items in stock                                  	| List<Item> items 	|
-|            	|                                 	|                                                                      	|                  	|
-|            	|                                 	|                                                                      	|                  	|
+| basket.cs  	| Discount()                      	| calculates discount                                                  	| int discount;    	|
+| basket.cs  	| PrintReceipts()                 	| prints out receipte from basket, with savings                        	|                  	|

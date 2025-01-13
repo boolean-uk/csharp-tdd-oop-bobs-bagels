@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class BaconFilling : Filling
+    internal class Product
     {
     }
 }

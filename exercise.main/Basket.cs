@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal class Basket
+    public class Basket
     {
+        private List<Iproduct> _items = new List<Iproduct>();
+        public List<Iproduct> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
+        public void Add(Iproduct item)
+        { 
+            Items.Add(item);        
+        }
+            
     }
 }
