@@ -142,4 +142,46 @@ public class Tests
 
         Assert.That(Math.Round(basket.GetCostAfterDiscounts(), 4), Is.EqualTo(Math.Round(truePrice, 4)));
     }
+
+    [Test]
+    public void TestPrintReceiptAndTotalCost()
+    {
+        for (int i = 0; i <= 31; i++)
+            basket.Add(new Bagel("Everything"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Sesame"));
+        basket.Add(new Bagel("Plain"));
+
+        basket.items[0].AddFilling(new Filling("Egg"));
+        basket.items[4].AddFilling(new Filling("Egg"));
+        basket.items[7].AddFilling(new Filling("Cream Cheese"));
+        basket.items[7].AddFilling(new Filling("Smoked Salmon"));
+        basket.items[16].AddFilling(new Filling("Bacon"));
+        basket.items[28].AddFilling(new Filling("Ham"));
+
+        basket.Add(new Coffee("White"));
+        basket.Add(new Coffee("Black"));
+
+        Receipt receipt = new Receipt();
+
+        receipt.AddAll(basket.items);
+
+        float trueCost = 0f;
+
+        trueCost += 3.99f;
+        trueCost += 3.99f;
+        trueCost += 2.49f;
+        trueCost += 1.25f;
+        trueCost += 1.25f;
+        trueCost += 0.49f;
+        trueCost += 0.39f;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+
+        Assert.That(receipt.PrintReceipt(basket.items), Is.EqualTo(trueCost));
+    }
 }
