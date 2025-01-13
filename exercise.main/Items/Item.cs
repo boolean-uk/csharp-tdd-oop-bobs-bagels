@@ -25,10 +25,15 @@ namespace exercise.main.Items
             _cost = cost;
         }
 
-        override
-        public string ToString()
+        
+        public override string ToString()
         {
             return $"{Name} - {Variant} - {Price}£";
+        }
+
+        public virtual List<Item> GetItems()
+        {
+            return [this];
         }
     }
 }

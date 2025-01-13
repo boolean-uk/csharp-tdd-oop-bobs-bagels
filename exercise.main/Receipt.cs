@@ -4,59 +4,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using exercise.main.Items;
+using exercise.main.Discounts;
 
 namespace exercise.main
 {
-    public class Pair<T1, T2>
-    {
-        public required T1 Left { get; set; }
-        public required T2 Right { get; set; }
-    }
     public class Receipt
     {
-        public List<Action<Dictionary<string, Pair<Item, int>>, List<Tuple<Item, int, float>>>> discounts = [
-            (items, priceLog) => { Misc.BagelDiscount(items, priceLog, 12, 3.99f); }, // 12 bagel discount
-            (items, priceLog) => { Misc.BagelDiscount(items, priceLog, 6, 2.39f); }, // 6 bagel discount
-            ];
-        private List<Tuple<Item, int, float>> priceLog = new();
+        private List<Discount> discounts = [
+            new AmountDiscount("BGL", 12, 3.99f),
+            new AmountDiscount("BGL", 6, 2.49f),
+            new MealDealDiscount("BGL", "COF", 1, 1, 1.25f),
+        ];
 
-        private Dictionary<string, Pair<Item, int>> _itemList;
-        public Dictionary<string, Pair<Item, int>> ItemList {  get { return _itemList; } }
-        private Receipt(Dictionary<string, Pair<Item, int>> itemList)
+        private List<Tuple<List<Item>, int, float>> _priceLog = new();
+
+        public List<Tuple<List<Item>, int, float>> PriceLog { get { return _priceLog; } }
+
+        private Dictionary<string, List<Item>> _itemList;
+        public Dictionary<string, List<Item>> ItemList {  get { return _itemList; } }
+        public Receipt(List<Item> basket)
         {
-            _itemList = itemList;
+            _itemList = SetUp(basket);
         }
 
         public float GetTotalPriceWithoutDiscounts()
         {
-            return _itemList.Select(a => a.Value.Right * a.Value.Left.Price).Sum();
+            _priceLog.Clear();
+            var items = _itemList.ToDictionary(entry => entry.Key, entry => entry.Value.ToList());
+            foreach (var row in items)
+            {
+                _priceLog.Add(new Tuple<List<Item>, int, float>([row.Value.First()], row.Value.Count, row.Value.Sum(i => i.Price)));
+            }
+            return _priceLog.Sum(i => i.Item3);
         }
 
-        public static Receipt GetReceipt(List<Item> basket)
+        public float GetTotalPrice()
         {
-            Dictionary<string, Pair<Item, int>> itemList = [];
-            var AddItemToList = (Item i) =>
+            _priceLog.Clear();
+            var items = _itemList.ToDictionary(entry => entry.Key, entry => entry.Value.ToList());
+            discounts.ForEach(discount => discount.GetDiscount(items, _priceLog));
+            foreach (var row in items)
             {
-                if (itemList.ContainsKey(i.Id))
-                {
-                    itemList[i.Id].Right += 1;
-                }
-                else
-                {
-                    itemList.Add(i.Id, new Pair<Item, int> { Left = i, Right = 1 });
-                }
-            };
-
-            foreach (Item item in basket)
-            {
-                if (item is Bagel)
-                {
-                    ((Bagel)item).Fillings.ForEach(AddItemToList);
-                }
-                AddItemToList(item);
+                _priceLog.Add(new Tuple<List<Item>, int, float>([row.Value.First()], row.Value.Count, row.Value.Sum(i => i.Price)));
             }
+            return _priceLog.Sum(i => i.Item3);
+        }
 
-            return new Receipt(itemList);
+        private Dictionary<string, List<Item>> SetUp(List<Item> basket)
+        {
+            Dictionary<string, List<Item>> itemList = [];
+
+            basket.ForEach(item =>
+            {
+                item.GetItems().ForEach(i =>
+                {
+                    if (!itemList.ContainsKey(i.Id))
+                    {
+                        itemList[i.Id] = new List<Item>();
+                    }
+                    itemList[i.Id].Add(i);
+                });
+            });
+
+            return itemList;
         }
     }
 }
