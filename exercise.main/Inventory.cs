@@ -23,7 +23,7 @@ public class Inventory : IInventory, IEnumerable<KeyValuePair<Product, int>>
     
     public void AddProduct(Product product, int quantity)
     {
-        throw new NotImplementedException();
+        _products.Add(product, quantity);
     }
     
     public void RemoveProduct(Product product, int quantity)
@@ -43,7 +43,15 @@ public class Inventory : IInventory, IEnumerable<KeyValuePair<Product, int>>
     
     public Product GetProduct(string sku)
     {
-        throw new NotImplementedException();
+        try
+        {
+            
+            return _products.First(p => p.Key.Sku == sku).Key;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Product not found", e);
+        }
     }
 }
 
