@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using exercise.main;
+using exercise.main.Discount;
 using NUnit.Framework.Constraints;
 namespace exercise.tests;
 
