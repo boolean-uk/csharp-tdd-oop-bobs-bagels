@@ -6,8 +6,8 @@
 
 | Function Name  | Parameters               | Behavior                       | Returns      |
 |----------------|--------------------------|--------------------------------|--------------|
-| GetCost        | double cost              |                                |              |
-| SetCost        | double newCost           |                                |              |
+| GetCost        | double cost              | Get cost of product            | double       |
+| SetCost        | double newCost           | Set cost of product            | void         |
 | AddPromo       | int amount, double price | Add a new promotion on product | void         |
 
 ### Basket
@@ -16,19 +16,21 @@
 |--------------------------|------------------------|-------------------------------------------------|---------|
 | Basket                   | int? capacity          | Constructor, sets capacity to cart              | void    |
 | Add                      | string SKU, int amount | Adds product to basket                          | void    |
-| Remove                   | string SKU, int amount |                                                 | void    |
+| Remove                   | string SKU, int amount | Removes product from basket                     | void    |
 | SetCapacity              | int newCapacity        | Sets the new capacity of a basket               | void    |
-| [private] CheckDiscounts |                        |                                                 |         |
+| [private] CheckDiscounts |                        | Checks if there are any discounts               | void    |
 | [private] CheckCapacity  |                        | Checks whether the basket can fit more products | bool    |
-| GetTotal                 |                        | Gets the total cost of the basket               | int  |
+| GetTotal                 |                        | Gets the total cost of the basket               | int     |
 | Order                    |                        | Submits the bagel order                         | void    |
 | [override] ToString      |                        | Generates a string representation of cart       | string  |
 
 ### BasketItem
-- Product
-- Amount
-- Price
-- Discount
+| Function Name  | Parameters               | Behavior                       | Returns      |
+|----------------|--------------------------|--------------------------------|--------------|
+| Product		 |							|  Get and set                   | Product      |
+| Amount		 |							|  Get and set                   | int			|
+| Price			 |							|  Get and set                   | double       |
+| Discount		 |							|  Get and set                   | double       |
 
 ### Inventory
 
@@ -47,7 +49,12 @@
 | [override] ToString |                 | Generate string representation of order (receipt) | string  |
 
 ### OrderLine
-- BasketItem
+| Function Name  | Parameters               | Behavior                       | Returns      |
+|----------------|--------------------------|--------------------------------|--------------|
+| Amount		 |							|  Get and set                   | int          |
+| Price			 |							|  Get and set                   | double		|
+| Discount		 |							|  Get and set                   | double       |
+| BasketItem	 |							|  Get and set                   | BasketItem   |
 
 
 # Domain Model - second iteration
@@ -88,8 +95,8 @@
 
 | Function Name | Parameters                  | Behavior                          | Returns |
 |---------------|-----------------------------|-----------------------------------|---------|
-| Add           | Product product, int amount |                                   | void    |
-| Remove        | string sku, int amount	  |                                   | void    |
+| Add           | Product product, int amount | Add product to inventory                                  | void    |
+| Remove        | string sku, int amount	  | Remove item from inventory                                  | void    |
 | GetProduct    | string SKU                  | Get product by SKU                | Product |
 | GetStock      |                             | Get stock of the specific product | int     |
 | Products      |                             | Returns a dictionary of all products in inventory | Dictionary<string, Product>     |
