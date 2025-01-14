@@ -10,66 +10,104 @@ namespace exercise.main
 {
     public class Basket
     {
-        private List<BaseProduct> products = new List<BaseProduct>();
+        private List<Product> products = new List<Product>();
         private Inventory _inventory;
 
-        public Basket(Inventory inventory) 
+
+        private int _capacity; 
+        private int Capacity { get => _capacity; }
+        private int NrOfItems { get => products.Count; }
+        private DiscountManager _DM;
+        private DiscountManager DM { get => _DM; }
+        private List<string> _warnings = new List<string>();
+        public List<string>  Warnings { 
+            get { 
+                var temp = _warnings.ToList();
+                _warnings.RemoveRange(0, _warnings.Count);
+                return temp;
+            }
+        }
+        public Basket(Inventory inventory, DiscountManager dm ,int capacity = 15) 
         {
             this._inventory = inventory;
+            this._capacity = capacity;
+            this._DM = dm;
+        }
+
+        public void setCapacity(int newCapacity)
+        {
+            this._capacity = newCapacity;
+            if (this.Capacity < products.Count)
+            {
+                var tempProducts = products.ToList().GetRange(0,this.Capacity);
+                products = tempProducts;
+            }
         }
 
         
-        //public void addProduct(BaseProduct product)
         public void addProduct(string productSku, int amount = 1)
         {
             if (amount < 1)
             {
-                Debug.Assert(amount < 1, "Amount to add must be positive");
+                _warnings.Add("Amount to add must be positive");
+                return;
             }
 
             int productStock = this._inventory.getStock(productSku);
             if (productStock < amount)
             {
-                Debug.Assert(productStock <= 0, $"There's not enough {productSku} in stock...");
+                _warnings.Add($"Can't add {amount} {productSku}, as the there's {productStock} in stock ");
+                return;
             }
+            
+            if (NrOfItems + amount > Capacity )
+            {
+                _warnings.Add($"Can't add {amount} {productSku}, will be more than Baskets Capacity of {Capacity} items");
+                return;
+            }
+
+
             for (int i = 0; i < amount; i++)
             {
-                Product p = new Product(
-                    productSku,
-                    _inventory.getName(productSku),
-                    _inventory.getPrice(productSku)
-                    );
-
-                this.products.Add(p);
+                this.products.Add(_inventory.createProductType(productSku));
             }
             this._inventory.decreaseStock(productSku, amount);
         }
-        public void removeProduct(string productSku, int amount = 1)
+        public bool removeProduct(string productSku, int amount = 1)
         {
             if (amount < 1)
             {
-                Debug.Assert(amount < 1, "Amount to remove must be positive");
+                _warnings.Add($"Amount to remove must be positive");
+                return false;
+
             }
 
             int amountProductInBasket = this.countProductTypes(productSku);
             int nrToRemove = Math.Min(amountProductInBasket, amount);
             var itemsToRemoveList = this.products.Where(x => x.SKU == productSku).ToList();
+            if (itemsToRemoveList.Count == 0)
+            {
+                _warnings.Add($"Can't remove {productSku}, as its not in the basket");
+                return false;
+            }
             for (int i = 0; i < nrToRemove; i++)
             {
                 this.products.Remove(itemsToRemoveList[i]);
             }
+            
             this._inventory.IncreaseStock(productSku, nrToRemove);
+            return true; 
         }
         public int countProductTypes(string SKU)
         {
             return products.Where(x=>x.SKU == SKU).Count();
 
         }
-        public List<BaseProduct> getProducts()
+        public List<Product> getProducts()
         {
             // Return a deep copy of the list... 
-            var cpyList = new List<BaseProduct>();
-            foreach (BaseProduct product in this.products)
+            var cpyList = new List<Product>();
+            foreach (Product product in this.products)
             {
                 cpyList.Add(product);
             }
@@ -94,24 +132,38 @@ namespace exercise.main
             return this.products.Count > 0;
         }
 
+        public float getTotal()
+        {
+            var orderDataDict = DM.calculateDiscount(this);
+
+            return orderDataDict.Values.Sum(x => x.total_price);
+
+        }
+        
+        public float getUndiscountedTotal()
+        {
+            return this.products.Sum(x => x.ProductPrice);
+
+        }
+
         public string stringify(DiscountManager dm)
         {
             var cacledBasket = dm.calculateDiscount(this);
-            string ret = string.Format("{0,0}{1,25}{2,25}\n", "Name", "Amount", "Cost");
+            string ret = string.Format("{0,0}{1,25}{2,25}{3,25}\n", "Type", "Name", "Amount", "Cost");
 
             foreach (var x in cacledBasket.ToList())
             {
                 if (x.Value.UsedDiscount == null)
                 {
-                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}", _inventory.getName(x.Value.name), x.Value.amount, x.Value.total_price);
+                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}{3,25}", _inventory.getProductType(x.Value.name) ,_inventory.getName(x.Value.name), x.Value.amount, x.Value.total_price);
                 }
                 else
                 {
-                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}", x.Value.UsedDiscount.stringify(), x.Value.amount, x.Value.total_price);
+                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}{3,25}", "Deal", x.Value.UsedDiscount.stringify(), x.Value.amount, x.Value.total_price);
                 }
             }
 
-            ret += $"\n\n Total: {cacledBasket.Sum(x => x.Value.total_price)}";
+            ret += $"\n\n Total: {getTotal()}";
 
             return ret;
         }

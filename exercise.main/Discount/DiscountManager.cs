@@ -23,20 +23,34 @@ namespace exercise.main.Discount
             // Looks for conflicting deals, removes them and favors best value deals
 
             List<Tuple<int, int, string>> conflictingIndexes = new List<Tuple<int, int, string>>();
+            Dictionary<int, List<int>> handleDuplications = new();
             List<DiscountedProductCount> possibleCombinations = new List<DiscountedProductCount>();
 
             // Count/collect possible conflicting deals
             for (int i = 0; i < possibleDiscounts.Count; i++)
             {
                 bool noConflict = true;
-                for (int j = i + 1; j < possibleDiscounts.Count; j++)
+                //for (int j = i + 1; j < possibleDiscounts.Count; j++)
+                for (int j = 0; j < possibleDiscounts.Count; j++)
                 {
+                    if (j == i)
+                        continue; 
                     foreach (var key in possibleDiscounts[j].SKU_amount.Keys)
                     {
 
                         if (possibleDiscounts[i].SKU_amount.ContainsKey(key))
                         {
-                            conflictingIndexes.Add(new(i, j, key));
+                            if (!handleDuplications.ContainsKey(i))
+                                handleDuplications[i] = new();
+                            if (!handleDuplications.ContainsKey(j))
+                                handleDuplications[j] = new();
+
+                            //if (!handleDuplications[i].Contains(j))
+                            if (!handleDuplications[j].Contains(i))
+                            {
+                                conflictingIndexes.Add(new(i, j, key));
+                                handleDuplications[i].Add(j);
+                            }
                             noConflict = false;
                         }
                     }
@@ -47,35 +61,31 @@ namespace exercise.main.Discount
                 }
             }
 
+            var bestDeals = new List<DiscountedProductCount>(possibleCombinations);
+            float total = basket.getUndiscountedTotal();
             foreach (var c in conflictingIndexes)
             {
                 int index_i = c.Item1;
                 int index_j = c.Item2;
                 string SKU = c.Item3;
-                //float? defprice = basket.getDefaultPrice(SKU);
-                //if (defprice == null)
-                //Debug.Assert(defprice != null, "expected SKU to exist in basket...");
 
-                if (possibleDiscounts[index_i].possibleSavings > possibleDiscounts[index_j].possibleSavings)
+                if (total + possibleDiscounts[index_i].possibleSavings > total + possibleDiscounts[index_j].possibleSavings)
                 {
-                    possibleCombinations.Add(possibleDiscounts[index_i]);
+                    bestDeals.Add(possibleDiscounts[index_i]);
                 }
                 else
                 {
-                    possibleCombinations.Add(possibleDiscounts[index_j]);
+                    bestDeals.Add(possibleDiscounts[index_j]);
 
                 }
 
-
-                //defprice.
-
             }
 
-            return possibleCombinations;
+            return bestDeals;
         }
 
         //public Order calculateDiscount(Basket basket)
-        public Dictionary<string, OrderData> calculateDiscount(Basket basket)
+        private List<DiscountedProductCount> getPossibleDiscounts(Basket basket)
         {
             List<DiscountedProductCount> possibleDiscounts = new List<DiscountedProductCount>();
             foreach (DiscountBase discount in discountTypes)
@@ -85,7 +95,11 @@ namespace exercise.main.Discount
                     possibleDiscounts.Add(discount.getDiscountedPrice(basket));
                 }
             }
-
+            return possibleDiscounts;
+        }
+        public Dictionary<string, OrderData> calculateDiscount(Basket basket)
+        {
+            var possibleDiscounts = getPossibleDiscounts(basket);
             var bestDealsDiscounts = pickBestDeals(possibleDiscounts, basket);
 
             List<OrderData> orderData = new List<OrderData>();
@@ -102,7 +116,7 @@ namespace exercise.main.Discount
                     int amount = di.Value;
 
                     int counted = 0;
-                    List<BaseProduct> temp = new List<BaseProduct>();
+                    List<Product> temp = new List<Product>();
 
                     foreach (var product in productList)
                     {

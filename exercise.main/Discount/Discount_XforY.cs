@@ -77,7 +77,7 @@
         public override string stringify()
         {
             
-            return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
+            return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
         }
     }
 

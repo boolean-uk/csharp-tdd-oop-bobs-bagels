@@ -5,14 +5,15 @@ using exercise.main;
 using exercise.main.Discount;
 
 Inventory inventory = new Inventory();
-Basket basket = new Basket(inventory);
+
 DiscountManager discountManager = new DiscountManager(inventory);
+Basket basket = new Basket(inventory, discountManager);
 
 inventory.Add("BGLO", "Onion", 0.49f, 100);
 inventory.Add("BGLP", "Plain", 0.39f, 100);
 inventory.Add("BGLE", "Everything", 0.39f, 100);
 inventory.Add("BGLS", "Sesame", 0.49f, 100);
-inventory.Add("COFB", "Black", 0.49f, 100);
+inventory.Add("COFB", "Black", 0.99f, 100);
 inventory.Add("FILH", "Ham", 0.12f, 100);
 inventory.Add("FILC", "Cheese", 0.12f, 100);
 inventory.Add("FILE", "Egg", 0.12f, 100);
@@ -31,7 +32,7 @@ var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 }};
 var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 discountManager.addDiscountType(d3);
 
-var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 }};
+var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 }};
 var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 discountManager.addDiscountType(d4);
 

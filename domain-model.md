@@ -44,9 +44,9 @@ I want customers to only be able to order things that we stock in our inventory.
 So we can sell stuff before it goes bad and entice customers to buy,
 I want to be able to set `Special Offer` for any product that matches `buy x nr of z for y`, `buy z, get [a,..] for y`.
 
-12.  As the manager,
+<!-- 12.  As the manager,
 So we don't lose money by allowing infinite purchases of a discounted product,
-I want to be able to define how many of product `z` that should have the `Special Offer`.
+I want to be able to define how many of product `z` that should have the `Special Offer`. -->
 
 13. As a customer,
 So I know that I'm paying the the discounted price for a discounted product and no more,
@@ -63,7 +63,7 @@ I'd like the reciepe to contain a Total for all products on the reciept.
 
 16. As a Manager,
 So I can keep track of the stock for each product,
-I want each purchase to be registered and the stock to be updated.
+I want each purchase to be registered and the stock to be updated. 
 
 17.   As a Manager,
 So that the customer will have a good impression of us,
@@ -113,19 +113,20 @@ I want the customer to see how much they saved on discounts.
 | 4             | Basket           | Capacity (prop)             | Manager decides to allow one more item in the basket                                                      | The basket now contains a productlist that can fit one more item                      |
 | 5             | Basket           | Remove                      | User removes an item that doesn't exist in their basket                                                   | User recieves a warning                                                               |
 | 6             | Basket           | GetTotal                    | User has added several products to basket, they want to know how much its going to cost                   | returns the sum of all items                                                          |
-| 10            | Basket           | Add                         | Usere wants to add a Product or ProductComponent to their Basket, but stock is 0                          | nothing is added                                                                      |
+| 10            | Basket           | Add                         | User wants to add a Product to their Basket, but stock is 0                          | nothing is added                                                                      |
+| 8             | Basket           | Add                         | User want to select several fillings for their Bagle                                  | Fillings are addded to the order                                      |
 |               |                  |                             |                                                                                                           |                                                                                       |
-| 8             | ProductComponent | ProductComponent  Product   | User want to order a custom product, containing one or several ingredients                                | A Product that contains a list of ProductComponent (which are inherited from Product) |
+<!--| 8             | ProductComponent | ProductComponent  Product   | User want to order a custom product, containing one or several ingredients                                | A Product that contains a list of ProductComponent (which are inherited from Product) |-->
 |               |                  |                             |                                                                                                           |                                                                                       |
-| 8             | ProductDesigner  | Factory class for Products  | Used to construct products                                                                                |                                                                                       |
-| 8             | ProductDesigner  | Create                      | User want to select several fillings (ProductComponents) for their Bagle                                  | a Bagle is returned with the requested fillings                                       |
+<!-- | 8             | ProductDesigner  | Factory class for Products  | Used to construct products                                                                                |                                                                                       |
+| 8             | ProductDesigner  | Create                      | User want to select several fillings for their Bagle                                  | a Bagle is returned with the requested fillings                                       | -->
 |               |                  |                             |                                                                                                           |                                                                                       |
-| 10            | Product          | Stock (prop)                | User wanted to add Product or ProductComponent to their order, but stock is 0                             |                                                                                       |
-| 11            | Product          | Discount discount           | Any product may have a Discount, applied to the final price                                               |                                                                                       |
-| 11            | Discount         | Constructor                 | class used to represent discounts                                                                         |                                                                                       |
+| 11            | DiscountManager  | Discount discount           | Any product may have a Discount, applied to the final price                                               |                                                                                       |
 |               |                  |                             |                                                                                                           |                                                                                       |
+| 11            | Discount         | Constructor                 | class used to represent discounts                                                                         | Allows to create different types of Discounts, example: based on expiry date                                                                                      |
 | 11, 24        | Discount         | GetDiscountedPrice(...)     | user is paying and the discounted price needs to be applied                                               | User ends up paying the reduced price                                                 |
-| 12            | Discount         | Condition (lambda)          | defines what circumstances the discount is valid for (Limited amount, )                                   |                                                                                       |
+|               |                  |                             |                                                                                                           |                                                                                       |
+<!--| 12            | Discount         | Condition (lambda)          | defines what circumstances the discount is valid for (Limited amount, )                                   |                                                                                       | -->
 |               |                  |                             |                                                                                                           |                                                                                       |
 | 13            | CashRegister     | Constructor                 | all purchases is handled by the CashRegister                                                              |                                                                                       |
 | 13            | CashRegister     | RegisterBasket              | User is ready to pay, all products in their basket will be summed up,  any discount will be accounted for | Sets the currentBasket, ready for user to Pay                                         |
@@ -135,7 +136,8 @@ I want the customer to see how much they saved on discounts.
 | 13            | CashRegister     | FinalizePurchase            | User doesn't have enough money                                                                            | currentBasket is set to Null                                                          |
 |               |                  |                             |                                                                                                           |                                                                                       |
 | 16            | Inventory        | Constructor                 | Keep tracks on the inventory                                                                              |                                                                                       |
-| 19            | Inventory        | History (prop)              | When a purchase is made, it is kept in the history using DateTime as an ID                                |                                                                                       |
+<!-- | 19            | Inventory        | History (prop)              | When a purchase is made, it is kept in the history using DateTime as an ID                                |                                                                                       | -->
+| 10            | Inventory        | Stock (prop)                | User wanted to add Product to their order, but stock is 0                             |   Nothing is added                                                                                    |
 | 16            | Inventory        | SetBusy(Product)            | Marks an Product as taken by another Users Basket                                                         |                                                                                       |
 | 16            | Inventory        | Remove(Product)             | Product is removed when User Finalizes a Purchase                                                         | Product is removed from inventory                                                     |
 | 16            | Inventory        | add(Product, nr)            | Manager bought 100 jars of pickle                                                                         | 100 jars of pickle added to the inventory                                             |

@@ -19,10 +19,10 @@ namespace exercise.main
             this.price = price;
             this.stock = stock;
         }
-        public string stringify()
+        public string stringify(Inventory inventory)
         {
             //return string.Format("{0,0:10}{1,0:10}{2,0:30}{3,0:40}", SKU, name, price, stock);
-            return String.Format("{0,0}{1,10}{2,10}{3,10}", SKU, name, price, stock);
+            return String.Format("{0,0}{1,15}{2,15}{3,10}{4,10}", SKU, inventory.getProductType(SKU), name, price, stock);
         }
     }
     
@@ -33,14 +33,43 @@ namespace exercise.main
         public Inventory()
         {
         }
+
+        public Product createProductType(string SKU)
+        {
+            return new Product(SKU, this.getName(SKU), this.getPrice(SKU));
+
+        }
+        public string getProductType(string SKU)
+        {
+            // Would be nice if manager could register this themselves, similar too discounts
+            if (SKU.Length == 0)
+                return "unknown";
+
+            string type = SKU[0..1].ToUpper();
+            switch (type)
+            {
+                case "B":
+                    return "Bagel";
+                    break; 
+                
+                case "C":
+                    return "Coffee";
+                    break; 
+                
+                case "F":
+                    return "Filling";
+                    break; 
+            }
+            return "unknown";
+        }
         public string stringify()
         {
             
             //return "Inventory:\n"+ string.Join("\n", inventory.ToList().Select(x=>x.Value.toString()));
-            string st = String.Format("{0,0}{1,10}{2,10}{3,10}\n", "SKU", "Product", "Price", "Stock"); ;
+            string st = String.Format("{0,0}{1,15}{2,15}{3,10}{4,10}\n", "SKU", "Product Type", "Variant", "Price", "Stock"); ;
             foreach (var item in inventory.ToList())
             {
-                st += item.Value.stringify() + "\n";
+                st += item.Value.stringify(this) + "\n";
             }
             return st;
         }
@@ -55,7 +84,7 @@ namespace exercise.main
 
             inventory.Add(SKU,new InventoryData(name, SKU, price, stock));
         }
-        public void Add(BaseProduct product, int stock)
+        public void Add(Product product, int stock)
         {
             if (inventory.ContainsKey(product.SKU))
             {

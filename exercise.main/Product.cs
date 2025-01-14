@@ -20,6 +20,7 @@ namespace exercise.main
         void presentDeals();
         void addToBasket(string skuu, int amount = 1);
         void removeFromBasket(string sku, int amount = 1);
+        void changeCap(int amount);
         void showBasket();
         void run();
         void exit();
@@ -35,6 +36,7 @@ namespace exercise.main
             
         }
         public delegate void basketOpFunc(string sku, int amount);
+        public delegate void baskeSetFunc(int amount);
 
         public Inventory inventory  {get; set;}
         public Basket    basket     { get; set; }
@@ -79,6 +81,7 @@ namespace exercise.main
 
             basketOpFunc addTo = new basketOpFunc(addToBasket);
             basketOpFunc remFrom = new basketOpFunc(removeFromBasket);
+            baskeSetFunc setCapF = new baskeSetFunc(changeCap);
 
             string exitCommand = "/q";
             string userInput = "";
@@ -90,6 +93,11 @@ namespace exercise.main
                 {
                     showBasket();
                 }
+                var currentWarnings = basket.Warnings;
+                Console.WriteLine(string.Join("\n", currentWarnings));
+                
+                Console.WriteLine("\nInstructions: \n\t/q : quit\n\t/add SKU NR: add items\n\t/rem SKU NR: remove items\n\t/cap NR : change basket capacity");
+
                 userInput = Console.ReadLine();
                 Console.Clear();
 
@@ -99,6 +107,7 @@ namespace exercise.main
 
                     CheckPrefromBasketOp(args, "/add", addTo);
                     CheckPrefromBasketOp(args, "/rem", remFrom);
+                    changeBasketSetting(args, "/cap", setCapF);
 
                 }
             }
@@ -122,6 +131,26 @@ namespace exercise.main
                 }
             }
         }
+        void changeBasketSetting(string[] args, string commandWord,baskeSetFunc f)
+        {
+            if (args[0].ToLower() == commandWord)
+            {
+                if (args.Length >= 2)
+                {
+                    int parsed = 0;
+                    if (int.TryParse(args[1], out parsed))
+                    {
+                        f( parsed);
+                    }
+                }
+
+            }
+        }
+
+        public void changeCap(int amount )
+        {
+            basket.setCapacity(amount);
+        }
     }
     public class StoreFrontExecutor
     {
@@ -138,20 +167,20 @@ namespace exercise.main
 
     }
 
-    public abstract class BaseProduct
+    public class Product
     {
         protected string name;
         private string sku;
         protected float productPrice;
-        protected List<BaseProduct> subProducts;
+        protected List<Product> subProducts;
         //protected ProductType productType;
         //public BaseProduct(string SKU,string name, float defaultPrice, ProductType productType, List<BaseProduct>? subProducts = null)
-        public BaseProduct(string SKU,string name, float defaultPrice, List<BaseProduct>? subProducts = null)
+        public Product(string SKU,string name, float defaultPrice, List<Product>? subProducts = null)
         {            
             this.sku = SKU;
             this.name = name;
             this.productPrice = defaultPrice;
-            this.subProducts = subProducts ?? new List<BaseProduct>();
+            this.subProducts = subProducts ?? new List<Product>();
             //this.productType = productType;
         }
         public float CombinedPrice
@@ -170,13 +199,16 @@ namespace exercise.main
         public string SKU { get => sku;}
     }
 
-    public class Product: BaseProduct
-    {
-        public Product(string SKU, string name, float defaultPrice,List<BaseProduct>? subProducts = null)
-            : base(SKU, name, defaultPrice, subProducts)
-        {
-        }
-    }
+    //public class Product: BaseProduct
+    //{
+    //    // This isn't necessary, 
+    //    public Product(string SKU, string name, float defaultPrice,List<BaseProduct>? subProducts = null)
+    //        : base(SKU, name, defaultPrice, subProducts)
+    //    {
+    //    }
+    //}
+    
+
 
 
 
