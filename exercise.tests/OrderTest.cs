@@ -1,5 +1,4 @@
 using exercise.main;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace exercise.tests;
 
@@ -22,6 +21,22 @@ public class OrderTest
         var _basket = new Basket(_inventory);
         
         _basket.Add("BGLO", 3);
+        _basket.Add("COFB", 1);
+        var order = _basket.Order();
+        
+        Console.WriteLine(order);
+        
+        Assert.IsNotEmpty(order.ToString());
+    }
+    
+    [Test]
+    public void TestDiscounts()
+    {
+        var _basket = new Basket(_inventory);
+        
+        _basket.SetCapacity(20);
+        
+        _basket.Add("BGLO", 14);
         _basket.Add("COFB", 1);
         var order = _basket.Order();
         
