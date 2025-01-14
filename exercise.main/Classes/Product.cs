@@ -14,45 +14,36 @@ namespace exercise.main.Classes
         private ProductType _type;
         private string _sku;
         private string _variant;
-        private double _discount;
         public Product(string sku, double price, ProductType type, string variant)
         {
             _sku = sku;
             _price = price;
             _type = type;
             _variant = variant;
-            _discount = 0;
         }
 
-        public double GetPrice()
+        public double Price
         {
-            double cost = _price;
-            if (_discount > 0) 
-            {
-                double percentDiscount = 1 - _discount;
-                cost *= percentDiscount;
-            }
-            return cost;
+            get => _price;
+            set => _price = value;
         }
 
-        public void SetPrice()
+        public ProductType Type
         {
-            throw new NotImplementedException();
+            get => _type;
+            set => _type = value;
         }
 
-        public string GetName()
+        public string SKU
         {
-            throw new NotImplementedException();
+            get => _sku;
+            set => _sku = value;
         }
 
-        public string GetSKU()
+        public string Variant
         {
-            return _sku;
-        }
-
-        public void AddDiscount(double amount)
-        {
-            _discount = amount;
+            get => _variant;
+            set => _variant = value;
         }
     }
 }

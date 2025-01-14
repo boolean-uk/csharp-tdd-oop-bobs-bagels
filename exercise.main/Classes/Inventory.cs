@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.Enums;
 
 namespace exercise.main.Classes
 {
     public class Inventory
     {
         private Dictionary<string, int> _stock;
+        private Dictionary<string, Product> _products;
 
         public Inventory()
         {
             _stock = new Dictionary<string, int>();
+            _products = new Dictionary<string, Product>();
         }
 
         public void Add(Product product, int? amount)
         {
-            if (_stock.ContainsKey(product.GetSKU()))
+            // If it already exists
+            if (_stock.ContainsKey(product.SKU))
             {
-                _stock[product.GetSKU()] += amount ?? 1;
+                _stock[product.SKU] += amount ?? 1;
             }
             else
             {
-                _stock.Add(product.GetSKU(), amount ?? 1);
+                _stock.Add(product.SKU, amount ?? 1);
+                _products.Add(product.SKU, product);
             }
         }
 
@@ -52,6 +57,10 @@ namespace exercise.main.Classes
         {
             return _stock.ContainsKey(sku) ? _stock[sku] : 0;
         }
+
+        public Dictionary<string, Product> Products { get { return _products; } }
+
+
     }
 
 }

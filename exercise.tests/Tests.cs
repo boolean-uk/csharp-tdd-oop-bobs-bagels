@@ -15,22 +15,67 @@ public class Tests
     {
         _order = new Order();
 
-        Product bagelOnion = new Product("BGLO", 10, ProductType.Bagel, "Onion");
-        Product bagelPlain = new Product("BGLP", 10, ProductType.Bagel, "Plain");
-        Product bagelEverything = new Product("BGLE", 10, ProductType.Bagel, "Everything");
+        Product bagelOnion = new Product("BGLO", 0.49, ProductType.Bagel, "Onion");
+        Product bagelPlain = new Product("BGLP", 0.39, ProductType.Bagel, "Plain");
+        Product bagelEverything = new Product("BGLE", 0.49, ProductType.Bagel, "Everything");
+        Product bagelSesame = new Product("BGLS", 0.49, ProductType.Bagel, "Sesame");
+
+        Product coffeeBlack = new Product("COFB", 0.99, ProductType.Coffee, "Black");
+        Product coffeeWhite = new Product("COFW", 1.19, ProductType.Coffee, "White");
+        Product coffeeCapuccino = new Product("COFC", 1.29, ProductType.Coffee, "Capuccino");
+        Product coffeeLatte = new Product("COFL", 1.29, ProductType.Coffee, "Latte");
+
+        Product fillingBacon = new Product("FILB", 0.12, ProductType.Filling, "Bacon");
+        Product fillingCheese = new Product("FILC", 0.12, ProductType.Filling, "Cheese");
+        Product fillingCreamCheese = new Product("FILX", 0.12, ProductType.Filling, "Cream Cheese");
+        Product fillingSalmon = new Product("FILS", 0.12, ProductType.Filling, "Smoked Salmon");
+        Product fillingHam = new Product("FILH", 0.12, ProductType.Filling, "Ham");
+        Product fillingEgg = new Product("FILE", 0.12, ProductType.Filling, "Egg");
+
 
         _inventory = new Inventory();
         _inventory.Add(bagelOnion, 100);
         _inventory.Add(bagelPlain, 100);
         _inventory.Add(bagelEverything, 100);
+        _inventory.Add(fillingBacon, 50);
+        _inventory.Add(fillingCheese, 50);
+        _inventory.Add(coffeeBlack, 10);
+        _inventory.Add(fillingEgg, 10);
+        _inventory.Add(bagelSesame, 10);
+        _inventory.Add(coffeeCapuccino, 10);
+        _inventory.Add(coffeeLatte, 10);
+        _inventory.Add(coffeeWhite, 10);
+        _inventory.Add(fillingCreamCheese, 10);
+        _inventory.Add(fillingHam, 10);
+        _inventory.Add(fillingSalmon, 10);
+        _inventory.Add(coffeeWhite, 10);
 
-        _basket = new Basket();
+        Discount discount = new Discount();
+        discount.AddQuantityDiscount("BGLO", 6, 0.45);
+        discount.AddQuantityDiscount("BGLP", 6, 0.45);
+        discount.AddQuantityDiscount("BGLE", 6, 0.45);
+        discount.AddQuantityDiscount("BGLS", 6, 0.45);
 
-        _basket.Add(bagelOnion, 1);
-        _basket.Add(bagelPlain, 3);
-        _basket.Add(bagelEverything, 5);
+        discount.AddQuantityDiscount("BGLO", 12, 1.89);
+        discount.AddQuantityDiscount("BGLP", 12, 1.89);
+        discount.AddQuantityDiscount("BGLE", 12, 1.89);
+        discount.AddQuantityDiscount("BGLS", 12, 1.89);
 
-        List<BasketItem> items = _basket.SubmitOrder();
+        List<string> comboDiscount = new List<string>();
+        comboDiscount.Add("BGLP");
+        comboDiscount.Add("COFB");
+
+        discount.AddComboDiscount(comboDiscount, 1.25);
+        _basket = new Basket(discount);
+
+        _basket.Add(bagelOnion, 13);
+        _basket.Add(bagelPlain, 5);
+        _basket.Add(bagelEverything, 6);
+        _basket.Add(fillingEgg, 6);
+        _basket.Add(fillingCheese, 5);
+        _basket.Add(coffeeBlack, 5);
+
+        List<BasketItem> items = _basket.GetItems();
 
         foreach (BasketItem item in items) 
         {
@@ -143,25 +188,10 @@ public class Tests
         Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
 
         // act
-        double cost = bagelGarlic.GetPrice();
+        double cost = bagelGarlic.Price;
 
         // assert
         Assert.That(cost, Is.EqualTo(10));
-    }
-
-    [Test]
-    public void TestAddPromotionToProduct()
-    {
-        // arrange
-        Product bagelGarlic = new Product("BGLG", 10, ProductType.Bagel, "Garlic");
-        double discount = 0.3;
-
-        // act
-        bagelGarlic.AddDiscount(discount);
-        double cost = bagelGarlic.GetPrice();
-
-        // assert
-        Assert.That(cost, Is.EqualTo(7));
     }
 
     [Test]
@@ -197,5 +227,49 @@ public class Tests
         Assert.That(bgloAmount, Is.EqualTo(90));
         Assert.That(bglgAmount, Is.EqualTo(10));
         Assert.That(bglpAmount, Is.EqualTo(110));
+    }
+
+    [Test]
+    public void TestReceipt()
+    {
+        // arrange
+
+
+        // act
+        _basket.ApplyDiscounts();
+        Console.WriteLine(_basket.ToString());
+
+        // assert
+        Console.WriteLine(_basket.Receipt());
+    }
+
+    [Test]
+    public void TestDiscount()
+    {
+        // arrange
+
+
+        // act
+        double discounts = _basket.ApplyDiscounts();
+
+
+        // assert
+        Assert.That(discounts, Is.EqualTo(2.34));
+    }
+
+    [Test]
+    public void TestCheckCostOfEachFilling()
+    {
+        // arrange
+
+        // act
+        Dictionary<string, double> fillings = _inventory.Products
+    .Where(x => x.Value.Type.Equals(ProductType.Filling))
+    .ToDictionary(x => x.Key, x => x.Value.Price);
+
+
+        // assert
+        Assert.That(fillings["FILB"], Is.EqualTo(5));
+        Assert.That(fillings["FILC"], Is.EqualTo(6));
     }
 }

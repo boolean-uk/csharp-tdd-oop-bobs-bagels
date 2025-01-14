@@ -10,10 +10,12 @@ namespace exercise.main.Classes
     {
         private List<BasketItem> _items;
         private int _capacity;
-        public Basket() 
+        private Discount _discounts;
+        public Basket(Discount discounts) 
         {
             _items = new List<BasketItem>();
             _capacity = 10;
+            _discounts = discounts;
         }
 
         public bool Add(Product item, int amount) 
@@ -34,9 +36,12 @@ namespace exercise.main.Classes
             }
             else 
             {
-                BasketItem newItem = new BasketItem(item, amount);
+                BasketItem newItem = new BasketItem(item, amount, item.Price);
                 _items.Add(newItem);
             }
+
+            // Sort the list by ProductType after adding or updating
+            _items = _items.OrderBy(x => x.Product.Type).ToList();
 
             return true;
 
@@ -66,34 +71,96 @@ namespace exercise.main.Classes
             double total = 0;
             foreach (var item in _items) 
             {
-                total += item.Product.GetPrice();
+                total += item.Product.Price * item.Amount;
             }
             return total;
         }
-
+         
         public List<BasketItem> GetItems()
         {
             return _items;
         }
 
-        public List<BasketItem> SubmitOrder()
+        public Discount GetDiscounts()
         {
-            return _items;
+            return _discounts;
+        }
+
+        public double ApplyDiscounts()
+        {
+            double total = 0;
+            total += _discounts.GetComboDiscount(_items);
+            foreach (var item in _items)
+            {
+                if (_discounts.CalculateDiscount(item) > 0)
+                {
+                    item.Discount = _discounts.CalculateDiscount(item);
+
+                }
+            }
+            return total;
+        }
+
+        public void SubmitOrder()
+        {
+            ApplyDiscounts();
+            Console.WriteLine(Receipt());
         }
 
         public BasketItem GetItemBySKU(string sku)
         {
-            return _items.Find(x => x.Product.GetSKU().Equals(sku));
+            return _items.Find(x => x.Product.SKU.Equals(sku));
         }
 
-        private void CheckDiscounts()
+        public string Receipt()
         {
-            throw new NotImplementedException();
-        }
+            var builder = new StringBuilder();
 
-        private bool CheckCapacity()
-        {
-            throw new NotImplementedException();
+            builder.AppendLine("    ~~~ Bob's Bagels ~~~");
+            builder.AppendLine($"    {DateTime.Now}");
+            builder.AppendLine();
+            builder.AppendLine("----------------------------");
+
+            double totalBeforeDiscounts = 0.0;
+            double totalDiscounts = 0.0;
+
+            foreach (var item in _items)
+            {
+                double itemTotal = item.Product.Price * item.Amount;
+                totalBeforeDiscounts += itemTotal;
+
+                double itemDiscount = item.Discount;
+                totalDiscounts += itemDiscount;
+
+                string productLine = $"{item.Product.Type} {item.Product.Variant}";
+                builder.AppendLine($"{productLine,-20} {item.Amount,3}   {itemTotal - itemDiscount,10:C}");
+
+                if (itemDiscount > 0)
+                {
+                    builder.AppendLine($"{"",-20} {"",-3}   (-{itemDiscount,9:C})");
+                }
+            }
+
+            double comboDiscount = _discounts.GetComboDiscount(_items);
+            totalDiscounts += comboDiscount;
+
+            if (comboDiscount > 0)
+            {
+                builder.AppendLine($"{"Combo Discount",-20} {"",-3}   (-{comboDiscount,9:C})");
+            }
+
+            builder.AppendLine("----------------------------");
+
+            double finalTotal = totalBeforeDiscounts - totalDiscounts;
+            builder.AppendLine($"{"Total",-20} {"",-3}   {finalTotal,10:C}");
+            builder.AppendLine();
+            builder.AppendLine($" You saved a total of {totalDiscounts:C}");
+            builder.AppendLine("       on this shop");
+            builder.AppendLine();
+            builder.AppendLine("        Thank you");
+            builder.AppendLine("      for your order!");
+
+            return builder.ToString();
         }
 
         public bool CheckIfProductExistsInBasket(Product item)
@@ -102,9 +169,20 @@ namespace exercise.main.Classes
 
         }
 
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            foreach (var item in _items)
+            {
+                builder.AppendLine($"{item.Product.Variant} x {item.Amount} = {item.Product.Price * item.Amount:C}");
+            }
+            builder.AppendLine($"Total: {GetTotal():C}");
+            return builder.ToString();
+        }
+      
         private BasketItem GetItemFromBasket(Product item)
         {
-            return _items.Find(x => x.Product.GetSKU().Equals(item.GetSKU()));
+            return _items.Find(x => x.Product.SKU.Equals(item.SKU));
         }
     }
 }
