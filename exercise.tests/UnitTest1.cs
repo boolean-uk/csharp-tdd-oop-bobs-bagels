@@ -119,6 +119,14 @@ public class Tests
     [Test]
     public void PrintReceipts()
     {
-        return;
+        Iperson customer = new Customer();
+        Basket basket = customer.GetBasket();
+        Iproduct bagel = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Iproduct bagel2 = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        Iproduct bagel3 = new Bagel("bagel ", "BGL", 6.9F, "Onion");
+        basket.AddBagel(bagel);
+        basket.AddBagel(bagel2);
+        basket.AddBagel(bagel3);
+        basket.PrintReceipt();
     }
 }

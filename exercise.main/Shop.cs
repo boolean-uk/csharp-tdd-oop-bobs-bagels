@@ -14,7 +14,7 @@ namespace exercise.main
 
     public class Shop 
     {
-        public List<Iproduct> inventory { get; set; }
+        public List<Iproduct> inventory { get; set; } = new List<Iproduct>();
 
         public Iperson manager { get; set; }
         public Shop()

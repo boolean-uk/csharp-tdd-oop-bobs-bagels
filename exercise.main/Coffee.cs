@@ -24,7 +24,7 @@ namespace exercise.main
 
         public float GetPrice()
         {
-            throw new NotImplementedException();
+            return this.Price;
         }
 
         public void AddFilling(Iproduct filling)
@@ -35,6 +35,21 @@ namespace exercise.main
         public List<Iproduct> GetFillings()
         {
             throw new NotImplementedException();
+        }
+
+        public string GetName()
+        {
+            return this.Name;
+        }
+
+        public string GetVariant()
+        {
+            return this.Variant;
+        }
+
+        public string GetSKU()
+        {
+            return this.SKU;
         }
     }
 }

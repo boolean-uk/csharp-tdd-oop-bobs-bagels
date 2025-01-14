@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,12 +33,22 @@ namespace exercise.main
             fillings.Add(filling);
         }
 
-
-        public List<Iproduct> GetFillings()
-        { 
-            return fillings;
+        public string GetVariant()
+        {
+            return this.Variant;
+        }
+        public string GetName()
+        {
+            return this.Name;
+        }
+        public string GetSKU()
+        {
+            return SKU;
         }
 
-
+        public List<Iproduct> GetFillings()
+        {
+            return fillings;
+        }
     }
 }

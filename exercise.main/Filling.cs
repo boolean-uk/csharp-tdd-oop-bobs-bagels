@@ -35,5 +35,20 @@ namespace exercise.main
         {
             throw new NotImplementedException();
         }
+
+        public string GetName()
+        {
+            return this.Name;
+        }
+
+        public string GetVariant()
+        {
+            return this.Name;
+        }
+
+        public string GetSKU()
+        {
+            return this.SKU;
+        }
     }
 }
