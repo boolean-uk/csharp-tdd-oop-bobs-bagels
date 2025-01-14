@@ -1,19 +1,28 @@
-﻿using exercise.main;
-using exercise.main.Products;
+﻿using exercise.main.Products;
+using exercise.main;
 
 Inventory inv = new Inventory();
 var basket = new Basket();
-List<IProduct> items = new List<IProduct>
-        {
-                new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
-                new Coffee("COFB", 0.99, "Coffee", "Black"),
-                new Coffee("COFW", 1.19, "Coffee", "White"),
-                new Coffee("COFC", 1.29, "Coffee", "Capuccino"),
-                new Coffee("COFL", 1.29, "Coffee", "Latte"),
-        };
-foreach (IProduct item in items)
-{
-    basket.Add(item);
-    Console.WriteLine(item.ToString());
 
+// two bagel onions
+basket.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+basket.Add(new Bagel("BGLO", 0.49, "Bagel", "Onion"));
+
+
+// six bagel everything
+for (int i = 0; i < 5; i++)
+{
+    basket.Add(new Bagel("BGLE", 0.49, "Bagel", "Everything"));
 }
+
+// twelve bagel plain
+for (int i = 0; i < 11; i++)
+{
+    basket.Add(new Bagel("BGLP", 0.39, "Bagel", "Plain"));
+}
+
+// three coffee black
+basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+basket.Add(new Coffee("COFB", 0.99, "Coffee", "Black"));
+

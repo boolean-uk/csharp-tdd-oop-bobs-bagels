@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    public class Bagel : IProduct
+    public class Bagel : IProduct, IDiscountable
     {
         public string Sku         { get; set; }
         public double Price       { get; set; }
         public string Type        { get; set; }
         public string Variant     { get; set; }
-        public Filling? filling { get; set; }
+        public Filling? Filling { get; set; }
+        public bool Discount {  get; set; }
 
         public Bagel(string sku, double price, string type, string variant, Filling filling)
         {
@@ -20,7 +21,7 @@ namespace exercise.main.Products
             Price = price;
             Type = type;
             Variant = variant;
-            this.filling = filling;
+            this.Filling = filling;
         }
         public Bagel(string sku, double price, string type, string variant)
         {
@@ -28,7 +29,7 @@ namespace exercise.main.Products
             Price = price;
             Type = type;
             Variant = variant;
-            filling = null;
+            Filling = null;
         }
 
         public Bagel? AddFilling(Filling item)
@@ -36,7 +37,7 @@ namespace exercise.main.Products
             Inventory inv = new Inventory();
             if (inv.ValidateItem(item))
             {
-                this.filling = item;
+                this.Filling = item;
                 return this;
             }
             return this;
@@ -44,7 +45,7 @@ namespace exercise.main.Products
         }
         public double Total()
         {
-            return Price + (filling?.Price ?? 0);
+            return Price + (Filling?.Price ?? 0);
         }
     }
 }
