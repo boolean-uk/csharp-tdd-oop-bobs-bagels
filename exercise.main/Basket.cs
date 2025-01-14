@@ -10,52 +10,37 @@ namespace exercise.main
     public class Basket : IBasket
     {
         private List<Inventory> _basketList = new List<Inventory>();
-        private List<Inventory> _inventoryList = new List<Inventory>();
 
         private int basketSize = 5; //Instantiating basket size
 
         //Dependency Injection
-        public Basket(List<Inventory> basketList, List<Inventory> inventoryList)
+        public Basket(List<Inventory> basketList)
         {
             {
                 _basketList = basketList;
-                _inventoryList = inventoryList;
             }
         }
 
         //User Story 1
-        public bool AddBagelVariantToBasket(Bagel bagelVariant)
+        public bool AddBagelVariantToBasket(Bagel bagel)
         {
-            //Find the item in inventory list
-            var matchingItem = _inventoryList.FirstOrDefault(
-                item => item.Name == "Bagel" && item.Variant == bagelVariant.Variant
-            );
-
-            // If item exists in inventory
-            if (matchingItem == null)
+            if (_basketList.Count >= basketSize)
             {
-                return false; // Doesnt add if item is not in inventory
+                return false; // Basket is full
             }
 
-            _basketList.Add(matchingItem);
+            _basketList.Add(bagel);
             return true;
         }
 
         //User Story 2
-        public bool RemoveBagelVariantFromBasket(Bagel bagelVariant)
+        public bool RemoveBagelVariantFromBasket(Bagel bagel)
         {
-            // Find the item in basket list
-            var matchingItem = _basketList.FirstOrDefault(
-                item => item.Name == "Bagel" && item.Variant == bagelVariant.Variant
-            );
-
-            // If found, remove item
-            if (matchingItem != null)
+            if (_basketList.Contains(bagel))
             {
-                _basketList.Remove(matchingItem);
+                _basketList.Remove(bagel);
                 return true;
             }
-
             return false;
         }
 
@@ -102,20 +87,15 @@ namespace exercise.main
         //User Story 6
         public double TotalCostOfItems()
         {
-            double totalCost = 0.0;
-            foreach (Inventory item in _basketList)
-            {
-                totalCost += item.Price;
-            }
-            return totalCost;
+             return _basketList.Sum(item => item.Price);
         }
 
         //User Story 7
-        public double ReturnCostOfBagel(Bagel bagelVariant)
+        public double ReturnCostOfBagel(Bagel bagel)
         {
-            foreach (Inventory item in _inventoryList)
+            foreach (Inventory item in _basketList)
             {
-                if (item.Name == "Bagel" && item.Variant == bagelVariant.Variant)
+                if (item.Name == "Bagel" && item.Variant == bagel.Variant)
                 {
                     return item.Price;
                 }
@@ -124,11 +104,11 @@ namespace exercise.main
         }
 
         //User Story 8
-        public string ChooseBagelFilling(Filling bagelFilling)
+        public string ChooseBagelFilling(Filling filling)
         {
-            foreach (Inventory item in _inventoryList)
+            foreach (Inventory item in _basketList)
             {
-                if (item.Sku == bagelFilling.Sku)
+                if (item.Sku == filling.Sku)
                 {
                     return item.Variant;
                 }
@@ -137,11 +117,11 @@ namespace exercise.main
         }
 
         //User Story 9
-        public double CostOfEachFilling(Filling bagelFilling)
+        public double CostOfEachFilling(Filling filling)
         {
-            foreach (Inventory item in _inventoryList)
+            foreach (Inventory item in _basketList)
             {
-                if (item.Sku == bagelFilling.Sku)
+                if (item.Sku == filling.Sku)
                 {
                     return item.Price;
                 }
@@ -152,7 +132,7 @@ namespace exercise.main
         //User Story 10
         public bool MustBeInInventory(string sku)
         {
-            foreach (Inventory item in _inventoryList)
+            foreach (Inventory item in _basketList)
             {
                 if (item.Sku == sku)
                 {

@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    public class Filling
+    public class Filling : Inventory
     {
-        public string Sku { get; }
-
-        public Filling()
+        public Filling(string sku, double price, string name, string variant)
+            : base(sku, price, "Filling", variant)
         {
-
-        }
-
-        public Filling(string sku)
-        {
-            Sku = sku;
         }
     }
 }

@@ -8,15 +8,15 @@ namespace exercise.main
 {
     internal interface IBasket
     {
-        bool AddBagelVariantToBasket(Bagel bagelVariant);
-        bool RemoveBagelVariantFromBasket(Bagel bagelVariant);
+        bool AddBagelVariantToBasket(Bagel bagel);
+        bool RemoveBagelVariantFromBasket(Bagel bagel);
         string BagelBasketIsFull();
         string ChangeBasketCapacity(int newCapacity);
         string CanRemoveItemInBasket(Inventory item);
         double TotalCostOfItems();
-        double ReturnCostOfBagel(Bagel bagelVariant);
-        string ChooseBagelFilling(Filling bagelFilling);
-        double CostOfEachFilling(Filling bagelFilling);
+        double ReturnCostOfBagel(Bagel bagel);
+        string ChooseBagelFilling(Filling filling);
+        double CostOfEachFilling(Filling filling);
         bool MustBeInInventory(string sku);
 
 
