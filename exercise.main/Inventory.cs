@@ -54,5 +54,23 @@ namespace exercise.main
                 Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
             }
         }
+        public Item GetItemBySKU(string sku)
+        {
+            if (sku.Length >= 3)
+            {
+                string inventoryType = sku.Substring(0, 3);
+                switch (inventoryType)
+                {
+                    case "BGL":
+                        return bagelInventory.ContainsKey(sku) ? bagelInventory[sku] : null;
+                    case "COF":
+                        return coffeeInventory.ContainsKey(sku) ? coffeeInventory[sku] : null;
+                    case "FIL":
+                        return fillingInventory.ContainsKey(sku) ? fillingInventory[sku] : null;
+                }
+            }
+            return null;
+        }
+
     }
 }
