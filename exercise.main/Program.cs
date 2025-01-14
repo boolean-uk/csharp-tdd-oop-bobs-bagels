@@ -20,6 +20,7 @@ Store store = new Store(25, new List<Item> {
 Customer customer = new Customer("Steven", store);
 store._customerList.Add(customer);
 
+/*
 store._customerList[0].order("COFB");
 store._customerList[0].order("BGLP");
 store._customerList[0].order("FILS");
@@ -40,6 +41,31 @@ store._customerList[0].order("BGLO");
 store._customerList[0].order("FILE");
 store._customerList[0].order("BGLP");
 store._customerList[0].order("COFL");
+*/
+
+store._customerList[0].order("BGLO");
+store._customerList[0].order("BGLO");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLP");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("BGLE");
+store._customerList[0].order("COFB");
+store._customerList[0].order("COFB");
+store._customerList[0].order("COFB");
 
 
 store._customerList[0]._basket.applyDiscounts();
@@ -47,7 +73,11 @@ store._customerList[0]._basket.applyDiscounts();
 store._customerList[0]._basket.applyDiscounts();
 foreach (Item item in store._customerList[0]._basket._items)
 {
-    Console.WriteLine($"{item.SKU} - {item.name} {item.variant}: {item.cost}");
+    Console.WriteLine($"{item.SKU} - {item.name} {item.variant}: {((decimal)item.cost)}");
 }
 
-Console.WriteLine(store._customerList[0]._basket.CalculateTotalCost());
+Console.WriteLine(((decimal)store._customerList[0]._basket.CalculateTotalCost()));
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine(store._customerList[0].GenerateReceiptWithDiscounts());
+Console.WriteLine();

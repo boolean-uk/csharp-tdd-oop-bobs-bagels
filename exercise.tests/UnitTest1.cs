@@ -89,4 +89,37 @@ public class Tests
         double totalCost = store._customerList[0]._basket.CalculateTotalCost();
         Assert.True(totalCost == 1.71);
     }
+
+    [Test]
+    public void ApplyDiscountTest()
+    {
+        store._customerList[0]._basket._items = new List<Item>
+        {
+            new Bagel("BGLO", "Bagel", 0.49, "Onion"),
+            new Bagel("BGLO", "Bagel", 0.49, "Onion"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLP", "Bagel", 0.39, "Plain"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Bagel("BGLE", "Bagel", 0.49, "BGLE"),
+            new Coffee("COFC", "Coffee", 0.49, "Capuccino"),
+            new Coffee("COFC", "Coffee", 0.49, "Capuccino"),
+            new Coffee("COFC", "Coffee", 0.49, "Capuccino")
+        };
+        double totalCostWithDiscounts = store._customerList[0]._basket.CalculateTotalCost();
+        Assert.That(totalCostWithDiscounts == 9.44);
+    }
 }

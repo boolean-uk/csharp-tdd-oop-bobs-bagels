@@ -65,5 +65,61 @@ namespace exercise.main
             return 0.0;
         }
 
+        public double FindPriceDifference()
+        {
+            double fullPrice = 0.0;
+            foreach (Item item in _basket._items)
+            {
+                fullPrice += _store._itemsInStock.Find((x) => x.SKU == item.SKU).cost;
+            }
+            return fullPrice - _basket._items.Sum(item => item.cost);
+        }
+
+        /**
+         * Extension 3: Discount Receipts
+         */
+
+        public string GenerateReceiptWithDiscounts()
+        {
+            if (_basket._items.Count == 0)
+            {
+                return "Empty Basket";
+            }
+            StringBuilder sb = new StringBuilder();
+            string Receipt =
+                "~~~ Bob's Bagels ~~~ \n" +
+                "\n" +
+               $"{DateTime.Now.ToString("yyyy/dd/mm hh:mm:ss")} \n" +
+                "----------------------------------------\n";
+            sb.AppendLine(Receipt);
+
+
+            Dictionary<string, int> itemCount = new Dictionary<string, int>();
+            foreach (Item item in _basket._items)
+            {
+                itemCount[$"{item.variant} {item.name}"] = itemCount.ContainsKey($"{item.variant} {item.name}") ? itemCount[$"{item.variant} {item.name}"] + 1 : 1;
+            }
+            double savedOnPurchase = 0;
+            foreach (string itemName in itemCount.Keys)
+            {
+                Item itemInStock = _basket._items.Find((x) => x.variant + " " + x.name == itemName);
+                sb.AppendFormat("{0,-25}{1,5}{2,10}\n", itemName, itemCount[itemName], (decimal)itemInStock.cost * itemCount[itemName]);
+                if (itemInStock.cost != _basket._items.Last((x) => x.variant + " " + x.name == itemName).cost)
+                {
+                    sb.AppendFormat("{0,40}\n", (-(decimal) _store._itemsInStock.Find((x) => $"{x.variant} {x.name}" ==itemName).cost * itemCount[itemName]) + (decimal) _basket._items.Last((x) => x.variant + " " + x.name == itemName).cost * itemCount[itemName]);
+                    savedOnPurchase += _basket._items.Last((x) => x.variant + " " + x.name == itemName).cost - itemCount[itemName];
+                }
+            }
+        
+            sb.AppendLine("----------------------------------------\n");
+            sb.AppendFormat("{0,-25}{1,15}",$"Total", $"£{_basket.CalculateTotalCost():F2}");
+
+            sb.AppendLine(
+                $"\nYou saved a total of £{FindPriceDifference():F2} on this shop \n" +
+                "Thank you for your order!");
+
+            return sb.ToString();
+        }
+
     }
     }

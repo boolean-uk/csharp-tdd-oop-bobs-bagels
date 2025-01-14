@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,13 +20,13 @@ namespace exercise.main
 
         public double CalculateTotalCost()
         {
+            applyDiscounts();
             double cost = 0;
             foreach(Item item in _items)
             {
                 cost += item.cost;
             }
-            _totalCost = cost;
-            return _totalCost;
+            return cost;
         }
         public void AddItem(Item newItem)
         {
@@ -43,6 +44,10 @@ namespace exercise.main
             return false;
         }
 
+        /**
+         * Extension 1: Discounts
+         */
+
         public void applyDiscounts()
         {
             // Group item by name, sort by cost (high->low) and variant
@@ -56,15 +61,6 @@ namespace exercise.main
             // while 12 or more non-discounted bagels
             while (disc.Count(x => x.name.Equals("Bagel") && !x.isDiscounted) >= 12)
             {
-
-
-
-                /**
-                 *  13.01.25
-                 *  ROUNDING ERROR BECAUSE OF FLOAT-POINT PRECISION  
-                 */
-
-
 
                 double discountedPricePerBagel = Math.Round(3.99 / 12, 2); // Rounding because of float precision
 
