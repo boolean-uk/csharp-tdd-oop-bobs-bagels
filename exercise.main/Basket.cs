@@ -129,6 +129,8 @@ namespace exercise.main
             //first count items of same type in basket
             Dictionary<string, int> dict = new Dictionary<string, int>();//SKU is key and int is amount of the item in the basket
             HashSet<String> printed = new HashSet<String>(); //keeping track of whiich items are printed
+            float total = 0;
+            Items.ForEach(x => total += x.GetPrice());
             Items.ForEach(x =>
             {
                 if (!dict.ContainsKey(x.GetSKU()))
@@ -148,7 +150,7 @@ namespace exercise.main
             {
                 if(!printed.Contains(x.GetSKU()))
                 {
-                    Console.WriteLine($"{x.GetVariant()}{x.GetName()} {dict[x.GetSKU()]} ${x.GetPrice()}");
+                    Console.WriteLine($"{x.GetVariant()}{x.GetName()} {dict[x.GetSKU()]} ${x.GetPrice()* dict[x.GetSKU()]}");
                     printed.Add(x.GetSKU());
                 }
            
@@ -175,6 +177,8 @@ namespace exercise.main
             });
             List<float> discounts = new List<float>();
             this.GetAppliedDiscounts().ForEach(x => discounts.Add(x.discount));
+            float total = 0;
+            Items.ForEach(x => total += x.GetPrice() );
 
             Console.WriteLine("    ~~~Bob's Bagels ~~~    ");
             Console.WriteLine($"    {DateTime.Now.ToString()}    ");
@@ -184,7 +188,7 @@ namespace exercise.main
                 if (!printed.Contains(x.GetSKU()))
                 {
                     Console.WriteLine($"{x.GetVariant()}{x.GetName()} {dict[x.GetSKU()]} ${x.GetPrice()* dict[x.GetSKU()]}");
-                    Console.WriteLine($"Discounts: {Discount()}");
+                    Console.WriteLine($"Discounts: -{total - Discount()}");
                     printed.Add(x.GetSKU());
                 }
 
