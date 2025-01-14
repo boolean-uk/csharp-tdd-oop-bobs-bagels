@@ -8,8 +8,7 @@
 |                      | changeCapacity(capacity)                 | Integer capacity                                      | Changed capacity             | true           |
 |                      |                                          |                                                       | Unable to change capacity    | false          |
 |                      | getTotalCost()                           | ArrayList<Item>                                       | Get total cost               | Return cost    |
-| Inventory            | printInventory(inventory, inventoryName) | Dictonary<String,Item> inventory,String inventoryName | Show all added products      | String[]       |
-|                      | getProductsBySku(sku)                    | String sku                                            | Get all products of one type | String[]       |
+| Inventory            | printInventory()						  | Dictonary<String,Item> inventory,String inventoryName | Show all added products      | String[]       |
 |                      | getAllProducts()                         |                                                       | Show all products            | String[]       |
 | Item                 | getType()                                |                                                       | get type                     | String type    |
 |                      | getVariant()                             |                                                       | get variant                  | String variant |
