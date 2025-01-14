@@ -10,18 +10,18 @@ namespace exercise.main
     public class Basket
     {
         private static int maxSize;
-        private List<Item> items;  // Should be dict?:  private Dictionary<string, Item> items;
+        private List<Item> items;  
 
-        public Dictionary<string, Item> StockItems = new Dictionary<string, Item>()
+        public static List<Item> StockItems = new List<Item>()
         {
-            {"BGLO", new Bagel("Bagel", "Onion", 0.49)},
-            {"BGLP", new Bagel("Bagel", "Plain", 0.39)},
-            {"BGLE", new Bagel("Bagel", "Everything", 0.49)},
-            {"BGLS", new Bagel("Bagel", "Sesame", 0.49)},
-            {"COFB", new Coffee("Coffee", "Black", 0.99)},
-            {"COFW", new Coffee("Coffee", "White", 1.19)},
-            {"COFC", new Coffee("Coffee", "Cappucino", 1.29)},
-            {"COFL", new Coffee("Coffee", "Latte", 1.29)}
+            new Bagel("BGLO", "Bagel", "Onion", 0.49),
+            new Bagel("BGLP", "Bagel", "Plain", 0.39),
+            new Bagel("BGLE", "Bagel", "Everything", 0.49),
+            new Bagel("BGLS", "Bagel", "Sesame", 0.49),
+            new Coffee("COFB", "Coffee", "Black", 0.99),
+            new Coffee("COFW", "Coffee", "White", 1.19),
+            new Coffee("COFC", "Coffee", "Cappucino", 1.29),
+            new Coffee("COFL", "Coffee", "Latte", 1.29)
         };
 
 
@@ -30,11 +30,11 @@ namespace exercise.main
         public List<Item> Items { get { return items; } set { items = value; } }
 
 
-        public void addToBasketByID(string order) 
+        public void addToBasket(Item order) 
         {
             if (checkFull()){ throw new Exception("Basket is full"); }
-            else if (!StockItems.ContainsKey(order)) { throw new Exception("Order not in stock"); }  
-            else { items.Add(StockItems[order]); }
+            else if (!StockItems.Contains(order)) { throw new Exception("Order not in stock"); }  
+            else { items.Add(order); }
         }
 
 
@@ -59,12 +59,7 @@ namespace exercise.main
         {
             if(items != null && items.Count > 0)
             {
-                double totalCost = 0;
-                foreach (Item item in items)
-                {
-                    totalCost += item.getPrice();
-                }
-                return totalCost;
+                return items.Sum(i => i.getPrice());
             }
             return 0;
         }

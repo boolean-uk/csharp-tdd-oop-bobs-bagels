@@ -11,51 +11,62 @@ namespace exercise.main
     {
         private string variant;
 
-        private List<Fillings> fillings_list; 
+        private List<Filling> fillings_list; 
 
-        public List<Fillings> Fillings_list { get { return fillings_list; } set { fillings_list = value; } }
+        public List<Filling> Fillings_list { get { return fillings_list; } set { fillings_list = value; } }
 
-        public Dictionary<string, Fillings> StockItems = new Dictionary<string, Fillings>()
+        public static List<Filling> StockItems = new List<Filling>()
         {
-            {"FILB", new Fillings("Filling", "Bacon", 0.12)},
-            {"FILE", new Fillings("Filling", "Egg", 0.12)},
-            {"FILC", new Fillings("Filling", "Cheese", 0.12)},
-            {"FILX", new Fillings("Filling", "Cream Cheese", 0.12)},
-            {"FILS", new Fillings("Filling", "Smoked Salmon", 0.12)},
-            {"FILH", new Fillings("Filling", "Ham", 0.12)},
+             new Filling("FILB", "Filling", "Bacon", 0.12),
+             new Filling("FILE", "Filling", "Egg", 0.12),
+             new Filling("FILC", "Filling", "Cheese", 0.12),
+             new Filling("FILX", "Filling", "Cream Cheese", 0.12),
+             new Filling("FILS", "Filling", "Smoked Salmon", 0.12),
+             new Filling("FILH", "Filling", "Ham", 0.12)
         };
 
-        public struct Fillings
+        public struct Filling
         {
             public string Id { get; }
             public string Variant { get; }
+            public string Name { get; }
             public double Price { get; } 
 
-            public Fillings(string id, string variant, double price)
+            public Filling(string id, string variant, string name, double price)
             {
                 Id = id;
                 Variant = variant;
+                Name = name;
                 Price = price;
             }
         }
 
-        public Bagel(string name, string variant, double price) : base(name, variant, price) { }
+        public Bagel(string id, string name, string variant, double price) : base(id, name, variant, price) { }
 
-
-        public void addFillingByID(string id)
+        public Bagel(string id, string name, string variant, double price, List<Filling> fillings) : base(id, name, variant, price) 
         {
-            if (StockItems.ContainsKey(id)) { fillings_list.Add(StockItems[id]); }
+            fillings_list = fillings;
+        }
+
+
+
+        public void addFilling(Filling filling)
+        {
+            if (StockItems.Contains(filling)) { fillings_list.Add(filling); }
             else { throw new Exception("Order not in stock"); }
+        }
+
+        public void removeFilling(Filling filling)
+        {
+            if (fillings_list.Contains(filling)){ fillings_list.Remove(filling); }
+            else { throw new Exception("No such item in basket"); } 
         }
 
         public override double getPrice()
         {
             if (fillings_list != null && fillings_list.Count > 0) 
             {
-                double total_filling = 0;
-                foreach (Fillings filling in fillings_list) { total_filling += filling.Price; }
-
-                return base.Price + total_filling;
+                return base.Price + fillings_list.Sum(f => f.Price);
             }
             return base.Price;
         }

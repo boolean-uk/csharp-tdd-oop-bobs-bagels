@@ -8,8 +8,7 @@ namespace exercise.main
 {
     public class Coffee : Item
     {
-        public Coffee(string name, string variant, double price) : base(name,variant, price) { }
-
+        public Coffee(string id, string name, string variant, double price) : base(id, name, variant, price) { }
 
         public override double getPrice()
         {

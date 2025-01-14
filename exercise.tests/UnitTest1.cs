@@ -7,46 +7,30 @@ namespace exercise.tests;
 
 public class Tests
 {
-    Bagel bagelO = new Bagel("Bagel", "Onion", 0.49);
-    Bagel bagelP = new Bagel("Bagel", "Plain", 0.39);
+    Bagel bagelO = (Bagel)Basket.StockItems[0];
+    Bagel bagelP = (Bagel)Basket.StockItems[1];
 
-    Coffee coffee = new Coffee("COFB", "Coffee", 0.99);
+    Coffee coffee = (Coffee)Basket.StockItems[4];
 
-    //public Dictionary<string, Item> Inventory = new Dictionary<string, Item>()
-    //    {
-    //        {"BGLO", new Bagel("Bagel", "Onion", 0.49)},
-    //        {"BGLP", new Bagel("Bagel", "Plain", 0.39)},
-    //        {"BGLE", new Bagel("Bagel", "Everything", 0.49)},
-    //        {"BGLS", new Bagel("Bagel", "Sesame", 0.49)},
-    //        {"COFB", new Coffee("Coffee", "Black", 0.99)},
-    //        {"COFW", new Coffee("Coffee", "White", 1.19)},
-    //        {"COFC", new Coffee("Coffee", "Cappucino", 1.29)},
-    //        {"COFL", new Coffee("Coffee", "Latte", 1.29)}
-    //    };
+    Filling egg = Bagel.StockItems[1];
 
 
     [Test]
     public void TestAddToBasket()
     {
-        Basket expBasket = new Basket { Items = new List<Item>() { bagelO, bagelP } };
-        Basket basket = new Basket 
-        { 
-            Items = new List<Item>() { bagelO }, 
-            MaxSize = 2 
+        Basket basket = new Basket
+        {
+            Items = new List<Item>() { bagelO },
+            MaxSize = 2
         };
+        Basket expBasket = new Basket { Items = new List<Item>() { bagelO, bagelP } };
 
-        Assert.That(basket.Items.Count, Is.EqualTo(1));
-
-        basket.addToBasketByID("BGLP");
-
-        Assert.That(basket.Items.Count, Is.EqualTo(2));
-        Assert.That(basket.Items.Contains(basket.StockItems["BGLP"]));
-        Assert.That(basket.Items[1].Variant, Is.EqualTo(expBasket.Items[1].Variant));
-        Assert.That(basket.Items[1].Variant.ToString(), Is.EqualTo("Plain"));
-
+        basket.addToBasket(bagelP);
+        Assert.That(basket.Items.Contains(bagelP));
+        Assert.That(basket.Items, Is.EqualTo(expBasket.Items));
         try
         {
-            basket.addToBasketByID("BGLO");
+            basket.addToBasket(bagelO);
             Assert.Fail();
         }
         catch (Exception e) { Console.WriteLine(e); }
@@ -103,8 +87,8 @@ public class Tests
 
         Assert.That(basket.getTotalCost(), Is.EqualTo(0));
 
-        Fillings fillings = new Fillings("FILE", "Filling", 0.12);
-        bagelO.Fillings_list = new List<Fillings>() { fillings };
+        Filling fillings = new Filling("FILE", "Filling", "Egg", 0.12);
+        bagelO.Fillings_list = new List<Filling>() { fillings };
         double onionWFilling = 0.49 + 0.12;
 
         Assert.That(bagelO.Fillings_list[0].Price, Is.EqualTo(0.12));
@@ -116,6 +100,45 @@ public class Tests
 
         Assert.That(basket.getTotalCost(), Is.EqualTo(totalCost));
 
+    }
+
+
+    [Test]
+    public void TestAddFilling()
+    {
+        bagelO.Fillings_list = new List<Filling>();
+
+        Assert.That(bagelO.Fillings_list, Does.Not.Contain(egg));
+
+        bagelO.addFilling(egg);
+
+        Assert.That(bagelO.Fillings_list, Does.Contain(egg));
+
+        Filling notInStock = new Filling("FILP", "Filling", "Pepperoni", 0.12);
+
+        try
+        {
+            bagelO.addFilling(notInStock);
+            Assert.Fail();
+        }
+        catch (Exception e) { Console.WriteLine(e); }
+    }
+
+    [Test]
+    public void TestRemoveFilling()
+    {
+        bagelO.Fillings_list = new List<Filling>() { egg };
+        
+        bagelO.removeFilling(egg);
+
+        Assert.That(bagelO.Fillings_list, Does.Not.Contain(egg));
+
+        try
+        {
+            bagelO.removeFilling(egg);
+            Assert.Fail();
+        }
+        catch (Exception e) { Console.WriteLine(e); }
     }
 }
 
