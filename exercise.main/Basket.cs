@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +12,8 @@ namespace exercise.main
     public class Basket 
     {
         private List<Product> basketList = new List<Product>();
+        private bool hasCoffeAndBagel = false;
+        private bool hasCoffeAndBagelPlain = false;
         private int maxProducts = 40;
         public Basket() 
         {
@@ -130,25 +134,25 @@ namespace exercise.main
         public double DiscountedPrice()
         {
             double price = TotalPrice();
-            bool hasBagel = false;
-            double BaglePrice = 0;
-            bool hasCoffe = false;
+            hasCoffeAndBagel = false;
+            hasCoffeAndBagelPlain = false;
+
 
             var countList = basketList.GroupBy(basketList => basketList._variant).Select(g => new
             {
                 Variant = g.Key,
-                Count = g.Count(),
+                variantCount = g.Count(),
                 Price = g.First()._price,
                 Name = g.First()._name
 
             }).ToList();
 
             countList.ForEach(x => { 
-                if(6<= x.Count && x.Count < 12)
+                if(6<= x.variantCount && x.variantCount < 12 && x.Name == "Bagel")
                 {
                     price -= x.Price*6;
                     price += 2.49;
-                } else if (x.Count >= 12)
+                } else if (x.variantCount >= 12 && x.Name == "Bagel")
                 {  
                     price -= x.Price *12;
                     price += 3.99;
@@ -159,6 +163,11 @@ namespace exercise.main
 
             if(countList.Any(p => p.Name == "Coffe") && target != null)
             {
+                if(target.Variant == "Plain")
+                    hasCoffeAndBagelPlain = true;
+                else
+                    hasCoffeAndBagel = true;
+
                 price -= 0.99 + target.Price;
                 price += 1.25;
             }
@@ -186,10 +195,61 @@ namespace exercise.main
             distinctBasketList.ForEach(p => Console.WriteLine(String.Format("{0,-16}{1,4} {2,7}", p._variant + " " + p._name, result.GetValueOrDefault(p._variant), "£"+p._price* result.GetValueOrDefault(p._variant))));
             Console.WriteLine();
             Console.WriteLine("----------------------------");
-            Console.WriteLine($"Total                  £{TotalPrice()}");
+            Console.WriteLine($"Total                  £{(decimal)TotalPrice()}");
             Console.WriteLine();
             Console.WriteLine("        Thank you");
             Console.WriteLine("      for your order!\n");
+        }
+
+        public decimal getVarPrice(string variant)
+        {
+            //var test = DiscountedPrice();
+            decimal variantPrice = 0;
+            var countList = basketList.GroupBy(basketList => basketList._variant).Select(g => new
+            {
+                Variant = g.Key,
+                variantCount = g.Count(),
+                Price = g.First()._price,
+                Name = g.First()._name
+
+            }).ToList();
+
+            var target = countList.FirstOrDefault(p => p.Variant == variant);
+
+            if (target == null)
+                return 0;
+
+            variantPrice = target.variantCount * (decimal)target.Price;
+
+            
+                if (6 <= target.variantCount && target.variantCount < 12 && target.Name == "Bagel")
+                {
+                    variantPrice -= (decimal)target.Price * 6;
+                    variantPrice += 2.49m;
+                }
+                else if (target.variantCount >= 12 && target.Name == "Bagel")
+                {
+                    variantPrice -= (decimal)target.Price * 12;
+                    variantPrice += 3.99m;
+                }
+
+            if (target.Name == "Coffe" && hasCoffeAndBagel || hasCoffeAndBagelPlain)
+            {
+                if (hasCoffeAndBagel)
+                {
+                    variantPrice -= (decimal)target.Price;
+                    variantPrice += 0.76m;
+                }
+                else if (hasCoffeAndBagelPlain)
+                {
+                    variantPrice -= (decimal)target.Price;
+                    variantPrice += 0.86m;
+                }
+            }
+
+
+            return variantPrice;
+
         }
 
         public void PrintReceiptDiscount()
@@ -207,10 +267,16 @@ namespace exercise.main
             Console.WriteLine();
             Console.WriteLine("----------------------------");
             Console.WriteLine();
-            distinctBasketList.ForEach(p => Console.WriteLine(String.Format("{0,-16}{1,4} {2,7}", p._variant + " " + p._name, result.GetValueOrDefault(p._variant), "£" + p._price * result.GetValueOrDefault(p._variant))));
-            Console.WriteLine($"                     (-£{diff})");
+            distinctBasketList.ForEach(p => {
+                Console.WriteLine(String.Format("{0,-16}{1,4} {2,7}", p._variant + " " + p._name, result.GetValueOrDefault(p._variant), "£" + getVarPrice(p._variant)));
+                if(((decimal)(p._price * result.GetValueOrDefault(p._variant)) - getVarPrice(p._variant)) != 0)
+                    Console.WriteLine($"                     (-£{((decimal)(p._price * result.GetValueOrDefault(p._variant)) - getVarPrice(p._variant))})");
+            });
             Console.WriteLine("----------------------------");
             Console.WriteLine($"Total                  £{discountedPrice}");
+            Console.WriteLine();
+            Console.WriteLine($"You saved a total of £{diff}");
+            Console.WriteLine($"       on this shop");
             Console.WriteLine();
             Console.WriteLine("        Thank you");
             Console.WriteLine("      for your order!\n");

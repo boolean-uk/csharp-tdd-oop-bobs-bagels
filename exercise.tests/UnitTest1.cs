@@ -126,6 +126,7 @@ public class Tests
         basket.AddProduct("BGLP");
         basket.AddProduct("BGLP");
         basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
         basket.AddProduct("BGLE");
         basket.AddProduct("BGLE");
         basket.AddProduct("BGLE");
@@ -135,7 +136,25 @@ public class Tests
         basket.AddProduct("COFB");
         basket.AddProduct("COFB");
         basket.AddProduct("COFB");
-        Assert.That((decimal)basket.DiscountedPrice(), Is.EqualTo(10.65));
+        basket.PrintReceiptDiscount();
+        Assert.That((decimal)basket.DiscountedPrice(), Is.EqualTo(10.2));
+    }
+
+    [Test]
+    public void TestGetDiscount1()
+    {
+
+        Basket basket = new Basket();
+       
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("BGLP");
+        basket.AddProduct("COFB");
+        Assert.That((decimal)basket.DiscountedPrice(), Is.EqualTo(3.74));
     }
 
     [Test]
@@ -170,5 +189,18 @@ public class Tests
         Assert.That((decimal)basket2.DiscountedPrice(), Is.EqualTo(1.25));
 
         basket2.PrintReceiptDiscount();
+
+        Basket basket3 = new Basket();
+
+        basket3.AddProduct("COFB");
+        basket3.AddProduct("COFB");
+        basket3.AddProduct("COFB");
+        basket3.AddProduct("COFB");
+        basket3.AddProduct("COFB");
+        basket3.AddProduct("COFB");
+        Assert.That((decimal)basket3.DiscountedPrice(), Is.EqualTo(5.94));
+        basket3.PrintReceiptDiscount();
+
+
     }
 }
