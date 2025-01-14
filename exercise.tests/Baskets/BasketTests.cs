@@ -53,9 +53,9 @@ public class BasketTests
     public void GetTotalCost()
     {
         _basket.AddItem(_bagel);
-        _basket.AddItem(_coffee);
+        _basket.AddItem(_bagel);
 
-        Assert.That(_basket.GetTotalCost(), Is.EqualTo(_bagel.Price + _coffee.Price));
+        Assert.That(_basket.GetTotalCost(), Is.EqualTo(_bagel.Price + _bagel.Price));
     }
 
     [Test]

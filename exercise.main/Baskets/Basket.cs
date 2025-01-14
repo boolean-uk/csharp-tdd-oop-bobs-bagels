@@ -13,10 +13,13 @@ namespace exercise.main.Baskets
 
         public List<Product> BasketItems { get; private set; }
 
+        private PricingEngine _pricingEngine;
+
         public Basket(int capacity)
         {
             BasketItems = new List<Product>();
             Capacity = capacity;
+            _pricingEngine = new PricingEngine();
         }
 
         public void AddItem(Product p)
@@ -36,8 +39,7 @@ namespace exercise.main.Baskets
 
         public double GetTotalCost()
         {
-
-            return BasketItems.Select(p => p.Price).Sum();
+            return _pricingEngine.CalculatePrice(BasketItems);
         }
 
         public bool IsFull()
@@ -73,7 +75,7 @@ namespace exercise.main.Baskets
 
         public bool checkForBagelDiscount()
         {
-            return (BasketItems.Where(product => product.Name.Equals("Bagel")).Count() % 6 == 0);
+            return (BasketItems.Where(product => product.Name.Equals("Bagel")).Count() >= 6);
         }
 
         public bool checkForBagelAndCoffeeDiscount()
@@ -81,5 +83,6 @@ namespace exercise.main.Baskets
             return (BasketItems.Where(product => product.Name.Equals("Bagel")).Count() > 0
                 && BasketItems.Where(product => product.Name.Equals("Coffee")).Count() > 0);
         }
+
     }
 }

@@ -25,7 +25,7 @@ namespace exercise.main.Users
 
         protected User()
         {
-            _basket = new Basket(15);
+            _basket = new Basket(25);
             _inventory = Inventory.Instance;
         }
 
