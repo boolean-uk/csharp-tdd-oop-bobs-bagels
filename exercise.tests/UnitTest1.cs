@@ -178,4 +178,68 @@ public class Tests
         Assert.IsTrue(basket.AddFilling(2, "FILX"));
         Assert.IsTrue(basket.AddFilling(2, "FILX"));
     }
+
+    [Test]
+    public void TestDiscount()
+    {
+        var basket = new Basket();
+        basket.changeCapacity(200);
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("COFB");
+        Assert.AreEqual(1.64, basket.Discount(), 0.01);
+    }
+
+    [Test]
+    public void TestDiscount2()
+    {
+        var basket = new Basket();
+        basket.changeCapacity(200);
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        Assert.AreEqual(5.55, basket.Discount(), 0.01);
+    }
+
+    [Test]
+    public void testDiscount3()
+    {
+        Basket basket = new Basket();
+        basket.changeCapacity(25);
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("BGLP");
+        basket.AddItem("COFB"); //0.99 => 1.25
+        basket.AddItem("COFC"); //1.29 => 1.25
+
+        Assert.AreEqual(3.99 + 1.25 + 1.25 + 0.39 + 0.39, basket.Discount());
+    }
+
+
 }

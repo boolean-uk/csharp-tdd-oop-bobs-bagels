@@ -9,10 +9,10 @@ namespace exercise.main
     public interface IItem
     {
 
-        string sku { get; }
-        double price { get;  }
-        string name { get; }
-        string variant { get; }
+        string Sku { get; }
+        double Price { get;  }
+        string Name { get; }
+        string Variant { get; }
         
     }
 }

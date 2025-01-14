@@ -8,17 +8,17 @@ namespace exercise.main
 {
     public class Filling : IItem
     {
-        public string sku { get; }
-        public double price { get; }
-        public string name { get; }
-        public string variant { get; }
+        public string Sku { get; }
+        public double Price { get; }
+        public string Name { get; }
+        public string Variant { get; }
 
         public Filling(string sku, double price, string name, string variant)
         {
-            this.sku = sku;
-            this.price = price;
-            this.name = name;
-            this.variant = variant;
+            Sku = sku;
+            Price = price;
+            Name = name;
+            Variant = variant;
         }
     }
 }
