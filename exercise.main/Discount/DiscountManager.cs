@@ -54,10 +54,10 @@ namespace exercise.main.Discount
                         }
                     }
                 }
+
                 if (noConflict)
-                {
                     possibleCombinations.Add(possibleDiscounts[i]);
-                }
+                
             }
 
             // Add the non-conflicting possibleCombinations to bestDeal
@@ -72,14 +72,10 @@ namespace exercise.main.Discount
                 string SKU = c.Item3;
 
                 if (total + possibleDiscounts[index_i].possibleSavings > total + possibleDiscounts[index_j].possibleSavings)
-                {
                     bestDeals.Add(possibleDiscounts[index_i]);
-                }
                 else
-                {
                     bestDeals.Add(possibleDiscounts[index_j]);
 
-                }
             }
 
             return bestDeals;
@@ -91,13 +87,12 @@ namespace exercise.main.Discount
             foreach (DiscountBase discount in discountTypes)
             {
                 if (discount.checkCondition(basket))
-                {
                     possibleDiscounts.Add(discount.getDiscountedPrice(basket));
-                }
+                
             }
             return possibleDiscounts;
         }
-        public Dictionary<string, OrderData> calculateDiscount(Basket basket)
+        public Dictionary<string, OrderData> calculateTotalWithDiscount(Basket basket)
         {
             var possibleDiscounts = getPossibleDiscounts(basket);
             var bestDealsDiscounts = pickBestDeals(possibleDiscounts, basket);
@@ -122,8 +117,7 @@ namespace exercise.main.Discount
                 {
                     name = product.Key,
                     amount = product.Value,
-                    //individual_price = defPrice,
-                    discounted_price = 0.0f, // TODO: fix
+                    discounted_price = 0.0f,
                     total_price = defPrice * product.Value,
                     saving = 0.0f,
                 };
@@ -138,9 +132,8 @@ namespace exercise.main.Discount
             foreach (var product in productList)
             {
                 if (!amontPerSku.ContainsKey(product.SKU))
-                {
                     amontPerSku[product.SKU] = 0;
-                }
+                
                 amontPerSku[product.SKU]++;
             }
 
@@ -157,13 +150,14 @@ namespace exercise.main.Discount
                 {
                     name = nameStr,
                     amount = product.discountMultiple,
-                    //individual_price = 0.0f, // TODO: fix ...
                     discounted_price = product.finalPrice,
                     total_price = product.finalPrice,
                     saving = product.possibleSavings,
                     UsedDiscount = product.discount
 
                 };
+
+                Console.Write("");
             }
         }
 

@@ -134,7 +134,7 @@ namespace exercise.main
 
         public float getTotal()
         {
-            var orderDataDict = DM.calculateDiscount(this);
+            var orderDataDict = DM.calculateTotalWithDiscount(this);
 
             return orderDataDict.Values.Sum(x => x.total_price);
 
@@ -148,7 +148,7 @@ namespace exercise.main
 
         public string stringify(DiscountManager dm)
         {
-            var cacledBasket = dm.calculateDiscount(this);
+            var cacledBasket = dm.calculateTotalWithDiscount(this);
             string ret = string.Format("{0,7}  {1,-25}{2,-10}{3,-10}\n", "Type", "Name", "Amount", "Cost");
 
             foreach (var x in cacledBasket.ToList())

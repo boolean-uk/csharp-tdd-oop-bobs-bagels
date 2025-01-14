@@ -45,7 +45,8 @@
 
             totalCost_withDiscount = this.DiscountPrice * maxDiscountMultiplier;
 
-            discountedSavings = this.DiscountPrice - totalCost_withoutDiscount;
+            //discountedSavings = this.DiscountPrice - totalCost_withoutDiscount;
+            discountedSavings = totalCost_withDiscount - totalCost_withoutDiscount;
 
             Dictionary<string, int> nrOfDiscounted = new Dictionary<string, int>();
             foreach (var discountReq in nrOfRequiredProducts)
@@ -70,7 +71,6 @@
         public override string stringify()
         {
             
-            //return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
             return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds";
         }
     }

@@ -275,7 +275,7 @@ public class Tests
 
 
         //Order o = dm.calculateDiscount(p);
-        var orderDataDict = dm.calculateDiscount(p);
+        var orderDataDict = dm.calculateTotalWithDiscount(p);
 
         var returnedTotal= orderDataDict.Values.Sum(x => x.total_price);
 
@@ -307,7 +307,7 @@ public class Tests
         var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
         var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 
-        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
         var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 
         // Add deal to DiscountManager
@@ -332,7 +332,7 @@ public class Tests
 
 
         //Order o = dm.calculateDiscount(p);
-        var orderDataDict = dm.calculateDiscount(p);
+        var orderDataDict = dm.calculateTotalWithDiscount(p);
 
         var returnedTotal= orderDataDict.Values.Sum(x => x.total_price);
 
@@ -364,7 +364,7 @@ public class Tests
         var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
         var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 
-        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
         var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 
         // Add deal to DiscountManager
@@ -400,7 +400,7 @@ public class Tests
 
 
         //Order o = dm.calculateDiscount(p);
-        var orderDataDict = dm.calculateDiscount(p);
+        var orderDataDict = dm.calculateTotalWithDiscount(p);
 
         var returnedTotal= orderDataDict.Values.Sum(x => x.total_price);
 
@@ -433,7 +433,7 @@ public class Tests
         var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
         var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 
-        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
         var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 
         // Add deal to DiscountManager
@@ -498,7 +498,7 @@ public class Tests
         var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
         var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 
-        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
         var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 
         // Add deal to DiscountManager
@@ -567,6 +567,7 @@ public class Tests
         DiscountManager dm = new DiscountManager(inventory);
         Basket basket = new Basket(inventory, dm);
         DiscountManager discountManager = new DiscountManager(inventory);
+        CashRegister cashRegister = new CashRegister(inventory,discountManager);
 
         inventory.Add("BGLO", "Onion", 0.49f, 100);
         inventory.Add("BGLS", "Sesame", 0.49f, 100);
@@ -575,7 +576,7 @@ public class Tests
         inventory.Add("FILE", "Egg", 0.12f, 100);
 
 
-        var storeFrontExecutior = new StoreFrontExecutor(new TerminalStoreFront(inventory, basket, discountManager));
+        var storeFrontExecutior = new StoreFrontExecutor(new TerminalStoreFront(inventory, basket, discountManager, cashRegister));
 
         //storeFrontExecutior.run(); // Will get stuck,... not part of the test 
 
@@ -597,8 +598,9 @@ public class Tests
     [Test]
     public void create_cashRegister()
     {
-
-        CashRegister inventory = new CashRegister();
+        Inventory inventory = new Inventory();
+        DiscountManager dm = new DiscountManager(inventory);
+        CashRegister cashRegister = new CashRegister(inventory,dm);
 
         Assert.Pass();
     }
@@ -609,7 +611,7 @@ public class Tests
         Inventory inventory = new Inventory();
         DiscountManager dm = new DiscountManager(inventory);
         var b = new Basket(inventory, dm, 100);
-        var cashReg = new CashRegister();
+        var cashReg = new CashRegister(inventory, dm);
 
         inventory.Add("BGLO", "Onion", 0.49f, 50);
         inventory.Add("COFB", "Black", 0.99f, 100);
@@ -629,7 +631,7 @@ public class Tests
         var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
         var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
 
-        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
         var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
 
         // Add deal to DiscountManager
@@ -649,8 +651,190 @@ public class Tests
         b.addProduct("FILE");
         totalPrice += inventory.getPrice("FILE");
         b.addProduct("FILE");
-        totalPrice += inventory.getPrice("FILE"); ;
+        totalPrice += inventory.getPrice("FILE");
+
+
+
+        cashReg.registerBasket(b);
+
+        Type cashRegType = cashReg.GetType();
+
+        FieldInfo currentOrder_field = cashRegType.GetField("currentOrder", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo currentBasket_field = cashRegType.GetField("currentBasket", BindingFlags.NonPublic | BindingFlags.Instance);
+        Order registered_order = (Order)currentOrder_field.GetValue(cashReg);
+        Basket registered_basket = (Basket)currentBasket_field.GetValue(cashReg);
+
+        Assert.That(registered_order != null);
+        Assert.That(registered_basket != null);
+
     }
+    
+    [Test]
+    public void cashRegister_registerBasket_thenPaySuccessfully()
+    {
+
+        Inventory inventory = new Inventory();
+        DiscountManager dm = new DiscountManager(inventory);
+        var b = new Basket(inventory, dm, 100);
+        var cashReg = new CashRegister(inventory, dm);
+
+        inventory.Add("BGLO", "Onion", 0.49f, 100);
+        inventory.Add("BGLP", "Plain", 0.39f, 100);
+        inventory.Add("BGLE", "Everything", 0.49f, 100);
+        inventory.Add("BGLS", "Sesame", 0.49f, 100);
+        inventory.Add("COFB", "Black", 0.99f, 100);
+        inventory.Add("COFW", "White", 1.19f, 100);
+        inventory.Add("COFC", "Capuccino", 1.29f, 100);
+        inventory.Add("COFL", "Latte", 1.29f, 100);
+        inventory.Add("FILB", "Bacon", 0.12f, 100);
+        inventory.Add("FILE", "Egg", 0.12f, 100);
+        inventory.Add("FILC", "Cheese", 0.12f, 100);
+        inventory.Add("FILX", "Cream Cheese", 0.12f, 100);
+        inventory.Add("FILS", "Smoked Salmon", 0.12f, 100);
+        inventory.Add("FILH", "Ham", 0.12f, 100);
+
+        // Create Discount deal, 6 BGLOO, for 2.49f 
+        int nrOfBagelsForDiscount = 6;
+        float discountedPrice_6_for_2_49 = 2.49f;
+        var discountReq = new Dictionary<string, int> { { "BGLO", nrOfBagelsForDiscount } };
+        var d = new Discount_XforY(discountReq, discountedPrice_6_for_2_49, inventory);
+
+        var discountReq_2 = new Dictionary<string, int> { { "BGLO", 1 }, { "COFB", 1 } };
+        var d2 = new Discount_XforY(discountReq_2, 1.25f, inventory);
+
+        var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
+        var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
+
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
+        var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
+
+        // Add deal to DiscountManager
+        dm.addDiscountType(d);
+        dm.addDiscountType(d2);
+        dm.addDiscountType(d3);
+        dm.addDiscountType(d4);
+
+        // Add non-discounted Products, calculate the total
+        float totalPrice = 0.0f;
+        b.addProduct("BGLS",3);
+        b.addProduct("BGLP",25);
+        b.addProduct("BGLO",6);
+        b.addProduct("BGLE",12);
+        b.addProduct("cofb",2);
+        totalPrice += inventory.getPrice("BGLO");
+        b.addProduct("FILH");
+        totalPrice += inventory.getPrice("FILH");
+        b.addProduct("FILC");
+        totalPrice += inventory.getPrice("FILC");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+
+
+
+        cashReg.registerBasket(b);
+
+        string reciept = cashReg.finalizePurchase(true);
+
+        Assert.That(reciept.Length != 0);
+        Assert.That(reciept != "You failed paying for your bagels...");
+
+
+
+        Type cashRegType = cashReg.GetType();
+
+        FieldInfo currentOrder_field = cashRegType.GetField("currentOrder", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo currentBasket_field = cashRegType.GetField("currentBasket", BindingFlags.NonPublic | BindingFlags.Instance);
+        Order registered_order = (Order)currentOrder_field.GetValue(cashReg);
+        Basket registered_basket = (Basket)currentBasket_field.GetValue(cashReg);
+
+        Assert.That(registered_order == null);
+        Assert.That(registered_basket == null);
 
 
     }
+    [Test]
+    public void cashRegister_registerBasket_thenPayFailure()
+    {
+
+        Inventory inventory = new Inventory();
+        DiscountManager dm = new DiscountManager(inventory);
+        var b = new Basket(inventory, dm, 100);
+        var cashReg = new CashRegister(inventory, dm);
+
+        inventory.Add("BGLO", "Onion", 0.49f, 100);
+        inventory.Add("BGLP", "Plain", 0.39f, 100);
+        inventory.Add("BGLE", "Everything", 0.49f, 100);
+        inventory.Add("BGLS", "Sesame", 0.49f, 100);
+        inventory.Add("COFB", "Black", 0.99f, 100);
+        inventory.Add("COFW", "White", 1.19f, 100);
+        inventory.Add("COFC", "Capuccino", 1.29f, 100);
+        inventory.Add("COFL", "Latte", 1.29f, 100);
+        inventory.Add("FILB", "Bacon", 0.12f, 100);
+        inventory.Add("FILE", "Egg", 0.12f, 100);
+        inventory.Add("FILC", "Cheese", 0.12f, 100);
+        inventory.Add("FILX", "Cream Cheese", 0.12f, 100);
+        inventory.Add("FILS", "Smoked Salmon", 0.12f, 100);
+        inventory.Add("FILH", "Ham", 0.12f, 100);
+
+        // Create Discount deal, 6 BGLOO, for 2.49f 
+        int nrOfBagelsForDiscount = 6;
+        float discountedPrice_6_for_2_49 = 2.49f;
+        var discountReq = new Dictionary<string, int> { { "BGLO", nrOfBagelsForDiscount } };
+        var d = new Discount_XforY(discountReq, discountedPrice_6_for_2_49, inventory);
+
+        var discountReq_2 = new Dictionary<string, int> { { "BGLO", 1 }, { "COFB", 1 } };
+        var d2 = new Discount_XforY(discountReq_2, 1.25f, inventory);
+
+        var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
+        var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
+
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 6 } };
+        var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
+
+        // Add deal to DiscountManager
+        dm.addDiscountType(d);
+        dm.addDiscountType(d2);
+        dm.addDiscountType(d3);
+        dm.addDiscountType(d4);
+
+        // Add non-discounted Products, calculate the total
+        float totalPrice = 0.0f;
+        b.addProduct("BGLO");
+        totalPrice += inventory.getPrice("BGLO");
+        b.addProduct("FILH");
+        totalPrice += inventory.getPrice("FILH");
+        b.addProduct("FILC");
+        totalPrice += inventory.getPrice("FILC");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+
+
+
+        cashReg.registerBasket(b);
+
+        string reciept = cashReg.finalizePurchase(false);
+
+        Assert.That(reciept.Length != 0);
+        Assert.That(reciept == "You failed paying for your bagels...");
+
+
+
+        Type cashRegType = cashReg.GetType();
+
+        FieldInfo currentOrder_field = cashRegType.GetField("currentOrder", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo currentBasket_field = cashRegType.GetField("currentBasket", BindingFlags.NonPublic | BindingFlags.Instance);
+        Order registered_order = (Order)currentOrder_field.GetValue(cashReg);
+        Basket registered_basket = (Basket)currentBasket_field.GetValue(cashReg);
+
+        Assert.That(registered_order == null);
+        Assert.That(registered_basket == null);
+
+
+    }
+
+
+}

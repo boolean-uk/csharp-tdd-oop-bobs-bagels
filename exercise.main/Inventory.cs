@@ -21,7 +21,6 @@ namespace exercise.main
         }
         public string stringify(Inventory inventory)
         {
-            //return string.Format("{0,0:10}{1,0:10}{2,0:30}{3,0:40}", SKU, name, price, stock);
             return String.Format("{0,0}{1,15}{2,15}{3,10}{4,10}", SKU, inventory.getProductType(SKU), name, price, stock);
         }
     }
@@ -65,7 +64,6 @@ namespace exercise.main
         public string stringify()
         {
             
-            //return "Inventory:\n"+ string.Join("\n", inventory.ToList().Select(x=>x.Value.toString()));
             string st = String.Format("{0,0}{1,15}{2,15}{3,10}{4,10}\n", "SKU", "Product Type", "Variant", "Price", "Stock"); ;
             foreach (var item in inventory.ToList())
             {
