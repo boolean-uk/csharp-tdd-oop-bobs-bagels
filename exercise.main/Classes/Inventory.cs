@@ -45,7 +45,6 @@ public class Inventory
         }
     }
 
-
     public bool ValidProduct(string sku)
     {
         return GetProduct(sku) != null;

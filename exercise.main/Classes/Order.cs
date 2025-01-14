@@ -102,7 +102,6 @@ namespace exercise.main.Classes
                     discount += 0.45M * full6Sets;
                 }
             }
-
             return discount;
         }
 
@@ -119,28 +118,23 @@ namespace exercise.main.Classes
             UpdateOrderTotal(currentTotal - totalDiscount);
         }
 
-        public int GetOrderItemNameCount(string name)
+        public string OrderToSms()
         {
-            int count = 0;
-            foreach (OrderItem item in items)
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Order Summary:");
+
+            foreach (var item in items)
             {
-                if (item.ItemName == name) { count++; }
+                sb.AppendLine($"{item.ItemName} x{item.Quantity} - {item.Price:C2}");
+                if (item.Savings > 0)
+                {
+                    sb.AppendLine($"   Savings: {item.Savings:C2}");
+                }
             }
-            return count;
-        }
 
-        public int GetBagelCount() { return GetOrderItemNameCount("Bagel"); }
-        public int GetCoffeeCount() { return GetOrderItemNameCount("Coffee"); }
-        public int GetFillingCount() { return GetOrderItemNameCount("Filling"); }
-
-        public string GetCoffeSku()
-        {
-            return items.FirstOrDefault(item => item.Sku.StartsWith("COF")).ToString();
-        }
-
-        public string GetBagelSku()
-        {
-            return items.FirstOrDefault(item => item.Sku.StartsWith("BGL")).ToString();
+            sb.AppendLine($"Total: {GetOrderTotal():C2}");
+            sb.AppendLine($"Estimated Delivery: {DateTime.Now.AddMinutes(30):hh:mm tt}");
+            return sb.ToString();
         }
 
         public void CreateCoffeeBagelCombinations()

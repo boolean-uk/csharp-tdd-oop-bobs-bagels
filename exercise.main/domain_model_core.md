@@ -26,4 +26,15 @@ Extension 2: Receipts
 
 Extension 3: Discount Receipts
 
+It was easier to create an OrderItem with the values sku, itemName, quantity and price in Extention 2, just added savings value to the OrderItem for it to work with generateReceipt().
+
+Extension 4:
+
+| Classes        | Methods                                     | Scenario                                                          | Outputs                      |
+|----------------|---------------------------------------------|-------------------------------------------------------------------|------------------------------|
+| TwilioClass.cs | SendMessage(toPhoneNumber, messageBody)     | Sends simple messageBody to toPhoneNumber                         | Sent message: {message.Body} |
+| Order.cs       | OrderToSms()                                | Formats the order to a sms friendly string                        |                              |
+| TwilioClass.cs | SendOrderConfirmation(toPhoneNumber, order) | Sends order confirmation sms with order summary and delivery time |                              |
+
+
 

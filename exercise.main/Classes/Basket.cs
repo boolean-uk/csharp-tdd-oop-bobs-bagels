@@ -32,7 +32,6 @@ namespace exercise.main.Classes
             else
             {
                 Console.WriteLine($"{product.Variant} {product.Name} added to basket!");
-                Console.WriteLine($"{product.Sku}");
                 products.Add(product);
             }
         }

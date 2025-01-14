@@ -161,5 +161,14 @@ public class Program
         Console.WriteLine("\nReceipt:\n" + receiptOutput);
 
         #endregion
+
+        #region Extension 4
+
+        // Not finished, will cause error without phone number and the correct environment variables
+
+        /*var twilio = new TwilioClass();
+        twilio.SendOrderConfirmation("*phoneNumber*", receiptOrder);*/
+
+        #endregion
     }
 }
