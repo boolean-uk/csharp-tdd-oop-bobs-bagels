@@ -43,6 +43,19 @@ public class Tests
     }
 
     [Test]
+    public void TestAddToFullBasket()
+    {
+        basket.ChangeCapacity(4);
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Onion"));
+        basket.Add(new Bagel("Onion"));
+        Assert.That(basket.items.Count, Is.EqualTo(4));
+    }
+
+    [Test]
     public void TestChangeCapacity()
     {
         Assert.That(basket.SpaceLeft() == 40);
@@ -50,6 +63,7 @@ public class Tests
         Assert.That(basket.SpaceLeft() == 4);
     }
 
+    // This is total cost without discount. Discount only added in receipt.
     [Test]
     public void TestGetTotalCost()
     {
@@ -104,49 +118,9 @@ public class Tests
     }
 
     [Test]
-    public void TestDiscount()
+    public void TestPrintReceiptAndReturnTotalCost()
     {
-        for (int i = 0; i <= 31; i++)
-            basket.Add(new Bagel("Everything"));
-        basket.Add(new Bagel("Onion"));
-        basket.Add(new Bagel("Sesame"));
-        basket.Add(new Bagel("Plain"));
-
-        basket.items[0].AddFilling(new Filling("Egg"));
-        basket.items[4].AddFilling(new Filling("Egg"));
-        basket.items[7].AddFilling(new Filling("Cream Cheese"));
-        basket.items[7].AddFilling(new Filling("Smoked Salmon"));
-        basket.items[16].AddFilling(new Filling("Bacon"));
-        basket.items[28].AddFilling(new Filling("Ham"));
-
-        basket.Add(new Coffee("White"));
-        basket.Add(new Coffee("Black"));
-
-        float truePrice = 0f;
-
-        truePrice += new Bagel("Everything").cost * 32;
-        truePrice += new Bagel("Onion").cost;
-        truePrice += new Bagel("Sesame").cost;
-        truePrice += new Bagel("Plain").cost;
-
-        truePrice += new Filling("Egg").cost * 6;
-
-        truePrice += new Coffee("White").cost;
-        truePrice += new Coffee("Black").cost;
-
-        truePrice -= 1.29f;
-        truePrice -= 1.29f;
-        truePrice -= 0.49f;
-        truePrice -= 0.25f;
-        truePrice -= 0.25f;
-
-        Assert.That(Math.Round(basket.GetCostAfterDiscounts(), 4), Is.EqualTo(Math.Round(truePrice, 4)));
-    }
-
-    [Test]
-    public void TestPrintReceiptAndTotalCost()
-    {
-        for (int i = 0; i <= 31; i++)
+        for (int i = 0; i < 32; i++)
             basket.Add(new Bagel("Everything"));
         basket.Add(new Bagel("Onion"));
         basket.Add(new Bagel("Sesame"));
@@ -168,13 +142,19 @@ public class Tests
 
         float trueCost = 0f;
 
+        //Discounts
         trueCost += 3.99f;
         trueCost += 3.99f;
         trueCost += 2.49f;
         trueCost += 1.25f;
         trueCost += 1.25f;
+
+        //Bagels
+        trueCost += 0.49f;
         trueCost += 0.49f;
         trueCost += 0.39f;
+
+        //Fillings
         trueCost += 0.12f;
         trueCost += 0.12f;
         trueCost += 0.12f;
@@ -182,6 +162,32 @@ public class Tests
         trueCost += 0.12f;
         trueCost += 0.12f;
 
-        Assert.That(receipt.PrintReceipt(basket.items), Is.EqualTo(trueCost));
+        Assert.That(Math.Round(receipt.PrintReceipt(basket.items), 4), Is.EqualTo(Math.Round(trueCost, 4)));
+    }
+
+    [Test]
+    public void TestPrintReceiptAndReturnTotalCostFullBasket()
+    {
+        Item bagel = new Bagel("Plain");
+        basket.Add(bagel);
+
+        for (int i = 0; i < 100; i++)
+            basket.Add(new Coffee("Latte"));
+
+        bagel.AddFilling(new Filling("Egg"));
+        bagel.AddFilling(new Filling("Bacon"));
+
+        Receipt receipt = new Receipt();
+
+        receipt.AddAll(basket.items);
+
+        float trueCost = 0f;
+
+        trueCost += 1.25f;
+        trueCost += 1.29f * 38;
+        trueCost += 0.12f;
+        trueCost += 0.12f;
+
+        Assert.That(Math.Round(receipt.PrintReceipt(basket.items), 4), Is.EqualTo(Math.Round(trueCost, 4)));
     }
 }

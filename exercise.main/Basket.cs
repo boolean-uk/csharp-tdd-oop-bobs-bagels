@@ -56,6 +56,9 @@ namespace exercise.main
             if (item.name == "Filling")
                 Console.WriteLine("Fillings cannot be added to the basket directly.");
 
+            else if (this.items.Count >= _basketSize)
+                Console.WriteLine("Basket is full!");
+
             else if (Inventory.CheckIfInInventory(item))
             {
                 _items.Add(item);
@@ -92,6 +95,7 @@ namespace exercise.main
             _basketSize = newCapacity;
         }
 
+        // This is total cost without discount. Discount only added in receipt.
         public float GetTotalCost()
         {
             float totalCost = 0f;
@@ -105,59 +109,6 @@ namespace exercise.main
 
             return totalCost;
         }
-
-        // A simple discount calculation, but I changed how the discounts work, giving a fixed discount for the three different discount scenarios
-        public List<Discount> GetDiscounts()
-        {
-            List<Discount> discountList = new List<Discount>();
-
-            // Find number of bagels and coffees
-            int totalBagelItems = 0;
-            int totalCoffeeItems = 0;
-            foreach (Item item in _items)
-            {
-                if (item.name == "Bagel")
-                    totalBagelItems += 1;
-                if (item.name == "Coffee")
-                    totalCoffeeItems += 1;
-            }
-
-            // Add their discounts
-            while (totalBagelItems >= 12)
-            {
-                discountList.Add(_discounts[0]);
-                totalBagelItems -= 12;
-            }
-                
-            
-            if (totalBagelItems >= 6)
-            {
-                discountList.Add(_discounts[1]);
-                totalBagelItems -= 6;
-            }
-
-            while (totalBagelItems > 0 && totalCoffeeItems > 0)
-            {
-                discountList.Add(_discounts[2]);
-                totalBagelItems -= 1;
-                totalCoffeeItems -= 1;
-            }
-
-            return discountList;
-        }
-
-        public float GetCostAfterDiscounts()
-        {
-            float price = this.GetTotalCost();
-
-            List<Discount> discountList = this.GetDiscounts();
-
-            for (int i = 0; i < discountList.Count; i++)
-                price -= discountList[i].discount;
-
-            return price;
-        }
-
 
         public List<Item> items { get { return _items; } }
     }
