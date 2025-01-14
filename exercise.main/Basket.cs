@@ -14,7 +14,7 @@ namespace exercise.main
 
         public static List<Item> StockItems = new List<Item>()
         {
-            new Bagel("BGLO", "Bagel", "Onion", 0.49),
+            new Bagel("BGLO", "Bagel", "Onion", 0.49, new List<Bagel.Filling>()),
             new Bagel("BGLP", "Bagel", "Plain", 0.39),
             new Bagel("BGLE", "Bagel", "Everything", 0.49),
             new Bagel("BGLS", "Bagel", "Sesame", 0.49),
@@ -30,23 +30,30 @@ namespace exercise.main
         public List<Item> Items { get { return items; } set { items = value; } }
 
 
-        public void addToBasket(Item order) 
+        //public void addToBasket(Item order) 
+        //{
+        //    if (checkFull()){ throw new Exception("Basket is full"); }
+        //    else if (!StockItems.Contains(order)) { throw new Exception("Order not in stock"); }  
+        //    else { items.Add(order); }
+        //}
+
+        public void addToBasket(string order)
         {
-            if (checkFull()){ throw new Exception("Basket is full"); }
-            else if (!StockItems.Contains(order)) { throw new Exception("Order not in stock"); }  
-            else { items.Add(order); }
+            var item = StockItems.FirstOrDefault(i => i.Id == order);
+
+            if (items.Count >= maxSize) { throw new Exception("Basket is full"); }
+            else if (item == null) { throw new Exception("Order not in stock"); }
+            else { items.Add(item); }
         }
 
 
-        public void removeFromBasket(Item order) 
+        public void removeFromBasket(string order) 
         {
-            if (items.Contains(order)) { items.Remove(order); }
-            else { throw new Exception("No such item in basket"); }
+            var item = items.FirstOrDefault(i => i.Id == order);
+
+            if (item == null) { throw new Exception("No such item in basket"); }
+            else { items.Remove(item); }
         } 
-
-
-        public bool checkFull() { return items.Count >= maxSize; }
-
 
         public void setBasketSize(bool manager, int newSize)
         {
@@ -54,12 +61,11 @@ namespace exercise.main
             else { maxSize = newSize; }
         }
 
-
         public double getTotalCost()
         {
             if(items != null && items.Count > 0)
             {
-                return items.Sum(i => i.getPrice());
+                return Math.Round(items.Sum(i => i.getPrice()), 2);
             }
             return 0;
         }

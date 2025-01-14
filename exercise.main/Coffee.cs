@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static exercise.main.Bagel;
 
 namespace exercise.main
 {
@@ -13,6 +14,20 @@ namespace exercise.main
         public override double getPrice()
         {
             return base.Price;
+        }
+
+        public override void addFilling(string order)
+        {
+            throw new Exception("Currently no filling for coffee");
+        }
+        public override void removeFilling(string order)
+        {
+            throw new Exception("Currently no filling for coffee");
+        }
+
+        public override List<Filling> getFillings()
+        {
+            throw new Exception("Currently no filling for coffee");
         }
     }
 }

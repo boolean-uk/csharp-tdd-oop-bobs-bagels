@@ -25,12 +25,12 @@ public class Tests
         };
         Basket expBasket = new Basket { Items = new List<Item>() { bagelO, bagelP } };
 
-        basket.addToBasket(bagelP);
+        basket.addToBasket("BGLP");
         Assert.That(basket.Items.Contains(bagelP));
         Assert.That(basket.Items, Is.EqualTo(expBasket.Items));
         try
         {
-            basket.addToBasket(bagelO);
+            basket.addToBasket("BGLO");
             Assert.Fail();
         }
         catch (Exception e) { Console.WriteLine(e); }
@@ -43,14 +43,14 @@ public class Tests
         Basket basket = new Basket { Items = new List<Item>() { bagelO, bagelP } };
         Basket expBasket = new Basket { Items = new List<Item>() { bagelO } };
 
-        basket.removeFromBasket(bagelP);
+        basket.removeFromBasket("BGLP");
 
         Assert.That(basket.Items, Does.Not.Contain(bagelP));
         Assert.That(basket.Items, Is.EqualTo(expBasket.Items));
 
         try
         {
-            basket.removeFromBasket(bagelP);
+            basket.removeFromBasket("BGLP");
             Assert.Fail();
         }
         catch (Exception e) { Console.WriteLine(e); }
@@ -110,7 +110,7 @@ public class Tests
 
         Assert.That(bagelO.Fillings_list, Does.Not.Contain(egg));
 
-        bagelO.addFilling(egg);
+        bagelO.addFilling("FILE");
 
         Assert.That(bagelO.Fillings_list, Does.Contain(egg));
 
@@ -118,7 +118,7 @@ public class Tests
 
         try
         {
-            bagelO.addFilling(notInStock);
+            bagelO.addFilling("FILP");
             Assert.Fail();
         }
         catch (Exception e) { Console.WriteLine(e); }
@@ -129,13 +129,13 @@ public class Tests
     {
         bagelO.Fillings_list = new List<Filling>() { egg };
         
-        bagelO.removeFilling(egg);
+        bagelO.removeFilling("FILE");
 
         Assert.That(bagelO.Fillings_list, Does.Not.Contain(egg));
 
         try
         {
-            bagelO.removeFilling(egg);
+            bagelO.removeFilling("FILE");
             Assert.Fail();
         }
         catch (Exception e) { Console.WriteLine(e); }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static exercise.main.Bagel;
 
 namespace exercise.main
 {
@@ -23,7 +24,14 @@ namespace exercise.main
         }
 
         public abstract double getPrice();
+        public abstract void addFilling(string order);
+        public abstract void removeFilling(string order);
+        public abstract List<Filling> getFillings();   
 
+        public string getItemToString()
+        {
+            return $"{Id}, {Name}, {Variant}, {Price}";
+        }
     }
 
     

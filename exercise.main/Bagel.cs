@@ -9,7 +9,6 @@ namespace exercise.main
 {
     public class Bagel : Item
     {
-        private string variant;
 
         private List<Filling> fillings_list; 
 
@@ -39,6 +38,11 @@ namespace exercise.main
                 Name = name;
                 Price = price;
             }
+
+            public string getFillingToString()
+            {
+                return $"{Id}, {Name}, {Variant}, {Price}";
+            }
         }
 
         public Bagel(string id, string name, string variant, double price) : base(id, name, variant, price) { }
@@ -49,18 +53,28 @@ namespace exercise.main
         }
 
 
-
-        public void addFilling(Filling filling)
+        public override List<Filling> getFillings() 
         {
-            if (StockItems.Contains(filling)) { fillings_list.Add(filling); }
-            else { throw new Exception("Order not in stock"); }
+            return fillings_list;
         }
 
-        public void removeFilling(Filling filling)
+        public override void addFilling(string order)
         {
-            if (fillings_list.Contains(filling)){ fillings_list.Remove(filling); }
-            else { throw new Exception("No such item in basket"); } 
+            var fillingOrder = StockItems.FirstOrDefault(x => x.Id == order);
+
+            if (fillingOrder.Id == null) { throw new Exception("Order not in stock"); }
+            else { fillings_list.Add(fillingOrder); }
         }
+
+
+        public override void removeFilling(string order)
+        {
+            var fillingOrder = fillings_list.FirstOrDefault(x => x.Id == order);
+
+            if (fillingOrder.Id == null) { throw new Exception("No such item in basket"); }
+            else { fillings_list.Remove(fillingOrder); } 
+        }
+
 
         public override double getPrice()
         {
@@ -70,6 +84,7 @@ namespace exercise.main
             }
             return base.Price;
         }
+
 
     }
 }
