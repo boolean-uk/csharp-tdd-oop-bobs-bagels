@@ -46,6 +46,5 @@
 * IRepository
 * ListRepository
 
-StoreItem: productCode: string, name: string, variant: string, price: double;
-Basket: items: List<StoreItem>
+** Instead of making a table, I made empty classes and function stubs before creating any code. **
 
