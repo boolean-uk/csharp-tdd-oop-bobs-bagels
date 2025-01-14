@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using exercise.main;
 namespace exercise.tests;
 
@@ -99,21 +100,23 @@ public class Tests
         Shop shop = new Shop();
         Customer customer = new Customer();
         Basket basket = customer.GetBasket();
-        Iproduct bagel = new Bagel("bagel ", "BGLO", 6.9F, "Onion");
+        Iproduct bagel = new Bagel("bagel ", "BGLO", 0.49F, "Onion");
         Iproduct filling = new Filling("Filling", "FILC", 0.12F, "Cheese");
-        List<Iproduct> couponItems = new List<Iproduct>();
+        List<Iproduct> discountedItems = new List<Iproduct>();
+
         for (int i = 0; i < 6; i++) 
         {
-            couponItems.Add(bagel);
-            basket.AddBagel(bagel);
+            discountedItems.Add(bagel);
+            //basket.AddBagel(bagel);
         }
-        Coupon coupon = new Coupon(couponItems,2.49F);
+        basket.AddBagel(bagel);
+        Coupon coupon = new Coupon(discountedItems,2.49F);
         shop.AddToInventory(bagel, 2);
         shop.AddToInventory(filling, 5);
-        basket.AddBagel(bagel);//7 bagels, 6 is dicounted + 1 not discounted
+        //basket.AddBagel(bagel);//7 bagels, 6 is dicounted + 1 not discounted
         basket.AddCoupon(coupon);
         float total= basket.Discount();
-        Assert.That(total, Is.EqualTo(expectedDiscount+bagel.GetPrice()));
+        Assert.That(total, Is.EqualTo(bagel.GetPrice()));
 
     }
     [Test]

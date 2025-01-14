@@ -10,7 +10,7 @@ namespace exercise.main
     public class Basket
     {
         private int _capacity = 10;
-        public HashSet<Coupon> coupons { get; set; }
+        public HashSet<Coupon> coupons { get; set; } = new HashSet<Coupon>();
         public List<Coupon> usedCoupons { get; set; } = new List<Coupon>(); //for storing used coupons
         public int Capacity
         {
@@ -24,9 +24,10 @@ namespace exercise.main
             get { return _items; }
             set { _items = value; }
         }
-        public Basket()
-        { 
-            coupons = new HashSet<Coupon>();   
+
+        public HashSet<Coupon> GetCoupons()
+        {
+            return coupons;
         }
         public void AddBagel(Iproduct item)
         { 
@@ -65,13 +66,27 @@ namespace exercise.main
         public float Discount()
         {
             float total = 0;
+           
             List<Coupon> CouponList = coupons.ToList(); //list of all coupoons  added to basket
             List<Iproduct> itemCopy = new List<Iproduct>(Items); // Create a copy of the Items list, removes all discounted items and calculates normal cost pluss discount
 
             //loop through all coupons and if all items in coupon is present in basket, remove them and from basket item copy and add discounts
             foreach (Coupon c in CouponList.ToList())
             {
-                bool allItemsPresent = c.items.All(item => itemCopy.Contains(item));
+                
+                List<Iproduct> counter = c.items;
+                int l = 0;
+                int r = 0;
+                while (counter.Count()>0 && r > Items.Count() && l > c.items.Count())
+                {
+                    if (c.items[l] == Items[r])
+                    {
+                        c.items.Remove(c.items[l]);
+                        l++;
+                    }
+                    r++;
+                }
+                bool allItemsPresent = counter.Count() == 0;
                 if (allItemsPresent)
                 {
                     foreach (Iproduct i in c.items)
@@ -91,7 +106,6 @@ namespace exercise.main
         {
             return usedCoupons;
         }
-        
         //extesnion 1 is a brute force receipt without discounts, as far as i understood
         public void PrintReceipt()
         {
@@ -125,9 +139,10 @@ namespace exercise.main
             Console.WriteLine("---------------------------");
             Console.WriteLine($"Total ${GetTotalCost()}");
             Console.WriteLine("Thank you for your order!");
-
-
-
+        }
+        public void PrintReceiptWithDiscounts()
+        {
+            return;
         }
     }
 }
