@@ -13,7 +13,6 @@ namespace exercise.main
         public override string name => actualname;
         public List<Filling> fillings = new List<Filling>();
 
-        public override double totalcost => 0;
         public double cost = 0;
         
 
@@ -25,7 +24,7 @@ namespace exercise.main
         public override Dictionary<string, double> prices => new Dictionary<string, double>()
         { {"BGLO", 0.49}, {"BGLP", 0.39}, {"BGLE", 0.49}, {"BGLS", 0.49}};
 
-        public override Dictionary<string, int> itemcount => Initialization(prices);
+       
 
         public override List<Filling> bagelfillings => fillings;
 
@@ -35,23 +34,7 @@ namespace exercise.main
             cost += filling.prices[filling.actualname];
         }
 
-        public Dictionary<string, int> Initialization(Dictionary<string, double> pricess)
-        {
-            Dictionary<string, int> returndict = new Dictionary<string, int>();
-            foreach (string key in pricess.Keys) {
-                if (returndict.ContainsKey(key)) {
-                    returndict[key] += 1;
-                }
-                else
-                {
-                    returndict.Add(key, 1);
-                }
-
-
-
-            }
-            return returndict;
-        }
+        
     }
 }
 

@@ -58,7 +58,7 @@ namespace exercise.main
 
 
 
-
+            // looping through the basket to count amount of each item
             foreach (Item item in _person._basket)
             {
 
@@ -72,6 +72,7 @@ namespace exercise.main
                 }
             }
 
+            // calculating the cost amount of each individual item depending of the quantity of the item
             foreach (string itemCount in itemCounts.Keys)
             {
 
@@ -101,6 +102,7 @@ namespace exercise.main
                 
                 Console.WriteLine($"{idToRealName[itemCount],-18} {quantity,2}   £{totalCostForItem:F2}");
                 
+                //Check to see if the item is bagel
                 bool isBagel = false;
                 foreach (Item item in _person._basket)
                 {
@@ -111,6 +113,7 @@ namespace exercise.main
                     }
                 }
 
+                // if it is a bagel I calculate the filling cost for each bagel
                 if (isBagel)
                 {
                     foreach (Item item in _person._basket)

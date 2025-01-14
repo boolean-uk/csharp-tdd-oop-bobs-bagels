@@ -48,10 +48,11 @@ public class Tests
     public void ManagerChangeCapacity()
     {
         Person person = new Person() { _capacity = 10, role = "manager" };
-        int capacity = person.GetCapacity();
+        Person customer = new Person() { _capacity = 10, role = "customer" };
+        int capacity = customer.GetCapacity();
         Assert.That(capacity == 10);
-        person.ChangeCapacity(20);
-        Assert.That(person.GetCapacity, Is.EqualTo(20));
+        person.ChangeCapacity(customer, 20);
+        Assert.That(customer.GetCapacity, Is.EqualTo(20));
 
     }
 
@@ -59,7 +60,7 @@ public class Tests
     public void CustomerChangeCapacity()
     {
         Person person = new Person() { _capacity = 10, role = "customer" };
-        var message = Assert.Throws<Exception>(() => person.ChangeCapacity(20));
+        var message = Assert.Throws<Exception>(() => person.ChangeCapacity(person, 20));
 
         Assert.That(message.Message, Is.EqualTo("You are not allowed to change the capacity, you are a customer"));
     }
@@ -191,7 +192,8 @@ public class Tests
     public void TwelveBagelsDiscount()
     {
         Person newPerson = new Person() { role = "manager" };
-        newPerson.ChangeCapacity(15);
+        Person customer = new Person() { role = "customer" };
+        newPerson.ChangeCapacity(customer ,15);
         Bagel bg1 = new Bagel("BGLE");
         Bagel bg2 = new Bagel("BGLE");
 
@@ -212,27 +214,29 @@ public class Tests
 
         bg67.AddFilling(fill);
         bg67.AddFilling(fill1);
-        newPerson.AddItem(bg1);
-        newPerson.AddItem(bg2);
-        newPerson.AddItem(bg3);
-        newPerson.AddItem(bg4);
-        newPerson.AddItem(bg5);
-        newPerson.AddItem(bg6);
-        newPerson.AddItem(bg67);
-        newPerson.AddItem(bg12);
-        newPerson.AddItem(bg23);
-        newPerson.AddItem(bg34);
-        newPerson.AddItem(bg45);
-        newPerson.AddItem(bg56);
+        customer.AddItem(bg1);
+        customer.AddItem(bg2);
+        customer.AddItem(bg3);
+        customer.AddItem(bg4);
+        customer.AddItem(bg5);
+        customer.AddItem(bg6);
+        customer.AddItem(bg67);
+        customer.AddItem(bg12);
+        customer.AddItem(bg23);
+        customer.AddItem(bg34);
+        customer.AddItem(bg45);
+        customer.AddItem(bg56);
 
 
-        double totalCost = newPerson.GetTotalCost();
+        double totalCost = customer.GetTotalCost();
         Assert.That(totalCost > 4.22 && totalCost < 4.24);
     }
 
     [Test]
     public void BothDiscounts()
     {
+
+        
         Person person = new Person() { role = "customer" };
         Bagel bagel = new Bagel("BGLO");
         Coffee coffee = new Coffee("COFB");
@@ -255,6 +259,8 @@ public class Tests
         person.AddItem(bagel5);
         person.AddItem(bagel6);
         person.AddItem(coffee);
+
+        //In this store you only receive one discount on purschase - the cheapest discount for the store
         Assert.That(person.GetTotalCost() > 3.58 && person.GetTotalCost() < 3.6);
 
     }

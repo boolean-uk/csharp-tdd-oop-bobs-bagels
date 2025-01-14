@@ -15,12 +15,14 @@ Bagel bagel8 = new Bagel("BGLO");
 Bagel bagel9 = new Bagel("BGLO");
 Bagel bagel10 = new Bagel("BGLO");
 Bagel bagel11 = new Bagel("BGLO");
-Coffee coffee = new Coffee("COFB");
-Bagel newBagel = new Bagel("BGLP");
+Bagel bagel12 = new Bagel("BGLO");
+Bagel bagel13 = new Bagel("BGLO");
+
+
 Filling fill = new Filling("FILX");
-person.AddItem(newBagel);
+
 bagel.AddFilling(fill);
-person.AddItem(coffee);
+
 person.AddItem(bagel);
 person.AddItem(bagel1);
 person.AddItem(bagel2);
@@ -33,6 +35,8 @@ person.AddItem(bagel8);
 person.AddItem(bagel9);
 person.AddItem(bagel10);
 person.AddItem(bagel11);
+person.AddItem(bagel12);
+person.AddItem(bagel13);
 Filling pill = new Filling("FILB");
 Filling pill1 = new Filling("FILB");
 bagel.AddFilling(pill);

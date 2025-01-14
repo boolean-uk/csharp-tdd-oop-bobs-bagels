@@ -26,6 +26,8 @@ namespace exercise.main
             return _capacity;
         }
 
+        
+
 
         public void GetItems()
         {
@@ -52,7 +54,7 @@ namespace exercise.main
        
                 _basket.Add(item);
             
-
+            // seperate check for bagels, because I have a seperate dict for bagels/fillings as well as the regular one
             if (item.GetType() == typeof(Bagel))
             {
                 _bagels.Add(item);
@@ -77,11 +79,11 @@ namespace exercise.main
             return _basket.Count >= _capacity;
         }
 
-        public void ChangeCapacity(int newcapacity)
+        public void ChangeCapacity(Person person, int newcapacity)
         {
             if (role == "manager")
             {
-                _capacity = newcapacity;
+                person._capacity = newcapacity;
             }
             else
             {
