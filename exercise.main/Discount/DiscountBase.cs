@@ -7,10 +7,7 @@
             discountPrice = discountedPrice;
             _inventory = inventory;
         }
-        //private Func<int, int> discountConditionFunc;
-        //private Action discountConditionFunc;
 
-        //public void defineCondition(Func<int,int> func )
         private float discountPrice;
         protected Inventory _inventory;
 

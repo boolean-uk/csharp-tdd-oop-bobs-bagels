@@ -149,17 +149,18 @@ namespace exercise.main
         public string stringify(DiscountManager dm)
         {
             var cacledBasket = dm.calculateDiscount(this);
-            string ret = string.Format("{0,0}{1,25}{2,25}{3,25}\n", "Type", "Name", "Amount", "Cost");
+            string ret = string.Format("{0,7}  {1,-25}{2,-10}{3,-10}\n", "Type", "Name", "Amount", "Cost");
 
             foreach (var x in cacledBasket.ToList())
             {
                 if (x.Value.UsedDiscount == null)
                 {
-                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}{3,25}", _inventory.getProductType(x.Value.name) ,_inventory.getName(x.Value.name), x.Value.amount, x.Value.total_price);
+                    ret += "\n"+ string.Format("{0,7}  {1,-25}{2,-10}{3,-10}", _inventory.getProductType(x.Value.name) ,_inventory.getName(x.Value.name), x.Value.amount, x.Value.total_price);
                 }
                 else
                 {
-                    ret += "\n"+ string.Format("{0,0}{1,25}{2,25}{3,25}", "Deal", x.Value.UsedDiscount.stringify(), x.Value.amount, x.Value.total_price);
+                    ret += "\n"+ string.Format("{0,7}  {1,-25}", "Deal", x.Value.UsedDiscount.stringify());
+                    ret += "\n"+ string.Format("{0,7}  {1,-25}{2, -10}{3, -10}","", "", x.Value.amount, x.Value.total_price);
                 }
             }
 

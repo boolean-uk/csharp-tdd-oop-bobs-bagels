@@ -33,13 +33,8 @@
                 int requiredProduct = discountReq.Value;
                 int d = (int)MathF.Floor(basket.countProductTypes(SKU) / discountReq.Value);
 
-                //float? defprice = basket.getDefaultPrice(SKU);
-                ////if (defprice == null)
-                //Debug.Assert(defprice != null, "expected SKU to exist in basket...");
-
                 var defprice = _inventory.getPrice(SKU);
 
-                //totalCost_withoutDiscount +=  discountReq.Value * d * (defprice ?? 1.0f);
                 totalCost_withoutDiscount += discountReq.Value * d * defprice;
 
                 discountedProductSKU[SKU] = d;
@@ -62,9 +57,7 @@
 
             DiscountedProductCount dp = new DiscountedProductCount
             {
-                //SKU_amount = discountedProductSKU,
                 SKU_amount = nrOfDiscounted,
-                //discountMultiple = maxDiscountMultiplier ,
                 discountMultiple = (int)maxDiscountMultiplier,
                 possibleSavings = discountedSavings,
                 finalPrice = totalCost_withDiscount,
@@ -77,7 +70,8 @@
         public override string stringify()
         {
             
-            return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
+            //return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds\n";
+            return $"{string.Join(", ", nrOfRequiredProducts.ToList().Select(x => $"{x.Value} {_inventory.getProductType(x.Key)} {this._inventory.getName(x.Key)} ({x.Key})"))} for {this.DiscountPrice} Pounds";
         }
     }
 

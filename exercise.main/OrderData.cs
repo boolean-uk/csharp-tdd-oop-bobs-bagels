@@ -6,7 +6,7 @@ namespace exercise.main
         public string name;
         public string productType;
         public int amount;
-        public float individual_price; 
+        //public float individual_price; 
         public float discounted_price; 
         public float total_price; 
         public float saving;

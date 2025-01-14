@@ -594,47 +594,63 @@ public class Tests
         Assert.That(inventory.getPrice("BGLO"), Is.EqualTo(0.49f));
 
     }
+    [Test]
+    public void create_cashRegister()
+    {
 
-        //[TestCase("Onion", 2.5f)]
-        //public void CreateProduct(string productName, float productPrice)
-        //{
-        //    var p = new Product<Bagel>(productName, productPrice);
-        //    Assert.Pass();
-        //}
+        CashRegister inventory = new CashRegister();
 
-        //[TestCase("Bread", 2.5f)]
-        //public void CreateProduct_withSubProducts(string productName, float productPrice, params Tuple<string, float>[]  subProducts)
-        //{
+        Assert.Pass();
+    }
+    [Test]
+    public void cashRegister_registerBasket()
+    {
 
-        //    var products = new List<BaseProduct>()
-        //    {
-        //        new Product<Filling>("Ham", 0.5f),
-        //        new Product<Filling>("Cheese", 0.5f),
-        //        new Product<Filling>("Lettuce", 0.5f),
-        //    };
+        Inventory inventory = new Inventory();
+        DiscountManager dm = new DiscountManager(inventory);
+        var b = new Basket(inventory, dm, 100);
+        var cashReg = new CashRegister();
 
-        //    var p = new Product<Bagel>(productName, productPrice, products);
+        inventory.Add("BGLO", "Onion", 0.49f, 50);
+        inventory.Add("COFB", "Black", 0.99f, 100);
+        inventory.Add("FILH", "Ham", 0.12f, 50);
+        inventory.Add("FILC", "Cheese", 0.12f, 50);
+        inventory.Add("FILE", "Egg", 0.12f, 50);
+
+        // Create Discount deal, 6 BGLOO, for 2.49f 
+        int nrOfBagelsForDiscount = 6;
+        float discountedPrice_6_for_2_49 = 2.49f;
+        var discountReq = new Dictionary<string, int> { { "BGLO", nrOfBagelsForDiscount } };
+        var d = new Discount_XforY(discountReq, discountedPrice_6_for_2_49, inventory);
+
+        var discountReq_2 = new Dictionary<string, int> { { "BGLO", 1 }, { "COFB", 1 } };
+        var d2 = new Discount_XforY(discountReq_2, 1.25f, inventory);
+
+        var discountReq_3 = new Dictionary<string, int> { { "BGLP", 12 } };
+        var d3 = new Discount_XforY(discountReq_3, 3.99f, inventory);
+
+        var discountReq_4 = new Dictionary<string, int> { { "BGLE", 12 } };
+        var d4 = new Discount_XforY(discountReq_4, 2.49f, inventory);
+
+        // Add deal to DiscountManager
+        dm.addDiscountType(d);
+        dm.addDiscountType(d2);
+        dm.addDiscountType(d3);
+        dm.addDiscountType(d4);
+
+        // Add non-discounted Products, calculate the total
+        float totalPrice = 0.0f;
+        b.addProduct("BGLO");
+        totalPrice += inventory.getPrice("BGLO");
+        b.addProduct("FILH");
+        totalPrice += inventory.getPrice("FILH");
+        b.addProduct("FILC");
+        totalPrice += inventory.getPrice("FILC");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE");
+        b.addProduct("FILE");
+        totalPrice += inventory.getPrice("FILE"); ;
+    }
 
 
-        //    Assert.Pass();
-        //}
-
-        //[TestCase("Bread", 2.5f)]
-        //public void CreateProduct_withSubProducts_getPrice(string productName, float productPrice)
-        //{
-
-        //    var products = new List<BaseProduct>()
-        //    {
-        //        new Product<Filling>("Ham", 0.5f),
-        //        new Product<Filling>("Cheese", 0.5f),
-        //        new Product<Filling>("Lettuce", 0.5f),
-        //    };
-
-        //    var expectedCost = products.Sum(p => p.CombinedPrice) + productPrice;
-
-        //    var p = new Product<Bagel>(productName, productPrice, products);
-
-
-        //    Assert.That( p.CombinedPrice == expectedCost);
-        //}
     }
