@@ -12,11 +12,12 @@ namespace exercise.main.UI
     {
 
         private List<Product> _boughtProducts;
+        private readonly DateTime _date;
 
         public Reciept(List<Product> boughtProducts)
         {
             this._boughtProducts = boughtProducts;
-
+            _date = DateTime.Now;
         }
 
 
@@ -26,7 +27,7 @@ namespace exercise.main.UI
 
             sb.AppendLine("~~~ Bob's Bagels ~~~");
             sb.AppendLine();
-            sb.AppendLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendLine(_date.ToString("yyyy-MM-dd HH:mm:ss"));
             sb.AppendLine();
             sb.AppendLine(new string('-', 28));
 
@@ -36,21 +37,24 @@ namespace exercise.main.UI
             .Select(g => new
             {
                 Sku = g.Key,
-                Variant = g.First().Variant, // Assuming all products in a group have the same variant
+                Variant = g.First().Variant,
                 Count = g.Count(),
                 TotalPrice = Inventory.Instance.GetPrice(g.First()) * g.Count()
             });
 
+            var totalcost = 0d;
+
             foreach (var item in groupedProducts)
             {
                 sb.AppendLine($"{item.Variant} Bagel   {item.Count}   £{item.TotalPrice:F2}");
+                totalcost += item.TotalPrice;
             }
 
             // Add separator
             sb.AppendLine(new string('-', 28));
 
             // Add total
-            sb.AppendLine("Total                 £10.43");
+            sb.AppendLine($"Total                 £{totalcost}");
             sb.AppendLine();
 
             // Add footer
