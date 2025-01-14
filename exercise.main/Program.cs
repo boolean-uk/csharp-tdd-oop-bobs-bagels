@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+
+using exercise.main;
+using exercise.main.Items;
+
+Shop shop = new Shop(new Role(Role.GetAccessLevel("customer")));
+
+shop.DoShopping();
