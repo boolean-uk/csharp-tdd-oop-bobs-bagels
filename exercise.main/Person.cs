@@ -13,7 +13,7 @@ namespace exercise.main
 {
     public class Person
     {
-        public int _capacity = 20;
+        public int _capacity = 10;
         public List<Item>_basket = new List<Item>();
         public List<Item>_bagels = new List<Item>();
         public string role { get; set; }
@@ -130,6 +130,7 @@ namespace exercise.main
             bool bagel = false;           
             bool coffee = false;
             Dictionary<string, int> counts = new Dictionary<string, int>();
+            //count dictionary to see if 6 or 12 bagels discount applies
             foreach (Item item in _basket)
             {
                 if (counts.ContainsKey(item.name))

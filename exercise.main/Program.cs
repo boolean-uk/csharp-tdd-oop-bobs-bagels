@@ -3,6 +3,7 @@ using exercise.main;
 
 
 Person person = new Person() { role = "customer" };
+Person manager = new Person() { role = "manager" };
 Bagel bagel = new Bagel("BGLO");
 Bagel bagel1 = new Bagel("BGLO");
 Bagel bagel2= new Bagel("BGLO");
@@ -11,6 +12,7 @@ Bagel bagel4 = new Bagel("BGLO");
 Bagel bagel5 = new Bagel("BGLO");
 Bagel bagel6 = new Bagel("BGLO");
 Bagel bagel7 = new Bagel("BGLO");
+manager.ChangeCapacity(person, 20);
 Bagel bagel8 = new Bagel("BGLO");
 Bagel bagel9 = new Bagel("BGLO");
 Bagel bagel10 = new Bagel("BGLO");

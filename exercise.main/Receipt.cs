@@ -151,7 +151,8 @@ namespace exercise.main
             Console.WriteLine($"{"Discount",-18}{" ",2}   -£{discount:F2}");
             Console.WriteLine("\n----------------------------");
             Console.WriteLine($"Total                   £{total:F2}");
-
+            Console.WriteLine($"\n You saved a total of £{discount:F2}");
+            Console.WriteLine("      on this shop      ");
             Console.WriteLine("\n        Thank you");
             Console.WriteLine("      for your order!");
         }
