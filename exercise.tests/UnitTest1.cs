@@ -23,6 +23,7 @@ public class Tests
         IProduct onionBagel1 = _store.Inventory.Products["BGLO"];
         Basket basket = new Basket(_store.Inventory);
         basket.AddItem(onionBagel1);
+
         Assert.That(onionBagel1, Is.Not.Null);
         Assert.That(onionBagel1.SKU, Is.EqualTo("BGLO"));
     }

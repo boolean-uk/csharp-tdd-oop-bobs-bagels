@@ -22,7 +22,7 @@ namespace exercise.main
         {
 
             var productCounts = _basket.ProductCount();
-            var priceWithDiscount = this.ComboThenBulkDiscountTotal();
+            var priceWithDiscount = this.BulkDiscountTotal();
             string receipt = $"\n\n    ~~~ Bob's Bagels ~~~    \n\n    {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}    \n\n-----------------------------\n\n\n";
 
             foreach(var (product, quantity) in productCounts)
@@ -33,7 +33,7 @@ namespace exercise.main
                 receipt += $"{" ",21}(-£{discount,4:F2}) \n";
             }
 
-            receipt += $"\n\n-----------------------------\n Total{" ",17}£{this.BulkDiscountTotal(),4:F2} \n";
+            receipt += $"\n\n-----------------------------\n Total{" ",17}£{priceWithDiscount,4:F2} \n";
             if (_basket.Total > priceWithDiscount)
             {
                 receipt += $"\n\n You saved a total of £{_basket.Total - priceWithDiscount} \n";
