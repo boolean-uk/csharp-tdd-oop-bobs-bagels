@@ -5,15 +5,23 @@ namespace exercise.main;
 public class Order
 {
     private List<OrderLine> _orderLines;
+    private DateTime _date;
     
     public Order()
     {
         _orderLines = new List<OrderLine>();
+        _date = DateTime.Now;
     }
     
     public override string ToString()
     {
         var sb = new StringBuilder();
+        
+        sb.AppendLine("------- Bob's Bagels -------\n");
+        sb.AppendLine($"    {_date}    \n");
+
+        
+        sb.AppendLine("Product         Amt Price");
         
         foreach (var orderLine in _orderLines)
         {
@@ -22,6 +30,8 @@ public class Order
                           $"{FixedLengthString(orderLine.Amount.ToString(), 2)} " +
                           $"{FormatPrice(orderLine.Price)}");
         }
+        
+        sb.AppendLine($"\n{"Total:", 18} {FormatPrice(Total())}");
         
         return sb.ToString();
     }
@@ -46,6 +56,11 @@ public class Order
         });
     }
     
+    public double Total()
+    {
+        return _orderLines.Sum(ol => ol.Price * Math.Max(1, ol.Amount));
+    }
+    
     private string FixedLengthString(string value, int length)
     {
         return value.PadRight(length).Substring(0, length);
@@ -55,9 +70,9 @@ public class Order
     {
         if (price < 0)
         {
-            return $"(-€{price})";
+            return $"(€{price.ToString("F2")})";
         }
 
-        return $" €{price}";
+        return $" €{price.ToString("F2")}";
     }
 }
