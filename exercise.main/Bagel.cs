@@ -101,7 +101,7 @@ namespace exercise.main
             return false;
         }
 
-        public double totalCost()
+        public double TotalCost()
         {
             double totalCost = 0;
             int countOnion = 0;
@@ -162,18 +162,18 @@ namespace exercise.main
             }
 
             double finalValue = Math.Round(totalCost * 100) / 100.0;
-            printReceipt(finalValue, count, totalSaved);
+            PrintReceipt(finalValue, count, totalSaved);
             return finalValue;
         }
-        public void printReceipt(double totalCost, int totalProducts, double saved)
+        public void PrintReceipt(double totalCost, int totalProducts, double saved)
         {
-                var Date = DateTime.Now.ToLongDateString();
+           var Date = DateTime.Now.ToLongDateString();
        
             Console.WriteLine("        ~~~ Bob's Bagels ~~~       \n" +
                     "        " + Date + "\n" +
                     "----------------------------------\n" +
                     "Products----------Quant-Price\n" +
-                    formatTableOrder() +
+                    FormatTableOrder() +
 
                     "----------------------------------\n" +
                     "Total              " + totalProducts + "   £" + totalCost + "\n" +
@@ -182,7 +182,7 @@ namespace exercise.main
                     "          for your order!        ");
         }
 
-        public string formatTableOrder()
+        public string FormatTableOrder()
         {
             Dictionary<string, int> countMap = new Dictionary<string, int>();
             Dictionary<string, double> priceMap = new Dictionary<string, double>();
