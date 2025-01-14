@@ -256,8 +256,40 @@ public class Tests
                       10.43
             TOTAL BEFORE DISCOUNT: 12.77
          */
+
         Assert.That((decimal)basket.Total(), Is.EqualTo(10.43));
     }
+    [Test]
+    public void GetReceiptFromBasket()
+    {
+        Inventory inv = new Inventory();
+        var basket = new Basket();
+
+        List<IProduct> items = new List<IProduct>
+    {
+        new Bagel("BGLS", 0.49, "Bagel", "Sesame"),
+        new Coffee("COFB", 0.99, "Coffee", "Black"),
+        new Coffee("COFW", 1.19, "Coffee", "White"),
+    };
+
+        // Add initial items to the basket
+        foreach (IProduct item in items)
+        {
+            basket.Add(item);
+        }
+
+        // Add 12 additional sesame bagels
+        for (int i = 0; i < 12; i++)
+        {
+            basket.Add(new Bagel("BGLS", 0.49, "Bagel", "Sesame"));
+        }
+
+        // Generate and display the receipt
+        string receipt = basket.GetReceipt();
+        Assert.That(receipt, Is.Not.Empty);
+
+    }
+
 
 
 }

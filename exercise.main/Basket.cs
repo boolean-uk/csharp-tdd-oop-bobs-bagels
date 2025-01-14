@@ -71,14 +71,14 @@ namespace exercise.main
         public void ApplyDiscount()
         {
             var bagelCount = items
-                .Where(item => item.Type == "Bagel") 
+                .Where(item => item.Type == "Bagel")
                 .ToList().Count;
 
-            double discountedPrice12b = 0.3325; 
-            double discountedPrice6b = 0.415;  
+            double discountedPrice12b = 0.3325;
+            double discountedPrice6b = 0.415;
 
-            int discounted12Count = 0; 
-            int discounted6Count = 0;  
+            int discounted12Count = 0;
+            int discounted6Count = 0;
 
             foreach (IProduct item in this.items)
             {
@@ -98,6 +98,49 @@ namespace exercise.main
                     }
                 }
             }
+        }
+
+        public string GetReceipt()
+        {
+            string header = "\t~~~ Bob's Bagels ~~~ ";
+            string separator = "\n---------------------------\n";
+            string footer = "\tThank you for ordering \n\t   at Bob's Bagels!";
+            StringBuilder sb = new StringBuilder();
+            DateTime dt = DateTime.Now;
+
+            Dictionary<string, double> itemCost = new Dictionary<string, double>();
+            Dictionary<string, int> itemQuantity = new Dictionary<string, int>();
+
+            sb
+                .Append(header)
+                .AppendLine(separator)
+                .AppendLine(dt.ToString())
+                .AppendLine(separator);
+
+            foreach (IProduct item in this.items)
+            {
+                string key = $"{item.Type}: {item.Variant}";
+
+                itemCost[key] = itemCost.GetValueOrDefault(key, 0.0) + item.Price;
+                itemQuantity[key] = itemQuantity.GetValueOrDefault(key, 0) + 1;
+            }
+
+            double grandTotal = 0.0;
+            foreach (var entry in itemCost)
+            {
+                string itemName = entry.Key;
+                int quantity = itemQuantity[itemName];
+                double totalCost = entry.Value;
+                sb.AppendLine(string.Format("{0,-20} {1,-2} £{2:F2}", itemName, quantity, totalCost));
+                grandTotal += totalCost;
+            }
+
+            sb
+                .AppendLine(separator)
+                .AppendLine(string.Format("Total: {0,22} £{1:F2}", "", grandTotal))
+                .AppendLine(footer);
+
+            return sb.ToString();
         }
 
     }
