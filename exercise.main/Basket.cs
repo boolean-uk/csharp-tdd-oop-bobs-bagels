@@ -275,7 +275,7 @@ namespace exercise.main
             double totalPrice = 0;
 
             builder.AppendLine("~~~ Bob's Bagel ~~~")
-                    .AppendFormat("{0,-20}{1,20}{2,20}\n", "ITEM", "QTY.", "TOTAL")
+                    .AppendFormat("{0,-20}{1,-20}{1,20}{2,20}\n",$"{DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss")}\n", "ITEM", "QTY.", "TOTAL")
                     .AppendLine("---------------------------------------------------------------------");
 
             foreach (var inventoryItem in inventoryList)
@@ -303,7 +303,7 @@ namespace exercise.main
             }
 
             builder.AppendLine("---------------------------------------------------------------------")
-                    .AppendFormat("{0,62}", totalCost() + "£");
+                    .AppendFormat("{0,61}",totalCost() + "£");
 
             return builder.ToString();
 
