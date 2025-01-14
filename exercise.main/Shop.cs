@@ -105,7 +105,7 @@ namespace exercise.main
         public Item? AddItem(string key)
         {
             string mainKey = _inventory.Keys.ToList()[Int32.Parse(key[0].ToString()) - 1];
-            Item item = _inventory[mainKey][Int32.Parse(key[1].ToString()) - 1];
+            Item item = _inventory[mainKey][Int32.Parse(key[1].ToString()) - 1].Clone();
             if (!_basket.Add(item)) {Console.WriteLine("Your basket is full!"); return null; }
             return item;
         }
@@ -118,6 +118,13 @@ namespace exercise.main
             sb.AppendLine(new string('-', width));
             _basket.Items.ForEach(item => {
                 sb.AppendLine($"{item.Name} {item.Variant}");
+                item.GetItems().ForEach(i =>
+                {
+                    if (i != item)
+                    {
+                        sb.AppendLine($"\t{i.Name} {i.Variant}");
+                    }
+                });
             });
             sb.AppendLine(new string('-', width));
             Console.WriteLine(sb.ToString());
@@ -178,7 +185,7 @@ namespace exercise.main
                 {
                     try
                     {
-                        Item item = AddItem(input);
+                        Item? item = AddItem(input);
                         if (item is Bagel)
                         {
                             Console.WriteLine($"Do you want any filling with this {item.Name} {item.Variant}?");
@@ -196,7 +203,7 @@ namespace exercise.main
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         Console.WriteLine("Either we dont have that item or the ID is misformated!");
                     }
