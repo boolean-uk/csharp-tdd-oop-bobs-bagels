@@ -162,17 +162,19 @@ public class Tests
         Assert.That(newcost == num);
     }
 
+
+
     [Test]
     public void SixBagelsDiscount()
     {
         Person newPerson = new Person();
-        Bagel bg1 = new Bagel("BGLE");
-        Bagel bg2 = new Bagel("BGLE");
+        Bagel bg1 = new Bagel("BGLO");
+        Bagel bg2 = new Bagel("BGLO");
         
-        Bagel bg3 = new Bagel("BGLE");
-        Bagel bg4 = new Bagel("BGLE");
-        Bagel bg5 = new Bagel("BGLE");
-        Bagel bg6 = new Bagel("BGLE");
+        Bagel bg3 = new Bagel("BGLO");
+        Bagel bg4 = new Bagel("BGLO");
+        Bagel bg5 = new Bagel("BGLO");
+        Bagel bg6 = new Bagel("BGLO");
         newPerson.AddItem(bg1);
         newPerson.AddItem(bg2);
         newPerson.AddItem(bg3);
@@ -254,6 +256,36 @@ public class Tests
         person.AddItem(bagel6);
         person.AddItem(coffee);
         Assert.That(person.GetTotalCost() > 3.58 && person.GetTotalCost() < 3.6);
+
+    }
+
+    [Test]
+    public void BothDiscountsPlusFill()
+    {
+        Person person = new Person() { role = "customer" };
+        Bagel bagel = new Bagel("BGLO");
+        Coffee coffee = new Coffee("COFB");
+
+        Bagel bagel1 = new Bagel("BGLP");
+        Bagel bagel2 = new Bagel("BGLP");
+        Bagel bagel3 = new Bagel("BGLP");
+        Bagel bagel4 = new Bagel("BGLP");
+        Bagel bagel5 = new Bagel("BGLP");
+        Bagel bagel6 = new Bagel("BGLP");
+        Filling fill = new Filling("FILX");
+        bagel.AddFilling(fill); 
+        double expectedCost = (0.39 * 6) + 0.49 + 0.99;
+        double diff = 0.49 + 0.99 - 1.25;
+        double actual = expectedCost - diff;
+        person.AddItem(bagel);
+        person.AddItem(bagel1);
+        person.AddItem(bagel2);
+        person.AddItem(bagel3);
+        person.AddItem(bagel4);
+        person.AddItem(bagel5);
+        person.AddItem(bagel6);
+        person.AddItem(coffee);
+        Assert.That(person.GetTotalCost() > 3.70 && person.GetTotalCost() < 3.72);
 
     }
 }

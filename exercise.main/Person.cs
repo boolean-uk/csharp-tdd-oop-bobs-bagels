@@ -13,11 +13,12 @@ namespace exercise.main
 {
     public class Person
     {
-        public int _capacity = 10;
-        private List<Item>_basket = new List<Item>();
-        private List<Item>_bagels = new List<Item>();
+        public int _capacity = 20;
+        public List<Item>_basket = new List<Item>();
+        public List<Item>_bagels = new List<Item>();
         public string role { get; set; }
-
+        public bool bagelCoffee = false;
+        public double totalCost;
 
 
         public int GetCapacity()
@@ -93,30 +94,9 @@ namespace exercise.main
             return _basket.Contains(item);
         }
 
-        public bool coffeebageldiscount()
-        {
-            bool coffee = false;
-            bool bagel = false;
+        
 
-            List<string> bagelflavors = new List<string> { "BGLO", "BGLP", "BGLE", "BGLS" };
-            foreach (Item item in _basket)
-            {
-                if (item.name == "COFB")
-                {
-                    coffee = true;
-                }
-
-                if (bagelflavors.Contains(item.name))
-                {
-                    bagel = true;
-                }
-            }
-            return coffee && bagel;
-        }
-
-
-
-       
+    
         public double GetTotalCost()
         {
 
@@ -137,9 +117,9 @@ namespace exercise.main
                 }
             }
 
-            
 
-            return total - discount;
+            totalCost = total - discount;
+            return totalCost;
         }
 
 
@@ -179,6 +159,7 @@ namespace exercise.main
 
             if (bagel && coffee)
             {
+                bagelCoffee = true;
                 return (0.49 + 0.99) - 1.25;
             }
 
@@ -204,6 +185,25 @@ namespace exercise.main
             return 0.0;
 
         }
+
+
+        public Dictionary<string, int> GetItemAmount()
+        {
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+            foreach (Item item in _basket)
+            {
+                if (counts.ContainsKey(item.name))
+                {
+                    counts[item.name]++;
+                }
+                else
+                {
+                    counts.Add(item.name, 1);
+                }
+
+            }
+            return counts;
+        }
     
 
 
@@ -225,21 +225,10 @@ namespace exercise.main
         {
             return _basket.Count;
         }
-
-        public void AddFill(Bagel bagel, Filling fill)
-        {
-            bagel.AddFilling(fill);
-        }
-
         public double GetFillingCost(Filling fill)
         {
             return fill.prices[fill.actualname];
         }
 
-        public int GetItemAmount(Item item)
-        {
-            return item.itemcount[item.name];
-
-        }
     }
 }
