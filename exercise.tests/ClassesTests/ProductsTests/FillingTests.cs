@@ -1,6 +1,6 @@
-namespace exercise.tests;
+﻿namespace exercise.tests.ClassesTests.ProductsTests;
 
-public class Tests
+public class FillingTests
 {
     [SetUp]
     public void Setup()
