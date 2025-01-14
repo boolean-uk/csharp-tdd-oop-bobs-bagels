@@ -43,7 +43,15 @@ Filling pill = new Filling("FILB");
 Filling pill1 = new Filling("FILB");
 bagel.AddFilling(pill);
 
-Receipt receipt = new Receipt(person);
 
 
+Person second = new Person() { role = "customer" };
+
+Bagel secondbagel = new Bagel("BGLP");
+Coffee secondcoffee = new Coffee("COFB");
+second.AddItem(secondcoffee);
+second.AddItem(secondbagel);
+Receipt receipt = new Receipt();
+receipt.AddPerson(person);
+receipt.AddPerson(second);
 receipt.PrintReceipt();
