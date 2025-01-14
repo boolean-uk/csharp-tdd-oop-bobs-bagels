@@ -87,25 +87,25 @@ namespace exercise.main
                     if(BasketSKUs.Contains(item.GetSKU()))
                         {
                         BasketSKUs.Remove(item.GetSKU());
-                        Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
+                        
                     }
                     else
                     {
-                        Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
+                        
                         allItemsPresent = false;
                         break;
                     }
                 }
                 if (allItemsPresent)
                 {
-                    Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
                     foreach (Iproduct i in c.items)
                     {
                         for (int j = 0; j < itemCopy.Count; j++)
                         {
                             if (itemCopy[j].GetSKU() == i.GetSKU()) 
                             { 
-                                itemCopy.RemoveAt(j); 
+                                itemCopy.RemoveAt(j);
+                                break;
                             }
                         }
                         }
@@ -159,7 +159,39 @@ namespace exercise.main
         }
         public void PrintReceiptWithDiscounts()
         {
-            return;
+            //first count items of same type in basket
+            Dictionary<string, int> dict = new Dictionary<string, int>();//SKU is key and int is amount of the item in the basket
+            HashSet<String> printed = new HashSet<String>(); //keeping track of whiich items are printed
+            Items.ForEach(x =>
+            {
+                if (!dict.ContainsKey(x.GetSKU()))
+                {
+                    dict.Add(x.GetSKU(), 1);
+                }
+                else
+                {
+                    dict[x.GetSKU()]++;
+                }
+            });
+            List<float> discounts = new List<float>();
+            this.GetAppliedDiscounts().ForEach(x => discounts.Add(x.discount));
+
+            Console.WriteLine("    ~~~Bob's Bagels ~~~    ");
+            Console.WriteLine($"    {DateTime.Now.ToString()}    ");
+            Console.WriteLine("---------------------------");
+            foreach (Iproduct x in Items)
+            {
+                if (!printed.Contains(x.GetSKU()))
+                {
+                    Console.WriteLine($"{x.GetVariant()}{x.GetName()} {dict[x.GetSKU()]} ${x.GetPrice()* dict[x.GetSKU()]}");
+                    Console.WriteLine($"Discounts: {Discount()}");
+                    printed.Add(x.GetSKU());
+                }
+
+            }
+            Console.WriteLine("---------------------------");
+            Console.WriteLine($"Total ${Discount()}");
+            Console.WriteLine("Thank you for your order!");
         }
     }
 }
