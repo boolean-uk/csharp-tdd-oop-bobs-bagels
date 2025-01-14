@@ -32,46 +32,46 @@ namespace exercise.main
 
         public decimal Total { get { return _basketProducts.Sum(product => product.Price); } }
 
-        public string AddItem(IProduct product)
+        public bool AddItem(IProduct product)
         {
             if (_basketProducts.Count >= _capacity)
             {
                 Console.WriteLine("Basket is full. Item was not added to basket.");
-                return "Basket is full. Item was not added to basket.";
+                return false;
             }
 
             if (!_inventory.Products.ContainsKey(product.SKU))
             {
                 Console.WriteLine("Item is not in the inventory. Item was not added to basket.");
-                return "Item is not in the inventory. Item was not added to basket.";
+                return false;
             }
 
-            if (product is Bagel b && b.Fillings.Count > 0) 
+            if (product is Bagel b && b.Fillings.Count > 0)
             {
                 _basketProducts.Add(b);
                 foreach (var filling in b.Fillings)
                 {
                     _basketProducts.Add(filling);
                 }
-
-                return $"{b.Variant} {b.Name} with fillings was added to basket. ";
+                return true;
             }
-           
-            _basketProducts.Add(product);
 
-            return $"{product.SKU} added to basket.";
+            _basketProducts.Add(product);
+            return true;
         }
 
-        public string RemoveItem(IProduct product)
+        public bool RemoveItem(IProduct product)
         {
             if (_basketProducts.Contains(product))
             {
                 _basketProducts.Remove(product);
-                return "Item removed successfully";
+                Console.WriteLine("Item removed successfully");
+                return true;
             }
             else
             {
-                return "Item does not exist in basket";
+                Console.WriteLine("Item does not exist in basket");
+                return false;
             }
         }
 

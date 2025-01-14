@@ -43,7 +43,7 @@ public class Tests
     {
         _basket.AddItem(_store.Inventory.Products["BGLP"]);
         var result = _basket.AddItem(_store.Inventory.Products["BGLO"]);
-        Assert.That(result, Is.EqualTo("Basket is full. Item was not added to basket."));
+        Assert.That(result, Is.False);
     }
     
     [Test]
@@ -61,7 +61,7 @@ public class Tests
         Basket basket = new Basket(_store.Inventory);
         IProduct firstProduct = _store.Inventory.Products["COFB"];
         var result = _basket.RemoveItem(firstProduct);
-        Assert.That(result, Is.EqualTo("Item does not exist in basket"));
+        Assert.That(result, Is.False);
     }
 
     [Test]
@@ -113,7 +113,7 @@ public class Tests
         Basket basket = new Basket(_store.Inventory);
         var newProduct = new Bagel("NEW", 99, "Bagel", "NewVariant");
         var result = basket.AddItem(newProduct);
-        Assert.That(result, Is.EqualTo("Item is not in the inventory. Item was not added to basket."));
+        Assert.That(result, Is.False);
     }
 
     [Test]

@@ -1,9 +1,5 @@
 # Bob's Bagels 
 
-## Domain model
-
-
-
 ### Requirements Core
 
 1. public, Add bagel to basket
@@ -26,16 +22,24 @@
 14. customer, Get receipt with discount
 
 
+## Domain model
 
-| Classes      | Methods/Properties                   | Scenario                                   | Outputs                             |
-|--------------|--------------------------------------|--------------------------------------------|-------------------------------------|
-| Basket.cs    | AddItem(Product product)             | Add bagel to basket                        | Feedback as string                  |
-| Basket.cs    | RemoveItem(Product product)          | Remove bagel from basket                   | Feedback if not in basket as string |
-| Basket.cs    | Capacity                             | Change capacity of basket                  |                                     |
-| Basket.cs    | Total                                | Show total cost of basket                  | sum of basket products as decimal   |
-| Bagel.cs     | Price, TotalPrice                    | See price of bagel and bagel with fillings | price as decimal                    |
-| Bagel.cs     | AddFilling()                         | Add filling to bagel                       |                                     |
-| Filling.cs   | Price                                | See price of filling before adding         | price as decimal                    |
-| Inventory.cs | Dictonary<string, IProduct> Products | Inventory of products to choose from       |                                     |
-| Receipt.cs   | ComboThenBulkDiscountTotal()         | Apply combo then bulk discount to basket   | discounted price as decimal         |
-| Receipt.cs   | PrintReceipt()                       | Generates and prints a receipt             |                                     |                                             |                    |
+
+
+
+| Classes      | Methods/Properties                   | Scenario                                        | Outputs                                  |
+|--------------|--------------------------------------|-------------------------------------------------|------------------------------------------|
+| Basket.cs    | AddItem(Product product)             | Add bagel to basket                             | true/false. Message to console if false. |
+| Basket.cs    | RemoveItem(Product product)          | Remove bagel from basket                        | true/false. Message to console if false. |
+| Basket.cs    | Capacity                             | Change capacity of basket                       |                                          |
+| Basket.cs    | Total                                | Show total cost of basket                       | sum of basket products as decimal        |
+| Bagel.cs     | Price, TotalPrice                    | See price of bagel and bagel with fillings      | price as decimal                         |
+| Bagel.cs     | AddFilling()                         | Add filling to bagel                            |                                          |
+| Filling.cs   | Price                                | See price of filling before adding              | price as decimal                         |
+| Inventory.cs | Dictonary<string, IProduct> Products | Inventory of products to choose from            |                                          |
+| Inventory.cs | AddProduct(string key, IProduct)     | Add a product to the inventory                  |                                          |
+| Receipt.cs   | BulkDiscountTotal                    | Apply bulk discount                             | discounted price as decimal              |
+| Receipt.cs   | ComboDealTotal()                     | Apply combo deal                                | discounted price as decimal              |
+| Receipt.cs   | ComboThenBulkDiscountTotal()         | Apply combo then bulk discount to basket        | discounted price as decimal              |
+| Receipt.cs   | PrintReceipt()                       | Generates and prints a receipt                  |                                          |
+| Store.cs     | Store()                              | Creates a Bobs bagel store with their inventory |                                          |
