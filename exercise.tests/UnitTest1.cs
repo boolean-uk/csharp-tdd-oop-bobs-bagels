@@ -20,14 +20,11 @@ public class Tests
     [Test]
     public void AddItemToBasket()
     {
-
         IProduct onionBagel1 = _store.Inventory.Products["BGLO"];
         Basket basket = new Basket(_store.Inventory);
         basket.AddItem(onionBagel1);
-        
         Assert.That(onionBagel1, Is.Not.Null);
         Assert.That(onionBagel1.SKU, Is.EqualTo("BGLO"));
-
     }
 
     [Test]
@@ -35,23 +32,17 @@ public class Tests
     {
         IProduct onionBagel1 = _store.Inventory.Products["BGLO"];
         _basket.AddItem(onionBagel1);
-
         Assert.That(_basket.BasketProducts, Has.Count.EqualTo(1));
-
         _basket.RemoveItem(onionBagel1);
         Assert.That(_basket.BasketProducts, Is.Empty);
-
     }
  
     [Test]
     public void CheckBasketFull()
     {
-        
         _basket.AddItem(_store.Inventory.Products["BGLP"]);
         var result = _basket.AddItem(_store.Inventory.Products["BGLO"]);
-
         Assert.That(result, Is.EqualTo("Basket is full. Item was not added to basket."));
-
     }
     
     [Test]
@@ -59,7 +50,6 @@ public class Tests
     {
         _basket.Capacity = 2;
         Assert.That(_basket.Capacity, Is.EqualTo(2));
-
         _basket.Capacity = 3;
         Assert.That(_basket.Capacity, Is.EqualTo(3));
     }
@@ -70,7 +60,6 @@ public class Tests
         Basket basket = new Basket(_store.Inventory);
         IProduct firstProduct = _store.Inventory.Products["COFB"];
         var result = _basket.RemoveItem(firstProduct);
-
         Assert.That(result, Is.EqualTo("Item does not exist in basket"));
     }
 
@@ -91,13 +80,10 @@ public class Tests
     [Test]
     public void CheckPriceOfBagel()
     {
-
         Basket basket = new Basket(_store.Inventory);
         var onionBagel1 = _store.Inventory.Products["BGLO"];
         var price = onionBagel1.Price;
-
         Assert.That(price, Is.EqualTo(0.49));
-
     }
 
     [Test]
@@ -107,19 +93,16 @@ public class Tests
         var onionBagel1 = _store.Inventory.Products["BGLO"] as Bagel;
         var ham1 = _store.Inventory.Products["FILH"] as Filling;
         onionBagel1.AddFilling(ham1);
-        basket.AddItem(onionBagel1);
-        
+        basket.AddItem(onionBagel1);   
         Assert.That(onionBagel1.TotalPrice, Is.EqualTo(0.49 + 0.12));
         Assert.That(basket.Total, Is.EqualTo(onionBagel1.TotalPrice));
         Assert.That(basket.BasketProducts.Count, Is.EqualTo(2));
-
     }
 
     [Test]
     public void CheckFillingPrice()
     {
         var ham1 = _store.Inventory.Products["FILH"];
-
         Assert.That(ham1.Price, Is.EqualTo(0.12));
     }
 
@@ -129,7 +112,6 @@ public class Tests
         Basket basket = new Basket(_store.Inventory);
         var newProduct = new Bagel("NEW", 99, "Bagel", "NewVariant");
         var result = basket.AddItem(newProduct);
-
         Assert.That(result, Is.EqualTo("Item is not in the inventory. Item was not added to basket."));
     }
 
@@ -137,14 +119,13 @@ public class Tests
     public void ApplyBulkDiscount()
     {
         Basket basket = new Basket(_store.Inventory);
-
         for (int i = 0; i < 6; i++)
         {
             basket.AddItem(_store.Inventory.Products["BGLO"]);
         }
         Receipt receipt = new Receipt(basket);
         var priceWithDiscount = receipt.BulkDiscountTotal();
-        var price = basket.Deals.BulkDiscountTotal(basket);
+        var price = receipt.BulkDiscountTotal();
         Assert.That(priceWithDiscount, Is.EqualTo(2.49m));
         Assert.That(price, Is.EqualTo(2.49m));
     }
@@ -155,11 +136,9 @@ public class Tests
         Basket basket = new Basket(_store.Inventory);
         basket.AddItem(_store.Inventory.Products["COFB"]);
         basket.AddItem(_store.Inventory.Products["BGLO"]);
-
         Receipt receipt = new Receipt(basket);
         var price = receipt.ComboDealTotal();
         var price2 = receipt.ComboThenBulkDiscountTotal();
-
         Assert.That(price, Is.EqualTo(1.25m));
         Assert.That(price, Is.EqualTo(price2));
     }
@@ -168,16 +147,13 @@ public class Tests
     public void ComboAndBulkDiscount()
     {
         Basket basket = new Basket(_store.Inventory);
-
         for (int i = 0; i < 6; i++)
         {
             basket.AddItem(_store.Inventory.Products["BGLO"]);
         }
-
         basket.AddItem(_store.Inventory.Products["COFB"]);
         Receipt receipt = new Receipt(basket);
         var priceWithDiscount = receipt.ComboThenBulkDiscountTotal();
         Assert.That(priceWithDiscount, Is.EqualTo(3.7m));
-        
     }
 }

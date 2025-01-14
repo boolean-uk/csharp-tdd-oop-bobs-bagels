@@ -16,13 +16,12 @@ basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
 basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
 basket.AddItem(bobsBagel.Inventory.Products["BGLO"]);
 
-for(int i = 0; i < 13; i++)
+for(int i = 0; i < 12; i++)
 {
     basket.AddItem(bobsBagel.Inventory.Products["BGLP"]);
 }
 
 basket.AddItem(bobsBagel.Inventory.Products["FILH"]);
-basket.AddItem(bobsBagel.Inventory.Products["COFB"]);
 Receipt receipt = new Receipt(basket);
 
 receipt.PrintReceipt();
