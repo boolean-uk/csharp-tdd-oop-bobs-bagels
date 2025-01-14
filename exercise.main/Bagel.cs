@@ -161,26 +161,16 @@ namespace exercise.main
                 totalSaved += 1.25;
             }
 
-            //        System.out.println(countOnion);
-            //        System.out.println(countPlain);
-            //        System.out.println(countEverything);
-            //        System.out.println(countCoffe);
-            //        System.out.println(count);
-
             double finalValue = Math.Round(totalCost * 100) / 100.0;
             printReceipt(finalValue, count, totalSaved);
             return finalValue;
         }
         public void printReceipt(double totalCost, int totalProducts, double saved)
         {
-            LocalDateTime date = LocalDateTime.FromDateTime;
-
-            string newDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            //        for (Inventory item : basketList) {
-            //            System.out.println("SKU: " + item.SKU + ", Name: " + item.name + ", Variant: " + item.variant + ", Price: " + item.price);
-            //        }
+                var Date = DateTime.Now.ToLongDateString();
+       
             Console.WriteLine("        ~~~ Bob's Bagels ~~~       \n" +
-                    "        " + newDate + "\n" +
+                    "        " + Date + "\n" +
                     "----------------------------------\n" +
                     "Products----------Quant-Price\n" +
                     formatTableOrder() +
@@ -192,59 +182,51 @@ namespace exercise.main
                     "          for your order!        ");
         }
 
-        //public string formatTableOrder()
-        //{
-        //    Dictionary<string, int> countMap = new Dictionary<string,int>();
-        //    Dictionary<string, double> priceMap = new Dictionary<string, double>();
+        public string formatTableOrder()
+        {
+            Dictionary<string, int> countMap = new Dictionary<string, int>();
+            Dictionary<string, double> priceMap = new Dictionary<string, double>();
 
-        //    for (int i = 0; i < BasketList.Count; i++)
-        //    {
-        //        string key = BasketList[i].getVariant() + " " + BasketList[i].Name;
-        //        countMap.Add(key, countMap.getOrDefault(key, 0) + 1);
-        //        priceMap.Add(key, BasketList[i].Price);
-        //    }
+            for (int i = 0; i < BasketList.Count; i++)
+            {
+                string key = BasketList[i].variant + " " + BasketList[i].Name;
+                if (!countMap.ContainsKey(key))
+                {
+                    countMap[key] = 0;
+                }
+                countMap[key] += 1;
+                priceMap[key] = BasketList[i].Price;
+            }
 
-        //    StringBuilder out = new StringBuilder();
-        //    for (Map.Entry<string, int> entry : countMap.entrySet())
-        //    {
-        //        string key = entry.getKey();
-        //        double discount = 0.00;
-        //        int count = entry.getValue();
-        //        double total = count * priceMap[key];
-        //    out.append(string.format("%-18s %2d   £%.2f\n", key, count, total));
-        //        if (key.Contains("Onion"))
-        //        {
-        //            if (count >= 6)
-        //            {
-        //                discount = 0.45;
-        //                string sdis = "(-£" + discount + ")";
-        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-        //            }
-        //        }
-        //        if (key.contains("Plain"))
-        //        {
-        //            if (count >= 12)
-        //            {
-        //                discount = 0.69;
-        //                string sdis = "(-£" + discount + ")";
-        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-        //            }
-        //        }
-        //        if (key.Contains("Everything"))
-        //        {
-        //            if (count >= 6)
-        //            {
-        //                discount = 0.45;
-        //                string sdis = "(-£" + discount + ")";
-        //                out.append(string.format("%-10s %-8s   %-1s\n", " ", " ", sdis));
-        //            }
-        //        }
-
-
-        //    }
-        //    return out.toString();
-        //}
-
+            StringBuilder output = new StringBuilder();
+            foreach (var entry in countMap)
+            {
+                string key = entry.Key;
+                double discount = 0.00;
+                int count = entry.Value;
+                double total = count * priceMap[key];
+                output.AppendFormat("{0,-18} {1,2}   £{2:F2}\n", key, count, total);
+                if (key.Contains("Onion") && count >= 6)
+                {
+                    discount = 0.45;
+                    string sdis = "(-£" + discount + ")";
+                    output.AppendFormat("{0,-10} {1,-8}   {2}\n", " ", " ", sdis);
+                }
+                if (key.Contains("Plain") && count >= 12)
+                {
+                    discount = 0.69;
+                    string sdis = "(-£" + discount + ")";
+                    output.AppendFormat("{0,-10} {1,-8}   {2}\n", " ", " ", sdis);
+                }
+                if (key.Contains("Everything") && count >= 6)
+                {
+                    discount = 0.45;
+                    string sdis = "(-£" + discount + ")";
+                    output.AppendFormat("{0,-10} {1,-8}   {2}\n", " ", " ", sdis);
+                }
+            }
+            return output.ToString();
+        }
 
     }
 }
