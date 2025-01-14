@@ -71,9 +71,10 @@ public class OrderTests
         basket.AddProduct("bglo", inventory);
 
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(2.94M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(2.49M));
     }
@@ -101,9 +102,10 @@ public class OrderTests
         basket.AddProduct("bglo", inventory);
 
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(5.88M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(3.99M));
     }
@@ -120,9 +122,10 @@ public class OrderTests
         basket.AddProduct("BGLO", inventory);
 
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(0.98M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(0.98M));
     }
@@ -140,11 +143,12 @@ public class OrderTests
         {
             basket.AddProduct("BGLP", inventory);
         }
-
+        
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(4.68M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(3.99M));
     }
@@ -164,9 +168,10 @@ public class OrderTests
         }
 
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(2.94M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(2.49M));
     }
@@ -186,10 +191,32 @@ public class OrderTests
         }
 
         Order order = new Order(basket, inventory);
+
         Assert.That(order.GetOrderTotal, Is.EqualTo(6.24M));
 
-        order.ApplyDiscounts(basket, inventory);
+        order.ApplyDiscounts();
 
         Assert.That(order.GetOrderTotal, Is.EqualTo(5.55M));
     }
+
+    /*[Test]
+    [Category("Order.cs")]
+    public void CoffeeAndBagelComboTest_SingleCombo()
+    {
+        Inventory inventory = new Inventory();
+        Person person = new("Ola");
+        Basket basket = person.GetBasket();
+
+        basket.AddProduct("COFB", inventory);
+        basket.AddProduct("BGLO", inventory);
+
+        Order order = new Order(basket, inventory);
+
+        Assert.That(order.GetOrderTotal, Is.EqualTo(1.48M));
+
+        order.ApplyDiscounts();
+
+        Assert.That(order.GetOrderTotal, Is.EqualTo(1.25M));
+    }*/
+
 }

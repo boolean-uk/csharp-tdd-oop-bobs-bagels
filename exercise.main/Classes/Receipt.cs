@@ -1,89 +1,20 @@
 ﻿using exercise.main.Classes;
+using exercise.main.Classes.Products;
 
 public class Receipt
 {
     private int receiptWidth = 32;
     private string storeName = "Bob's Bagels";
     private string dateTime;
-    private List<Tuple<string, string, string, decimal?>> receiptItems = new List<Tuple<string, string, string, decimal?>>();
+    private List<OrderItem> receiptItems = new List<OrderItem>();
     private char lineChar = '-';
     private char currency = '£';
 
-    public Receipt(Basket basket, Inventory inventory)
+    public Receipt(Order order)
     {
         dateTime = DateTime.Now.ToString();
 
-        List<string> uniqueSkus = new List<string>();
-        basket.GetProducts().ForEach(p => { if (!uniqueSkus.Contains(p.Sku)) { uniqueSkus.Add(p.Sku); } });
-
-        foreach (string sku in uniqueSkus)
-        {
-            int skuCount = 0;
-            basket.GetProducts().ForEach(p => { if (p.Sku == sku) { skuCount++; } });
-            Tuple<string, string, string, decimal?> item = skuToItem(sku, skuCount, inventory);
-            addItem(item.Item1, item.Item2, item.Item3, item.Item4);
-        }
-    }
-
-    public decimal CalculateDiscount(string sku, int quantity)
-    {
-        if (sku == null || quantity == 0) return 0;
-
-        decimal discount = 0;
-
-        if (sku == "BGLP")
-        {
-            if (quantity >= 12)
-            {
-                int full12Sets = quantity / 12;
-                discount += 0.69M * full12Sets;
-            }
-
-            int remainingAfter12 = quantity % 12;
-            // 6 plain bagels will be more expensive for 2.49.
-            /*if (remainingAfter12 >= 6)
-            {
-                int full6Sets = remainingAfter12 / 6;
-                discount += 0.45M * full6Sets;
-            }*/
-        }
-        else if (sku.StartsWith("BGL"))
-        {
-            if (quantity >= 12)
-            {
-                int full12Sets = quantity / 12;
-                discount += 1.89M * full12Sets;
-            }
-
-            int remainingAfter12 = quantity % 12;
-            if (remainingAfter12 >= 6)
-            {
-                int full6Sets = remainingAfter12 / 6;
-                discount += 0.45M * full6Sets;
-            }
-        }
-
-        return discount;
-    }
-
-    public Tuple<string, string, string, decimal?> skuToItem(string sku, int quantity, Inventory inventory)
-    {
-        string itemName = $"{inventory.GetProductVariant(sku)} {inventory.GetProductName(sku)}";
-        string itemQuantity = quantity.ToString();
-        decimal? originalPrice = inventory.GetProductPrice(sku) * quantity;
-        decimal discount = CalculateDiscount(sku, quantity);
-        decimal? finalPrice = originalPrice - discount;
-        decimal? savings = originalPrice - finalPrice;
-
-        string itemPrice = $"{currency}{finalPrice}";
-
-        return new Tuple<string, string, string, decimal?>(itemName, itemQuantity, itemPrice, savings);
-    }
-
-    public void addItem(string itemName, string itemQuantity, string itemPrice, decimal? savings)
-    {
-        Tuple<string, string, string, decimal?> newItem = Tuple.Create(itemName, itemQuantity, itemPrice, savings);
-        receiptItems.Add(newItem);
+        receiptItems = order.GetItems();
     }
 
     public string generateReceipt()
@@ -106,29 +37,31 @@ public class Receipt
 
         foreach (var receiptItem in receiptItems)
         {
-            string itemLine = $"{receiptItem.Item1,-16} {receiptItem.Item2,7} {receiptItem.Item3,7}";
-            receiptString += itemLine + "\n";
-
-            if (receiptItem.Item4 > 0)
+            if (receiptItem.Savings > 0)
             {
-                string savingsAmount = $"{currency}{receiptItem.Item4:F2}";
+                string itemLine = $"{receiptItem.ItemName,-16} {receiptItem.Quantity,6} {$"{currency}{(receiptItem.Price - receiptItem.Savings)}",8:F2}";
+                receiptString += itemLine + "\n";
+                string savingsAmount = $"{currency}{receiptItem.Savings:F2}";
                 int paddingLength = 26 - savingsAmount.Length;
                 string savingsLine = $"{new string(' ', paddingLength)}   (-{savingsAmount})";
                 receiptString += savingsLine + "\n";
+            }
+            else
+            {
+                string itemLine = $"{receiptItem.ItemName,-16} {receiptItem.Quantity,6} {$"{currency}{(receiptItem.Price)}",8:F2}";
+                receiptString += itemLine + "\n";
             }
         }
 
         receiptString += "\n" + line + "\n";
 
-        decimal total = receiptItems.Sum(item => decimal.Parse(item.Item3.TrimStart(currency)));
-
+        decimal? total = receiptItems.Sum(item => item.Price);
         string totalAmount = $"{currency}{total:F2}";
         int paddingLength2 = 26 - totalAmount.Length;
         receiptString += $"Total{new string(' ', paddingLength2)} {totalAmount}\n\n";
 
-        decimal totalSavings = receiptItems.Sum(item => item.Item4 ?? 0);
-
-        string firstLine = "You saved a total of " + $"{currency}{totalSavings:F2}";
+        decimal totalSavings = receiptItems.Sum(item => item.Savings ?? 0);
+        string firstLine = $"You saved a total of {currency}{totalSavings:F2}";
         int firstLinePadding = (receiptWidth - firstLine.Length) / 2;
         receiptString += $"{new string(' ', firstLinePadding)}{firstLine}" + "\n";
 

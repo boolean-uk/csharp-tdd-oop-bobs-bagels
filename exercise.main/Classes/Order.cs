@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using exercise.main.Classes.Products;
@@ -9,37 +10,68 @@ namespace exercise.main.Classes
 {
     public class Order
     {
-        private List<Tuple<string, string, string>> items = new List<Tuple<string, string, string>>();
+        private List<OrderItem> items = new List<OrderItem>();
         private List<string> skus = new List<string>();
-        private decimal orderTotal = 0;
+        private decimal? orderTotal = 0;
 
         public Order(Basket basket, Inventory inventory)
         {
-            decimal currentTotal = 0;
+            decimal? currentTotal = 0;
 
             foreach (Product product in basket.GetProducts())
             {
                 skus.Add(product.Sku);
                 if (product.Name == "Bagel")
                 {
-                    Bagel bagel = (Bagel) product;
+                    Bagel bagel = (Bagel)product;
                     bagel.GetFillings().ForEach(f => skus.Add(f.Sku));
                 }
             }
 
-            foreach(string sku in skus)
+            List<string> uniqueSkus = skus.Distinct().ToList();
+
+            foreach (string uniqueSku in uniqueSkus)
             {
-                currentTotal += inventory.GetProductPrice(sku) ?? 0;
+                int skuCount = skus.Count(sku => sku == uniqueSku);
+                OrderItem item = skuToItem(uniqueSku, skuCount, inventory);
+                addItem(item);
+            }
+
+            CreateCoffeeBagelCombinations(); // Not implemented
+
+            foreach (OrderItem item in items)
+            {
+                currentTotal += item.Price;
             }
 
             UpdateOrderTotal(currentTotal);
         }
 
+        public OrderItem skuToItem(string sku, int quantity, Inventory inventory)
+        {
+            string itemName = $"{inventory.GetProductVariant(sku)} {inventory.GetProductName(sku)}";
+            decimal? originalPrice = inventory.GetProductPrice(sku) * quantity;
+            decimal discount = CalculateDiscount(sku, quantity);
+            decimal? finalPrice = originalPrice - discount;
+            decimal? savings = originalPrice - finalPrice;
+
+            decimal? itemPrice = originalPrice;
+
+            return new OrderItem(sku, itemName, quantity, itemPrice, savings);
+        }
+
+        public void addItem(OrderItem item)
+        {
+            items.Add(item);
+        }
+
         public List<string> GetSkus() { return skus; }
 
-        public decimal GetOrderTotal() { return orderTotal; }
+        public List<OrderItem> GetItems() { return items; }
+        
+        public decimal? GetOrderTotal() { return orderTotal; }
 
-        public void UpdateOrderTotal(decimal newOrderTotal) {  orderTotal = newOrderTotal; }
+        public void UpdateOrderTotal(decimal? newOrderTotal) { orderTotal = newOrderTotal; }
 
         public decimal CalculateDiscount(string sku, int quantity)
         {
@@ -54,14 +86,6 @@ namespace exercise.main.Classes
                     int full12Sets = quantity / 12;
                     discount += 0.69M * full12Sets;
                 }
-
-                int remainingAfter12 = quantity % 12;
-                // 6 plain bagels will be more expensive for 2.49.
-                /*if (remainingAfter12 >= 6)
-                {
-                    int full6Sets = remainingAfter12 / 6;
-                    discount += 0.45M * full6Sets;
-                }*/
             }
             else if (sku.StartsWith("BGL"))
             {
@@ -82,26 +106,46 @@ namespace exercise.main.Classes
             return discount;
         }
 
-        public void ApplyDiscounts(Basket basket, Inventory inventory)
+        public void ApplyDiscounts()
         {
             decimal totalDiscount = 0;
-            decimal currentTotal = 0;
 
-            List<string> uniqueSkus = new List<string>();
-            basket.GetProducts().ForEach(p => { if (!uniqueSkus.Contains(p.Sku)) { uniqueSkus.Add(p.Sku); } });
-
-            foreach (string sku in uniqueSkus)
+            foreach (OrderItem item in items)
             {
-                int skuCount = basket.GetProducts().Count(p => p.Sku == sku);
-                decimal skuPrice = inventory.GetProductPrice(sku) ?? 0;
-
-                currentTotal += skuPrice * skuCount;
-
-                decimal discount = CalculateDiscount(sku, skuCount);
-                totalDiscount += discount;
+                totalDiscount += item.Savings ?? 0m;
             }
 
+            decimal currentTotal = GetOrderTotal() ?? 0m;
             UpdateOrderTotal(currentTotal - totalDiscount);
+        }
+
+        public int GetOrderItemNameCount(string name)
+        {
+            int count = 0;
+            foreach (OrderItem item in items)
+            {
+                if (item.ItemName == name) { count++; }
+            }
+            return count;
+        }
+
+        public int GetBagelCount() { return GetOrderItemNameCount("Bagel"); }
+        public int GetCoffeeCount() { return GetOrderItemNameCount("Coffee"); }
+        public int GetFillingCount() { return GetOrderItemNameCount("Filling"); }
+
+        public string GetCoffeSku()
+        {
+            return items.FirstOrDefault(item => item.Sku.StartsWith("COF")).ToString();
+        }
+
+        public string GetBagelSku()
+        {
+            return items.FirstOrDefault(item => item.Sku.StartsWith("BGL")).ToString();
+        }
+
+        public void CreateCoffeeBagelCombinations()
+        {
+            
         }
     }
 }

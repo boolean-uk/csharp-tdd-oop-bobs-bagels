@@ -111,10 +111,9 @@ public class Program
         basket.AddProduct("BGLO", inventory);
         basket.AddProduct("BGLO", inventory);
 
-
         Order order1 = new Order(basket, inventory);
         Console.WriteLine($"Order total: {order1.GetOrderTotal()}");
-        order1.ApplyDiscounts(basket, inventory);
+        order1.ApplyDiscounts();
         Console.WriteLine("Applied discounts!");
         Console.WriteLine($"Order total: {order1.GetOrderTotal()}");
 
@@ -128,33 +127,36 @@ public class Program
 
         Order order2 = new Order(basket, inventory);
         Console.WriteLine($"Order total: {order2.GetOrderTotal()}");
-        order2.ApplyDiscounts(basket, inventory);
+        order2.ApplyDiscounts();
         Console.WriteLine("Applied discounts!");
         Console.WriteLine($"Order total: {order2.GetOrderTotal()}");
-        return;
+        basket.Clear();
+        // return;
         #endregion
 
         #region Extension 2: Receipts && Extension 3: Discount Receipts
 
-        for (int i = 0; i < 432; i++)
+        basket.ChangeCapacity(256);
+
+        for (int i = 0; i < 128; i++)
         {
             basket.AddProduct("BGLO", inventory);
         }
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 64; i++)
         {
             basket.AddProduct("COFB", inventory);
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 32; i++)
         {
             basket.AddProduct("FILB", inventory);
         }
 
         Order receiptOrder = new Order(basket, inventory);
-        decimal orderTotal = receiptOrder.GetOrderTotal();
+        decimal? orderTotal = receiptOrder.GetOrderTotal();
 
-        Receipt receipt = new Receipt(basket, inventory);
+        Receipt receipt = new Receipt(receiptOrder);
         string receiptOutput = receipt.generateReceipt();
         Console.WriteLine("\nReceipt:\n" + receiptOutput);
 

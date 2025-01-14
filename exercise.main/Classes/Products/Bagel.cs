@@ -8,12 +8,9 @@ namespace exercise.main.Classes.Products
 {
     public class Bagel : Product
     {
-        private List<Filling> fillings;
+        private List<Filling> fillings = new List<Filling>();
 
-        public Bagel()
-        {
-            fillings = new List<Filling>();
-        }
+        public Bagel() {}
 
         public void AddFilling(string sku, Inventory inventory)
         {

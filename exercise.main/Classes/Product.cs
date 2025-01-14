@@ -12,7 +12,6 @@ namespace exercise.main.Classes
         public required decimal Price { get; set; }
         public required string Name { get; set; }
         public required string Variant { get; set; }
-        /*public required int _stock { get; set; }*/
 
         public string GetSKU() {  return Sku; }
 
@@ -22,6 +21,5 @@ namespace exercise.main.Classes
 
         public string GetVariant() { return Variant; }
 
-        /*public int GetStock() { return _stock; }*/
     }
 }
