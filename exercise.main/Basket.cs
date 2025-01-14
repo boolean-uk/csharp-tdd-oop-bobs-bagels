@@ -29,6 +29,11 @@ namespace exercise.main
         {
             return coupons;
         }
+
+        public void AddCoupon(Coupon coupon)
+        {
+            coupons.Add(coupon);
+        }
         public void AddBagel(Iproduct item)
         { 
             if(!this.IsFull())
@@ -58,44 +63,56 @@ namespace exercise.main
             Items.ForEach(x => totalCost += x.GetPrice());
             return totalCost;
         }
-        public void AddCoupon(Coupon coupon)
-        {
-            coupons.Add(coupon);
-        }
+
         //this function returns total cost of items in basket including discounts
         public float Discount()
         {
             float total = 0;
-           
+          
             List<Coupon> CouponList = coupons.ToList(); //list of all coupoons  added to basket
             List<Iproduct> itemCopy = new List<Iproduct>(Items); // Create a copy of the Items list, removes all discounted items and calculates normal cost pluss discount
+            List<string> BasketSKUs = new List<string>();
+            List<string> CouponSKUs = new List<string>();
+            bool allItemsPresent = true;
+            //adding all sku to coupon and basket lists
+            Items.ForEach(x => BasketSKUs.Add(x.GetSKU()));
+            CouponList.ForEach(item => item.items.ForEach(x => CouponSKUs.Add(x.GetSKU())));//im sorry about this
 
             //loop through all coupons and if all items in coupon is present in basket, remove them and from basket item copy and add discounts
             foreach (Coupon c in CouponList.ToList())
             {
-                
-                List<Iproduct> counter = c.items;
-                int l = 0;
-                int r = 0;
-                while (counter.Count()>0 && r > Items.Count() && l > c.items.Count())
-                {
-                    if (c.items[l] == Items[r])
-                    {
-                        c.items.Remove(c.items[l]);
-                        l++;
+                //Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
+                foreach (Iproduct item in c.items)
+                { 
+                    if(BasketSKUs.Contains(item.GetSKU()))
+                        {
+                        BasketSKUs.Remove(item.GetSKU());
+                        Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
                     }
-                    r++;
+                    else
+                    {
+                        Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
+                        allItemsPresent = false;
+                        break;
+                    }
                 }
-                bool allItemsPresent = counter.Count() == 0;
                 if (allItemsPresent)
                 {
+                    Console.WriteLine("dsfdfdsUHFUISFDUFSGDJIFSDGFGSDOIJFGDSJIOFGDIOSJFIOGSIJFDSGIJFSDG");
                     foreach (Iproduct i in c.items)
                     {
-                        itemCopy.Remove(i);
-                    }
+                        for (int j = 0; j < itemCopy.Count; j++)
+                        {
+                            if (itemCopy[j].GetSKU() == i.GetSKU()) 
+                            { 
+                                itemCopy.RemoveAt(j); 
+                            }
+                        }
+                        }
                     total += c.discount;
                     usedCoupons.Add(c);//adding to used copons so we can see it in the receipt later
                     CouponList.Remove(c); // Removing from the copy of the coupons list
+                    
                 }
             }
             //adding on the rest of the non discount cost

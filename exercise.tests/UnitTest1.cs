@@ -107,16 +107,41 @@ public class Tests
         for (int i = 0; i < 6; i++) 
         {
             discountedItems.Add(bagel);
-            //basket.AddBagel(bagel);
+   
         }
         basket.AddBagel(bagel);
         Coupon coupon = new Coupon(discountedItems,2.49F);
         shop.AddToInventory(bagel, 2);
         shop.AddToInventory(filling, 5);
-        //basket.AddBagel(bagel);//7 bagels, 6 is dicounted + 1 not discounted
+
         basket.AddCoupon(coupon);
         float total= basket.Discount();
-        Assert.That(total, Is.EqualTo(bagel.GetPrice()));
+        Assert.That(total, Is.EqualTo(bagel.GetPrice())); 
+    }
+    [Test]
+    public void Discount2()
+    {
+        float expectedDiscount = 2.49F;
+        Shop shop = new Shop();
+        Customer customer = new Customer();
+        Basket basket = customer.GetBasket();
+        Iproduct bagel = new Bagel("bagel ", "BGLO", 0.49F, "Onion");
+        Iproduct filling = new Filling("Filling", "FILC", 0.12F, "Cheese");
+        List<Iproduct> discountedItems = new List<Iproduct>();
+
+        for (int i = 0; i < 6; i++)
+        {
+            discountedItems.Add(bagel);
+            basket.AddBagel(bagel);
+        }
+ 
+        Coupon coupon = new Coupon(discountedItems, 2.49F);
+        shop.AddToInventory(bagel, 6);
+        shop.AddToInventory(filling, 5);
+        basket.AddBagel(bagel);//7 bagels, 6 is dicounted + 1 not discounted
+        basket.AddCoupon(coupon);
+        float total = basket.Discount();
+        Assert.That(total, Is.EqualTo(expectedDiscount ));
 
     }
     [Test]
