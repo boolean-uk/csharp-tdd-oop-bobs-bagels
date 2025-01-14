@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using exercise.main.Products;
 
-namespace exercise.main.Inventory
+namespace exercise.main.Inventories
 {
     internal interface IInventory
     {

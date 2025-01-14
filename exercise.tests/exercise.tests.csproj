@@ -17,4 +17,15 @@
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Products\" />
+    <Folder Include="UI\" />
+    <Folder Include="Users\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\exercise.main\exercise.main.csproj" />
+  </ItemGroup>
+
 </Project>

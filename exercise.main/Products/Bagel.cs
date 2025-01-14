@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Products
 {
-    internal class Bagel
+    public class Bagel : Product
     {
+        public Bagel(string sku, double price, string name, string variant) : base(sku, price, name, variant)
+        {
+            
+        }
     }
 }

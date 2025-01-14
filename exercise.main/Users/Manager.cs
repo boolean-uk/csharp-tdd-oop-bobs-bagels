@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace exercise.main.Users
 {
-    internal class Manager
+    internal class Manager : User
     {
+        public Manager()
+        {
+            
+        }
     }
 }

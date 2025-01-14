@@ -12,9 +12,9 @@
 |                     | `Price`                                                 | The price of the product.                                                               | Decimal.                   |
 |                     | `Name`                                                  | The name of the product.                                                                | String.                    |
 |                     | `Variant`                                               | The variant of the product (e.g., bagel type, filling).                                  | String.                    |
-| **Bagel**           | Inherits `Product`. `Variant`                           | Represents a specific type of bagel (e.g., Onion, Sesame).                               | Bagel instance.            |
-| **Coffee**           | Inherits `Product`. `Variant`                           | Represents a specific type of Coffee.                               | Bagel instance.            |
-| **Filling**         | Inherits `Product`. `Variant`                        | Represents a specific type of filling (e.g., Bacon, Cheese).                            | Filling instance.          |
+| **Bagel**           | Inherits `Product`.                           | Represents a specific type of bagel (e.g., Onion, Sesame).                               | Bagel instance.            |
+| **Coffee**           | Inherits `Product`.                            | Represents a specific type of Coffee.                               | Bagel instance.            |
+| **Filling**         | Inherits `Product`.                        | Represents a specific type of filling (e.g., Bacon, Cheese).                            | Filling instance.          |
 | **Inventory**       | `IsInStock(item: Product)`                              | Check if a product is available in the stock.                                           | Boolean indicating state.  |
 |                     | `GetItemPrice(item: Product)`                           | Retrieve the price of a product before adding to the basket.                            | Price as decimal.          |
 | **Customer**        | `SelectBagel(bagel: Bagel)`                             | Choose a bagel to add to the basket.                                                    | Bagel selected.            |
