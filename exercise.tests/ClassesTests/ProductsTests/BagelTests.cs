@@ -9,6 +9,7 @@ public class BagelTests
     [SetUp]
     public void Setup()
     {
+        
     }
 
     [Test]
@@ -17,106 +18,105 @@ public class BagelTests
     {
         Bagel bagel = new()
         {
-            Sku = "bglo",
+            Sku = "BGLO",
             Price = 0.49M,
-            Name = "bagel",
-            Variant = "onion",
-            /*_stock = int.MaxValue*/
+            Name = "Bagel",
+            Variant = "Onion",
         };
 
         Assert.That(bagel.Sku, Is.Not.Null);
         Assert.That(bagel.Sku, Is.Not.Empty);
-        Assert.That(bagel.Sku, Is.EqualTo("bglo"));
+        Assert.That(bagel.Sku, Is.EqualTo("BGLO"));
 
         Assert.That(bagel.Price, Is.Not.EqualTo(0));
         Assert.That(bagel.Price, Is.EqualTo(0.49M));
 
         Assert.That(bagel.Name, Is.Not.Null);
         Assert.That(bagel.Name, Is.Not.Empty);
-        Assert.That(bagel.Name, Is.EqualTo("bagel"));
+        Assert.That(bagel.Name, Is.EqualTo("Bagel"));
 
         Assert.That(bagel.Variant, Is.Not.Null);
         Assert.That(bagel.Variant, Is.Not.Empty);
-        Assert.That(bagel.Variant, Is.EqualTo("onion"));
-
-        /*Assert.That(firstBagel._stock, Is.GreaterThan(0));*/
+        Assert.That(bagel.Variant, Is.EqualTo("Onion"));
     }
 
     [Test]
     [Category("Bagel.cs")]
     public void AddFillingTest()
     {
+        Inventory inventory = new Inventory();
         Bagel bagel = new()
         {
-            Sku = "bglo",
+            Sku = "BGLO",
             Price = 0.49M,
-            Name = "bagel",
-            Variant = "onion",
+            Name = "Bagel",
+            Variant = "Onion",
         };
 
-        bagel.AddFilling("filb");
+        bagel.AddFilling("filb", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(1));
-        Assert.That(bagel.GetFillings()[0].Variant, Is.EqualTo("bacon"));
+        Assert.That(bagel.GetFillings()[0].Variant, Is.EqualTo("Bacon"));
 
-        bagel.AddFilling("egg");
+        bagel.AddFilling("file", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(2));
-        Assert.That(bagel.GetFillings()[1].Sku, Is.EqualTo("file"));
+        Assert.That(bagel.GetFillings()[1].Variant, Is.EqualTo("Egg"));
 
-        bagel.AddFilling("filc");
+        bagel.AddFilling("filc", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(3));
-        Assert.That(bagel.GetFillings()[2].Variant, Is.EqualTo("cheese"));
+        Assert.That(bagel.GetFillings()[2].Variant, Is.EqualTo("Cheese"));
 
-        bagel.AddFilling("Cream Cheese");
+        bagel.AddFilling("filx", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(4));
-        Assert.That(bagel.GetFillings()[3].Sku, Is.EqualTo("filx"));
+        Assert.That(bagel.GetFillings()[3].Variant, Is.EqualTo("Cream Cheese"));
 
-        bagel.AddFilling("fils");
+        bagel.AddFilling("fils", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(5));
-        Assert.That(bagel.GetFillings()[4].Variant, Is.EqualTo("smokedsalmon"));
+        Assert.That(bagel.GetFillings()[4].Variant, Is.EqualTo("Smoked Salmon"));
 
-        bagel.AddFilling("ham");
+        bagel.AddFilling("filh", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(6));
-        Assert.That(bagel.GetFillings()[5].Sku, Is.EqualTo("filh"));
+        Assert.That(bagel.GetFillings()[5].Variant, Is.EqualTo("Ham"));
     }
 
     [Test]
     [Category("Bagel.cs")]
     public void RemoveFillingTest()
     {
+        Inventory inventory = new Inventory();
         Bagel bagel = new()
         {
-            Sku = "bglo",
+            Sku = "BGLO",
             Price = 0.49M,
-            Name = "bagel",
-            Variant = "onion",
+            Name = "Bagel",
+            Variant = "Onion",
         };
 
-        bagel.AddFilling("filb");
+        bagel.AddFilling("filb", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(1));
-        Assert.That(bagel.GetFillings()[0].Variant, Is.EqualTo("bacon"));
+        Assert.That(bagel.GetFillings()[0].Variant, Is.EqualTo("Bacon"));
 
-        bagel.AddFilling("egg");
+        bagel.AddFilling("file", inventory);
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(2));
-        Assert.That(bagel.GetFillings()[1].Sku, Is.EqualTo("file"));
+        Assert.That(bagel.GetFillings()[1].Variant, Is.EqualTo("Egg"));
 
         bagel.RemoveFilling("filb");
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(1));
-        Assert.That(bagel.GetFillings()[0].Sku, Is.EqualTo("file"));
+        Assert.That(bagel.GetFillings()[0].Variant, Is.EqualTo("Egg"));
 
-        bagel.RemoveFilling("egg");
+        bagel.RemoveFilling("file");
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(0));
 
-        bagel.RemoveFilling("egg");
+        bagel.RemoveFilling("file");
 
         Assert.That(bagel.GetFillings().Count, Is.EqualTo(0));
     }
@@ -125,22 +125,23 @@ public class BagelTests
     [Category("Bagel.cs")]
     public void FillingCostTest()
     {
+        Inventory inventory = new Inventory();
         Bagel bagel = new()
         {
-            Sku = "bglo",
+            Sku = "BGLO",
             Price = 0.49M,
-            Name = "bagel",
-            Variant = "onion",
+            Name = "Bagel",
+            Variant = "Onion",
         };
 
-        Assert.That(bagel.FillingCost(), Is.EqualTo(0));
+        Assert.That(bagel.TotalFillingCost(), Is.EqualTo(0));
 
-        bagel.AddFilling("filb");
+        bagel.AddFilling("filb", inventory);
 
-        Assert.That(bagel.FillingCost(), Is.EqualTo(0.12M));
+        Assert.That(bagel.TotalFillingCost(), Is.EqualTo(0.12M));
 
-        bagel.AddFilling("filh");
+        bagel.AddFilling("filh", inventory);
 
-        Assert.That(bagel.FillingCost(), Is.EqualTo(0.24M));
+        Assert.That(bagel.TotalFillingCost(), Is.EqualTo(0.24M));
     }
 }

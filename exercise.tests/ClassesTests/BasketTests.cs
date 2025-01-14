@@ -15,116 +15,122 @@ public class BasketTests
     [Category("Basket.cs")]
     public void CreateBasketTest()
     {
-        BagelBasket basket = new();
+        Basket basket = new();
 
-        Assert.That(basket.GetBagels(), Is.Not.Null);
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
+        Assert.That(basket.GetProducts(), Is.Not.Null);
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(0));
 
-        Assert.That(basket.Capacity, Is.EqualTo(5));
+        Assert.That(basket.capacity, Is.EqualTo(5));
     }
 
     [Test]
     [Category("Basket.cs")]
-    public void AddBagelTest()
+    public void AddProductTest()
     {
-        BagelBasket basket = new();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
-        basket.AddBagel("BgLo");
+        basket.AddProduct("bglo", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(1));
-        Assert.That(basket.GetBagels()[0].Variant, Is.EqualTo("onion"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(1));
+        Assert.That(basket.GetProducts()[0].Variant, Is.EqualTo("Onion"));
 
-        basket.AddBagel("pLaIn");
+        basket.AddProduct("bglp", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(2));
-        Assert.That(basket.GetBagels()[1].Sku, Is.EqualTo("bglp"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(2));
+        Assert.That(basket.GetProducts()[1].Variant, Is.EqualTo("Plain"));
 
-        basket.AddBagel("bGlE");
+        basket.AddProduct("cofb", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(3));
-        Assert.That(basket.GetBagels()[2].Variant, Is.EqualTo("everything"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(3));
+        Assert.That(basket.GetProducts()[2].Variant, Is.EqualTo("Black"));
 
-        basket.AddBagel("sEsAmE");
+        basket.AddProduct("cofw", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(4));
-        Assert.That(basket.GetBagels()[3].Sku, Is.EqualTo("bgls"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(4));
+        Assert.That(basket.GetProducts()[3].Variant, Is.EqualTo("White"));
 
-        basket.AddBagel("bglo");
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(5));
+        basket.AddProduct("filb", inventory);
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(5));
+        Assert.That(basket.GetProducts()[4].Variant, Is.EqualTo("Bacon"));
 
-        basket.AddBagel("bglo");
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(5));
+        basket.AddProduct("file", inventory);
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(5));
     }
 
     [Test]
     [Category("Basket.cs")]
-    public void RemoveBagelTest()
+    public void RemoveProductTest()
     {
-        BagelBasket basket = new();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
-        basket.AddBagel("BgLo");
+        basket.AddProduct("bglo", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(1));
-        Assert.That(basket.GetBagels()[0].Variant, Is.EqualTo("onion"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(1));
+        Assert.That(basket.GetProducts()[0].Variant, Is.EqualTo("Onion"));
 
-        basket.AddBagel("pLaIn");
+        basket.AddProduct("bglp", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(2));
-        Assert.That(basket.GetBagels()[1].Sku, Is.EqualTo("bglp"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(2));
+        Assert.That(basket.GetProducts()[1].Variant, Is.EqualTo("Plain"));
 
-        basket.RemoveBagel("oNiOn");
+        basket.RemoveProduct("bglo");
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(1));
-        Assert.That(basket.GetBagels()[0].Sku, Is.EqualTo("bglp"));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(1));
+        Assert.That(basket.GetProducts()[0].Variant, Is.EqualTo("Plain"));
 
-        basket.RemoveBagel("bGlP");
+        basket.RemoveProduct("bglo");
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(1));
 
-        basket.RemoveBagel("bGlP");
+        basket.RemoveProduct("bglp");
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(0));
+
     }
 
     [Test]
     [Category("Basket.cs")]
     public void ClearBasketTest()
     {
-        BagelBasket basket = new();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
-        basket.AddBagel("BgLo");
-        basket.AddBagel("pLaIn");
+        basket.AddProduct("bglo", inventory);
+        basket.AddProduct("bglp", inventory);
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(2));
-
-        basket.Clear();
-
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(2));
 
         basket.Clear();
 
-        Assert.That(basket.GetBagels().Count, Is.EqualTo(0));
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(0));
+
+        basket.Clear();
+
+        Assert.That(basket.GetProducts().Count, Is.EqualTo(0));
     }
 
     [Test]
     [Category("Basket.cs")]
     public void TotalCostTest()
     {
-        BagelBasket basket = new();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
-        basket.AddBagel("BgLo");
+        basket.AddProduct("bglo", inventory);
 
         Assert.That(basket.TotalCost(), Is.EqualTo(0.49M));
 
-        basket.AddBagel("pLaIn");
+        basket.AddProduct("bglp", inventory);
 
         Assert.That(basket.TotalCost(), Is.EqualTo(0.88M));
 
-        basket.AddBagel("bGlE");
+        basket.AddProduct("bgle", inventory);
 
         Assert.That(basket.TotalCost(), Is.EqualTo(1.37M));
 
-        basket.AddBagel("sEsAmE");
+        basket.AddProduct("bgls", inventory);
 
         Assert.That(basket.TotalCost(), Is.EqualTo(1.86M));
 
@@ -137,43 +143,45 @@ public class BasketTests
     [Category("Basket.cs")]
     public void IsFullTest()
     {
-        BagelBasket basket = new();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
-        basket.AddBagel("BgLo");
+        basket.AddProduct("bglo", inventory);
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
-        basket.AddBagel("pLaIn");
+        basket.AddProduct("bglp", inventory);
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
-        basket.AddBagel("bGlE");
+        basket.AddProduct("bgle", inventory);
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
-        basket.AddBagel("sEsAmE");
+        basket.AddProduct("bgls", inventory);
 
         Assert.That(basket.IsFull(), Is.EqualTo(false));
 
-        basket.AddBagel("sEsAmE");
+        basket.AddProduct("bgls", inventory);
 
         Assert.That(basket.IsFull(), Is.EqualTo(true));
     }
 
     [Test]
     [Category("Basket.cs")]
-    public void ChangeCapacity()
+    public void ChangeCapacityTest()
     {
-        BagelBasket basket = new BagelBasket();
+        Inventory inventory = new Inventory();
+        Basket basket = new();
 
         for (int i = 0; i < 10; i++)
         {
-            basket.AddBagel("bglo");
+            basket.AddProduct("bglo", inventory);
         }
 
-        List<Bagel> fiveBagels = basket.GetBagels();
+        List<Product> fiveBagels = basket.GetProducts();
 
         Assert.That(fiveBagels.Count, Is.EqualTo(5));
 
@@ -181,12 +189,39 @@ public class BasketTests
 
         for (int i = 0; i < 10; i++)
         {
-            basket.AddBagel("bglo");
+            basket.AddProduct("cofb", inventory);
         }
 
-        List<Bagel> tenBagels = basket.GetBagels();
+        List<Product> bagelsAndCoffes = basket.GetProducts();
 
-        Assert.That(tenBagels.Count, Is.EqualTo(10));
+        Assert.That(bagelsAndCoffes.Count, Is.EqualTo(10));
+    }
 
+    [Test]
+    [Category("Basket.cs")]
+    public void GetProductCountTest()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new();
+
+        for (int i = 0; i < 10; i++)
+        {
+            basket.AddProduct("bglo", inventory);
+        }
+
+        int fiveBagelCount = basket.GetProductCount("BGLO");
+
+        Assert.That(fiveBagelCount, Is.EqualTo(5)); 
+
+        basket.ChangeCapacity(512);
+
+        for (int i = 0; i < 512; i++)
+        {
+            basket.AddProduct("cofb", inventory);
+        }
+
+        int manyCoffees = basket.GetProductCount("COFB");
+
+        Assert.That(manyCoffees, Is.EqualTo(507));
     }
 }
