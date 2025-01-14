@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace exercise.main
+namespace exercise.main.Core
 {
-    public class Bagel : Inventory
+    public class Coffee : Inventory
     {
-        public Bagel(string sku, double price, string name, string variant)
+        public Coffee(string sku, double price, string variant)
             : base(sku, price, "Bagel", variant)
         {
         }

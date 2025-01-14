@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using exercise.main;
+using exercise.main.Core;
 
 namespace exercise.tests
 {
-    public class BasketTest
+    public class CoreTests
     {
         private Basket basket;
         private List<Inventory> basketList;
@@ -22,24 +22,7 @@ namespace exercise.tests
         public void SetUp() // Arrange step for some of the tests
         {
             basketList = new List<Inventory>();
-            basket = new Basket(basketList);
-            /*inventoryList = new List<Inventory>
-            {
-                new Inventory("BGLO", 0.49, "Bagel", "Onion"),
-                new Inventory("BGLP", 0.39, "Bagel", "Plain"),
-                new Inventory("BGLE", 0.49, "Bagel", "Everything"),
-                new Inventory("BGLS", 0.49, "Bagel", "Sesame"),
-                new Inventory("COFB", 0.99, "Coffee", "Black"),
-                new Inventory("COFW", 1.19, "Coffee", "White"),
-                new Inventory("COFC", 1.29, "Coffee", "Cappuccino"),
-                new Inventory("COFL", 1.29, "Coffee", "Latte"),
-                new Inventory("FILB", 0.12, "Filling", "Bacon"),
-                new Inventory("FILE", 0.12, "Filling", "Egg"),
-                new Inventory("FILC", 0.12, "Filling", "Cheese"),
-                new Inventory("FILX", 0.12, "Filling", "Cream Cheese"),
-                new Inventory("FILS", 0.12, "Filling", "Smoked Salmon"),
-                new Inventory("FILH", 0.12, "Filling", "Ham")
-            }; */
+            basket = new Basket(basketList);  
         }
 
         [Test]

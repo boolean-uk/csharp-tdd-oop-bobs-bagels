@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exercise.main.Extension;
 
 
-namespace exercise.main
+namespace exercise.main.Core
 {
     public class Basket : IBasket
     {
@@ -87,7 +88,7 @@ namespace exercise.main
         //User Story 6
         public double TotalCostOfItems()
         {
-             return _basketList.Sum(item => item.Price);
+            return _basketList.Sum(item => item.Price);
         }
 
         //User Story 7
@@ -151,6 +152,95 @@ namespace exercise.main
         {
             return basketSize;
         }
+
+        // Extension 1: Discount
+        public double CalculateTotalCostWithDiscounts()
+        {
+            double total = 0.0;
+
+            // Simple discount logic for bagels
+            int bgloCount = _basketList.Count(item => item.Sku == "BGLO");
+            total += (bgloCount / 6) * 2.49 + (bgloCount % 6) * 0.49;
+
+            int bglpCount = _basketList.Count(item => item.Sku == "BGLP");
+            total += (bglpCount / 12) * 3.99 + (bglpCount % 12) * 0.39;
+
+            int bgleCount = _basketList.Count(item => item.Sku == "BGLE");
+            total += (bgleCount / 6) * 2.49 + (bgleCount % 6) * 0.49;
+
+            // Coffee & Bagel Offer
+            int coffeeCount = _basketList.Count(item => item.Sku == "COFB");
+            int bagelCount = _basketList.Count(item => item.Name == "Bagel");
+            int pairs = Math.Min(coffeeCount, bagelCount);
+            total += pairs * 1.25;
+
+            // Add remaining coffees
+            total += (coffeeCount - pairs) * 0.99;
+
+            return total;
+        }
+
+        //Extension 2: Receipt
+        public Receipt GenerateReceipt()
+        {
+            var receipt = new Receipt();
+
+            foreach (var group in _basketList.GroupBy(item => item.Sku))
+            {
+                var item = group.First();
+                int quantity = group.Count();
+                double totalCost = item.Price * quantity;
+
+                receipt.AddItem($"{item.Name} {item.Variant}", quantity, totalCost);
+            }
+
+            receipt.CalculateTotal();
+            return receipt;
+        }
+
+
+        // Extension 3: Discount Receipt
+        public Receipt GenerateReceiptWithDiscounts()
+        {
+            var receipt = new Receipt();
+
+            // Bagel Discounts
+            foreach (var group in _basketList.GroupBy(item => item.Sku))
+            {
+                var item = group.First();
+                int quantity = group.Count();
+                double totalCost;
+                double savings = 0.0;
+
+                if (item.Sku == "BGLO" && quantity >= 6)
+                {
+                    totalCost = (quantity / 6) * 2.49 + (quantity % 6) * 0.49;
+                    savings = (quantity * 0.49) - totalCost;
+                }
+                else if (item.Sku == "BGLP" && quantity >= 12)
+                {
+                    totalCost = (quantity / 12) * 3.99 + (quantity % 12) * 0.39;
+                    savings = (quantity * 0.39) - totalCost;
+                }
+                else if (item.Sku == "BGLE" && quantity >= 6)
+                {
+                    totalCost = (quantity / 6) * 2.49 + (quantity % 6) * 0.49;
+                    savings = (quantity * 0.49) - totalCost;
+                }
+                else
+                {
+                    totalCost = item.Price * quantity;
+                }
+
+                receipt.AddItem($"{item.Name} {item.Variant}", quantity, totalCost, savings);
+            }
+
+            receipt.CalculateTotal();
+            return receipt;
+        }
+
+
+
     }
 
 }
