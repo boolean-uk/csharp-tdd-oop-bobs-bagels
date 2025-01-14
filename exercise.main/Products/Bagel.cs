@@ -7,27 +7,35 @@ using static exercise.main.Products.Filling;
 
 namespace exercise.main.Products
 {
-    public class Bagel(string sku, decimal price, Bagel.BagelVariant variant) : Product(sku, price)
+    public class Bagel : IProduct
     {
-        private readonly BagelVariant _variant = variant;
-
         private readonly List<Filling> _fillings = [];
 
-        public override string Name
+        public string SKU { get; set; }
+        public decimal Price { get; set; }
+        public string Name { get; set; }
+        public string Variant { get; set; }
+        public int BulkSize { get; set; }
+        public decimal BulkDiscountPrice { get; set; }
+
+        public Bagel(string sku,  decimal price, string name, string variant)
         {
-            get { return $"{_variant} Bagel"; }
+            SKU = sku ;
+            Price = price ;
+            Name = name ;
+            Variant = variant ;
+            BulkSize = 0 ;
+            BulkDiscountPrice = 0 ;
         }
 
-        public enum BagelVariant
+        public Bagel(string sku, decimal price, string name, string variant, int bulkSize, decimal bulkDiscountPrice)
         {
-            Onion,
-            Plain,
-            Everything,
-            Sesame,
-        }
-        public BagelVariant Variant
-        {
-            get { return _variant; }
+            SKU = sku;
+            Price = price;
+            Name = name;
+            Variant = variant;
+            BulkSize = bulkSize;
+            BulkDiscountPrice = bulkDiscountPrice;
         }
 
         public void AddFilling(Filling filling)
@@ -40,7 +48,7 @@ namespace exercise.main.Products
             get { return _fillings; }
         }
 
-        public decimal PriceWithFillings
+        public decimal TotalPrice
         {
             get
             {
@@ -53,6 +61,7 @@ namespace exercise.main.Products
             }
         }
 
+        
     }
 
 

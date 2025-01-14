@@ -26,3 +26,16 @@
 14. customer, Get receipt with discount
 
 
+
+| Classes      | Methods/Properties                   | Scenario                                   | Outputs                             |
+|--------------|--------------------------------------|--------------------------------------------|-------------------------------------|
+| Basket.cs    | AddItem(Product product)             | Add bagel to basket                        | Feedback as string                  |
+| Basket.cs    | RemoveItem(Product product)          | Remove bagel from basket                   | Feedback if not in basket as string |
+| Basket.cs    | Capacity                             | Change capacity of basket                  |                                     |
+| Basket.cs    | Total                                | Show total cost of basket                  | sum of basket products as decimal   |
+| Bagel.cs     | Price, TotalPrice                    | See price of bagel and bagel with fillings | price as decimal                    |
+| Bagel.cs     | AddFilling()                         | Add filling to bagel                       |                                     |
+| Filling.cs   | Price                                | See price of filling before adding         | price as decimal                    |
+| Inventory.cs | Dictonary<string, IProduct> Products | Inventory of products to choose from       |                                     |
+| Receipt.cs   | ComboThenBulkDiscountTotal()         | Apply combo then bulk discount to basket   | discounted price as decimal         |
+| Receipt.cs   | PrintReceipt()                       | Generates and prints a receipt             |                                     |     |                                            |                    |

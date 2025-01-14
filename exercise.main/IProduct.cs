@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace exercise.main
 {
-    internal interface IProduct
+    public interface IProduct
     {
         string SKU { get; set; }
         decimal Price { get; set; }
         string Name { get; set; }
         string Variant { get; set; }
+
+        decimal TotalPrice 
+        {  
+            get => Price;
+        }
 
     }
 }

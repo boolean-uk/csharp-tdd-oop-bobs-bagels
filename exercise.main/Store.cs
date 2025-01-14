@@ -15,22 +15,22 @@ namespace exercise.main
         
         public Store() 
         {
-            Bagel onionBagel = new Bagel("BGLO", 0.49, Bagel.BagelVariant.Onion);
-            Bagel sesameBagel = new Bagel("BGLS", 0.49, Bagel.BagelVariant.Sesame);
-            Bagel plainBagel = new Bagel("BGLP", 0.39, Bagel.BagelVariant.Plain);
-            Bagel everythingBagel = new Bagel("BGLE", 0.49, Bagel.BagelVariant.Everything);
+            Bagel onionBagel = new Bagel("BGLO", 0.49m, "Bagel", "Onion", 6, 2.49m);
+            Bagel sesameBagel = new Bagel("BGLS", 0.49m, "Bagel", "Sesame");
+            Bagel plainBagel = new Bagel("BGLP", 0.39m, "Bagel", "Plain", 12, 3.99m);
+            Bagel everythingBagel = new Bagel("BGLE", 0.49m, "Bagel", "Everything",6, 2.49m);
 
-            Coffee blackCoffee = new Coffee("COFB", 0.99, Coffee.CoffeeVariant.Black);
-            Coffee whiteCoffee = new Coffee("COFW", 1.19, Coffee.CoffeeVariant.White);
-            Coffee capuccinoCoffe = new Coffee("COFL", 1.29, Coffee.CoffeeVariant.Capuccino);
-            Coffee latteCoffee = new Coffee("COFL", 1.29, Coffee.CoffeeVariant.Latte);
+            Coffee blackCoffee = new Coffee("COFB", 0.99m, "Coffee", "Black");
+            Coffee whiteCoffee = new Coffee("COFW", 1.19m, "Coffee", "White");
+            Coffee capuccinoCoffe = new Coffee("COFC", 1.29m, "Coffee", "Capuccino");
+            Coffee latteCoffee = new Coffee("COFL", 1.29m, "Coffee", "Latte");
 
-            Filling bacon = new Filling("FILB", 0.12, Filling.FillingVariant.Bacon);
-            Filling egg = new Filling("FILE", 0.12, Filling.FillingVariant.Egg);
-            Filling cheese = new Filling("FILC", 0.12, Filling.FillingVariant.Cheese);
-            Filling creamCheese = new Filling("FILX", 0.12, Filling.FillingVariant.CreamCheese);
-            Filling smokedSalmon = new Filling("FILS", 0.12, Filling.FillingVariant.SmokedSalmon);
-            Filling ham = new Filling("FILH", 0.12, Filling.FillingVariant.Ham);
+            Filling bacon = new Filling("FILB", 0.12m, "Filling", "Bacon");
+            Filling egg = new Filling("FILE", 0.12m, "Filling", "Egg");
+            Filling cheese = new Filling("FILC", 0.12m, "Filling", "Cheese");
+            Filling creamCheese = new Filling("FILX", 0.12m, "Filling", "Cream Cheese");
+            Filling smokedSalmon = new Filling("FILS", 0.12m, "Filling", "Smoked Salmon");
+            Filling ham = new Filling("FILH", 0.12m, "Filling", "Ham");
 
             _storeInventory.AddProduct(onionBagel.SKU, onionBagel);
             _storeInventory.AddProduct(plainBagel.SKU, plainBagel);

@@ -5,25 +5,21 @@ using System.Text;
 
 namespace exercise.main.Products
 {
-    public class Coffee(string sku, decimal price, Coffee.CoffeeVariant variant) : Product(sku, price)
+    public class Coffee : IProduct
     {
-        private readonly CoffeeVariant _variant = variant;
+        public string SKU { get; set; }
+        public decimal Price { get; set; }
+        public string Name { get; set; }
+        public string Variant { get; set; }
 
-        public override string Name
+        public Coffee(string sku,  decimal price, string name, string variant)
         {
-            get { return $"{_variant} Coffee"; }
-        }
-        public enum CoffeeVariant
-        {
-            Black,
-            White,
-            Capuccino,
-            Latte
+            SKU = sku;
+            Price = price;
+            Name = name;
+            Variant = variant;
         }
 
-        public CoffeeVariant Variant
-        {
-            get { return _variant; }
-        }
+
     }
 }

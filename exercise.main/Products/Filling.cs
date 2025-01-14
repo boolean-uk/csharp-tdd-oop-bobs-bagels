@@ -5,27 +5,20 @@ using System.Text;
 
 namespace exercise.main.Products
 {
-    public class Filling(string sku, decimal price, Filling.FillingVariant variant) : Product(sku, price)
+    public class Filling : IProduct
     {
-        private readonly FillingVariant _variant = variant;
+        public string SKU { get; set; }
+        public decimal Price { get; set; }
+        public string Name { get; set; }
+        public string Variant { get; set; }
 
-        public override string Name
+        public Filling(string sKU, decimal price, string name, string variant)
         {
-            get { return $"{_variant} Filling"; }
-        }
-        public enum FillingVariant
-        {
-            Bacon,
-            Egg,
-            Cheese,
-            CreamCheese,
-            SmokedSalmon,
-            Ham,
+            SKU = sKU;
+            Price = price;
+            Name = name;
+            Variant = variant;
         }
 
-        public FillingVariant Variant
-        {
-            get { return _variant; }
-        }
     }
 }
