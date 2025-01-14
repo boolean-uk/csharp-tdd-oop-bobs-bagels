@@ -2,14 +2,14 @@ using System;
 
 namespace exercise.main;
 
-public class ActionMessage
+public class ActionMessage<T>
 {
-    public bool Success {get; set;}
+    public T ReturnValue {get; set;}
     public string Message {get; set;}
 
-    public ActionMessage(bool success, string msg)
+    public ActionMessage(T value, string msg)
     {
-        Success = success;
+        ReturnValue = value;
         Message = msg;
     }
 

@@ -12,11 +12,11 @@ public class ShopTest
         Person customer = new Person("Customer");
         Person manager = new Person("Manager");
 
-        ActionMessage cAdd = s.AddItem("BGLO", customer);
-        ActionMessage mAdd = s.AddItem("BGLO", manager);
+        ActionMessage<bool> cAdd = s.AddItem("BGLO", customer);
+        ActionMessage<bool> mAdd = s.AddItem("BGLO", manager);
 
         
-        Assert.IsTrue(cAdd.Success && mAdd.Success);
+        Assert.IsTrue(cAdd.ReturnValue && mAdd.ReturnValue);
         Assert.IsTrue(s.GetCart(customer).Count == 1);
         Assert.IsTrue(s.GetCart(manager).Count == 1);
 
@@ -30,13 +30,13 @@ public class ShopTest
         Person customer = new Person("Customer");
         Person manager = new Person("Manager");
 
-        ActionMessage cAdd = s.AddItem("BGLO", customer);
-        ActionMessage cRemove = s.RemoveItem("BGLO", customer);
-        ActionMessage mAdd = s.AddItem("BGLO", manager);
-        ActionMessage mRemove = s.RemoveItem("BGLO", manager);
+        ActionMessage<bool> cAdd = s.AddItem("BGLO", customer);
+        ActionMessage<bool> cRemove = s.RemoveItem("BGLO", customer);
+        ActionMessage<bool> mAdd = s.AddItem("BGLO", manager);
+        ActionMessage<bool> mRemove = s.RemoveItem("BGLO", manager);
 
-        Assert.IsTrue(cAdd.Success && mAdd.Success);
-        Assert.IsTrue(cRemove.Success && mRemove.Success);
+        Assert.IsTrue(cAdd.ReturnValue && mAdd.ReturnValue);
+        Assert.IsTrue(cRemove.ReturnValue && mRemove.ReturnValue);
         Assert.IsTrue(s.GetCart(customer).Count == 0);
         Assert.IsTrue(s.GetCart(manager).Count == 0);
     }
@@ -65,11 +65,25 @@ public class ShopTest
         s.AddItem("BGLO", manager);
         s.AddItem("COFB", manager);
 
-        double customerCost = s.GetCartCost(customer);
-        double managerCost = s.GetCartCost(manager);
+        double customerCost = s.GetCartCost(customer).ReturnValue;
+        double managerCost = s.GetCartCost(manager).ReturnValue;
 
         Assert.IsTrue(customerCost == 0.49+0.99);
         Assert.IsTrue(managerCost == 0.49+0.99);
+    }
+
+    [TestCase("customer", false)]
+    [TestCase("Manager", true)]
+    public void TestOnlyManagerCanAddDiscounts(string role, bool expected)
+    {
+        Shop s = new Shop();
+
+        Person p = new Person(role);
+
+        Dictionary<string, int> discountItems = new Dictionary<string, int> {{"BGLO", 2}, {"FILH", 1}};
+        s.NewDiscount(discountItems, 6, p);
+
+        Assert.That(s.GetDiscounts().Count > 0, Is.EqualTo(expected));
     }
 
 
