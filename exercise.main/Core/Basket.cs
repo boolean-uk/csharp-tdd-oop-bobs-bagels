@@ -158,7 +158,7 @@ namespace exercise.main.Core
         {
             double total = 0.0;
 
-            // Simple discount logic for bagels
+            // Discount logic for bagels
             int bgloCount = _basketList.Count(item => item.Sku == "BGLO");
             total += (bgloCount / 6) * 2.49 + (bgloCount % 6) * 0.49;
 

@@ -38,6 +38,7 @@ namespace exercise.tests
             Assert.That(totalCost, Is.EqualTo(2.49));
         }
 
+        //Extension 2: Receipt
         [Test]
         public void GenerateReceipt_ShouldReturnCorrectFormattedReceipt()
         {
@@ -66,6 +67,7 @@ namespace exercise.tests
             });
         }
 
+        //Extension 3: Discount Receipt
         [Test]
         public void GenerateReceiptWithDiscounts_ShouldIncludeSavings()
         {
