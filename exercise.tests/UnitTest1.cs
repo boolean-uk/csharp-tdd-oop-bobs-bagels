@@ -148,7 +148,7 @@ namespace exercise.tests
             //Act
             decimal totalPrice = basket.CalculateTotalPriceWithDiscount();
             basket.GenerateReceipt();
-            basket.PrintBasketList();
+          
 
 
             //Discount should be: 
@@ -182,13 +182,13 @@ namespace exercise.tests
             //Act
             decimal totalPrice = basket.CalculateTotalPriceWithDiscount();
             basket.GenerateReceipt();
-            basket.PrintBasketList();
 
 
             //Price should be: 
             
             // Plain Bagel x 12 = 3.99 
             // Bagel Onion x 1  = 0.49
+            // Total = 4.48
             
 
             //Assert

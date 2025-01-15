@@ -323,17 +323,5 @@ namespace exercise.main
             Console.WriteLine("      for your order!");
         }
 
-        public void PrintBasketList()
-        {
-            // Iterate through each item in BasketList and print it
-            foreach (var item in BasketList)
-            {
-                Console.WriteLine(item.Sku);
-            }
-        }
-
-
-
-
     }
 }
