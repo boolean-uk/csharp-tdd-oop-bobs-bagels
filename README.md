@@ -93,6 +93,22 @@ So we don't get any weird requests,
 I want customers to only be able to order things that we stock in our inventory.
 ```
 
+```
+11.
+As the manager,
+So we can earn more money,
+I want customers to get special offers if they order more than one thing.
+```
+
+```
+12.
+As a customer,
+So I am sure I haven`t been charge too much,
+I want to be able to receive a receipt for my buy.
+```
+
+
+
 ## Bob's Inventory
 
 | SKU  | Price | Name    | Variant       |
