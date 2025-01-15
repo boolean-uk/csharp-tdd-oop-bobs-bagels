@@ -17,8 +17,8 @@ namespace exercise.tests
         [Test]
         public void TestAddBagel()
         {
-           Bagel bagel = new Bagel();
-           Assert.AreEqual("BGLO", bagel.AddBagel("BGLO"));
+            Bagel bagel = new Bagel();
+            Assert.AreEqual("BGLO", bagel.AddBagel("BGLO"));
         }
 
         [Test]
@@ -49,22 +49,18 @@ namespace exercise.tests
             bagel.AddBagel("BGLO");
             bagel.AddBagel("BGLP");
 
-            Assert.IsTrue( bagel.BasketFull());
+            Assert.IsTrue(bagel.BasketFull());
         }
 
         [Test]
         public void TestTotaltCost()
         {
             Bagel bagel = new Bagel();
-            bagel.ChangeCap(2);
             bagel.AddBagel("BGLO");
             bagel.AddBagel("BGLP");
+            bagel.AddBagel("BGLP");
 
-            
-            Assert.IsTrue();
+            Assert.AreEqual( 1.27, bagel.TotalCost());
         }
-
-
-
     }
 }
