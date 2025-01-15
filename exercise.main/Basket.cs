@@ -13,7 +13,7 @@ namespace exercise.main
         public Basket(int capacity)
         {
             this.capacity = capacity;
-            this.items = new List<Item>();
+            items = new List<Item>();
         }
 
         public void ClearItems()
@@ -72,12 +72,18 @@ namespace exercise.main
             return string.Join(", ", items);
         }
 
+        public int ItemsCount()
+        {
+            return items.Count;
+        }
+
+
         public double GetTotalCost()
         {
             double totalCost = 0;
             foreach (Item item in items)
             {
-                totalCost += item.Price; // Assuming `Item.Price` is accessible
+                totalCost += item.Price; 
             }
             return totalCost;
         }
