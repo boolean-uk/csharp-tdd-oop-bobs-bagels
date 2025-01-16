@@ -2,20 +2,19 @@
 
 ## Simplified user stories
 
-- [ ] Must be able to add bagel to basket
-- [ ] Must be able to remove bagel from basket
-- [ ] Must be able to check if basket is full
-- [ ] Must be able to change basket capacity
-- [ ] Must be able to check if item exists in basket
-- [ ] Warn when user removes non-existent item from basket
-- [ ] Must be able to check total cost of items in basket
-- [ ] Must be able to check cost of bagel before adding to basket
-- [ ] Must be able to choose fillings for bagel
-- [ ] Must be able to check cost of filling before adding to bagel order
-- [ ] Must be able to add coffee to basket
-- [ ] Must be able to check cost of coffee before adding to basket
-- [ ] Must be able to add promotion to product
-- [ ] Must be able to check stock of product
+- [x] Must be able to add bagel to basket
+- [x] Must be able to remove bagel from basket
+- [x] Must be able to check if basket is full
+- [x] Must be able to change basket capacity
+- [x] Must be able to check if item exists in basket
+- [x] Warn when user removes non-existent item from basket
+- [x] Must be able to check total cost of items in basket
+- [x] Must be able to check cost of bagel before adding to basket
+- [x] Must be able to choose fillings for bagel
+- [x] Must be able to check cost of filling before adding to bagel order
+- [x] Must be able to add coffee to basket
+- [x] Must be able to check cost of coffee before adding to basket
+- [x] Must be able to add promotion to product
 
 
 ## Methods
