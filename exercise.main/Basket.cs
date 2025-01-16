@@ -1,6 +1,7 @@
-﻿using exercise.main;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace exercise.main
 {
@@ -8,7 +9,7 @@ namespace exercise.main
     {
         private int capacity;
         private List<Item> items;
-        private int quantity;
+        private double totalPrice;
 
         public Basket(int capacity)
         {
@@ -25,7 +26,7 @@ namespace exercise.main
         {
             if (newCapacity >= items.Count)
             {
-                this.capacity = newCapacity;
+                capacity = newCapacity;
                 return true;
             }
             return false;
@@ -69,23 +70,90 @@ namespace exercise.main
 
         public string ShowBasket()
         {
-            return string.Join(", ", items);
+            StringBuilder result = new StringBuilder();
+            result.Append(string.Format("{0,3} {1,-1}", "", "~~~ Bob's Bagels ~~~\n"));
+            result.Append(string.Format("{0,3} {1,-1}", "", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")));
+            result.Append("\n--------------------------------\n");
+            GetProductPrice(result);
+            result.Append("--------------------------------\n");
+            result.Append(string.Format("{0,-26}", "Total Price ") + GetTotalCost());
+            result.Append("\n--------------------------------\n");
+            result.Append(string.Format("{0,5} {1,-1}", "", "Have a good day!"));
+            return result.ToString();
         }
 
-        public int ItemsCount()
+        public string GetTotalCost()
         {
-            return items.Count;
+            return string.Format("£{0:F2}", totalPrice);
         }
 
-
-        public double GetTotalCost()
+        private StringBuilder GetProductPrice(StringBuilder result)
         {
-            double totalCost = 0;
-            foreach (Item item in items)
+            double discountedPrice;
+            double discounted;
+            totalPrice = 0;
+            var uniqueItems = items.Distinct();
+
+            foreach (var uniqueItem in uniqueItems)
             {
-                totalCost += item.Price; 
+                string itemName = $"{uniqueItem.Name} {uniqueItem.Variant}";
+                int quantity = items.Count(item => item.Equals(uniqueItem));
+
+                if (uniqueItem.Name.Equals("Bagel"))
+                {
+                    discountedPrice = CalculateBagelOffer(uniqueItem, quantity);
+                    discounted = uniqueItem.Price * quantity - discountedPrice;
+                    totalPrice += discountedPrice;
+
+                    if (discounted > 0)
+                    {
+                        result.Append(string.Format("{0,-20} {1,-4} £{2:F2}\n", itemName, quantity, discountedPrice));
+                        string discountedString = string.Format("(£{0:F2})\n", discounted);
+                        result.Append(string.Format("{0,-26}", " ") + discountedString);
+                    }
+                    else
+                    {
+                        result.Append(string.Format("{0,-20} {1,-4} £{2:F2}\n", itemName, quantity, discountedPrice));
+                    }
+                }
+                else if (uniqueItem.Sku.Equals("COFD"))
+                {
+                    discountedPrice = 1.25 * quantity;
+                    discounted = 0.23 * quantity;
+                    result.Append(string.Format("{0,-20} {1,-4} £{2:F2}\n", itemName, quantity, discountedPrice));
+                    string discountedString = string.Format("(£{0:F2})\n", discounted);
+                    result.Append(string.Format("{0,-26}", " ") + discountedString);
+                }
+                else
+                {
+                    discountedPrice = CalculateItemPrice(uniqueItem, quantity);
+                    totalPrice += discountedPrice;
+                    result.Append(string.Format("{0,-20} {1,-4} £{2:F2}\n", itemName, quantity, discountedPrice));
+                }
             }
-            return totalCost;
+            return result;
+        }
+
+        private double CalculateBagelOffer(Item item, int quantity)
+        {
+            double discountedPrice = 0.0;
+            int remainingBagels;
+
+            int deal12Quantity = quantity / 12;
+            discountedPrice += deal12Quantity * 3.99;
+            remainingBagels = quantity % 12;
+
+            int deal6Quantity = remainingBagels / 6;
+            discountedPrice += deal6Quantity * 2.49;
+            remainingBagels %= 6;
+
+            discountedPrice += remainingBagels * item.Price;
+            return discountedPrice;
+        }
+
+        private double CalculateItemPrice(Item item, int quantity)
+        {
+            return item.Price * quantity;
         }
     }
 }
