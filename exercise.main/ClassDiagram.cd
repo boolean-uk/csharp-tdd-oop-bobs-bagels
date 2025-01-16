@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="tdd_bobs_bagels.CSharp.Main.Basket">
+    <Position X="7.75" Y="3.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AQIAAwACAAAABAAAAAAADIUCAAAAQAAAAgBAAAAACAA=</HashCode>
+      <FileName>Basket.cs</FileName>
+      <NewMemberFileName>Bagel.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="csharp_tdd_bobs_bagels.tests.Bagel">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAEAEQAIAAAAEAAAEBACFAAAAAAAAgQAEAAAEBA=</HashCode>
+      <FileName>Bagel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Merchandise">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAIAAAAAAAQAAICEAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Merchandise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Filling">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAQAIAAAAAAAAAAIAEAAAAAQAAAAAEAAAIAA=</HashCode>
+      <FileName>Filling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.Coffee">
+    <Position X="5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAQAIAAQAAAAAAAAAEAAAAAAAAQAAEAAAABA=</HashCode>
+      <FileName>Coffee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exercise.main.SkuHandler">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SkuHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
